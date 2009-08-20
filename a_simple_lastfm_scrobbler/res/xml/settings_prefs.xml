@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen android:key="user_credentials"
+        android:title="@string/user_credentials_title"
+        android:summary="@string/user_credentials_summary">
+        <com.adam.aslfms.EditUserCredentials android:key="edit_user_credentials"
+            android:title="@string/user_credentials_title"
+            android:dialogTitle="@string/user_credentials_title"
+            android:positiveButtonText="@string/user_credentials_enter_ok"
+            android:negativeButtonText="@string/user_credentials_enter_cancel" />
+        <Preference android:key="clear_user_credentials"
+            android:title="@string/user_credentials_clear_title"
+            android:summary="@string/user_credentials_clear_summary"/>
+        <PreferenceCategory android:title="@string/other_category_title"/>
+        <Preference android:key="create_user"
+            android:title="@string/create_user_title"
+            android:summary="@string/create_user_summary"/>
+    </PreferenceScreen>
+	<CheckBoxPreference android:key="toggle_scrobbling"
+		android:title="@string/scrobbling"
+		android:summaryOff="@string/scrobbling_enable"
+		android:persistent="false" />
+	<CheckBoxPreference android:key="toggle_nowplaying"
+		android:title="@string/nowplaying"
+		android:summaryOff="@string/nowplaying_enable"
+		android:persistent="false" />
+    <PreferenceCategory android:title="@string/scrobble_status_title"/>
+    <Preference android:key="test_nowplaying"
+            android:title="Test Now Playing"
+            android:summary="..."/>
+    <Preference android:key="test_scrobbling"
+            android:title="Test scrobbling"
+            android:summary="Scrobble a song"/>
+</PreferenceScreen>

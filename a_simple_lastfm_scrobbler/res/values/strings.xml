@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">A Simple Last.fm Scrobbler</string>
+<string name="scrobbling">Scrobbling</string>
+<string name="scrobbling_enable">Turn on scrobbling</string>
+
+<string name="nowplaying">Now playing</string>
+<string name="nowplaying_enable">Turn on now playing notifications</string>
+
+<string name="user_credentials_title">User credentials</string>
+<string name="user_credentials_summary">Set username and password for your Last.fm account</string>
+<string name="user_credentials_enter_ok">Authenticate</string>
+<string name="user_credentials_enter_cancel">Cancel</string>
+<string name="user_credentials_clear_title">Clear credentials</string>
+<string name="user_credentials_clear_summary">Clears username and session key</string>
+<string name="scrobble_status_title">Scrobble status</string>
+<string name="username">Username</string>
+<string name="password">Password</string>
+<string name="auth_client_banned">This version of the app is deprecated, please update it</string>
+<string name="auth_bad_auth">Wrong username/password</string>
+<string name="auth_server_error">Server error:</string>
+<string name="auth_timing_error">Client side timing error</string>
+<string name="auth_network_error">&quot;Network error&quot;</string>
+<string name="auth_updating">Authenticating...</string>
+<string name="auth_internal_error">Internal error</string>
+<string name="logged_in_as">Logged in as:</string>
+<string name="create_user_title">Sign up</string>
+<string name="create_user_summary">Sign up for an account at Last.fm</string>
+<string name="other_category_title">Other</string>
+</resources>
