@@ -36,13 +36,16 @@ public class PlayStatusReceiver extends BroadcastReceiver {
 
 	private static final String TAG = "PlayStatusReceiver";
 
-	private static final String ACTION_PLAYSTATECHANGED_ANDROID = "com.android.music.playstatechanged";
-	private static final String ACTION_STOP_ANDROID = "com.android.music.playbackcomplete";
-	private static final String ACTION_METACHANGED_ANDROID = "com.android.music.metachanged";
+	public static final String ACTION_ASLFMS_PLAYSTATECHANGED = "com.adam.aslfms.notify.playstatechanged";
+	public static final String ACTION_ASLFMS_PLAYSTATECOMPLETE = "com.adam.aslfms.notify.playbackcomplete";
 
-	private static final String ACTION_PLAYSTATECHANGED_HTC = "com.htc.music.playstatechanged";
-	private static final String ACTION_STOP_HTC = "com.htc.music.playbackcomplete";
-	private static final String ACTION_METACHANGED_HTC = "com.htc.music.metachanged";
+	public static final String ACTION_ANDROID_PLAYSTATECHANGED = "com.android.music.playstatechanged";
+	public static final String ACTION_ANDROID_STOP = "com.android.music.playbackcomplete";
+	public static final String ACTION_ANDROID_METACHANGED = "com.android.music.metachanged";
+
+	public static final String ACTION_HTC_PLAYSTATECHANGED = "com.htc.music.playstatechanged";
+	public static final String ACTION_HTC_STOP = "com.htc.music.playbackcomplete";
+	public static final String ACTION_HTC_METACHANGED = "com.htc.music.metachanged";
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -58,22 +61,50 @@ public class PlayStatusReceiver extends BroadcastReceiver {
 
 		Intent service = new Intent(ScrobblingService.ACTION_PLAYSTATECHANGED);
 		Track track = null;
-		if (action.equals(ACTION_PLAYSTATECHANGED_ANDROID)
-				|| action.equals(ACTION_STOP_ANDROID)
-				|| action.equals(ACTION_METACHANGED_ANDROID)
-				|| action.equals(ACTION_PLAYSTATECHANGED_HTC)
-				|| action.equals(ACTION_STOP_HTC)
-				|| action.equals(ACTION_METACHANGED_HTC)) {
+		if (action.equals(ACTION_ANDROID_PLAYSTATECHANGED)
+				|| action.equals(ACTION_ANDROID_STOP)
+				|| action.equals(ACTION_ANDROID_METACHANGED)
+				|| action.equals(ACTION_HTC_PLAYSTATECHANGED)
+				|| action.equals(ACTION_HTC_STOP)
+				|| action.equals(ACTION_HTC_METACHANGED)) {
 			CharSequence ar = bundle.getCharSequence("artist");
 			CharSequence al = bundle.getCharSequence("album");
 			CharSequence tr = bundle.getCharSequence("track");
 
 			// As of cupcake, it is not possible (feasible) to get the actual
 			// duration of the playing track, so I default it to three minutes
-			track = new Track(ar, al, tr, 180, AppTransaction.currentTimeUTC());
+			track = new Track(ar, al, tr, Track.DEFAULT_TRACK_LENGTH,
+					AppTransaction.currentTimeUTC());
 
-			if (action.equals(ACTION_STOP_ANDROID)
-					|| action.equals(ACTION_STOP_HTC)) {
+			if (action.equals(ACTION_ANDROID_STOP)
+					|| action.equals(ACTION_HTC_STOP)) {
+				service.putExtra("stopped", true);
+			}
+		} else if (action.equals(ACTION_ASLFMS_PLAYSTATECHANGED)
+				|| action.equals(ACTION_ASLFMS_PLAYSTATECOMPLETE)) {
+			CharSequence ar = bundle.getCharSequence("artist");
+			CharSequence al = bundle.getCharSequence("album");
+			CharSequence tr = bundle.getCharSequence("track");
+			int dur = bundle.getInt("duration");
+			if (ar == null) {
+				Log.e(TAG, "ASLFMS.notify: artist was null");
+				return;
+			}
+			if (al == null) {
+				Log.e(TAG, "ASLFMS.notify: album was null");
+				return;
+			}
+			if (tr == null) {
+				Log.e(TAG, "ASLFMS.notify: track was null");
+				return;
+			}
+			if (dur < 0) {
+				dur = Track.DEFAULT_TRACK_LENGTH;
+			}
+
+			track = new Track(ar, al, tr, dur, AppTransaction.currentTimeUTC());
+
+			if (action.equals(ACTION_ASLFMS_PLAYSTATECOMPLETE)) {
 				service.putExtra("stopped", true);
 			}
 		} else {

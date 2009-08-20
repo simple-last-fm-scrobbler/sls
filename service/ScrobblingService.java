@@ -45,7 +45,6 @@ public class ScrobblingService extends Service {
 	public static final String BROADCAST_ONAUTHCHANGED = "com.adam.aslfms.service.onauth";
 
 	private static final int MIN_SCROBBLE_TIME = 30;
-	private static final int MIN_TRACK_LENGTH = 180;
 
 	private AppSettings settings;
 	private ScrobblesDbAdapter mDbHelper;
@@ -76,6 +75,7 @@ public class ScrobblingService extends Service {
 
 	@Override
 	public void onStart(Intent i, int startId) {
+		Log.d(TAG, "ScrobblingService started");
 		if (i.getAction().equals(ACTION_CLEARCREDS)) {
 			Log.d(TAG, "Will launch clear creds");
 			mNetworkLoop.launchClearCreds();

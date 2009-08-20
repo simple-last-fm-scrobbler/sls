@@ -25,6 +25,9 @@ package com.adam.aslfms;
  *
  */
 public class Track {
+	
+	public static final int DEFAULT_TRACK_LENGTH = 180;
+	
 	private CharSequence artist;
 	private CharSequence album;
 	private CharSequence track;

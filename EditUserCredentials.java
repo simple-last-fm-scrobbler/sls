@@ -38,7 +38,7 @@ import android.widget.EditText;
  */
 public class EditUserCredentials extends DialogPreference {
 
-	private static final String TAG = "EditUserCredentials";
+	//private static final String TAG = "EditUserCredentials";
 
 	private EditText mUsername;
 	private EditText mPassword;

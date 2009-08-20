@@ -74,6 +74,7 @@ public class NPNotifier {
 		data.add(new BasicNameValuePair("a", track.getArtist().toString()));
 		data.add(new BasicNameValuePair("b", track.getAlbum().toString()));
 		data.add(new BasicNameValuePair("t", track.getTrack().toString()));
+		data.add(new BasicNameValuePair("l", ""+track.getDuration()));
 
 		try {
 			request.setEntity(new UrlEncodedFormEntity(data, "UTF-8"));

@@ -109,17 +109,15 @@ public class SettingsActivity extends PreferenceActivity {
 			startActivity(browser);
 			return true;
 		} else if (preference == mTestNowplaying) {
-			Intent service = new Intent(
-					ScrobblingService.ACTION_PLAYSTATECHANGED);
-
-			Track t = new Track("Chris Cornell", "Casino Royale",
-					"You Know My Name", 180, AppTransaction.currentTimeUTC());
-			AppTransaction.pushTrack(t);
-
-			startService(service);
+			Intent bcast = new Intent(PlayStatusReceiver.ACTION_ASLFMS_PLAYSTATECHANGED);
+			bcast.putExtra("artist", "Chris Cornell");
+			bcast.putExtra("album", "Casino Royale");
+			bcast.putExtra("track", "You Know My Name");
+			bcast.putExtra("duration", 202);
+			sendBroadcast(bcast);
 			return true;
 		} else if (preference == mTestScrobbling) {
-			Intent service = new Intent(
+			/*Intent service = new Intent(
 					ScrobblingService.ACTION_PLAYSTATECHANGED);
 
 			Track t = new Track("Chris Cornell", "Casino Royale",
@@ -127,7 +125,13 @@ public class SettingsActivity extends PreferenceActivity {
 			AppTransaction.pushTrack(t);
 
 			service.putExtra("stopped", true);
-			startService(service);
+			startService(service);*/
+			Intent bcast = new Intent(PlayStatusReceiver.ACTION_ASLFMS_PLAYSTATECOMPLETE);
+			bcast.putExtra("artist", "Chris Cornell");
+			bcast.putExtra("album", "Casino Royale");
+			bcast.putExtra("track", "You Know My Name");
+			bcast.putExtra("duration", 201);
+			sendBroadcast(bcast);
 			return true;
 		}
 

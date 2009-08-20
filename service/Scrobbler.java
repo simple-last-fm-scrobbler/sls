@@ -50,7 +50,7 @@ public class Scrobbler {
 
 	private static final String TAG = "Scrobbler";
 
-	private final Context mCtx;
+	//private final Context mCtx;
 	private final Handshaker.HandshakeInfo hInfo;
 	private final ScrobblesDbAdapter mDbHelper;
 
@@ -60,7 +60,7 @@ public class Scrobbler {
 	public Scrobbler(Context ctx, HandshakeInfo hInfo,
 			ScrobblesDbAdapter dbHelper) {
 		super();
-		this.mCtx = ctx;
+		//this.mCtx = ctx;
 		this.hInfo = hInfo;
 		this.mDbHelper = dbHelper;
 		this.mTracks = new Track[MAX_SCROBBLE_LIMIT];
