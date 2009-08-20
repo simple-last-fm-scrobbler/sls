@@ -1,9 +1,33 @@
+/**
+ *  This file is part of A Simple Last.fm Scrobbler.
+ *
+ *  A Simple Last.fm Scrobbler is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  A Simple Last.fm Scrobbler is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with A Simple Last.fm Scrobbler.  If not, see <http://www.gnu.org/licenses/>.
+ *  
+ *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
+ */
+
 package com.adam.aslfms;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+/**
+ * 
+ * @author tgwizard
+ *
+ */
 public class AppSettings {
 
 	private final String SETTINGS_NAME = "settings";
@@ -17,7 +41,7 @@ public class AppSettings {
 
 	private final String KEY_AUTH_STATUS = "authstatus";
 	private final String KEY_AUTH_FAIL = "authfail";
-	
+
 	private final String KEY_LAST_LISTEN_TIME = "last_listen_time";
 
 	private SharedPreferences prefs;
@@ -110,13 +134,13 @@ public class AppSettings {
 	public String getAuthFail() {
 		return prefs.getString(KEY_AUTH_FAIL, "");
 	}
-	
+
 	public void setLastScrobbleTime(long time) {
 		Editor e = prefs.edit();
 		e.putLong(KEY_LAST_LISTEN_TIME, time);
 		e.commit();
 	}
-	
+
 	public long getLastListenTime() {
 		return prefs.getLong(KEY_LAST_LISTEN_TIME, 0);
 	}
