@@ -96,7 +96,6 @@ public class SettingsActivity extends PreferenceActivity {
 			toggleNowplaying(mNowplayPref.isChecked());
 			return true;
 		} else if (preference == mClearCreds) {
-			Log.d(TAG, "clicked clear");
 			settings.clearSettings();
 			update();
 			Intent service = new Intent(ScrobblingService.ACTION_CLEARCREDS);
@@ -110,7 +109,6 @@ public class SettingsActivity extends PreferenceActivity {
 			startActivity(browser);
 			return true;
 		} else if (preference == mTestNowplaying) {
-			Log.d(TAG, "will test now playing");
 			Intent service = new Intent(
 					ScrobblingService.ACTION_PLAYSTATECHANGED);
 
@@ -121,7 +119,6 @@ public class SettingsActivity extends PreferenceActivity {
 			startService(service);
 			return true;
 		} else if (preference == mTestScrobbling) {
-			Log.d(TAG, "will test scrobbling");
 			Intent service = new Intent(
 					ScrobblingService.ACTION_PLAYSTATECHANGED);
 
@@ -149,7 +146,6 @@ public class SettingsActivity extends PreferenceActivity {
 
 	protected void update() {
 		Log.d(TAG, "update, authstat: " + settings.getAuthStatus());
-
 		mNowplayPref.setEnabled(false);
 		mScrobblePref.setEnabled(false);
 		if (settings.getAuthStatus() == Status.AUTHSTATUS_BADAUTH) {
@@ -202,7 +198,6 @@ public class SettingsActivity extends PreferenceActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		Log.d(TAG, "Resuming");
 		registerReceiver(onAuth, onAuthIntents);
 		update();
 	}

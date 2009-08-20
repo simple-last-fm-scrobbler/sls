@@ -32,7 +32,7 @@ import com.adam.aslfms.Track;
 /**
  * 
  * @author tgwizard
- *
+ * 
  */
 public class ScrobblingService extends Service {
 
@@ -44,7 +44,8 @@ public class ScrobblingService extends Service {
 
 	public static final String BROADCAST_ONAUTHCHANGED = "com.adam.aslfms.service.onauth";
 
-	private static final int MINIMUM_SCROBBLE_TIME = 30;
+	private static final int MIN_SCROBBLE_TIME = 30;
+	private static final int MIN_TRACK_LENGTH = 180;
 
 	private AppSettings settings;
 	private ScrobblesDbAdapter mDbHelper;
@@ -76,6 +77,7 @@ public class ScrobblingService extends Service {
 	@Override
 	public void onStart(Intent i, int startId) {
 		if (i.getAction().equals(ACTION_CLEARCREDS)) {
+			Log.d(TAG, "Will launch clear creds");
 			mNetworkLoop.launchClearCreds();
 		} else if (i.getAction().equals(ACTION_AUTHENTICATE)) {
 			mNetworkLoop.launchHandshaker(true);
@@ -104,34 +106,47 @@ public class ScrobblingService extends Service {
 			if (track.equals(mCurrentPlayingTrack)) // we have already been here
 				return;
 
-			mCurrentPlayingTrack = track;
-			if (settings.isAuthenticated() && settings.isNowPlayingEnabled()) {
-				mNetworkLoop.launchNPNotifier(mCurrentPlayingTrack);
+			if (mCurrentPlayingTrack != null) {
+				tryScrobble(mCurrentPlayingTrack, true);
 			}
+
+			mCurrentPlayingTrack = track;
+			tryNotifyNP(mCurrentPlayingTrack);
 		} else {
-			if (settings.isAuthenticated() && settings.isScrobblingEnabled()) {
-				if (mCurrentPlayingTrack == null) {
-					tryScrobble(track, false);
-				} else {
-					if (!track.equals(mCurrentPlayingTrack)) {
-						Log.e(TAG, "Stopped track doesn't equal currentPlayingTrack!");
-						Log.e(TAG, "t: " + track);
-						Log.e(TAG, "c: " + mCurrentPlayingTrack);
-					} else {
-						// must scrobble mCurrentPlayingTrack, and not track,
-						// because they have
-						// different timestamps
-						tryScrobble(mCurrentPlayingTrack, true);
-					}
-				}
+			if (mCurrentPlayingTrack == null) {
+				tryScrobble(track, false);
 			} else {
-				Log.d(TAG, "Won't prepare scrobble, unauthed or disabled");
+				if (!track.equals(mCurrentPlayingTrack)) {
+					Log.e(TAG,
+							"Stopped track doesn't equal currentPlayingTrack!");
+					Log.e(TAG, "t: " + track);
+					Log.e(TAG, "c: " + mCurrentPlayingTrack);
+				} else {
+					// must scrobble mCurrentPlayingTrack, and not track,
+					// because they have
+					// different timestamps
+					tryScrobble(mCurrentPlayingTrack, true);
+				}
 			}
 			mCurrentPlayingTrack = null;
 		}
 	}
 
+	private void tryNotifyNP(Track track) {
+		if (settings.isAuthenticated() && settings.isNowPlayingEnabled()) {
+			mNetworkLoop.launchNPNotifier(track);
+		} else {
+			Log.d(TAG, "Won't notify NP, unauthed or disabled");
+		}
+	}
+
 	private void tryScrobble(Track track, boolean careAboutTrackTimeStamp) {
+
+		if (!settings.isAuthenticated() || !settings.isScrobblingEnabled()) {
+			Log.d(TAG, "Won't prepare scrobble, unauthed or disabled");
+			return;
+		}
+
 		Log.d(TAG, "Might Scrobble");
 		if (track == null) {
 			Log.e(TAG, "Got null track in tryScrobble!");
@@ -150,20 +165,21 @@ public class ScrobblingService extends Service {
 	private boolean checkTime(Track track, boolean careAboutTrackTimeStamp) {
 		long currentTime = AppTransaction.currentTimeUTC();
 		long diff = currentTime - settings.getLastListenTime();
-		if (diff < MINIMUM_SCROBBLE_TIME) {
+		if (diff < MIN_SCROBBLE_TIME) {
 			Log.i(TAG, "Tried to scrobble " + diff
 					+ "s after last scrobble, which is less than the required "
-					+ MINIMUM_SCROBBLE_TIME + "s");
+					+ MIN_SCROBBLE_TIME + "s");
 			Log.i(TAG, track.toString());
 			return false;
 		}
 		long len = -1;
 		if (careAboutTrackTimeStamp) {
 			len = currentTime - track.getWhen();
-			if (len < MINIMUM_SCROBBLE_TIME) {
-				Log.i(TAG, "Tried to scrobble " + len
-						+ "s after track start, which is less than the required "
-						+ MINIMUM_SCROBBLE_TIME + "s");
+			if (len < MIN_SCROBBLE_TIME) {
+				Log.i(TAG, "Tried to scrobble "
+							+ len
+							+ "s after track start, which is less than the required "
+							+ MIN_SCROBBLE_TIME + "s");
 				return false;
 			}
 		}

@@ -31,17 +31,15 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.adam.aslfms.R;
-import com.adam.aslfms.Status;
 import com.adam.aslfms.Track;
-import com.adam.aslfms.R.string;
 import com.adam.aslfms.Status.BadSessionException;
 import com.adam.aslfms.Status.FailureException;
 import com.adam.aslfms.Status.TemporaryFailureException;
 import com.adam.aslfms.service.Handshaker.HandshakeInfo;
-
-import android.content.Context;
-import android.util.Log;
 
 /**
  * 
@@ -63,7 +61,7 @@ public class NPNotifier {
 
 	public void notifyNowPlaying(Track track) throws BadSessionException,
 			TemporaryFailureException, FailureException {
-		Log.d(TAG, "Notifing Playing");
+		Log.d(TAG, "Notifying Playing");
 
 		Log.d(TAG, "Track: " + track.toString());
 

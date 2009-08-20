@@ -31,21 +31,20 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
+import android.content.Context;
+import android.util.Log;
+
 import com.adam.aslfms.ScrobblesDbAdapter;
-import com.adam.aslfms.Status;
 import com.adam.aslfms.Track;
 import com.adam.aslfms.Status.BadSessionException;
 import com.adam.aslfms.Status.FailureException;
 import com.adam.aslfms.Status.TemporaryFailureException;
 import com.adam.aslfms.service.Handshaker.HandshakeInfo;
 
-import android.content.Context;
-import android.util.Log;
-
 /**
  * 
  * @author tgwizard
- *
+ * 
  */
 public class Scrobbler {
 
@@ -55,27 +54,45 @@ public class Scrobbler {
 	private final Handshaker.HandshakeInfo hInfo;
 	private final ScrobblesDbAdapter mDbHelper;
 
+	private static final int MAX_SCROBBLE_LIMIT = 50;
+	private Track[] mTracks;
+
 	public Scrobbler(Context ctx, HandshakeInfo hInfo,
 			ScrobblesDbAdapter dbHelper) {
 		super();
 		this.mCtx = ctx;
 		this.hInfo = hInfo;
 		this.mDbHelper = dbHelper;
+		this.mTracks = new Track[MAX_SCROBBLE_LIMIT];
 	}
 
-	public int scrobbleCommit() throws BadSessionException,
+	/**
+	 * 
+	 * @return true if there are more scrobbles left
+	 * @throws BadSessionException
+	 * @throws TemporaryFailureException
+	 * @throws FailureException
+	 */
+	public boolean scrobbleCommit() throws BadSessionException,
 			TemporaryFailureException, FailureException {
 		Log.d(TAG, "Scrobble commit");
 
-		// TODO: fetch max 50
-		Track[] tracks = mDbHelper.fetchScrobblesArray();
-		if (tracks.length == 0) {
+		int count = mDbHelper.fetchScrobblesArray(mTracks, MAX_SCROBBLE_LIMIT);
+		if (count == 0) {
 			Log.d(TAG, "Retrieved 0 tracks from db, no submissions");
-			return 0;
+			return false;
 		}
-		Log.d(TAG, "Retrieved " + tracks.length + " tracks from db");
-		for (Track track : tracks) {
-			Log.d(TAG, track.toString());
+
+		boolean ret = false;
+		Log.d(TAG, "Retrieved " + count + " tracks from db");
+		if (count > MAX_SCROBBLE_LIMIT) {
+			Log.d(TAG, "But only " + MAX_SCROBBLE_LIMIT
+					+ " will be submitted just now");
+			ret = true;
+			count = MAX_SCROBBLE_LIMIT;
+		}
+		for (int i = 0; i < count; i++) {
+			Log.d(TAG, mTracks[i].toString());
 		}
 
 		DefaultHttpClient http = new DefaultHttpClient();
@@ -84,8 +101,8 @@ public class Scrobbler {
 		List<BasicNameValuePair> data = new LinkedList<BasicNameValuePair>();
 		data.add(new BasicNameValuePair("s", hInfo.sessionId));
 
-		for (int i = 0; i < tracks.length; i++) {
-			Track track = tracks[i];
+		for (int i = 0; i < count; i++) {
+			Track track = mTracks[i];
 			String is = "[" + i + "]";
 			data.add(new BasicNameValuePair("a" + is, track.getArtist()
 					.toString()));
@@ -95,7 +112,8 @@ public class Scrobbler {
 					.toString()));
 			data.add(new BasicNameValuePair("i" + is, "" + track.getWhen()));
 			data.add(new BasicNameValuePair("o" + is, "P")); // source (player)
-			data.add(new BasicNameValuePair("l" + is, ""
+			data
+					.add(new BasicNameValuePair("l" + is, ""
 							+ track.getDuration()));
 			data.add(new BasicNameValuePair("n" + is, "")); // track-number
 			data.add(new BasicNameValuePair("m" + is, "")); // mbid
@@ -112,10 +130,13 @@ public class Scrobbler {
 				Log.i(TAG, "Scrobble success");
 
 				Log.d(TAG, "Removing tracks from db");
-				for (Track track : tracks) {
-					mDbHelper.deleteScrobble(track);
+				for (int i = 0; i < count; i++) {
+					mDbHelper.deleteScrobble(mTracks[i]);
 				}
-				return tracks.length;
+
+				// resettings mTracks in finally below
+
+				return ret;
 			} else if (response.startsWith("BADSESSION")) {
 				throw new BadSessionException(
 						"Scrobble failed because of badsession");
@@ -131,6 +152,13 @@ public class Scrobbler {
 		} catch (IOException e) {
 			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
 		} finally {
+
+			// reset mTracks, so that we don't hold unnecessary objects
+			// in memory
+			for (int i = 0; i < mTracks.length; i++) {
+				mTracks[i] = null;
+			}
+
 			http.getConnectionManager().shutdown();
 		}
 	}

@@ -20,6 +20,8 @@
 package com.adam.aslfms.service;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.ResponseHandler;
@@ -41,7 +43,7 @@ import com.adam.aslfms.util.MD5;
 /**
  * 
  * @author tgwizard 2009
- *
+ * 
  */
 public class Handshaker {
 
@@ -66,39 +68,30 @@ public class Handshaker {
 	 */
 	public HandshakeInfo handshake() throws BadAuthException,
 			TemporaryFailureException, FailureException {
-		Log.d(TAG, "handshaking");
+		Log.d(TAG, "Handshaking");
 
 		String username = settings.getUsername();
 		String pwdMd5 = settings.getPwdMd5();
-
-		Log.d(TAG, "username: " + username);
 
 		if (username.length() == 0) {
 			Log.d(TAG, "Invalid username");
 			throw new BadAuthException(mCtx.getString(R.string.auth_bad_auth));
 		}
 
-		Log.d(TAG, "pwdMd5: " + pwdMd5);
-
 		// for debug
-		//String clientid = "tst";
-		//String clientver = "1.0";
+		// String clientid = "tst";
+		// String clientver = "1.0";
 		// for apps with real client-id and client-ver
 		String clientid = mCtx.getString(R.string.client_id);
 		String clientver = mCtx.getString(R.string.client_ver);
 
 		String time = new Long(AppTransaction.currentTimeUTC()).toString();
-		Log.d(TAG, "time: " + time);
-
-		Log.d(TAG, "concat: " + pwdMd5 + time);
 
 		String authToken = MD5.getHashString(pwdMd5 + time);
-		Log.d(TAG, "authToken: " + authToken);
 
 		String uri = "http://post.audioscrobbler.com/?hs=true&p=1.2.1&c="
-				+ clientid + "&v=" + clientver + "&u=" + username + "&t="
+				+ clientid + "&v=" + clientver + "&u=" + enc(username) + "&t="
 				+ time + "&a=" + authToken;
-		Log.d(TAG, "uri: " + uri);
 
 		DefaultHttpClient http = new DefaultHttpClient();
 		HttpGet request = new HttpGet(uri);
@@ -149,6 +142,15 @@ public class Handshaker {
 			http.getConnectionManager().shutdown();
 		}
 		return null;
+	}
+
+	private static String enc(String s) {
+		try {
+			return URLEncoder.encode(s, "UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			Log.e(TAG, "URLEncoder lacks support for UTF-8!?");
+			return null;
+		}
 	}
 
 	public static class HandshakeInfo {
