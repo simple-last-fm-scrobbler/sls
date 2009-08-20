@@ -20,10 +20,12 @@
 				<action android:name="com.htc.music.playbackcomplete" />
 				<action android:name="com.htc.music.playstatechanged" />
 
+                <action android:name="com.adam.aslfms.notify.playstatechanged" />
+                <action android:name="com.adam.aslfms.notify.playbackcomplete" />
 			</intent-filter>
 		</receiver>
 		<service android:name="com.adam.aslfms.service.ScrobblingService"
-			android:enabled="true">
+			android:enabled="true" android:exported="false">
 			<intent-filter>
 				<action android:name="com.adam.aslfms.service.playstatechanged" />
 				<action android:name="com.adam.aslfms.service.authenticate" />
