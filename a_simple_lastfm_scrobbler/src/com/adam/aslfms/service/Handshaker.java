@@ -14,8 +14,6 @@ import android.util.Log;
 import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.AppTransaction;
 import com.adam.aslfms.R;
-import com.adam.aslfms.Status;
-import com.adam.aslfms.R.string;
 import com.adam.aslfms.Status.BadAuthException;
 import com.adam.aslfms.Status.FailureException;
 import com.adam.aslfms.Status.TemporaryFailureException;
