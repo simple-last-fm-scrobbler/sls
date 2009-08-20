@@ -19,6 +19,8 @@
 
 package com.adam.aslfms;
 
+import com.adam.aslfms.service.ScrobblingService;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,16 +30,19 @@ import android.util.Log;
 /**
  * 
  * @author tgwizard
- *
+ * 
  */
 public class PlayStatusReceiver extends BroadcastReceiver {
 
 	private static final String TAG = "PlayStatusReceiver";
 
-	private static final String SERVICE = "com.adam.aslfms.playstatechanged";
+	private static final String ACTION_PLAYSTATECHANGED_ANDROID = "com.android.music.playstatechanged";
+	private static final String ACTION_STOP_ANDROID = "com.android.music.playbackcomplete";
+	private static final String ACTION_METACHANGED_ANDROID = "com.android.music.metachanged";
 
-	private static final String ACTION_CHANGED = "com.android.music.playstatechanged";
-	private static final String ACTION_STOP = "com.android.music.playbackcomplete";
+	private static final String ACTION_PLAYSTATECHANGED_HTC = "com.htc.music.playstatechanged";
+	private static final String ACTION_STOP_HTC = "com.htc.music.playbackcomplete";
+	private static final String ACTION_METACHANGED_HTC = "com.htc.music.metachanged";
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -49,22 +54,27 @@ public class PlayStatusReceiver extends BroadcastReceiver {
 			return;
 		}
 
-		Intent service = new Intent(SERVICE);
+		Log.d(TAG, "Action received was: " + action);
+
+		Intent service = new Intent(ScrobblingService.ACTION_PLAYSTATECHANGED);
 		Track track = null;
-		if (action.equals(ACTION_CHANGED) || action.equals(ACTION_STOP)) {
+		if (action.equals(ACTION_PLAYSTATECHANGED_ANDROID)
+				|| action.equals(ACTION_STOP_ANDROID)
+				|| action.equals(ACTION_METACHANGED_ANDROID)
+				|| action.equals(ACTION_PLAYSTATECHANGED_HTC)
+				|| action.equals(ACTION_STOP_HTC)
+				|| action.equals(ACTION_METACHANGED_HTC)) {
 			CharSequence ar = bundle.getCharSequence("artist");
 			CharSequence al = bundle.getCharSequence("album");
 			CharSequence tr = bundle.getCharSequence("track");
-			
+
 			// As of cupcake, it is not possible (feasible) to get the actual
 			// duration of the playing track, so I default it to three minutes
 			track = new Track(ar, al, tr, 180, AppTransaction.currentTimeUTC());
 
-			if (intent.getAction().equals(ACTION_STOP)) {
-				Log.d(TAG, "Action was stop");
+			if (action.equals(ACTION_STOP_ANDROID)
+					|| action.equals(ACTION_STOP_HTC)) {
 				service.putExtra("stopped", true);
-			} else {
-				Log.d(TAG, "Action was change");
 			}
 		} else {
 			Log.e(TAG, "Weird action reponded to by bcast-receiver");

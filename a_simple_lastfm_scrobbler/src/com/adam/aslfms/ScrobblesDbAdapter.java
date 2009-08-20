@@ -25,7 +25,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Bundle;
 import android.util.Log;
 
 /**
@@ -63,8 +62,6 @@ public class ScrobblesDbAdapter {
 	private static final String DATABASE_NAME = "data";
 	private static final String DATABASE_TABLE = "scrobbles";
 	private static final int DATABASE_VERSION = 2;
-
-	private static final int SCROBBLE_LIMIT = 10;
 
 	private final Context mCtx;
 
@@ -154,30 +151,28 @@ public class ScrobblesDbAdapter {
 	}
 
 	/**
-	 * Return a Cursor over the list of all scrobbles in the database
 	 * 
-	 * @return Cursor over all scrobbles
+	 * @param tracks
+	 * @param maxFetch
+	 * @return the number of tracks found in the db
 	 */
-	public Cursor fetchAllScrobbles() {
-
-		return mDb.query(DATABASE_TABLE, new String[] { KEY_ROWID, KEY_ARTIST,
-				KEY_ALBUM, KEY_TRACK, KEY_DURATION, KEY_WHEN }, null, null,
-				null, null, null);
-	}
-
-	public Track[] fetchScrobblesArray() {
+	public int fetchScrobblesArray(Track[] tracks, int maxFetch) {
 		Cursor c = mDb.query(DATABASE_TABLE, new String[] { KEY_ROWID,
 				KEY_ARTIST, KEY_ALBUM, KEY_TRACK, KEY_DURATION, KEY_WHEN },
 				null, null, null, null, null);
-		Track[] tracks = new Track[c.getCount()];
+		int count = c.getCount();
+		int ret = count;
+		if (count > maxFetch) {
+			count = maxFetch;
+		}
 		c.moveToFirst();
-		for (int i = 0; i < tracks.length; i++) {
+		for (int i = 0; i < count; i++) {
 			tracks[i] = new Track(c.getString(1), c.getString(2), c
 					.getString(3), c.getInt(4), c.getLong(5), c.getInt(0));
 			c.moveToNext();
 		}
 		c.close();
-		return tracks;
+		return ret;
 	}
 
 }

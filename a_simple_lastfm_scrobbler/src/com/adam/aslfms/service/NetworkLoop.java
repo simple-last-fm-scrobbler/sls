@@ -206,8 +206,10 @@ public class NetworkLoop implements Runnable {
 			Log.e(TAG, "Scrobbler is null when we want to scrobble!!");
 		} else {
 			try {
-				scrobbler.scrobbleCommit();
-				decScrobbleReqs(sCount);
+				boolean doAgain = scrobbler.scrobbleCommit();
+				if (!doAgain) {
+					decScrobbleReqs(sCount);
+				}
 				ret = true;
 			} catch (BadSessionException e) {
 				Log.i(TAG, e.getMessage());
