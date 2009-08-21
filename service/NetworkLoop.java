@@ -34,9 +34,14 @@ import com.adam.aslfms.Status.TemporaryFailureException;
 import com.adam.aslfms.service.Handshaker.HandshakeInfo;
 
 /**
+ * NetworkLoop does all the network requests - handshaking, scrobbling and
+ * notifying now playing. These requests are initiated through the launch
+ * methods: launchHandshaker(), launchClearCreds, launchScrobbler and
+ * launchNPNotifier
  * 
+ * FIXME: this class is somewhat bloated and difficult to maintain
  * @author tgwizard
- *
+ * 
  */
 public class NetworkLoop implements Runnable {
 
@@ -49,11 +54,15 @@ public class NetworkLoop implements Runnable {
 	private static final Object waitNotifyObject = new Object();
 	private boolean mWait;
 
-	private Scrobbler scrobbler;
-	private NPNotifier npNotifier;
-	private Handshaker handshaker;
+	private Scrobbler mScrobbler;
+	private NPNotifier mNPNotifier;
+	private Handshaker mHandshaker;
 
-	private int retryCount = 0;
+	private int mRetryCount = 0;
+
+	private boolean mDoSleepRetry = false;
+	// in milliseconds
+	private long mSleepRetryTime = 0;
 
 	// handshake-requests
 	private boolean mHandshakeRequests = false;
@@ -74,21 +83,32 @@ public class NetworkLoop implements Runnable {
 
 	@Override
 	public void run() {
-		handshaker = new Handshaker(mCtx);
-		scrobbler = null;
-		npNotifier = null;
+		mHandshaker = new Handshaker(mCtx);
+		mScrobbler = null;
+		mNPNotifier = null;
 		while (true) {
 			synchronized (waitNotifyObject) {
 
 				mWait = true;
 
-				if (wannaHandshake() || wannaScrobble() || wannaNotifyNP()) {
+				if (wannaHandshake()) {
+					mWait = false;
+				} else if (!doSleep() && (wannaScrobble() || wannaNotifyNP())) {
 					mWait = false;
 				}
 
 				while (mWait) {
 					try {
-						waitNotifyObject.wait();
+						if (doSleep()) {
+							Log.d(TAG, "Will sleep for: " + getSleepTime());
+							waitNotifyObject.wait(getSleepTime());
+							// this is so that when we stop sleeping, we break
+							// the sleep-loop.
+							mWait = false;
+							launchHandshaker(false);
+						} else {
+							waitNotifyObject.wait();
+						}
 					} catch (InterruptedException e) {
 						Log.i(TAG, "Got interrupted while waiting");
 						Log.i(TAG, e.getMessage());
@@ -110,7 +130,10 @@ public class NetworkLoop implements Runnable {
 			}
 
 			if (doHand) {
-				doHandshake(doAuth);
+				if (!doHandshake(doAuth)) {
+					Log.d(TAG, "doHandshake() failed, re-continuing loop");
+					continue;
+				}
 			}
 
 			// scrobbling
@@ -118,7 +141,7 @@ public class NetworkLoop implements Runnable {
 			int sCount = 0;
 			synchronized (this) {
 				if (wannaScrobble()) {
-					if (scrobbler == null) {
+					if (mScrobbler == null) {
 						launchHandshaker(false);
 					} else {
 						doScrobble = true;
@@ -136,7 +159,7 @@ public class NetworkLoop implements Runnable {
 			Track track = null;
 			synchronized (this) {
 				if (wannaNotifyNP()) {
-					if (npNotifier == null) {
+					if (mNPNotifier == null) {
 						launchHandshaker(false);
 					} else {
 						doNotifyNP = true;
@@ -154,21 +177,23 @@ public class NetworkLoop implements Runnable {
 	private boolean doHandshake(boolean doAuth) {
 		boolean ret = false;
 
-		scrobbler = null;
-		npNotifier = null;
+		mScrobbler = null;
+		mNPNotifier = null;
 
 		if (doAuth)
 			updateAuthStatus(Status.AUTHSTATUS_UPDATING);
 
 		try {
-			HandshakeInfo hi = handshaker.handshake();
+			HandshakeInfo hi = mHandshaker.handshake();
 
-			scrobbler = new Scrobbler(mCtx, hi, mDbHelper);
-			npNotifier = new NPNotifier(mCtx, hi);
+			mScrobbler = new Scrobbler(mCtx, hi, mDbHelper);
+			mNPNotifier = new NPNotifier(mCtx, hi);
 
 			resetRetry();
 
+			// we don't need it anymore, settings.getPwdMd5() is enough
 			settings.setPassword("");
+
 			updateAuthStatus(Status.AUTHSTATUS_OK);
 
 			// won't do anything if there aren't any scrobbles,
@@ -180,14 +205,17 @@ public class NetworkLoop implements Runnable {
 		} catch (BadAuthException e) {
 			if (doAuth)
 				updateAuthStatus(Status.AUTHSTATUS_BADAUTH);
-			else
+			else {
+				// this should mean that the user called launchClearCreds, and
+				// that
+				// all user information is gone
 				updateAuthStatus(Status.AUTHSTATUS_NOAUTH);
-
+			}
 			// badauth means we cant do any scrobbling/notifying, so clear them
 			// the scrobbles already prepared will be sent at a later time
 			unsetScrobblingAndNPNotifying();
 		} catch (TemporaryFailureException e) {
-			// TODO: retry, with sleeps between
+			sleepRetry();
 			if (doAuth)
 				updateAuthStatus(Status.AUTHSTATUS_RETRYLATER);
 		} catch (FailureException e) {
@@ -202,11 +230,11 @@ public class NetworkLoop implements Runnable {
 
 	private boolean doScrobble(int sCount) {
 		boolean ret = false;
-		if (scrobbler == null) {
+		if (mScrobbler == null) {
 			Log.e(TAG, "Scrobbler is null when we want to scrobble!!");
 		} else {
 			try {
-				boolean doAgain = scrobbler.scrobbleCommit();
+				boolean doAgain = mScrobbler.scrobbleCommit();
 				if (!doAgain) {
 					decScrobbleReqs(sCount);
 				}
@@ -229,17 +257,19 @@ public class NetworkLoop implements Runnable {
 
 	private boolean doNotifyNP(Track t) {
 		boolean ret = false;
-		if (npNotifier == null) {
+		if (mNPNotifier == null) {
 			Log.e(TAG, "npNotifier is null when we want to notify-np!!");
 		} else {
 			try {
-				npNotifier.notifyNowPlaying(t);
+				mNPNotifier.notifyNowPlaying(t);
 			} catch (BadSessionException e) {
 				Log.i(TAG, e.getMessage());
 				launchHandshaker(false);
+				launchNPNotifier(t);
 			} catch (TemporaryFailureException e) {
 				Log.i(TAG, e.getMessage());
 				retry();
+				launchNPNotifier(t);
 			} catch (FailureException e) {
 				Log.e(TAG, "Serious failure while notifying np");
 				Log.e(TAG, e.getMessage());
@@ -250,17 +280,60 @@ public class NetworkLoop implements Runnable {
 		return ret;
 	}
 
+	/**
+	 * @return whether the loop should sleep for a certain time instead of
+	 *         waiting indefinitely
+	 */
+	private boolean doSleep() {
+		return mDoSleepRetry;
+	}
+
+	/**
+	 * @return the time to sleep in milliseconds
+	 */
+	private long getSleepTime() {
+		return mSleepRetryTime;
+	}
+
+	/**
+	 * Ask to sleep instead of just waiting, and increase the sleep time. Call
+	 * when handshake fails due to non-badauth situations.
+	 */
+	private void sleepRetry() {
+		mDoSleepRetry = true;
+
+		// TODO: change to correct way
+		mSleepRetryTime += 5000;
+		Log.i(TAG, "Will do sleep retry, sleeping: " + mSleepRetryTime + "s");
+	}
+
+	/**
+	 * Say that the current action (scrobble/np-notification) failed, and that
+	 * it should be retried. The action has to be reset elsewhere.
+	 */
 	private void retry() {
-		retryCount++;
-		if (retryCount > 3) {
+		mRetryCount++;
+		if (mRetryCount > 3) {
 			launchHandshaker(false);
 		}
 	}
 
+	/**
+	 * Reset retry counts and sleep counts. To be called after a successful
+	 * handshake.
+	 */
 	private void resetRetry() {
-		retryCount = 0;
+		mRetryCount = 0;
+		mDoSleepRetry = false;
+		mSleepRetryTime = 0;
 	}
 
+	/**
+	 * Requests that a the loop should be awaken if it is sleeping/waiting. If
+	 * none of the methods wannaHandshake(), wannaScrobble() and wannaNotifyNP()
+	 * returns true, this will just cause the loop to go one iteration, and then
+	 * back to waiting/sleeping.
+	 */
 	private void requestResume() {
 		synchronized (waitNotifyObject) {
 			mWait = false;
@@ -268,26 +341,54 @@ public class NetworkLoop implements Runnable {
 		}
 	}
 
-	public synchronized void launchHandshaker(boolean auth) {
-		mHandshakeRequests = true;
-		mDoAuth = mDoAuth || auth;
+	/**
+	 * Asks the loop to do a handshake request/first time authentication of user
+	 * credentials.
+	 * 
+	 * @param auth
+	 *            true means this is a first time authentication, false
+	 *            otherwise
+	 */
+	public void launchHandshaker(boolean auth) {
+		synchronized (this) {
+			mHandshakeRequests = true;
+			mDoAuth = mDoAuth || auth;
+		}
 		requestResume();
 	}
 
-	public synchronized void launchClearCreds() {
+	/**
+	 * Tells the loop that the user credentials has been cleared, and it should
+	 * stop.
+	 */
+	public void launchClearCreds() {
 		launchHandshaker(false);
 		// TODO: this will still show "Wrong username/password" if handshaker
 		// already is retrying
 	}
 
-	public synchronized void launchScrobbler() {
-		mScrobbleRequests++;
+	/**
+	 * Asks the loop to scrobble tracks in the db.
+	 */
+	public void launchScrobbler() {
+		synchronized (this) {
+			mScrobbleRequests++;
+		}
 		requestResume();
 	}
 
-	public synchronized void launchNPNotifier(Track t) {
-		if (mNotifyNPTrack == null || t.getWhen() > mNotifyNPTrack.getWhen()) {
-			mNotifyNPTrack = t;
+	/**
+	 * Asks the loop to make a now playing notification of Track t.
+	 * 
+	 * @param t
+	 *            The track in question
+	 */
+	public void launchNPNotifier(Track t) {
+		synchronized (this) {
+			if (mNotifyNPTrack == null
+					|| t.getWhen() > mNotifyNPTrack.getWhen()) {
+				mNotifyNPTrack = t;
+			}
 		}
 		requestResume();
 	}

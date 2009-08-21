@@ -20,14 +20,28 @@
 package com.adam.aslfms;
 
 /**
+ * Simple structure that holds information about a track. It has two factory
+ * methods to construct new tracks,
+ * {@link Track#createTrack(CharSequence, CharSequence, CharSequence, int, long)
+ * createTrack()} and
+ * {@link Track#createTrackFromDb(CharSequence, CharSequence, CharSequence, int, long, int)
+ * createTrackFromDB()}.
  * 
+ * @see Track#createTrack(CharSequence, CharSequence, CharSequence, int, long)
+ * @see Track#createTrackFromDb(CharSequence, CharSequence, CharSequence, int,
+ *      long, int)
  * @author tgwizard
- *
+ * 
  */
 public class Track {
-	
+
+	/**
+	 * The duration to use when a track's duration is unknown. E.g., the android
+	 * music player doesn't broadcast duration information, so this constant is
+	 * used instead.
+	 */
 	public static final int DEFAULT_TRACK_LENGTH = 180;
-	
+
 	private CharSequence artist;
 	private CharSequence album;
 	private CharSequence track;
@@ -35,12 +49,49 @@ public class Track {
 	private long when;
 	private int rowId;
 
-	public Track(CharSequence artist, CharSequence album, CharSequence track,
-			int duration, long when) {
-		this(artist, album, track, duration, when, -1);
+	/**
+	 * This factory method should be used when the track data is NOT taken from
+	 * the scrobble database.
+	 * 
+	 * @param artist
+	 * @param album
+	 * @param track
+	 * @param duration
+	 *            The duration of the track, in seconds
+	 * @param when
+	 *            The time the track started playing, in seconds since epoch,
+	 *            UTC
+	 */
+	public static Track createTrack(CharSequence artist, CharSequence album,
+			CharSequence track, int duration, long when) {
+		return new Track(artist, album, track, duration, when, -1);
 	}
 
-	public Track(CharSequence artist, CharSequence album, CharSequence track,
+	/**
+	 * This factory method should be used when the track data IS taken from the
+	 * scrobble database.
+	 * 
+	 * @param artist
+	 *            The artist name
+	 * @param album
+	 *            The album name
+	 * @param track
+	 *            The song name
+	 * @param duration
+	 *            The duration of the track, in seconds
+	 * @param when
+	 *            The time the track started playing, in seconds since epoch,
+	 *            UTC
+	 * @param rowId
+	 *            The id for the corresponding row in the scrobble database.
+	 */
+	public static Track createTrackFromDb(CharSequence artist,
+			CharSequence album, CharSequence track, int duration, long when,
+			int rowId) {
+		return new Track(artist, album, track, duration, when, rowId);
+	}
+
+	private Track(CharSequence artist, CharSequence album, CharSequence track,
 			int duration, long when, int rowId) {
 		super();
 		this.artist = artist;
@@ -50,7 +101,7 @@ public class Track {
 		this.when = when;
 		this.rowId = rowId;
 	}
-	
+
 	public CharSequence getArtist() {
 		return artist;
 	}

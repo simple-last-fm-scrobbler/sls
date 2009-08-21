@@ -142,9 +142,9 @@ public class Scrobbler {
 						"Scrobble failed because of badsession");
 			} else if (response.startsWith("FAILED")) {
 				String reason = lines[0].substring(7);
-				throw new FailureException("Scrobble failed: " + reason);
+				throw new TemporaryFailureException("Scrobble failed: " + reason);
 			} else {
-				throw new FailureException("Scrobble failed weirdly");
+				throw new FailureException("Scrobble failed weirdly: " + response);
 			}
 
 		} catch (ClientProtocolException e) {
