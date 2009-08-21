@@ -78,7 +78,7 @@ public class PlayStatusReceiver extends BroadcastReceiver {
 			// As of cupcake, it is not possible (feasible) to get the actual
 			// duration of the playing track, so I default it to three minutes
 			track = Track.createTrack(ar, al, tr, Track.DEFAULT_TRACK_LENGTH,
-					AppTransaction.currentTimeUTC());
+					InternalTrackTransmitter.currentTimeUTC());
 
 			if (action.equals(ACTION_ANDROID_STOP)
 					|| action.equals(ACTION_HTC_STOP)) {
@@ -106,7 +106,7 @@ public class PlayStatusReceiver extends BroadcastReceiver {
 				dur = Track.DEFAULT_TRACK_LENGTH;
 			}
 
-			track = Track.createTrack(ar, al, tr, dur, AppTransaction
+			track = Track.createTrack(ar, al, tr, dur, InternalTrackTransmitter
 					.currentTimeUTC());
 
 			if (action.equals(ACTION_ASLFMS_PLAYSTATECOMPLETE)) {
@@ -122,7 +122,7 @@ public class PlayStatusReceiver extends BroadcastReceiver {
 			return;
 		}
 
-		AppTransaction.pushTrack(track);
+		InternalTrackTransmitter.pushTrack(track);
 		context.startService(service);
 	}
 

@@ -33,7 +33,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.adam.aslfms.AppSettings;
-import com.adam.aslfms.AppTransaction;
+import com.adam.aslfms.InternalTrackTransmitter;
 import com.adam.aslfms.R;
 import com.adam.aslfms.Status.BadAuthException;
 import com.adam.aslfms.Status.FailureException;
@@ -85,7 +85,7 @@ public class Handshaker {
 		String clientid = mCtx.getString(R.string.client_id);
 		String clientver = mCtx.getString(R.string.client_ver);
 
-		String time = new Long(AppTransaction.currentTimeUTC()).toString();
+		String time = new Long(InternalTrackTransmitter.currentTimeUTC()).toString();
 
 		String authToken = MD5.getHashString(pwdMd5 + time);
 
