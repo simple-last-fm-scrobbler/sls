@@ -30,11 +30,11 @@ import android.util.Log;
 /**
  * 
  * @author tgwizard
- *
+ * 
  */
-public class ScrobblesDbAdapter {
+public class ScrobblesDatabase {
 
-	private static final String TAG = "ScrobblesDbAdapter";
+	private static final String TAG = "ScrobblesDatabase";
 
 	private static final String KEY_ARTIST = "artist";
 	private static final String KEY_ALBUM = "album";
@@ -93,7 +93,7 @@ public class ScrobblesDbAdapter {
 	 * @param ctx
 	 *            the Context within which to work
 	 */
-	public ScrobblesDbAdapter(Context ctx) {
+	public ScrobblesDatabase(Context ctx) {
 		this.mCtx = ctx;
 	}
 
@@ -107,7 +107,7 @@ public class ScrobblesDbAdapter {
 	 * @throws SQLException
 	 *             if the database could be neither opened or created
 	 */
-	public ScrobblesDbAdapter open() throws SQLException {
+	public ScrobblesDatabase open() throws SQLException {
 		mDbHelper = new DatabaseHelper(mCtx);
 		mDb = mDbHelper.getWritableDatabase();
 		return this;
@@ -135,7 +135,7 @@ public class ScrobblesDbAdapter {
 	}
 
 	/**
-	 * Delete the scrobble with the given rowId
+	 * Delete the scrobble from the db with the given rowId.
 	 * 
 	 * @param rowId
 	 *            id of scrobble to delete
@@ -151,10 +151,15 @@ public class ScrobblesDbAdapter {
 	}
 
 	/**
+	 * Fetches scrobbles saved in the db and puts them in <code>tracks</code>.
 	 * 
 	 * @param tracks
+	 *            a pre-allocated array to be filled with tracks from the db
 	 * @param maxFetch
-	 * @return the number of tracks found in the db
+	 *            the max number of tracks to fill <code>tracks</code> with,
+	 *            should not exceed <code>tracks.length</code>
+	 * @return the number of tracks found in the db, can exceed
+	 *         <code>maxFetch</code>
 	 */
 	public int fetchScrobblesArray(Track[] tracks, int maxFetch) {
 		Cursor c = mDb.query(DATABASE_TABLE, new String[] { KEY_ROWID,
@@ -167,8 +172,8 @@ public class ScrobblesDbAdapter {
 		}
 		c.moveToFirst();
 		for (int i = 0; i < count; i++) {
-			tracks[i] = Track.createTrackFromDb(c.getString(1), c.getString(2), c
-					.getString(3), c.getInt(4), c.getLong(5), c.getInt(0));
+			tracks[i] = Track.createTrackFromDb(c.getString(1), c.getString(2),
+					c.getString(3), c.getInt(4), c.getLong(5), c.getInt(0));
 			c.moveToNext();
 		}
 		c.close();

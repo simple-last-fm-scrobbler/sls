@@ -24,7 +24,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.adam.aslfms.AppSettings;
-import com.adam.aslfms.ScrobblesDbAdapter;
+import com.adam.aslfms.ScrobblesDatabase;
 import com.adam.aslfms.Status;
 import com.adam.aslfms.Track;
 import com.adam.aslfms.Status.BadAuthException;
@@ -49,7 +49,7 @@ public class NetworkLoop implements Runnable {
 
 	private final Context mCtx;
 	private final AppSettings settings;
-	private final ScrobblesDbAdapter mDbHelper;
+	private final ScrobblesDatabase mDbHelper;
 
 	private static final Object waitNotifyObject = new Object();
 	private boolean mWait;
@@ -74,7 +74,7 @@ public class NetworkLoop implements Runnable {
 	// notifynp-requests
 	private Track mNotifyNPTrack = null;
 
-	public NetworkLoop(Context ctx, ScrobblesDbAdapter dbHelper) {
+	public NetworkLoop(Context ctx, ScrobblesDatabase dbHelper) {
 		super();
 		this.mCtx = ctx;
 		this.settings = new AppSettings(ctx);

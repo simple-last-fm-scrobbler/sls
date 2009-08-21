@@ -21,12 +21,13 @@ package com.adam.aslfms.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.database.SQLException;
 import android.os.IBinder;
 import android.util.Log;
 
 import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.InternalTrackTransmitter;
-import com.adam.aslfms.ScrobblesDbAdapter;
+import com.adam.aslfms.ScrobblesDatabase;
 import com.adam.aslfms.Track;
 
 /**
@@ -47,7 +48,7 @@ public class ScrobblingService extends Service {
 	private static final int MIN_SCROBBLE_TIME = 30;
 
 	private AppSettings settings;
-	private ScrobblesDbAdapter mDbHelper;
+	private ScrobblesDatabase mDbHelper;
 
 	NetworkLoop mNetworkLoop;
 
@@ -61,8 +62,16 @@ public class ScrobblingService extends Service {
 	@Override
 	public void onCreate() {
 		settings = new AppSettings(this);
-		mDbHelper = new ScrobblesDbAdapter(this);
-		mDbHelper.open();
+		mDbHelper = new ScrobblesDatabase(this);
+		try {
+			mDbHelper.open();
+		} catch(SQLException e) {
+			Log.e(TAG, "Cannot open database!");
+			Log.e(TAG, e.getMessage());
+			Log.e(TAG, "Will terminate");
+			stopSelf();
+		}
+		
 
 		mNetworkLoop = new NetworkLoop(this, mDbHelper);
 		new Thread(mNetworkLoop).start();
@@ -132,6 +141,10 @@ public class ScrobblingService extends Service {
 		}
 	}
 
+	/**
+	 * Launches a Now Playing notification of <code>track</code>, if we're authenticated and Now Playing is enabled.
+	 * @param track the currently playing track
+	 */
 	private void tryNotifyNP(Track track) {
 		if (settings.isAuthenticated() && settings.isNowPlayingEnabled()) {
 			mNetworkLoop.launchNPNotifier(track);
@@ -191,8 +204,13 @@ public class ScrobblingService extends Service {
 	}
 
 	private void scrobblePrepare(Track track) {
-		mDbHelper.insertScrobble(track);
-		Log.d(TAG, "Scrobble prepared");
-		Log.d(TAG, track.toString());
+		if (mDbHelper.insertScrobble(track) != -1) {
+			Log.d(TAG, "Scrobble prepared");
+			Log.d(TAG, track.toString());
+		} else {
+			Log.d(TAG, "Could not insert scrobble into the db");
+			Log.d(TAG, track.toString());
+		}
+		
 	}
 }
