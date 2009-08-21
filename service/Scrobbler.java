@@ -37,7 +37,7 @@ import android.util.Log;
 import com.adam.aslfms.ScrobblesDatabase;
 import com.adam.aslfms.Track;
 import com.adam.aslfms.Status.BadSessionException;
-import com.adam.aslfms.Status.FailureException;
+import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.Status.TemporaryFailureException;
 import com.adam.aslfms.service.Handshaker.HandshakeInfo;
 
@@ -71,10 +71,10 @@ public class Scrobbler {
 	 * @return true if there are more scrobbles left
 	 * @throws BadSessionException
 	 * @throws TemporaryFailureException
-	 * @throws FailureException
+	 * @throws UnknownResponseException
 	 */
 	public boolean scrobbleCommit() throws BadSessionException,
-			TemporaryFailureException, FailureException {
+			TemporaryFailureException, UnknownResponseException {
 		Log.d(TAG, "Scrobble commit");
 
 		int count = mDbHelper.fetchScrobblesArray(mTracks, MAX_SCROBBLE_LIMIT);
@@ -124,12 +124,10 @@ public class Scrobbler {
 			request.setEntity(new UrlEncodedFormEntity(data, "UTF-8"));
 			ResponseHandler<String> handler = new BasicResponseHandler();
 			String response = http.execute(request, handler);
-			Log.d(TAG, "sresponse: " + response);
 			String[] lines = response.split("\n");
 			if (response.startsWith("OK")) {
 				Log.i(TAG, "Scrobble success");
 
-				Log.d(TAG, "Removing tracks from db");
 				for (int i = 0; i < count; i++) {
 					mDbHelper.deleteScrobble(mTracks[i]);
 				}
@@ -144,7 +142,7 @@ public class Scrobbler {
 				String reason = lines[0].substring(7);
 				throw new TemporaryFailureException("Scrobble failed: " + reason);
 			} else {
-				throw new FailureException("Scrobble failed weirdly: " + response);
+				throw new UnknownResponseException("Scrobble failed weirdly: " + response);
 			}
 
 		} catch (ClientProtocolException e) {

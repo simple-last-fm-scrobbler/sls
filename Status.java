@@ -42,6 +42,14 @@ public class Status {
 		}
 	}
 
+	public static class ClientBannedException extends StatusException {
+		private static final long serialVersionUID = 3452632996181451232L;
+
+		public ClientBannedException(String detailMessage) {
+			super(detailMessage);
+		}
+	}
+
 	public static class BadAuthException extends StatusException {
 		private static final long serialVersionUID = 1512908282760585728L;
 
@@ -66,10 +74,17 @@ public class Status {
 		}
 	}
 
-	public static class FailureException extends StatusException {
+	/**
+	 * This exception is thrown when we get an undocumented response, one that
+	 * is not in the Last.fm Submissions API specification.
+	 * 
+	 * @author tgwizard
+	 * 
+	 */
+	public static class UnknownResponseException extends StatusException {
 		private static final long serialVersionUID = 7351097754868391707L;
 
-		public FailureException(String detailMessage) {
+		public UnknownResponseException(String detailMessage) {
 			super(detailMessage);
 		}
 	}
