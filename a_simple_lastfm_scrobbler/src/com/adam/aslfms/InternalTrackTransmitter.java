@@ -24,12 +24,12 @@ import java.util.LinkedList;
 import java.util.TimeZone;
 
 /**
- * FIXME: rename this class
+ * Internal class that transmits tracks from {@link PlayStatusReceiver} to {@link ScrobblingService}.
  * 
  * @author tgwizard
  * 
  */
-public class AppTransaction {
+public class InternalTrackTransmitter {
 	private static final Object syncObject = new Object();
 	private static LinkedList<Track> tracks = new LinkedList<Track>();
 

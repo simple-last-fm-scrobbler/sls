@@ -25,7 +25,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.adam.aslfms.AppSettings;
-import com.adam.aslfms.AppTransaction;
+import com.adam.aslfms.InternalTrackTransmitter;
 import com.adam.aslfms.ScrobblesDbAdapter;
 import com.adam.aslfms.Track;
 
@@ -87,7 +87,7 @@ public class ScrobblingService extends Service {
 				stopped = i.getExtras().getBoolean("stopped", false);
 			}
 
-			Track track = AppTransaction.popTrack();
+			Track track = InternalTrackTransmitter.popTrack();
 
 			if (track == null) {
 				Log.e(TAG, "Track was null when received in onStart!");
@@ -157,13 +157,13 @@ public class ScrobblingService extends Service {
 			// But that will not be possible with the limited info available
 			// from MusicService
 			scrobblePrepare(track);
-			settings.setLastScrobbleTime(AppTransaction.currentTimeUTC());
+			settings.setLastScrobbleTime(InternalTrackTransmitter.currentTimeUTC());
 			mNetworkLoop.launchScrobbler();
 		}
 	}
 
 	private boolean checkTime(Track track, boolean careAboutTrackTimeStamp) {
-		long currentTime = AppTransaction.currentTimeUTC();
+		long currentTime = InternalTrackTransmitter.currentTimeUTC();
 		long diff = currentTime - settings.getLastListenTime();
 		if (diff < MIN_SCROBBLE_TIME) {
 			Log.i(TAG, "Tried to scrobble " + diff
