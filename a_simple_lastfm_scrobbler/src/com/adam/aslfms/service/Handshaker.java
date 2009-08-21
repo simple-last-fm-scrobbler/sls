@@ -57,7 +57,7 @@ public class Handshaker {
 		this.mCtx = ctx;
 		this.settings = new AppSettings(ctx);
 	}
-
+	
 	/**
 	 * Internal, should only be called by tryHandshake()
 	 * 
@@ -125,12 +125,12 @@ public class Handshaker {
 				} else if (lines[0].startsWith("FAILED")) {
 					String reason = lines[0].substring(7);
 					Log.e(TAG, "Handshake fails: FAILED " + reason);
-					throw new FailureException(mCtx
+					throw new TemporaryFailureException(mCtx
 							.getString(R.string.auth_server_error)
 							+ " ");
 				}
 			} else {
-				throw new FailureException("Weird response from handskake-req");
+				throw new FailureException("Weird response from handskake-req: " + response);
 			}
 
 		} catch (ClientProtocolException e) {

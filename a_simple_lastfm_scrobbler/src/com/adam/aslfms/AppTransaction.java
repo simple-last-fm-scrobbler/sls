@@ -24,9 +24,10 @@ import java.util.LinkedList;
 import java.util.TimeZone;
 
 /**
+ * FIXME: rename this class
  * 
  * @author tgwizard
- *
+ * 
  */
 public class AppTransaction {
 	private static final Object syncObject = new Object();
@@ -46,8 +47,9 @@ public class AppTransaction {
 		}
 	}
 
-	/*
-	 * @return current time sinze 1970 in seconds
+	/**
+	 * FIXME: where does this method belong?
+	 * @return the current time since 1970, UTC, in seconds
 	 */
 	public static long currentTimeUTC() {
 		return Calendar.getInstance(TimeZone.getTimeZone("UTC"))

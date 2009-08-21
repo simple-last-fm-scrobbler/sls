@@ -20,9 +20,11 @@
 package com.adam.aslfms;
 
 /**
+ * Status is a "namespace class" that contains the definitions of various status
+ * types. This class is not meant to be instantiated.
  * 
  * @author tgwizard
- *
+ * 
  */
 public class Status {
 	public static final int AUTHSTATUS_NOAUTH = 0;
@@ -35,10 +37,6 @@ public class Status {
 	public static class StatusException extends Exception {
 		private static final long serialVersionUID = 7204759787220898684L;
 
-		public StatusException() {
-			super();
-		}
-
 		public StatusException(String detailMessage) {
 			super(detailMessage);
 		}
@@ -46,10 +44,6 @@ public class Status {
 
 	public static class BadAuthException extends StatusException {
 		private static final long serialVersionUID = 1512908282760585728L;
-
-		public BadAuthException() {
-			super();
-		}
 
 		public BadAuthException(String detailMessage) {
 			super(detailMessage);
@@ -59,10 +53,6 @@ public class Status {
 	public static class BadSessionException extends StatusException {
 		private static final long serialVersionUID = -1360166232828945639L;
 
-		public BadSessionException() {
-			super();
-		}
-
 		public BadSessionException(String detailMessage) {
 			super(detailMessage);
 		}
@@ -70,10 +60,6 @@ public class Status {
 
 	public static class TemporaryFailureException extends StatusException {
 		private static final long serialVersionUID = -2810766166898051179L;
-
-		public TemporaryFailureException() {
-			super();
-		}
 
 		public TemporaryFailureException(String detailMessage) {
 			super(detailMessage);
@@ -83,13 +69,14 @@ public class Status {
 	public static class FailureException extends StatusException {
 		private static final long serialVersionUID = 7351097754868391707L;
 
-		public FailureException() {
-			super();
-		}
-
 		public FailureException(String detailMessage) {
 			super(detailMessage);
 		}
 	}
 
+	/**
+	 * This class is not meant to be instantiated.
+	 */
+	private Status() {
+	}
 }

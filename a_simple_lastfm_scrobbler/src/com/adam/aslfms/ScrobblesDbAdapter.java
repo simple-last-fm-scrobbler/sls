@@ -36,12 +36,12 @@ public class ScrobblesDbAdapter {
 
 	private static final String TAG = "ScrobblesDbAdapter";
 
-	public static final String KEY_ARTIST = "artist";
-	public static final String KEY_ALBUM = "album";
-	public static final String KEY_TRACK = "track";
-	public static final String KEY_DURATION = "duration";
-	public static final String KEY_WHEN = "whenplayed";
-	public static final String KEY_ROWID = "_id";
+	private static final String KEY_ARTIST = "artist";
+	private static final String KEY_ALBUM = "album";
+	private static final String KEY_TRACK = "track";
+	private static final String KEY_DURATION = "duration";
+	private static final String KEY_WHEN = "whenplayed";
+	private static final String KEY_ROWID = "_id";
 
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
@@ -98,7 +98,7 @@ public class ScrobblesDbAdapter {
 	}
 
 	/**
-	 * Open the notes database. If it cannot be opened, try to create a new
+	 * Open the scrobbles database. If it cannot be opened, try to create a new
 	 * instance of the database. If it cannot be created, throw an exception to
 	 * signal the failure
 	 * 
@@ -167,7 +167,7 @@ public class ScrobblesDbAdapter {
 		}
 		c.moveToFirst();
 		for (int i = 0; i < count; i++) {
-			tracks[i] = new Track(c.getString(1), c.getString(2), c
+			tracks[i] = Track.createTrackFromDb(c.getString(1), c.getString(2), c
 					.getString(3), c.getInt(4), c.getLong(5), c.getInt(0));
 			c.moveToNext();
 		}

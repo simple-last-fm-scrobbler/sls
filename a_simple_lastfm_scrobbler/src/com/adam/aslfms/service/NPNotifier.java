@@ -87,7 +87,7 @@ public class NPNotifier {
 				throw new BadSessionException(
 						"Nowplaying failed because of badsession");
 			} else {
-				throw new FailureException("NowPlaying failed weirdly");
+				throw new FailureException("NowPlaying failed weirdly: " + response);
 			}
 
 		} catch (ClientProtocolException e) {

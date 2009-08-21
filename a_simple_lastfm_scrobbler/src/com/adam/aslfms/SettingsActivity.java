@@ -34,9 +34,14 @@ import android.preference.PreferenceScreen;
 import android.util.Log;
 
 /**
+ * This is the activity that is shown when the user launches
+ * "A Simple Last.fm Scrobbler" from the app screen. It allows the user to set
+ * preferences regarding his/her scrobbling, whether to enable now playing
+ * notifications or not. It also allows the user to enter and clear user
+ * credentials.
  * 
  * @author tgwizard
- *
+ * 
  */
 public class SettingsActivity extends PreferenceActivity {
 
@@ -44,6 +49,7 @@ public class SettingsActivity extends PreferenceActivity {
 
 	private static final String SIGNUP_LINK = "https://www.last.fm/join";
 
+	// keys to Preference objects
 	private final String KEY_USER_CREDENTIALS = "user_credentials";
 	private final String KEY_EDIT_USER_CREDENTIALS = "edit_user_credentials";
 	private final String KEY_CLEAR_USER_CREDENTIALS = "clear_user_credentials";
@@ -109,7 +115,8 @@ public class SettingsActivity extends PreferenceActivity {
 			startActivity(browser);
 			return true;
 		} else if (preference == mTestNowplaying) {
-			Intent bcast = new Intent(PlayStatusReceiver.ACTION_ASLFMS_PLAYSTATECHANGED);
+			Intent bcast = new Intent(
+					PlayStatusReceiver.ACTION_ASLFMS_PLAYSTATECHANGED);
 			bcast.putExtra("artist", "Chris Cornell");
 			bcast.putExtra("album", "Casino Royale");
 			bcast.putExtra("track", "You Know My Name");
@@ -117,16 +124,8 @@ public class SettingsActivity extends PreferenceActivity {
 			sendBroadcast(bcast);
 			return true;
 		} else if (preference == mTestScrobbling) {
-			/*Intent service = new Intent(
-					ScrobblingService.ACTION_PLAYSTATECHANGED);
-
-			Track t = new Track("Chris Cornell", "Casino Royale",
-					"You Know My Name", 180, AppTransaction.currentTimeUTC());
-			AppTransaction.pushTrack(t);
-
-			service.putExtra("stopped", true);
-			startService(service);*/
-			Intent bcast = new Intent(PlayStatusReceiver.ACTION_ASLFMS_PLAYSTATECOMPLETE);
+			Intent bcast = new Intent(
+					PlayStatusReceiver.ACTION_ASLFMS_PLAYSTATECOMPLETE);
 			bcast.putExtra("artist", "Chris Cornell");
 			bcast.putExtra("album", "Casino Royale");
 			bcast.putExtra("track", "You Know My Name");
@@ -140,14 +139,15 @@ public class SettingsActivity extends PreferenceActivity {
 
 	protected void toggleScrobbling(boolean toggle) {
 		settings.setScrobblingEnabled(toggle);
-		// TODO: notify service perhaps
 	}
 
 	protected void toggleNowplaying(boolean toggle) {
 		settings.setNowPlayingEnabled(toggle);
-		// TODO: notify service perhaps
 	}
 
+	/**
+	 * Updates what is shown to the user.
+	 */
 	protected void update() {
 		Log.d(TAG, "update, authstat: " + settings.getAuthStatus());
 		mNowplayPref.setEnabled(false);

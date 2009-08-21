@@ -28,7 +28,11 @@ import android.os.Bundle;
 import android.util.Log;
 
 /**
+ * PlayStatusReceiver listens to broadcasts sent by the android and htc music
+ * players, and other music players through aslfms actions. When a broadcast has
+ * been received, it is translated into a Track, and sent to ScrobblingService.
  * 
+ * @see ScrobblingService
  * @author tgwizard
  * 
  */
@@ -73,7 +77,7 @@ public class PlayStatusReceiver extends BroadcastReceiver {
 
 			// As of cupcake, it is not possible (feasible) to get the actual
 			// duration of the playing track, so I default it to three minutes
-			track = new Track(ar, al, tr, Track.DEFAULT_TRACK_LENGTH,
+			track = Track.createTrack(ar, al, tr, Track.DEFAULT_TRACK_LENGTH,
 					AppTransaction.currentTimeUTC());
 
 			if (action.equals(ACTION_ANDROID_STOP)
@@ -102,7 +106,8 @@ public class PlayStatusReceiver extends BroadcastReceiver {
 				dur = Track.DEFAULT_TRACK_LENGTH;
 			}
 
-			track = new Track(ar, al, tr, dur, AppTransaction.currentTimeUTC());
+			track = Track.createTrack(ar, al, tr, dur, AppTransaction
+					.currentTimeUTC());
 
 			if (action.equals(ACTION_ASLFMS_PLAYSTATECOMPLETE)) {
 				service.putExtra("stopped", true);
