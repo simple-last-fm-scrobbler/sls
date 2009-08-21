@@ -37,14 +37,14 @@ import android.util.Log;
 import com.adam.aslfms.R;
 import com.adam.aslfms.Track;
 import com.adam.aslfms.Status.BadSessionException;
-import com.adam.aslfms.Status.FailureException;
+import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.Status.TemporaryFailureException;
 import com.adam.aslfms.service.Handshaker.HandshakeInfo;
 
 /**
  * 
  * @author tgwizard
- *
+ * 
  */
 public class NPNotifier {
 
@@ -59,8 +59,21 @@ public class NPNotifier {
 		this.hInfo = hInfo;
 	}
 
+	/**
+	 * Connects to Last.fm servers and requests a Now Playing notification of
+	 * <code>track</code>. If an error occurs, exceptions are thrown.
+	 * 
+	 * @param track
+	 *            the track to send as notification
+	 * @throws BadSessionException
+	 *             means that a new handshake is needed
+	 * @throws TemporaryFailureException
+	 * @throws UnknownResponseException
+	 *             {@link UnknownResponseException}
+	 * 
+	 */
 	public void notifyNowPlaying(Track track) throws BadSessionException,
-			TemporaryFailureException, FailureException {
+			TemporaryFailureException, UnknownResponseException {
 		Log.d(TAG, "Notifying Playing");
 
 		Log.d(TAG, "Track: " + track.toString());
@@ -74,20 +87,20 @@ public class NPNotifier {
 		data.add(new BasicNameValuePair("a", track.getArtist().toString()));
 		data.add(new BasicNameValuePair("b", track.getAlbum().toString()));
 		data.add(new BasicNameValuePair("t", track.getTrack().toString()));
-		data.add(new BasicNameValuePair("l", ""+track.getDuration()));
+		data.add(new BasicNameValuePair("l", "" + track.getDuration()));
 
 		try {
 			request.setEntity(new UrlEncodedFormEntity(data, "UTF-8"));
 			ResponseHandler<String> handler = new BasicResponseHandler();
 			String response = http.execute(request, handler);
-			Log.d(TAG, "npresponse: " + response);
 			if (response.startsWith("OK")) {
 				Log.i(TAG, "Nowplaying success");
 			} else if (response.startsWith("BADSESSION")) {
 				throw new BadSessionException(
 						"Nowplaying failed because of badsession");
 			} else {
-				throw new FailureException("NowPlaying failed weirdly: " + response);
+				throw new UnknownResponseException(
+						"NowPlaying failed weirdly: " + response);
 			}
 
 		} catch (ClientProtocolException e) {

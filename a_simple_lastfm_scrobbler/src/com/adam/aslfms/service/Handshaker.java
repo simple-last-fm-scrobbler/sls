@@ -35,8 +35,9 @@ import android.util.Log;
 import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.InternalTrackTransmitter;
 import com.adam.aslfms.R;
+import com.adam.aslfms.Status.ClientBannedException;
 import com.adam.aslfms.Status.BadAuthException;
-import com.adam.aslfms.Status.FailureException;
+import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.Status.TemporaryFailureException;
 import com.adam.aslfms.util.MD5;
 
@@ -57,17 +58,25 @@ public class Handshaker {
 		this.mCtx = ctx;
 		this.settings = new AppSettings(ctx);
 	}
-	
+
 	/**
-	 * Internal, should only be called by tryHandshake()
+	 * Connects to Last.fm servers and tries to handshake/authenticate. A
+	 * successful handshake is needed for all other submission requests. If an
+	 * error occurs, exceptions are thrown.
 	 * 
-	 * @param username
-	 * @param pwdMd5
-	 * @param firstAuth
-	 * @return status
+	 * @return the result of a successful handshake, {@link HandshakeInfo}
+	 * @throws BadAuthException
+	 *             means that the username/password provided by the user was
+	 *             wrong, or that the user requested his/her credentials to be
+	 *             cleared.
+	 * @throws TemporaryFailureException
+	 * @throws UnknownResponseException
+	 *             {@link UnknownResponseException}
+	 * @throws ClientBannedException
+	 *             this version of the client has been banned
 	 */
 	public HandshakeInfo handshake() throws BadAuthException,
-			TemporaryFailureException, FailureException {
+			TemporaryFailureException, UnknownResponseException, ClientBannedException {
 		Log.d(TAG, "Handshaking");
 
 		String username = settings.getUsername();
@@ -84,8 +93,10 @@ public class Handshaker {
 		// for apps with real client-id and client-ver
 		String clientid = mCtx.getString(R.string.client_id);
 		String clientver = mCtx.getString(R.string.client_ver);
+		// end
 
-		String time = new Long(InternalTrackTransmitter.currentTimeUTC()).toString();
+		String time = new Long(InternalTrackTransmitter.currentTimeUTC())
+				.toString();
 
 		String authToken = MD5.getHashString(pwdMd5 + time);
 
@@ -99,10 +110,9 @@ public class Handshaker {
 		try {
 			ResponseHandler<String> handler = new BasicResponseHandler();
 			String response = http.execute(request, handler);
-			Log.d(TAG, "hresponse: " + response);
 			String[] lines = response.split("\n");
 			if (lines.length == 4 && lines[0].equals("OK")) {
-				// handshake succeded
+				// handshake succeeded
 				Log.i(TAG, "Handshake succeeded!");
 
 				HandshakeInfo hi = new HandshakeInfo(lines[1], lines[2],
@@ -112,7 +122,7 @@ public class Handshaker {
 			} else if (lines.length == 1) {
 				if (lines[0].startsWith("BANNED")) {
 					Log.e(TAG, "Handshake fails: client banned");
-					throw new FailureException(mCtx
+					throw new ClientBannedException(mCtx
 							.getString(R.string.auth_client_banned));
 				} else if (lines[0].startsWith("BADAUTH")) {
 					Log.i(TAG, "Handshake fails: bad auth");
@@ -130,7 +140,8 @@ public class Handshaker {
 							+ " ");
 				}
 			} else {
-				throw new FailureException("Weird response from handskake-req: " + response);
+				throw new UnknownResponseException(
+						"Weird response from handskake-req: " + response);
 			}
 
 		} catch (ClientProtocolException e) {
@@ -153,12 +164,43 @@ public class Handshaker {
 		}
 	}
 
+	/**
+	 * Small struct holding the results of a successful handshake. All the
+	 * fields are final and public, as they will never change as long as the
+	 * handshake is valid.
+	 * 
+	 * @author tgwizard
+	 * 
+	 */
 	public static class HandshakeInfo {
+		/**
+		 * The id needed for all submission requests.
+		 */
 		public final String sessionId;
+
+		/**
+		 * The URI to send now-playing-notification requests to.
+		 */
 		public final String nowPlayingUri;
+
+		/**
+		 * The URI to send scrobble requests to.
+		 */
 		public final String scrobbleUri;
 
-		public HandshakeInfo(String sessionId, String nowPlayingUri,
+		/**
+		 * Constructs a new handshake info struct. Only {@link Handshaker} can
+		 * get the information needed to instantiate this class, and therefore
+		 * the constructor is private.
+		 * 
+		 * @param sessionId
+		 *            the id needed for all submission requests.
+		 * @param nowPlayingUri
+		 *            the URI to send now-playing-notification requests to.
+		 * @param scrobbleUri
+		 *            the URI to send scrobble requests to.
+		 */
+		private HandshakeInfo(String sessionId, String nowPlayingUri,
 				String scrobbleUri) {
 			super();
 			this.sessionId = sessionId;

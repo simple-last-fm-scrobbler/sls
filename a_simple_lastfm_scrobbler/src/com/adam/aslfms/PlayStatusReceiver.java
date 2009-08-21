@@ -32,7 +32,13 @@ import android.util.Log;
  * players, and other music players through aslfms actions. When a broadcast has
  * been received, it is translated into a Track, and sent to ScrobblingService.
  * 
+ * This is the only class that external applications should care about. See the
+ * link to some example code below for how to use this class.
+ * 
  * @see ScrobblingService
+ * @see <a
+ *      href="http://code.google.com/p/a-simple-lastfm-scrobbler/wiki/Developers">Example
+ *      code</a>
  * @author tgwizard
  * 
  */
@@ -122,7 +128,7 @@ public class PlayStatusReceiver extends BroadcastReceiver {
 			return;
 		}
 
-		InternalTrackTransmitter.pushTrack(track);
+		InternalTrackTransmitter.appendTrack(track);
 		context.startService(service);
 	}
 

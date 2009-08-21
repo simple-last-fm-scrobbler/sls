@@ -24,31 +24,43 @@ import java.util.LinkedList;
 import java.util.TimeZone;
 
 /**
- * Internal class that transmits tracks from {@link PlayStatusReceiver} to {@link ScrobblingService}.
+ * Internal class that transmits tracks from {@link PlayStatusReceiver} to
+ * {@link ScrobblingService}.
  * 
  * @author tgwizard
  * 
  */
 public class InternalTrackTransmitter {
-	private static final Object syncObject = new Object();
 	private static LinkedList<Track> tracks = new LinkedList<Track>();
 
-	public static void pushTrack(Track t) {
-		synchronized (syncObject) {
-			tracks.addLast(t);
-		}
+	/**
+	 * Appends <code>track</code> to the queue of tracks that
+	 * {@link ScrobblingService} will pickup.
+	 * <p>
+	 * The method is thread-safe.
+	 * 
+	 * @param track
+	 */
+	public static synchronized void appendTrack(Track track) {
+		tracks.addLast(track);
 	}
 
-	public static Track popTrack() {
-		synchronized (syncObject) {
-			if (tracks.isEmpty())
-				return null;
-			return tracks.removeFirst();
-		}
+	/**
+	 * Pops a Track from the queue of tracks in FIFO order.
+	 * <p>
+	 * The method is thread-safe.
+	 * 
+	 * @return
+	 */
+	public synchronized static Track popTrack() {
+		if (tracks.isEmpty())
+			return null;
+		return tracks.removeFirst();
 	}
 
 	/**
 	 * FIXME: where does this method belong?
+	 * 
 	 * @return the current time since 1970, UTC, in seconds
 	 */
 	public static long currentTimeUTC() {

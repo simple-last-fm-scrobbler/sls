@@ -84,7 +84,7 @@ public class ScrobblingService extends Service {
 
 	@Override
 	public void onStart(Intent i, int startId) {
-		Log.d(TAG, "ScrobblingService started");
+		Log.d(TAG, "ScrobblingService \"started\"");
 		if (i.getAction().equals(ACTION_CLEARCREDS)) {
 			Log.d(TAG, "Will launch clear creds");
 			mNetworkLoop.launchClearCreds();
@@ -160,7 +160,6 @@ public class ScrobblingService extends Service {
 			return;
 		}
 
-		Log.d(TAG, "Might Scrobble");
 		if (track == null) {
 			Log.e(TAG, "Got null track in tryScrobble!");
 			return;
@@ -168,7 +167,7 @@ public class ScrobblingService extends Service {
 		if (checkTime(track, careAboutTrackTimeStamp)) {
 			// TODO: should prepare scrobble earlier
 			// But that will not be possible with the limited info available
-			// from MusicService
+			// from MusicPlaybackService
 			scrobblePrepare(track);
 			settings.setLastScrobbleTime(InternalTrackTransmitter.currentTimeUTC());
 			mNetworkLoop.launchScrobbler();

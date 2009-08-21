@@ -29,7 +29,8 @@ import com.adam.aslfms.Status;
 import com.adam.aslfms.Track;
 import com.adam.aslfms.Status.BadAuthException;
 import com.adam.aslfms.Status.BadSessionException;
-import com.adam.aslfms.Status.FailureException;
+import com.adam.aslfms.Status.ClientBannedException;
+import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.Status.TemporaryFailureException;
 import com.adam.aslfms.service.Handshaker.HandshakeInfo;
 
@@ -218,12 +219,17 @@ public class NetworkLoop implements Runnable {
 			sleepRetry();
 			if (doAuth)
 				updateAuthStatus(Status.AUTHSTATUS_RETRYLATER);
-		} catch (FailureException e) {
+		} catch (UnknownResponseException e) {
 			Log.e(TAG, "Serious failure while handshaking");
 			Log.e(TAG, e.getMessage());
-			updateAuthStatus(Status.AUTHSTATUS_FAILED);
+			if (doAuth)
+				updateAuthStatus(Status.AUTHSTATUS_FAILED);
 			// TODO: what??
 			// this is a _serious_ failure
+		} catch (ClientBannedException e) {
+			Log.e(TAG, "This version of the client has been banned!!");
+			Log.e(TAG, e.getMessage());
+			// TODO: what??
 		}
 		return ret;
 	}
@@ -245,7 +251,7 @@ public class NetworkLoop implements Runnable {
 			} catch (TemporaryFailureException e) {
 				Log.i(TAG, e.getMessage());
 				retry();
-			} catch (FailureException e) {
+			} catch (UnknownResponseException e) {
 				Log.e(TAG, "Serious failure while scrobbling");
 				Log.e(TAG, e.getMessage());
 				// TODO: what??
@@ -270,7 +276,7 @@ public class NetworkLoop implements Runnable {
 				Log.i(TAG, e.getMessage());
 				retry();
 				launchNPNotifier(t);
-			} catch (FailureException e) {
+			} catch (UnknownResponseException e) {
 				Log.e(TAG, "Serious failure while notifying np");
 				Log.e(TAG, e.getMessage());
 				// TODO: what??
