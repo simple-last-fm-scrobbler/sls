@@ -34,7 +34,7 @@ import org.apache.http.message.BasicNameValuePair;
 import android.content.Context;
 import android.util.Log;
 
-import com.adam.aslfms.ScrobblesDbAdapter;
+import com.adam.aslfms.ScrobblesDatabase;
 import com.adam.aslfms.Track;
 import com.adam.aslfms.Status.BadSessionException;
 import com.adam.aslfms.Status.FailureException;
@@ -52,13 +52,13 @@ public class Scrobbler {
 
 	//private final Context mCtx;
 	private final Handshaker.HandshakeInfo hInfo;
-	private final ScrobblesDbAdapter mDbHelper;
+	private final ScrobblesDatabase mDbHelper;
 
 	private static final int MAX_SCROBBLE_LIMIT = 50;
 	private Track[] mTracks;
 
 	public Scrobbler(Context ctx, HandshakeInfo hInfo,
-			ScrobblesDbAdapter dbHelper) {
+			ScrobblesDatabase dbHelper) {
 		super();
 		//this.mCtx = ctx;
 		this.hInfo = hInfo;
