@@ -19,8 +19,6 @@
 
 package com.adam.aslfms;
 
-import com.adam.aslfms.service.ScrobblingService;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -32,6 +30,9 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.util.Log;
+
+import com.adam.aslfms.R;
+import com.adam.aslfms.service.ScrobblingService;
 
 /**
  * This is the activity that is shown when the user launches

@@ -3,14 +3,14 @@
 	package="com.adam.aslfms" android:versionCode="1" android:versionName="1.0">
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:debuggable="true">
-		<activity android:name="SettingsActivity" android:label="@string/app_name"
+		<activity android:name="com.adam.aslfms.SettingsActivity" android:label="@string/app_name"
 			android:icon="@drawable/icon">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<receiver android:name="PlayStatusReceiver" android:exported="true"
+		<receiver android:name="com.adam.aslfms.PlayStatusReceiver" android:exported="true"
 			android:enabled="true">
 			<intent-filter>
 				<action android:name="com.android.music.metachanged" />

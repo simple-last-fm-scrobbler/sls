@@ -19,9 +19,6 @@
 
 package com.adam.aslfms;
 
-import com.adam.aslfms.service.ScrobblingService;
-import com.adam.aslfms.util.MD5;
-
 import android.content.Context;
 import android.content.Intent;
 import android.preference.DialogPreference;
@@ -30,6 +27,9 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
+
+import com.adam.aslfms.service.ScrobblingService;
+import com.adam.aslfms.util.MD5;
 
 /**
  * 
