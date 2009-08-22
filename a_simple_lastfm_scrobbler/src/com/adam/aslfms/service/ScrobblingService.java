@@ -29,6 +29,7 @@ import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.InternalTrackTransmitter;
 import com.adam.aslfms.ScrobblesDatabase;
 import com.adam.aslfms.Track;
+import com.adam.aslfms.util.Util;
 
 /**
  * 
@@ -43,7 +44,8 @@ public class ScrobblingService extends Service {
 	public static final String ACTION_CLEARCREDS = "com.adam.aslfms.service.clearcreds";
 	public static final String ACTION_PLAYSTATECHANGED = "com.adam.aslfms.service.playstatechanged";
 
-	public static final String BROADCAST_ONAUTHCHANGED = "com.adam.aslfms.service.onauth";
+	public static final String BROADCAST_ONAUTHCHANGED = "com.adam.aslfms.service.bcast.onauth";
+	public static final String BROADCAST_ONSTATUSCHANGED = "com.adam.aslfms.service.bcast.onstatus";
 
 	private static final int MIN_SCROBBLE_TIME = 30;
 
@@ -65,13 +67,12 @@ public class ScrobblingService extends Service {
 		mDbHelper = new ScrobblesDatabase(this);
 		try {
 			mDbHelper.open();
-		} catch(SQLException e) {
+		} catch (SQLException e) {
 			Log.e(TAG, "Cannot open database!");
 			Log.e(TAG, e.getMessage());
 			Log.e(TAG, "Will terminate");
 			stopSelf();
 		}
-		
 
 		mNetworkLoop = new NetworkLoop(this, mDbHelper);
 		new Thread(mNetworkLoop).start();
@@ -142,8 +143,11 @@ public class ScrobblingService extends Service {
 	}
 
 	/**
-	 * Launches a Now Playing notification of <code>track</code>, if we're authenticated and Now Playing is enabled.
-	 * @param track the currently playing track
+	 * Launches a Now Playing notification of <code>track</code>, if we're
+	 * authenticated and Now Playing is enabled.
+	 * 
+	 * @param track
+	 *            the currently playing track
 	 */
 	private void tryNotifyNP(Track track) {
 		if (settings.isAuthenticated() && settings.isNowPlayingEnabled()) {
@@ -169,13 +173,13 @@ public class ScrobblingService extends Service {
 			// But that will not be possible with the limited info available
 			// from MusicPlaybackService
 			scrobblePrepare(track);
-			settings.setLastScrobbleTime(InternalTrackTransmitter.currentTimeUTC());
+			settings.setLastListenTime(Util.currentTimeSecsUTC());
 			mNetworkLoop.launchScrobbler();
 		}
 	}
 
 	private boolean checkTime(Track track, boolean careAboutTrackTimeStamp) {
-		long currentTime = InternalTrackTransmitter.currentTimeUTC();
+		long currentTime = Util.currentTimeSecsUTC();
 		long diff = currentTime - settings.getLastListenTime();
 		if (diff < MIN_SCROBBLE_TIME) {
 			Log.i(TAG, "Tried to scrobble " + diff
@@ -188,10 +192,13 @@ public class ScrobblingService extends Service {
 		if (careAboutTrackTimeStamp) {
 			len = currentTime - track.getWhen();
 			if (len < MIN_SCROBBLE_TIME) {
-				Log.i(TAG, "Tried to scrobble "
-							+ len
-							+ "s after track start, which is less than the required "
-							+ MIN_SCROBBLE_TIME + "s");
+				Log
+						.i(
+								TAG,
+								"Tried to scrobble "
+										+ len
+										+ "s after track start, which is less than the required "
+										+ MIN_SCROBBLE_TIME + "s");
 				return false;
 			}
 		}
@@ -210,6 +217,6 @@ public class ScrobblingService extends Service {
 			Log.d(TAG, "Could not insert scrobble into the db");
 			Log.d(TAG, track.toString());
 		}
-		
+
 	}
 }

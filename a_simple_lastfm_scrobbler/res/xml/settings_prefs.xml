@@ -24,7 +24,13 @@
 		android:title="@string/nowplaying"
 		android:summaryOff="@string/nowplaying_enable"
 		android:persistent="false" />
+		
     <PreferenceCategory android:title="@string/scrobble_status_title"/>
+    <Preference android:key="status_show"
+                android:title="@string/status_show_title"
+                android:summary="@string/status_show_summary"/>
+                
+    <PreferenceCategory android:title="Test stuff"/>
     <Preference android:key="test_nowplaying"
             android:title="Test Now Playing"
             android:summary="..."/>

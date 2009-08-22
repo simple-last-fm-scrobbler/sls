@@ -34,11 +34,11 @@ import com.adam.aslfms.util.MD5;
 /**
  * 
  * @author tgwizard
- *
+ * 
  */
 public class EditUserCredentials extends DialogPreference {
 
-	//private static final String TAG = "EditUserCredentials";
+	// private static final String TAG = "EditUserCredentials";
 
 	private EditText mUsername;
 	private EditText mPassword;
@@ -57,14 +57,11 @@ public class EditUserCredentials extends DialogPreference {
 		super.onBindDialogView(view);
 		mUsername = (EditText) view.findViewById(R.id.username);
 		mPassword = (EditText) view.findViewById(R.id.password);
-
 		mUsername.addTextChangedListener(new TextWatcher() {
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
-				// String username = s.toString().replaceAll("\\s", "");
-				// The Button.setEnabled(username.length() != 0);
 			}
 
 			@Override
@@ -74,6 +71,7 @@ public class EditUserCredentials extends DialogPreference {
 
 			@Override
 			public void afterTextChanged(Editable s) {
+				// TODO: disable the auth button if username is empty
 			}
 		});
 

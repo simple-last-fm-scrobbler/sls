@@ -33,13 +33,13 @@ import android.content.Context;
 import android.util.Log;
 
 import com.adam.aslfms.AppSettings;
-import com.adam.aslfms.InternalTrackTransmitter;
 import com.adam.aslfms.R;
-import com.adam.aslfms.Status.ClientBannedException;
 import com.adam.aslfms.Status.BadAuthException;
-import com.adam.aslfms.Status.UnknownResponseException;
+import com.adam.aslfms.Status.ClientBannedException;
 import com.adam.aslfms.Status.TemporaryFailureException;
+import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.util.MD5;
+import com.adam.aslfms.util.Util;
 
 /**
  * 
@@ -76,7 +76,8 @@ public class Handshaker {
 	 *             this version of the client has been banned
 	 */
 	public HandshakeInfo handshake() throws BadAuthException,
-			TemporaryFailureException, UnknownResponseException, ClientBannedException {
+			TemporaryFailureException, UnknownResponseException,
+			ClientBannedException {
 		Log.d(TAG, "Handshaking");
 
 		String username = settings.getUsername();
@@ -95,8 +96,7 @@ public class Handshaker {
 		String clientver = mCtx.getString(R.string.client_ver);
 		// end
 
-		String time = new Long(InternalTrackTransmitter.currentTimeUTC())
-				.toString();
+		String time = new Long(Util.currentTimeSecsUTC()).toString();
 
 		String authToken = MD5.getHashString(pwdMd5 + time);
 

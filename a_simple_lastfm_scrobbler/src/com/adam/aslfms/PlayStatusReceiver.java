@@ -19,13 +19,14 @@
 
 package com.adam.aslfms;
 
-import com.adam.aslfms.service.ScrobblingService;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.adam.aslfms.service.ScrobblingService;
+import com.adam.aslfms.util.Util;
 
 /**
  * PlayStatusReceiver listens to broadcasts sent by the android and htc music
@@ -66,6 +67,12 @@ public class PlayStatusReceiver extends BroadcastReceiver {
 			Log.e(TAG, "Got null action or null bundle");
 			return;
 		}
+		
+		AppSettings settings = new AppSettings(context);
+		if (!settings.isAuthenticated()) {
+			Log.i(TAG, "The user has not authenticated, won't propagate the scrobble/np-notification request");
+			return;
+		}
 
 		Log.d(TAG, "Action received was: " + action);
 
@@ -84,7 +91,7 @@ public class PlayStatusReceiver extends BroadcastReceiver {
 			// As of cupcake, it is not possible (feasible) to get the actual
 			// duration of the playing track, so I default it to three minutes
 			track = Track.createTrack(ar, al, tr, Track.DEFAULT_TRACK_LENGTH,
-					InternalTrackTransmitter.currentTimeUTC());
+					Util.currentTimeSecsUTC());
 
 			if (action.equals(ACTION_ANDROID_STOP)
 					|| action.equals(ACTION_HTC_STOP)) {
@@ -112,8 +119,7 @@ public class PlayStatusReceiver extends BroadcastReceiver {
 				dur = Track.DEFAULT_TRACK_LENGTH;
 			}
 
-			track = Track.createTrack(ar, al, tr, dur, InternalTrackTransmitter
-					.currentTimeUTC());
+			track = Track.createTrack(ar, al, tr, dur, Util.currentTimeSecsUTC());
 
 			if (action.equals(ACTION_ASLFMS_PLAYSTATECOMPLETE)) {
 				service.putExtra("stopped", true);

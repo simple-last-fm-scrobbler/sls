@@ -2,10 +2,10 @@
 <resources>
     <string name="app_name">A Simple Last.fm Scrobbler</string>
 <string name="scrobbling">Scrobbling</string>
-<string name="scrobbling_enable">Turn on scrobbling</string>
+<string name="scrobbling_enable">Submit listening information to Last.fm</string>
 
 <string name="nowplaying">Now playing</string>
-<string name="nowplaying_enable">Turn on now playing notifications</string>
+<string name="nowplaying_enable">Tell Last.fm what song you currently listen to</string>
 
 <string name="user_credentials_title">User credentials</string>
 <string name="user_credentials_summary">Set username and password for your Last.fm account</string>
@@ -27,4 +27,16 @@
 <string name="create_user_title">Sign up</string>
 <string name="create_user_summary">Sign up for an account at Last.fm</string>
 <string name="other_category_title">Other</string>
+
+
+
+<string name="status_show_title">Status</string>
+<string name="status_show_summary">Show statistics and overall status</string>
+<string name="status_title">Status info</string>
+<string name="ok">Ok</string>
+<string name="scrobbling_disabled">Scrobbling is disabled</string>
+<string name="scrobble_last_at">Last scrobble submitted at:</string>
+<string name="nowplaying_disabled">Now playing notifications are disabled</string>
+<string name="nowplaying_last_at">Last now playing notification submitted at:</string>
+<string name="stats_ugly">Scrobbles/Now playing notifications submitted:</string>
 </resources>
