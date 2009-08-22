@@ -39,7 +39,7 @@ import com.adam.aslfms.Track;
 import com.adam.aslfms.Status.BadSessionException;
 import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.Status.TemporaryFailureException;
-import com.adam.aslfms.service.Handshaker.HandshakeInfo;
+import com.adam.aslfms.service.Handshaker.HandshakeResult;
 
 /**
  * 
@@ -51,9 +51,9 @@ public class NPNotifier {
 	private static final String TAG = "NPNotifier";
 
 	private final Context mCtx;
-	private final HandshakeInfo hInfo;
+	private final HandshakeResult hInfo;
 
-	public NPNotifier(Context ctx, HandshakeInfo hInfo) {
+	public NPNotifier(Context ctx, HandshakeResult hInfo) {
 		super();
 		this.mCtx = ctx;
 		this.hInfo = hInfo;

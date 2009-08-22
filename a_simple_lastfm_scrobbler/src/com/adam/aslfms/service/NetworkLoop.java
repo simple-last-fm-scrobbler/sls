@@ -24,6 +24,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.adam.aslfms.AppSettings;
+import com.adam.aslfms.R;
 import com.adam.aslfms.ScrobblesDatabase;
 import com.adam.aslfms.Status;
 import com.adam.aslfms.Track;
@@ -32,7 +33,8 @@ import com.adam.aslfms.Status.BadSessionException;
 import com.adam.aslfms.Status.ClientBannedException;
 import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.Status.TemporaryFailureException;
-import com.adam.aslfms.service.Handshaker.HandshakeInfo;
+import com.adam.aslfms.service.Handshaker.HandshakeResult;
+import com.adam.aslfms.service.Scrobbler.ScrobbleResult;
 import com.adam.aslfms.util.Util;
 
 /**
@@ -42,6 +44,7 @@ import com.adam.aslfms.util.Util;
  * launchNPNotifier
  * 
  * FIXME: this class is somewhat bloated and difficult to maintain
+ * 
  * @author tgwizard
  * 
  */
@@ -190,7 +193,7 @@ public class NetworkLoop implements Runnable {
 			notifyAuthStatusUpdate(Status.AUTHSTATUS_UPDATING);
 
 		try {
-			HandshakeInfo hi = mHandshaker.handshake();
+			HandshakeResult hi = mHandshaker.handshake();
 
 			mScrobbler = new Scrobbler(mCtx, hi, mDbHelper);
 			mNPNotifier = new NPNotifier(mCtx, hi);
@@ -245,17 +248,29 @@ public class NetworkLoop implements Runnable {
 			Log.e(TAG, "Scrobbler is null when we want to scrobble!!");
 		} else {
 			try {
-				boolean doAgain = mScrobbler.scrobbleCommit();
-				if (!doAgain) {
+				ScrobbleResult sr = mScrobbler.scrobbleCommit();
+				if (sr.tracksLeftInDb == 0) {
 					decScrobbleReqs(sCount);
 				}
-				
+
 				// status stuff
 				settings.setLastScrobbleSuccess(true);
-				settings.setLastScrobbleTime(Util.currentTimeMillisLocal());
-				settings.setNumberOfScrobbles(settings.getNumberOfScrobbles()+1);
+				if (sr.tracksScrobbled != 0) {
+					settings.setLastScrobbleTime(Util.currentTimeMillisLocal());
+					settings.setNumberOfScrobbles(settings
+							.getNumberOfScrobbles()
+							+ sr.tracksScrobbled);
+					if (sr.lastTrack != null) {
+						settings.setLastScrobbleInfo("\""
+								+ sr.lastTrack.getTrack() + "\" "
+								+ mCtx.getString(R.string.by) + " "
+								+ sr.lastTrack.getArtist());
+					} else {
+						Log.e(TAG, "Got null track left over from Scrobbler");
+					}
+				}
 				notifyStatusUpdate();
-				
+
 				ret = true;
 			} catch (BadSessionException e) {
 				Log.i(TAG, e.getMessage());
@@ -280,13 +295,15 @@ public class NetworkLoop implements Runnable {
 		} else {
 			try {
 				mNPNotifier.notifyNowPlaying(t);
-				
+
 				// status stuff
 				settings.setLastNPSuccess(true);
 				settings.setLastNPTime(Util.currentTimeMillisLocal());
-				settings.setNumberOfNPs(settings.getNumberOfNPs()+1);
+				settings.setNumberOfNPs(settings.getNumberOfNPs() + 1);
+				settings.setLastNPInfo("\"" + t.getTrack() + "\" "
+						+ mCtx.getString(R.string.by) + " " + t.getArtist());
 				notifyStatusUpdate();
-				
+
 				ret = true;
 			} catch (BadSessionException e) {
 				Log.i(TAG, e.getMessage());
@@ -456,7 +473,7 @@ public class NetworkLoop implements Runnable {
 		Intent i = new Intent(ScrobblingService.BROADCAST_ONAUTHCHANGED);
 		mCtx.sendBroadcast(i);
 	}
-	
+
 	private void notifyStatusUpdate() {
 		Intent i = new Intent(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
 		mCtx.sendBroadcast(i);

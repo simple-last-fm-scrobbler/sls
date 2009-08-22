@@ -159,10 +159,11 @@ public class SettingsActivity extends PreferenceActivity {
 	}
 
 	/**
-	 * Updates what is shown to the user.
+	 * Updates what is shown to the user - preference titles and summaries, and
+	 * whether stuff is enabled or checked, etc.
 	 */
 	protected void update() {
-		Log.d(TAG, "update, authstat: " + settings.getAuthStatus());
+
 		mNowplayPref.setEnabled(false);
 		mScrobblePref.setEnabled(false);
 		if (settings.getAuthStatus() == Status.AUTHSTATUS_BADAUTH) {

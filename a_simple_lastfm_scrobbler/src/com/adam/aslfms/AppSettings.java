@@ -154,8 +154,12 @@ public class AppSettings {
 		e.commit();
 	}
 
+	/**
+	 * Returns the time of the last successful scrobble.
+	 * @return the time in milliseconds, or -1 if not set
+	 */
 	public long getLastScrobbleTime() {
-		return prefs.getLong(KEY_STATUS_LAST_SCROBBLE_TIME, 0);
+		return prefs.getLong(KEY_STATUS_LAST_SCROBBLE_TIME, -1);
 	}
 	
 	public void setLastScrobbleSuccess(boolean b) {
@@ -185,8 +189,12 @@ public class AppSettings {
 		e.commit();
 	}
 
+	/**
+	 * Returns the time of the last successful now-playing notification.
+	 * @return the time in milliseconds, or -1 if not set
+	 */
 	public long getLastNPTime() {
-		return prefs.getLong(KEY_STATUS_LAST_NP_TIME, 0);
+		return prefs.getLong(KEY_STATUS_LAST_NP_TIME, -1);
 	}
 	
 	public void setLastNPSuccess(boolean b) {

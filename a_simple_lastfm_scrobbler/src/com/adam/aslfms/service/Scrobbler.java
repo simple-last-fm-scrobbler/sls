@@ -39,7 +39,7 @@ import com.adam.aslfms.Track;
 import com.adam.aslfms.Status.BadSessionException;
 import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.Status.TemporaryFailureException;
-import com.adam.aslfms.service.Handshaker.HandshakeInfo;
+import com.adam.aslfms.service.Handshaker.HandshakeResult;
 
 /**
  * 
@@ -50,17 +50,17 @@ public class Scrobbler {
 
 	private static final String TAG = "Scrobbler";
 
-	//private final Context mCtx;
-	private final Handshaker.HandshakeInfo hInfo;
+	// private final Context mCtx;
+	private final Handshaker.HandshakeResult hInfo;
 	private final ScrobblesDatabase mDbHelper;
 
-	private static final int MAX_SCROBBLE_LIMIT = 50;
+	public static final int MAX_SCROBBLE_LIMIT = 50;
 	private Track[] mTracks;
 
-	public Scrobbler(Context ctx, HandshakeInfo hInfo,
+	public Scrobbler(Context ctx, HandshakeResult hInfo,
 			ScrobblesDatabase dbHelper) {
 		super();
-		//this.mCtx = ctx;
+		// this.mCtx = ctx;
 		this.hInfo = hInfo;
 		this.mDbHelper = dbHelper;
 		this.mTracks = new Track[MAX_SCROBBLE_LIMIT];
@@ -68,28 +68,31 @@ public class Scrobbler {
 
 	/**
 	 * 
-	 * @return true if there are more scrobbles left
+	 * @return a {@link ScrobbleResult} struct with some info
 	 * @throws BadSessionException
 	 * @throws TemporaryFailureException
 	 * @throws UnknownResponseException
 	 */
-	public boolean scrobbleCommit() throws BadSessionException,
+	public ScrobbleResult scrobbleCommit() throws BadSessionException,
 			TemporaryFailureException, UnknownResponseException {
 		Log.d(TAG, "Scrobble commit");
 
 		int count = mDbHelper.fetchScrobblesArray(mTracks, MAX_SCROBBLE_LIMIT);
 		if (count == 0) {
 			Log.d(TAG, "Retrieved 0 tracks from db, no submissions");
-			return false;
+			return new ScrobbleResult(0, 0, null);
 		}
 
-		boolean ret = false;
+		ScrobbleResult res;
 		Log.d(TAG, "Retrieved " + count + " tracks from db");
 		if (count > MAX_SCROBBLE_LIMIT) {
+			res = new ScrobbleResult(count - MAX_SCROBBLE_LIMIT,
+					MAX_SCROBBLE_LIMIT, mTracks[MAX_SCROBBLE_LIMIT - 1]);
 			Log.d(TAG, "But only " + MAX_SCROBBLE_LIMIT
 					+ " will be submitted just now");
-			ret = true;
 			count = MAX_SCROBBLE_LIMIT;
+		} else {
+			res = new ScrobbleResult(0, count, mTracks[count - 1]);
 		}
 		for (int i = 0; i < count; i++) {
 			Log.d(TAG, mTracks[i].toString());
@@ -132,17 +135,19 @@ public class Scrobbler {
 					mDbHelper.deleteScrobble(mTracks[i]);
 				}
 
-				// resettings mTracks in finally below
+				// resettings mTracks in the finally-clause below
 
-				return ret;
+				return res;
 			} else if (response.startsWith("BADSESSION")) {
 				throw new BadSessionException(
 						"Scrobble failed because of badsession");
 			} else if (response.startsWith("FAILED")) {
 				String reason = lines[0].substring(7);
-				throw new TemporaryFailureException("Scrobble failed: " + reason);
+				throw new TemporaryFailureException("Scrobble failed: "
+						+ reason);
 			} else {
-				throw new UnknownResponseException("Scrobble failed weirdly: " + response);
+				throw new UnknownResponseException("Scrobble failed weirdly: "
+						+ response);
 			}
 
 		} catch (ClientProtocolException e) {
@@ -158,6 +163,53 @@ public class Scrobbler {
 			}
 
 			http.getConnectionManager().shutdown();
+		}
+	}
+
+	/**
+	 * Small struct holding the results of a successful scrobble request. All
+	 * the fields are final and public.
+	 * 
+	 * @author tgwizard
+	 * 
+	 */
+	public static class ScrobbleResult {
+		/**
+		 * The number of tracks left in the db after the scrobble was completed.
+		 * If this is not 0, then {@link ScrobbleResult#tracksScrobbled
+		 * tracksScrobbled} equals {@link Scrobbler#MAX_SCROBBLE_LIMIT}.
+		 */
+		public final int tracksLeftInDb;
+
+		/**
+		 * The number of tracks this scrobble request submitted to Last.fm.
+		 */
+		public final int tracksScrobbled;
+
+		/**
+		 * The last played of the tracks submitted in the scrobble request, or
+		 * <code>null</code> if none were sent.
+		 */
+		public final Track lastTrack;
+
+		/**
+		 * Constructs a new struct holding the result of a scrobble request.
+		 * Only {@link Scrobbler} can get the information needed to instantiate
+		 * this class, and therefore the constructor is private.
+		 * 
+		 * @param tracksLeftInDb
+		 *            {@link ScrobbleResult#tracksLeftInDb tracksLeftInDb}
+		 * @param tracksScrobbled
+		 *            {@link ScrobbleResult#tracksScrobbled tracksScrobbled}
+		 * @param lastTrack
+		 *            {@link ScrobbleResult#lastTrack lastTrack}
+		 */
+		private ScrobbleResult(int tracksLeftInDb, int tracksScrobbled,
+				Track lastTrack) {
+			super();
+			this.tracksLeftInDb = tracksLeftInDb;
+			this.tracksScrobbled = tracksScrobbled;
+			this.lastTrack = lastTrack;
 		}
 	}
 }
