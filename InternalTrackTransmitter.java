@@ -19,9 +19,9 @@
 
 package com.adam.aslfms;
 
-import java.util.Calendar;
 import java.util.LinkedList;
-import java.util.TimeZone;
+
+import com.adam.aslfms.service.ScrobblingService;
 
 /**
  * Internal class that transmits tracks from {@link PlayStatusReceiver} to
@@ -56,15 +56,5 @@ public class InternalTrackTransmitter {
 		if (tracks.isEmpty())
 			return null;
 		return tracks.removeFirst();
-	}
-
-	/**
-	 * FIXME: where does this method belong?
-	 * 
-	 * @return the current time since 1970, UTC, in seconds
-	 */
-	public static long currentTimeUTC() {
-		return Calendar.getInstance(TimeZone.getTimeZone("UTC"))
-				.getTimeInMillis() / 1000;
 	}
 }

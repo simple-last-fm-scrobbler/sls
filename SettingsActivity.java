@@ -31,7 +31,6 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 
-import com.adam.aslfms.R;
 import com.adam.aslfms.service.ScrobblingService;
 
 /**
@@ -58,10 +57,14 @@ public class SettingsActivity extends PreferenceActivity {
 	private final String KEY_TOGGLE_SCROBBLING = "toggle_scrobbling";
 	private final String KEY_TOGGLE_NOWPLAYING = "toggle_nowplaying";
 
+	private final String KEY_STATUS_SHOW = "status_show";
+
 	private final String KEY_TEST_NOWPLAYING = "test_nowplaying";
 	private final String KEY_TEST_SCROBBLING = "test_scrobbling";
 
 	private AppSettings settings;
+
+	private StatusInfoDialog mStatusInfo;
 
 	private Preference mUserCreds;
 	private Preference mEditCreds;
@@ -70,6 +73,8 @@ public class SettingsActivity extends PreferenceActivity {
 
 	private CheckBoxPreference mScrobblePref;
 	private CheckBoxPreference mNowplayPref;
+
+	private Preference mStatusShow;
 
 	private Preference mTestNowplaying;
 	private Preference mTestScrobbling;
@@ -80,6 +85,7 @@ public class SettingsActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.settings_prefs);
 
 		settings = new AppSettings(this);
+		mStatusInfo = new StatusInfoDialog(this);
 
 		mUserCreds = findPreference(KEY_USER_CREDENTIALS);
 		mEditCreds = findPreference(KEY_EDIT_USER_CREDENTIALS);
@@ -87,6 +93,8 @@ public class SettingsActivity extends PreferenceActivity {
 		mCreateUser = findPreference(KEY_CREATE_USER);
 		mScrobblePref = (CheckBoxPreference) findPreference(KEY_TOGGLE_SCROBBLING);
 		mNowplayPref = (CheckBoxPreference) findPreference(KEY_TOGGLE_NOWPLAYING);
+
+		mStatusShow = findPreference(KEY_STATUS_SHOW);
 
 		mTestNowplaying = findPreference(KEY_TEST_NOWPLAYING);
 		mTestScrobbling = findPreference(KEY_TEST_SCROBBLING);
@@ -115,6 +123,10 @@ public class SettingsActivity extends PreferenceActivity {
 					.parse(SIGNUP_LINK));
 			startActivity(browser);
 			return true;
+		} else if (preference == mStatusShow) {
+
+			mStatusInfo.showDialog();
+
 		} else if (preference == mTestNowplaying) {
 			Intent bcast = new Intent(
 					PlayStatusReceiver.ACTION_ASLFMS_PLAYSTATECHANGED);
@@ -203,7 +215,12 @@ public class SettingsActivity extends PreferenceActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		registerReceiver(onAuth, onAuthIntents);
+
+		IntentFilter ifs = new IntentFilter();
+		ifs.addAction(ScrobblingService.BROADCAST_ONAUTHCHANGED);
+		ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
+
+		registerReceiver(onAuth, ifs);
 		update();
 	}
 
@@ -217,13 +234,14 @@ public class SettingsActivity extends PreferenceActivity {
 		super.onStop();
 	}
 
-	public final IntentFilter onAuthIntents = new IntentFilter(
-			ScrobblingService.BROADCAST_ONAUTHCHANGED);
 	private BroadcastReceiver onAuth = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			SettingsActivity.this.update();
+			SettingsActivity.this.mStatusInfo.updateDialog();
+			if (ScrobblingService.BROADCAST_ONAUTHCHANGED.equals(intent
+					.getAction()))
+				SettingsActivity.this.update();
 		}
 	};
 

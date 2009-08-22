@@ -33,6 +33,7 @@ import com.adam.aslfms.Status.ClientBannedException;
 import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.Status.TemporaryFailureException;
 import com.adam.aslfms.service.Handshaker.HandshakeInfo;
+import com.adam.aslfms.util.Util;
 
 /**
  * NetworkLoop does all the network requests - handshaking, scrobbling and
@@ -152,7 +153,9 @@ public class NetworkLoop implements Runnable {
 			}
 
 			if (doScrobble) {
-				doScrobble(sCount);
+				if (!doScrobble(sCount)) {
+					settings.setLastScrobbleSuccess(false);
+				}
 			}
 
 			// np-notifying
@@ -170,7 +173,9 @@ public class NetworkLoop implements Runnable {
 			}
 
 			if (doNotifyNP) {
-				doNotifyNP(track);
+				if (!doNotifyNP(track)) {
+					settings.setLastNPSuccess(false);
+				}
 			}
 		}
 	}
@@ -182,7 +187,7 @@ public class NetworkLoop implements Runnable {
 		mNPNotifier = null;
 
 		if (doAuth)
-			updateAuthStatus(Status.AUTHSTATUS_UPDATING);
+			notifyAuthStatusUpdate(Status.AUTHSTATUS_UPDATING);
 
 		try {
 			HandshakeInfo hi = mHandshaker.handshake();
@@ -195,7 +200,7 @@ public class NetworkLoop implements Runnable {
 			// we don't need it anymore, settings.getPwdMd5() is enough
 			settings.setPassword("");
 
-			updateAuthStatus(Status.AUTHSTATUS_OK);
+			notifyAuthStatusUpdate(Status.AUTHSTATUS_OK);
 
 			// won't do anything if there aren't any scrobbles,
 			// but will submit those tracks that were prepared
@@ -205,12 +210,12 @@ public class NetworkLoop implements Runnable {
 			ret = true;
 		} catch (BadAuthException e) {
 			if (doAuth)
-				updateAuthStatus(Status.AUTHSTATUS_BADAUTH);
+				notifyAuthStatusUpdate(Status.AUTHSTATUS_BADAUTH);
 			else {
 				// this should mean that the user called launchClearCreds, and
 				// that
 				// all user information is gone
-				updateAuthStatus(Status.AUTHSTATUS_NOAUTH);
+				notifyAuthStatusUpdate(Status.AUTHSTATUS_NOAUTH);
 			}
 			// badauth means we cant do any scrobbling/notifying, so clear them
 			// the scrobbles already prepared will be sent at a later time
@@ -218,12 +223,12 @@ public class NetworkLoop implements Runnable {
 		} catch (TemporaryFailureException e) {
 			sleepRetry();
 			if (doAuth)
-				updateAuthStatus(Status.AUTHSTATUS_RETRYLATER);
+				notifyAuthStatusUpdate(Status.AUTHSTATUS_RETRYLATER);
 		} catch (UnknownResponseException e) {
 			Log.e(TAG, "Serious failure while handshaking");
 			Log.e(TAG, e.getMessage());
 			if (doAuth)
-				updateAuthStatus(Status.AUTHSTATUS_FAILED);
+				notifyAuthStatusUpdate(Status.AUTHSTATUS_FAILED);
 			// TODO: what??
 			// this is a _serious_ failure
 		} catch (ClientBannedException e) {
@@ -244,6 +249,13 @@ public class NetworkLoop implements Runnable {
 				if (!doAgain) {
 					decScrobbleReqs(sCount);
 				}
+				
+				// status stuff
+				settings.setLastScrobbleSuccess(true);
+				settings.setLastScrobbleTime(Util.currentTimeMillisLocal());
+				settings.setNumberOfScrobbles(settings.getNumberOfScrobbles()+1);
+				notifyStatusUpdate();
+				
 				ret = true;
 			} catch (BadSessionException e) {
 				Log.i(TAG, e.getMessage());
@@ -268,6 +280,14 @@ public class NetworkLoop implements Runnable {
 		} else {
 			try {
 				mNPNotifier.notifyNowPlaying(t);
+				
+				// status stuff
+				settings.setLastNPSuccess(true);
+				settings.setLastNPTime(Util.currentTimeMillisLocal());
+				settings.setNumberOfNPs(settings.getNumberOfNPs()+1);
+				notifyStatusUpdate();
+				
+				ret = true;
 			} catch (BadSessionException e) {
 				Log.i(TAG, e.getMessage());
 				launchHandshaker(false);
@@ -430,10 +450,15 @@ public class NetworkLoop implements Runnable {
 		mNotifyNPTrack = null;
 	}
 
-	private void updateAuthStatus(int st) {
+	private void notifyAuthStatusUpdate(int st) {
 		Log.d(TAG, "updateAS: " + st);
 		settings.setAuthStatus(st);
 		Intent i = new Intent(ScrobblingService.BROADCAST_ONAUTHCHANGED);
+		mCtx.sendBroadcast(i);
+	}
+	
+	private void notifyStatusUpdate() {
+		Intent i = new Intent(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
 		mCtx.sendBroadcast(i);
 	}
 
