@@ -64,7 +64,7 @@ public class Handshaker {
 	 * successful handshake is needed for all other submission requests. If an
 	 * error occurs, exceptions are thrown.
 	 * 
-	 * @return the result of a successful handshake, {@link HandshakeInfo}
+	 * @return the result of a successful handshake, {@link HandshakeResult}
 	 * @throws BadAuthException
 	 *             means that the username/password provided by the user was
 	 *             wrong, or that the user requested his/her credentials to be
@@ -75,7 +75,7 @@ public class Handshaker {
 	 * @throws ClientBannedException
 	 *             this version of the client has been banned
 	 */
-	public HandshakeInfo handshake() throws BadAuthException,
+	public HandshakeResult handshake() throws BadAuthException,
 			TemporaryFailureException, UnknownResponseException,
 			ClientBannedException {
 		Log.d(TAG, "Handshaking");
@@ -115,7 +115,7 @@ public class Handshaker {
 				// handshake succeeded
 				Log.i(TAG, "Handshake succeeded!");
 
-				HandshakeInfo hi = new HandshakeInfo(lines[1], lines[2],
+				HandshakeResult hi = new HandshakeResult(lines[1], lines[2],
 						lines[3]);
 
 				return hi;
@@ -172,7 +172,7 @@ public class Handshaker {
 	 * @author tgwizard
 	 * 
 	 */
-	public static class HandshakeInfo {
+	public static class HandshakeResult {
 		/**
 		 * The id needed for all submission requests.
 		 */
@@ -194,13 +194,13 @@ public class Handshaker {
 		 * the constructor is private.
 		 * 
 		 * @param sessionId
-		 *            the id needed for all submission requests.
+		 *            {@link HandshakeResult#sessionId sessionId}
 		 * @param nowPlayingUri
-		 *            the URI to send now-playing-notification requests to.
+		 *            {@link HandshakeResult#nowPlayingUri nowPlayingUri}
 		 * @param scrobbleUri
-		 *            the URI to send scrobble requests to.
+		 *            {@link HandshakeResult#scrobbleUri scrobbleUri}
 		 */
-		private HandshakeInfo(String sessionId, String nowPlayingUri,
+		private HandshakeResult(String sessionId, String nowPlayingUri,
 				String scrobbleUri) {
 			super();
 			this.sessionId = sessionId;

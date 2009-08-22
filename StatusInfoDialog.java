@@ -12,7 +12,7 @@ import com.adam.aslfms.util.Util;
 
 public class StatusInfoDialog {
 
-	//private static final String TAG = "StatusInfoDialog";
+	// private static final String TAG = "StatusInfoDialog";
 
 	private final Context mCtx;
 	private final AppSettings settings;
@@ -70,8 +70,10 @@ public class StatusInfoDialog {
 		TextView scrobbleText = ((TextView) mDialogView
 				.findViewById(R.id.status_scrobbling));
 		TextView npText = ((TextView) mDialogView.findViewById(R.id.status_np));
-		TextView statsText = ((TextView) mDialogView
-				.findViewById(R.id.status_stats));
+		TextView scrobbleStatsText = ((TextView) mDialogView
+				.findViewById(R.id.status_scrobble_stats));
+		TextView npStatsText = ((TextView) mDialogView
+				.findViewById(R.id.status_np_stats));
 
 		// authText
 		if (settings.getAuthStatus() == Status.AUTHSTATUS_BADAUTH) {
@@ -93,24 +95,42 @@ public class StatusInfoDialog {
 		if (!settings.isScrobblingEnabled()) {
 			scrobbleText.setText(R.string.scrobbling_disabled);
 		} else {
+			long time = settings.getLastScrobbleTime();
+			String when;
+			String what;
+			if (time == -1) {
+				when = mCtx.getString(R.string.never);
+				what = "";
+			} else {
+				when = Util.timeFromLocalMillis(mCtx, time);
+				what = "\n" + settings.getLastScrobbleInfo();
+			}
 			scrobbleText.setText(mCtx.getString(R.string.scrobble_last_at)
-					+ " "
-					+ Util.timeFromLocalMillis(mCtx, settings
-							.getLastScrobbleTime()));
+					+ " " + when + what);
 		}
 
 		// npText
 		if (!settings.isNowPlayingEnabled()) {
 			npText.setText(R.string.nowplaying_disabled);
 		} else {
-			npText.setText(mCtx.getString(R.string.nowplaying_last_at)
-					+ " "
-					+ Util.timeFromLocalMillis(mCtx, settings.getLastNPTime()));
+			long time = settings.getLastNPTime();
+			String when;
+			String what;
+			if (time == -1) {
+				when = mCtx.getString(R.string.never);
+				what = "";
+			} else {
+				when = Util.timeFromLocalMillis(mCtx, time);
+				what = "\n" + settings.getLastNPInfo();
+			}
+			npText.setText(mCtx.getString(R.string.nowplaying_last_at) + " "
+					+ when + what);
 		}
 
 		// statsText
-		statsText.setText(mCtx.getString(R.string.stats_ugly) + " "
-				+ settings.getNumberOfScrobbles() + "/"
+		scrobbleStatsText.setText(mCtx.getString(R.string.stats_scrobbles)
+				+ " " + settings.getNumberOfScrobbles());
+		npStatsText.setText(mCtx.getString(R.string.stats_nps) + " "
 				+ settings.getNumberOfNPs());
 	}
 }

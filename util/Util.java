@@ -15,12 +15,13 @@ public class Util {
 		return Calendar.getInstance(TimeZone.getTimeZone("UTC"))
 				.getTimeInMillis() / 1000;
 	}
-	
+
 	public static long currentTimeMillisLocal() {
 		return Calendar.getInstance(TimeZone.getDefault()).getTimeInMillis();
 	}
-	
+
 	public static String timeFromLocalMillis(Context ctx, long millis) {
-		return DateUtils.formatDateTime(ctx, millis, DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE);
+		return DateUtils.formatDateTime(ctx, millis, DateUtils.FORMAT_SHOW_TIME
+				| DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE);
 	}
 }
