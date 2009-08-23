@@ -29,12 +29,4 @@
     <Preference android:key="status_show"
                 android:title="@string/status_show_title"
                 android:summary="@string/status_show_summary"/>
-                
-    <PreferenceCategory android:title="Test stuff"/>
-    <Preference android:key="test_nowplaying"
-            android:title="Test Now Playing"
-            android:summary="..."/>
-    <Preference android:key="test_scrobbling"
-            android:title="Test scrobbling"
-            android:summary="Scrobble a song"/>
 </PreferenceScreen>
