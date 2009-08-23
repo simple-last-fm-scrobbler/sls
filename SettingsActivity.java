@@ -59,9 +59,6 @@ public class SettingsActivity extends PreferenceActivity {
 
 	private final String KEY_STATUS_SHOW = "status_show";
 
-	private final String KEY_TEST_NOWPLAYING = "test_nowplaying";
-	private final String KEY_TEST_SCROBBLING = "test_scrobbling";
-
 	private AppSettings settings;
 
 	private StatusInfoDialog mStatusInfo;
@@ -75,9 +72,6 @@ public class SettingsActivity extends PreferenceActivity {
 	private CheckBoxPreference mNowplayPref;
 
 	private Preference mStatusShow;
-
-	private Preference mTestNowplaying;
-	private Preference mTestScrobbling;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +89,6 @@ public class SettingsActivity extends PreferenceActivity {
 		mNowplayPref = (CheckBoxPreference) findPreference(KEY_TOGGLE_NOWPLAYING);
 
 		mStatusShow = findPreference(KEY_STATUS_SHOW);
-
-		mTestNowplaying = findPreference(KEY_TEST_NOWPLAYING);
-		mTestScrobbling = findPreference(KEY_TEST_SCROBBLING);
 	}
 
 	@Override
@@ -127,24 +118,6 @@ public class SettingsActivity extends PreferenceActivity {
 
 			mStatusInfo.showDialog();
 
-		} else if (preference == mTestNowplaying) {
-			Intent bcast = new Intent(
-					PlayStatusReceiver.ACTION_ASLFMS_PLAYSTATECHANGED);
-			bcast.putExtra("artist", "Chris Cornell");
-			bcast.putExtra("album", "Casino Royale");
-			bcast.putExtra("track", "You Know My Name");
-			bcast.putExtra("duration", 202);
-			sendBroadcast(bcast);
-			return true;
-		} else if (preference == mTestScrobbling) {
-			Intent bcast = new Intent(
-					PlayStatusReceiver.ACTION_ASLFMS_PLAYSTATECOMPLETE);
-			bcast.putExtra("artist", "Chris Cornell");
-			bcast.putExtra("album", "Casino Royale");
-			bcast.putExtra("track", "You Know My Name");
-			bcast.putExtra("duration", 201);
-			sendBroadcast(bcast);
-			return true;
 		}
 
 		return super.onPreferenceTreeClick(preferenceScreen, preference);
