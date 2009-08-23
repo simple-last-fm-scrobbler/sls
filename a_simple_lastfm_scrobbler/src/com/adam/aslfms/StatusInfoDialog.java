@@ -4,6 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -12,8 +16,9 @@ import com.adam.aslfms.util.Util;
 
 public class StatusInfoDialog {
 
-	// private static final String TAG = "StatusInfoDialog";
-
+	public static final String PACKAGE_SCROBBLE_DROID = "net.jjc1138.android.scrobbler";
+	
+	private static final String TAG = "StatusInfoDialog";
 	private final Context mCtx;
 	private final AppSettings settings;
 
@@ -74,7 +79,9 @@ public class StatusInfoDialog {
 				.findViewById(R.id.status_scrobble_stats));
 		TextView npStatsText = ((TextView) mDialogView
 				.findViewById(R.id.status_np_stats));
-
+		TextView incompText = ((TextView) mDialogView
+				.findViewById(R.id.status_incomp_warning));
+		
 		// authText
 		if (settings.getAuthStatus() == Status.AUTHSTATUS_BADAUTH) {
 			authText.setText(R.string.auth_bad_auth);
@@ -132,5 +139,27 @@ public class StatusInfoDialog {
 				+ " " + settings.getNumberOfScrobbles());
 		npStatsText.setText(mCtx.getString(R.string.stats_nps) + " "
 				+ settings.getNumberOfNPs());
+		
+		// check for "incompatible" packages
+		PackageManager pm = mCtx.getPackageManager();
+		String incomp = null;
+		// check for scrobbledroid
+		try {
+			PackageInfo pkg = pm.getPackageInfo(PACKAGE_SCROBBLE_DROID, 0);
+			Log.d(TAG, "ScrobbleDroid is installed");
+			if (pkg.applicationInfo != null && pkg.applicationInfo.enabled == false) {
+				Log.d(TAG, "App is disabled, ignoring");
+			} else {
+				incomp = mCtx.getString(R.string.incompatability).replaceAll("%1", "ScrobbleDroid");
+			}
+		} catch (NameNotFoundException e) {
+			Log.d(TAG, e.getMessage());
+		}
+		
+		if (incomp == null) {
+			incompText.setVisibility(View.GONE);
+		} else {
+			incompText.setText(incomp);
+		}
 	}
 }
