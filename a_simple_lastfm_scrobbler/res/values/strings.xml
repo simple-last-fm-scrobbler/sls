@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="app_name">A Simple Last.fm Scrobbler</string>
+	<string name="app_name">Simple Last.fm Scrobbler</string>
 	<string name="scrobbling">Scrobbling</string>
 	<string name="scrobbling_enable">Submit listening information to Last.fm when
 		you\'ve listened to a song</string>
