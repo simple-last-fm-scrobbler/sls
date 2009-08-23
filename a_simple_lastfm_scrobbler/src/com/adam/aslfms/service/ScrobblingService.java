@@ -85,9 +85,7 @@ public class ScrobblingService extends Service {
 
 	@Override
 	public void onStart(Intent i, int startId) {
-		Log.d(TAG, "ScrobblingService \"started\"");
 		if (i.getAction().equals(ACTION_CLEARCREDS)) {
-			Log.d(TAG, "Will launch clear creds");
 			mNetworkLoop.launchClearCreds();
 		} else if (i.getAction().equals(ACTION_AUTHENTICATE)) {
 			mNetworkLoop.launchHandshaker(true);
@@ -203,15 +201,14 @@ public class ScrobblingService extends Service {
 			}
 		}
 
-		Log.d(TAG, "Scrobble will be prepared");
+		/*Log.d(TAG, "Scrobble will be prepared");
 		Log.d(TAG, diff + "s since last scrobble and " + len
-				+ "s since track start");
+				+ "s since track start");*/
 		return true;
 	}
 
 	private void scrobblePrepare(Track track) {
 		if (mDbHelper.insertScrobble(track) != -1) {
-			Log.d(TAG, "Scrobble prepared");
 			Log.d(TAG, track.toString());
 		} else {
 			Log.d(TAG, "Could not insert scrobble into the db");

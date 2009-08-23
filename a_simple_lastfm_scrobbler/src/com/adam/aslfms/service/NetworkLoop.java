@@ -468,7 +468,6 @@ public class NetworkLoop implements Runnable {
 	}
 
 	private void notifyAuthStatusUpdate(int st) {
-		Log.d(TAG, "updateAS: " + st);
 		settings.setAuthStatus(st);
 		Intent i = new Intent(ScrobblingService.BROADCAST_ONAUTHCHANGED);
 		mCtx.sendBroadcast(i);

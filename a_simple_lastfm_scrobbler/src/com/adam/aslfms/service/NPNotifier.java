@@ -74,7 +74,7 @@ public class NPNotifier {
 	 */
 	public void notifyNowPlaying(Track track) throws BadSessionException,
 			TemporaryFailureException, UnknownResponseException {
-		Log.d(TAG, "Notifying Playing");
+		Log.d(TAG, "Notifying now playing");
 
 		Log.d(TAG, "Track: " + track.toString());
 
