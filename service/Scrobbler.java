@@ -75,15 +75,17 @@ public class Scrobbler {
 	 */
 	public ScrobbleResult scrobbleCommit() throws BadSessionException,
 			TemporaryFailureException, UnknownResponseException {
-		Log.d(TAG, "Scrobble commit");
+		
 
 		int count = mDbHelper.fetchScrobblesArray(mTracks, MAX_SCROBBLE_LIMIT);
 		if (count == 0) {
-			Log.d(TAG, "Retrieved 0 tracks from db, no submissions");
+			Log.d(TAG, "Retrieved 0 tracks from db, no scrobbling");
 			return new ScrobbleResult(0, 0, null);
 		}
 
 		ScrobbleResult res;
+		
+		Log.d(TAG, "Will scrobble");
 		Log.d(TAG, "Retrieved " + count + " tracks from db");
 		if (count > MAX_SCROBBLE_LIMIT) {
 			res = new ScrobbleResult(count - MAX_SCROBBLE_LIMIT,

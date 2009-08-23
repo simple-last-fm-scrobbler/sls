@@ -29,7 +29,6 @@ import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
-import android.util.Log;
 
 import com.adam.aslfms.service.ScrobblingService;
 
@@ -45,7 +44,7 @@ import com.adam.aslfms.service.ScrobblingService;
  */
 public class SettingsActivity extends PreferenceActivity {
 
-	private static final String TAG = "SettingsActivity";
+	//private static final String TAG = "SettingsActivity";
 
 	private static final String SIGNUP_LINK = "https://www.last.fm/join";
 
@@ -108,8 +107,6 @@ public class SettingsActivity extends PreferenceActivity {
 			startService(service);
 			return true;
 		} else if (preference == mCreateUser) {
-			Log.d(TAG, "Clicked \"create user\"");
-			Log.d(TAG, "Link: " + SIGNUP_LINK);
 			Intent browser = new Intent(Intent.ACTION_VIEW, Uri
 					.parse(SIGNUP_LINK));
 			startActivity(browser);
