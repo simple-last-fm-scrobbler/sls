@@ -88,13 +88,21 @@ public class Handshaker {
 			throw new BadAuthException(mCtx.getString(R.string.auth_bad_auth));
 		}
 
-		// for debug
+		// -----------------------------------------------------------------------
+		// ------------ for debug ------------------------------------------------
+		// use these values if you are testing or developing a new app
 		// String clientid = "tst";
 		// String clientver = "1.0";
-		// for apps with real client-id and client-ver
+		// -----------------------------------------------------------------------
+		// ------------ for this app ---------------------------------------------
+		// -----------------------------------------------------------------------
+		// these values should only be used for this app. If other code
+		// misbehaves using these values, this app might get banned.
+		// You can ask last.fm for new id's for your app
 		String clientid = mCtx.getString(R.string.client_id);
 		String clientver = mCtx.getString(R.string.client_ver);
-		// end
+		// ------------ end ------------------------------------------------------
+		// -----------------------------------------------------------------------
 
 		String time = new Long(Util.currentTimeSecsUTC()).toString();
 
