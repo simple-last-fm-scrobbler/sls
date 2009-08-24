@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<!-- These values should only be used in _this_ application -->
+	<!-- Use tst / 1.0 for testing purposes, or ask Last.fm for new ones for your app -->
+	<string name="client_id">sls</string>
+	<string name="client_ver">1.0</string>
+</resources>
