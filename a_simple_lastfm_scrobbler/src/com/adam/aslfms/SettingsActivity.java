@@ -36,6 +36,7 @@ import android.util.Log;
 
 import com.adam.aslfms.receiver.MusicApp;
 import com.adam.aslfms.service.ScrobblingService;
+import com.adam.aslfms.util.Util;
 
 /**
  * This is the activity that is shown when the user launches
@@ -140,11 +141,7 @@ public class SettingsActivity extends PreferenceActivity {
 				CheckBoxPreference cbp = (CheckBoxPreference)preference;
 				boolean checked = cbp.isChecked();
 				settings.setAppEnabled(app, checked);
-				if (!checked) {
-					cbp.setSummary(R.string.app_disabled);
-				} else {
-					cbp.setSummary(null);
-				}
+				setSASummary(preference, app);
 			}
 		}
 
@@ -212,11 +209,7 @@ public class SettingsActivity extends PreferenceActivity {
 			appPref.setTitle(app.getName());
 			appPref.setPersistent(false); // TODO: what does this mean?
 			appPref.setChecked(enabled);
-			if (!enabled) {
-				appPref.setSummary(R.string.app_disabled);
-			} else {
-				appPref.setSummary(null);
-			}
+			setSASummary(appPref, app);
 			mSupportedAppsList.addPreference(appPref);
 			mSupportedAppsMap.put(appPref, app);
 		}
@@ -227,7 +220,18 @@ public class SettingsActivity extends PreferenceActivity {
 			mSupportedAppsList.removePreference(p);
 		}
 		mSupportedAppsMap.clear();
-
+	}
+	
+	private void setSASummary(Preference pref, MusicApp app) {
+		boolean enabled = settings.isAppEnabled(app);
+		boolean installed = Util.checkForInstalledApp(this, app.getPackage());
+		if (!enabled) {
+			pref.setSummary(R.string.app_disabled);
+		} else if (!installed){
+			pref.setSummary(R.string.not_installed);
+		} else {
+			pref.setSummary(null);
+		}
 	}
 
 	@Override

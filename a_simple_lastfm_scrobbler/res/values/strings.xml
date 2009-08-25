@@ -53,4 +53,5 @@
 <string name="showsupported_apps_list_summary">Enable/disable scrobbling from apps</string>
 <string name="supported_apps_category_title">Supported apps</string>
 <string name="app_disabled">Won\'t scrobble music from this app</string>
+<string name="not_installed">This app is not installed</string>
 </resources>
