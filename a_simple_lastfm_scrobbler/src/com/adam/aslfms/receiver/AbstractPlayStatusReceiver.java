@@ -39,10 +39,6 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 
 	private static final String TAG = "PlayStatusReceiver";
 	
-	/*public static final String ACTION_HTC_PLAYSTATECHANGED = "com.htc.music.playstatechanged";
-	public static final String ACTION_HTC_STOP = "com.htc.music.playbackcomplete";
-	public static final String ACTION_HTC_METACHANGED = "com.htc.music.metachanged";*/
-	
 	private MusicApp mApp;
 	
 	private Intent mService = null;

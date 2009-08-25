@@ -11,19 +11,6 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<receiver android:name="com.adam.aslfms.receiver.AndroidMusicReceiver"
-			android:exported="true" android:enabled="true">
-			<intent-filter>
-				<action android:name="com.android.music.metachanged" />
-				<action android:name="com.android.music.playstatechanged" />
-				<action android:name="com.android.music.playbackcomplete" />
-				<!--
-					<action android:name="com.htc.music.metachanged" /> <action
-					android:name="com.htc.music.playbackcomplete" /> <action
-					android:name="com.htc.music.playstatechanged" />
-				-->
-			</intent-filter>
-		</receiver>
 		<service android:name="com.adam.aslfms.service.ScrobblingService"
 			android:enabled="true" android:exported="false">
 			<intent-filter>
@@ -32,6 +19,24 @@
 				<action android:name="com.adam.aslfms.service.clearcreds" />
 			</intent-filter>
 		</service>
+
+		<receiver android:name="com.adam.aslfms.receiver.AndroidMusicReceiver"
+			android:exported="true" android:enabled="true">
+			<intent-filter>
+				<action android:name="com.android.music.metachanged" />
+				<action android:name="com.android.music.playstatechanged" />
+				<action android:name="com.android.music.playbackcomplete" />
+			</intent-filter>
+		</receiver>
+
+		<receiver android:name="com.adam.aslfms.receiver.HeroMusicReceiver"
+			android:exported="true" android:enabled="true">
+			<intent-filter>
+				<action android:name="com.htc.music.metachanged" />
+				<action android:name="com.htc.music.playbackcomplete" />
+				<action android:name="com.htc.music.playstatechanged" />
+			</intent-filter>
+		</receiver>
 
 		<receiver android:name="com.adam.aslfms.TestReceiver"
 			android:exported="true" android:enabled="true">

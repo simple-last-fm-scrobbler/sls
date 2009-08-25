@@ -137,7 +137,6 @@ public class SettingsActivity extends PreferenceActivity {
 		} else {
 			MusicApp app = mSupportedAppsMap.get(preference);
 			if (app != null) {
-				Log.d(TAG, "Clicked on app: " + app.getName());
 				CheckBoxPreference cbp = (CheckBoxPreference)preference;
 				boolean checked = cbp.isChecked();
 				settings.setAppEnabled(app, checked);
@@ -204,7 +203,6 @@ public class SettingsActivity extends PreferenceActivity {
 	}
 
 	private void loadSupportedAppsList() {
-		Log.d(TAG, "loadSupportedAppsList");
 		clearSupportedAppsList();
 		MusicApp[] apps = MusicApp.values();
 		for (MusicApp app : apps) {
