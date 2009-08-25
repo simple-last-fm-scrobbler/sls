@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.adam.aslfms" android:versionCode="1" android:versionName="1.0">
 
-	<application android:icon="@drawable/icon" android:label="@string/app_name">
+	<application android:icon="@drawable/icon" android:label="@string/app_name"
+		android:debuggable="true">
 		<activity android:name="com.adam.aslfms.SettingsActivity"
 			android:label="@string/app_name" android:icon="@drawable/icon">
 			<intent-filter>
@@ -10,7 +11,7 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<receiver android:name="com.adam.aslfms.PlayStatusReceiver"
+		<receiver android:name="com.adam.aslfms.receiver.AndroidMusicReceiver"
 			android:exported="true" android:enabled="true">
 			<intent-filter>
 				<action android:name="com.android.music.metachanged" />
@@ -21,9 +22,6 @@
 					android:name="com.htc.music.playbackcomplete" /> <action
 					android:name="com.htc.music.playstatechanged" />
 				-->
-
-				<action android:name="com.adam.aslfms.notify.playstatechanged" />
-				<action android:name="com.adam.aslfms.notify.playbackcomplete" />
 			</intent-filter>
 		</receiver>
 		<service android:name="com.adam.aslfms.service.ScrobblingService"
@@ -34,6 +32,13 @@
 				<action android:name="com.adam.aslfms.service.clearcreds" />
 			</intent-filter>
 		</service>
+
+		<receiver android:name="com.adam.aslfms.TestReceiver"
+			android:exported="true" android:enabled="true">
+			<intent-filter>
+				<action android:name="com.tunewiki.lyricplayer.android.radio.shoutcast" />
+			</intent-filter>
+		</receiver>
 	</application>
 
 	<uses-sdk android:minSdkVersion="3" />

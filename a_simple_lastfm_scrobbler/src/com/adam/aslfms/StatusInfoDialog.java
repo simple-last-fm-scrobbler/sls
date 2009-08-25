@@ -1,13 +1,28 @@
+/**
+ *  This file is part of A Simple Last.fm Scrobbler.
+ *
+ *  A Simple Last.fm Scrobbler is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  A Simple Last.fm Scrobbler is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with A Simple Last.fm Scrobbler.  If not, see <http://www.gnu.org/licenses/>.
+ *  
+ *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
+ */
+
 package com.adam.aslfms;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -18,6 +33,7 @@ public class StatusInfoDialog {
 
 	public static final String PACKAGE_SCROBBLE_DROID = "net.jjc1138.android.scrobbler";
 	
+	@SuppressWarnings("unused")
 	private static final String TAG = "StatusInfoDialog";
 	private final Context mCtx;
 	private final AppSettings settings;
@@ -141,20 +157,12 @@ public class StatusInfoDialog {
 				+ settings.getNumberOfNPs());
 		
 		// check for "incompatible" packages
-		PackageManager pm = mCtx.getPackageManager();
 		String incomp = null;
 		// check for scrobbledroid
-		try {
-			PackageInfo pkg = pm.getPackageInfo(PACKAGE_SCROBBLE_DROID, 0);
-			Log.d(TAG, "ScrobbleDroid is installed");
-			if (pkg.applicationInfo != null && pkg.applicationInfo.enabled == false) {
-				Log.d(TAG, "App is disabled, ignoring");
-			} else {
-				incomp = mCtx.getString(R.string.incompatability).replaceAll("%1", "ScrobbleDroid");
-			}
-		} catch (NameNotFoundException e) {
-			Log.d(TAG, e.getMessage());
+		if (Util.checkForInstalledApp(mCtx, PACKAGE_SCROBBLE_DROID)) {
+			incomp = mCtx.getString(R.string.incompatability).replaceAll("%1", "ScrobbleDroid");
 		}
+			
 		
 		if (incomp == null) {
 			incompText.setVisibility(View.GONE);

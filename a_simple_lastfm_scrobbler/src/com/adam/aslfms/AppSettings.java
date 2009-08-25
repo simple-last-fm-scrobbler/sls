@@ -19,6 +19,8 @@
 
 package com.adam.aslfms;
 
+import com.adam.aslfms.receiver.MusicApp;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -38,6 +40,8 @@ public class AppSettings {
 
 	private final String KEY_SCROBBLING_ENABLE = "enable_scrobbling";
 	private final String KEY_NOWPLAYING_ENABLE = "enable_nowplaying";
+	
+	private final String KEY_APPENABLE_PREFIX = "appenable_";
 
 	private final String KEY_AUTH_STATUS = "authstatus";
 
@@ -119,6 +123,16 @@ public class AppSettings {
 
 	public boolean isNowPlayingEnabled() {
 		return prefs.getBoolean(KEY_NOWPLAYING_ENABLE, false);
+	}
+	
+	public void setAppEnabled(MusicApp app, boolean enabled) {
+		Editor e = prefs.edit();
+		e.putBoolean(KEY_APPENABLE_PREFIX + app.toString(), enabled);
+		e.commit();
+	}
+	
+	public boolean isAppEnabled(MusicApp app) {
+		return prefs.getBoolean(KEY_APPENABLE_PREFIX + app.toString(), true);
 	}
 
 	public void setAuthStatus(int i) {

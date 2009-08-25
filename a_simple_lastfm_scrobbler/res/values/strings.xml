@@ -48,6 +48,9 @@
 	<string name="stats_nps">Total now playing notifications:</string>
 	<string name="it_was">It was:</string>
 	<string name="by">by</string>
-	<string name="incompatability">Warning: %1 is installed and may cause
-		incompatibilities with this app, such as lost lost scrobbles</string>
+	<string name="incompatability">Warning: %1 is installed and may cause incompatibilities with this app, such as scrobbling a track twice</string>
+<string name="showsupported_apps_list_title">Supported apps</string>
+<string name="showsupported_apps_list_summary">Enable/disable scrobbling from apps</string>
+<string name="supported_apps_category_title">Supported apps</string>
+<string name="app_disabled">Won\'t scrobble music from this app</string>
 </resources>
