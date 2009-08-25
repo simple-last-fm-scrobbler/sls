@@ -19,6 +19,8 @@
 
 package com.adam.aslfms;
 
+import java.util.HashMap;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -28,8 +30,11 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.util.Log;
 
+import com.adam.aslfms.receiver.MusicApp;
 import com.adam.aslfms.service.ScrobblingService;
 
 /**
@@ -44,19 +49,24 @@ import com.adam.aslfms.service.ScrobblingService;
  */
 public class SettingsActivity extends PreferenceActivity {
 
-	//private static final String TAG = "SettingsActivity";
+	private static final String TAG = "SettingsActivity";
 
 	private static final String SIGNUP_LINK = "https://www.last.fm/join";
 
 	// keys to Preference objects
-	private final String KEY_USER_CREDENTIALS = "user_credentials";
-	private final String KEY_EDIT_USER_CREDENTIALS = "edit_user_credentials";
-	private final String KEY_CLEAR_USER_CREDENTIALS = "clear_user_credentials";
-	private final String KEY_CREATE_USER = "create_user";
-	private final String KEY_TOGGLE_SCROBBLING = "toggle_scrobbling";
-	private final String KEY_TOGGLE_NOWPLAYING = "toggle_nowplaying";
+	private static final String KEY_USER_CREDENTIALS = "user_credentials";
 
-	private final String KEY_STATUS_SHOW = "status_show";
+	private static final String KEY_EDIT_USER_CREDENTIALS = "edit_user_credentials";
+	private static final String KEY_CLEAR_USER_CREDENTIALS = "clear_user_credentials";
+	private static final String KEY_CREATE_USER = "create_user";
+
+	private static final String KEY_TOGGLE_SCROBBLING = "toggle_scrobbling";
+	private static final String KEY_TOGGLE_NOWPLAYING = "toggle_nowplaying";
+
+	private static final String KEY_SHOW_SUPPORTED_APPS_LIST = "showsupported_apps_list";
+	private static final String KEY_SUPPORTED_APPS_LIST = "supported_apps_list";
+
+	private static final String KEY_STATUS_SHOW = "status_show";
 
 	private AppSettings settings;
 
@@ -69,6 +79,10 @@ public class SettingsActivity extends PreferenceActivity {
 
 	private CheckBoxPreference mScrobblePref;
 	private CheckBoxPreference mNowplayPref;
+
+	private Preference mShowSupportedAppsList;
+	private PreferenceCategory mSupportedAppsList;
+	private HashMap<CheckBoxPreference, MusicApp> mSupportedAppsMap;
 
 	private Preference mStatusShow;
 
@@ -84,8 +98,13 @@ public class SettingsActivity extends PreferenceActivity {
 		mEditCreds = findPreference(KEY_EDIT_USER_CREDENTIALS);
 		mClearCreds = findPreference(KEY_CLEAR_USER_CREDENTIALS);
 		mCreateUser = findPreference(KEY_CREATE_USER);
+
 		mScrobblePref = (CheckBoxPreference) findPreference(KEY_TOGGLE_SCROBBLING);
 		mNowplayPref = (CheckBoxPreference) findPreference(KEY_TOGGLE_NOWPLAYING);
+
+		mShowSupportedAppsList = findPreference(KEY_SHOW_SUPPORTED_APPS_LIST);
+		mSupportedAppsList = (PreferenceCategory) findPreference(KEY_SUPPORTED_APPS_LIST);
+		mSupportedAppsMap = new HashMap<CheckBoxPreference, MusicApp>();
 
 		mStatusShow = findPreference(KEY_STATUS_SHOW);
 	}
@@ -112,19 +131,32 @@ public class SettingsActivity extends PreferenceActivity {
 			startActivity(browser);
 			return true;
 		} else if (preference == mStatusShow) {
-
 			mStatusInfo.showDialog();
-
+		} else if (preference == mShowSupportedAppsList) {
+			loadSupportedAppsList();
+		} else {
+			MusicApp app = mSupportedAppsMap.get(preference);
+			if (app != null) {
+				Log.d(TAG, "Clicked on app: " + app.getName());
+				CheckBoxPreference cbp = (CheckBoxPreference)preference;
+				boolean checked = cbp.isChecked();
+				settings.setAppEnabled(app, checked);
+				if (!checked) {
+					cbp.setSummary(R.string.app_disabled);
+				} else {
+					cbp.setSummary(null);
+				}
+			}
 		}
 
 		return super.onPreferenceTreeClick(preferenceScreen, preference);
 	}
 
-	protected void toggleScrobbling(boolean toggle) {
+	private void toggleScrobbling(boolean toggle) {
 		settings.setScrobblingEnabled(toggle);
 	}
 
-	protected void toggleNowplaying(boolean toggle) {
+	private void toggleNowplaying(boolean toggle) {
 		settings.setNowPlayingEnabled(toggle);
 	}
 
@@ -132,7 +164,7 @@ public class SettingsActivity extends PreferenceActivity {
 	 * Updates what is shown to the user - preference titles and summaries, and
 	 * whether stuff is enabled or checked, etc.
 	 */
-	protected void update() {
+	private void update() {
 
 		mNowplayPref.setEnabled(false);
 		mScrobblePref.setEnabled(false);
@@ -169,6 +201,35 @@ public class SettingsActivity extends PreferenceActivity {
 				|| settings.getPwdMd5().length() != 0;
 
 		mClearCreds.setEnabled(hasCreds);
+	}
+
+	private void loadSupportedAppsList() {
+		Log.d(TAG, "loadSupportedAppsList");
+		clearSupportedAppsList();
+		MusicApp[] apps = MusicApp.values();
+		for (MusicApp app : apps) {
+			boolean enabled = settings.isAppEnabled(app);
+			Log.d(TAG, "App: " + app.getName() + " : " + enabled);
+			CheckBoxPreference appPref = new CheckBoxPreference(this, null);
+			appPref.setTitle(app.getName());
+			appPref.setPersistent(false); // TODO: what does this mean?
+			appPref.setChecked(enabled);
+			if (!enabled) {
+				appPref.setSummary(R.string.app_disabled);
+			} else {
+				appPref.setSummary(null);
+			}
+			mSupportedAppsList.addPreference(appPref);
+			mSupportedAppsMap.put(appPref, app);
+		}
+	}
+
+	private void clearSupportedAppsList() {
+		for (CheckBoxPreference p : mSupportedAppsMap.keySet()) {
+			mSupportedAppsList.removePreference(p);
+		}
+		mSupportedAppsMap.clear();
+
 	}
 
 	@Override
