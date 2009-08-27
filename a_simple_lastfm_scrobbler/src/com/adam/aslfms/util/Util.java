@@ -26,9 +26,9 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.format.DateUtils;
-import android.util.Log;
 
 public class Util {
+	@SuppressWarnings("unused")
 	private static final String TAG = "Util";
 
 	/**
@@ -53,10 +53,10 @@ public class Util {
 		try {
 			PackageManager pm = ctx.getPackageManager();
 			pm.getPackageInfo(pkgString, 0);
-			Log.d(TAG, pkgString + " is installed");
+			//Log.d(TAG, pkgString + " is installed");
 			return true;
 		} catch (NameNotFoundException e) {
-			Log.d(TAG, pkgString + " is not installed");
+			//Log.d(TAG, pkgString + " is not installed");
 		}
 		return false;
 	}
