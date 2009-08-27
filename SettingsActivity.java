@@ -32,7 +32,6 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
-import android.util.Log;
 
 import com.adam.aslfms.receiver.MusicApp;
 import com.adam.aslfms.service.ScrobblingService;
@@ -50,6 +49,7 @@ import com.adam.aslfms.util.Util;
  */
 public class SettingsActivity extends PreferenceActivity {
 
+	@SuppressWarnings("unused")
 	private static final String TAG = "SettingsActivity";
 
 	private static final String SIGNUP_LINK = "https://www.last.fm/join";
@@ -204,7 +204,7 @@ public class SettingsActivity extends PreferenceActivity {
 		MusicApp[] apps = MusicApp.values();
 		for (MusicApp app : apps) {
 			boolean enabled = settings.isAppEnabled(app);
-			Log.d(TAG, "App: " + app.getName() + " : " + enabled);
+			//Log.d(TAG, "App: " + app.getName() + " : " + enabled);
 			CheckBoxPreference appPref = new CheckBoxPreference(this, null);
 			appPref.setTitle(app.getName());
 			appPref.setPersistent(false); // TODO: what does this mean?
