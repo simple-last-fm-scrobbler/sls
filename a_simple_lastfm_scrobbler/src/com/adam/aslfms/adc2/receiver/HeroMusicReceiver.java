@@ -17,10 +17,10 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms.receiver;
+package com.adam.aslfms.adc2.receiver;
 
-import com.adam.aslfms.Track;
-import com.adam.aslfms.util.Util;
+import com.adam.aslfms.adc2.Track;
+import com.adam.aslfms.adc2.util.Util;
 
 import android.os.Bundle;
 

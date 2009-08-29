@@ -2,7 +2,7 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<PreferenceScreen android:key="user_credentials"
 		android:title="@string/user_credentials_title" android:summary="@string/user_credentials_summary">
-		<com.adam.aslfms.EditUserCredentials
+		<com.adam.aslfms.adc2.EditUserCredentials
 			android:key="edit_user_credentials" android:title="@string/user_credentials_title"
 			android:dialogTitle="@string/user_credentials_title"
 			android:positiveButtonText="@string/user_credentials_enter_ok"

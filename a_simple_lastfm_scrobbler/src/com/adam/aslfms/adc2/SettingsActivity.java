@@ -17,7 +17,7 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms;
+package com.adam.aslfms.adc2;
 
 import java.util.HashMap;
 
@@ -33,9 +33,10 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 
-import com.adam.aslfms.receiver.MusicApp;
-import com.adam.aslfms.service.ScrobblingService;
-import com.adam.aslfms.util.Util;
+import com.adam.aslfms.adc2.R;
+import com.adam.aslfms.adc2.receiver.MusicApp;
+import com.adam.aslfms.adc2.service.ScrobblingService;
+import com.adam.aslfms.adc2.util.Util;
 
 /**
  * This is the activity that is shown when the user launches

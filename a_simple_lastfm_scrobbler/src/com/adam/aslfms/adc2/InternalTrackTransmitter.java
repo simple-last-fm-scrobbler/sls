@@ -17,11 +17,11 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms;
+package com.adam.aslfms.adc2;
 
 import java.util.LinkedList;
 
-import com.adam.aslfms.service.ScrobblingService;
+import com.adam.aslfms.adc2.service.ScrobblingService;
 
 /**
  * Internal class that transmits tracks from {@link PlayStatusReceiver} to

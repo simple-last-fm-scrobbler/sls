@@ -17,7 +17,7 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms;
+package com.adam.aslfms.adc2;
 
 /**
  * Status is a "namespace class" that contains the definitions of various status

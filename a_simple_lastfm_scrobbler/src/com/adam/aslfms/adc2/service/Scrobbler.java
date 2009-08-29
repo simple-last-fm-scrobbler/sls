@@ -17,7 +17,7 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms.service;
+package com.adam.aslfms.adc2.service;
 
 import java.io.IOException;
 import java.util.LinkedList;
@@ -34,12 +34,12 @@ import org.apache.http.message.BasicNameValuePair;
 import android.content.Context;
 import android.util.Log;
 
-import com.adam.aslfms.ScrobblesDatabase;
-import com.adam.aslfms.Track;
-import com.adam.aslfms.Status.BadSessionException;
-import com.adam.aslfms.Status.UnknownResponseException;
-import com.adam.aslfms.Status.TemporaryFailureException;
-import com.adam.aslfms.service.Handshaker.HandshakeResult;
+import com.adam.aslfms.adc2.ScrobblesDatabase;
+import com.adam.aslfms.adc2.Track;
+import com.adam.aslfms.adc2.Status.BadSessionException;
+import com.adam.aslfms.adc2.Status.TemporaryFailureException;
+import com.adam.aslfms.adc2.Status.UnknownResponseException;
+import com.adam.aslfms.adc2.service.Handshaker.HandshakeResult;
 
 /**
  * 

@@ -17,16 +17,16 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms;
+package com.adam.aslfms.adc2;
 
-import com.adam.aslfms.receiver.MusicApp;
+import com.adam.aslfms.adc2.receiver.MusicApp;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 /**
- * .
+ * 
  * @author tgwizard
  *
  */

@@ -26,7 +26,7 @@
  * Message-Digest Algorithm and its reference implementation.
  */
 
-package com.adam.aslfms.util;
+package com.adam.aslfms.adc2.util;
 
 import java.io.*;
 

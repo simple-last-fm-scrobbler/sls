@@ -17,7 +17,7 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms.util;
+package com.adam.aslfms.adc2.util;
 
 import java.util.Calendar;
 import java.util.TimeZone;

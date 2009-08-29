@@ -17,25 +17,25 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms.service;
+package com.adam.aslfms.adc2.service;
 
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.adam.aslfms.AppSettings;
-import com.adam.aslfms.R;
-import com.adam.aslfms.ScrobblesDatabase;
-import com.adam.aslfms.Status;
-import com.adam.aslfms.Track;
-import com.adam.aslfms.Status.BadAuthException;
-import com.adam.aslfms.Status.BadSessionException;
-import com.adam.aslfms.Status.ClientBannedException;
-import com.adam.aslfms.Status.UnknownResponseException;
-import com.adam.aslfms.Status.TemporaryFailureException;
-import com.adam.aslfms.service.Handshaker.HandshakeResult;
-import com.adam.aslfms.service.Scrobbler.ScrobbleResult;
-import com.adam.aslfms.util.Util;
+import com.adam.aslfms.adc2.R;
+import com.adam.aslfms.adc2.AppSettings;
+import com.adam.aslfms.adc2.ScrobblesDatabase;
+import com.adam.aslfms.adc2.Status;
+import com.adam.aslfms.adc2.Track;
+import com.adam.aslfms.adc2.Status.BadAuthException;
+import com.adam.aslfms.adc2.Status.BadSessionException;
+import com.adam.aslfms.adc2.Status.ClientBannedException;
+import com.adam.aslfms.adc2.Status.TemporaryFailureException;
+import com.adam.aslfms.adc2.Status.UnknownResponseException;
+import com.adam.aslfms.adc2.service.Handshaker.HandshakeResult;
+import com.adam.aslfms.adc2.service.Scrobbler.ScrobbleResult;
+import com.adam.aslfms.adc2.util.Util;
 
 /**
  * NetworkLoop does all the network requests - handshaking, scrobbling and

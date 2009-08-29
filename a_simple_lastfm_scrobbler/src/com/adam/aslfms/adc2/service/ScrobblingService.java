@@ -17,7 +17,7 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms.service;
+package com.adam.aslfms.adc2.service;
 
 import android.app.Service;
 import android.content.Intent;
@@ -25,11 +25,11 @@ import android.database.SQLException;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.adam.aslfms.AppSettings;
-import com.adam.aslfms.InternalTrackTransmitter;
-import com.adam.aslfms.ScrobblesDatabase;
-import com.adam.aslfms.Track;
-import com.adam.aslfms.util.Util;
+import com.adam.aslfms.adc2.AppSettings;
+import com.adam.aslfms.adc2.InternalTrackTransmitter;
+import com.adam.aslfms.adc2.ScrobblesDatabase;
+import com.adam.aslfms.adc2.Track;
+import com.adam.aslfms.adc2.util.Util;
 
 /**
  * 
@@ -40,12 +40,12 @@ public class ScrobblingService extends Service {
 
 	private static final String TAG = "ScrobblingService";
 
-	public static final String ACTION_AUTHENTICATE = "com.adam.aslfms.service.authenticate";
-	public static final String ACTION_CLEARCREDS = "com.adam.aslfms.service.clearcreds";
-	public static final String ACTION_PLAYSTATECHANGED = "com.adam.aslfms.service.playstatechanged";
+	public static final String ACTION_AUTHENTICATE = "com.adam.aslfms.adc2.service.authenticate";
+	public static final String ACTION_CLEARCREDS = "com.adam.aslfms.adc2.service.clearcreds";
+	public static final String ACTION_PLAYSTATECHANGED = "com.adam.aslfms.adc2.service.playstatechanged";
 
-	public static final String BROADCAST_ONAUTHCHANGED = "com.adam.aslfms.service.bcast.onauth";
-	public static final String BROADCAST_ONSTATUSCHANGED = "com.adam.aslfms.service.bcast.onstatus";
+	public static final String BROADCAST_ONAUTHCHANGED = "com.adam.aslfms.adc2.service.bcast.onauth";
+	public static final String BROADCAST_ONSTATUSCHANGED = "com.adam.aslfms.adc2.service.bcast.onstatus";
 
 	private static final int MIN_SCROBBLE_TIME = 30;
 

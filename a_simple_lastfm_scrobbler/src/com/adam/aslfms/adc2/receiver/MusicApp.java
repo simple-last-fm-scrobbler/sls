@@ -17,25 +17,31 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms;
+package com.adam.aslfms.adc2.receiver;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
+public enum MusicApp {
+	ANDROID_MUSIC(0x01, "Android Music Player", "com.android.music"),
+	HERO_MUSIC(0x02, "Hero Music Player", "com.htc.music");
 
-public class TestReceiver extends BroadcastReceiver {
-	
-	private static final String TAG = "TestReceiver";
+	private final int val;
+	private final String name;
+	private final String pkg;
 
-	@Override
-	public void onReceive(Context context, Intent intent) {
-		String action = intent.getAction();
-		Bundle bundle = intent.getExtras();
-		
-		Log.d(TAG, "action: " + action);
-		Log.d(TAG, "bundle: " + bundle.describeContents());
+	MusicApp(int v, String n, String pkg) {
+		this.val = v;
+		this.name = n;
+		this.pkg = pkg;
 	}
 
+	public int getValue() {
+		return this.val;
+	}
+
+	public String getName() {
+		return this.name;
+	}
+	
+	public String getPackage() {
+		return this.pkg;
+	}
 }

@@ -17,7 +17,7 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms;
+package com.adam.aslfms.adc2;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -27,7 +27,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.adam.aslfms.util.Util;
+import com.adam.aslfms.adc2.R;
+import com.adam.aslfms.adc2.util.Util;
 
 public class StatusInfoDialog {
 

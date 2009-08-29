@@ -17,7 +17,7 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms.service;
+package com.adam.aslfms.adc2.service;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -32,14 +32,14 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import android.content.Context;
 import android.util.Log;
 
-import com.adam.aslfms.AppSettings;
-import com.adam.aslfms.R;
-import com.adam.aslfms.Status.BadAuthException;
-import com.adam.aslfms.Status.ClientBannedException;
-import com.adam.aslfms.Status.TemporaryFailureException;
-import com.adam.aslfms.Status.UnknownResponseException;
-import com.adam.aslfms.util.MD5;
-import com.adam.aslfms.util.Util;
+import com.adam.aslfms.adc2.R;
+import com.adam.aslfms.adc2.AppSettings;
+import com.adam.aslfms.adc2.Status.BadAuthException;
+import com.adam.aslfms.adc2.Status.ClientBannedException;
+import com.adam.aslfms.adc2.Status.TemporaryFailureException;
+import com.adam.aslfms.adc2.Status.UnknownResponseException;
+import com.adam.aslfms.adc2.util.MD5;
+import com.adam.aslfms.adc2.util.Util;
 
 /**
  * 

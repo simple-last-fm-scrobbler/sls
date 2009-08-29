@@ -17,7 +17,7 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms;
+package com.adam.aslfms.adc2;
 
 import android.content.Context;
 import android.content.Intent;
@@ -28,8 +28,9 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.EditText;
 
-import com.adam.aslfms.service.ScrobblingService;
-import com.adam.aslfms.util.MD5;
+import com.adam.aslfms.adc2.R;
+import com.adam.aslfms.adc2.service.ScrobblingService;
+import com.adam.aslfms.adc2.util.MD5;
 
 /**
  * 
