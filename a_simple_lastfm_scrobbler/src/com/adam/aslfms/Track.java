@@ -61,9 +61,12 @@ public class Track {
 	 * @param when
 	 *            The time the track started playing, in seconds since epoch,
 	 *            UTC
+	 * @return a valid track, or null if any of the parameters where null
 	 */
 	public static Track createTrack(CharSequence artist, CharSequence album,
 			CharSequence track, int duration, long when) {
+		if (artist == null || album == null || track == null)
+			return null;
 		return new Track(artist, album, track, duration, when, -1);
 	}
 
@@ -84,6 +87,7 @@ public class Track {
 	 *            UTC
 	 * @param rowId
 	 *            The id for the corresponding row in the scrobble database.
+	 * @return a valid track, never null
 	 */
 	public static Track createTrackFromDb(CharSequence artist,
 			CharSequence album, CharSequence track, int duration, long when,
