@@ -83,7 +83,8 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 		parseIntent(action, bundle);
 		
 		if (mTrack == null) {
-			Log.e(TAG, "Somehow mTrack was null");
+			Log.i(TAG, "Got a null track from: " + mApp.getName() + ", ignoring it");
+			
 			return;
 		}
 		

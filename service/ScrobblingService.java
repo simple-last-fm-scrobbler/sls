@@ -98,7 +98,7 @@ public class ScrobblingService extends Service {
 			Track track = InternalTrackTransmitter.popTrack();
 
 			if (track == null) {
-				Log.e(TAG, "Track was null when received in onStart!");
+				Log.e(TAG, "A null track shouldn't have gotten through!! (Ignoring it)");
 				return;
 			}
 
