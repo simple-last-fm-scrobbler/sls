@@ -54,7 +54,7 @@ public class NPNotifier extends AbstractSubmitter {
 
 	private final AppSettings settings;
 
-	private Track mTrack;
+	private final Track mTrack;
 
 	public NPNotifier(Context ctx, Networker net, Track track) {
 		super(ctx, net);
@@ -64,7 +64,6 @@ public class NPNotifier extends AbstractSubmitter {
 
 	@Override
 	protected boolean doRun(HandshakeResult hInfo) {
-		// TODO Auto-generated method stub
 		boolean ret;
 		try {
 			notifyNowPlaying(mTrack, hInfo);

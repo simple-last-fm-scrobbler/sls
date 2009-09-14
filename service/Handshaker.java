@@ -103,7 +103,6 @@ public class Handshaker extends NetRunnable {
 			}
 			// badauth means we cant do any scrobbling/notifying, so clear them
 			// the scrobbles already prepared will be sent at a later time
-			// TODO:
 			getNetworker().unlaunchScrobblingAndNPNotifying();
 		} catch (TemporaryFailureException e) {
 
@@ -115,6 +114,8 @@ public class Handshaker extends NetRunnable {
 			NetworkInfo netInfo = cMgr.getActiveNetworkInfo();
 			
 			if (netInfo == null || !netInfo.isConnected()) {
+				// no more sleeping, network down
+				getNetworker().resetSleeper();
 				getNetworker().launchNetworkWaiter();
 				getNetworker().launchHandshaker(doAuth);
 			} else {

@@ -24,8 +24,8 @@ import android.content.Intent;
 
 public abstract class NetRunnable implements Runnable {
 
-	private Context mContext;
-	private Networker mNetworker;
+	private final Context mContext;
+	private final Networker mNetworker;
 
 	public NetRunnable(Context ctx, Networker net) {
 		super();

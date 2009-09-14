@@ -27,7 +27,6 @@ public abstract class AbstractSubmitter extends NetRunnable {
 
 	@SuppressWarnings("unused")
 	private static final String TAG = "ASubmitter";
-	private HandshakeResult hInfo;
 
 	public AbstractSubmitter(Context ctx, Networker net) {
 		super(ctx, net);
@@ -35,8 +34,7 @@ public abstract class AbstractSubmitter extends NetRunnable {
 
 	@Override
 	public final void run() {
-		// TODO Auto-generated method stub
-		hInfo = getNetworker().getHandshakeResult();
+		HandshakeResult hInfo = getNetworker().getHandshakeResult();
 		if (hInfo == null) {
 			getNetworker().launchHandshaker(false);
 			relaunchThis();
