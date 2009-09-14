@@ -1,5 +1,3 @@
-For a complete list of changes, see [http://a-simple-lastfm-scrobbler.googlecode.com/svn/trunk/a_simple_lastfm_scrobbler/assets/changelog.txt this].
-
 - 1.1
   * Major architectural overhaul
   * Handles offline mode better, scrobbles will be submitted immediately when the phone comes online again
