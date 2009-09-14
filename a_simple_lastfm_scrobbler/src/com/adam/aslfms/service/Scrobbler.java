@@ -39,7 +39,6 @@ import com.adam.aslfms.R;
 import com.adam.aslfms.ScrobblesDatabase;
 import com.adam.aslfms.Track;
 import com.adam.aslfms.Status.BadSessionException;
-import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.Status.TemporaryFailureException;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
 import com.adam.aslfms.util.Util;
@@ -59,13 +58,11 @@ public class Scrobbler extends AbstractSubmitter {
 	private final ScrobblesDatabase mDbHelper;
 
 	public static final int MAX_SCROBBLE_LIMIT = 50;
-	private Track[] mTracks;
 
 	public Scrobbler(Context ctx, Networker net, ScrobblesDatabase dbHelper) {
 		super(ctx, net);
 		this.settings = new AppSettings(ctx);
 		this.mDbHelper = dbHelper;
-		this.mTracks = new Track[MAX_SCROBBLE_LIMIT];
 	}
 
 	@Override
@@ -73,25 +70,36 @@ public class Scrobbler extends AbstractSubmitter {
 		// TODO Auto-generated method stub
 		boolean ret;
 		try {
-			ScrobbleResult sr = scrobbleCommit(hInfo);
-			if (sr.tracksLeftInDb != 0) {
+			Track[] tracks = mDbHelper.fetchScrobblesArray(MAX_SCROBBLE_LIMIT);
+
+			if (tracks.length == 0) {
+				Log.d(TAG, "Retrieved 0 tracks from db, no scrobbling");
+				return true;
+			}
+			Log.d(TAG, "Retrieved " + tracks.length + " tracks from db");
+			Log.d(TAG, "Will scrobble");
+
+			for (int i = 0; i < tracks.length; i++) {
+				Log.d(TAG, tracks[i].toString());
+			}
+
+			scrobbleCommit(hInfo, tracks); // throws if unsuccessful
+
+			// there might be more tracks in the db
+			if (tracks.length == MAX_SCROBBLE_LIMIT) {
+				Log.d(TAG, "Relaunching scrobbler, might be tracks in db");
 				relaunchThis();
 			}
 
 			// status stuff
 			settings.setLastScrobbleSuccess(true);
-			if (sr.tracksScrobbled != 0) {
-				settings.setLastScrobbleTime(Util.currentTimeMillisLocal());
-				settings.setNumberOfScrobbles(settings.getNumberOfScrobbles()
-						+ sr.tracksScrobbled);
-				if (sr.lastTrack != null) {
-					settings.setLastScrobbleInfo("\"" + sr.lastTrack.getTrack()
-							+ "\" " + getContext().getString(R.string.by) + " "
-							+ sr.lastTrack.getArtist());
-				} else {
-					Log.e(TAG, "Got null track left over from Scrobbler");
-				}
-			}
+			settings.setLastScrobbleTime(Util.currentTimeMillisLocal());
+			settings.setNumberOfScrobbles(settings.getNumberOfScrobbles()
+					+ tracks.length);
+			Track track = tracks[tracks.length - 1];
+			settings.setLastScrobbleInfo("\"" + track.getTrack() + "\" "
+					+ getContext().getString(R.string.by) + " "
+					+ track.getArtist());
 			notifyStatusUpdate();
 
 			ret = true;
@@ -117,33 +125,9 @@ public class Scrobbler extends AbstractSubmitter {
 	 * @return a {@link ScrobbleResult} struct with some info
 	 * @throws BadSessionException
 	 * @throws TemporaryFailureException
-	 * @throws UnknownResponseException
 	 */
-	public ScrobbleResult scrobbleCommit(HandshakeResult hInfo)
+	public void scrobbleCommit(HandshakeResult hInfo, Track[] tracks)
 			throws BadSessionException, TemporaryFailureException {
-
-		int count = mDbHelper.fetchScrobblesArray(mTracks, MAX_SCROBBLE_LIMIT);
-		if (count == 0) {
-			Log.d(TAG, "Retrieved 0 tracks from db, no scrobbling");
-			return new ScrobbleResult(0, 0, null);
-		}
-
-		ScrobbleResult res;
-
-		Log.d(TAG, "Will scrobble");
-		Log.d(TAG, "Retrieved " + count + " tracks from db");
-		if (count > MAX_SCROBBLE_LIMIT) {
-			res = new ScrobbleResult(count - MAX_SCROBBLE_LIMIT,
-					MAX_SCROBBLE_LIMIT, mTracks[MAX_SCROBBLE_LIMIT - 1]);
-			Log.d(TAG, "But only " + MAX_SCROBBLE_LIMIT
-					+ " will be submitted just now");
-			count = MAX_SCROBBLE_LIMIT;
-		} else {
-			res = new ScrobbleResult(0, count, mTracks[count - 1]);
-		}
-		for (int i = 0; i < count; i++) {
-			Log.d(TAG, mTracks[i].toString());
-		}
 
 		DefaultHttpClient http = new DefaultHttpClient();
 		HttpPost request = new HttpPost(hInfo.scrobbleUri);
@@ -151,8 +135,8 @@ public class Scrobbler extends AbstractSubmitter {
 		List<BasicNameValuePair> data = new LinkedList<BasicNameValuePair>();
 		data.add(new BasicNameValuePair("s", hInfo.sessionId));
 
-		for (int i = 0; i < count; i++) {
-			Track track = mTracks[i];
+		for (int i = 0; i < tracks.length; i++) {
+			Track track = tracks[i];
 			String is = "[" + i + "]";
 			data.add(new BasicNameValuePair("a" + is, track.getArtist()
 					.toString()));
@@ -178,13 +162,11 @@ public class Scrobbler extends AbstractSubmitter {
 			if (response.startsWith("OK")) {
 				Log.i(TAG, "Scrobble success");
 
-				for (int i = 0; i < count; i++) {
-					mDbHelper.deleteScrobble(mTracks[i]);
+				// delete tracks from db, not array
+				for (int i = 0; i < tracks.length; i++) {
+					mDbHelper.deleteScrobble(tracks[i]);
 				}
 
-				// resettings mTracks in the finally-clause below
-
-				return res;
 			} else if (response.startsWith("BADSESSION")) {
 				throw new BadSessionException(
 						"Scrobble failed because of badsession");
@@ -202,13 +184,6 @@ public class Scrobbler extends AbstractSubmitter {
 		} catch (IOException e) {
 			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
 		} finally {
-
-			// reset mTracks, so that we don't hold unnecessary objects
-			// in memory
-			for (int i = 0; i < mTracks.length; i++) {
-				mTracks[i] = null;
-			}
-
 			http.getConnectionManager().shutdown();
 		}
 	}

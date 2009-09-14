@@ -22,16 +22,14 @@ package com.adam.aslfms;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.adam.aslfms.util.Util;
+
 public class AboutDialog {
+	@SuppressWarnings("unused")
 	private static final String TAG = "AboutDialog";
 	private final Context mCtx;
 
@@ -48,9 +46,8 @@ public class AboutDialog {
 		innerUpdate(dialogView);
 
 		AlertDialog.Builder adBuilder = new AlertDialog.Builder(mCtx).setTitle(
-				R.string.about).setIcon(
-				android.R.drawable.ic_dialog_info).setView(dialogView)
-				.setPositiveButton(R.string.whats_new,
+				R.string.about).setIcon(android.R.drawable.ic_dialog_info)
+				.setView(dialogView).setPositiveButton(R.string.whats_new,
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int which) {
@@ -77,33 +74,23 @@ public class AboutDialog {
 		TextView email = (TextView) dialogView.findViewById(R.id.email);
 
 		// app name & version
-		PackageManager pm = mCtx.getPackageManager();
-		String appText = "??";
-		try {
-			ApplicationInfo appInfo = pm.getApplicationInfo(mCtx
-					.getPackageName(), 0);
-			String label = pm.getApplicationLabel(appInfo).toString();
-			label = label == null ? "??" : label;
-			PackageInfo pkgInfo = pm.getPackageInfo(mCtx.getPackageName(), 0);
-			appText = label + " v" + pkgInfo.versionName;
-		} catch (NameNotFoundException e) {
-			Log.e(TAG, "Couldn't read app info on own package!");
-		}
+		String appText = Util.getAppName(mCtx, mCtx.getPackageName()) + " v"
+				+ Util.getAppVersionName(mCtx, mCtx.getPackageName());
 		appName.setText(appText);
-		
+
 		// author
 		author.setText(R.string.by_adam);
-		
+
 		// license
 		license.setText(R.string.license);
-		
+
 		// text
 		whatIsThis.setText(R.string.about_text);
 
 		// website
 		website.setText(mCtx.getString(R.string.website) + " "
 				+ mCtx.getString(R.string.website_url));
-		
+
 		// email
 		email.setText(mCtx.getString(R.string.contact) + " "
 				+ mCtx.getString(R.string.email_addr));

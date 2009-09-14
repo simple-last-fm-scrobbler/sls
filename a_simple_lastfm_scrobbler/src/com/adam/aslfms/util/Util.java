@@ -23,6 +23,8 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.format.DateUtils;
@@ -48,16 +50,49 @@ public class Util {
 		return DateUtils.formatDateTime(ctx, millis, DateUtils.FORMAT_SHOW_TIME
 				| DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE);
 	}
-	
-	public static boolean checkForInstalledApp(Context ctx, String pkgString) {
+
+	public static boolean checkForInstalledApp(Context ctx, String pkgName) {
 		try {
 			PackageManager pm = ctx.getPackageManager();
-			pm.getPackageInfo(pkgString, 0);
-			//Log.d(TAG, pkgString + " is installed");
+			pm.getPackageInfo(pkgName, 0);
+			// Log.d(TAG, pkgString + " is installed");
 			return true;
 		} catch (NameNotFoundException e) {
-			//Log.d(TAG, pkgString + " is not installed");
+			// Log.d(TAG, pkgString + " is not installed");
 		}
 		return false;
+	}
+
+	public static String getAppName(Context ctx, String pkgName) {
+		try {
+			PackageManager pm = ctx.getPackageManager();
+			ApplicationInfo appInfo = pm.getApplicationInfo(ctx
+					.getPackageName(), 0);
+			String label = pm.getApplicationLabel(appInfo).toString();
+			return label;
+		} catch (NameNotFoundException e) {
+			return "";
+		}
+	}
+
+	public static String getAppVersionName(Context ctx, String pkgName) {
+		try {
+			PackageManager pm = ctx.getPackageManager();
+			PackageInfo pkgInfo = pm.getPackageInfo(ctx.getPackageName(), 0);
+			String ver = pkgInfo.versionName;
+			return ver;
+		} catch (NameNotFoundException e) {
+			return "0";
+		}
+	}
+
+	public static int getAppVersionCode(Context ctx, String pkgName) {
+		try {
+			PackageManager pm = ctx.getPackageManager();
+			PackageInfo pkgInfo = pm.getPackageInfo(ctx.getPackageName(), 0);
+			return pkgInfo.versionCode;
+		} catch (NameNotFoundException e) {
+			return 0;
+		}
 	}
 }

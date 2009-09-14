@@ -49,7 +49,7 @@ public class WhatsNewDialog {
 		innerUpdate(dialogView);
 
 		AlertDialog.Builder adBuilder = new AlertDialog.Builder(mCtx).setTitle(
-				R.string.thats_new).setIcon(android.R.drawable.ic_dialog_info)
+				R.string.whats_new).setIcon(android.R.drawable.ic_dialog_info)
 				.setView(dialogView).setNegativeButton(R.string.close,
 						new DialogInterface.OnClickListener() {
 							@Override

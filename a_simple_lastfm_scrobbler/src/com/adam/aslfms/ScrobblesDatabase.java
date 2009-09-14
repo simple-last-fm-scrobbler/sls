@@ -150,34 +150,23 @@ public class ScrobblesDatabase {
 				null) > 0;
 	}
 
-	/**
-	 * Fetches scrobbles saved in the db and puts them in <code>tracks</code>.
-	 * 
-	 * @param tracks
-	 *            a pre-allocated array to be filled with tracks from the db
-	 * @param maxFetch
-	 *            the max number of tracks to fill <code>tracks</code> with,
-	 *            should not exceed <code>tracks.length</code>
-	 * @return the number of tracks found in the db, can exceed
-	 *         <code>maxFetch</code>
-	 */
-	public int fetchScrobblesArray(Track[] tracks, int maxFetch) {
+	public Track[] fetchScrobblesArray(int maxFetch) {
 		Cursor c = mDb.query(DATABASE_TABLE, new String[] { KEY_ROWID,
 				KEY_ARTIST, KEY_ALBUM, KEY_TRACK, KEY_DURATION, KEY_WHEN },
 				null, null, null, null, null);
 		int count = c.getCount();
-		int ret = count;
 		if (count > maxFetch) {
 			count = maxFetch;
 		}
 		c.moveToFirst();
+		Track[] tracks = new Track[count];
 		for (int i = 0; i < count; i++) {
 			tracks[i] = Track.createTrackFromDb(c.getString(1), c.getString(2),
 					c.getString(3), c.getInt(4), c.getLong(5), c.getInt(0));
 			c.moveToNext();
 		}
 		c.close();
-		return ret;
+		return tracks;
 	}
 	
 	public int queryNumberOfRows() {

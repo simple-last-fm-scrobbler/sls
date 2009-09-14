@@ -112,6 +112,12 @@ public class SettingsActivity extends PreferenceActivity {
 		mSupportedAppsMap = new HashMap<CheckBoxPreference, MusicApp>();
 
 		mStatusShow = findPreference(KEY_STATUS_SHOW);
+
+		int v = Util.getAppVersionCode(this, getPackageName());
+		if (settings.getWhatsNewViewedVersion() < v) {
+			new WhatsNewDialog(this).show();
+			settings.setWhatsNewViewedVersion(v);
+		}
 	}
 
 	@Override
@@ -263,6 +269,7 @@ public class SettingsActivity extends PreferenceActivity {
 
 		registerReceiver(onAuth, ifs);
 		update();
+		mStatusInfo.updateDialog();
 	}
 
 	@Override
