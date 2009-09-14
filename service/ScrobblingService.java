@@ -49,10 +49,10 @@ public class ScrobblingService extends Service {
 
 	private static final int MIN_SCROBBLE_TIME = 30;
 
-	private final AppSettings settings;
-	private final ScrobblesDatabase mDbHelper;
+	private AppSettings settings;
+	private ScrobblesDatabase mDbHelper;
 
-	private final Networker mNetworker;
+	private Networker mNetworker;
 
 	private Track mCurrentPlayingTrack = null;
 
@@ -61,8 +61,8 @@ public class ScrobblingService extends Service {
 		return null;
 	}
 
-	public ScrobblingService() {
-		super();
+	@Override
+	public void onCreate() {
 		settings = new AppSettings(this);
 		mDbHelper = new ScrobblesDatabase(this);
 		try {
@@ -74,10 +74,6 @@ public class ScrobblingService extends Service {
 			stopSelf();
 		}
 		mNetworker = new Networker(this, mDbHelper);
-	}
-
-	@Override
-	public void onCreate() {
 	}
 
 	@Override

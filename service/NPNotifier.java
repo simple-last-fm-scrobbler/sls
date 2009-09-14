@@ -79,12 +79,12 @@ public class NPNotifier extends AbstractSubmitter {
 
 			ret = true;
 		} catch (BadSessionException e) {
-			Log.i(TAG, e.getMessage());
+			Log.i(TAG, "BadSession: " + e.getMessage());
 			getNetworker().launchHandshaker(false);
 			relaunchThis();
 			ret = true;
 		} catch (TemporaryFailureException e) {
-			Log.i(TAG, e.getMessage());
+			Log.i(TAG, "Tempfail: " + e.getMessage());
 			ret = false;
 		}
 		return ret;
