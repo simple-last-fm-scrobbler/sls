@@ -28,7 +28,7 @@ import android.content.SharedPreferences.Editor;
 /**
  * 
  * @author tgwizard
- *
+ * 
  */
 public class AppSettings {
 
@@ -40,22 +40,24 @@ public class AppSettings {
 
 	private final String KEY_SCROBBLING_ENABLE = "enable_scrobbling";
 	private final String KEY_NOWPLAYING_ENABLE = "enable_nowplaying";
-	
+
 	private final String KEY_APPENABLE_PREFIX = "appenable_";
 
 	private final String KEY_AUTH_STATUS = "authstatus";
 
 	private final String KEY_LAST_LISTEN_TIME = "last_listen_time";
-	
+
+	private final String KEY_WHATSNEW_VIEWED_VERSION = "whatsnew_viewed_version";
+
 	// status stuff
 	private final String KEY_STATUS_LAST_SCROBBLE_TIME = "status_last_scrobble_time";
 	private final String KEY_STATUS_LAST_SCROBBLE_SUCCESS = "status_last_scrobble_success";
 	private final String KEY_STATUS_LAST_SCROBBLE_INFO = "status_last_scrobble_info";
-	
+
 	private final String KEY_STATUS_LAST_NP_TIME = "status_last_np_time";
 	private final String KEY_STATUS_LAST_NP_SUCCESS = "status_last_np_success";
 	private final String KEY_STATUS_LAST_NP_INFO = "status_last_np_info";
-	
+
 	private final String KEY_STATUS_NSCROBBLES = "status_nscrobbles";
 	private final String KEY_STATUS_NNPS = "status_nnps";
 
@@ -124,13 +126,13 @@ public class AppSettings {
 	public boolean isNowPlayingEnabled() {
 		return prefs.getBoolean(KEY_NOWPLAYING_ENABLE, false);
 	}
-	
+
 	public void setAppEnabled(MusicApp app, boolean enabled) {
 		Editor e = prefs.edit();
 		e.putBoolean(KEY_APPENABLE_PREFIX + app.toString(), enabled);
 		e.commit();
 	}
-	
+
 	public boolean isAppEnabled(MusicApp app) {
 		return prefs.getBoolean(KEY_APPENABLE_PREFIX + app.toString(), true);
 	}
@@ -158,8 +160,17 @@ public class AppSettings {
 	public long getLastListenTime() {
 		return prefs.getLong(KEY_LAST_LISTEN_TIME, 0);
 	}
-	
-	
+
+	public void setWhatsNewViewedVersion(int i) {
+		Editor e = prefs.edit();
+		e.putInt(KEY_WHATSNEW_VIEWED_VERSION, i);
+		e.commit();
+	}
+
+	public int getWhatsNewViewedVersion() {
+		return prefs.getInt(KEY_WHATSNEW_VIEWED_VERSION, 0);
+	}
+
 	// status stuff
 	// scrobbling
 	public void setLastScrobbleTime(long time) {
@@ -170,12 +181,13 @@ public class AppSettings {
 
 	/**
 	 * Returns the time of the last successful scrobble.
+	 * 
 	 * @return the time in milliseconds, or -1 if not set
 	 */
 	public long getLastScrobbleTime() {
 		return prefs.getLong(KEY_STATUS_LAST_SCROBBLE_TIME, -1);
 	}
-	
+
 	public void setLastScrobbleSuccess(boolean b) {
 		Editor e = prefs.edit();
 		e.putBoolean(KEY_STATUS_LAST_SCROBBLE_SUCCESS, b);
@@ -185,7 +197,7 @@ public class AppSettings {
 	public boolean wasLastScrobbleSuccessful() {
 		return prefs.getBoolean(KEY_STATUS_LAST_SCROBBLE_SUCCESS, false);
 	}
-	
+
 	public void setLastScrobbleInfo(String s) {
 		Editor e = prefs.edit();
 		e.putString(KEY_STATUS_LAST_SCROBBLE_INFO, s);
@@ -195,7 +207,7 @@ public class AppSettings {
 	public String getLastScrobbleInfo() {
 		return prefs.getString(KEY_STATUS_LAST_SCROBBLE_INFO, "");
 	}
-	
+
 	// np-notifying
 	public void setLastNPTime(long time) {
 		Editor e = prefs.edit();
@@ -205,12 +217,13 @@ public class AppSettings {
 
 	/**
 	 * Returns the time of the last successful now-playing notification.
+	 * 
 	 * @return the time in milliseconds, or -1 if not set
 	 */
 	public long getLastNPTime() {
 		return prefs.getLong(KEY_STATUS_LAST_NP_TIME, -1);
 	}
-	
+
 	public void setLastNPSuccess(boolean b) {
 		Editor e = prefs.edit();
 		e.putBoolean(KEY_STATUS_LAST_NP_SUCCESS, b);
@@ -220,7 +233,7 @@ public class AppSettings {
 	public boolean wasLastNPSuccessful() {
 		return prefs.getBoolean(KEY_STATUS_LAST_NP_SUCCESS, false);
 	}
-	
+
 	public void setLastNPInfo(String s) {
 		Editor e = prefs.edit();
 		e.putString(KEY_STATUS_LAST_NP_INFO, s);
@@ -230,25 +243,25 @@ public class AppSettings {
 	public String getLastNPInfo() {
 		return prefs.getString(KEY_STATUS_LAST_NP_INFO, "");
 	}
-	
+
 	// number of scrobbles
 	public void setNumberOfScrobbles(int i) {
 		Editor e = prefs.edit();
 		e.putInt(KEY_STATUS_NSCROBBLES, i);
 		e.commit();
 	}
-	
+
 	public int getNumberOfScrobbles() {
 		return prefs.getInt(KEY_STATUS_NSCROBBLES, 0);
 	}
-	
+
 	// number of np-notifications
 	public void setNumberOfNPs(int i) {
 		Editor e = prefs.edit();
 		e.putInt(KEY_STATUS_NNPS, i);
 		e.commit();
 	}
-	
+
 	public int getNumberOfNPs() {
 		return prefs.getInt(KEY_STATUS_NNPS, 0);
 	}

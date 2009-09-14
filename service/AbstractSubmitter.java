@@ -56,6 +56,11 @@ public abstract class AbstractSubmitter extends NetRunnable {
 		}
 	}
 
+	/**
+	 * 
+	 * @param hInfo struct with urls and stuff
+	 * @return true if successful, false otherwise
+	 */
 	protected abstract boolean doRun(HandshakeResult hInfo);
 
 	protected abstract void relaunchThis();
