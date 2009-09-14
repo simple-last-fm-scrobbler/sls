@@ -105,6 +105,7 @@ public class Handshaker extends NetRunnable {
 			// the scrobbles already prepared will be sent at a later time
 			getNetworker().unlaunchScrobblingAndNPNotifying();
 		} catch (TemporaryFailureException e) {
+			Log.i(TAG, "Tempfail: " + e.getMessage());
 
 			if (doAuth)
 				notifyAuthStatusUpdate(Status.AUTHSTATUS_RETRYLATER);

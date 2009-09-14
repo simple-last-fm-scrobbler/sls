@@ -25,6 +25,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Bundle;
 import android.util.Log;
 
 public class NetworkWaiter extends NetRunnable {
@@ -38,7 +39,6 @@ public class NetworkWaiter extends NetRunnable {
 
 	@Override
 	public void run() {
-		Log.d(TAG, "start waiting");
 		// register receiver
 		IntentFilter ifs = new IntentFilter();
 		ifs.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -51,9 +51,9 @@ public class NetworkWaiter extends NetRunnable {
 			mWait = netInfo == null || !netInfo.isConnected();
 			while (mWait) {
 				try {
-					Log.d(TAG, "go waiting");
+					Log.d(TAG, "waiting for network connection");
 					this.wait();
-					Log.d(TAG, "ungo waiting");
+					Log.d(TAG, "woke up, there's probably a network connection");
 				} catch (InterruptedException e) {
 					Log.i(TAG, "Got interrupted");
 					Log.i(TAG, e.getMessage());
@@ -63,16 +63,17 @@ public class NetworkWaiter extends NetRunnable {
 
 		// unregister receiver
 		getContext().unregisterReceiver(mConnReceiver);
-		Log.d(TAG, "stop waiting");
 	}
 
 	private BroadcastReceiver mConnReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			synchronized (NetworkWaiter.this) {
-				Log.d(TAG, "Received something");
-				NetworkWaiter.this.mWait = false;
-				NetworkWaiter.this.notifyAll();
+				Bundle extras = intent.getExtras();
+				if (extras == null || !extras.getBoolean(ConnectivityManager.EXTRA_NO_CONNECTIVITY)) {
+					NetworkWaiter.this.mWait = false;
+					NetworkWaiter.this.notifyAll();
+				}
 			}
 		}
 	};
