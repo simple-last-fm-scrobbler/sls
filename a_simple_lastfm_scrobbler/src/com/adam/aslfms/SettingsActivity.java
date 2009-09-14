@@ -32,6 +32,8 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.adam.aslfms.receiver.MusicApp;
 import com.adam.aslfms.service.ScrobblingService;
@@ -68,6 +70,8 @@ public class SettingsActivity extends PreferenceActivity {
 	private static final String KEY_SUPPORTED_APPS_LIST = "supported_apps_list";
 
 	private static final String KEY_STATUS_SHOW = "status_show";
+
+	private static final int MENU_ABOUT_ID = 0;
 
 	private AppSettings settings;
 
@@ -138,7 +142,7 @@ public class SettingsActivity extends PreferenceActivity {
 		} else {
 			MusicApp app = mSupportedAppsMap.get(preference);
 			if (app != null) {
-				CheckBoxPreference cbp = (CheckBoxPreference)preference;
+				CheckBoxPreference cbp = (CheckBoxPreference) preference;
 				boolean checked = cbp.isChecked();
 				settings.setAppEnabled(app, checked);
 				setSASummary(preference, app);
@@ -186,6 +190,9 @@ public class SettingsActivity extends PreferenceActivity {
 		} else if (settings.getAuthStatus() == Status.AUTHSTATUS_UPDATING) {
 			mUserCreds.setSummary(R.string.user_credentials_summary);
 			mEditCreds.setSummary(R.string.auth_updating);
+		} else if (settings.getAuthStatus() == Status.AUTHSTATUS_CLIENTBANNED) {
+			mUserCreds.setSummary(R.string.auth_client_banned);
+			mEditCreds.setSummary(R.string.auth_client_banned);
 		}
 
 		mScrobblePref.setChecked(settings.isScrobblingEnabled());
@@ -204,7 +211,7 @@ public class SettingsActivity extends PreferenceActivity {
 		MusicApp[] apps = MusicApp.values();
 		for (MusicApp app : apps) {
 			boolean enabled = settings.isAppEnabled(app);
-			//Log.d(TAG, "App: " + app.getName() + " : " + enabled);
+			// Log.d(TAG, "App: " + app.getName() + " : " + enabled);
 			CheckBoxPreference appPref = new CheckBoxPreference(this, null);
 			appPref.setTitle(app.getName());
 			appPref.setPersistent(false); // TODO: what does this mean?
@@ -221,13 +228,13 @@ public class SettingsActivity extends PreferenceActivity {
 		}
 		mSupportedAppsMap.clear();
 	}
-	
+
 	private void setSASummary(Preference pref, MusicApp app) {
 		boolean enabled = settings.isAppEnabled(app);
 		boolean installed = Util.checkForInstalledApp(this, app.getPackage());
 		if (!enabled) {
 			pref.setSummary(R.string.app_disabled);
-		} else if (!installed){
+		} else if (!installed) {
 			pref.setSummary(R.string.not_installed);
 		} else {
 			pref.setSummary(null);
@@ -266,6 +273,27 @@ public class SettingsActivity extends PreferenceActivity {
 	@Override
 	protected void onStop() {
 		super.onStop();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		boolean ret = super.onCreateOptionsMenu(menu);
+		menu.add(0, MENU_ABOUT_ID, 0, R.string.about);
+		return ret;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case MENU_ABOUT_ID:
+			showAboutDialog();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	private void showAboutDialog() {
+		new AboutDialog(this).show();
 	}
 
 	private BroadcastReceiver onAuth = new BroadcastReceiver() {

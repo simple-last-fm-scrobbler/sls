@@ -23,6 +23,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
+import android.database.SQLException;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -32,8 +34,7 @@ import com.adam.aslfms.util.Util;
 public class StatusInfoDialog {
 
 	public static final String PACKAGE_SCROBBLE_DROID = "net.jjc1138.android.scrobbler";
-	
-	@SuppressWarnings("unused")
+
 	private static final String TAG = "StatusInfoDialog";
 	private final Context mCtx;
 	private final AppSettings settings;
@@ -41,10 +42,21 @@ public class StatusInfoDialog {
 	private AlertDialog mDialog = null;
 	private View mDialogView = null;
 
+	private ScrobblesDatabase mDbHelper;
+
 	public StatusInfoDialog(Context ctx) {
 		super();
 		this.mCtx = ctx;
 		this.settings = new AppSettings(ctx);
+		
+		mDbHelper = new ScrobblesDatabase(ctx);
+		try {
+			mDbHelper.open();
+		} catch (SQLException e) {
+			Log.e(TAG, "Cannot open database!");
+			Log.e(TAG, e.getMessage());
+			mDbHelper = null;
+		}
 	}
 
 	private void clearStuff() {
@@ -86,17 +98,18 @@ public class StatusInfoDialog {
 	}
 
 	private void innerUpdate() {
-		TextView authText = ((TextView) mDialogView
-				.findViewById(R.id.status_auth));
-		TextView scrobbleText = ((TextView) mDialogView
-				.findViewById(R.id.status_scrobbling));
-		TextView npText = ((TextView) mDialogView.findViewById(R.id.status_np));
-		TextView scrobbleStatsText = ((TextView) mDialogView
-				.findViewById(R.id.status_scrobble_stats));
-		TextView npStatsText = ((TextView) mDialogView
-				.findViewById(R.id.status_np_stats));
-		TextView incompText = ((TextView) mDialogView
-				.findViewById(R.id.status_incomp_warning));
+		TextView authText = (TextView) mDialogView
+				.findViewById(R.id.status_auth);
+		TextView scrobbleText = (TextView) mDialogView
+				.findViewById(R.id.status_scrobbling);
+		TextView npText = (TextView) mDialogView.findViewById(R.id.status_np);
+		TextView cacheText = (TextView) mDialogView.findViewById(R.id.scrobble_cache);
+		TextView scrobbleStatsText = (TextView) mDialogView
+				.findViewById(R.id.status_scrobble_stats);
+		TextView npStatsText = (TextView) mDialogView
+				.findViewById(R.id.status_np_stats);
+		TextView incompText = (TextView) mDialogView
+				.findViewById(R.id.status_incomp_warning);
 		
 		// authText
 		if (settings.getAuthStatus() == Status.AUTHSTATUS_BADAUTH) {
@@ -110,6 +123,8 @@ public class StatusInfoDialog {
 					+ settings.getUsername());
 		} else if (settings.getAuthStatus() == Status.AUTHSTATUS_UPDATING) {
 			authText.setText(R.string.auth_updating);
+		} else if (settings.getAuthStatus() == Status.AUTHSTATUS_CLIENTBANNED) {
+			authText.setText(R.string.auth_client_banned);
 		} else { // Status.AUTHSTATUS_NOAUTH
 			authText.setText(R.string.user_credentials_summary);
 		}
@@ -148,6 +163,13 @@ public class StatusInfoDialog {
 			}
 			npText.setText(mCtx.getString(R.string.nowplaying_last_at) + " "
 					+ when + what);
+		}
+		
+		// scrobbles in cache
+		if (mDbHelper != null) {
+			cacheText.setText(mCtx.getString(R.string.scrobbles_cache) + " " + mDbHelper.queryNumberOfRows());
+		} else {
+			cacheText.setText(mCtx.getString(R.string.scrobbles_cache) + " " + mCtx.getString(R.string.db_error));
 		}
 
 		// statsText

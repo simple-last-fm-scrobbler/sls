@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="wrap_content"
+	android:orientation="vertical">
+	−
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:orientation="vertical">
+
+		<TextView android:id="@+id/changelog" android:layout_height="wrap_content"
+			android:layout_width="wrap_content" android:textStyle="bold"
+			android:textSize="14sp" android:textColor="#ffffffff"
+			android:layout_marginLeft="20dip" android:layout_marginRight="20dip"
+			android:layout_marginTop="4dip" android:layout_marginBottom="4dip" />
+	</LinearLayout>
+</ScrollView>

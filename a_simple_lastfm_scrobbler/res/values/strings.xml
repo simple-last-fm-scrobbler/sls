@@ -54,4 +54,18 @@
 <string name="supported_apps_category_title">Supported apps</string>
 <string name="app_disabled">Won\'t scrobble music from this app</string>
 <string name="not_installed">This app is not installed</string>
+<string name="scrobbles_cache">Scrobbles in local cache:</string>
+<string name="db_error">Database error</string>
+<string name="about">About</string>
+<string name="whats_new">What's new</string>
+<string name="close">Close</string>
+<string name="email_addr">simple.lfm.scrobbler@gmail.com</string>
+<string name="website_url">http://code.google.com/p/a-simple-lastfm-scrobbler/</string>
+<string name="contact">Contact:</string>
+<string name="website">Website:</string>
+<string name="by_adam">by Adam Renberg</string>
+<string name="license">Released under GPL v3</string>
+<string name="about_text">A simple Last.fm scrobbler that submits information on what music you play on your android phone. Last.fm then lets you view listening statistics and recommends new music you might like.</string>
+<string name="file_error">File error!</string>
+<string name="thats_new">That which is new</string>
 </resources>

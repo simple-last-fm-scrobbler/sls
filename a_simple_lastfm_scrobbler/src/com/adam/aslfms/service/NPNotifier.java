@@ -34,29 +34,66 @@ import org.apache.http.message.BasicNameValuePair;
 import android.content.Context;
 import android.util.Log;
 
+import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.R;
 import com.adam.aslfms.Track;
 import com.adam.aslfms.Status.BadSessionException;
 import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.Status.TemporaryFailureException;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
+import com.adam.aslfms.util.Util;
 
 /**
  * 
  * @author tgwizard
  * 
  */
-public class NPNotifier {
+public class NPNotifier extends AbstractSubmitter {
 
 	private static final String TAG = "NPNotifier";
 
-	private final Context mCtx;
-	private final HandshakeResult hInfo;
+	private final AppSettings settings;
 
-	public NPNotifier(Context ctx, HandshakeResult hInfo) {
-		super();
-		this.mCtx = ctx;
-		this.hInfo = hInfo;
+	private Track mTrack;
+
+	public NPNotifier(Context ctx, Networker net, Track track) {
+		super(ctx, net);
+		this.settings = new AppSettings(ctx);
+		mTrack = track;
+	}
+
+	@Override
+	protected boolean doRun(HandshakeResult hInfo) {
+		// TODO Auto-generated method stub
+		boolean ret;
+		try {
+			notifyNowPlaying(mTrack, hInfo);
+
+			// status stuff
+			settings.setLastNPSuccess(true);
+			settings.setLastNPTime(Util.currentTimeMillisLocal());
+			settings.setNumberOfNPs(settings.getNumberOfNPs() + 1);
+			settings.setLastNPInfo("\"" + mTrack.getTrack() + "\" "
+					+ getContext().getString(R.string.by) + " "
+					+ mTrack.getArtist());
+			notifyStatusUpdate();
+
+			ret = true;
+		} catch (BadSessionException e) {
+			Log.i(TAG, e.getMessage());
+			getNetworker().launchHandshaker(false);
+			relaunchThis();
+			ret = true;
+		} catch (TemporaryFailureException e) {
+			Log.i(TAG, e.getMessage());
+			ret = false;
+		}
+		return ret;
+	}
+
+	@Override
+	protected void relaunchThis() {
+		getNetworker().launchNPNotifier(mTrack);
 	}
 
 	/**
@@ -72,8 +109,8 @@ public class NPNotifier {
 	 *             {@link UnknownResponseException}
 	 * 
 	 */
-	public void notifyNowPlaying(Track track) throws BadSessionException,
-			TemporaryFailureException, UnknownResponseException {
+	public void notifyNowPlaying(Track track, HandshakeResult hInfo)
+			throws BadSessionException, TemporaryFailureException {
 		Log.d(TAG, "Notifying now playing");
 
 		Log.d(TAG, "Track: " + track.toString());
@@ -99,17 +136,18 @@ public class NPNotifier {
 				throw new BadSessionException(
 						"Nowplaying failed because of badsession");
 			} else {
-				throw new UnknownResponseException(
+				throw new TemporaryFailureException(
 						"NowPlaying failed weirdly: " + response);
 			}
 
 		} catch (ClientProtocolException e) {
 			throw new TemporaryFailureException(e.getMessage());
 		} catch (IOException e) {
-			throw new TemporaryFailureException(mCtx
-					.getString(R.string.auth_network_error));
+			throw new TemporaryFailureException(getContext().getString(
+					R.string.auth_network_error));
 		} finally {
 			http.getConnectionManager().shutdown();
 		}
 	}
+
 }

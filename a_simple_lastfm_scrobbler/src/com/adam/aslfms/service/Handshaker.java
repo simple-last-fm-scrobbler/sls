@@ -30,10 +30,14 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.R;
+import com.adam.aslfms.Status;
 import com.adam.aslfms.Status.BadAuthException;
 import com.adam.aslfms.Status.ClientBannedException;
 import com.adam.aslfms.Status.TemporaryFailureException;
@@ -46,17 +50,84 @@ import com.adam.aslfms.util.Util;
  * @author tgwizard 2009
  * 
  */
-public class Handshaker {
+public class Handshaker extends NetRunnable {
 
 	private static final String TAG = "Handshaker";
 
-	private final Context mCtx;
 	private final AppSettings settings;
 
-	public Handshaker(Context ctx) {
-		super();
-		this.mCtx = ctx;
+	private final boolean doAuth;
+
+	public Handshaker(Context ctx, Networker net, boolean doAuth) {
+		super(ctx, net);
+		this.doAuth = doAuth;
 		this.settings = new AppSettings(ctx);
+	}
+
+	@Override
+	public void run() {
+
+		if (doAuth)
+			notifyAuthStatusUpdate(Status.AUTHSTATUS_UPDATING);
+
+		try {
+			// current hInfo is invalid
+			getNetworker().setHandshakeResult(null);
+
+			// might throw stuff
+			HandshakeResult hInfo = handshake();
+
+			getNetworker().setHandshakeResult(hInfo);
+
+			// no more sleeping, handshake succeeded
+			getNetworker().resetSleeper();
+
+			// we don't need it anymore, settings.getPwdMd5() is enough
+			settings.setPassword("");
+
+			notifyAuthStatusUpdate(Status.AUTHSTATUS_OK);
+
+			// won't do anything if there aren't any scrobbles,
+			// but will submit those tracks that were prepared
+			// but interrupted by a badauth
+			// getNetworker().launchScrobbler();
+
+		} catch (BadAuthException e) {
+			if (doAuth)
+				notifyAuthStatusUpdate(Status.AUTHSTATUS_BADAUTH);
+			else {
+				// this should mean that the user called launchClearCreds, and
+				// that
+				// all user information is gone
+				notifyAuthStatusUpdate(Status.AUTHSTATUS_NOAUTH);
+			}
+			// badauth means we cant do any scrobbling/notifying, so clear them
+			// the scrobbles already prepared will be sent at a later time
+			// TODO:
+			getNetworker().unlaunchScrobblingAndNPNotifying();
+		} catch (TemporaryFailureException e) {
+
+			if (doAuth)
+				notifyAuthStatusUpdate(Status.AUTHSTATUS_RETRYLATER);
+
+			ConnectivityManager cMgr = (ConnectivityManager) getContext()
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
+			NetworkInfo netInfo = cMgr.getActiveNetworkInfo();
+			
+			if (netInfo == null || !netInfo.isConnected()) {
+				getNetworker().launchNetworkWaiter();
+				getNetworker().launchHandshaker(doAuth);
+			} else {
+				getNetworker().launchSleeper();
+				getNetworker().launchHandshaker(doAuth);
+			}
+
+		} catch (ClientBannedException e) {
+			Log.e(TAG, "This version of the client has been banned!!");
+			Log.e(TAG, e.getMessage());
+			// TODO: what??
+			notifyAuthStatusUpdate(Status.AUTHSTATUS_CLIENTBANNED);
+		}
 	}
 
 	/**
@@ -76,8 +147,7 @@ public class Handshaker {
 	 *             this version of the client has been banned
 	 */
 	public HandshakeResult handshake() throws BadAuthException,
-			TemporaryFailureException, UnknownResponseException,
-			ClientBannedException {
+			TemporaryFailureException, ClientBannedException {
 		Log.d(TAG, "Handshaking");
 
 		String username = settings.getUsername();
@@ -85,23 +155,27 @@ public class Handshaker {
 
 		if (username.length() == 0) {
 			Log.d(TAG, "Invalid username");
-			throw new BadAuthException(mCtx.getString(R.string.auth_bad_auth));
+			throw new BadAuthException(getContext().getString(
+					R.string.auth_bad_auth));
 		}
 
 		// -----------------------------------------------------------------------
-		// ------------ for debug ------------------------------------------------
+		// ------------ for debug
+		// ------------------------------------------------
 		// use these values if you are testing or developing a new app
 		// String clientid = "tst";
 		// String clientver = "1.0";
 		// -----------------------------------------------------------------------
-		// ------------ for this app ---------------------------------------------
+		// ------------ for this app
+		// ---------------------------------------------
 		// -----------------------------------------------------------------------
 		// these values should only be used for this app. If other code
 		// misbehaves using these values, this app might get banned.
 		// You can ask last.fm for new id's for your app
-		String clientid = mCtx.getString(R.string.client_id);
-		String clientver = mCtx.getString(R.string.client_ver);
-		// ------------ end ------------------------------------------------------
+		String clientid = getContext().getString(R.string.client_id);
+		String clientver = getContext().getString(R.string.client_ver);
+		// ------------ end
+		// ------------------------------------------------------
 		// -----------------------------------------------------------------------
 
 		String time = new Long(Util.currentTimeSecsUTC()).toString();
@@ -130,33 +204,33 @@ public class Handshaker {
 			} else if (lines.length == 1) {
 				if (lines[0].startsWith("BANNED")) {
 					Log.e(TAG, "Handshake fails: client banned");
-					throw new ClientBannedException(mCtx
-							.getString(R.string.auth_client_banned));
+					throw new ClientBannedException(getContext().getString(
+							R.string.auth_client_banned));
 				} else if (lines[0].startsWith("BADAUTH")) {
 					Log.i(TAG, "Handshake fails: bad auth");
-					throw new BadAuthException(mCtx
-							.getString(R.string.auth_bad_auth));
+					throw new BadAuthException(getContext().getString(
+							R.string.auth_bad_auth));
 				} else if (lines[0].startsWith("BADTIME")) {
 					Log.e(TAG, "Handshake fails: bad time");
-					throw new TemporaryFailureException(mCtx
-							.getString(R.string.auth_timing_error));
+					throw new TemporaryFailureException(getContext().getString(
+							R.string.auth_timing_error));
 				} else if (lines[0].startsWith("FAILED")) {
 					String reason = lines[0].substring(7);
 					Log.e(TAG, "Handshake fails: FAILED " + reason);
-					throw new TemporaryFailureException(mCtx
-							.getString(R.string.auth_server_error)
+					throw new TemporaryFailureException(getContext().getString(
+							R.string.auth_server_error)
 							+ " ");
 				}
 			} else {
-				throw new UnknownResponseException(
+				throw new TemporaryFailureException(
 						"Weird response from handskake-req: " + response);
 			}
 
 		} catch (ClientProtocolException e) {
 			throw new TemporaryFailureException(e.getMessage());
 		} catch (IOException e) {
-			throw new TemporaryFailureException(mCtx
-					.getString(R.string.auth_network_error));
+			throw new TemporaryFailureException(getContext().getString(
+					R.string.auth_network_error));
 		} finally {
 			http.getConnectionManager().shutdown();
 		}
@@ -170,6 +244,12 @@ public class Handshaker {
 			Log.e(TAG, "URLEncoder lacks support for UTF-8!?");
 			return null;
 		}
+	}
+
+	private void notifyAuthStatusUpdate(int st) {
+		settings.setAuthStatus(st);
+		Intent i = new Intent(ScrobblingService.BROADCAST_ONAUTHCHANGED);
+		getContext().sendBroadcast(i);
 	}
 
 	/**

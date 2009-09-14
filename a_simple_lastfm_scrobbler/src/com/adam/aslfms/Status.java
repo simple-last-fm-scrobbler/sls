@@ -19,6 +19,7 @@
 
 package com.adam.aslfms;
 
+
 /**
  * Status is a "namespace class" that contains the definitions of various status
  * types. This class is not meant to be instantiated.
@@ -33,6 +34,7 @@ public class Status {
 	public static final int AUTHSTATUS_FAILED = 3;
 	public static final int AUTHSTATUS_RETRYLATER = 4;
 	public static final int AUTHSTATUS_OK = 5;
+	public static final int AUTHSTATUS_CLIENTBANNED = 6;
 
 	public static class StatusException extends Exception {
 		private static final long serialVersionUID = 7204759787220898684L;
@@ -74,13 +76,6 @@ public class Status {
 		}
 	}
 
-	/**
-	 * This exception is thrown when we get an undocumented response, one that
-	 * is not in the Last.fm Submissions API specification.
-	 * 
-	 * @author tgwizard
-	 * 
-	 */
 	public static class UnknownResponseException extends StatusException {
 		private static final long serialVersionUID = 7351097754868391707L;
 

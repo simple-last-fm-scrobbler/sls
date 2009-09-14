@@ -34,36 +34,82 @@ import org.apache.http.message.BasicNameValuePair;
 import android.content.Context;
 import android.util.Log;
 
+import com.adam.aslfms.AppSettings;
+import com.adam.aslfms.R;
 import com.adam.aslfms.ScrobblesDatabase;
 import com.adam.aslfms.Track;
 import com.adam.aslfms.Status.BadSessionException;
 import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.Status.TemporaryFailureException;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
+import com.adam.aslfms.util.Util;
 
 /**
  * 
  * @author tgwizard
  * 
  */
-public class Scrobbler {
+public class Scrobbler extends AbstractSubmitter {
 
 	private static final String TAG = "Scrobbler";
 
+	private final AppSettings settings;
+
 	// private final Context mCtx;
-	private final Handshaker.HandshakeResult hInfo;
 	private final ScrobblesDatabase mDbHelper;
 
 	public static final int MAX_SCROBBLE_LIMIT = 50;
 	private Track[] mTracks;
 
-	public Scrobbler(Context ctx, HandshakeResult hInfo,
-			ScrobblesDatabase dbHelper) {
-		super();
-		// this.mCtx = ctx;
-		this.hInfo = hInfo;
+	public Scrobbler(Context ctx, Networker net, ScrobblesDatabase dbHelper) {
+		super(ctx, net);
+		this.settings = new AppSettings(ctx);
 		this.mDbHelper = dbHelper;
 		this.mTracks = new Track[MAX_SCROBBLE_LIMIT];
+	}
+
+	@Override
+	public boolean doRun(HandshakeResult hInfo) {
+		// TODO Auto-generated method stub
+		boolean ret;
+		try {
+			ScrobbleResult sr = scrobbleCommit(hInfo);
+			if (sr.tracksLeftInDb != 0) {
+				relaunchThis();
+			}
+
+			// status stuff
+			settings.setLastScrobbleSuccess(true);
+			if (sr.tracksScrobbled != 0) {
+				settings.setLastScrobbleTime(Util.currentTimeMillisLocal());
+				settings.setNumberOfScrobbles(settings.getNumberOfScrobbles()
+						+ sr.tracksScrobbled);
+				if (sr.lastTrack != null) {
+					settings.setLastScrobbleInfo("\"" + sr.lastTrack.getTrack()
+							+ "\" " + getContext().getString(R.string.by) + " "
+							+ sr.lastTrack.getArtist());
+				} else {
+					Log.e(TAG, "Got null track left over from Scrobbler");
+				}
+			}
+			notifyStatusUpdate();
+
+			ret = true;
+		} catch (BadSessionException e) {
+			Log.i(TAG, e.getMessage());
+			getNetworker().launchHandshaker(false);
+			relaunchThis();
+			ret = true;
+		} catch (TemporaryFailureException e) {
+			Log.i(TAG, e.getMessage());
+			ret = false;
+		}
+		return ret;
+	}
+
+	@Override
+	protected void relaunchThis() {
+		getNetworker().launchScrobbler();
 	}
 
 	/**
@@ -73,9 +119,8 @@ public class Scrobbler {
 	 * @throws TemporaryFailureException
 	 * @throws UnknownResponseException
 	 */
-	public ScrobbleResult scrobbleCommit() throws BadSessionException,
-			TemporaryFailureException, UnknownResponseException {
-		
+	public ScrobbleResult scrobbleCommit(HandshakeResult hInfo)
+			throws BadSessionException, TemporaryFailureException {
 
 		int count = mDbHelper.fetchScrobblesArray(mTracks, MAX_SCROBBLE_LIMIT);
 		if (count == 0) {
@@ -84,7 +129,7 @@ public class Scrobbler {
 		}
 
 		ScrobbleResult res;
-		
+
 		Log.d(TAG, "Will scrobble");
 		Log.d(TAG, "Retrieved " + count + " tracks from db");
 		if (count > MAX_SCROBBLE_LIMIT) {
@@ -148,7 +193,7 @@ public class Scrobbler {
 				throw new TemporaryFailureException("Scrobble failed: "
 						+ reason);
 			} else {
-				throw new UnknownResponseException("Scrobble failed weirdly: "
+				throw new TemporaryFailureException("Scrobble failed weirdly: "
 						+ response);
 			}
 
@@ -214,4 +259,5 @@ public class Scrobbler {
 			this.lastTrack = lastTrack;
 		}
 	}
+
 }
