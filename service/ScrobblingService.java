@@ -52,7 +52,7 @@ public class ScrobblingService extends Service {
 	private AppSettings settings;
 	private ScrobblesDatabase mDbHelper;
 
-	NetworkLoop mNetworkLoop;
+	Networker mNetworker;
 
 	private Track mCurrentPlayingTrack = null;
 
@@ -74,8 +74,7 @@ public class ScrobblingService extends Service {
 			stopSelf();
 		}
 
-		mNetworkLoop = new NetworkLoop(this, mDbHelper);
-		new Thread(mNetworkLoop).start();
+		mNetworker = new Networker(this, mDbHelper);
 	}
 
 	@Override
@@ -86,9 +85,9 @@ public class ScrobblingService extends Service {
 	@Override
 	public void onStart(Intent i, int startId) {
 		if (i.getAction().equals(ACTION_CLEARCREDS)) {
-			mNetworkLoop.launchClearCreds();
+			mNetworker.launchClearCreds();
 		} else if (i.getAction().equals(ACTION_AUTHENTICATE)) {
-			mNetworkLoop.launchHandshaker(true);
+			mNetworker.launchHandshaker(true);
 		} else if (i.getAction().equals(ACTION_PLAYSTATECHANGED)) {
 			boolean stopped = false;
 			if (i.getExtras() != null) {
@@ -98,7 +97,7 @@ public class ScrobblingService extends Service {
 			Track track = InternalTrackTransmitter.popTrack();
 
 			if (track == null) {
-				Log.e(TAG, "A null track shouldn't have gotten through!! (Ignoring it)");
+				Log.e(TAG, "A null track got through!! (Ignoring it)");
 				return;
 			}
 
@@ -149,7 +148,7 @@ public class ScrobblingService extends Service {
 	 */
 	private void tryNotifyNP(Track track) {
 		if (settings.isAuthenticated() && settings.isNowPlayingEnabled()) {
-			mNetworkLoop.launchNPNotifier(track);
+			mNetworker.launchNPNotifier(track);
 		} else {
 			Log.d(TAG, "Won't notify NP, unauthed or disabled");
 		}
@@ -172,7 +171,7 @@ public class ScrobblingService extends Service {
 			// from MusicPlaybackService
 			scrobblePrepare(track);
 			settings.setLastListenTime(Util.currentTimeSecsUTC());
-			mNetworkLoop.launchScrobbler();
+			mNetworker.launchScrobbler();
 		}
 	}
 
@@ -201,15 +200,20 @@ public class ScrobblingService extends Service {
 			}
 		}
 
-		/*Log.d(TAG, "Scrobble will be prepared");
-		Log.d(TAG, diff + "s since last scrobble and " + len
-				+ "s since track start");*/
+		/*
+		 * Log.d(TAG, "Scrobble will be prepared"); Log.d(TAG, diff +
+		 * "s since last scrobble and " + len + "s since track start");
+		 */
 		return true;
 	}
 
 	private void scrobblePrepare(Track track) {
 		if (mDbHelper.insertScrobble(track) != -1) {
-			Log.d(TAG, track.toString());
+			Log.d(TAG, "Prepared: " + track.toString());
+			
+			// tell interested parties
+			Intent i = new Intent(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
+			sendBroadcast(i);
 		} else {
 			Log.d(TAG, "Could not insert scrobble into the db");
 			Log.d(TAG, track.toString());

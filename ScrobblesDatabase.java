@@ -179,5 +179,13 @@ public class ScrobblesDatabase {
 		c.close();
 		return ret;
 	}
+	
+	public int queryNumberOfRows() {
+		Cursor c = mDb.query(DATABASE_TABLE, new String[] { KEY_ROWID },
+				null, null, null, null, null);
+		int count = c.getCount();
+		c.close();
+		return count;
+	}
 
 }
