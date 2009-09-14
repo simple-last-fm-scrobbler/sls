@@ -49,10 +49,10 @@ public class ScrobblingService extends Service {
 
 	private static final int MIN_SCROBBLE_TIME = 30;
 
-	private AppSettings settings;
-	private ScrobblesDatabase mDbHelper;
+	private final AppSettings settings;
+	private final ScrobblesDatabase mDbHelper;
 
-	Networker mNetworker;
+	private final Networker mNetworker;
 
 	private Track mCurrentPlayingTrack = null;
 
@@ -61,8 +61,8 @@ public class ScrobblingService extends Service {
 		return null;
 	}
 
-	@Override
-	public void onCreate() {
+	public ScrobblingService() {
+		super();
 		settings = new AppSettings(this);
 		mDbHelper = new ScrobblesDatabase(this);
 		try {
@@ -73,8 +73,11 @@ public class ScrobblingService extends Service {
 			Log.e(TAG, "Will terminate");
 			stopSelf();
 		}
-
 		mNetworker = new Networker(this, mDbHelper);
+	}
+
+	@Override
+	public void onCreate() {
 	}
 
 	@Override
@@ -210,7 +213,7 @@ public class ScrobblingService extends Service {
 	private void scrobblePrepare(Track track) {
 		if (mDbHelper.insertScrobble(track) != -1) {
 			Log.d(TAG, "Prepared: " + track.toString());
-			
+
 			// tell interested parties
 			Intent i = new Intent(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
 			sendBroadcast(i);

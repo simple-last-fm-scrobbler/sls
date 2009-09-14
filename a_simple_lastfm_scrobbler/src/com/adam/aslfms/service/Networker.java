@@ -14,18 +14,18 @@ import com.adam.aslfms.service.Handshaker.HandshakeResult;
 public class Networker {
 	@SuppressWarnings("unused")
 	private static final String TAG = "Networker";
+	
+	private final Context mCtx;
+	private final ScrobblesDatabase mDbHelper;
 
-	private ThreadPoolExecutor mExecutor;
+	private final ThreadPoolExecutor mExecutor;
 
-	private NetRunnableComparator mComparator;
+	private final NetRunnableComparator mComparator;
 
-	private NetworkWaiter mNetworkWaiter;
-	private Sleeper mSleeper;
+	private final NetworkWaiter mNetworkWaiter;
+	private final Sleeper mSleeper;
 
 	private HandshakeResult hInfo;
-
-	private Context mCtx;
-	private ScrobblesDatabase mDbHelper;
 
 	public Networker(Context ctx, ScrobblesDatabase dbHelper) {
 		mCtx = ctx;
