@@ -52,7 +52,7 @@ public class ScrobblingService extends Service {
 	private AppSettings settings;
 	private ScrobblesDatabase mDbHelper;
 
-	private Networker mNetworker;
+	private NetworkerManager mNetManager;
 
 	private Track mCurrentPlayingTrack = null;
 
@@ -73,7 +73,7 @@ public class ScrobblingService extends Service {
 			Log.e(TAG, "Will terminate");
 			stopSelf();
 		}
-		mNetworker = new Networker(this, mDbHelper);
+		mNetManager = new NetworkerManager(this, mDbHelper);
 	}
 
 	@Override
@@ -84,9 +84,21 @@ public class ScrobblingService extends Service {
 	@Override
 	public void onStart(Intent i, int startId) {
 		if (i.getAction().equals(ACTION_CLEARCREDS)) {
-			mNetworker.launchClearCreds();
+			if (i.getBooleanExtra("clearall", false)) {
+				mNetManager.launchClearAllCreds();
+			} else {
+				String snapp = i.getExtras().getString("netapp");
+				if (snapp != null) {
+					mNetManager.launchClearCreds(NetApp.valueOf(snapp));
+				} else
+					Log.d(TAG, "launchClearCreds got null napp");
+			}
 		} else if (i.getAction().equals(ACTION_AUTHENTICATE)) {
-			mNetworker.launchHandshaker(true);
+			String snapp = i.getExtras().getString("netapp");
+			if (snapp != null)
+				mNetManager.launchHandshaker(NetApp.valueOf(snapp), true);
+			else
+				Log.d(TAG, "launchHandshaker got null napp");
 		} else if (i.getAction().equals(ACTION_PLAYSTATECHANGED)) {
 			boolean stopped = false;
 			if (i.getExtras() != null) {
@@ -146,8 +158,8 @@ public class ScrobblingService extends Service {
 	 *            the currently playing track
 	 */
 	private void tryNotifyNP(Track track) {
-		if (settings.isAuthenticated() && settings.isNowPlayingEnabled()) {
-			mNetworker.launchNPNotifier(track);
+		if (settings.isAnyAuthenticated() && settings.isNowPlayingEnabled()) {
+			mNetManager.launchNPNotifier(track);
 		} else {
 			Log.d(TAG, "Won't notify NP, unauthed or disabled");
 		}
@@ -155,7 +167,7 @@ public class ScrobblingService extends Service {
 
 	private void tryScrobble(Track track, boolean careAboutTrackTimeStamp) {
 
-		if (!settings.isAuthenticated() || !settings.isScrobblingEnabled()) {
+		if (!settings.isAnyAuthenticated() || !settings.isScrobblingEnabled()) {
 			Log.d(TAG, "Won't prepare scrobble, unauthed or disabled");
 			return;
 		}
@@ -168,9 +180,9 @@ public class ScrobblingService extends Service {
 			// TODO: should prepare scrobble earlier
 			// But that will not be possible with the limited info available
 			// from MusicPlaybackService
-			scrobblePrepare(track);
+			queueTrack(track);
 			settings.setLastListenTime(Util.currentTimeSecsUTC());
-			mNetworker.launchScrobbler();
+			mNetManager.launchScrobbler();
 		}
 	}
 
@@ -206,9 +218,18 @@ public class ScrobblingService extends Service {
 		return true;
 	}
 
-	private void scrobblePrepare(Track track) {
-		if (mDbHelper.insertScrobble(track) != -1) {
-			Log.d(TAG, "Prepared: " + track.toString());
+	private void queueTrack(Track track) {
+		long rowId = mDbHelper.insertTrack(track);
+		if (rowId != -1) {
+			Log.d(TAG, "queued track: " + track.toString());
+
+			// now set up scrobbling rels
+			for (NetApp napp : NetApp.values()) {
+				if (settings.isAuthenticated(napp)) {
+					Log.d(TAG, "inserting scrobble: " + napp.getName());
+					mDbHelper.insertScrobble(napp, rowId);
+				}
+			}
 
 			// tell interested parties
 			Intent i = new Intent(ScrobblingService.BROADCAST_ONSTATUSCHANGED);

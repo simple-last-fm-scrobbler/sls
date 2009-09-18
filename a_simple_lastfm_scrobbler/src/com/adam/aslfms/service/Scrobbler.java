@@ -34,14 +34,13 @@ import org.apache.http.message.BasicNameValuePair;
 import android.content.Context;
 import android.util.Log;
 
-import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.R;
 import com.adam.aslfms.ScrobblesDatabase;
 import com.adam.aslfms.Track;
+import com.adam.aslfms.AppSettings.SubmissionType;
 import com.adam.aslfms.Status.BadSessionException;
 import com.adam.aslfms.Status.TemporaryFailureException;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
-import com.adam.aslfms.util.Util;
 
 /**
  * 
@@ -52,64 +51,64 @@ public class Scrobbler extends AbstractSubmitter {
 
 	private static final String TAG = "Scrobbler";
 
-	private final AppSettings settings;
-
 	// private final Context mCtx;
 	private final ScrobblesDatabase mDbHelper;
 
 	public static final int MAX_SCROBBLE_LIMIT = 50;
 
-	public Scrobbler(Context ctx, Networker net, ScrobblesDatabase dbHelper) {
-		super(ctx, net);
-		this.settings = new AppSettings(ctx);
+	public Scrobbler(NetApp napp, Context ctx, Networker net,
+			ScrobblesDatabase dbHelper) {
+		super(napp, ctx, net);
 		this.mDbHelper = dbHelper;
 	}
 
 	@Override
 	public boolean doRun(HandshakeResult hInfo) {
-		// TODO Auto-generated method stub
 		boolean ret;
 		try {
-			Track[] tracks = mDbHelper.fetchScrobblesArray(MAX_SCROBBLE_LIMIT);
+			Log.d(TAG, "Scrobbling: " + getNetApp().getName());
+			Track[] tracks = mDbHelper.fetchTracksArray(getNetApp(), MAX_SCROBBLE_LIMIT);
 
 			if (tracks.length == 0) {
-				Log.d(TAG, "Retrieved 0 tracks from db, no scrobbling");
+				Log.d(TAG, "Retrieved 0 tracks from db, no scrobbling: " + getNetApp().getName());
 				return true;
 			}
-			Log.d(TAG, "Retrieved " + tracks.length + " tracks from db");
-			Log.d(TAG, "Will scrobble");
+			Log.d(TAG, "Retrieved " + tracks.length + " tracks from db: " + getNetApp().getName());
 
 			for (int i = 0; i < tracks.length; i++) {
-				Log.d(TAG, tracks[i].toString());
+				Log.d(TAG, getNetApp().getName() + ": " + tracks[i].toString());
 			}
 
 			scrobbleCommit(hInfo, tracks); // throws if unsuccessful
 
+			// delete scrobbles (not tracks) from db (not array)
+			for (int i = 0; i < tracks.length; i++) {
+				mDbHelper.deleteScrobble(getNetApp(), tracks[i]);
+			}
+
+			// clean up tracks if no one else wants to scrobble them
+			mDbHelper.cleanUpTracks();
+
 			// there might be more tracks in the db
 			if (tracks.length == MAX_SCROBBLE_LIMIT) {
-				Log.d(TAG, "Relaunching scrobbler, might be tracks in db");
+				Log.d(TAG, "Relaunching scrobbler, might be more tracks in db");
 				relaunchThis();
 			}
 
 			// status stuff
-			settings.setLastScrobbleSuccess(true);
-			settings.setLastScrobbleTime(Util.currentTimeMillisLocal());
-			settings.setNumberOfScrobbles(settings.getNumberOfScrobbles()
-					+ tracks.length);
-			Track track = tracks[tracks.length - 1];
-			settings.setLastScrobbleInfo("\"" + track.getTrack() + "\" "
-					+ getContext().getString(R.string.by) + " "
-					+ track.getArtist());
-			notifyStatusUpdate();
+			notifySubmissionStatusSuccessful(tracks[tracks.length-1], tracks.length);
 
 			ret = true;
 		} catch (BadSessionException e) {
-			Log.i(TAG, "BadSession: " + e.getMessage());
+			Log.i(TAG, "BadSession: " + e.getMessage() + ": " + getNetApp().getName());
 			getNetworker().launchHandshaker(false);
 			relaunchThis();
+			notifySubmissionStatusFailure(getContext().getString(
+					R.string.auth_just_error));
 			ret = true;
 		} catch (TemporaryFailureException e) {
-			Log.i(TAG, "Tempfail: " + e.getMessage());
+			Log.i(TAG, "Tempfail: " + e.getMessage() + ": " + getNetApp().getName());
+			notifySubmissionStatusFailure(getContext().getString(R.string.auth_network_error));
 			ret = false;
 		}
 		return ret;
@@ -118,6 +117,15 @@ public class Scrobbler extends AbstractSubmitter {
 	@Override
 	protected void relaunchThis() {
 		getNetworker().launchScrobbler();
+	}
+	
+	private void notifySubmissionStatusFailure(String reason) {
+		super.notifySubmissionStatusFailure(SubmissionType.SCROBBLE, reason);
+	}
+
+	private void notifySubmissionStatusSuccessful(Track track, int statsInc) {
+		super.notifySubmissionStatusSuccessful(SubmissionType.SCROBBLE, track,
+				statsInc);
 	}
 
 	/**
@@ -160,13 +168,7 @@ public class Scrobbler extends AbstractSubmitter {
 			String response = http.execute(request, handler);
 			String[] lines = response.split("\n");
 			if (response.startsWith("OK")) {
-				Log.i(TAG, "Scrobble success");
-
-				// delete tracks from db, not array
-				for (int i = 0; i < tracks.length; i++) {
-					mDbHelper.deleteScrobble(tracks[i]);
-				}
-
+				Log.i(TAG, "Scrobble success: " + getNetApp().getName());
 			} else if (response.startsWith("BADSESSION")) {
 				throw new BadSessionException(
 						"Scrobble failed because of badsession");
@@ -187,52 +189,4 @@ public class Scrobbler extends AbstractSubmitter {
 			http.getConnectionManager().shutdown();
 		}
 	}
-
-	/**
-	 * Small struct holding the results of a successful scrobble request. All
-	 * the fields are final and public.
-	 * 
-	 * @author tgwizard
-	 * 
-	 */
-	public static class ScrobbleResult {
-		/**
-		 * The number of tracks left in the db after the scrobble was completed.
-		 * If this is not 0, then {@link ScrobbleResult#tracksScrobbled
-		 * tracksScrobbled} equals {@link Scrobbler#MAX_SCROBBLE_LIMIT}.
-		 */
-		public final int tracksLeftInDb;
-
-		/**
-		 * The number of tracks this scrobble request submitted to Last.fm.
-		 */
-		public final int tracksScrobbled;
-
-		/**
-		 * The last played of the tracks submitted in the scrobble request, or
-		 * <code>null</code> if none were sent.
-		 */
-		public final Track lastTrack;
-
-		/**
-		 * Constructs a new struct holding the result of a scrobble request.
-		 * Only {@link Scrobbler} can get the information needed to instantiate
-		 * this class, and therefore the constructor is private.
-		 * 
-		 * @param tracksLeftInDb
-		 *            {@link ScrobbleResult#tracksLeftInDb tracksLeftInDb}
-		 * @param tracksScrobbled
-		 *            {@link ScrobbleResult#tracksScrobbled tracksScrobbled}
-		 * @param lastTrack
-		 *            {@link ScrobbleResult#lastTrack lastTrack}
-		 */
-		private ScrobbleResult(int tracksLeftInDb, int tracksScrobbled,
-				Track lastTrack) {
-			super();
-			this.tracksLeftInDb = tracksLeftInDb;
-			this.tracksScrobbled = tracksScrobbled;
-			this.lastTrack = lastTrack;
-		}
-	}
-
 }

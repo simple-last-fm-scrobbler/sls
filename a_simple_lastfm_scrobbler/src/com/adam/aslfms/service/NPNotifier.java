@@ -34,14 +34,13 @@ import org.apache.http.message.BasicNameValuePair;
 import android.content.Context;
 import android.util.Log;
 
-import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.R;
 import com.adam.aslfms.Track;
+import com.adam.aslfms.AppSettings.SubmissionType;
 import com.adam.aslfms.Status.BadSessionException;
-import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.Status.TemporaryFailureException;
+import com.adam.aslfms.Status.UnknownResponseException;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
-import com.adam.aslfms.util.Util;
 
 /**
  * 
@@ -52,13 +51,11 @@ public class NPNotifier extends AbstractSubmitter {
 
 	private static final String TAG = "NPNotifier";
 
-	private final AppSettings settings;
-
 	private final Track mTrack;
 
-	public NPNotifier(Context ctx, Networker net, Track track) {
-		super(ctx, net);
-		this.settings = new AppSettings(ctx);
+	public NPNotifier(NetApp napp, Context ctx, Networker net, Track track) {
+		super(napp, ctx, net);
+
 		mTrack = track;
 	}
 
@@ -69,22 +66,22 @@ public class NPNotifier extends AbstractSubmitter {
 			notifyNowPlaying(mTrack, hInfo);
 
 			// status stuff
-			settings.setLastNPSuccess(true);
-			settings.setLastNPTime(Util.currentTimeMillisLocal());
-			settings.setNumberOfNPs(settings.getNumberOfNPs() + 1);
-			settings.setLastNPInfo("\"" + mTrack.getTrack() + "\" "
-					+ getContext().getString(R.string.by) + " "
-					+ mTrack.getArtist());
-			notifyStatusUpdate();
+			notifySubmissionStatusSuccessful(mTrack, 1);
 
 			ret = true;
 		} catch (BadSessionException e) {
-			Log.i(TAG, "BadSession: " + e.getMessage());
+			Log.i(TAG, "BadSession: " + e.getMessage() + ": "
+					+ getNetApp().getName());
 			getNetworker().launchHandshaker(false);
 			relaunchThis();
+			notifySubmissionStatusFailure(getContext().getString(
+					R.string.auth_just_error));
 			ret = true;
 		} catch (TemporaryFailureException e) {
-			Log.i(TAG, "Tempfail: " + e.getMessage());
+			Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
+					+ getNetApp().getName());
+			notifySubmissionStatusFailure(getContext().getString(
+					R.string.auth_network_error));
 			ret = false;
 		}
 		return ret;
@@ -93,6 +90,15 @@ public class NPNotifier extends AbstractSubmitter {
 	@Override
 	protected void relaunchThis() {
 		getNetworker().launchNPNotifier(mTrack);
+	}
+
+	private void notifySubmissionStatusFailure(String reason) {
+		super.notifySubmissionStatusFailure(SubmissionType.NP, reason);
+	}
+
+	private void notifySubmissionStatusSuccessful(Track track, int statsInc) {
+		super.notifySubmissionStatusSuccessful(SubmissionType.NP, track,
+				statsInc);
 	}
 
 	/**
@@ -110,9 +116,9 @@ public class NPNotifier extends AbstractSubmitter {
 	 */
 	public void notifyNowPlaying(Track track, HandshakeResult hInfo)
 			throws BadSessionException, TemporaryFailureException {
-		Log.d(TAG, "Notifying now playing");
+		Log.d(TAG, "Notifying now playing: " + getNetApp().getName());
 
-		Log.d(TAG, "Track: " + track.toString());
+		Log.d(TAG, getNetApp().getName() + ": " + track.toString());
 
 		DefaultHttpClient http = new DefaultHttpClient();
 		HttpPost request = new HttpPost(hInfo.nowPlayingUri);
@@ -130,7 +136,7 @@ public class NPNotifier extends AbstractSubmitter {
 			ResponseHandler<String> handler = new BasicResponseHandler();
 			String response = http.execute(request, handler);
 			if (response.startsWith("OK")) {
-				Log.i(TAG, "Nowplaying success");
+				Log.i(TAG, "Nowplaying success: " + getNetApp().getName());
 			} else if (response.startsWith("BADSESSION")) {
 				throw new BadSessionException(
 						"Nowplaying failed because of badsession");

@@ -66,12 +66,12 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 		}
 		
 		AppSettings settings = new AppSettings(context);
-		if (!settings.isAuthenticated()) {
+		if (!settings.isAnyAuthenticated()) {
 			Log.i(TAG, "The user has not authenticated, won't propagate the scrobble/np-notification request");
 			return;
 		}
 		
-		if (!settings.isAppEnabled(mApp)) {
+		if (!settings.isMusicAppEnabled(mApp)) {
 			Log.i(TAG, "App: " + mApp.getName() + " has been disabled, won't propagate");
 			return;
 		}

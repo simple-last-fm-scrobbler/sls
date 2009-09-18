@@ -1,28 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 	<PreferenceScreen android:key="user_credentials"
-		android:title="@string/user_credentials_title" android:summary="@string/user_credentials_summary">
-		<com.adam.aslfms.EditUserCredentials
-			android:key="edit_user_credentials" android:title="@string/user_credentials_title"
-			android:dialogTitle="@string/user_credentials_title"
-			android:positiveButtonText="@string/user_credentials_enter_ok"
-			android:negativeButtonText="@string/user_credentials_enter_cancel" />
-		<Preference android:key="clear_user_credentials"
+		android:title="@string/user_credentials_title" android:summary="@string/user_credentials_summary_no_napp">
+		<PreferenceCategory android:key="supported_netapps_list"
+			android:title="@string/supported_netapps_category_title" />
+		<PreferenceCategory android:key="clear_all_creds_category"
+			android:title="@string/other_category_title" />
+		<Preference android:key="clear_all_user_credentials"
 			android:title="@string/user_credentials_clear_title" android:summary="@string/user_credentials_clear_summary" />
-		<PreferenceCategory android:title="@string/other_category_title" />
-		<Preference android:key="create_user" android:title="@string/create_user_title"
-			android:summary="@string/create_user_summary" />
 	</PreferenceScreen>
 	<CheckBoxPreference android:key="toggle_scrobbling"
 		android:title="@string/scrobbling" android:summaryOff="@string/scrobbling_enable"
-		android:persistent="false" />
+		android:persistent="false" android:enabled="true" />
 	<CheckBoxPreference android:key="toggle_nowplaying"
 		android:title="@string/nowplaying" android:summaryOff="@string/nowplaying_enable"
-		android:persistent="false" />
+		android:persistent="false" android:enabled="true" />
 
-	<PreferenceScreen android:key="showsupported_apps_list"
-		android:title="@string/showsupported_apps_list_title" android:summary="@string/showsupported_apps_list_summary">
-		<PreferenceCategory android:key="supported_apps_list"
+	<PreferenceScreen android:key="show_supported_musicapps_list"
+		android:title="@string/show_supported_apps_list_title"
+		android:summary="@string/show_supported_apps_list_summary">
+		<PreferenceCategory android:key="supported_musicapps_list"
 			android:title="@string/supported_apps_category_title" />
 	</PreferenceScreen>
 
