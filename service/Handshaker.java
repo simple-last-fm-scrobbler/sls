@@ -58,8 +58,8 @@ public class Handshaker extends NetRunnable {
 
 	private final boolean doAuth;
 
-	public Handshaker(Context ctx, Networker net, boolean doAuth) {
-		super(ctx, net);
+	public Handshaker(NetApp napp, Context ctx, Networker net, boolean doAuth) {
+		super(napp, ctx, net);
 		this.doAuth = doAuth;
 		this.settings = new AppSettings(ctx);
 	}
@@ -83,7 +83,7 @@ public class Handshaker extends NetRunnable {
 			getNetworker().resetSleeper();
 
 			// we don't need it anymore, settings.getPwdMd5() is enough
-			settings.setPassword("");
+			settings.setPassword(getNetApp(), "");
 
 			notifyAuthStatusUpdate(Status.AUTHSTATUS_OK);
 
@@ -105,7 +105,8 @@ public class Handshaker extends NetRunnable {
 			// the scrobbles already prepared will be sent at a later time
 			getNetworker().unlaunchScrobblingAndNPNotifying();
 		} catch (TemporaryFailureException e) {
-			Log.i(TAG, "Tempfail: " + e.getMessage());
+			Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
+					+ getNetApp().getName());
 
 			if (doAuth)
 				notifyAuthStatusUpdate(Status.AUTHSTATUS_RETRYLATER);
@@ -113,7 +114,7 @@ public class Handshaker extends NetRunnable {
 			ConnectivityManager cMgr = (ConnectivityManager) getContext()
 					.getSystemService(Context.CONNECTIVITY_SERVICE);
 			NetworkInfo netInfo = cMgr.getActiveNetworkInfo();
-			
+
 			if (netInfo == null || !netInfo.isConnected()) {
 				// no more sleeping, network down
 				getNetworker().resetSleeper();
@@ -125,7 +126,8 @@ public class Handshaker extends NetRunnable {
 			}
 
 		} catch (ClientBannedException e) {
-			Log.e(TAG, "This version of the client has been banned!!");
+			Log.e(TAG, "This version of the client has been banned!!" + ": "
+					+ getNetApp().getName());
 			Log.e(TAG, e.getMessage());
 			// TODO: what??
 			notifyAuthStatusUpdate(Status.AUTHSTATUS_CLIENTBANNED);
@@ -150,13 +152,13 @@ public class Handshaker extends NetRunnable {
 	 */
 	public HandshakeResult handshake() throws BadAuthException,
 			TemporaryFailureException, ClientBannedException {
-		Log.d(TAG, "Handshaking");
+		Log.d(TAG, "Handshaking: " + getNetApp().getName());
 
-		String username = settings.getUsername();
-		String pwdMd5 = settings.getPwdMd5();
+		String username = settings.getUsername(getNetApp());
+		String pwdMd5 = settings.getPwdMd5(getNetApp());
 
 		if (username.length() == 0) {
-			Log.d(TAG, "Invalid username");
+			Log.d(TAG, "Invalid username: " + getNetApp().getName());
 			throw new BadAuthException(getContext().getString(
 					R.string.auth_bad_auth));
 		}
@@ -184,9 +186,9 @@ public class Handshaker extends NetRunnable {
 
 		String authToken = MD5.getHashString(pwdMd5 + time);
 
-		String uri = "http://post.audioscrobbler.com/?hs=true&p=1.2.1&c="
-				+ clientid + "&v=" + clientver + "&u=" + enc(username) + "&t="
-				+ time + "&a=" + authToken;
+		String uri = getNetApp().getHandshakeUrl() + "&p=1.2.1&c=" + clientid
+				+ "&v=" + clientver + "&u=" + enc(username) + "&t=" + time
+				+ "&a=" + authToken;
 
 		DefaultHttpClient http = new DefaultHttpClient();
 		HttpGet request = new HttpGet(uri);
@@ -197,7 +199,7 @@ public class Handshaker extends NetRunnable {
 			String[] lines = response.split("\n");
 			if (lines.length == 4 && lines[0].equals("OK")) {
 				// handshake succeeded
-				Log.i(TAG, "Handshake succeeded!");
+				Log.i(TAG, "Handshake succeeded!: " + getNetApp().getName());
 
 				HandshakeResult hi = new HandshakeResult(lines[1], lines[2],
 						lines[3]);
@@ -205,27 +207,31 @@ public class Handshaker extends NetRunnable {
 				return hi;
 			} else if (lines.length == 1) {
 				if (lines[0].startsWith("BANNED")) {
-					Log.e(TAG, "Handshake fails: client banned");
+					Log.e(TAG, "Handshake fails: client banned: "
+							+ getNetApp().getName());
 					throw new ClientBannedException(getContext().getString(
 							R.string.auth_client_banned));
 				} else if (lines[0].startsWith("BADAUTH")) {
-					Log.i(TAG, "Handshake fails: bad auth");
+					Log.i(TAG, "Handshake fails: bad auth: "
+							+ getNetApp().getName());
 					throw new BadAuthException(getContext().getString(
 							R.string.auth_bad_auth));
 				} else if (lines[0].startsWith("BADTIME")) {
-					Log.e(TAG, "Handshake fails: bad time");
+					Log.e(TAG, "Handshake fails: bad time: "
+							+ getNetApp().getName());
 					throw new TemporaryFailureException(getContext().getString(
 							R.string.auth_timing_error));
 				} else if (lines[0].startsWith("FAILED")) {
 					String reason = lines[0].substring(7);
-					Log.e(TAG, "Handshake fails: FAILED " + reason);
+					Log.e(TAG, "Handshake fails: FAILED " + reason + ": "
+							+ getNetApp().getName());
 					throw new TemporaryFailureException(getContext().getString(
-							R.string.auth_server_error)
-							+ " ");
+							R.string.auth_server_error).replace("%1", reason));
 				}
 			} else {
 				throw new TemporaryFailureException(
-						"Weird response from handskake-req: " + response);
+						"Weird response from handskake-req: " + response + ": "
+								+ getNetApp().getName());
 			}
 
 		} catch (ClientProtocolException e) {
@@ -249,8 +255,9 @@ public class Handshaker extends NetRunnable {
 	}
 
 	private void notifyAuthStatusUpdate(int st) {
-		settings.setAuthStatus(st);
+		settings.setAuthStatus(getNetApp(), st);
 		Intent i = new Intent(ScrobblingService.BROADCAST_ONAUTHCHANGED);
+		i.putExtra("netapp", getNetApp().getIntentExtraValue());
 		getContext().sendBroadcast(i);
 	}
 

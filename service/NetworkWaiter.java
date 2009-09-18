@@ -33,8 +33,8 @@ public class NetworkWaiter extends NetRunnable {
 	private static final String TAG = "NetworkWaiter";
 	boolean mWait;
 
-	NetworkWaiter(Context ctx, Networker net) {
-		super(ctx, net);
+	NetworkWaiter(NetApp napp, Context ctx, Networker net) {
+		super(napp, ctx, net);
 	}
 
 	@Override
@@ -51,11 +51,14 @@ public class NetworkWaiter extends NetRunnable {
 			mWait = netInfo == null || !netInfo.isConnected();
 			while (mWait) {
 				try {
-					Log.d(TAG, "waiting for network connection");
+					Log.d(TAG, "waiting for network connection: "
+							+ getNetApp().getName());
 					this.wait();
-					Log.d(TAG, "woke up, there's probably a network connection");
+					Log.d(TAG,
+							"woke up, there's probably a network connection: "
+									+ getNetApp().getName());
 				} catch (InterruptedException e) {
-					Log.i(TAG, "Got interrupted");
+					Log.i(TAG, "Got interrupted: " + getNetApp().getName());
 					Log.i(TAG, e.getMessage());
 				}
 			}
@@ -70,7 +73,9 @@ public class NetworkWaiter extends NetRunnable {
 		public void onReceive(Context context, Intent intent) {
 			synchronized (NetworkWaiter.this) {
 				Bundle extras = intent.getExtras();
-				if (extras == null || !extras.getBoolean(ConnectivityManager.EXTRA_NO_CONNECTIVITY)) {
+				if (extras == null
+						|| !extras
+								.getBoolean(ConnectivityManager.EXTRA_NO_CONNECTIVITY)) {
 					NetworkWaiter.this.mWait = false;
 					NetworkWaiter.this.notifyAll();
 				}

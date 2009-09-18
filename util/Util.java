@@ -66,8 +66,7 @@ public class Util {
 	public static String getAppName(Context ctx, String pkgName) {
 		try {
 			PackageManager pm = ctx.getPackageManager();
-			ApplicationInfo appInfo = pm.getApplicationInfo(ctx
-					.getPackageName(), 0);
+			ApplicationInfo appInfo = pm.getApplicationInfo(pkgName, 0);
 			String label = pm.getApplicationLabel(appInfo).toString();
 			return label;
 		} catch (NameNotFoundException e) {
@@ -78,7 +77,7 @@ public class Util {
 	public static String getAppVersionName(Context ctx, String pkgName) {
 		try {
 			PackageManager pm = ctx.getPackageManager();
-			PackageInfo pkgInfo = pm.getPackageInfo(ctx.getPackageName(), 0);
+			PackageInfo pkgInfo = pm.getPackageInfo(pkgName, 0);
 			String ver = pkgInfo.versionName;
 			return ver;
 		} catch (NameNotFoundException e) {
@@ -89,7 +88,7 @@ public class Util {
 	public static int getAppVersionCode(Context ctx, String pkgName) {
 		try {
 			PackageManager pm = ctx.getPackageManager();
-			PackageInfo pkgInfo = pm.getPackageInfo(ctx.getPackageName(), 0);
+			PackageInfo pkgInfo = pm.getPackageInfo(pkgName, 0);
 			return pkgInfo.versionCode;
 		} catch (NameNotFoundException e) {
 			return 0;

@@ -1,0 +1,230 @@
+package com.adam.aslfms;
+
+import com.adam.aslfms.AppSettings.SubmissionType;
+import com.adam.aslfms.service.NetApp;
+import com.adam.aslfms.service.ScrobblingService;
+import com.adam.aslfms.util.Util;
+
+import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.SQLException;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
+
+public class StatusInfoNetApp extends Activity {
+
+	public static final String PACKAGE_SCROBBLE_DROID = "net.jjc1138.android.scrobbler";
+
+	private static final String TAG = "StatusInfoNetApp";
+
+	private NetApp mNetApp;
+
+	private AppSettings settings;
+	private ScrobblesDatabase mDbHelper;
+
+	private TextView mAuthText;
+	private TextView mScrobbleText;
+	private TextView mNPText;
+	private TextView mCacheText;
+	private TextView mScrobbleStatsText;
+	private TextView mNPStatsText;
+	private TextView mIncompText;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		String snapp = getIntent().getExtras().getString("netapp");
+		if (snapp == null) {
+			Log.e(TAG, "Got null snetapp");
+			finish();
+		}
+		mNetApp = NetApp.valueOf(snapp);
+
+		settings = new AppSettings(this);
+
+		// TODO: remove
+		mDbHelper = new ScrobblesDatabase(this);
+		try {
+			mDbHelper.open();
+		} catch (SQLException e) {
+			Log.e(TAG, "Cannot open database!");
+			Log.e(TAG, e.getMessage());
+			mDbHelper = null;
+		}
+
+		setContentView(R.layout.status_info);
+
+		mAuthText = (TextView) findViewById(R.id.status_auth);
+		mScrobbleText = (TextView) findViewById(R.id.status_scrobbling);
+		mNPText = (TextView) findViewById(R.id.status_np);
+		mCacheText = (TextView) findViewById(R.id.scrobble_cache);
+		mScrobbleStatsText = (TextView) findViewById(R.id.status_scrobble_stats);
+		mNPStatsText = (TextView) findViewById(R.id.status_np_stats);
+		mIncompText = (TextView) findViewById(R.id.status_incomp_warning);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		mDbHelper.close();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		unregisterReceiver(onChange);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		IntentFilter ifs = new IntentFilter();
+		ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
+		ifs.addAction(ScrobblingService.BROADCAST_ONAUTHCHANGED);
+		registerReceiver(onChange, ifs);
+
+		update();
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+	}
+
+	private void update() {
+
+		int color = getResources().getColor(R.color.status_highlight);
+		
+		// authText
+		if (settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_NOAUTH) {
+			mAuthText.setText(R.string.everything_disabled);
+			color = getResources().getColor(R.color.status_lowlight);
+		} else {
+			mAuthText.setText(mNetApp.getStatusSummary(this, settings));
+		}
+		
+		
+
+		// scrobbleText
+		mScrobbleText.setTextColor(color);
+		mScrobbleText.setText(getSubmissionStatus(SubmissionType.SCROBBLE));
+
+		// npText
+		mNPText.setTextColor(color);
+		mNPText.setText(getSubmissionStatus(SubmissionType.NP));
+
+		// scrobbles in cache
+		mCacheText.setTextColor(color);
+		if (mDbHelper != null) {
+			mCacheText.setText(getString(R.string.scrobbles_cache) + " "
+					+ mDbHelper.queryNumberOfRows(mNetApp));
+		} else {
+			mCacheText.setText(getString(R.string.scrobbles_cache) + " "
+					+ getString(R.string.db_error));
+		}
+
+		// statsText
+		mScrobbleStatsText.setTextColor(color);
+		mScrobbleStatsText.setText(getString(R.string.stats_scrobbles)
+				+ " "
+				+ settings.getNumberOfSubmissions(mNetApp,
+						SubmissionType.SCROBBLE));
+		
+		mNPStatsText.setTextColor(color);
+		mNPStatsText.setText(getString(R.string.stats_nps) + " "
+				+ settings.getNumberOfSubmissions(mNetApp, SubmissionType.NP));
+
+		// check for "incompatible" packages
+		String incomp = null;
+		// check for scrobbledroid
+		if (Util.checkForInstalledApp(this, PACKAGE_SCROBBLE_DROID)) {
+			incomp = getString(R.string.incompatability).replaceAll("%1",
+					Util.getAppName(this, PACKAGE_SCROBBLE_DROID));
+		}
+
+		if (incomp == null) {
+			mIncompText.setVisibility(View.GONE);
+		} else {
+			mIncompText.setTextColor(color);
+			mIncompText.setText(incomp);
+		}
+	}
+
+	private String getSubmissionStatus(SubmissionType stype) {
+		if (!settings.isSubmissionsEnabled(stype)) {
+			return sGetDisabled(stype);
+		} else {
+			long time = settings.getLastSubmissionTime(mNetApp, stype);
+			String when;
+			String what;
+			if (time == -1) {
+				when = getString(R.string.never);
+				what = "";
+			} else {
+				when = Util.timeFromLocalMillis(this, time);
+				what = "\n" + settings.getLastSubmissionInfo(mNetApp, stype);
+			}
+
+			String succ = "";
+			if (settings.wasLastSubmissionSuccessful(mNetApp, stype)) {
+				succ = sGetLastAt(stype);
+			} else {
+				succ = sGetLastFailAt(stype);
+			}
+			return succ + " " + when + what;
+		}
+	}
+
+	private String sGetDisabled(SubmissionType stype) {
+		if (stype == SubmissionType.SCROBBLE) {
+			return getString(R.string.scrobbling_disabled);
+		} else {
+			return getString(R.string.nowplaying_disabled);
+		}
+	}
+
+	private String sGetLastAt(SubmissionType stype) {
+		if (stype == SubmissionType.SCROBBLE) {
+			return getString(R.string.scrobble_last_at);
+		} else {
+			return getString(R.string.nowplaying_last_at);
+		}
+	}
+
+	private String sGetLastFailAt(SubmissionType stype) {
+		if (stype == SubmissionType.SCROBBLE) {
+			return getString(R.string.scrobble_last_fail_at);
+		} else {
+			return getString(R.string.nowplaying_last_fail_at);
+		}
+	}
+
+	private BroadcastReceiver onChange = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String snapp = getIntent().getExtras().getString("netapp");
+			if (snapp == null) {
+				Log.e(TAG, "Got null snetapp from broadcast");
+				return;
+			}
+			NetApp napp = NetApp.valueOf(snapp);
+			if (napp == mNetApp) {
+				StatusInfoNetApp.this.update();
+			}
+		}
+	};
+}

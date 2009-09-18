@@ -21,15 +21,23 @@ package com.adam.aslfms.service;
 
 import android.content.Context;
 
+import com.adam.aslfms.AppSettings;
+import com.adam.aslfms.R;
+import com.adam.aslfms.Track;
+import com.adam.aslfms.AppSettings.SubmissionType;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
+import com.adam.aslfms.util.Util;
 
 public abstract class AbstractSubmitter extends NetRunnable {
 
 	@SuppressWarnings("unused")
 	private static final String TAG = "ASubmitter";
+	
+	protected final AppSettings settings;
 
-	public AbstractSubmitter(Context ctx, Networker net) {
-		super(ctx, net);
+	public AbstractSubmitter(NetApp napp, Context ctx, Networker net) {
+		super(napp, ctx, net);
+		this.settings = new AppSettings(ctx);
 	}
 
 	@Override
@@ -52,6 +60,23 @@ public abstract class AbstractSubmitter extends NetRunnable {
 				relaunchThis();
 			}
 		}
+	}
+	
+	protected void notifySubmissionStatusSuccessful(SubmissionType stype, Track track, int statsInc) {
+		settings.setLastSubmissionSuccess(getNetApp(), stype, true);
+		settings.setLastSubmissionTime(getNetApp(), stype, Util.currentTimeMillisLocal());
+		settings.setNumberOfSubmissions(getNetApp(), stype, settings.getNumberOfSubmissions(getNetApp(), stype) + statsInc);
+		settings.setLastSubmissionInfo(getNetApp(), stype, "\"" + track.getTrack() + "\" "
+				+ getContext().getString(R.string.by) + " "
+				+ track.getArtist());
+		notifyStatusUpdate();
+	}
+	
+	protected void notifySubmissionStatusFailure(SubmissionType stype, String reason) {
+		settings.setLastSubmissionSuccess(getNetApp(), stype, false);
+		settings.setLastSubmissionTime(getNetApp(), stype, Util.currentTimeMillisLocal());
+		settings.setLastSubmissionInfo(getNetApp(), stype, reason);
+		notifyStatusUpdate();
 	}
 
 	/**

@@ -24,13 +24,19 @@ import android.content.Intent;
 
 public abstract class NetRunnable implements Runnable {
 
+	private final NetApp mNetApp;
 	private final Context mContext;
 	private final Networker mNetworker;
 
-	public NetRunnable(Context ctx, Networker net) {
+	public NetRunnable(NetApp napp, Context ctx, Networker net) {
 		super();
+		this.mNetApp = napp;
 		this.mContext = ctx;
 		this.mNetworker = net;
+	}
+
+	public NetApp getNetApp() {
+		return mNetApp;
 	}
 
 	public Context getContext() {
@@ -40,9 +46,10 @@ public abstract class NetRunnable implements Runnable {
 	public Networker getNetworker() {
 		return mNetworker;
 	}
-	
+
 	protected void notifyStatusUpdate() {
 		Intent i = new Intent(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
+		i.putExtra("netapp", mNetApp.getIntentExtraValue());
 		mContext.sendBroadcast(i);
 	}
 

@@ -1,3 +1,22 @@
+/**
+ *  This file is part of A Simple Last.fm Scrobbler.
+ *
+ *  A Simple Last.fm Scrobbler is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  A Simple Last.fm Scrobbler is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with A Simple Last.fm Scrobbler.  If not, see <http://www.gnu.org/licenses/>.
+ *  
+ *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
+ */
+
 package com.adam.aslfms.service;
 
 import java.util.Iterator;
@@ -7,6 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
 
+import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.ScrobblesDatabase;
 import com.adam.aslfms.Track;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
@@ -14,7 +34,11 @@ import com.adam.aslfms.service.Handshaker.HandshakeResult;
 public class Networker {
 	@SuppressWarnings("unused")
 	private static final String TAG = "Networker";
-	
+
+	private final AppSettings settings;
+
+	private final NetApp mNetApp;
+
 	private final Context mCtx;
 	private final ScrobblesDatabase mDbHelper;
 
@@ -27,7 +51,10 @@ public class Networker {
 
 	private HandshakeResult hInfo;
 
-	public Networker(Context ctx, ScrobblesDatabase dbHelper) {
+	public Networker(NetApp napp, Context ctx, ScrobblesDatabase dbHelper) {
+		settings = new AppSettings(ctx);
+
+		mNetApp = napp;
 		mCtx = ctx;
 		mDbHelper = dbHelper;
 
@@ -37,29 +64,30 @@ public class Networker {
 		mExecutor = new ThreadPoolExecutor(1, 1, 2, TimeUnit.SECONDS,
 				new PriorityBlockingQueue<Runnable>(1, mComparator));
 
-		mSleeper = new Sleeper(ctx, this);
-		mNetworkWaiter = new NetworkWaiter(ctx, this);
+		mSleeper = new Sleeper(mNetApp, ctx, this);
+		mNetworkWaiter = new NetworkWaiter(mNetApp, ctx, this);
 		hInfo = null;
 	}
 
 	public void launchHandshaker(boolean doAuth) {
-		Handshaker h = new Handshaker(mCtx, this, doAuth);
+		Handshaker h = new Handshaker(mNetApp, mCtx, this, doAuth);
 		execute(h);
 	}
-	
+
 	public void launchClearCreds() {
+		settings.clearCreds(mNetApp);
 		launchHandshaker(false);
 		// TODO: this will still show "Wrong username/password" if handshaker
 		// already is retrying
 	}
 
 	public void launchScrobbler() {
-		Scrobbler s = new Scrobbler(mCtx, this, mDbHelper);
+		Scrobbler s = new Scrobbler(mNetApp, mCtx, this, mDbHelper);
 		execute(s);
 	}
 
 	public void launchNPNotifier(Track track) {
-		NPNotifier n = new NPNotifier(mCtx, this, track);
+		NPNotifier n = new NPNotifier(mNetApp, mCtx, this, track);
 		execute(n);
 	}
 
@@ -89,7 +117,7 @@ public class Networker {
 	public void setHandshakeResult(HandshakeResult h) {
 		hInfo = h;
 	}
-	
+
 	public HandshakeResult getHandshakeResult() {
 		return hInfo;
 	}

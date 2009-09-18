@@ -32,8 +32,8 @@ public class Sleeper extends NetRunnable {
 
 	private long mSleepTime;
 
-	public Sleeper(Context ctx, Networker net) {
-		super(ctx, net);
+	public Sleeper(NetApp napp, Context ctx, Networker net) {
+		super(napp, ctx, net);
 		reset();
 	}
 
@@ -55,21 +55,17 @@ public class Sleeper extends NetRunnable {
 
 	@Override
 	public void run() {
-		Log.d(TAG, "start sleeping");
 		synchronized (this) {
 			try {
-				Log.d(TAG, "go sleeping: " + mSleepTime);
+				Log.d(TAG, "start sleeping: " + mSleepTime + ": " + getNetApp().getName());
 				this.wait(mSleepTime);
-				Log.d(TAG, "un sleeping");
+				Log.d(TAG, "woke up sleeping: " + getNetApp().getName());
 			} catch (InterruptedException e) {
-				Log.i(TAG, "Got interrupted");
+				Log.i(TAG, "Got interrupted: " + getNetApp().getName());
 				Log.i(TAG, e.getMessage());
 			}
 			incSleepTime();
 		}
-		
-		//getNetworker().launchHandshaker(false);
-		Log.d(TAG, "stop sleeping");
 	}
 
 }

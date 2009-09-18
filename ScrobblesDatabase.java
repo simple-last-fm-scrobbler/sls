@@ -27,6 +27,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.adam.aslfms.service.NetApp;
+
 /**
  * 
  * @author tgwizard
@@ -36,32 +38,39 @@ public class ScrobblesDatabase {
 
 	private static final String TAG = "ScrobblesDatabase";
 
-	private static final String KEY_ARTIST = "artist";
-	private static final String KEY_ALBUM = "album";
-	private static final String KEY_TRACK = "track";
-	private static final String KEY_DURATION = "duration";
-	private static final String KEY_WHEN = "whenplayed";
-	private static final String KEY_ROWID = "_id";
+	// private static final String KEY_SCROBBLES_ARTIST = "artist";
+	// private static final String KEY_SCROBBLES_ALBUM = "album";
+	// private static final String KEY_SCROBBLES_TRACK = "track";
+	// private static final String KEY_SCROBBLES_DURATION = "duration";
+	// private static final String KEY_SCROBBLES_WHEN = "whenplayed";
+	// private static final String KEY_SCROBBLES_ROWID = "_id";
+
+	// private static final String KEY_CORRNETAPP_NETAPPID = "netappid";
+	// private static final String KEY_CORRNETAPP_TRACKID = "trackid";
 
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
 
-	/**
-	 * Database creation sql statement
-	 */
-	private static final String DATABASE_CREATE = "create table scrobbles (_id integer primary key autoincrement,"
-			+ KEY_ARTIST
-			+ " text not null,"
-			+ KEY_ALBUM
-			+ " text not null,"
-			+ KEY_TRACK
-			+ " text not null,"
-			+ KEY_DURATION
-			+ " integer not null," + KEY_WHEN + " integer not null);";
-
 	private static final String DATABASE_NAME = "data";
-	private static final String DATABASE_TABLE = "scrobbles";
-	private static final int DATABASE_VERSION = 2;
+	private static final String TABLENAME_SCROBBLES = "scrobbles";
+	private static final String TABLENAME_CORRNETAPP = "scrobbles_netapp";
+
+	private static final String DATABASE_CREATE_SCROBBLES = "create table scrobbles ("
+			+ "_id integer primary key autoincrement, "
+			+ "artist text not null, "
+			+ "album text not null, "
+			+ "track text not null, "
+			+ "duration integer not null, "
+			+ "whenplayed integer not null);";
+
+	private static final String DATABASE_CREATE_CORRNETAPP = "create table scrobbles_netapp ("
+			+ "netappid integer not null, "
+			+ "trackid integer not null, "
+			+ "primary key (netappid, trackid), "
+			+ "foreign key (trackid) references scrobbles_netapp(_id) "
+			+ "on delete cascade on update cascade)";
+
+	private static final int DATABASE_VERSION = 3;
 
 	private final Context mCtx;
 
@@ -73,15 +82,18 @@ public class ScrobblesDatabase {
 
 		@Override
 		public void onCreate(SQLiteDatabase db) {
-
-			db.execSQL(DATABASE_CREATE);
+			Log.d(TAG, "create sql scrobbles: " + DATABASE_CREATE_SCROBBLES);
+			Log.d(TAG, "create sql corrnetapp: " + DATABASE_CREATE_CORRNETAPP);
+			db.execSQL(DATABASE_CREATE_SCROBBLES);
+			db.execSQL(DATABASE_CREATE_CORRNETAPP);
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
 					+ newVersion + ", which will destroy all old data");
-			db.execSQL("DROP TABLE IF EXISTS scrobbles");
+			db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_SCROBBLES);
+			db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_CORRNETAPP);
 			onCreate(db);
 		}
 	}
@@ -123,41 +135,55 @@ public class ScrobblesDatabase {
 	 * 
 	 * @return rowId or -1 if failed
 	 */
-	public long insertScrobble(Track track) {
+	public long insertTrack(Track track) {
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(KEY_ARTIST, track.getArtist().toString());
-		initialValues.put(KEY_ALBUM, track.getAlbum().toString());
-		initialValues.put(KEY_TRACK, track.getTrack().toString());
-		initialValues.put(KEY_DURATION, track.getDuration());
-		initialValues.put(KEY_WHEN, track.getWhen());
+		initialValues.put("artist", track.getArtist().toString());
+		initialValues.put("album", track.getAlbum().toString());
+		initialValues.put("track", track.getTrack().toString());
+		initialValues.put("duration", track.getDuration());
+		initialValues.put("whenplayed", track.getWhen());
 
-		return mDb.insert(DATABASE_TABLE, null, initialValues);
+		return mDb.insert(TABLENAME_SCROBBLES, null, initialValues);
 	}
 
-	/**
-	 * Delete the scrobble from the db with the given rowId.
-	 * 
-	 * @param rowId
-	 *            id of scrobble to delete
-	 * @return true if deleted, false otherwise
-	 */
-	public boolean deleteScrobble(Track track) {
+	public boolean insertScrobble(NetApp napp, long trackid) {
+		ContentValues iVals = new ContentValues();
+		iVals.put("netappid", napp.getValue());
+		iVals.put("trackid", trackid);
+
+		return mDb.insert(TABLENAME_CORRNETAPP, null, iVals) > 0;
+	}
+
+	public int deleteScrobble(NetApp napp, Track track) {
 		if (track.getRowId() == -1) {
 			Log.e(TAG, "Trying to delete scrobble with rowId == -1");
-			return false;
+			return -2;
 		}
-		return mDb.delete(DATABASE_TABLE, KEY_ROWID + "=" + track.getRowId(),
-				null) > 0;
+		return mDb.delete(TABLENAME_CORRNETAPP, "netappid = ? and trackid = ?",
+				new String[] { "" + napp.getValue(), "" + track.getRowId() });
 	}
 
-	public Track[] fetchScrobblesArray(int maxFetch) {
-		Cursor c = mDb.query(DATABASE_TABLE, new String[] { KEY_ROWID,
-				KEY_ARTIST, KEY_ALBUM, KEY_TRACK, KEY_DURATION, KEY_WHEN },
-				null, null, null, null, null);
+	public boolean cleanUpTracks() {
+		mDb.execSQL("delete from scrobbles where _id not in "
+				+ "(select trackid as _id from scrobbles_netapp)");
+		return true;
+	}
+
+	public Track[] fetchTracksArray(NetApp napp, int maxFetch) {
+		Cursor c;
+		// try {
+		String sql = "select * from scrobbles, scrobbles_netapp "
+				+ "where trackid = _id and netappid = " + napp.getValue();
+		c = mDb.rawQuery(sql, null);
+		/*
+		 * } catch (SQLiteException e) { Log.e(TAG,
+		 * "fetchTracksArray sql query failed"); Log.e(TAG, e.getMessage());
+		 * return new Track[0]; }
+		 */
+
 		int count = c.getCount();
-		if (count > maxFetch) {
+		if (count > maxFetch)
 			count = maxFetch;
-		}
 		c.moveToFirst();
 		Track[] tracks = new Track[count];
 		for (int i = 0; i < count; i++) {
@@ -168,11 +194,17 @@ public class ScrobblesDatabase {
 		c.close();
 		return tracks;
 	}
-	
-	public int queryNumberOfRows() {
-		Cursor c = mDb.query(DATABASE_TABLE, new String[] { KEY_ROWID },
-				null, null, null, null, null);
+
+	public int queryNumberOfRows(NetApp napp) {
+		Cursor c;
+		c = mDb.rawQuery(
+				"select count(trackid) from scrobbles_netapp where netappid = "
+						+ napp.getValue(), null);
 		int count = c.getCount();
+		if (count != 0) {
+			c.moveToFirst();
+			count = c.getInt(0);
+		}
 		c.close();
 		return count;
 	}
