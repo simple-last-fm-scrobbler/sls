@@ -1,22 +1,26 @@
 package com.adam.aslfms;
 
-import com.adam.aslfms.AppSettings.SubmissionType;
-import com.adam.aslfms.service.NetApp;
-import com.adam.aslfms.service.ScrobblingService;
-import com.adam.aslfms.util.Util;
-
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
-public class StatusInfoNetApp extends Activity {
+import com.adam.aslfms.AppSettingsEnums.SubmissionType;
+import com.adam.aslfms.service.NetApp;
+import com.adam.aslfms.service.ScrobblingService;
+import com.adam.aslfms.util.Util;
+
+public class StatusInfoNetApp extends Activity implements
+		android.view.View.OnClickListener {
 
 	public static final String PACKAGE_SCROBBLE_DROID = "net.jjc1138.android.scrobbler";
 
@@ -25,7 +29,7 @@ public class StatusInfoNetApp extends Activity {
 	private NetApp mNetApp;
 
 	private AppSettings settings;
-	private ScrobblesDatabase mDbHelper;
+	private ScrobblesDatabase mDb;
 
 	private TextView mAuthText;
 	private TextView mScrobbleText;
@@ -34,6 +38,9 @@ public class StatusInfoNetApp extends Activity {
 	private TextView mScrobbleStatsText;
 	private TextView mNPStatsText;
 	private TextView mIncompText;
+
+	private Button mScrobbleNow;
+	private Button mResetStats;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,13 +56,13 @@ public class StatusInfoNetApp extends Activity {
 		settings = new AppSettings(this);
 
 		// TODO: remove
-		mDbHelper = new ScrobblesDatabase(this);
+		mDb = new ScrobblesDatabase(this);
 		try {
-			mDbHelper.open();
+			mDb.open();
 		} catch (SQLException e) {
 			Log.e(TAG, "Cannot open database!");
 			Log.e(TAG, e.getMessage());
-			mDbHelper = null;
+			mDb = null;
 		}
 
 		setContentView(R.layout.status_info);
@@ -67,12 +74,17 @@ public class StatusInfoNetApp extends Activity {
 		mScrobbleStatsText = (TextView) findViewById(R.id.status_scrobble_stats);
 		mNPStatsText = (TextView) findViewById(R.id.status_np_stats);
 		mIncompText = (TextView) findViewById(R.id.status_incomp_warning);
+
+		mScrobbleNow = (Button) findViewById(R.id.scrobble_now_button);
+		mScrobbleNow.setOnClickListener(this);
+		mResetStats = (Button) findViewById(R.id.reset_stats_button);
+		mResetStats.setOnClickListener(this);
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		mDbHelper.close();
+		mDb.close();
 	}
 
 	@Override
@@ -104,10 +116,38 @@ public class StatusInfoNetApp extends Activity {
 		super.onStop();
 	}
 
+	@Override
+	public void onClick(View v) {
+		if (v == mScrobbleNow) {
+			Log.d(TAG, "Will scrobble any tracks in local cache: "
+					+ mNetApp.getName());
+			Intent i = new Intent(ScrobblingService.ACTION_JUSTSCROBBLE);
+			i.putExtra("netapp", mNetApp.getIntentExtraValue());
+			startService(i);
+		} else if (v == mResetStats) {
+			Log.d(TAG, "Will clear submission stats for: " + mNetApp.getName());
+			confirm(getString(R.string.confirm_stats_reset),
+					new android.content.DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							settings.clearSubmissionStats(mNetApp);
+							update();
+						}
+					});
+
+		} else {
+			Log.e(TAG, "got weird click: " + v);
+		}
+	}
+
 	private void update() {
 
 		int color = getResources().getColor(R.color.status_highlight);
-		
+		int numInCache = 0;
+		if (mDb != null) {
+			numInCache = mDb.queryNumberOfRows(mNetApp);
+		}
+
 		// authText
 		if (settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_NOAUTH) {
 			mAuthText.setText(R.string.everything_disabled);
@@ -115,8 +155,10 @@ public class StatusInfoNetApp extends Activity {
 		} else {
 			mAuthText.setText(mNetApp.getStatusSummary(this, settings));
 		}
-		
-		
+
+		boolean canScrobbleNow = settings.getAuthStatus(mNetApp) != Status.AUTHSTATUS_NOAUTH
+				&& numInCache > 0;
+		mScrobbleNow.setEnabled(canScrobbleNow);
 
 		// scrobbleText
 		mScrobbleText.setTextColor(color);
@@ -128,12 +170,12 @@ public class StatusInfoNetApp extends Activity {
 
 		// scrobbles in cache
 		mCacheText.setTextColor(color);
-		if (mDbHelper != null) {
-			mCacheText.setText(getString(R.string.scrobbles_cache) + " "
-					+ mDbHelper.queryNumberOfRows(mNetApp));
+		if (mDb != null) {
+			mCacheText.setText(getString(R.string.scrobbles_cache).replace(
+					"%1", Integer.toString(numInCache)));
 		} else {
-			mCacheText.setText(getString(R.string.scrobbles_cache) + " "
-					+ getString(R.string.db_error));
+			mCacheText.setText(getString(R.string.scrobbles_cache).replace(
+					"%1", getString(R.string.db_error)));
 		}
 
 		// statsText
@@ -142,7 +184,7 @@ public class StatusInfoNetApp extends Activity {
 				+ " "
 				+ settings.getNumberOfSubmissions(mNetApp,
 						SubmissionType.SCROBBLE));
-		
+
 		mNPStatsText.setTextColor(color);
 		mNPStatsText.setText(getString(R.string.stats_nps) + " "
 				+ settings.getNumberOfSubmissions(mNetApp, SubmissionType.NP));
@@ -210,6 +252,14 @@ public class StatusInfoNetApp extends Activity {
 		} else {
 			return getString(R.string.nowplaying_last_fail_at);
 		}
+	}
+
+	private void confirm(String s,
+			android.content.DialogInterface.OnClickListener onPositive) {
+		new AlertDialog.Builder(this).setTitle(R.string.are_you_sure)
+				.setMessage(s).setIcon(android.R.drawable.ic_dialog_alert)
+				.setPositiveButton(R.string.yes, onPositive).setNegativeButton(
+						R.string.no, null).show();
 	}
 
 	private BroadcastReceiver onChange = new BroadcastReceiver() {

@@ -64,12 +64,16 @@ public class NetworkerManager {
 			}
 		}
 	}
+	
+	public void launchScrobbler(NetApp napp) {
+		if (settings.isAuthenticated(napp)) {
+			mSupportedNetApps.get(napp).launchScrobbler();
+		}
+	}
 
-	public void launchScrobbler() {
+	public void launchAllScrobblers() {
 		for (NetApp napp : NetApp.values()) {
-			if (settings.isAuthenticated(napp)) {
-				mSupportedNetApps.get(napp).launchScrobbler();
-			}
+			launchScrobbler(napp);
 		}
 	}
 

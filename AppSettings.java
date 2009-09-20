@@ -23,6 +23,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.adam.aslfms.AppSettingsEnums.AdvancedOptions;
+import com.adam.aslfms.AppSettingsEnums.AdvancedOptionsWhen;
+import com.adam.aslfms.AppSettingsEnums.SubmissionType;
 import com.adam.aslfms.receiver.MusicApp;
 import com.adam.aslfms.service.NetApp;
 
@@ -50,43 +53,9 @@ public class AppSettings {
 
 	private static final String KEY_WHATSNEW_VIEWED_VERSION = "whatsnew_viewed_version";
 
-	// status stuff
-	/*
-	 * private static final String KEY_STATUS_LAST_SCROBBLE_TIME =
-	 * "status_last_scrobble_time"; private static final String
-	 * KEY_STATUS_LAST_SCROBBLE_SUCCESS = "status_last_scrobble_success";
-	 * private static final String KEY_STATUS_LAST_SCROBBLE_INFO =
-	 * "status_last_scrobble_info";
-	 * 
-	 * private static final String KEY_STATUS_LAST_NP_TIME =
-	 * "status_last_np_time"; private static final String
-	 * KEY_STATUS_LAST_NP_SUCCESS = "status_last_np_success"; private static
-	 * final String KEY_STATUS_LAST_NP_INFO = "status_last_np_info";
-	 */
-
-	// private static final String KEY_STATUS_NSCROBBLES = "status_nscrobbles";
-	// private static final String KEY_STATUS_NNPS = "status_nnps";
-
-	public enum SubmissionType {
-		SCROBBLE("status_last_scrobble", "status_nscrobbles"), NP(
-				"status_last_np", "status_nnps");
-
-		private final String lastPrefix;
-		private final String numberOfPrefix;
-
-		SubmissionType(String lastPrefix, String numberOfPrefix) {
-			this.lastPrefix = lastPrefix;
-			this.numberOfPrefix = numberOfPrefix;
-		}
-
-		public String getLastPrefix() {
-			return lastPrefix;
-		}
-
-		public String getNumberOfPrefix() {
-			return numberOfPrefix;
-		}
-	}
+	private static final String KEY_ADVANCED_OPTIONS = "advanced_options_type";
+	private static final String KEY_ADVANCED_OPTIONS_WHEN = "advanced_options_when";
+	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE = "scrobbling_options_also_on_complete";
 
 	private final SharedPreferences prefs;
 
@@ -108,7 +77,7 @@ public class AppSettings {
 				|| getPassword(napp).length() != 0
 				|| getPwdMd5(napp).length() != 0;
 	}
-	
+
 	public boolean hasAnyCreds() {
 		for (NetApp napp : NetApp.values())
 			if (hasCreds(napp))
@@ -228,6 +197,21 @@ public class AppSettings {
 	}
 
 	// status stuff
+
+	public void clearSubmissionStats(NetApp napp) {
+		setLastSubmissionTime(napp, SubmissionType.SCROBBLE, -1);
+		setLastSubmissionTime(napp, SubmissionType.NP, -1);
+
+		setLastSubmissionSuccess(napp, SubmissionType.SCROBBLE, true);
+		setLastSubmissionSuccess(napp, SubmissionType.NP, true);
+
+		setLastSubmissionInfo(napp, SubmissionType.SCROBBLE, "");
+		setLastSubmissionInfo(napp, SubmissionType.NP, "");
+
+		setNumberOfSubmissions(napp, SubmissionType.SCROBBLE, 0);
+		setNumberOfSubmissions(napp, SubmissionType.NP, 0);
+	}
+
 	// submission notifying
 	public void setLastSubmissionTime(NetApp napp, SubmissionType stype,
 			long time) {
@@ -278,5 +262,46 @@ public class AppSettings {
 	public int getNumberOfSubmissions(NetApp napp, SubmissionType stype) {
 		return prefs.getInt(napp.getSettingsPrefix()
 				+ stype.getNumberOfPrefix(), 0);
+	}
+
+	// scrobbling options
+
+	public void setAdvancedOptions(AdvancedOptions ao) {
+		// TODO
+		Editor e = prefs.edit();
+		e.putString(KEY_ADVANCED_OPTIONS, ao.getSettingsVal());
+		e.commit();
+		if (ao != AdvancedOptions.CUSTOM) {
+			setAdvancedOptionsWhen(ao.getWhen());
+			setAdvancedOptionsAlsoOnComplete(ao.getAlsoOnComplete());
+		}
+	}
+
+	public AdvancedOptions getAdvancedOptions() {
+		String s = prefs.getString(KEY_ADVANCED_OPTIONS,
+				AdvancedOptions.STANDARD.getSettingsVal());
+		return AdvancedOptions.fromSettingsVal(s);
+	}
+
+	public void setAdvancedOptionsWhen(AdvancedOptionsWhen aow) {
+		Editor e = prefs.edit();
+		e.putString(KEY_ADVANCED_OPTIONS_WHEN, aow.getSettingsVal());
+		e.commit();
+	}
+
+	public AdvancedOptionsWhen getAdvancedOptionsWhen() {
+		String s = prefs.getString(KEY_ADVANCED_OPTIONS_WHEN,
+				AdvancedOptionsWhen.AFTER_1.getSettingsVal());
+		return AdvancedOptionsWhen.fromSettingsVal(s);
+	}
+
+	public void setAdvancedOptionsAlsoOnComplete(boolean b) {
+		Editor e = prefs.edit();
+		e.putBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE, b);
+		e.commit();
+	}
+
+	public boolean getAdvancedOptionsAlsoOnComplete() {
+		return prefs.getBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE, true);
 	}
 }

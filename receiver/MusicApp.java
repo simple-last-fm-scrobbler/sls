@@ -20,7 +20,7 @@
 package com.adam.aslfms.receiver;
 
 public enum MusicApp {
-	ANDROID_MUSIC(0x01, "Android Music Player", "com.android.music"),
+	ANDROID_MUSIC(0x01, "Android Music Player", "com.android.music"), //
 	HERO_MUSIC(0x02, "Hero Music Player", "com.htc.music");
 
 	private final int val;
@@ -40,7 +40,7 @@ public enum MusicApp {
 	public String getName() {
 		return this.name;
 	}
-	
+
 	public String getPackage() {
 		return this.pkg;
 	}
