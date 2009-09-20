@@ -25,15 +25,22 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.adam.aslfms.AppSettingsEnums.AdvancedOptions;
+import com.adam.aslfms.AppSettingsEnums.AdvancedOptionsWhen;
 import com.adam.aslfms.receiver.MusicApp;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
@@ -46,12 +53,13 @@ import com.adam.aslfms.util.Util;
  * notifications or not. It also allows the user to enter and clear user
  * credentials.
  * 
+ * FIXME: this class is way too big
+ * 
  * @author tgwizard
  * 
  */
 public class SettingsActivity extends PreferenceActivity {
 
-	@SuppressWarnings("unused")
 	private static final String TAG = "SettingsActivity";
 
 	// keys to Preference objects
@@ -65,11 +73,19 @@ public class SettingsActivity extends PreferenceActivity {
 	private static final String KEY_SHOW_SUPPORTED_MUSICAPPS_LIST = "show_supported_musicapps_list";
 	private static final String KEY_SUPPORTED_MUSICAPPS_LIST = "supported_musicapps_list";
 
+	private static final String KEY_ADVANCED_OPTIONS_CHOOSER = "advanced_options_chooser";
+	private static final String KEY_ADVANCED_OPTIONS_WHEN = "advanced_options_when";
+	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE = "advanced_options_also_on_complete";
+
+	private static final String KEY_SCROBBLE_ALL_NOW = "scrobble_all_now";
+
 	private static final String KEY_STATUS_SHOW = "status_show";
 
 	private static final int MENU_ABOUT_ID = 0;
 
 	private AppSettings settings;
+	
+	private ScrobblesDatabase mDb;
 
 	private Preference mUserCreds;
 	private PreferenceCategory mUserCredsList;
@@ -84,7 +100,13 @@ public class SettingsActivity extends PreferenceActivity {
 	private PreferenceCategory mSupportedMusicAppsList;
 	private HashMap<CheckBoxPreference, MusicApp> mSupportedMusicAppsMap;
 
-	private Preference mStatusShow;
+	private ListPreference mAOptionsChooser;
+	private ListPreference mAOptionsWhen;
+	private CheckBoxPreference mAOptionsAlsoOnComplete;
+
+	private Preference mScrobbleAllNow;
+
+	private Preference mShowStatus;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +114,15 @@ public class SettingsActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.settings_prefs);
 
 		settings = new AppSettings(this);
+		
+		mDb = new ScrobblesDatabase(this);
+		try {
+			mDb.open();
+		} catch (SQLException e) {
+			Log.e(TAG, "Cannot open database!");
+			Log.e(TAG, e.getMessage());
+			mDb = null;
+		}
 
 		mUserCreds = findPreference(KEY_USER_CREDENTIALS);
 		mUserCredsList = (PreferenceCategory) findPreference(KEY_USER_CREDENTIALS_LIST);
@@ -106,13 +137,86 @@ public class SettingsActivity extends PreferenceActivity {
 		mSupportedMusicAppsList = (PreferenceCategory) findPreference(KEY_SUPPORTED_MUSICAPPS_LIST);
 		mSupportedMusicAppsMap = new HashMap<CheckBoxPreference, MusicApp>();
 
-		mStatusShow = findPreference(KEY_STATUS_SHOW);
+		mAOptionsChooser = (ListPreference) findPreference(KEY_ADVANCED_OPTIONS_CHOOSER);
+		mAOptionsWhen = (ListPreference) findPreference(KEY_ADVANCED_OPTIONS_WHEN);
+		mAOptionsAlsoOnComplete = (CheckBoxPreference) findPreference(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE);
+
+		initAdvancedOptions();
+
+		mScrobbleAllNow = findPreference(KEY_SCROBBLE_ALL_NOW);
+
+		mShowStatus = findPreference(KEY_STATUS_SHOW);
 
 		int v = Util.getAppVersionCode(this, getPackageName());
 		if (settings.getWhatsNewViewedVersion() < v) {
 			new WhatsNewDialog(this).show();
 			settings.setWhatsNewViewedVersion(v);
 		}
+	}
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		mDb.close();
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+
+		unregisterReceiver(onAuth);
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		IntentFilter ifs = new IntentFilter();
+		ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
+		ifs.addAction(ScrobblingService.BROADCAST_ONAUTHCHANGED);
+
+		registerReceiver(onAuth, ifs);
+		update();
+	}
+
+	@Override
+	protected void onStart() {
+		super.onStart();
+	}
+
+	@Override
+	protected void onStop() {
+		super.onStop();
+	}
+
+	private void initAdvancedOptions() {
+		// set the entries for mOptionsChooser
+		AdvancedOptions[] scrobOpts = AdvancedOptions.values();
+		CharSequence[] vals = new CharSequence[scrobOpts.length];
+		for (int i = 0; i < scrobOpts.length; i++)
+			vals[i] = scrobOpts[i].getName(this);
+		mAOptionsChooser.setEntries(vals);
+
+		// set the values for mOptionsChooser
+		vals = new CharSequence[scrobOpts.length];
+		for (int i = 0; i < scrobOpts.length; i++)
+			vals[i] = scrobOpts[i].toString();
+		mAOptionsChooser.setEntryValues(vals);
+
+		AdvancedOptionsWhen[] scrobOptsWhen = AdvancedOptionsWhen.values();
+		vals = new CharSequence[scrobOptsWhen.length];
+		for (int i = 0; i < scrobOptsWhen.length; i++)
+			vals[i] = scrobOptsWhen[i].getName(this);
+		mAOptionsWhen.setEntries(vals);
+
+		// set the values for mOptionsChooser
+		vals = new CharSequence[scrobOptsWhen.length];
+		for (int i = 0; i < scrobOptsWhen.length; i++)
+			vals[i] = scrobOptsWhen[i].toString();
+		mAOptionsWhen.setEntryValues(vals);
+
+		mAOptionsChooser.setOnPreferenceChangeListener(mOnOptionsChange);
+		mAOptionsWhen.setOnPreferenceChangeListener(mOnOptionsWhenChange);
 	}
 
 	@Override
@@ -125,7 +229,7 @@ public class SettingsActivity extends PreferenceActivity {
 		} else if (pref == mNowplayPref) {
 			toggleNowplaying(mNowplayPref.isChecked());
 			return true;
-		} else if (pref == mStatusShow) {
+		} else if (pref == mShowStatus) {
 			Intent st = new Intent(this, StatusActivity.class);
 			startActivity(st);
 			return true;
@@ -138,6 +242,15 @@ public class SettingsActivity extends PreferenceActivity {
 		} else if (pref == mClearAllCreds) {
 			Intent service = new Intent(ScrobblingService.ACTION_CLEARCREDS);
 			service.putExtra("clearall", true);
+			startService(service);
+			return true;
+		} else if (pref == mAOptionsAlsoOnComplete) {
+			settings.setAdvancedOptionsAlsoOnComplete(mAOptionsAlsoOnComplete.isChecked());
+			updateAdvancedOptions();
+			return true;
+		} else if (pref == mScrobbleAllNow) {
+			Intent service = new Intent(ScrobblingService.ACTION_JUSTSCROBBLE);
+			service.putExtra("scrobbleall", true);
 			startService(service);
 			return true;
 		} else {
@@ -178,10 +291,11 @@ public class SettingsActivity extends PreferenceActivity {
 	private void update() {
 		mScrobblePref.setChecked(settings.isScrobblingEnabled());
 		mNowplayPref.setChecked(settings.isNowPlayingEnabled());
-		
+
 		mClearAllCreds.setEnabled(settings.hasAnyCreds());
 
 		updateUserCredsList();
+		updateAdvancedOptions();
 	}
 
 	private void loadSupportedMusicAppsList() {
@@ -229,7 +343,6 @@ public class SettingsActivity extends PreferenceActivity {
 			mUserCredsAppToPrefMap.put(napp, pref);
 			mUserCredsList.addPreference(pref);
 
-			
 		}
 		updateUserCredsList();
 	}
@@ -251,37 +364,64 @@ public class SettingsActivity extends PreferenceActivity {
 
 	}
 
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
+	private void updateAdvancedOptions() {
+		AdvancedOptions so = settings.getAdvancedOptions();
+		setScrobblingOptionsRestEnabled(so == AdvancedOptions.CUSTOM);
+
+		mAOptionsChooser.setSummary(so.getName(this));
+		mAOptionsWhen.setSummary(settings.getAdvancedOptionsWhen()
+				.getName(this));
+		mAOptionsAlsoOnComplete.setChecked(settings
+				.getAdvancedOptionsAlsoOnComplete());
+
+		mAOptionsChooser.setValue(settings.getAdvancedOptions().toString());
+		mAOptionsWhen.setValue(settings.getAdvancedOptionsWhen().toString());
+		
+		int numCache = mDb.queryNumberOfAllRows();
+		mScrobbleAllNow.setSummary(getString(R.string.scrobbles_cache).replace("%1", Integer.toString(numCache)));
+		mScrobbleAllNow.setEnabled(numCache > 0);
 	}
 
-	@Override
-	protected void onPause() {
-		super.onPause();
+	private OnPreferenceChangeListener mOnOptionsChange = new OnPreferenceChangeListener() {
+		@Override
+		public boolean onPreferenceChange(Preference preference, Object newValue) {
+			if (!(newValue instanceof CharSequence)) {
+				Log.e(TAG, "Got weird newValue on options change: " + newValue);
+				return false;
+			}
+			CharSequence newcs = (CharSequence) newValue;
+			AdvancedOptions so = AdvancedOptions.valueOf(newcs.toString());
+			settings.setAdvancedOptions(so);
 
-		unregisterReceiver(onAuth);
-	}
+			if (so == AdvancedOptions.BATTERY_SAVING) {
+				Toast.makeText(SettingsActivity.this,
+						getString(R.string.should_disable_np),
+						Toast.LENGTH_LONG).show();
+			}
+			updateAdvancedOptions();
+			return true;
+		}
+	};
+	private OnPreferenceChangeListener mOnOptionsWhenChange = new OnPreferenceChangeListener() {
+		@Override
+		public boolean onPreferenceChange(Preference preference, Object newValue) {
+			if (!(newValue instanceof CharSequence)) {
+				Log.e(TAG, "Got weird newValue on options when change: "
+						+ newValue);
+				return false;
+			}
+			CharSequence newcs = (CharSequence) newValue;
+			AdvancedOptionsWhen sow = AdvancedOptionsWhen.valueOf(newcs
+					.toString());
+			settings.setAdvancedOptionsWhen(sow);
+			updateAdvancedOptions();
+			return true;
+		}
+	};
 
-	@Override
-	protected void onResume() {
-		super.onResume();
-
-		IntentFilter ifs = new IntentFilter();
-		ifs.addAction(ScrobblingService.BROADCAST_ONAUTHCHANGED);
-
-		registerReceiver(onAuth, ifs);
-		update();
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
+	private void setScrobblingOptionsRestEnabled(boolean enabled) {
+		mAOptionsWhen.setEnabled(enabled);
+		mAOptionsAlsoOnComplete.setEnabled(enabled);
 	}
 
 	@Override

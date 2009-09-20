@@ -23,6 +23,22 @@
 			android:title="@string/supported_apps_category_title" />
 	</PreferenceScreen>
 
+	<PreferenceScreen android:title="@string/advanced_options_title"
+		android:summary="@string/advanced_options_summary">
+		<PreferenceCategory android:title="@string/advanced_options_title" />
+		<ListPreference android:key="advanced_options_chooser"
+			android:title="@string/advanced_options_title" />
+		<PreferenceCategory android:title="@string/advanced_options_custom_category_title" />
+		<ListPreference android:key="advanced_options_when"
+			android:title="@string/advanced_options_when_title" />
+		<CheckBoxPreference android:key="advanced_options_also_on_complete"
+			android:title="@string/advanced_options_also_on_complete_title"
+			android:summary="@string/advanced_options_also_on_complete_summary"
+			android:persistent="false" />
+		<PreferenceCategory android:title="@string/advanced_actions" />
+		<Preference android:key="scrobble_all_now" android:title="@string/scrobble_now" />
+	</PreferenceScreen>
+
 	<PreferenceCategory android:title="@string/scrobble_status_title" />
 	<Preference android:key="status_show" android:title="@string/status_show_title"
 		android:summary="@string/status_show_summary" />

@@ -37,7 +37,7 @@ import android.util.Log;
 import com.adam.aslfms.R;
 import com.adam.aslfms.ScrobblesDatabase;
 import com.adam.aslfms.Track;
-import com.adam.aslfms.AppSettings.SubmissionType;
+import com.adam.aslfms.AppSettingsEnums.SubmissionType;
 import com.adam.aslfms.Status.BadSessionException;
 import com.adam.aslfms.Status.TemporaryFailureException;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;

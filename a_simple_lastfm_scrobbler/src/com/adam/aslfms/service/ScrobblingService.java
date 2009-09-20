@@ -22,6 +22,7 @@ package com.adam.aslfms.service;
 import android.app.Service;
 import android.content.Intent;
 import android.database.SQLException;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -29,6 +30,7 @@ import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.InternalTrackTransmitter;
 import com.adam.aslfms.ScrobblesDatabase;
 import com.adam.aslfms.Track;
+import com.adam.aslfms.AppSettingsEnums.AdvancedOptionsWhen;
 import com.adam.aslfms.util.Util;
 
 /**
@@ -42,6 +44,7 @@ public class ScrobblingService extends Service {
 
 	public static final String ACTION_AUTHENTICATE = "com.adam.aslfms.service.authenticate";
 	public static final String ACTION_CLEARCREDS = "com.adam.aslfms.service.clearcreds";
+	public static final String ACTION_JUSTSCROBBLE = "com.adam.aslfms.service.justscrobble";
 	public static final String ACTION_PLAYSTATECHANGED = "com.adam.aslfms.service.playstatechanged";
 
 	public static final String BROADCAST_ONAUTHCHANGED = "com.adam.aslfms.service.bcast.onauth";
@@ -50,7 +53,7 @@ public class ScrobblingService extends Service {
 	private static final int MIN_SCROBBLE_TIME = 30;
 
 	private AppSettings settings;
-	private ScrobblesDatabase mDbHelper;
+	private ScrobblesDatabase mDb;
 
 	private NetworkerManager mNetManager;
 
@@ -64,45 +67,57 @@ public class ScrobblingService extends Service {
 	@Override
 	public void onCreate() {
 		settings = new AppSettings(this);
-		mDbHelper = new ScrobblesDatabase(this);
+		mDb = new ScrobblesDatabase(this);
 		try {
-			mDbHelper.open();
+			mDb.open();
 		} catch (SQLException e) {
 			Log.e(TAG, "Cannot open database!");
 			Log.e(TAG, e.getMessage());
 			Log.e(TAG, "Will terminate");
 			stopSelf();
 		}
-		mNetManager = new NetworkerManager(this, mDbHelper);
+		mNetManager = new NetworkerManager(this, mDb);
 	}
 
 	@Override
 	public void onDestroy() {
-		mDbHelper.close();
+		mDb.close();
 	}
 
 	@Override
 	public void onStart(Intent i, int startId) {
-		if (i.getAction().equals(ACTION_CLEARCREDS)) {
-			if (i.getBooleanExtra("clearall", false)) {
+		String action = i.getAction();
+		Bundle extras = i.getExtras();
+		if (action.equals(ACTION_CLEARCREDS)) {
+			if (extras.getBoolean("clearall", false)) {
 				mNetManager.launchClearAllCreds();
 			} else {
-				String snapp = i.getExtras().getString("netapp");
+				String snapp = extras.getString("netapp");
 				if (snapp != null) {
 					mNetManager.launchClearCreds(NetApp.valueOf(snapp));
 				} else
-					Log.d(TAG, "launchClearCreds got null napp");
+					Log.e(TAG, "launchClearCreds got null napp");
 			}
-		} else if (i.getAction().equals(ACTION_AUTHENTICATE)) {
-			String snapp = i.getExtras().getString("netapp");
+		} else if (action.equals(ACTION_AUTHENTICATE)) {
+			String snapp = extras.getString("netapp");
 			if (snapp != null)
 				mNetManager.launchHandshaker(NetApp.valueOf(snapp), true);
 			else
-				Log.d(TAG, "launchHandshaker got null napp");
-		} else if (i.getAction().equals(ACTION_PLAYSTATECHANGED)) {
+				Log.e(TAG, "launchHandshaker got null napp");
+		} else if (action.equals(ACTION_JUSTSCROBBLE)) {
+			if (extras.getBoolean("scrobbleall", false)) {
+				mNetManager.launchAllScrobblers();
+			} else {
+				String snapp = extras.getString("netapp");
+				if (snapp != null) {
+					mNetManager.launchScrobbler(NetApp.valueOf(snapp));
+				} else
+					Log.e(TAG, "launchScrobbler got null napp");
+			}
+		} else if (action.equals(ACTION_PLAYSTATECHANGED)) {
 			boolean stopped = false;
-			if (i.getExtras() != null) {
-				stopped = i.getExtras().getBoolean("stopped", false);
+			if (extras != null) {
+				stopped = extras.getBoolean("stopped", false);
 			}
 
 			Track track = InternalTrackTransmitter.popTrack();
@@ -115,7 +130,7 @@ public class ScrobblingService extends Service {
 			onPlayStateChanged(track, stopped);
 
 		} else {
-			Log.e(TAG, "Weird action in onStart: " + i.getAction());
+			Log.e(TAG, "Weird action in onStart: " + action);
 		}
 	}
 
@@ -125,14 +140,14 @@ public class ScrobblingService extends Service {
 				return;
 
 			if (mCurrentPlayingTrack != null) {
-				tryScrobble(mCurrentPlayingTrack, true);
+				tryScrobble(mCurrentPlayingTrack, true, false);
 			}
 
 			mCurrentPlayingTrack = track;
 			tryNotifyNP(mCurrentPlayingTrack);
 		} else {
 			if (mCurrentPlayingTrack == null) {
-				tryScrobble(track, false);
+				tryScrobble(track, false, true);
 			} else {
 				if (!track.equals(mCurrentPlayingTrack)) {
 					Log.e(TAG,
@@ -143,7 +158,7 @@ public class ScrobblingService extends Service {
 					// must scrobble mCurrentPlayingTrack, and not track,
 					// because they have
 					// different timestamps
-					tryScrobble(mCurrentPlayingTrack, true);
+					tryScrobble(mCurrentPlayingTrack, true, true);
 				}
 			}
 			mCurrentPlayingTrack = null;
@@ -165,7 +180,7 @@ public class ScrobblingService extends Service {
 		}
 	}
 
-	private void tryScrobble(Track track, boolean careAboutTrackTimeStamp) {
+	private void tryScrobble(Track track, boolean careAboutTrackTimeStamp, boolean playbackComplete) {
 
 		if (!settings.isAnyAuthenticated() || !settings.isScrobblingEnabled()) {
 			Log.d(TAG, "Won't prepare scrobble, unauthed or disabled");
@@ -182,7 +197,23 @@ public class ScrobblingService extends Service {
 			// from MusicPlaybackService
 			queueTrack(track);
 			settings.setLastListenTime(Util.currentTimeSecsUTC());
-			mNetManager.launchScrobbler();
+			
+			scrobble(playbackComplete);
+		}
+	}
+	
+	private void scrobble(boolean playbackComplete) {
+		boolean aoc = settings.getAdvancedOptionsAlsoOnComplete();
+		if (aoc && playbackComplete) {
+			mNetManager.launchAllScrobblers();
+			return;
+		}
+		
+		AdvancedOptionsWhen aow = settings.getAdvancedOptionsWhen();
+		int numInCache = mDb.queryNumberOfAllRows();
+		if (numInCache >= aow.getTracksToWaitFor()) {
+			mNetManager.launchAllScrobblers();
+			return;
 		}
 	}
 
@@ -219,7 +250,7 @@ public class ScrobblingService extends Service {
 	}
 
 	private void queueTrack(Track track) {
-		long rowId = mDbHelper.insertTrack(track);
+		long rowId = mDb.insertTrack(track);
 		if (rowId != -1) {
 			Log.d(TAG, "queued track: " + track.toString());
 
@@ -227,7 +258,7 @@ public class ScrobblingService extends Service {
 			for (NetApp napp : NetApp.values()) {
 				if (settings.isAuthenticated(napp)) {
 					Log.d(TAG, "inserting scrobble: " + napp.getName());
-					mDbHelper.insertScrobble(napp, rowId);
+					mDb.insertScrobble(napp, rowId);
 				}
 			}
 

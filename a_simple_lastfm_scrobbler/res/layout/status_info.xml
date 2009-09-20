@@ -1,49 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="wrap_content"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
 	android:orientation="vertical">
-	−
-	<LinearLayout android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:orientation="vertical">
-		<TextView android:id="@+id/status_auth"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:textStyle="bold" android:textSize="14sp" android:textColor="@color/status_highlight"
-			android:layout_marginLeft="20dip" android:layout_marginRight="20dip"
-			android:layout_marginTop="18dip" android:layout_marginBottom="8dip" />
+	<ScrollView android:layout_width="fill_parent"
+		android:layout_height="0dip" android:layout_weight="1"
+		android:scrollbarStyle="outsideInset" android:fillViewport="true">
+		<LinearLayout android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:orientation="vertical">
+			<TextView android:id="@+id/status_auth"
+				android:layout_height="wrap_content" android:layout_width="wrap_content"
+				android:textStyle="bold" android:textSize="14sp" android:textColor="@color/status_highlight"
+				android:layout_marginLeft="14dip" android:layout_marginRight="14dip"
+				android:layout_marginTop="18dip" android:layout_marginBottom="8dip" />
 
-		<TextView android:id="@+id/status_scrobbling"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:textStyle="bold" android:textSize="14sp" android:textColor="@color/status_lowlight"
-			android:layout_marginLeft="20dip" android:layout_marginRight="20dip"
-			android:layout_marginTop="8dip" android:layout_marginBottom="8dip" />
+			<TextView android:id="@+id/status_scrobbling"
+				android:layout_height="wrap_content" android:layout_width="wrap_content"
+				android:textStyle="bold" android:textSize="14sp" android:textColor="@color/status_lowlight"
+				android:layout_marginLeft="14dip" android:layout_marginRight="14dip"
+				android:layout_marginTop="8dip" android:layout_marginBottom="8dip" />
 
-		<TextView android:id="@+id/status_np" android:layout_height="wrap_content"
-			android:layout_width="wrap_content" android:textStyle="bold"
-			android:textSize="14sp" android:layout_marginLeft="20dip"
-			android:layout_marginRight="20dip" android:layout_marginTop="8dip"
-			android:layout_marginBottom="8dip" />
+			<TextView android:id="@+id/status_np" android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:textStyle="bold"
+				android:textSize="14sp" android:layout_marginLeft="14dip"
+				android:layout_marginRight="14dip" android:layout_marginTop="8dip"
+				android:layout_marginBottom="8dip" />
 
-		<TextView android:id="@+id/scrobble_cache"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:textStyle="bold" android:textSize="14sp"
-			android:layout_marginLeft="20dip" android:layout_marginRight="20dip"
-			android:layout_marginTop="8dip" android:layout_marginBottom="8dip" />
+			<TextView android:id="@+id/scrobble_cache"
+				android:layout_height="wrap_content" android:layout_width="wrap_content"
+				android:textStyle="bold" android:textSize="14sp"
+				android:layout_marginLeft="14dip" android:layout_marginRight="14dip"
+				android:layout_marginTop="8dip" android:layout_marginBottom="8dip" />
 
-		<TextView android:id="@+id/status_scrobble_stats"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:textStyle="bold" android:textSize="14sp"
-			android:layout_marginLeft="20dip" android:layout_marginRight="20dip"
-			android:layout_marginTop="8dip" android:layout_marginBottom="4dip" />
-		<TextView android:id="@+id/status_np_stats"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:textStyle="bold" android:textSize="14sp"
-			android:layout_marginLeft="20dip" android:layout_marginRight="20dip"
-			android:layout_marginTop="4dip" android:layout_marginBottom="8dip" />
+			<TextView android:id="@+id/status_scrobble_stats"
+				android:layout_height="wrap_content" android:layout_width="wrap_content"
+				android:textStyle="bold" android:textSize="14sp"
+				android:layout_marginLeft="14dip" android:layout_marginRight="14dip"
+				android:layout_marginTop="8dip" android:layout_marginBottom="4dip" />
+			<TextView android:id="@+id/status_np_stats"
+				android:layout_height="wrap_content" android:layout_width="wrap_content"
+				android:textStyle="bold" android:textSize="14sp"
+				android:layout_marginLeft="14dip" android:layout_marginRight="14dip"
+				android:layout_marginTop="4dip" android:layout_marginBottom="8dip" />
 
-		<TextView android:id="@+id/status_incomp_warning"
-			android:layout_height="wrap_content" android:layout_width="wrap_content"
-			android:textStyle="bold" android:textSize="14sp"
-			android:layout_marginLeft="20dip" android:layout_marginRight="20dip"
-			android:layout_marginTop="8dip" android:layout_marginBottom="12dip" />
+			<TextView android:id="@+id/status_incomp_warning"
+				android:layout_height="wrap_content" android:layout_width="wrap_content"
+				android:textStyle="bold" android:textSize="14sp"
+				android:layout_marginLeft="14dip" android:layout_marginRight="14dip"
+				android:layout_marginTop="8dip" android:layout_marginBottom="18dip" />
+		</LinearLayout>
+	</ScrollView>
+	<LinearLayout android:orientation="horizontal"
+		android:layout_width="fill_parent" android:layout_height="54px"
+		android:background="@color/buttons_background">
+		<Button android:id="@+id/scrobble_now_button"
+			android:layout_height="fill_parent" android:layout_width="wrap_content"
+			android:text="@string/scrobble_now" android:layout_weight="0.4">
+		</Button>
+		<View android:id="@+id/buttons_spacer" android:layout_width="0dip"
+			android:layout_height="wrap_content" android:visibility="gone"
+			android:layout_weight="0.2" />
+		<Button android:id="@+id/reset_stats_button"
+			android:layout_height="fill_parent" android:layout_width="wrap_content"
+			android:text="@string/reset_stats" android:layout_weight="0.4">
+		</Button>
 	</LinearLayout>
-</ScrollView>
+</LinearLayout>

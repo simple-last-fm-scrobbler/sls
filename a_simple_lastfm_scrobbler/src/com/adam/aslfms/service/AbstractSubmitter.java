@@ -24,7 +24,7 @@ import android.content.Context;
 import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.R;
 import com.adam.aslfms.Track;
-import com.adam.aslfms.AppSettings.SubmissionType;
+import com.adam.aslfms.AppSettingsEnums.SubmissionType;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
 import com.adam.aslfms.util.Util;
 

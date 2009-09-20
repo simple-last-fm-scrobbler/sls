@@ -195,6 +195,18 @@ public class ScrobblesDatabase {
 		return tracks;
 	}
 
+	public int queryNumberOfAllRows() {
+		Cursor c;
+		c = mDb.rawQuery("select count(distinct trackid) from scrobbles_netapp", null);
+		int count = c.getCount();
+		if (count != 0) {
+			c.moveToFirst();
+			count = c.getInt(0);
+		}
+		c.close();
+		return count;
+	}
+
 	public int queryNumberOfRows(NetApp napp) {
 		Cursor c;
 		c = mDb.rawQuery(

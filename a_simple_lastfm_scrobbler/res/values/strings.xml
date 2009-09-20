@@ -60,7 +60,7 @@
 	<string name="supported_apps_category_title">Supported apps</string>
 	<string name="app_disabled">Won\'t scrobble music from this app</string>
 	<string name="not_installed">This app is not installed</string>
-	<string name="scrobbles_cache">Scrobbles in local cache:</string>
+	<string name="scrobbles_cache">Scrobbles in local cache: %1</string>
 	<string name="db_error">Database error</string>
 	<string name="about">About</string>
 	<string name="whats_new">What's new</string>
@@ -88,6 +88,32 @@
 	<string name="log_in_to">Sign in to</string>
 	<string name="everything_disabled">Not logged in. Scrobbling/now playing is disabled.
 	</string>
-<string name="supported_netapps">Supported websites: %1</string>
-<string name="supported_musicapps">Supported apps: %1</string>
+	<string name="supported_netapps">Supported websites: %1</string>
+	<string name="supported_musicapps">Supported apps: %1</string>
+	<string name="scrobble_now">Scrobble now</string>
+	<string name="reset_stats">Reset statistics</string>
+	<string name="advanced_options_title">Advanced options</string>
+	<string name="advanced_options_summary">Including battery conserving settings</string>
+	<string name="advanced_options_custom_category_title">Custom scrobbling options</string>
+	<string name="advanced_options_when_title">When to scrobble</string>
+	<string name="advanced_options_also_on_complete_title">Scrobble on finish</string>
+	<string name="advanced_options_also_on_complete_summary">Also scrobble when you\'ve finished listening
+	</string>
+	<string name="should_disable_np">You should also disable now playing notifications
+		to better conserve battery</string>
+	<string name="advanced_options_type_standard_name">Standard</string>
+	<string name="advanced_options_type_battery_name">Conserve Battery</string>
+	<string name="advanced_options_type_custom_name">Custom</string>
+	<string name="advanced_options_when_1_name">After every track</string>
+	<string name="advanced_options_when_5_name">After five tracks</string>
+	<string name="advanced_options_when_10_name">After ten tracks</string>
+	<string name="advanced_options_when_25_name">After 25 tracks</string>
+	<string name="advanced_options_when_never_name">When you press the scrobble now button</string>
+	<string name="advanced_actions">Advanced actions</string>
+	<string name="confirm_stats_reset">Are you sure you want to reset your submission
+		statistics? This operation cannot be undone.</string>
+
+<string name="yes">Yes</string>
+<string name="no">No</string>
+<string name="are_you_sure">Are you sure?</string>
 </resources>
