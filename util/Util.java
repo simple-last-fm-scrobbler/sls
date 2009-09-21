@@ -22,7 +22,11 @@ package com.adam.aslfms.util;
 import java.util.Calendar;
 import java.util.TimeZone;
 
+import com.adam.aslfms.R;
+
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -49,6 +53,13 @@ public class Util {
 	public static String timeFromLocalMillis(Context ctx, long millis) {
 		return DateUtils.formatDateTime(ctx, millis, DateUtils.FORMAT_SHOW_TIME
 				| DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE);
+	}
+
+	public static void confirmDialog(Context ctx, int s, OnClickListener onPositive) {
+		new AlertDialog.Builder(ctx).setTitle(R.string.are_you_sure)
+				.setMessage(s).setIcon(android.R.drawable.ic_dialog_alert)
+				.setPositiveButton(R.string.yes, onPositive).setNegativeButton(
+						R.string.no, null).show();
 	}
 
 	public static boolean checkForInstalledApp(Context ctx, String pkgName) {

@@ -101,7 +101,7 @@ public class ScrobblingService extends Service {
 		} else if (action.equals(ACTION_AUTHENTICATE)) {
 			String snapp = extras.getString("netapp");
 			if (snapp != null)
-				mNetManager.launchHandshaker(NetApp.valueOf(snapp), true);
+				mNetManager.launchAuthenticator(NetApp.valueOf(snapp));
 			else
 				Log.e(TAG, "launchHandshaker got null napp");
 		} else if (action.equals(ACTION_JUSTSCROBBLE)) {
@@ -180,7 +180,8 @@ public class ScrobblingService extends Service {
 		}
 	}
 
-	private void tryScrobble(Track track, boolean careAboutTrackTimeStamp, boolean playbackComplete) {
+	private void tryScrobble(Track track, boolean careAboutTrackTimeStamp,
+			boolean playbackComplete) {
 
 		if (!settings.isAnyAuthenticated() || !settings.isScrobblingEnabled()) {
 			Log.d(TAG, "Won't prepare scrobble, unauthed or disabled");
@@ -197,18 +198,18 @@ public class ScrobblingService extends Service {
 			// from MusicPlaybackService
 			queueTrack(track);
 			settings.setLastListenTime(Util.currentTimeSecsUTC());
-			
+
 			scrobble(playbackComplete);
 		}
 	}
-	
+
 	private void scrobble(boolean playbackComplete) {
 		boolean aoc = settings.getAdvancedOptionsAlsoOnComplete();
 		if (aoc && playbackComplete) {
 			mNetManager.launchAllScrobblers();
 			return;
 		}
-		
+
 		AdvancedOptionsWhen aow = settings.getAdvancedOptionsWhen();
 		int numInCache = mDb.queryNumberOfAllRows();
 		if (numInCache >= aow.getTracksToWaitFor()) {

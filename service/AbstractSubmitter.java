@@ -44,7 +44,7 @@ public abstract class AbstractSubmitter extends NetRunnable {
 	public final void run() {
 		HandshakeResult hInfo = getNetworker().getHandshakeResult();
 		if (hInfo == null) {
-			getNetworker().launchHandshaker(false);
+			getNetworker().launchHandshaker();
 			relaunchThis();
 			return;
 		} else {
@@ -56,7 +56,7 @@ public abstract class AbstractSubmitter extends NetRunnable {
 			} while (retry && rCount < 3);
 
 			if (rCount >= 3) {
-				getNetworker().launchHandshaker(false);
+				getNetworker().launchHandshaker();
 				relaunchThis();
 			}
 		}

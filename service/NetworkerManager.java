@@ -44,17 +44,21 @@ public class NetworkerManager {
 			mSupportedNetApps.put(napp, new Networker(napp, ctx, dbHelper));
 	}
 
+	public void launchAuthenticator(NetApp napp) {
+		mSupportedNetApps.get(napp).launchAuthenticator();
+	}
+
 	public void launchClearCreds(NetApp napp) {
 		mSupportedNetApps.get(napp).launchClearCreds();
+	}
+
+	public void launchHandshaker(NetApp napp) {
+		mSupportedNetApps.get(napp).launchHandshaker();
 	}
 
 	public void launchClearAllCreds() {
 		for (Networker nw : mSupportedNetApps.values())
 			nw.launchClearCreds();
-	}
-
-	public void launchHandshaker(NetApp napp, boolean doAuth) {
-		mSupportedNetApps.get(napp).launchHandshaker(doAuth);
 	}
 
 	public void launchNPNotifier(Track track) {
@@ -64,7 +68,7 @@ public class NetworkerManager {
 			}
 		}
 	}
-	
+
 	public void launchScrobbler(NetApp napp) {
 		if (settings.isAuthenticated(napp)) {
 			mSupportedNetApps.get(napp).launchScrobbler();

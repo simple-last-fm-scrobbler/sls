@@ -72,7 +72,7 @@ public class NPNotifier extends AbstractSubmitter {
 		} catch (BadSessionException e) {
 			Log.i(TAG, "BadSession: " + e.getMessage() + ": "
 					+ getNetApp().getName());
-			getNetworker().launchHandshaker(false);
+			getNetworker().launchHandshaker();
 			relaunchThis();
 			notifySubmissionStatusFailure(getContext().getString(
 					R.string.auth_just_error));

@@ -1,7 +1,6 @@
 package com.adam.aslfms;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,6 +10,7 @@ import android.database.SQLException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -19,8 +19,7 @@ import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.Util;
 
-public class StatusInfoNetApp extends Activity implements
-		android.view.View.OnClickListener {
+public class StatusInfoNetApp extends Activity implements OnClickListener {
 
 	public static final String PACKAGE_SCROBBLE_DROID = "net.jjc1138.android.scrobbler";
 
@@ -126,7 +125,7 @@ public class StatusInfoNetApp extends Activity implements
 			startService(i);
 		} else if (v == mResetStats) {
 			Log.d(TAG, "Will clear submission stats for: " + mNetApp.getName());
-			confirm(getString(R.string.confirm_stats_reset),
+			Util.confirmDialog(this, R.string.confirm_stats_reset,
 					new android.content.DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -252,14 +251,6 @@ public class StatusInfoNetApp extends Activity implements
 		} else {
 			return getString(R.string.nowplaying_last_fail_at);
 		}
-	}
-
-	private void confirm(String s,
-			android.content.DialogInterface.OnClickListener onPositive) {
-		new AlertDialog.Builder(this).setTitle(R.string.are_you_sure)
-				.setMessage(s).setIcon(android.R.drawable.ic_dialog_alert)
-				.setPositiveButton(R.string.yes, onPositive).setNegativeButton(
-						R.string.no, null).show();
 	}
 
 	private BroadcastReceiver onChange = new BroadcastReceiver() {
