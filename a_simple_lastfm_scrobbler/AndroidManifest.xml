@@ -14,6 +14,15 @@
 			</intent-filter>
 		</activity>
 
+		<activity android:name="com.adam.aslfms.UserCredsListScreen"
+			android:exported="false">
+		</activity>
+		<activity android:name="com.adam.aslfms.MusicAppsScreen"
+			android:exported="false">
+		</activity>
+		<activity android:name="com.adam.aslfms.AdvancedOptionsScreen"
+			android:exported="false">
+		</activity>
 		<activity android:name="com.adam.aslfms.UserCredActivity"
 			android:exported="false">
 		</activity>

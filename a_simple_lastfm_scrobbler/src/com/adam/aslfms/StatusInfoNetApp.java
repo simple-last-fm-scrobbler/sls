@@ -14,10 +14,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.adam.aslfms.AppSettingsEnums.SubmissionType;
+import com.adam.aslfms.R;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
+import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.ScrobblesDatabase;
+import com.adam.aslfms.util.Status;
 import com.adam.aslfms.util.Util;
+import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
 
 public class StatusInfoNetApp extends Activity implements OnClickListener {
 
@@ -103,16 +107,6 @@ public class StatusInfoNetApp extends Activity implements OnClickListener {
 		registerReceiver(onChange, ifs);
 
 		update();
-	}
-
-	@Override
-	protected void onStart() {
-		super.onStart();
-	}
-
-	@Override
-	protected void onStop() {
-		super.onStop();
 	}
 
 	@Override

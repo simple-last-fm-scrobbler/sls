@@ -26,12 +26,12 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.adam.aslfms.AppSettings;
-import com.adam.aslfms.InternalTrackTransmitter;
-import com.adam.aslfms.ScrobblesDatabase;
-import com.adam.aslfms.Track;
-import com.adam.aslfms.AppSettingsEnums.AdvancedOptionsWhen;
+import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.InternalTrackTransmitter;
+import com.adam.aslfms.util.ScrobblesDatabase;
+import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
+import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
 
 /**
  * 

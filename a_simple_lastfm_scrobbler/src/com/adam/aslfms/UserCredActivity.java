@@ -19,9 +19,6 @@
 
 package com.adam.aslfms;
 
-import com.adam.aslfms.service.NetApp;
-import com.adam.aslfms.service.ScrobblingService;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -33,6 +30,12 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.util.Log;
+
+import com.adam.aslfms.R;
+import com.adam.aslfms.service.NetApp;
+import com.adam.aslfms.service.ScrobblingService;
+import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.Status;
 
 public class UserCredActivity extends PreferenceActivity {
 

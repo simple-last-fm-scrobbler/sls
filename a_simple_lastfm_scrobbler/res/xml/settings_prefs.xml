@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<PreferenceScreen android:key="user_credentials"
-		android:title="@string/user_credentials_title" android:summary="@string/user_credentials_summary_no_napp">
-		<PreferenceCategory android:key="supported_netapps_list"
-			android:title="@string/supported_netapps_category_title" />
-		<PreferenceCategory android:key="clear_all_creds_category"
-			android:title="@string/other_category_title" />
-		<Preference android:key="clear_all_user_credentials"
-			android:title="@string/user_credentials_clear_title" android:summary="@string/user_credentials_clear_summary" />
+	<PreferenceScreen android:title="@string/user_credentials_title"
+		android:summary="@string/user_credentials_summary_no_napp">
+		<intent android:action="android.intent.action.MAIN"
+			android:targetPackage="com.adam.aslfms" android:targetClass="com.adam.aslfms.UserCredsListScreen" />
 	</PreferenceScreen>
 	<CheckBoxPreference android:key="toggle_scrobbling"
 		android:title="@string/scrobbling" android:summaryOff="@string/scrobbling_enable"
@@ -16,30 +12,22 @@
 		android:title="@string/nowplaying" android:summaryOff="@string/nowplaying_enable"
 		android:persistent="false" android:enabled="true" />
 
-	<PreferenceScreen android:key="show_supported_musicapps_list"
-		android:title="@string/show_supported_apps_list_title"
+	<PreferenceScreen android:title="@string/show_supported_apps_list_title"
 		android:summary="@string/show_supported_apps_list_summary">
-		<PreferenceCategory android:key="supported_musicapps_list"
-			android:title="@string/supported_apps_category_title" />
+		<intent android:action="android.intent.action.MAIN"
+			android:targetPackage="com.adam.aslfms" android:targetClass="com.adam.aslfms.MusicAppsScreen" />
 	</PreferenceScreen>
 
 	<PreferenceScreen android:title="@string/advanced_options_title"
 		android:summary="@string/advanced_options_summary">
-		<PreferenceCategory android:title="@string/advanced_options_title" />
-		<ListPreference android:key="advanced_options_chooser"
-			android:title="@string/advanced_options_title" />
-		<PreferenceCategory android:title="@string/advanced_options_custom_category_title" />
-		<ListPreference android:key="advanced_options_when"
-			android:title="@string/advanced_options_when_title" />
-		<CheckBoxPreference android:key="advanced_options_also_on_complete"
-			android:title="@string/advanced_options_also_on_complete_title"
-			android:summary="@string/advanced_options_also_on_complete_summary"
-			android:persistent="false" />
-		<PreferenceCategory android:title="@string/advanced_actions" />
-		<Preference android:key="scrobble_all_now" android:title="@string/scrobble_now" />
+		<intent android:action="android.intent.action.MAIN"
+			android:targetPackage="com.adam.aslfms" android:targetClass="com.adam.aslfms.AdvancedOptionsScreen" />
 	</PreferenceScreen>
 
 	<PreferenceCategory android:title="@string/scrobble_status_title" />
-	<Preference android:key="status_show" android:title="@string/status_show_title"
-		android:summary="@string/status_show_summary" />
+	<Preference android:title="@string/status_show_title"
+		android:summary="@string/status_show_summary">
+		<intent android:action="android.intent.action.MAIN"
+			android:targetPackage="com.adam.aslfms" android:targetClass="com.adam.aslfms.StatusActivity" />
+	</Preference>
 </PreferenceScreen>

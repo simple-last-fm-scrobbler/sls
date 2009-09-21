@@ -17,17 +17,17 @@
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
 
-package com.adam.aslfms;
+package com.adam.aslfms.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.adam.aslfms.AppSettingsEnums.AdvancedOptions;
-import com.adam.aslfms.AppSettingsEnums.AdvancedOptionsWhen;
-import com.adam.aslfms.AppSettingsEnums.SubmissionType;
 import com.adam.aslfms.receiver.MusicApp;
 import com.adam.aslfms.service.NetApp;
+import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptions;
+import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
+import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
 
 /**
  * 

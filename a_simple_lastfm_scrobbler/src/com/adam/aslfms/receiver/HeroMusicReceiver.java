@@ -19,7 +19,7 @@
 
 package com.adam.aslfms.receiver;
 
-import com.adam.aslfms.Track;
+import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
 import android.os.Bundle;

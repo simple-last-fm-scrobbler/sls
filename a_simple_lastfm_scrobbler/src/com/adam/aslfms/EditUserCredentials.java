@@ -30,6 +30,7 @@ import android.widget.EditText;
 
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
+import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.MD5;
 
 /**
@@ -53,7 +54,7 @@ public class EditUserCredentials extends DialogPreference {
 
 		settings = new AppSettings(context);
 	}
-	
+
 	public void setNetApp(NetApp napp) {
 		this.mNetApp = napp;
 	}
@@ -93,17 +94,15 @@ public class EditUserCredentials extends DialogPreference {
 		if (positiveResult) {
 			Intent service = new Intent(ScrobblingService.ACTION_AUTHENTICATE);
 			service.putExtra("netapp", mNetApp.getIntentExtraValue());
-			
+
 			String username = mUsername.getText().toString();
 			username = username.replaceAll("\\s", "");
 			settings.setUsername(mNetApp, username);
 			String password = mPassword.getText().toString();
 			settings.setPassword(mNetApp, password);
 			settings.setPwdMd5(mNetApp, MD5.getHashString(password));
-			
-			getContext().startService(service);
-		} else {
 
+			getContext().startService(service);
 		}
 	}
 
