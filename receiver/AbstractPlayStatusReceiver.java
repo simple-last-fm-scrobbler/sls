@@ -19,10 +19,10 @@
 
 package com.adam.aslfms.receiver;
 
-import com.adam.aslfms.AppSettings;
-import com.adam.aslfms.InternalTrackTransmitter;
-import com.adam.aslfms.Track;
 import com.adam.aslfms.service.ScrobblingService;
+import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.InternalTrackTransmitter;
+import com.adam.aslfms.util.Track;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;

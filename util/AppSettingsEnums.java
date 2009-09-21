@@ -1,10 +1,12 @@
-package com.adam.aslfms;
+package com.adam.aslfms.util;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
 import android.util.Log;
+
+import com.adam.aslfms.R;
 
 public class AppSettingsEnums {
 	public enum SubmissionType {

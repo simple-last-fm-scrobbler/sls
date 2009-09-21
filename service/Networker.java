@@ -26,11 +26,11 @@ import java.util.concurrent.TimeUnit;
 
 import android.content.Context;
 
-import com.adam.aslfms.AppSettings;
-import com.adam.aslfms.ScrobblesDatabase;
-import com.adam.aslfms.Track;
 import com.adam.aslfms.service.Handshaker.HandshakeAction;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
+import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.ScrobblesDatabase;
+import com.adam.aslfms.util.Track;
 
 public class Networker {
 	@SuppressWarnings("unused")

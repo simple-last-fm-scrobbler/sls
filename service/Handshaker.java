@@ -35,15 +35,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.util.Log;
 
-import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.R;
-import com.adam.aslfms.Status;
-import com.adam.aslfms.Status.BadAuthException;
-import com.adam.aslfms.Status.ClientBannedException;
-import com.adam.aslfms.Status.TemporaryFailureException;
-import com.adam.aslfms.Status.UnknownResponseException;
+import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.MD5;
+import com.adam.aslfms.util.Status;
 import com.adam.aslfms.util.Util;
+import com.adam.aslfms.util.Status.BadAuthException;
+import com.adam.aslfms.util.Status.ClientBannedException;
+import com.adam.aslfms.util.Status.TemporaryFailureException;
+import com.adam.aslfms.util.Status.UnknownResponseException;
 
 /**
  * 

@@ -21,7 +21,7 @@ package com.adam.aslfms.receiver;
 
 import android.os.Bundle;
 
-import com.adam.aslfms.Track;
+import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
 /**

@@ -21,9 +21,9 @@ package com.adam.aslfms.service;
 
 import android.content.Context;
 
-import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.R;
-import com.adam.aslfms.Status;
+import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.Status;
 
 public enum NetApp {
 	LASTFM(0x01, "Last.fm", "http://post.audioscrobbler.com/?hs=true", "",
