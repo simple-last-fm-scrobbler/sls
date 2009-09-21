@@ -67,13 +67,16 @@ public class Scrobbler extends AbstractSubmitter {
 		boolean ret;
 		try {
 			Log.d(TAG, "Scrobbling: " + getNetApp().getName());
-			Track[] tracks = mDbHelper.fetchTracksArray(getNetApp(), MAX_SCROBBLE_LIMIT);
+			Track[] tracks = mDbHelper.fetchTracksArray(getNetApp(),
+					MAX_SCROBBLE_LIMIT);
 
 			if (tracks.length == 0) {
-				Log.d(TAG, "Retrieved 0 tracks from db, no scrobbling: " + getNetApp().getName());
+				Log.d(TAG, "Retrieved 0 tracks from db, no scrobbling: "
+						+ getNetApp().getName());
 				return true;
 			}
-			Log.d(TAG, "Retrieved " + tracks.length + " tracks from db: " + getNetApp().getName());
+			Log.d(TAG, "Retrieved " + tracks.length + " tracks from db: "
+					+ getNetApp().getName());
 
 			for (int i = 0; i < tracks.length; i++) {
 				Log.d(TAG, getNetApp().getName() + ": " + tracks[i].toString());
@@ -96,19 +99,23 @@ public class Scrobbler extends AbstractSubmitter {
 			}
 
 			// status stuff
-			notifySubmissionStatusSuccessful(tracks[tracks.length-1], tracks.length);
+			notifySubmissionStatusSuccessful(tracks[tracks.length - 1],
+					tracks.length);
 
 			ret = true;
 		} catch (BadSessionException e) {
-			Log.i(TAG, "BadSession: " + e.getMessage() + ": " + getNetApp().getName());
-			getNetworker().launchHandshaker(false);
+			Log.i(TAG, "BadSession: " + e.getMessage() + ": "
+					+ getNetApp().getName());
+			getNetworker().launchHandshaker();
 			relaunchThis();
 			notifySubmissionStatusFailure(getContext().getString(
 					R.string.auth_just_error));
 			ret = true;
 		} catch (TemporaryFailureException e) {
-			Log.i(TAG, "Tempfail: " + e.getMessage() + ": " + getNetApp().getName());
-			notifySubmissionStatusFailure(getContext().getString(R.string.auth_network_error));
+			Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
+					+ getNetApp().getName());
+			notifySubmissionStatusFailure(getContext().getString(
+					R.string.auth_network_error));
 			ret = false;
 		}
 		return ret;
@@ -118,7 +125,7 @@ public class Scrobbler extends AbstractSubmitter {
 	protected void relaunchThis() {
 		getNetworker().launchScrobbler();
 	}
-	
+
 	private void notifySubmissionStatusFailure(String reason) {
 		super.notifySubmissionStatusFailure(SubmissionType.SCROBBLE, reason);
 	}

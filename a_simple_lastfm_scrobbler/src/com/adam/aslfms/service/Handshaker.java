@@ -53,21 +53,25 @@ import com.adam.aslfms.util.Util;
 public class Handshaker extends NetRunnable {
 
 	private static final String TAG = "Handshaker";
+	
+	public enum HandshakeAction {
+		HANDSHAKE, AUTH, CLEAR_CREDS
+	}
 
 	private final AppSettings settings;
 
-	private final boolean doAuth;
+	private final HandshakeAction hsAction;
 
-	public Handshaker(NetApp napp, Context ctx, Networker net, boolean doAuth) {
+	public Handshaker(NetApp napp, Context ctx, Networker net, HandshakeAction hsAction) {
 		super(napp, ctx, net);
-		this.doAuth = doAuth;
+		this.hsAction = hsAction;
 		this.settings = new AppSettings(ctx);
 	}
 
 	@Override
 	public void run() {
 
-		if (doAuth)
+		if (hsAction == HandshakeAction.AUTH)
 			notifyAuthStatusUpdate(Status.AUTHSTATUS_UPDATING);
 
 		try {
@@ -93,13 +97,15 @@ public class Handshaker extends NetRunnable {
 			// getNetworker().launchScrobbler();
 
 		} catch (BadAuthException e) {
-			if (doAuth)
+			if (hsAction == HandshakeAction.AUTH || hsAction == HandshakeAction.HANDSHAKE)
 				notifyAuthStatusUpdate(Status.AUTHSTATUS_BADAUTH);
-			else {
+			else if (hsAction == HandshakeAction.CLEAR_CREDS) {
 				// this should mean that the user called launchClearCreds, and
 				// that
 				// all user information is gone
 				notifyAuthStatusUpdate(Status.AUTHSTATUS_NOAUTH);
+			} else {
+				Log.e(TAG, "got badauth when doAuth is unknown: " + hsAction.toString());
 			}
 			// badauth means we cant do any scrobbling/notifying, so clear them
 			// the scrobbles already prepared will be sent at a later time
@@ -108,7 +114,7 @@ public class Handshaker extends NetRunnable {
 			Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
 					+ getNetApp().getName());
 
-			if (doAuth)
+			if (hsAction == HandshakeAction.AUTH)
 				notifyAuthStatusUpdate(Status.AUTHSTATUS_RETRYLATER);
 
 			ConnectivityManager cMgr = (ConnectivityManager) getContext()
@@ -119,10 +125,10 @@ public class Handshaker extends NetRunnable {
 				// no more sleeping, network down
 				getNetworker().resetSleeper();
 				getNetworker().launchNetworkWaiter();
-				getNetworker().launchHandshaker(doAuth);
+				getNetworker().launchHandshaker(hsAction);
 			} else {
 				getNetworker().launchSleeper();
-				getNetworker().launchHandshaker(doAuth);
+				getNetworker().launchHandshaker(hsAction);
 			}
 
 		} catch (ClientBannedException e) {

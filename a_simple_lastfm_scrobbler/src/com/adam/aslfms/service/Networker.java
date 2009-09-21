@@ -29,6 +29,7 @@ import android.content.Context;
 import com.adam.aslfms.AppSettings;
 import com.adam.aslfms.ScrobblesDatabase;
 import com.adam.aslfms.Track;
+import com.adam.aslfms.service.Handshaker.HandshakeAction;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
 
 public class Networker {
@@ -69,16 +70,22 @@ public class Networker {
 		hInfo = null;
 	}
 
-	public void launchHandshaker(boolean doAuth) {
-		Handshaker h = new Handshaker(mNetApp, mCtx, this, doAuth);
-		execute(h);
+	public void launchAuthenticator() {
+		launchHandshaker(HandshakeAction.AUTH);
 	}
 
 	public void launchClearCreds() {
 		settings.clearCreds(mNetApp);
-		launchHandshaker(false);
-		// TODO: this will still show "Wrong username/password" if handshaker
-		// already is retrying
+		launchHandshaker(HandshakeAction.CLEAR_CREDS);
+	}
+
+	public void launchHandshaker() {
+		launchHandshaker(HandshakeAction.HANDSHAKE);
+	}
+
+	public void launchHandshaker(HandshakeAction hsAction) {
+		Handshaker h = new Handshaker(mNetApp, mCtx, this, hsAction);
+		execute(h);
 	}
 
 	public void launchScrobbler() {
