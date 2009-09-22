@@ -4,8 +4,10 @@ import java.util.HashMap;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -15,6 +17,7 @@ import android.preference.PreferenceScreen;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.Util;
 
 public class UserCredsListScreen extends PreferenceActivity {
 	@SuppressWarnings("unused")
@@ -47,7 +50,7 @@ public class UserCredsListScreen extends PreferenceActivity {
 	protected void onPause() {
 		super.onPause();
 
-		unregisterReceiver(onAuth);
+		unregisterReceiver(onStatusChange);
 	}
 
 	@Override
@@ -55,10 +58,9 @@ public class UserCredsListScreen extends PreferenceActivity {
 		super.onResume();
 
 		IntentFilter ifs = new IntentFilter();
-		ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
 		ifs.addAction(ScrobblingService.BROADCAST_ONAUTHCHANGED);
 
-		registerReceiver(onAuth, ifs);
+		registerReceiver(onStatusChange, ifs);
 		update();
 	}
 
@@ -67,9 +69,19 @@ public class UserCredsListScreen extends PreferenceActivity {
 			Preference pref) {
 
 		if (pref == mClearAllCreds) {
-			Intent service = new Intent(ScrobblingService.ACTION_CLEARCREDS);
-			service.putExtra("clearall", true);
-			startService(service);
+			if (settings.isAnyAuthenticated()) {
+				Util.confirmDialog(this, R.string.confirm_clear_creds,
+						R.string.yes, R.string.cancel, new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								sendClearCreds();
+							}
+						});
+			} else {
+				sendClearCreds();
+			}
+
 			return true;
 		} else {
 			// we clicked an "user creds" preference
@@ -83,6 +95,12 @@ public class UserCredsListScreen extends PreferenceActivity {
 		}
 
 		return super.onPreferenceTreeClick(prefScreen, pref);
+	}
+
+	private void sendClearCreds() {
+		Intent service = new Intent(ScrobblingService.ACTION_CLEARCREDS);
+		service.putExtra("clearall", true);
+		startService(service);
 	}
 
 	private void update() {
@@ -117,7 +135,7 @@ public class UserCredsListScreen extends PreferenceActivity {
 		}
 	}
 
-	private BroadcastReceiver onAuth = new BroadcastReceiver() {
+	private BroadcastReceiver onStatusChange = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {

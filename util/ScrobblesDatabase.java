@@ -38,16 +38,6 @@ public class ScrobblesDatabase {
 
 	private static final String TAG = "ScrobblesDatabase";
 
-	// private static final String KEY_SCROBBLES_ARTIST = "artist";
-	// private static final String KEY_SCROBBLES_ALBUM = "album";
-	// private static final String KEY_SCROBBLES_TRACK = "track";
-	// private static final String KEY_SCROBBLES_DURATION = "duration";
-	// private static final String KEY_SCROBBLES_WHEN = "whenplayed";
-	// private static final String KEY_SCROBBLES_ROWID = "_id";
-
-	// private static final String KEY_CORRNETAPP_NETAPPID = "netappid";
-	// private static final String KEY_CORRNETAPP_TRACKID = "trackid";
-
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
 
@@ -162,6 +152,11 @@ public class ScrobblesDatabase {
 		return mDb.delete(TABLENAME_CORRNETAPP, "netappid = ? and trackid = ?",
 				new String[] { "" + napp.getValue(), "" + track.getRowId() });
 	}
+	
+	public int deleteAllScrobbles(NetApp napp) {
+		return mDb.delete(TABLENAME_CORRNETAPP, "netappid = ?",
+				new String[] { "" + napp.getValue() });
+	}
 
 	public boolean cleanUpTracks() {
 		mDb.execSQL("delete from scrobbles where _id not in "
@@ -173,7 +168,7 @@ public class ScrobblesDatabase {
 		Cursor c;
 		// try {
 		String sql = "select * from scrobbles, scrobbles_netapp "
-				+ "where trackid = _id and netappid = " + napp.getValue();
+				+ "where _id = trackid and netappid = " + napp.getValue();
 		c = mDb.rawQuery(sql, null);
 		/*
 		 * } catch (SQLiteException e) { Log.e(TAG,
@@ -198,7 +193,7 @@ public class ScrobblesDatabase {
 	public int queryNumberOfAllRows() {
 		Cursor c;
 		c = mDb.rawQuery(
-				"select count(distinct trackid) from scrobbles_netapp", null);
+				"select count(_id) from scrobbles", null);
 		int count = c.getCount();
 		if (count != 0) {
 			c.moveToFirst();

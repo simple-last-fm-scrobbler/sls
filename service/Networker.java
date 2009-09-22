@@ -41,7 +41,7 @@ public class Networker {
 	private final NetApp mNetApp;
 
 	private final Context mCtx;
-	private final ScrobblesDatabase mDbHelper;
+	private final ScrobblesDatabase mDb;
 
 	private final ThreadPoolExecutor mExecutor;
 
@@ -52,12 +52,12 @@ public class Networker {
 
 	private HandshakeResult hInfo;
 
-	public Networker(NetApp napp, Context ctx, ScrobblesDatabase dbHelper) {
+	public Networker(NetApp napp, Context ctx, ScrobblesDatabase db) {
 		settings = new AppSettings(ctx);
 
 		mNetApp = napp;
 		mCtx = ctx;
-		mDbHelper = dbHelper;
+		mDb = db;
 
 		mComparator = new NetRunnableComparator();
 
@@ -76,6 +76,10 @@ public class Networker {
 
 	public void launchClearCreds() {
 		settings.clearCreds(mNetApp);
+		
+		mDb.deleteAllScrobbles(mNetApp);
+		mDb.cleanUpTracks();
+		
 		launchHandshaker(HandshakeAction.CLEAR_CREDS);
 	}
 
@@ -89,7 +93,7 @@ public class Networker {
 	}
 
 	public void launchScrobbler() {
-		Scrobbler s = new Scrobbler(mNetApp, mCtx, this, mDbHelper);
+		Scrobbler s = new Scrobbler(mNetApp, mCtx, this, mDb);
 		execute(s);
 	}
 
