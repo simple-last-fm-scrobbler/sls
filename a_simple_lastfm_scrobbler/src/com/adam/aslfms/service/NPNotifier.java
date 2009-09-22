@@ -126,10 +126,11 @@ public class NPNotifier extends AbstractSubmitter {
 		List<BasicNameValuePair> data = new LinkedList<BasicNameValuePair>();
 
 		data.add(new BasicNameValuePair("s", hInfo.sessionId));
-		data.add(new BasicNameValuePair("a", track.getArtist().toString()));
-		data.add(new BasicNameValuePair("b", track.getAlbum().toString()));
-		data.add(new BasicNameValuePair("t", track.getTrack().toString()));
-		data.add(new BasicNameValuePair("l", "" + track.getDuration()));
+		data.add(new BasicNameValuePair("a", track.getArtist()));
+		data.add(new BasicNameValuePair("b", track.getAlbum()));
+		data.add(new BasicNameValuePair("t", track.getTrack()));
+		data.add(new BasicNameValuePair("l", Integer.toString(track
+				.getDuration())));
 
 		try {
 			request.setEntity(new UrlEncodedFormEntity(data, "UTF-8"));

@@ -42,7 +42,7 @@ public class AndroidMusicReceiver extends AbstractPlayStatusReceiver {
 	public static final String ACTION_ANDROID_PLAYSTATECHANGED = "com.android.music.playstatechanged";
 	public static final String ACTION_ANDROID_STOP = "com.android.music.playbackcomplete";
 	public static final String ACTION_ANDROID_METACHANGED = "com.android.music.metachanged";
-	
+
 	public AndroidMusicReceiver() {
 		super(MusicApp.ANDROID_MUSIC);
 	}
@@ -56,8 +56,9 @@ public class AndroidMusicReceiver extends AbstractPlayStatusReceiver {
 
 		// As of cupcake, it is not possible (feasible) to get the actual
 		// duration of the playing track, so I default it to three minutes
-		Track track = Track.createTrack(ar, al, tr, Track.DEFAULT_TRACK_LENGTH,
-				Util.currentTimeSecsUTC());
+		Track track = Track.createTrack(ar.toString(), al.toString(), tr
+				.toString(), Track.DEFAULT_TRACK_LENGTH, Util
+				.currentTimeSecsUTC());
 
 		if (action.equals(ACTION_ANDROID_STOP)) {
 			setStopped(true);

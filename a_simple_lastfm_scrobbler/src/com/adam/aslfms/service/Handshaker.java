@@ -53,7 +53,7 @@ import com.adam.aslfms.util.Status.UnknownResponseException;
 public class Handshaker extends NetRunnable {
 
 	private static final String TAG = "Handshaker";
-	
+
 	public enum HandshakeAction {
 		HANDSHAKE, AUTH, CLEAR_CREDS
 	}
@@ -62,7 +62,8 @@ public class Handshaker extends NetRunnable {
 
 	private final HandshakeAction hsAction;
 
-	public Handshaker(NetApp napp, Context ctx, Networker net, HandshakeAction hsAction) {
+	public Handshaker(NetApp napp, Context ctx, Networker net,
+			HandshakeAction hsAction) {
 		super(napp, ctx, net);
 		this.hsAction = hsAction;
 		this.settings = new AppSettings(ctx);
@@ -97,7 +98,8 @@ public class Handshaker extends NetRunnable {
 			// getNetworker().launchScrobbler();
 
 		} catch (BadAuthException e) {
-			if (hsAction == HandshakeAction.AUTH || hsAction == HandshakeAction.HANDSHAKE)
+			if (hsAction == HandshakeAction.AUTH
+					|| hsAction == HandshakeAction.HANDSHAKE)
 				notifyAuthStatusUpdate(Status.AUTHSTATUS_BADAUTH);
 			else if (hsAction == HandshakeAction.CLEAR_CREDS) {
 				// this should mean that the user called launchClearCreds, and
@@ -105,7 +107,8 @@ public class Handshaker extends NetRunnable {
 				// all user information is gone
 				notifyAuthStatusUpdate(Status.AUTHSTATUS_NOAUTH);
 			} else {
-				Log.e(TAG, "got badauth when doAuth is unknown: " + hsAction.toString());
+				Log.e(TAG, "got badauth when doAuth is unknown: "
+						+ hsAction.toString());
 			}
 			// badauth means we cant do any scrobbling/notifying, so clear them
 			// the scrobbles already prepared will be sent at a later time

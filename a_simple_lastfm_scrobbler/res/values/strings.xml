@@ -113,7 +113,7 @@
 	<string name="confirm_stats_reset">Are you sure you want to reset your submission
 		statistics? This operation cannot be undone.</string>
 
-<string name="yes">Yes</string>
-<string name="no">No</string>
-<string name="are_you_sure">Are you sure?</string>
+	<string name="yes">Yes</string>
+	<string name="no">No</string>
+	<string name="are_you_sure">Are you sure?</string>
 </resources>

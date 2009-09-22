@@ -197,7 +197,8 @@ public class ScrobblesDatabase {
 
 	public int queryNumberOfAllRows() {
 		Cursor c;
-		c = mDb.rawQuery("select count(distinct trackid) from scrobbles_netapp", null);
+		c = mDb.rawQuery(
+				"select count(distinct trackid) from scrobbles_netapp", null);
 		int count = c.getCount();
 		if (count != 0) {
 			c.moveToFirst();

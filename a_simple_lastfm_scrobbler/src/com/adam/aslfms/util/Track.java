@@ -42,9 +42,9 @@ public class Track {
 	 */
 	public static final int DEFAULT_TRACK_LENGTH = 180;
 
-	private CharSequence artist;
-	private CharSequence album;
-	private CharSequence track;
+	private String artist;
+	private String album;
+	private String track;
 	private int duration;
 	private long when;
 	private int rowId;
@@ -63,8 +63,8 @@ public class Track {
 	 *            UTC
 	 * @return a valid track, or null if any of the parameters where null
 	 */
-	public static Track createTrack(CharSequence artist, CharSequence album,
-			CharSequence track, int duration, long when) {
+	public static Track createTrack(String artist, String album, String track,
+			int duration, long when) {
 		if (artist == null || album == null || track == null)
 			return null;
 		return new Track(artist, album, track, duration, when, -1);
@@ -89,14 +89,13 @@ public class Track {
 	 *            The id for the corresponding row in the scrobble database.
 	 * @return a valid track, never null
 	 */
-	public static Track createTrackFromDb(CharSequence artist,
-			CharSequence album, CharSequence track, int duration, long when,
-			int rowId) {
+	public static Track createTrackFromDb(String artist, String album,
+			String track, int duration, long when, int rowId) {
 		return new Track(artist, album, track, duration, when, rowId);
 	}
 
-	private Track(CharSequence artist, CharSequence album, CharSequence track,
-			int duration, long when, int rowId) {
+	private Track(String artist, String album, String track, int duration,
+			long when, int rowId) {
 		super();
 		this.artist = artist;
 		this.album = album;
@@ -106,15 +105,15 @@ public class Track {
 		this.rowId = rowId;
 	}
 
-	public CharSequence getArtist() {
+	public String getArtist() {
 		return artist;
 	}
 
-	public CharSequence getAlbum() {
+	public String getAlbum() {
 		return album;
 	}
 
-	public CharSequence getTrack() {
+	public String getTrack() {
 		return track;
 	}
 

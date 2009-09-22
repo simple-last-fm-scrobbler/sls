@@ -63,7 +63,7 @@ public class WhatsNewDialog {
 
 	private void innerUpdate(View dialogView) {
 		TextView tv = (TextView) dialogView.findViewById(R.id.changelog);
-		
+
 		String text = "";
 		try {
 			InputStream is = mCtx.getAssets().open("changelog.txt");
@@ -76,7 +76,7 @@ public class WhatsNewDialog {
 			Log.e(TAG, e.getMessage());
 			text = mCtx.getString(R.string.file_error);
 		}
-		
+
 		tv.setText(text);
 	}
 }

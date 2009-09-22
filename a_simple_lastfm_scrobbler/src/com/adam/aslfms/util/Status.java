@@ -19,7 +19,6 @@
 
 package com.adam.aslfms.util;
 
-
 /**
  * Status is a "namespace class" that contains the definitions of various status
  * types. This class is not meant to be instantiated.

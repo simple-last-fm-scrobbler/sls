@@ -55,7 +55,8 @@ public class Util {
 				| DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE);
 	}
 
-	public static void confirmDialog(Context ctx, int s, OnClickListener onPositive) {
+	public static void confirmDialog(Context ctx, int s,
+			OnClickListener onPositive) {
 		new AlertDialog.Builder(ctx).setTitle(R.string.are_you_sure)
 				.setMessage(s).setIcon(android.R.drawable.ic_dialog_alert)
 				.setPositiveButton(R.string.yes, onPositive).setNegativeButton(

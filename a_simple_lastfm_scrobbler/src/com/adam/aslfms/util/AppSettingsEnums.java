@@ -77,11 +77,13 @@ public class AppSettingsEnums {
 			for (AdvancedOptions ao : aos)
 				mSAOMap.put(ao.getSettingsVal(), ao);
 		}
-		
+
 		public static AdvancedOptions fromSettingsVal(String s) {
 			AdvancedOptions ao = mSAOMap.get(s);
 			if (ao == null) {
-				Log.e(TAG, "got null advanced option from settings, defaulting to standard");
+				Log
+						.e(TAG,
+								"got null advanced option from settings, defaulting to standard");
 				ao = AdvancedOptions.STANDARD;
 			}
 			return ao;
@@ -90,16 +92,17 @@ public class AppSettingsEnums {
 
 	public enum AdvancedOptionsWhen {
 		// these cannot be renamed after release
-		AFTER_1("aow_1",1, R.string.advanced_options_when_1_name), //
-		AFTER_5("aow_5",5, R.string.advanced_options_when_5_name), //
-		AFTER_10("aow_10",10, R.string.advanced_options_when_10_name), //
-		AFTER_25("aow_25",25, R.string.advanced_options_when_25_name), //
-		NEVER("aow_never",Integer.MAX_VALUE, R.string.advanced_options_when_never_name);
+		AFTER_1("aow_1", 1, R.string.advanced_options_when_1_name), //
+		AFTER_5("aow_5", 5, R.string.advanced_options_when_5_name), //
+		AFTER_10("aow_10", 10, R.string.advanced_options_when_10_name), //
+		AFTER_25("aow_25", 25, R.string.advanced_options_when_25_name), //
+		NEVER("aow_never", Integer.MAX_VALUE,
+				R.string.advanced_options_when_never_name);
 
 		private final String settingsVal;
 		private final int tracksToWaitFor;
 		private final int nameRID;
-		
+
 		private AdvancedOptionsWhen(String settingsVal, int tracksToWaitFor,
 				int nameRID) {
 			this.settingsVal = settingsVal;
@@ -118,7 +121,7 @@ public class AppSettingsEnums {
 		public String getName(Context ctx) {
 			return ctx.getString(nameRID);
 		}
-		
+
 		private static final String TAG = "AdvancedOptionsWhen";
 		private static Map<String, AdvancedOptionsWhen> mSAOWMap;
 		static {
@@ -127,11 +130,13 @@ public class AppSettingsEnums {
 			for (AdvancedOptionsWhen aow : aows)
 				mSAOWMap.put(aow.getSettingsVal(), aow);
 		}
-		
+
 		public static AdvancedOptionsWhen fromSettingsVal(String s) {
 			AdvancedOptionsWhen aow = mSAOWMap.get(s);
 			if (aow == null) {
-				Log.e(TAG, "got null advanced options when from settings, defaulting to 1");
+				Log
+						.e(TAG,
+								"got null advanced options when from settings, defaulting to 1");
 				aow = AdvancedOptionsWhen.AFTER_1;
 			}
 			return aow;

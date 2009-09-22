@@ -72,8 +72,10 @@ public class AboutDialog {
 		TextView license = (TextView) dialogView.findViewById(R.id.license);
 		TextView whatIsThis = (TextView) dialogView
 				.findViewById(R.id.what_is_this);
-		TextView netApps = (TextView) dialogView.findViewById(R.id.supported_netapps);
-		TextView musicApps = (TextView) dialogView.findViewById(R.id.supported_musicapps);
+		TextView netApps = (TextView) dialogView
+				.findViewById(R.id.supported_netapps);
+		TextView musicApps = (TextView) dialogView
+				.findViewById(R.id.supported_musicapps);
 		TextView website = (TextView) dialogView.findViewById(R.id.website);
 		TextView email = (TextView) dialogView.findViewById(R.id.email);
 
@@ -90,7 +92,7 @@ public class AboutDialog {
 
 		// text
 		whatIsThis.setText(R.string.about_text);
-		
+
 		// supported net apps
 		StringBuilder sb = new StringBuilder();
 		for (NetApp napp : NetApp.values()) {
@@ -98,8 +100,9 @@ public class AboutDialog {
 			sb.append(", ");
 		}
 		sb.setLength(sb.length() - 2);
-		netApps.setText(mCtx.getString(R.string.supported_netapps).replace("%1", sb.toString()));
-		
+		netApps.setText(mCtx.getString(R.string.supported_netapps).replace(
+				"%1", sb.toString()));
+
 		// supported music apps
 		sb = new StringBuilder();
 		for (MusicApp app : MusicApp.values()) {
@@ -107,7 +110,8 @@ public class AboutDialog {
 			sb.append(", ");
 		}
 		sb.setLength(sb.length() - 2);
-		musicApps.setText(mCtx.getString(R.string.supported_musicapps).replace("%1", sb.toString()));
+		musicApps.setText(mCtx.getString(R.string.supported_musicapps).replace(
+				"%1", sb.toString()));
 
 		// website
 		website.setText(mCtx.getString(R.string.website) + " "
