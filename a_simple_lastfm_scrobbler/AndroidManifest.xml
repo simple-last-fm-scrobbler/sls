@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.adam.aslfms" android:versionCode="6" android:versionName="1.1.5">
+	package="com.adam.aslfms" android:versionCode="7" android:versionName="1.1.7">
 
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
-		android:description="@string/about_text" android:debuggable="true">
+		android:description="@string/about_text">
 
 		<activity android:name="com.adam.aslfms.SettingsActivity"
 			android:label="@string/app_name" android:icon="@drawable/icon"
