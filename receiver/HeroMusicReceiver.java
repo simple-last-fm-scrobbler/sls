@@ -25,7 +25,7 @@ import com.adam.aslfms.util.Util;
 import android.os.Bundle;
 
 public class HeroMusicReceiver extends AbstractPlayStatusReceiver {
-	
+
 	public static final String ACTION_HTC_PLAYSTATECHANGED = "com.htc.music.playstatechanged";
 	public static final String ACTION_HTC_STOP = "com.htc.music.playbackcomplete";
 	public static final String ACTION_HTC_METACHANGED = "com.htc.music.metachanged";
@@ -42,8 +42,9 @@ public class HeroMusicReceiver extends AbstractPlayStatusReceiver {
 
 		// As of cupcake, it is not possible (feasible) to get the actual
 		// duration of the playing track, so I default it to three minutes
-		Track track = Track.createTrack(ar, al, tr, Track.DEFAULT_TRACK_LENGTH,
-				Util.currentTimeSecsUTC());
+		Track track = Track.createTrack(ar.toString(), al.toString(), tr
+				.toString(), Track.DEFAULT_TRACK_LENGTH, Util
+				.currentTimeSecsUTC());
 
 		if (action.equals(ACTION_HTC_STOP)) {
 			setStopped(true);

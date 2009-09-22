@@ -153,17 +153,14 @@ public class Scrobbler extends AbstractSubmitter {
 		for (int i = 0; i < tracks.length; i++) {
 			Track track = tracks[i];
 			String is = "[" + i + "]";
-			data.add(new BasicNameValuePair("a" + is, track.getArtist()
-					.toString()));
-			data.add(new BasicNameValuePair("b" + is, track.getAlbum()
-					.toString()));
-			data.add(new BasicNameValuePair("t" + is, track.getTrack()
-					.toString()));
-			data.add(new BasicNameValuePair("i" + is, "" + track.getWhen()));
+			data.add(new BasicNameValuePair("a" + is, track.getArtist()));
+			data.add(new BasicNameValuePair("b" + is, track.getAlbum()));
+			data.add(new BasicNameValuePair("t" + is, track.getTrack()));
+			data.add(new BasicNameValuePair("i" + is, Long.toString(track
+					.getWhen())));
 			data.add(new BasicNameValuePair("o" + is, "P")); // source (player)
-			data
-					.add(new BasicNameValuePair("l" + is, ""
-							+ track.getDuration()));
+			data.add(new BasicNameValuePair("l" + is, Integer.toString(track
+					.getDuration())));
 			data.add(new BasicNameValuePair("n" + is, "")); // track-number
 			data.add(new BasicNameValuePair("m" + is, "")); // mbid
 			data.add(new BasicNameValuePair("r" + is, "")); // rating

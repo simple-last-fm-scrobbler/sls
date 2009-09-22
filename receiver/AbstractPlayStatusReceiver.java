@@ -32,25 +32,24 @@ import android.util.Log;
 
 /**
  * Base class for play status receivers.
+ * 
  * @author tgwizard
- *
+ * 
  */
 public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 
 	private static final String TAG = "PlayStatusReceiver";
-	
+
 	private MusicApp mApp;
-	
+
 	private Intent mService = null;
 	private Track mTrack = null;
-	
-	
 
 	public AbstractPlayStatusReceiver(MusicApp app) {
 		super();
 		this.mApp = app;
 	}
-	
+
 	public MusicApp getApp() {
 		return mApp;
 	}
@@ -64,42 +63,47 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 			Log.e(TAG, "Got null action or null bundle");
 			return;
 		}
-		
+
 		AppSettings settings = new AppSettings(context);
 		if (!settings.isAnyAuthenticated()) {
-			Log.i(TAG, "The user has not authenticated, won't propagate the scrobble/np-notification request");
+			Log
+					.i(
+							TAG,
+							"The user has not authenticated, won't propagate the scrobble/np-notification request");
 			return;
 		}
-		
+
 		if (!settings.isMusicAppEnabled(mApp)) {
-			Log.i(TAG, "App: " + mApp.getName() + " has been disabled, won't propagate");
+			Log.i(TAG, "App: " + mApp.getName()
+					+ " has been disabled, won't propagate");
 			return;
 		}
-		
+
 		Log.d(TAG, "Action received was: " + action);
-		
+
 		mService = new Intent(ScrobblingService.ACTION_PLAYSTATECHANGED);
-		
+
 		parseIntent(action, bundle);
-		
+
 		if (mTrack == null) {
-			Log.i(TAG, "Got a null track from: " + mApp.getName() + ", ignoring it");
-			
+			Log.i(TAG, "Got a null track from: " + mApp.getName()
+					+ ", ignoring it");
+
 			return;
 		}
-		
+
 		InternalTrackTransmitter.appendTrack(mTrack);
 		context.startService(mService);
 	}
-	
+
 	protected final void setStopped(boolean stopped) {
 		mService.putExtra("stopped", stopped);
 	}
-	
+
 	protected final void setTrack(Track track) {
 		this.mTrack = track;
 	}
-	
+
 	protected abstract void parseIntent(String action, Bundle bundle);
 
 }
