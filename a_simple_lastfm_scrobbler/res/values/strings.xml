@@ -115,7 +115,7 @@
 	<string name="advanced_options_when_never_name">When you press the scrobble now button</string>
 	<string name="advanced_actions">Advanced actions</string>
 	<string name="confirm_stats_reset">Are you sure you want to reset your submission
-		statistics? This operation cannot be undone.</string>
+		statistics for %1? This operation cannot be undone.</string>
 	<string name="confirm_clear_creds">Are you sure you want to clear your user
 		credentials? This will remove any unsubmitted scrobbles.</string>
 	<string name="yes">Yes</string>

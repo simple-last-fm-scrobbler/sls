@@ -1,3 +1,22 @@
+/**
+ *  This file is part of A Simple Last.fm Scrobbler.
+ *
+ *  A Simple Last.fm Scrobbler is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  A Simple Last.fm Scrobbler is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with A Simple Last.fm Scrobbler.  If not, see <http://www.gnu.org/licenses/>.
+ *  
+ *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
+ */
+
 package com.adam.aslfms;
 
 import android.app.Activity;
@@ -9,12 +28,10 @@ import android.content.IntentFilter;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.adam.aslfms.R;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
@@ -23,9 +40,13 @@ import com.adam.aslfms.util.Status;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
 
-public class StatusInfoNetApp extends Activity implements OnClickListener {
+public class StatusInfoNetApp extends Activity {
 
 	private static final String TAG = "StatusInfoNetApp";
+
+	private static final int MENU_SCROBBLE_NOW_ID = 0;
+
+	private static final int MENU_RESET_STATS_ID = 1;
 
 	private NetApp mNetApp;
 
@@ -38,9 +59,6 @@ public class StatusInfoNetApp extends Activity implements OnClickListener {
 	private TextView mCacheText;
 	private TextView mScrobbleStatsText;
 	private TextView mNPStatsText;
-
-	private Button mScrobbleNow;
-	private Button mResetStats;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +91,6 @@ public class StatusInfoNetApp extends Activity implements OnClickListener {
 		mCacheText = (TextView) findViewById(R.id.scrobble_cache);
 		mScrobbleStatsText = (TextView) findViewById(R.id.status_scrobble_stats);
 		mNPStatsText = (TextView) findViewById(R.id.status_np_stats);
-
-		mScrobbleNow = (Button) findViewById(R.id.scrobble_now_button);
-		mScrobbleNow.setOnClickListener(this);
-		mResetStats = (Button) findViewById(R.id.reset_stats_button);
-		mResetStats.setOnClickListener(this);
 	}
 
 	@Override
@@ -106,16 +119,33 @@ public class StatusInfoNetApp extends Activity implements OnClickListener {
 	}
 
 	@Override
-	public void onClick(View v) {
-		if (v == mScrobbleNow) {
+	public boolean onCreateOptionsMenu(Menu menu) {
+		boolean ret = super.onCreateOptionsMenu(menu);
+
+		int numInCache = 0;
+		if (mDb != null) {
+			numInCache = mDb.queryNumberOfRows(mNetApp);
+		}
+
+		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now).setEnabled(
+				numInCache > 0);
+		menu.add(0, MENU_RESET_STATS_ID, 0, R.string.reset_stats);
+		return ret;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case MENU_SCROBBLE_NOW_ID:
 			Log.d(TAG, "Will scrobble any tracks in local cache: "
 					+ mNetApp.getName());
 			Intent i = new Intent(ScrobblingService.ACTION_JUSTSCROBBLE);
 			i.putExtra("netapp", mNetApp.getIntentExtraValue());
 			startService(i);
-		} else if (v == mResetStats) {
-			Log.d(TAG, "Will clear submission stats for: " + mNetApp.getName());
-			Util.confirmDialog(this, R.string.confirm_stats_reset,
+			return true;
+		case MENU_RESET_STATS_ID:
+			Util.confirmDialog(this, getString(R.string.confirm_stats_reset)
+					.replaceAll("%1", mNetApp.getName()),
 					new android.content.DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -123,10 +153,9 @@ public class StatusInfoNetApp extends Activity implements OnClickListener {
 							update();
 						}
 					});
-
-		} else {
-			Log.e(TAG, "got weird click: " + v);
+			return true;
 		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void update() {
@@ -144,10 +173,6 @@ public class StatusInfoNetApp extends Activity implements OnClickListener {
 		} else {
 			mAuthText.setText(mNetApp.getStatusSummary(this, settings));
 		}
-
-		boolean canScrobbleNow = settings.getAuthStatus(mNetApp) != Status.AUTHSTATUS_NOAUTH
-				&& numInCache > 0;
-		mScrobbleNow.setEnabled(canScrobbleNow);
 
 		// scrobbleText
 		mScrobbleText.setTextColor(color);

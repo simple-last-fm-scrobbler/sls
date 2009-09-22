@@ -89,8 +89,9 @@ public class UserCredActivity extends PreferenceActivity {
 
 		if (pref == mClearCreds) {
 			if (settings.isAuthenticated(mNetApp)) {
-				Util.confirmDialog(this, R.string.confirm_clear_creds,
-						R.string.yes, R.string.cancel, new OnClickListener() {
+				Util.confirmDialog(this,
+						getString(R.string.confirm_clear_creds), R.string.yes,
+						R.string.cancel, new OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog,
 									int which) {

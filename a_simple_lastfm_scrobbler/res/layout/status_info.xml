@@ -44,19 +44,4 @@
 
 		</LinearLayout>
 	</ScrollView>
-	<LinearLayout android:orientation="horizontal"
-		android:layout_width="fill_parent" android:layout_height="54px"
-		android:background="@color/buttons_background">
-		<Button android:id="@+id/scrobble_now_button"
-			android:layout_height="fill_parent" android:layout_width="wrap_content"
-			android:text="@string/scrobble_now" android:layout_weight="0.4">
-		</Button>
-		<View android:id="@+id/buttons_spacer" android:layout_width="0dip"
-			android:layout_height="wrap_content" android:visibility="gone"
-			android:layout_weight="0.2" />
-		<Button android:id="@+id/reset_stats_button"
-			android:layout_height="fill_parent" android:layout_width="wrap_content"
-			android:text="@string/reset_stats" android:layout_weight="0.4">
-		</Button>
-	</LinearLayout>
 </LinearLayout>
