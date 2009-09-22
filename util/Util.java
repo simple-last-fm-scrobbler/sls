@@ -55,22 +55,23 @@ public class Util {
 				| DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE);
 	}
 
-	public static void confirmDialog(Context ctx, int msg,
+	public static void confirmDialog(Context ctx, String msg,
 			OnClickListener onPositive) {
 		confirmDialog(ctx, msg, R.string.yes, R.string.no, onPositive);
 	}
-	
-	public static void confirmDialog(Context ctx, int msg, int posButton, int negButton, OnClickListener onPositive) {
+
+	public static void confirmDialog(Context ctx, String msg, int posButton,
+			int negButton, OnClickListener onPositive) {
 		new AlertDialog.Builder(ctx).setTitle(R.string.are_you_sure)
-		.setMessage(msg).setIcon(android.R.drawable.ic_dialog_alert)
-		.setPositiveButton(posButton, onPositive).setNegativeButton(
-				negButton, null).show();
+				.setMessage(msg).setIcon(android.R.drawable.ic_dialog_alert)
+				.setPositiveButton(posButton, onPositive).setNegativeButton(
+						negButton, null).show();
 	}
-	
+
 	public static void warningDialog(Context ctx, String msg) {
-		new AlertDialog.Builder(ctx).setTitle(R.string.warning)
-		.setMessage(msg).setIcon(android.R.drawable.ic_dialog_alert)
-		.setPositiveButton(R.string.close, null).show();
+		new AlertDialog.Builder(ctx).setTitle(R.string.warning).setMessage(msg)
+				.setIcon(android.R.drawable.ic_dialog_alert).setPositiveButton(
+						R.string.close, null).show();
 	}
 
 	public static boolean checkForInstalledApp(Context ctx, String pkgName) {
