@@ -42,11 +42,6 @@
 				android:layout_marginLeft="14dip" android:layout_marginRight="14dip"
 				android:layout_marginTop="4dip" android:layout_marginBottom="8dip" />
 
-			<TextView android:id="@+id/status_incomp_warning"
-				android:layout_height="wrap_content" android:layout_width="wrap_content"
-				android:textStyle="bold" android:textSize="14sp"
-				android:layout_marginLeft="14dip" android:layout_marginRight="14dip"
-				android:layout_marginTop="8dip" android:layout_marginBottom="18dip" />
 		</LinearLayout>
 	</ScrollView>
 	<LinearLayout android:orientation="horizontal"

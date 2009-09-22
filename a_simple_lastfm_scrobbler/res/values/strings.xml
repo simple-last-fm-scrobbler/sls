@@ -53,8 +53,12 @@
 	<string name="stats_nps">Total now playing notifications:</string>
 	<string name="it_was">It was:</string>
 	<string name="by">by</string>
-	<string name="incompatability">Warning: %1 is installed and may cause
-		incompatibilities with this app, such as scrobbling tracks twice	</string>
+	<string name="incompatability_short">Warning: %1 is installed and may cause double
+		scrobbling. 	</string>
+	<string name="incompatability_long">Warning: %1 is installed and may cause
+		incompatibilities with scrobbling. Disable scrobbling from this app,
+		or uninstall %1. 
+    </string>
 	<string name="show_supported_apps_list_title">Supported apps</string>
 	<string name="show_supported_apps_list_summary">Enable/disable scrobbling from apps</string>
 	<string name="supported_apps_category_title">Supported apps</string>
@@ -118,4 +122,5 @@
 	<string name="no">No</string>
 	<string name="cancel">Cancel</string>
 	<string name="are_you_sure">Are you sure?</string>
+	<string name="warning">Warning</string>
 </resources>

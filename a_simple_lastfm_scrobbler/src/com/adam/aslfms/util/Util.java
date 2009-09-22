@@ -66,6 +66,12 @@ public class Util {
 		.setPositiveButton(posButton, onPositive).setNegativeButton(
 				negButton, null).show();
 	}
+	
+	public static void warningDialog(Context ctx, String msg) {
+		new AlertDialog.Builder(ctx).setTitle(R.string.warning)
+		.setMessage(msg).setIcon(android.R.drawable.ic_dialog_alert)
+		.setPositiveButton(R.string.close, null).show();
+	}
 
 	public static boolean checkForInstalledApp(Context ctx, String pkgName) {
 		try {
