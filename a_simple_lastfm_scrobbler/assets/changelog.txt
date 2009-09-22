@@ -1,0 +1,24 @@
+- 1.1.7
+  * Added advanced options to not scrobble immediately.
+  * Added options to conserve battery
+
+- 1.1.5
+  * Added support to scrobble to Libre.fm
+
+- 1.1
+  * Major architectural overhaul
+  * Handles offline mode better, scrobbles will be submitted immediately when the phone comes online again
+  * These change notes
+  * The about screen
+
+- 1.0.2
+  * Fixed a bug where a crash would occur if you unmounted/re-mounted the sd-card
+
+- 1.0.1
+  * Added support for HTC Hero
+
+- 1.0
+  * First release!
+  * Supports scrobbling and now-playing notifications from the default android music app
+  * Scrobbles are cached if they can't be submitted right away
+  * Starts automatically when music is played
