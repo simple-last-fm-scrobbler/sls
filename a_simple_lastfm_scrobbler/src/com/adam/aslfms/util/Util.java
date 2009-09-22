@@ -55,12 +55,16 @@ public class Util {
 				| DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE);
 	}
 
-	public static void confirmDialog(Context ctx, int s,
+	public static void confirmDialog(Context ctx, int msg,
 			OnClickListener onPositive) {
+		confirmDialog(ctx, msg, R.string.yes, R.string.no, onPositive);
+	}
+	
+	public static void confirmDialog(Context ctx, int msg, int posButton, int negButton, OnClickListener onPositive) {
 		new AlertDialog.Builder(ctx).setTitle(R.string.are_you_sure)
-				.setMessage(s).setIcon(android.R.drawable.ic_dialog_alert)
-				.setPositiveButton(R.string.yes, onPositive).setNegativeButton(
-						R.string.no, null).show();
+		.setMessage(msg).setIcon(android.R.drawable.ic_dialog_alert)
+		.setPositiveButton(posButton, onPositive).setNegativeButton(
+				negButton, null).show();
 	}
 
 	public static boolean checkForInstalledApp(Context ctx, String pkgName) {

@@ -52,14 +52,14 @@ public class Scrobbler extends AbstractSubmitter {
 	private static final String TAG = "Scrobbler";
 
 	// private final Context mCtx;
-	private final ScrobblesDatabase mDbHelper;
+	private final ScrobblesDatabase mDb;
 
 	public static final int MAX_SCROBBLE_LIMIT = 50;
 
 	public Scrobbler(NetApp napp, Context ctx, Networker net,
-			ScrobblesDatabase dbHelper) {
+			ScrobblesDatabase db) {
 		super(napp, ctx, net);
-		this.mDbHelper = dbHelper;
+		this.mDb = db;
 	}
 
 	@Override
@@ -67,7 +67,7 @@ public class Scrobbler extends AbstractSubmitter {
 		boolean ret;
 		try {
 			Log.d(TAG, "Scrobbling: " + getNetApp().getName());
-			Track[] tracks = mDbHelper.fetchTracksArray(getNetApp(),
+			Track[] tracks = mDb.fetchTracksArray(getNetApp(),
 					MAX_SCROBBLE_LIMIT);
 
 			if (tracks.length == 0) {
@@ -86,11 +86,11 @@ public class Scrobbler extends AbstractSubmitter {
 
 			// delete scrobbles (not tracks) from db (not array)
 			for (int i = 0; i < tracks.length; i++) {
-				mDbHelper.deleteScrobble(getNetApp(), tracks[i]);
+				mDb.deleteScrobble(getNetApp(), tracks[i]);
 			}
 
 			// clean up tracks if no one else wants to scrobble them
-			mDbHelper.cleanUpTracks();
+			mDb.cleanUpTracks();
 
 			// there might be more tracks in the db
 			if (tracks.length == MAX_SCROBBLE_LIMIT) {

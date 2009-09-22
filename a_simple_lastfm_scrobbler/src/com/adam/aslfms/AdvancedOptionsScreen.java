@@ -1,6 +1,9 @@
 package com.adam.aslfms;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -68,8 +71,20 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 	}
 
 	@Override
+	protected void onPause() {
+		super.onPause();
+
+		unregisterReceiver(onStatusChange);
+	}
+
+	@Override
 	protected void onResume() {
 		super.onResume();
+
+		IntentFilter ifs = new IntentFilter();
+		ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
+
+		registerReceiver(onStatusChange, ifs);
 		update();
 	}
 
@@ -180,6 +195,14 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 			settings.setAdvancedOptionsWhen(sow);
 			update();
 			return true;
+		}
+	};
+
+	private BroadcastReceiver onStatusChange = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			AdvancedOptionsScreen.this.update();
 		}
 	};
 }

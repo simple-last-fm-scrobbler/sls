@@ -21,8 +21,10 @@ package com.adam.aslfms;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.DialogInterface.OnClickListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -36,6 +38,7 @@ import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.Status;
+import com.adam.aslfms.util.Util;
 
 public class UserCredActivity extends PreferenceActivity {
 
@@ -85,10 +88,20 @@ public class UserCredActivity extends PreferenceActivity {
 			Preference pref) {
 
 		if (pref == mClearCreds) {
+			if (settings.isAuthenticated(mNetApp)) {
+				Util.confirmDialog(this, R.string.confirm_clear_creds,
+						R.string.yes, R.string.cancel, new OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								sendClearCreds();
+							}
+						});
+			} else {
+				sendClearCreds();
+			}
+
 			update();
-			Intent service = new Intent(ScrobblingService.ACTION_CLEARCREDS);
-			service.putExtra("netapp", mNetApp.getIntentExtraValue());
-			startService(service);
 			return true;
 		} else if (pref == mCreateUser) {
 			Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(mNetApp
@@ -98,6 +111,12 @@ public class UserCredActivity extends PreferenceActivity {
 		}
 
 		return super.onPreferenceTreeClick(prefScreen, pref);
+	}
+
+	private void sendClearCreds() {
+		Intent service = new Intent(ScrobblingService.ACTION_CLEARCREDS);
+		service.putExtra("netapp", mNetApp.getIntentExtraValue());
+		startService(service);
 	}
 
 	private void update() {
@@ -115,7 +134,7 @@ public class UserCredActivity extends PreferenceActivity {
 	protected void onPause() {
 		super.onPause();
 
-		unregisterReceiver(onAuth);
+		unregisterReceiver(onAuthChange);
 	}
 
 	@Override
@@ -124,12 +143,12 @@ public class UserCredActivity extends PreferenceActivity {
 
 		IntentFilter ifs = new IntentFilter();
 		ifs.addAction(ScrobblingService.BROADCAST_ONAUTHCHANGED);
-		registerReceiver(onAuth, ifs);
+		registerReceiver(onAuthChange, ifs);
 
 		update();
 	}
 
-	private BroadcastReceiver onAuth = new BroadcastReceiver() {
+	private BroadcastReceiver onAuthChange = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {

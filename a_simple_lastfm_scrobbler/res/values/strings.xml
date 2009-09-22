@@ -112,8 +112,10 @@
 	<string name="advanced_actions">Advanced actions</string>
 	<string name="confirm_stats_reset">Are you sure you want to reset your submission
 		statistics? This operation cannot be undone.</string>
-
+	<string name="confirm_clear_creds">Are you sure you want to clear your user
+		credentials? This will remove any unsubmitted scrobbles.</string>
 	<string name="yes">Yes</string>
 	<string name="no">No</string>
+	<string name="cancel">Cancel</string>
 	<string name="are_you_sure">Are you sure?</string>
 </resources>
