@@ -20,17 +20,20 @@
 package com.adam.aslfms.receiver;
 
 public enum MusicApp {
-	ANDROID_MUSIC(0x01, "Android Music Player", "com.android.music"), //
-	HERO_MUSIC(0x02, "Hero Music Player", "com.htc.music");
+	ANDROID_MUSIC(0x01, "Android Music Player", "com.android.music", true), //
+	HERO_MUSIC(0x02, "Hero Music Player", "com.htc.music", true);
 
 	private final int val;
 	private final String name;
 	private final String pkg;
+	private final boolean clashWithScrobbleDroid;
 
-	MusicApp(int v, String n, String pkg) {
-		this.val = v;
-		this.name = n;
+	private MusicApp(int val, String name, String pkg,
+			boolean clashWithScrobbleDroid) {
+		this.val = val;
+		this.name = name;
 		this.pkg = pkg;
+		this.clashWithScrobbleDroid = clashWithScrobbleDroid;
 	}
 
 	public int getValue() {
@@ -43,5 +46,9 @@ public enum MusicApp {
 
 	public String getPackage() {
 		return this.pkg;
+	}
+
+	public boolean clashesWithScrobbleDroid() {
+		return clashWithScrobbleDroid;
 	}
 }

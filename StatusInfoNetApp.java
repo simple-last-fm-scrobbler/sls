@@ -25,8 +25,6 @@ import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
 
 public class StatusInfoNetApp extends Activity implements OnClickListener {
 
-	public static final String PACKAGE_SCROBBLE_DROID = "net.jjc1138.android.scrobbler";
-
 	private static final String TAG = "StatusInfoNetApp";
 
 	private NetApp mNetApp;
@@ -40,7 +38,6 @@ public class StatusInfoNetApp extends Activity implements OnClickListener {
 	private TextView mCacheText;
 	private TextView mScrobbleStatsText;
 	private TextView mNPStatsText;
-	private TextView mIncompText;
 
 	private Button mScrobbleNow;
 	private Button mResetStats;
@@ -76,7 +73,6 @@ public class StatusInfoNetApp extends Activity implements OnClickListener {
 		mCacheText = (TextView) findViewById(R.id.scrobble_cache);
 		mScrobbleStatsText = (TextView) findViewById(R.id.status_scrobble_stats);
 		mNPStatsText = (TextView) findViewById(R.id.status_np_stats);
-		mIncompText = (TextView) findViewById(R.id.status_incomp_warning);
 
 		mScrobbleNow = (Button) findViewById(R.id.scrobble_now_button);
 		mScrobbleNow.setOnClickListener(this);
@@ -181,21 +177,6 @@ public class StatusInfoNetApp extends Activity implements OnClickListener {
 		mNPStatsText.setTextColor(color);
 		mNPStatsText.setText(getString(R.string.stats_nps) + " "
 				+ settings.getNumberOfSubmissions(mNetApp, SubmissionType.NP));
-
-		// check for "incompatible" packages
-		String incomp = null;
-		// check for scrobbledroid
-		if (Util.checkForInstalledApp(this, PACKAGE_SCROBBLE_DROID)) {
-			incomp = getString(R.string.incompatability).replaceAll("%1",
-					Util.getAppName(this, PACKAGE_SCROBBLE_DROID));
-		}
-
-		if (incomp == null) {
-			mIncompText.setVisibility(View.GONE);
-		} else {
-			mIncompText.setTextColor(color);
-			mIncompText.setText(incomp);
-		}
 	}
 
 	private String getSubmissionStatus(SubmissionType stype) {
