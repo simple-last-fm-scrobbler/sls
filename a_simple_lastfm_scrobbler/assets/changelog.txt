@@ -1,5 +1,5 @@
 - 1.1.7
-  * Added advanced options to not scrobble immediately.
+  * Added advanced options to not scrobble immediately
   * Added options to conserve battery
 
 - 1.1.5
