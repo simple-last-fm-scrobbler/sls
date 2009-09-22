@@ -76,10 +76,10 @@ public class Networker {
 
 	public void launchClearCreds() {
 		settings.clearCreds(mNetApp);
-		
+
 		mDb.deleteAllScrobbles(mNetApp);
 		mDb.cleanUpTracks();
-		
+
 		launchHandshaker(HandshakeAction.CLEAR_CREDS);
 	}
 
@@ -89,21 +89,37 @@ public class Networker {
 
 	public void launchHandshaker(HandshakeAction hsAction) {
 		Handshaker h = new Handshaker(mNetApp, mCtx, this, hsAction);
-		execute(h);
+		mExecutor.execute(h);
 	}
 
 	public void launchScrobbler() {
+		Iterator<Runnable> i = mExecutor.getQueue().iterator();
+		while (i.hasNext()) {
+			Runnable r = i.next();
+			if (r.getClass() == Scrobbler.class) {
+				i.remove();
+			}
+		}
+
 		Scrobbler s = new Scrobbler(mNetApp, mCtx, this, mDb);
-		execute(s);
+		mExecutor.execute(s);
 	}
 
 	public void launchNPNotifier(Track track) {
+		Iterator<Runnable> i = mExecutor.getQueue().iterator();
+		while (i.hasNext()) {
+			Runnable r = i.next();
+			if (r.getClass() == NPNotifier.class) {
+				i.remove();
+			}
+		}
+
 		NPNotifier n = new NPNotifier(mNetApp, mCtx, this, track);
-		execute(n);
+		mExecutor.execute(n);
 	}
 
 	public void launchSleeper() {
-		execute(mSleeper);
+		mExecutor.execute(mSleeper);
 	}
 
 	public void resetSleeper() {
@@ -111,7 +127,7 @@ public class Networker {
 	}
 
 	public void launchNetworkWaiter() {
-		execute(mNetworkWaiter);
+		mExecutor.execute(mNetworkWaiter);
 	}
 
 	public void unlaunchScrobblingAndNPNotifying() {
@@ -133,7 +149,4 @@ public class Networker {
 		return hInfo;
 	}
 
-	private void execute(NetRunnable r) {
-		mExecutor.execute(r);
-	}
 }

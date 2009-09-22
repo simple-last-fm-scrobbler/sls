@@ -152,7 +152,7 @@ public class ScrobblesDatabase {
 		return mDb.delete(TABLENAME_CORRNETAPP, "netappid = ? and trackid = ?",
 				new String[] { "" + napp.getValue(), "" + track.getRowId() });
 	}
-	
+
 	public int deleteAllScrobbles(NetApp napp) {
 		return mDb.delete(TABLENAME_CORRNETAPP, "netappid = ?",
 				new String[] { "" + napp.getValue() });
@@ -192,8 +192,7 @@ public class ScrobblesDatabase {
 
 	public int queryNumberOfAllRows() {
 		Cursor c;
-		c = mDb.rawQuery(
-				"select count(_id) from scrobbles", null);
+		c = mDb.rawQuery("select count(_id) from scrobbles", null);
 		int count = c.getCount();
 		if (count != 0) {
 			c.moveToFirst();
