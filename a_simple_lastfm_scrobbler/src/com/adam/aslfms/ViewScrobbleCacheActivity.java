@@ -163,6 +163,7 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position,
 			final long id) {
 		super.onListItemClick(l, v, position, id);
+		Log.d(TAG, "onListItemClick");
 		deleteSC((int) id);
 	}
 

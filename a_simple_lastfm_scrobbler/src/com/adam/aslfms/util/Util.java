@@ -31,10 +31,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.format.DateUtils;
-import android.util.Log;
 import android.widget.Toast;
 
-import com.adam.aslfms.AdvancedOptionsScreen;
 import com.adam.aslfms.R;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
@@ -84,8 +82,6 @@ public class Util {
 	public static void doScrobbleIfPossible(Context ctx, NetApp napp,
 			int numInCache) {
 		if (numInCache > 0) {
-			Log.d(TAG, "Will scrobble any tracks in local cache: "
-					+ napp.getName());
 			Intent i = new Intent(ScrobblingService.ACTION_JUSTSCROBBLE);
 			i.putExtra("netapp", napp.getIntentExtraValue());
 			ctx.startService(i);
