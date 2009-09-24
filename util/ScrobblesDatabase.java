@@ -45,6 +45,11 @@ public class ScrobblesDatabase {
 	private static final String TABLENAME_SCROBBLES = "scrobbles";
 	private static final String TABLENAME_CORRNETAPP = "scrobbles_netapp";
 
+	public static final String KEY_TRACK_ARTIST = "artist";
+	public static final String KEY_TRACK_ALBUM = "album";
+	public static final String KEY_TRACK_TRACK = "track";
+	public static final String KEY_TRACK_WHEN = "whenplayed";
+
 	private static final String DATABASE_CREATE_SCROBBLES = "create table scrobbles ("
 			+ "_id integer primary key autoincrement, "
 			+ "artist text not null, "
@@ -88,31 +93,18 @@ public class ScrobblesDatabase {
 		}
 	}
 
-	/**
-	 * Constructor - takes the context to allow the database to be
-	 * opened/created
-	 * 
-	 * @param ctx
-	 *            the Context within which to work
-	 */
 	public ScrobblesDatabase(Context ctx) {
 		this.mCtx = ctx;
 	}
 
 	/**
-	 * Open the scrobbles database. If it cannot be opened, try to create a new
-	 * instance of the database. If it cannot be created, throw an exception to
-	 * signal the failure
 	 * 
-	 * @return this (self reference, allowing this to be chained in an
-	 *         initialization call)
 	 * @throws SQLException
 	 *             if the database could be neither opened or created
 	 */
-	public ScrobblesDatabase open() throws SQLException {
+	public void open() throws SQLException {
 		mDbHelper = new DatabaseHelper(mCtx);
 		mDb = mDbHelper.getWritableDatabase();
-		return this;
 	}
 
 	public void close() {
@@ -136,6 +128,14 @@ public class ScrobblesDatabase {
 		return mDb.insert(TABLENAME_SCROBBLES, null, initialValues);
 	}
 
+	/**
+	 * 
+	 * @param napp
+	 *            the NetApp which we'll wanna scrobble to
+	 * @param trackid
+	 *            the rowId of the track to scrobble, see {@link Track.getRowId}
+	 * @return true if the insert succeeded, false otherwise
+	 */
 	public boolean insertScrobble(NetApp napp, long trackid) {
 		ContentValues iVals = new ContentValues();
 		iVals.put("netappid", napp.getValue());
@@ -144,15 +144,20 @@ public class ScrobblesDatabase {
 		return mDb.insert(TABLENAME_CORRNETAPP, null, iVals) > 0;
 	}
 
-	public int deleteScrobble(NetApp napp, Track track) {
-		if (track.getRowId() == -1) {
-			Log.e(TAG, "Trying to delete scrobble with rowId == -1");
+	public int deleteScrobble(NetApp napp, int trackId) {
+		if (trackId == -1) {
+			Log.e(TAG, "Trying to delete scrobble with trackId == -1");
 			return -2;
 		}
 		return mDb.delete(TABLENAME_CORRNETAPP, "netappid = ? and trackid = ?",
-				new String[] { "" + napp.getValue(), "" + track.getRowId() });
+				new String[] { "" + napp.getValue(), "" + trackId });
 	}
 
+	/**
+	 * 
+	 * @param napp
+	 * @return the number of rows affected
+	 */
 	public int deleteAllScrobbles(NetApp napp) {
 		return mDb.delete(TABLENAME_CORRNETAPP, "netappid = ?",
 				new String[] { "" + napp.getValue() });
@@ -190,7 +195,16 @@ public class ScrobblesDatabase {
 		return tracks;
 	}
 
-	public int queryNumberOfAllRows() {
+	public Cursor fetchTracksCursor(NetApp napp) {
+		Cursor c;
+		String sql = "select * from scrobbles, scrobbles_netapp "
+				+ "where _id = trackid and netappid = " + napp.getValue();
+		c = mDb.rawQuery(sql, null);
+
+		return c;
+	}
+
+	public int queryNumberOfTracks() {
 		Cursor c;
 		c = mDb.rawQuery("select count(_id) from scrobbles", null);
 		int count = c.getCount();
@@ -202,7 +216,7 @@ public class ScrobblesDatabase {
 		return count;
 	}
 
-	public int queryNumberOfRows(NetApp napp) {
+	public int queryNumberOfScrobbles(NetApp napp) {
 		Cursor c;
 		c = mDb.rawQuery(
 				"select count(trackid) from scrobbles_netapp where netappid = "

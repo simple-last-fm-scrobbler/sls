@@ -86,7 +86,7 @@ public class Scrobbler extends AbstractSubmitter {
 
 			// delete scrobbles (not tracks) from db (not array)
 			for (int i = 0; i < tracks.length; i++) {
-				mDb.deleteScrobble(getNetApp(), tracks[i]);
+				mDb.deleteScrobble(getNetApp(), tracks[i].getRowId());
 			}
 
 			// clean up tracks if no one else wants to scrobble them

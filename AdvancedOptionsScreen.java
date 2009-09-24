@@ -169,7 +169,7 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 		mAOptionsChooser.setValue(settings.getAdvancedOptions().toString());
 		mAOptionsWhen.setValue(settings.getAdvancedOptionsWhen().toString());
 
-		int numCache = mDb.queryNumberOfAllRows();
+		int numCache = mDb.queryNumberOfTracks();
 		mScrobbleAllNow.setSummary(getString(R.string.scrobbles_cache).replace(
 				"%1", Integer.toString(numCache)));
 		mScrobbleAllNow.setEnabled(numCache > 0);

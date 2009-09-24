@@ -25,7 +25,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.database.SQLException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -45,8 +44,8 @@ public class StatusInfoNetApp extends Activity {
 	private static final String TAG = "StatusInfoNetApp";
 
 	private static final int MENU_SCROBBLE_NOW_ID = 0;
-
-	private static final int MENU_RESET_STATS_ID = 1;
+	private static final int MENU_VIEW_CACHE_ID = 1;
+	private static final int MENU_RESET_STATS_ID = 2;
 
 	private NetApp mNetApp;
 
@@ -75,13 +74,7 @@ public class StatusInfoNetApp extends Activity {
 
 		// TODO: remove
 		mDb = new ScrobblesDatabase(this);
-		try {
-			mDb.open();
-		} catch (SQLException e) {
-			Log.e(TAG, "Cannot open database!");
-			Log.e(TAG, e.getMessage());
-			mDb = null;
-		}
+		mDb.open();
 
 		setContentView(R.layout.status_info);
 
@@ -122,13 +115,8 @@ public class StatusInfoNetApp extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean ret = super.onCreateOptionsMenu(menu);
 
-		int numInCache = 0;
-		if (mDb != null) {
-			numInCache = mDb.queryNumberOfRows(mNetApp);
-		}
-
-		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now).setEnabled(
-				numInCache > 0);
+		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now);
+		menu.add(0, MENU_VIEW_CACHE_ID, 0, R.string.view_sc);
 		menu.add(0, MENU_RESET_STATS_ID, 0, R.string.reset_stats);
 		return ret;
 	}
@@ -137,15 +125,18 @@ public class StatusInfoNetApp extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case MENU_SCROBBLE_NOW_ID:
-			Log.d(TAG, "Will scrobble any tracks in local cache: "
-					+ mNetApp.getName());
-			Intent i = new Intent(ScrobblingService.ACTION_JUSTSCROBBLE);
-			i.putExtra("netapp", mNetApp.getIntentExtraValue());
-			startService(i);
+			int numInCache = mDb.queryNumberOfScrobbles(mNetApp);
+			Util.doScrobbleIfPossible(this, mNetApp, numInCache);
+			return true;
+		case MENU_VIEW_CACHE_ID:
+			Intent j = new Intent(this, ViewScrobbleCacheActivity.class);
+			j.putExtra("netapp", mNetApp.getIntentExtraValue());
+			startActivity(j);
 			return true;
 		case MENU_RESET_STATS_ID:
 			Util.confirmDialog(this, getString(R.string.confirm_stats_reset)
-					.replaceAll("%1", mNetApp.getName()),
+					.replaceAll("%1", mNetApp.getName()), R.string.reset,
+					R.string.cancel,
 					new android.content.DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -161,10 +152,7 @@ public class StatusInfoNetApp extends Activity {
 	private void update() {
 
 		int color = getResources().getColor(R.color.status_highlight);
-		int numInCache = 0;
-		if (mDb != null) {
-			numInCache = mDb.queryNumberOfRows(mNetApp);
-		}
+		int numInCache = mDb.queryNumberOfScrobbles(mNetApp);
 
 		// authText
 		if (settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_NOAUTH) {
@@ -184,13 +172,8 @@ public class StatusInfoNetApp extends Activity {
 
 		// scrobbles in cache
 		mCacheText.setTextColor(color);
-		if (mDb != null) {
-			mCacheText.setText(getString(R.string.scrobbles_cache).replace(
-					"%1", Integer.toString(numInCache)));
-		} else {
-			mCacheText.setText(getString(R.string.scrobbles_cache).replace(
-					"%1", getString(R.string.db_error)));
-		}
+		mCacheText.setText(getString(R.string.scrobbles_cache).replace("%1",
+				Integer.toString(numInCache)));
 
 		// statsText
 		mScrobbleStatsText.setTextColor(color);
