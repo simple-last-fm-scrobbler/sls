@@ -21,7 +21,6 @@ package com.adam.aslfms.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.database.SQLException;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -68,14 +67,7 @@ public class ScrobblingService extends Service {
 	public void onCreate() {
 		settings = new AppSettings(this);
 		mDb = new ScrobblesDatabase(this);
-		try {
-			mDb.open();
-		} catch (SQLException e) {
-			Log.e(TAG, "Cannot open database!");
-			Log.e(TAG, e.getMessage());
-			Log.e(TAG, "Will terminate");
-			stopSelf();
-		}
+		mDb.open();
 		mNetManager = new NetworkerManager(this, mDb);
 	}
 
@@ -211,7 +203,7 @@ public class ScrobblingService extends Service {
 		}
 
 		AdvancedOptionsWhen aow = settings.getAdvancedOptionsWhen();
-		int numInCache = mDb.queryNumberOfAllRows();
+		int numInCache = mDb.queryNumberOfTracks();
 		if (numInCache >= aow.getTracksToWaitFor()) {
 			mNetManager.launchAllScrobblers();
 			return;

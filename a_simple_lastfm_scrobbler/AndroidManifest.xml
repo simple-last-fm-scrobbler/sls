@@ -3,7 +3,7 @@
 	package="com.adam.aslfms" android:versionCode="7" android:versionName="1.1.7">
 
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
-		android:description="@string/about_text">
+		android:description="@string/about_text" android:debuggable="true">
 
 		<activity android:name="com.adam.aslfms.SettingsActivity"
 			android:label="@string/app_name" android:icon="@drawable/icon"
@@ -30,6 +30,9 @@
 			android:exported="false">
 		</activity>
 		<activity android:name="com.adam.aslfms.StatusInfoNetApp"
+			android:exported="false">
+		</activity>
+		<activity android:name="com.adam.aslfms.ViewScrobbleCacheActivity"
 			android:exported="false">
 		</activity>
 

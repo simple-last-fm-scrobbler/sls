@@ -117,10 +117,20 @@
 	<string name="confirm_stats_reset">Are you sure you want to reset your submission
 		statistics for %1? This operation cannot be undone.</string>
 	<string name="confirm_clear_creds">Are you sure you want to clear your user
-		credentials? This will remove any unsubmitted scrobbles.</string>
-	<string name="yes">Yes</string>
-	<string name="no">No</string>
+		credentials for %1? This will remove any unsubmitted scrobbles.</string>
+		<string name="confirm_clear_all_creds">Are you sure you want to clear your user
+        credentials for all logged in accounts? This will remove any unsubmitted scrobbles.</string>
+	<string name="confirm_delete_sc">Are you sure you don\'t want to scrobble this
+		track to %1? This operation cannot be undone.</string>
+	<string name="remove">Remove</string>
+	<string name="reset">Reset</string>
+	<string name="clear_creds">Clear</string>
 	<string name="cancel">Cancel</string>
 	<string name="are_you_sure">Are you sure?</string>
 	<string name="warning">Warning</string>
+	<string name="no_scrobbles_in_cache">There are no cached scrobbles</string>
+	<string name="view_sc">View scrobble cache</string>
+	<string name="delete_sc">Remove from cache</string>
+
+<string name="view_sc_title_for">Scrobble cache for %1</string>
 </resources>

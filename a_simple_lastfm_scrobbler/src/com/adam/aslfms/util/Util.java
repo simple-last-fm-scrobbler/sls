@@ -22,16 +22,22 @@ package com.adam.aslfms.util;
 import java.util.Calendar;
 import java.util.TimeZone;
 
-import com.adam.aslfms.R;
-
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.format.DateUtils;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.adam.aslfms.AdvancedOptionsScreen;
+import com.adam.aslfms.R;
+import com.adam.aslfms.service.NetApp;
+import com.adam.aslfms.service.ScrobblingService;
 
 public class Util {
 	@SuppressWarnings("unused")
@@ -46,6 +52,12 @@ public class Util {
 				.getTimeInMillis() / 1000;
 	}
 
+	public static String timeFromUTCSecs(Context ctx, long secs) {
+		return DateUtils.formatDateTime(ctx, secs * 1000,
+				DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE
+						| DateUtils.FORMAT_NUMERIC_DATE);
+	}
+
 	public static long currentTimeMillisLocal() {
 		return Calendar.getInstance(TimeZone.getDefault()).getTimeInMillis();
 	}
@@ -53,11 +65,6 @@ public class Util {
 	public static String timeFromLocalMillis(Context ctx, long millis) {
 		return DateUtils.formatDateTime(ctx, millis, DateUtils.FORMAT_SHOW_TIME
 				| DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE);
-	}
-
-	public static void confirmDialog(Context ctx, String msg,
-			OnClickListener onPositive) {
-		confirmDialog(ctx, msg, R.string.yes, R.string.no, onPositive);
 	}
 
 	public static void confirmDialog(Context ctx, String msg, int posButton,
@@ -72,6 +79,20 @@ public class Util {
 		new AlertDialog.Builder(ctx).setTitle(R.string.warning).setMessage(msg)
 				.setIcon(android.R.drawable.ic_dialog_alert).setPositiveButton(
 						R.string.close, null).show();
+	}
+
+	public static void doScrobbleIfPossible(Context ctx, NetApp napp,
+			int numInCache) {
+		if (numInCache > 0) {
+			Log.d(TAG, "Will scrobble any tracks in local cache: "
+					+ napp.getName());
+			Intent i = new Intent(ScrobblingService.ACTION_JUSTSCROBBLE);
+			i.putExtra("netapp", napp.getIntentExtraValue());
+			ctx.startService(i);
+		} else {
+			Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
+					Toast.LENGTH_LONG).show();
+		}
 	}
 
 	public static boolean checkForInstalledApp(Context ctx, String pkgName) {
