@@ -45,10 +45,10 @@ public class ScrobblesDatabase {
 	private static final String TABLENAME_SCROBBLES = "scrobbles";
 	private static final String TABLENAME_CORRNETAPP = "scrobbles_netapp";
 
-	public static final String KEY_TRACK_ARTIST = "artist";
-	public static final String KEY_TRACK_ALBUM = "album";
-	public static final String KEY_TRACK_TRACK = "track";
-	public static final String KEY_TRACK_WHEN = "whenplayed";
+	public static final int INDEX_TRACK_ARTIST = 1;
+	public static final int INDEX_TRACK_ALBUM = 2;
+	public static final int INDEX_TRACK_TRACK = 3;
+	public static final int INDEX_TRACK_WHEN = 5;
 
 	private static final String DATABASE_CREATE_SCROBBLES = "create table scrobbles ("
 			+ "_id integer primary key autoincrement, "
@@ -66,6 +66,20 @@ public class ScrobblesDatabase {
 			+ "on delete cascade on update cascade)";
 
 	private static final int DATABASE_VERSION = 3;
+
+	public enum SortOrder {
+		ASCENDING("asc"), DESCENDING("desc");
+
+		private final String sql;
+
+		private SortOrder(String sql) {
+			this.sql = sql;
+		}
+
+		public String getSql() {
+			return sql;
+		}
+	}
 
 	private final Context mCtx;
 
@@ -195,10 +209,11 @@ public class ScrobblesDatabase {
 		return tracks;
 	}
 
-	public Cursor fetchTracksCursor(NetApp napp) {
+	public Cursor fetchTracksCursor(NetApp napp, SortOrder so) {
 		Cursor c;
 		String sql = "select * from scrobbles, scrobbles_netapp "
-				+ "where _id = trackid and netappid = " + napp.getValue();
+				+ "where _id = trackid and netappid = " + napp.getValue()
+				+ " order by trackid " + so.getSql();
 		c = mDb.rawQuery(sql, null);
 
 		return c;
