@@ -24,21 +24,29 @@ import java.util.TimeZone;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.database.Cursor;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.adam.aslfms.R;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 
+/**
+ * This class is way too bloated. FIXME
+ * 
+ * @author tgwizard
+ * 
+ */
 public class Util {
-	@SuppressWarnings("unused")
 	private static final String TAG = "Util";
 
 	/**
@@ -79,7 +87,7 @@ public class Util {
 						R.string.close, null).show();
 	}
 
-	public static void doScrobbleIfPossible(Context ctx, NetApp napp,
+	public static void scrobbleIfPossible(Context ctx, NetApp napp,
 			int numInCache) {
 		if (numInCache > 0) {
 			Intent i = new Intent(ScrobblingService.ACTION_JUSTSCROBBLE);
@@ -88,6 +96,154 @@ public class Util {
 		} else {
 			Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
 					Toast.LENGTH_LONG).show();
+		}
+	}
+
+	public static void scrobbleAllIfPossible(Context ctx, int numInCache) {
+		if (numInCache > 0) {
+			Intent service = new Intent(ScrobblingService.ACTION_JUSTSCROBBLE);
+			service.putExtra("scrobbleall", true);
+			ctx.startService(service);
+		} else {
+			Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
+					Toast.LENGTH_LONG).show();
+		}
+	}
+
+	public static void deleteScrobbleFromCache(Context ctx,
+			final ScrobblesDatabase db, final NetApp napp, final Cursor cursor,
+			final int id) {
+		Util.confirmDialog(ctx, ctx.getString(R.string.confirm_delete_sc)
+				.replaceAll("%1", napp.getName()), R.string.remove,
+				R.string.cancel, new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						Log.d(TAG, "Will remove scrobble from cache: "
+								+ napp.getName() + ", " + id);
+						db.deleteScrobble(napp, id);
+						db.cleanUpTracks();
+						// need to refill data, otherwise the screen won't
+						// update
+						if (cursor != null)
+							cursor.requery();
+					}
+				});
+	}
+
+	public static void deleteScrobbleFromAllCaches(Context ctx,
+			final ScrobblesDatabase db, final Cursor cursor, final int id) {
+		Util.confirmDialog(ctx, ctx
+				.getString(R.string.confirm_delete_sc_from_all),
+				R.string.remove, R.string.cancel, new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						Log.d(TAG, "Will remove scrobble from all caches: "
+								+ id);
+						for (NetApp napp : NetApp.values())
+							db.deleteScrobble(napp, id);
+						db.cleanUpTracks();
+						// need to refill data, otherwise the screen won't
+						// update
+						if (cursor != null)
+							cursor.requery();
+					}
+				});
+	}
+
+	public static void deleteAllScrobblesFromCache(Context ctx,
+			final ScrobblesDatabase db, final NetApp napp, final Cursor cursor) {
+		int numInCache = db.queryNumberOfScrobbles(napp);
+		if (numInCache > 0) {
+			Util.confirmDialog(ctx, ctx.getString(
+					R.string.confirm_delete_all_sc).replaceAll("%1",
+					napp.getName()), R.string.clear_cache, R.string.cancel,
+					new OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.d(TAG, "Will remove all scrobbles from cache: "
+									+ napp.getName());
+							db.deleteAllScrobbles(napp);
+							db.cleanUpTracks();
+							// need to refill data, otherwise the screen won't
+							// update
+							if (cursor != null)
+								cursor.requery();
+						}
+					});
+		} else {
+			Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
+					Toast.LENGTH_LONG).show();
+		}
+	}
+
+	public static void deleteAllScrobblesFromAllCaches(Context ctx,
+			final ScrobblesDatabase db, final Cursor cursor) {
+		int numInCache = db.queryNumberOfTracks();
+		if (numInCache > 0) {
+			Util.confirmDialog(ctx, ctx
+					.getString(R.string.confirm_delete_all_sc_from_all),
+					R.string.clear_cache, R.string.cancel,
+					new OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log
+									.d(TAG,
+											"Will remove all scrobbles from cache for all netapps");
+							for (NetApp napp : NetApp.values())
+								db.deleteAllScrobbles(napp);
+							db.cleanUpTracks();
+							// need to refill data, otherwise the screen won't
+							// update
+							if (cursor != null)
+								cursor.requery();
+						}
+					});
+		} else {
+			Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
+					Toast.LENGTH_LONG).show();
+		}
+	}
+
+	public static String getStatusSummary(Context ctx, AppSettings settings,
+			NetApp napp) {
+		return getStatusSummary(ctx, settings, napp, true);
+	}
+
+	/**
+	 * TODO: Should it be here?
+	 * 
+	 * @param ctx
+	 * @param settings
+	 * @return
+	 */
+	public static String getStatusSummary(Context ctx, AppSettings settings,
+			NetApp napp, boolean includeValues) {
+		if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_BADAUTH) {
+			return ctx.getString(R.string.auth_bad_auth);
+		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_FAILED) {
+			return ctx.getString(R.string.auth_internal_error);
+		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_RETRYLATER) {
+			return ctx.getString(R.string.auth_network_error);
+		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_OK) {
+			if (includeValues)
+				return ctx.getString(R.string.logged_in_as).replace("%1",
+						settings.getUsername(napp));
+			else
+				return ctx.getString(R.string.logged_in);
+		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_NOAUTH) {
+			if (includeValues)
+				return ctx.getString(R.string.user_credentials_summary)
+						.replace("%1", napp.getName());
+			else
+				return ctx.getString(R.string.not_logged_in);
+		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_UPDATING) {
+			return ctx.getString(R.string.auth_updating);
+		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_CLIENTBANNED) {
+			return ctx.getString(R.string.auth_client_banned);
+		} else {
+			return "";
 		}
 	}
 

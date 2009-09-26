@@ -1,5 +1,6 @@
 - 1.1.9
   * Can now view and edit scrobble cache
+  * GUI improvements
 
 - 1.1.7
   * Added advanced options to not scrobble immediately

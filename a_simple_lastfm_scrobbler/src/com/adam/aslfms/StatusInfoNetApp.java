@@ -19,7 +19,7 @@
 
 package com.adam.aslfms;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ListActivity;
@@ -76,7 +76,7 @@ public class StatusInfoNetApp extends ListActivity {
 		mDb = new ScrobblesDatabase(this);
 		mDb.open();
 
-		setContentView(R.layout.status_info);
+		setContentView(R.layout.status_info_list);
 
 		fillData();
 	}
@@ -107,12 +107,12 @@ public class StatusInfoNetApp extends ListActivity {
 	}
 
 	private void fillData() {
-		List<Pair> list = new LinkedList<Pair>();
+		List<Pair> list = new ArrayList<Pair>();
 		int numInCache = mDb.queryNumberOfScrobbles(mNetApp);
 
 		// auth
 		Pair auth = new Pair();
-		auth.setKey(mNetApp.getStatusSummary(this, settings, false));
+		auth.setKey(Util.getStatusSummary(this, settings, mNetApp, false));
 		if (settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_NOAUTH) {
 			auth.setValue(getString(R.string.everything_disabled));
 		} else {
@@ -171,7 +171,7 @@ public class StatusInfoNetApp extends ListActivity {
 		switch (item.getItemId()) {
 		case MENU_SCROBBLE_NOW_ID:
 			int numInCache = mDb.queryNumberOfScrobbles(mNetApp);
-			Util.doScrobbleIfPossible(this, mNetApp, numInCache);
+			Util.scrobbleIfPossible(this, mNetApp, numInCache);
 			return true;
 		case MENU_VIEW_CACHE_ID:
 			Intent j = new Intent(this, ViewScrobbleCacheActivity.class);

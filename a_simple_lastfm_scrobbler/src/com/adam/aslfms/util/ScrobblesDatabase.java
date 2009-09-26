@@ -47,7 +47,7 @@ public class ScrobblesDatabase {
 
 	public static final String KEY_TRACK_TRACK = "track";
 	public static final String KEY_TRACK_WHEN = "whenplayed";
-	
+
 	public static final int INDEX_TRACK_ARTIST = 1;
 	public static final int INDEX_TRACK_ALBUM = 2;
 	public static final int INDEX_TRACK_TRACK = 3;
@@ -216,10 +216,48 @@ public class ScrobblesDatabase {
 		Cursor c;
 		String sql = "select * from scrobbles, scrobbles_netapp "
 				+ "where _id = trackid and netappid = " + napp.getValue()
-				+ " order by trackid " + so.getSql();
+				+ " order by _id " + so.getSql();
 		c = mDb.rawQuery(sql, null);
-
 		return c;
+	}
+	
+	public Cursor fetchAllTracksCursor(SortOrder so) {
+		Cursor c;
+		String sql = "select * from scrobbles order by _id " + so.getSql();
+		c = mDb.rawQuery(sql, null);
+		return c;
+	}
+
+	public Track fetchTrack(int trackId) {
+		String sql = "select * from scrobbles where _id = " + trackId;
+		Cursor c = mDb.rawQuery(sql, null);
+
+		if (c.getCount() == 0)
+			return null;
+
+		c.moveToFirst();
+		Track track = Track.createTrackFromDb(c.getString(1), c.getString(2), c
+				.getString(3), c.getInt(4), c.getLong(5), c.getInt(0));
+		c.close();
+		return track;
+	}
+
+	public NetApp[] fetchNetAppsForScrobble(int trackId) {
+		String sql = "select netappid from scrobbles_netapp where trackid = "
+				+ trackId;
+		Cursor c = mDb.rawQuery(sql, null);
+
+		if (c.getCount() == 0)
+			return new NetApp[0];
+
+		NetApp[] ret = new NetApp[c.getCount()];
+		c.moveToFirst();
+		for (int i = 0; i < ret.length; i++) {
+			ret[i] = NetApp.fromValue(c.getInt(0));
+			c.moveToNext();
+		}
+		c.close();
+		return ret;
 	}
 
 	public int queryNumberOfTracks() {

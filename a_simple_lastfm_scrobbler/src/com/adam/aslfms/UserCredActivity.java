@@ -122,7 +122,7 @@ public class UserCredActivity extends PreferenceActivity {
 	}
 
 	private void update() {
-		mEditCreds.setSummary(mNetApp.getStatusSummary(this, settings));
+		mEditCreds.setSummary(Util.getStatusSummary(this, settings, mNetApp));
 
 		boolean hasCreds = settings.getAuthStatus(mNetApp) != Status.AUTHSTATUS_NOAUTH
 				|| settings.getUsername(mNetApp).length() != 0

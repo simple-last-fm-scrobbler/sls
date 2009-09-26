@@ -12,4 +12,6 @@
 		android:persistent="false" />
 	<PreferenceCategory android:title="@string/advanced_actions" />
 	<Preference android:key="scrobble_all_now" android:title="@string/scrobble_now" />
+	<Preference android:key="view_scrobble_cache" android:title="@string/view_sc"
+		android:summary="@string/for_all_websites" />
 </PreferenceScreen>
