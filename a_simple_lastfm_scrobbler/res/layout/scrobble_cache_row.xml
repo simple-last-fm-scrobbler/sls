@@ -1,42 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="?android:attr/listPreferredItemHeight"
-	android:padding="4dip" android:layout_centerVertical="true">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="wrap_content"
+	android:padding="4dip" android:orientation="vertical"
+	android:background="@android:drawable/menuitem_background"
+	android:layout_gravity="left" android:focusableInTouchMode="true" android:clickable="false">
 	<LinearLayout android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:orientation="vertical"
-		android:padding="4dip" android:layout_centerVertical="true">
-		<LinearLayout android:id="@+id/upper_row"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:orientation="horizontal" android:layout_centerVertical="true">
-			<TextView android:id="@+id/track" android:layout_width="fill_parent"
-				android:layout_height="fill_parent" android:ellipsize="end"
-				android:inputType="text" android:maxLines="1"
-				android:textAppearance="?android:attr/textAppearanceSmall"
-				android:textColor="?android:attr/textColorPrimary"
-				android:layout_weight="1" android:layout_gravity="left" />
-			<TextView android:id="@+id/when" android:layout_width="fill_parent"
-				android:layout_height="fill_parent" android:ellipsize="end"
-				android:inputType="text" android:maxLines="1"
-				android:textAppearance="?android:attr/textAppearanceSmall"
-				android:textColor="?android:attr/textColorPrimary"
-				android:layout_weight="1" android:layout_gravity="right" />
-		</LinearLayout>
-		<LinearLayout android:id="@+id/lower_row"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:orientation="horizontal" android:layout_centerVertical="true"
-			android:layout_below="@+id/upper_row">
-			<TextView android:id="@+id/artist" android:layout_width="fill_parent"
-				android:layout_height="fill_parent" android:ellipsize="end"
-				android:inputType="text" android:maxLines="1"
-				android:textAppearance="?android:attr/textAppearanceSmall"
-				android:textColor="?android:attr/textColorSecondary"
-				android:layout_weight="1" android:layout_gravity="left" />
-			<TextView android:id="@+id/album" android:layout_width="fill_parent"
-				android:layout_height="fill_parent" android:ellipsize="end"
-				android:inputType="text" android:maxLines="1"
-				android:textAppearance="?android:attr/textAppearanceSmall"
-				android:textColor="?android:attr/textColorSecondary"
-				android:layout_weight="1" android:layout_gravity="right" />
-		</LinearLayout>
+		android:layout_height="wrap_content" android:orientation="horizontal"
+		android:focusableInTouchMode="false" android:clickable="false">
+		<TextView android:id="@+id/track" android:layout_width="wrap_content"
+			android:layout_height="fill_parent" android:ellipsize="end"
+			android:inputType="text" android:maxLines="1" android:textStyle="bold"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:textColor="?android:attr/textColorPrimary"
+			android:layout_weight="1" android:layout_gravity="left"
+			android:focusableInTouchMode="false" android:clickable="false" />
+		<TextView android:id="@+id/when" android:layout_width="wrap_content"
+			android:layout_height="fill_parent" android:inputType="text"
+			android:maxLines="1" android:textAppearance="?android:attr/textAppearanceSmall"
+			android:textColor="?android:attr/textColorPrimary"
+			android:layout_weight="0" android:layout_gravity="right"
+			android:layout_marginLeft="4dip" android:focusableInTouchMode="false"
+			android:clickable="false" />
 	</LinearLayout>
-</RelativeLayout>
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:orientation="horizontal"
+		android:focusableInTouchMode="false" android:clickable="false">
+		<TextView android:id="@+id/artist" android:layout_width="wrap_content"
+			android:layout_height="fill_parent" android:ellipsize="end"
+			android:inputType="text" android:maxLines="1"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:textColor="?android:attr/textColorSecondary"
+			android:layout_weight="1" android:layout_gravity="left"
+			android:focusableInTouchMode="false" android:clickable="false" />
+		<TextView android:id="@+id/album" android:layout_width="wrap_content"
+			android:layout_height="fill_parent" android:ellipsize="end"
+			android:inputType="text" android:maxLines="1"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:textColor="?android:attr/textColorSecondary"
+			android:layout_weight="0" android:layout_gravity="right"
+			android:layout_marginLeft="4dip" android:focusableInTouchMode="false"
+			android:clickable="false" />
+	</LinearLayout>
+</LinearLayout>
