@@ -75,6 +75,10 @@ public enum NetApp {
 	public int getLogoRes() {
 		return logoRes;
 	}
+	
+	public String getStatusSummary(Context ctx, AppSettings settings) {
+		return getStatusSummary(ctx, settings, true);
+	}
 
 	/**
 	 * TODO: Should it be here?
@@ -83,7 +87,8 @@ public enum NetApp {
 	 * @param settings
 	 * @return
 	 */
-	public String getStatusSummary(Context ctx, AppSettings settings) {
+	public String getStatusSummary(Context ctx, AppSettings settings,
+			boolean includeValues) {
 		if (settings.getAuthStatus(this) == Status.AUTHSTATUS_BADAUTH) {
 			return ctx.getString(R.string.auth_bad_auth);
 		} else if (settings.getAuthStatus(this) == Status.AUTHSTATUS_FAILED) {
@@ -91,11 +96,17 @@ public enum NetApp {
 		} else if (settings.getAuthStatus(this) == Status.AUTHSTATUS_RETRYLATER) {
 			return ctx.getString(R.string.auth_network_error);
 		} else if (settings.getAuthStatus(this) == Status.AUTHSTATUS_OK) {
-			return ctx.getString(R.string.logged_in_as) + " "
-					+ settings.getUsername(this);
+			if (includeValues)
+				return ctx.getString(R.string.logged_in_as).replace("%1",
+						settings.getUsername(this));
+			else
+				return ctx.getString(R.string.logged_in);
 		} else if (settings.getAuthStatus(this) == Status.AUTHSTATUS_NOAUTH) {
-			return ctx.getString(R.string.user_credentials_summary).replace(
-					"%1", this.getName());
+			if (includeValues)
+				return ctx.getString(R.string.user_credentials_summary)
+						.replace("%1", this.getName());
+			else
+				return ctx.getString(R.string.not_logged_in);
 		} else if (settings.getAuthStatus(this) == Status.AUTHSTATUS_UPDATING) {
 			return ctx.getString(R.string.auth_updating);
 		} else if (settings.getAuthStatus(this) == Status.AUTHSTATUS_CLIENTBANNED) {

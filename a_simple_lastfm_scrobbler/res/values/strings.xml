@@ -30,7 +30,9 @@
 	<string name="auth_updating">Authenticating...</string>
 	<string name="auth_internal_error">Internal error</string>
 	<string name="auth_just_error">Error, retrying...</string>
-	<string name="logged_in_as">Logged in as:</string>
+	<string name="logged_in">Logged in as:</string>
+	<string name="logged_in_as">Logged in as: %1</string>
+	<string name="not_logged_in">Not logged in</string>
 	<string name="create_user_title">Sign up</string>
 	<string name="create_user_summary">Sign up for an account at %1</string>
 	<string name="other_category_title">Other</string>
@@ -49,7 +51,7 @@
 	</string>
 	<string name="nowplaying_last_fail_at">Last scrobble submission failed at:</string>
 	<string name="stats_scrobbles">Total tracks scrobbled:</string>
-	<string name="never">never</string>
+	<string name="never">Never</string>
 	<string name="stats_nps">Total now playing notifications:</string>
 	<string name="it_was">It was:</string>
 	<string name="by">by</string>
@@ -64,6 +66,7 @@
 	<string name="supported_apps_category_title">Supported apps</string>
 	<string name="app_disabled">Won\'t scrobble music from this app</string>
 	<string name="not_installed">This app is not installed</string>
+	<string name="scrobbles_cache_nonum">Scrobbles in local cache:</string>
 	<string name="scrobbles_cache">Scrobbles in local cache: %1</string>
 	<string name="db_error">Database error</string>
 	<string name="about">About</string>
@@ -90,7 +93,7 @@
 	</string>
 
 	<string name="log_in_to">Sign in to</string>
-	<string name="everything_disabled">Not logged in. Scrobbling/now playing is disabled.
+	<string name="everything_disabled">Scrobbling/now playing is disabled.
 	</string>
 	<string name="supported_netapps">Supported websites: %1</string>
 	<string name="supported_musicapps">Supported apps: %1</string>
@@ -117,11 +120,16 @@
 	<string name="confirm_stats_reset">Are you sure you want to reset your submission
 		statistics for %1? This operation cannot be undone.</string>
 	<string name="confirm_clear_creds">Are you sure you want to clear your user
-		credentials for %1? This will remove any unsubmitted scrobbles.</string>
-		<string name="confirm_clear_all_creds">Are you sure you want to clear your user
-        credentials for all logged in accounts? This will remove any unsubmitted scrobbles.</string>
+		credentials for %1? This will remove any unsubmitted scrobbles.
+	</string>
+	<string name="confirm_clear_all_creds">Are you sure you want to clear your user
+		credentials for all logged in accounts? This will remove any
+		unsubmitted scrobbles.</string>
 	<string name="confirm_delete_sc">Are you sure you don\'t want to scrobble this
-		track to %1? This operation cannot be undone.</string>
+		track
+		to %1? This operation cannot be undone.</string>
+	<string name="confirm_delete_all_sc">Are you sure you want to clear all tracks in the
+		cache? This operation cannot be undone.</string>
 	<string name="remove">Remove</string>
 	<string name="reset">Reset</string>
 	<string name="clear_creds">Clear</string>
@@ -131,6 +139,7 @@
 	<string name="no_scrobbles_in_cache">There are no cached scrobbles</string>
 	<string name="view_sc">View scrobble cache</string>
 	<string name="delete_sc">Remove from cache</string>
+	<string name="clear_cache">Clear cache</string>
 
-<string name="view_sc_title_for">Scrobble cache for %1</string>
+	<string name="view_sc_title_for">Scrobble cache for %1</string>
 </resources>

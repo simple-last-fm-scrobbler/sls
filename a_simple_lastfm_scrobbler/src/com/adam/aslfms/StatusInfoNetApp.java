@@ -19,7 +19,10 @@
 
 package com.adam.aslfms;
 
-import android.app.Activity;
+import java.util.LinkedList;
+import java.util.List;
+
+import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -27,8 +30,12 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.adam.aslfms.service.NetApp;
@@ -39,7 +46,7 @@ import com.adam.aslfms.util.Status;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
 
-public class StatusInfoNetApp extends Activity {
+public class StatusInfoNetApp extends ListActivity {
 
 	private static final String TAG = "StatusInfoNetApp";
 
@@ -51,13 +58,6 @@ public class StatusInfoNetApp extends Activity {
 
 	private AppSettings settings;
 	private ScrobblesDatabase mDb;
-
-	private TextView mAuthText;
-	private TextView mScrobbleText;
-	private TextView mNPText;
-	private TextView mCacheText;
-	private TextView mScrobbleStatsText;
-	private TextView mNPStatsText;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -78,12 +78,7 @@ public class StatusInfoNetApp extends Activity {
 
 		setContentView(R.layout.status_info);
 
-		mAuthText = (TextView) findViewById(R.id.status_auth);
-		mScrobbleText = (TextView) findViewById(R.id.status_scrobbling);
-		mNPText = (TextView) findViewById(R.id.status_np);
-		mCacheText = (TextView) findViewById(R.id.scrobble_cache);
-		mScrobbleStatsText = (TextView) findViewById(R.id.status_scrobble_stats);
-		mNPStatsText = (TextView) findViewById(R.id.status_np_stats);
+		fillData();
 	}
 
 	@Override
@@ -108,7 +103,57 @@ public class StatusInfoNetApp extends Activity {
 		ifs.addAction(ScrobblingService.BROADCAST_ONAUTHCHANGED);
 		registerReceiver(onChange, ifs);
 
-		update();
+		fillData();
+	}
+
+	private void fillData() {
+		List<Pair> list = new LinkedList<Pair>();
+		int numInCache = mDb.queryNumberOfScrobbles(mNetApp);
+
+		// auth
+		Pair auth = new Pair();
+		auth.setKey(mNetApp.getStatusSummary(this, settings, false));
+		if (settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_NOAUTH) {
+			auth.setValue(getString(R.string.everything_disabled));
+		} else {
+			auth.setValue(settings.getUsername(mNetApp));
+		}
+		list.add(auth);
+
+		// scrobble
+		Pair scrobble = new Pair();
+		scrobble.setKey(getSubmissionStatusKey(SubmissionType.SCROBBLE));
+		scrobble.setValue(getSubmissionStatusValue(SubmissionType.SCROBBLE));
+		list.add(scrobble);
+
+		// np
+		Pair np = new Pair();
+		np.setKey(getSubmissionStatusKey(SubmissionType.NP));
+		np.setValue(getSubmissionStatusValue(SubmissionType.NP));
+		list.add(np);
+
+		// scrobbles in cache
+		Pair cache = new Pair();
+		cache.setKey(getString(R.string.scrobbles_cache_nonum));
+		cache.setValue(Integer.toString(numInCache));
+		list.add(cache);
+
+		// scrobble stats
+		Pair scstats = new Pair();
+		scstats.setKey(getString(R.string.stats_scrobbles));
+		scstats.setValue(Integer.toString(settings.getNumberOfSubmissions(
+				mNetApp, SubmissionType.SCROBBLE)));
+
+		// np stats
+		Pair npstats = new Pair();
+		npstats.setKey(getString(R.string.stats_nps));
+		npstats.setValue(Integer.toString(settings.getNumberOfSubmissions(
+				mNetApp, SubmissionType.NP)));
+
+		ArrayAdapter<Pair> adapter = new MyArrayAdapter(this,
+				R.layout.status_info_row, R.id.key, list);
+
+		setListAdapter(adapter);
 	}
 
 	@Override
@@ -141,7 +186,7 @@ public class StatusInfoNetApp extends Activity {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							settings.clearSubmissionStats(mNetApp);
-							update();
+							fillData();
 						}
 					});
 			return true;
@@ -149,45 +194,15 @@ public class StatusInfoNetApp extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void update() {
-
-		int color = getResources().getColor(R.color.status_highlight);
-		int numInCache = mDb.queryNumberOfScrobbles(mNetApp);
-
-		// authText
-		if (settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_NOAUTH) {
-			mAuthText.setText(R.string.everything_disabled);
-			color = getResources().getColor(R.color.status_lowlight);
+	private String getSubmissionStatusKey(SubmissionType stype) {
+		if (settings.wasLastSubmissionSuccessful(mNetApp, stype)) {
+			return sGetLastAt(stype);
 		} else {
-			mAuthText.setText(mNetApp.getStatusSummary(this, settings));
+			return sGetLastFailAt(stype);
 		}
-
-		// scrobbleText
-		mScrobbleText.setTextColor(color);
-		mScrobbleText.setText(getSubmissionStatus(SubmissionType.SCROBBLE));
-
-		// npText
-		mNPText.setTextColor(color);
-		mNPText.setText(getSubmissionStatus(SubmissionType.NP));
-
-		// scrobbles in cache
-		mCacheText.setTextColor(color);
-		mCacheText.setText(getString(R.string.scrobbles_cache).replace("%1",
-				Integer.toString(numInCache)));
-
-		// statsText
-		mScrobbleStatsText.setTextColor(color);
-		mScrobbleStatsText.setText(getString(R.string.stats_scrobbles)
-				+ " "
-				+ settings.getNumberOfSubmissions(mNetApp,
-						SubmissionType.SCROBBLE));
-
-		mNPStatsText.setTextColor(color);
-		mNPStatsText.setText(getString(R.string.stats_nps) + " "
-				+ settings.getNumberOfSubmissions(mNetApp, SubmissionType.NP));
 	}
 
-	private String getSubmissionStatus(SubmissionType stype) {
+	private String getSubmissionStatusValue(SubmissionType stype) {
 		if (!settings.isSubmissionsEnabled(stype)) {
 			return sGetDisabled(stype);
 		} else {
@@ -202,13 +217,7 @@ public class StatusInfoNetApp extends Activity {
 				what = "\n" + settings.getLastSubmissionInfo(mNetApp, stype);
 			}
 
-			String succ = "";
-			if (settings.wasLastSubmissionSuccessful(mNetApp, stype)) {
-				succ = sGetLastAt(stype);
-			} else {
-				succ = sGetLastFailAt(stype);
-			}
-			return succ + " " + when + what;
+			return when + what;
 		}
 	}
 
@@ -247,8 +256,64 @@ public class StatusInfoNetApp extends Activity {
 			}
 			NetApp napp = NetApp.valueOf(snapp);
 			if (napp == mNetApp) {
-				StatusInfoNetApp.this.update();
+				StatusInfoNetApp.this.fillData();
 			}
 		}
 	};
+
+	private static class Pair {
+		private String key;
+		private String value;
+
+		private Pair() {
+			super();
+		}
+
+		private Pair(String key, String value) {
+			super();
+			this.key = key;
+			this.value = value;
+		}
+
+		public String getKey() {
+			return key;
+		}
+
+		public void setKey(String key) {
+			this.key = key;
+		}
+
+		public String getValue() {
+			return value;
+		}
+
+		public void setValue(String value) {
+			this.value = value;
+		}
+	}
+
+	private class MyArrayAdapter extends ArrayAdapter<Pair> {
+
+		public MyArrayAdapter(Context context, int resource,
+				int textViewResourceId, List<Pair> list) {
+			super(context, resource, textViewResourceId, list);
+		}
+
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			View view = LayoutInflater.from(getContext()).inflate(
+					R.layout.status_info_row, parent, false);
+
+			Pair item = this.getItem(position);
+
+			TextView keyView = (TextView) view.findViewById(R.id.key);
+			keyView.setText(item.getKey());
+
+			TextView valueView = (TextView) view.findViewById(R.id.value);
+			valueView.setText(item.getValue());
+
+			return view;
+		}
+
+	}
 }
