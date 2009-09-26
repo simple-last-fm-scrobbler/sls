@@ -20,6 +20,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.adam.aslfms.service.NetApp;
@@ -32,6 +33,7 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 	private static final String TAG = "VSCacheActivity";
 
 	private static final int MENU_SCROBBLE_NOW_ID = 0;
+	private static final int MENU_CLEAR_CACHE_ID = 1;
 
 	private static final int CONTEXT_MENU_DELETE_ID = 0;
 
@@ -100,6 +102,7 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean ret = super.onCreateOptionsMenu(menu);
 		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now);
+		menu.add(0, MENU_CLEAR_CACHE_ID, 0, R.string.clear_cache);
 		return ret;
 	}
 
@@ -110,6 +113,9 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 			Util
 					.doScrobbleIfPossible(this, mNetApp, scrobblesCursor
 							.getCount());
+			return true;
+		case MENU_CLEAR_CACHE_ID:
+			deleteAllSC();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -148,16 +154,39 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 				R.string.cancel, new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						NetApp napp = mNetApp;
+
 						Log.d(TAG, "Will remove scrobble from cache: "
-								+ napp.getName() + ", " + id);
-						mDb.deleteScrobble(napp, id);
+								+ mNetApp.getName() + ", " + id);
+						mDb.deleteScrobble(mNetApp, id);
 						mDb.cleanUpTracks();
 						// need to refill data, otherwise the screen won't
 						// update
 						fillData();
 					}
 				});
+	}
+
+	private void deleteAllSC() {
+		int numInCache = mDb.queryNumberOfScrobbles(mNetApp);
+		if (numInCache > 0) {
+			Util.confirmDialog(this, getString(R.string.confirm_delete_all_sc),
+					R.string.clear_cache, R.string.cancel,
+					new OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.d(TAG, "Will remove all scrobbles from cache: "
+									+ mNetApp.getName());
+							mDb.deleteAllScrobbles(mNetApp);
+							mDb.cleanUpTracks();
+							// need to refill data, otherwise the screen won't
+							// update
+							fillData();
+						}
+					});
+		} else {
+			Toast.makeText(this, getString(R.string.no_scrobbles_in_cache),
+					Toast.LENGTH_LONG).show();
+		}
 	}
 
 	private BroadcastReceiver onChange = new BroadcastReceiver() {
