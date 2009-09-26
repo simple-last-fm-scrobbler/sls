@@ -19,11 +19,12 @@
 
 package com.adam.aslfms.service;
 
-import android.content.Context;
+import java.util.HashMap;
+import java.util.Map;
+
+import android.util.Log;
 
 import com.adam.aslfms.R;
-import com.adam.aslfms.util.AppSettings;
-import com.adam.aslfms.util.Status;
 
 public enum NetApp {
 	LASTFM(0x01, "Last.fm", "http://post.audioscrobbler.com/?hs=true", "",
@@ -31,6 +32,7 @@ public enum NetApp {
 	LIBREFM(0x02, "Libre.fm", "http://turtle.libre.fm/?hs=true", "librefm",
 			"http://libre.fm/", R.drawable.librefm_logo);
 
+	private static final String TAG = "NetApp";
 	private final int val;
 	private final String name;
 	private final String handshakeUrl;
@@ -75,44 +77,21 @@ public enum NetApp {
 	public int getLogoRes() {
 		return logoRes;
 	}
-	
-	public String getStatusSummary(Context ctx, AppSettings settings) {
-		return getStatusSummary(ctx, settings, true);
+
+	private static Map<Integer, NetApp> mValNetAppMap;
+
+	static {
+		mValNetAppMap = new HashMap<Integer, NetApp>();
+		for (NetApp napp : NetApp.values())
+			mValNetAppMap.put(napp.getValue(), napp);
 	}
 
-	/**
-	 * TODO: Should it be here?
-	 * 
-	 * @param ctx
-	 * @param settings
-	 * @return
-	 */
-	public String getStatusSummary(Context ctx, AppSettings settings,
-			boolean includeValues) {
-		if (settings.getAuthStatus(this) == Status.AUTHSTATUS_BADAUTH) {
-			return ctx.getString(R.string.auth_bad_auth);
-		} else if (settings.getAuthStatus(this) == Status.AUTHSTATUS_FAILED) {
-			return ctx.getString(R.string.auth_internal_error);
-		} else if (settings.getAuthStatus(this) == Status.AUTHSTATUS_RETRYLATER) {
-			return ctx.getString(R.string.auth_network_error);
-		} else if (settings.getAuthStatus(this) == Status.AUTHSTATUS_OK) {
-			if (includeValues)
-				return ctx.getString(R.string.logged_in_as).replace("%1",
-						settings.getUsername(this));
-			else
-				return ctx.getString(R.string.logged_in);
-		} else if (settings.getAuthStatus(this) == Status.AUTHSTATUS_NOAUTH) {
-			if (includeValues)
-				return ctx.getString(R.string.user_credentials_summary)
-						.replace("%1", this.getName());
-			else
-				return ctx.getString(R.string.not_logged_in);
-		} else if (settings.getAuthStatus(this) == Status.AUTHSTATUS_UPDATING) {
-			return ctx.getString(R.string.auth_updating);
-		} else if (settings.getAuthStatus(this) == Status.AUTHSTATUS_CLIENTBANNED) {
-			return ctx.getString(R.string.auth_client_banned);
-		} else {
-			return "";
+	public static NetApp fromValue(int value) {
+		NetApp napp = mValNetAppMap.get(value);
+		if (napp == null) {
+			Log.e(TAG, "Got null netapp in fromValue: " + value);
 		}
+		return napp;
 	}
+
 }

@@ -252,12 +252,13 @@ public class ScrobblingService extends Service {
 				if (settings.isAuthenticated(napp)) {
 					Log.d(TAG, "inserting scrobble: " + napp.getName());
 					mDb.insertScrobble(napp, rowId);
+
+					// tell interested parties
+					Intent i = new Intent(
+							ScrobblingService.BROADCAST_ONSTATUSCHANGED);
+					sendBroadcast(i);
 				}
 			}
-
-			// tell interested parties
-			Intent i = new Intent(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
-			sendBroadcast(i);
 		} else {
 			Log.d(TAG, "Could not insert scrobble into the db");
 			Log.d(TAG, track.toString());

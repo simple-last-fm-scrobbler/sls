@@ -26,7 +26,6 @@ import java.io.InputStreamReader;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,13 +49,7 @@ public class WhatsNewDialog {
 
 		AlertDialog.Builder adBuilder = new AlertDialog.Builder(mCtx).setTitle(
 				R.string.whats_new).setIcon(android.R.drawable.ic_dialog_info)
-				.setView(dialogView).setNegativeButton(R.string.close,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-							}
-						});
+				.setView(dialogView).setNegativeButton(R.string.close, null);
 
 		adBuilder.show();
 	}

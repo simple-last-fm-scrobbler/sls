@@ -152,7 +152,7 @@ public class UserCredsListScreen extends PreferenceActivity {
 	private void setUserCredsSummaries() {
 		for (NetApp napp : NetApp.values()) {
 			mUserCredsAppToPrefMap.get(napp).setSummary(
-					napp.getStatusSummary(this, settings));
+					Util.getStatusSummary(this, settings, napp));
 		}
 	}
 

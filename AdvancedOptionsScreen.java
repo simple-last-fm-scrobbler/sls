@@ -37,6 +37,7 @@ import android.widget.Toast;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
+import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptions;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
 
@@ -48,6 +49,7 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE = "advanced_options_also_on_complete";
 
 	private static final String KEY_SCROBBLE_ALL_NOW = "scrobble_all_now";
+	private static final String KEY_VIEW_SCROBBLE_CACHE = "view_scrobble_cache";
 
 	private AppSettings settings;
 	private ScrobblesDatabase mDb;
@@ -56,6 +58,7 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 	private ListPreference mAOptionsWhen;
 	private CheckBoxPreference mAOptionsAlsoOnComplete;
 	private Preference mScrobbleAllNow;
+	private Preference mViewScrobbleCache;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,7 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 		init();
 
 		mScrobbleAllNow = findPreference(KEY_SCROBBLE_ALL_NOW);
+		mViewScrobbleCache = findPreference(KEY_VIEW_SCROBBLE_CACHE);
 
 	}
 
@@ -147,9 +151,13 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 			update();
 			return true;
 		} else if (pref == mScrobbleAllNow) {
-			Intent service = new Intent(ScrobblingService.ACTION_JUSTSCROBBLE);
-			service.putExtra("scrobbleall", true);
-			startService(service);
+			int numInCache = mDb.queryNumberOfTracks();
+			Util.scrobbleAllIfPossible(this, numInCache);
+			return true;
+		} else if (pref == mViewScrobbleCache) {
+			Intent i = new Intent(this, ViewScrobbleCacheActivity.class);
+			i.putExtra("viewall", true);
+			startActivity(i);
 			return true;
 		}
 

@@ -3,10 +3,8 @@ package com.adam.aslfms;
 import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,12 +18,12 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.ScrobblesDatabase;
+import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.ScrobblesDatabase.SortOrder;
 
@@ -35,25 +33,38 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 	private static final int MENU_SCROBBLE_NOW_ID = 0;
 	private static final int MENU_CLEAR_CACHE_ID = 1;
 
-	private static final int CONTEXT_MENU_DELETE_ID = 0;
+	private static final int CONTEXT_MENU_DETAILS_ID = 0;
+	private static final int CONTEXT_MENU_DELETE_ID = 1;
 
 	private ScrobblesDatabase mDb;
+	/**
+	 * mNetApp == null means that we should view cache for all netapps
+	 */
 	private NetApp mNetApp;
 
-	private Cursor scrobblesCursor;
+	private Cursor mScrobblesCursor = null;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		String snapp = getIntent().getExtras().getString("netapp");
-		if (snapp == null) {
-			Log.e(TAG, "Got null snetapp");
-			finish();
-		}
-		mNetApp = NetApp.valueOf(snapp);
+		Bundle extras = getIntent().getExtras();
 
-		setTitle(getString(R.string.view_sc_title_for).replaceAll("%1",
-				mNetApp.getName()));
+		String name = "??????";
+		if (extras.getBoolean("viewall") == true) {
+			Log.d(TAG, "Will view cache for all netapps");
+			mNetApp = null;
+			name = getString(R.string.all_websites);
+		} else {
+			String snapp = extras.getString("netapp");
+			if (snapp == null) {
+				Log.e(TAG, "Got null snetapp");
+				finish();
+			}
+			mNetApp = NetApp.valueOf(snapp);
+			name = mNetApp.getName();
+		}
+
+		setTitle(getString(R.string.view_sc_title_for).replaceAll("%1", name));
 		setContentView(R.layout.scrobble_cache_list);
 
 		mDb = new ScrobblesDatabase(this);
@@ -83,18 +94,17 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 		IntentFilter ifs = new IntentFilter();
 		ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
 		registerReceiver(onChange, ifs);
-
-		// TODO: see if this is necessary
-		// fillData();
 	}
 
 	private void fillData() {
-
-		scrobblesCursor = mDb.fetchTracksCursor(mNetApp, SortOrder.DESCENDING);
-		startManagingCursor(scrobblesCursor);
-
-		CursorAdapter adapter = new MyAdapter(this, scrobblesCursor);
-
+		if (mNetApp == null) {
+			mScrobblesCursor = mDb.fetchAllTracksCursor(SortOrder.DESCENDING);
+		} else {
+			mScrobblesCursor = mDb.fetchTracksCursor(mNetApp,
+					SortOrder.DESCENDING);
+		}
+		startManagingCursor(mScrobblesCursor);
+		CursorAdapter adapter = new MyAdapter(this, mScrobblesCursor);
 		setListAdapter(adapter);
 	}
 
@@ -110,12 +120,22 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case MENU_SCROBBLE_NOW_ID:
-			Util
-					.doScrobbleIfPossible(this, mNetApp, scrobblesCursor
-							.getCount());
+			if (mNetApp == null) {
+				Util.scrobbleAllIfPossible(this, mScrobblesCursor.getCount());
+			} else {
+				Util.scrobbleIfPossible(this, mNetApp, mScrobblesCursor
+						.getCount());
+			}
 			return true;
 		case MENU_CLEAR_CACHE_ID:
-			deleteAllSC();
+			if (mNetApp == null) {
+				Util.deleteAllScrobblesFromAllCaches(this, mDb,
+						mScrobblesCursor);
+			} else {
+				Util.deleteAllScrobblesFromCache(this, mDb, mNetApp,
+						mScrobblesCursor);
+			}
+
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -125,82 +145,61 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
 		super.onCreateContextMenu(menu, v, menuInfo);
+		menu.add(0, CONTEXT_MENU_DETAILS_ID, 0, R.string.view_sc_details);
 		menu.add(0, CONTEXT_MENU_DELETE_ID, 0, R.string.delete_sc);
+
 	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
 		switch (item.getItemId()) {
 		case CONTEXT_MENU_DELETE_ID:
-			AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-					.getMenuInfo();
-			deleteSC((int) info.id);
+			if (mNetApp == null) {
+				Util.deleteScrobbleFromAllCaches(this, mDb, mScrobblesCursor,
+						(int) info.id);
+			} else {
+				Util.deleteScrobbleFromCache(this, mDb, mNetApp,
+						mScrobblesCursor, (int) info.id);
+			}
+
+			return true;
+		case CONTEXT_MENU_DETAILS_ID:
+			viewSCDetails((int) info.id);
 			return true;
 		}
 		return super.onContextItemSelected(item);
 	}
 
 	@Override
-	protected void onListItemClick(ListView l, View v, int position,
-			final long id) {
+	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		Log.d(TAG, "onListItemClick");
-		deleteSC((int) id);
+		viewSCDetails((int) id);
 	}
 
-	private void deleteSC(final int id) {
-		Util.confirmDialog(this, getString(R.string.confirm_delete_sc)
-				.replaceAll("%1", mNetApp.getName()), R.string.remove,
-				R.string.cancel, new OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-
-						Log.d(TAG, "Will remove scrobble from cache: "
-								+ mNetApp.getName() + ", " + id);
-						mDb.deleteScrobble(mNetApp, id);
-						mDb.cleanUpTracks();
-						// need to refill data, otherwise the screen won't
-						// update
-						fillData();
-					}
-				});
-	}
-
-	private void deleteAllSC() {
-		int numInCache = mDb.queryNumberOfScrobbles(mNetApp);
-		if (numInCache > 0) {
-			Util.confirmDialog(this, getString(R.string.confirm_delete_all_sc),
-					R.string.clear_cache, R.string.cancel,
-					new OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							Log.d(TAG, "Will remove all scrobbles from cache: "
-									+ mNetApp.getName());
-							mDb.deleteAllScrobbles(mNetApp);
-							mDb.cleanUpTracks();
-							// need to refill data, otherwise the screen won't
-							// update
-							fillData();
-						}
-					});
-		} else {
-			Toast.makeText(this, getString(R.string.no_scrobbles_in_cache),
-					Toast.LENGTH_LONG).show();
+	private void viewSCDetails(int id) {
+		Track track = mDb.fetchTrack(id);
+		if (track == null) {
+			Log.e(TAG, "Got null track with id: " + id);
+			return;
 		}
+		new ViewScrobbleInfoDialog(this, mDb, mNetApp, mScrobblesCursor, track)
+				.show();
 	}
 
 	private BroadcastReceiver onChange = new BroadcastReceiver() {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			String snapp = getIntent().getExtras().getString("netapp");
+			String snapp = intent.getExtras().getString("netapp");
 			if (snapp == null) {
 				Log.e(TAG, "Got null snetapp from broadcast");
 				return;
 			}
 			NetApp napp = NetApp.valueOf(snapp);
-			if (napp == mNetApp) {
-				fillData();
+			if (mNetApp == null || napp == mNetApp) {
+				mScrobblesCursor.requery();
 			}
 		}
 	};
