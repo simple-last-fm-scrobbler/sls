@@ -45,6 +45,9 @@ public class ScrobblesDatabase {
 	private static final String TABLENAME_SCROBBLES = "scrobbles";
 	private static final String TABLENAME_CORRNETAPP = "scrobbles_netapp";
 
+	public static final String KEY_TRACK_TRACK = "track";
+	public static final String KEY_TRACK_WHEN = "whenplayed";
+	
 	public static final int INDEX_TRACK_ARTIST = 1;
 	public static final int INDEX_TRACK_ALBUM = 2;
 	public static final int INDEX_TRACK_TRACK = 3;
