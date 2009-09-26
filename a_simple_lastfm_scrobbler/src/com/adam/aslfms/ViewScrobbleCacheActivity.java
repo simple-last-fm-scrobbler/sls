@@ -11,15 +11,16 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.CursorAdapter;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.SimpleCursorAdapter.ViewBinder;
 
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
@@ -27,8 +28,7 @@ import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.ScrobblesDatabase.SortOrder;
 
-public class ViewScrobbleCacheActivity extends ListActivity implements
-		android.view.View.OnClickListener {
+public class ViewScrobbleCacheActivity extends ListActivity {
 	private static final String TAG = "VSCacheActivity";
 
 	private static final int MENU_SCROBBLE_NOW_ID = 0;
@@ -91,34 +91,7 @@ public class ViewScrobbleCacheActivity extends ListActivity implements
 		scrobblesCursor = mDb.fetchTracksCursor(mNetApp, SortOrder.DESCENDING);
 		startManagingCursor(scrobblesCursor);
 
-		String[] from = new String[] { ScrobblesDatabase.KEY_TRACK_TRACK,
-				ScrobblesDatabase.KEY_TRACK_WHEN };
-
-		int[] to = new int[] { R.id.track, R.id.when };
-
-		// Now create a simple cursor adapter and set it to display
-		SimpleCursorAdapter adapter = new SimpleCursorAdapter(this,
-				R.layout.scrobble_cache_row, scrobblesCursor, from, to);
-		adapter.setViewBinder(new ViewBinder() {
-			@Override
-			public boolean setViewValue(View view, Cursor cursor,
-					int columnIndex) {
-				// we need to convert the timestamp from seconds since epoch
-				// start to a more human-readable format
-				if (cursor.getColumnName(columnIndex).equals(
-						ScrobblesDatabase.KEY_TRACK_WHEN)) {
-					TextView tv = (TextView) view;
-					int time = cursor.getInt(columnIndex);
-					String ts = Util.timeFromUTCSecs(
-							ViewScrobbleCacheActivity.this, time);
-					tv.setText(ts);
-					return true;
-				}
-				// all other columns should be set by SimpleCursorAdapter, so
-				// return false
-				return false;
-			}
-		});
+		CursorAdapter adapter = new MyAdapter(this, scrobblesCursor);
 
 		setListAdapter(adapter);
 	}
@@ -169,11 +142,6 @@ public class ViewScrobbleCacheActivity extends ListActivity implements
 		deleteSC((int) id);
 	}
 
-	@Override
-	public void onClick(View v) {
-		Log.d(TAG, "Testing click of stuff");
-	}
-
 	private void deleteSC(final int id) {
 		Util.confirmDialog(this, getString(R.string.confirm_delete_sc)
 				.replaceAll("%1", mNetApp.getName()), R.string.remove,
@@ -207,4 +175,43 @@ public class ViewScrobbleCacheActivity extends ListActivity implements
 			}
 		}
 	};
+
+	private class MyAdapter extends CursorAdapter {
+
+		public MyAdapter(Context context, Cursor c) {
+			super(context, c);
+		}
+
+		@Override
+		public void bindView(View view, Context context, Cursor cursor) {
+			String track = cursor
+					.getString(ScrobblesDatabase.INDEX_TRACK_TRACK);
+			TextView trackView = (TextView) view.findViewById(R.id.track);
+			trackView.setText(track);
+
+			int time = cursor.getInt(ScrobblesDatabase.INDEX_TRACK_WHEN);
+			String timeString = Util.timeFromUTCSecs(
+					ViewScrobbleCacheActivity.this, time);
+			TextView timeView = (TextView) view.findViewById(R.id.when);
+			timeView.setText(timeString);
+
+			String artist = cursor
+					.getString(ScrobblesDatabase.INDEX_TRACK_ARTIST);
+			TextView artistView = (TextView) view.findViewById(R.id.artist);
+			artistView.setText(artist);
+
+			String album = cursor
+					.getString(ScrobblesDatabase.INDEX_TRACK_ALBUM);
+			TextView albumView = (TextView) view.findViewById(R.id.album);
+			albumView.setText(album);
+		}
+
+		@Override
+		public View newView(Context context, Cursor cursor, ViewGroup parent) {
+			return LayoutInflater.from(context).inflate(
+					R.layout.scrobble_cache_row, parent, false);
+
+		}
+
+	}
 }
