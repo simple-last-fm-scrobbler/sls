@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:key="supported_netapps_list"
+		android:title="@string/supported_netapps_category_title" />
+	<PreferenceCategory android:key="clear_all_creds_category"
+		android:title="@string/other_category_title" />
+	<Preference android:key="clear_all_user_credentials"
+		android:title="@string/user_credentials_clear_title" android:summary="@string/user_credentials_clear_summary" />
+</PreferenceScreen>
