@@ -142,7 +142,6 @@ public class UserCredsListScreen extends PreferenceActivity {
 		NetApp[] napps = NetApp.values();
 		for (NetApp napp : napps) {
 			Preference pref = new Preference(this, null);
-			pref.setTitle(getString(R.string.log_in_to) + " " + napp.getName());
 			mUserCredsPrefToAppMap.put(pref, napp);
 			mUserCredsAppToPrefMap.put(napp, pref);
 			mUserCredsList.addPreference(pref);
@@ -151,8 +150,13 @@ public class UserCredsListScreen extends PreferenceActivity {
 
 	private void setUserCredsSummaries() {
 		for (NetApp napp : NetApp.values()) {
-			mUserCredsAppToPrefMap.get(napp).setSummary(
-					Util.getStatusSummary(this, settings, napp));
+			Preference pref = mUserCredsAppToPrefMap.get(napp);
+			if (settings.isAuthenticated(napp)) {
+				pref.setTitle(napp.getName());
+			} else {
+				pref.setTitle(getString(R.string.log_in_to) + " " + napp.getName());
+			}
+			pref.setSummary(Util.getStatusSummary(this, settings, napp));
 		}
 	}
 

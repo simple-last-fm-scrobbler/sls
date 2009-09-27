@@ -90,6 +90,9 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		
+		if (mScrobblesCursor != null)
+			mScrobblesCursor.requery();
 
 		IntentFilter ifs = new IntentFilter();
 		ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
@@ -192,7 +195,12 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			String snapp = intent.getExtras().getString("netapp");
+			Bundle extras = intent.getExtras();
+			if (extras == null) {
+				Log.e(TAG, "Got null extras from broadcast");
+				return;
+			}
+			String snapp = extras.getString("netapp");
 			if (snapp == null) {
 				Log.e(TAG, "Got null snetapp from broadcast");
 				return;

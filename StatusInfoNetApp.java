@@ -143,13 +143,15 @@ public class StatusInfoNetApp extends ListActivity {
 		scstats.setKey(getString(R.string.stats_scrobbles));
 		scstats.setValue(Integer.toString(settings.getNumberOfSubmissions(
 				mNetApp, SubmissionType.SCROBBLE)));
-
+		list.add(scstats);
+		
 		// np stats
 		Pair npstats = new Pair();
 		npstats.setKey(getString(R.string.stats_nps));
 		npstats.setValue(Integer.toString(settings.getNumberOfSubmissions(
 				mNetApp, SubmissionType.NP)));
-
+		list.add(npstats);
+		
 		ArrayAdapter<Pair> adapter = new MyArrayAdapter(this,
 				R.layout.status_info_row, R.id.key, list);
 
