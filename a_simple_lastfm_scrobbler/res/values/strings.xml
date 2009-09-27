@@ -120,10 +120,10 @@
 	<string name="confirm_stats_reset">Are you sure you want to reset your submission
 		statistics for %1? This operation cannot be undone.</string>
 	<string name="confirm_clear_creds">Are you sure you want to clear your user
-		credentials for %1? This will remove any unsubmitted scrobbles.
+		credentials for %1? This will also remove any unsubmitted scrobbles.
 	</string>
 	<string name="confirm_clear_all_creds">Are you sure you want to clear your user
-		credentials for all logged in accounts? This will remove any
+		credentials for all logged in accounts? This will also remove any
 		unsubmitted scrobbles.</string>
 	<string name="confirm_delete_sc">Are you sure you don\'t want to scrobble this
 		track
@@ -148,6 +148,7 @@
 	<string name="track_info">Track info</string>
 
 	<string name="view_sc_title_for">Scrobble cache for %1</string>
-	<string name="for_all_websites">For all websites</string>
+	<string name="view_sc_for_all_summary">View and edit the list of unsubmitted scrobbles</string>
 	<string name="all_websites">all websites</string>
+	<string name="status">Status</string>
 </resources>

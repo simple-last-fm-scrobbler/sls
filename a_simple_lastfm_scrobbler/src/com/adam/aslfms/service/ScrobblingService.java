@@ -203,10 +203,11 @@ public class ScrobblingService extends Service {
 		}
 
 		AdvancedOptionsWhen aow = settings.getAdvancedOptionsWhen();
-		int numInCache = mDb.queryNumberOfTracks();
-		if (numInCache >= aow.getTracksToWaitFor()) {
-			mNetManager.launchAllScrobblers();
-			return;
+		for (NetApp napp: NetApp.values()) {
+			int numInCache = mDb.queryNumberOfScrobbles(napp);
+			if (numInCache >= aow.getTracksToWaitFor()) {
+				mNetManager.launchScrobbler(napp);
+			}
 		}
 	}
 
@@ -256,6 +257,7 @@ public class ScrobblingService extends Service {
 					// tell interested parties
 					Intent i = new Intent(
 							ScrobblingService.BROADCAST_ONSTATUSCHANGED);
+					i.putExtra("netapp", napp.getIntentExtraValue());
 					sendBroadcast(i);
 				}
 			}
