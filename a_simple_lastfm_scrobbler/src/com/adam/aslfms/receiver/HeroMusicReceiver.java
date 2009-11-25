@@ -19,13 +19,16 @@
 
 package com.adam.aslfms.receiver;
 
+import android.os.Bundle;
+import android.util.Log;
+
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
-import android.os.Bundle;
-
 public class HeroMusicReceiver extends AbstractPlayStatusReceiver {
 
+	private static final String TAG = "SLSHeroMusicReceiver";
+	
 	public static final String ACTION_HTC_PLAYSTATECHANGED = "com.htc.music.playstatechanged";
 	public static final String ACTION_HTC_STOP = "com.htc.music.playbackcomplete";
 	public static final String ACTION_HTC_METACHANGED = "com.htc.music.metachanged";
@@ -39,6 +42,12 @@ public class HeroMusicReceiver extends AbstractPlayStatusReceiver {
 		CharSequence ar = bundle.getCharSequence("artist");
 		CharSequence al = bundle.getCharSequence("album");
 		CharSequence tr = bundle.getCharSequence("track");
+		
+		if (ar == null || al == null || tr == null) {
+			setTrack(null);
+			Log.d(TAG, "Got null values");
+			return;
+		}
 
 		// As of cupcake, it is not possible (feasible) to get the actual
 		// duration of the playing track, so I default it to three minutes

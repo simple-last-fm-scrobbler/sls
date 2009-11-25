@@ -47,6 +47,7 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 	private static final String KEY_ADVANCED_OPTIONS_CHOOSER = "advanced_options_chooser";
 	private static final String KEY_ADVANCED_OPTIONS_WHEN = "advanced_options_when";
 	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE = "advanced_options_also_on_complete";
+	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_PLUGGED = "advanced_options_also_on_plugged";
 
 	private static final String KEY_SCROBBLE_ALL_NOW = "scrobble_all_now";
 	private static final String KEY_VIEW_SCROBBLE_CACHE = "view_scrobble_cache";
@@ -57,6 +58,7 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 	private ListPreference mAOptionsChooser;
 	private ListPreference mAOptionsWhen;
 	private CheckBoxPreference mAOptionsAlsoOnComplete;
+	private CheckBoxPreference mAOptionsAlsoOnPlugged;
 	private Preference mScrobbleAllNow;
 	private Preference mViewScrobbleCache;
 
@@ -79,6 +81,7 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 		mAOptionsChooser = (ListPreference) findPreference(KEY_ADVANCED_OPTIONS_CHOOSER);
 		mAOptionsWhen = (ListPreference) findPreference(KEY_ADVANCED_OPTIONS_WHEN);
 		mAOptionsAlsoOnComplete = (CheckBoxPreference) findPreference(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE);
+		mAOptionsAlsoOnPlugged = (CheckBoxPreference) findPreference(KEY_ADVANCED_OPTIONS_ALSO_ON_PLUGGED);
 
 		init();
 
@@ -150,6 +153,11 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 					.isChecked());
 			update();
 			return true;
+		} else if (pref == mAOptionsAlsoOnPlugged) {
+			settings.setAdvancedOptionsAlsoOnPlugged(mAOptionsAlsoOnPlugged
+					.isChecked());
+			update();
+			return true;
 		} else if (pref == mScrobbleAllNow) {
 			int numInCache = mDb.queryNumberOfTracks();
 			Util.scrobbleAllIfPossible(this, numInCache);
@@ -173,6 +181,8 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 				.getName(this));
 		mAOptionsAlsoOnComplete.setChecked(settings
 				.getAdvancedOptionsAlsoOnComplete());
+		mAOptionsAlsoOnPlugged.setChecked(settings
+				.getAdvancedOptionsAlsoOnPlugged());
 
 		mAOptionsChooser.setValue(settings.getAdvancedOptions().toString());
 		mAOptionsWhen.setValue(settings.getAdvancedOptionsWhen().toString());
@@ -186,6 +196,7 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 	private void setScrobblingOptionsRestEnabled(boolean enabled) {
 		mAOptionsWhen.setEnabled(enabled);
 		mAOptionsAlsoOnComplete.setEnabled(enabled);
+		mAOptionsAlsoOnPlugged.setEnabled(enabled);
 	}
 
 	private OnPreferenceChangeListener mOnOptionsChange = new OnPreferenceChangeListener() {

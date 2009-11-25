@@ -50,11 +50,11 @@ public class AppSettingsEnums {
 	}
 
 	public enum AdvancedOptions {
-		STANDARD("ao_standard", AdvancedOptionsWhen.AFTER_1, true,
+		STANDARD("ao_standard", AdvancedOptionsWhen.AFTER_1, true, true,
 				R.string.advanced_options_type_standard_name), // 
-		BATTERY_SAVING("ao_battery", AdvancedOptionsWhen.AFTER_10, true,
+		BATTERY_SAVING("ao_battery", AdvancedOptionsWhen.AFTER_10, true, true,
 				R.string.advanced_options_type_battery_name), // 
-		CUSTOM("ao_custom", AdvancedOptionsWhen.AFTER_1, true,
+		CUSTOM("ao_custom", AdvancedOptionsWhen.AFTER_1, true, true,
 				R.string.advanced_options_type_custom_name); // these values are
 		// ignored for CUSTOM
 
@@ -62,12 +62,14 @@ public class AppSettingsEnums {
 		private final AdvancedOptionsWhen when;
 		private final boolean alsoOnComplete;
 		private final int nameRID;
+		private final boolean alsoOnPlugged;
 
 		private AdvancedOptions(String settingsVal, AdvancedOptionsWhen when,
-				boolean alsoOnComplete, int nameRID) {
+				boolean alsoOnComplete, boolean alsoOnPlugged, int nameRID) {
 			this.settingsVal = settingsVal;
 			this.when = when;
 			this.alsoOnComplete = alsoOnComplete;
+			this.alsoOnPlugged = alsoOnPlugged;
 			this.nameRID = nameRID;
 		}
 
@@ -81,6 +83,10 @@ public class AppSettingsEnums {
 
 		public boolean getAlsoOnComplete() {
 			return alsoOnComplete;
+		}
+
+		public boolean getAlsoOnPlugged() {
+			return alsoOnPlugged;
 		}
 
 		public String getName(Context ctx) {

@@ -38,7 +38,7 @@ import android.util.Log;
  */
 public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 
-	private static final String TAG = "PlayStatusReceiver";
+	private static final String TAG = "SLSPlayStatusReceiver";
 
 	private MusicApp mApp;
 
