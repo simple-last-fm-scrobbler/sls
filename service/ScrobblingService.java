@@ -21,6 +21,7 @@ package com.adam.aslfms.service;
 
 import android.app.Service;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -198,12 +199,28 @@ public class ScrobblingService extends Service {
 	private void scrobble(boolean playbackComplete) {
 		boolean aoc = settings.getAdvancedOptionsAlsoOnComplete();
 		if (aoc && playbackComplete) {
+			Log.d(TAG, "Launching scrobbler because playlist is finished");
 			mNetManager.launchAllScrobblers();
 			return;
 		}
 
+		boolean aop = settings.getAdvancedOptionsAlsoOnPlugged();
+		if (aop) {
+			// check if plugged into AC
+			IntentFilter battFilter = new IntentFilter(
+					Intent.ACTION_BATTERY_CHANGED);
+			Intent intent = registerReceiver(null, battFilter);
+			int plugged = intent.getIntExtra("plugged", -1);
+
+			if (plugged != 0) { // == 0 means on battery
+				Log.d(TAG, "Launching scrobbler because plugged to a power source");
+				mNetManager.launchAllScrobblers();
+				return;
+			}
+		}
+
 		AdvancedOptionsWhen aow = settings.getAdvancedOptionsWhen();
-		for (NetApp napp: NetApp.values()) {
+		for (NetApp napp : NetApp.values()) {
 			int numInCache = mDb.queryNumberOfScrobbles(napp);
 			if (numInCache >= aow.getTracksToWaitFor()) {
 				mNetManager.launchScrobbler(napp);

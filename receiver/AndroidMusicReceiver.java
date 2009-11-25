@@ -20,6 +20,7 @@
 package com.adam.aslfms.receiver;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
@@ -39,6 +40,8 @@ import com.adam.aslfms.util.Util;
 
 public class AndroidMusicReceiver extends AbstractPlayStatusReceiver {
 
+	private static final String TAG = "SLSAndroidMusicReceiver";
+	
 	public static final String ACTION_ANDROID_PLAYSTATECHANGED = "com.android.music.playstatechanged";
 	public static final String ACTION_ANDROID_STOP = "com.android.music.playbackcomplete";
 	public static final String ACTION_ANDROID_METACHANGED = "com.android.music.metachanged";
@@ -53,6 +56,12 @@ public class AndroidMusicReceiver extends AbstractPlayStatusReceiver {
 		CharSequence ar = bundle.getCharSequence("artist");
 		CharSequence al = bundle.getCharSequence("album");
 		CharSequence tr = bundle.getCharSequence("track");
+		
+		if (ar == null || al == null || tr == null) {
+			setTrack(null);
+			Log.d(TAG, "Got null values");
+			return;
+		}
 
 		// As of cupcake, it is not possible (feasible) to get the actual
 		// duration of the playing track, so I default it to three minutes

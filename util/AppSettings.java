@@ -56,6 +56,7 @@ public class AppSettings {
 	private static final String KEY_ADVANCED_OPTIONS = "advanced_options_type";
 	private static final String KEY_ADVANCED_OPTIONS_WHEN = "advanced_options_when";
 	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE = "scrobbling_options_also_on_complete";
+	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_PLUGGED = "scrobbling_options_also_on_plugged";
 
 	private final SharedPreferences prefs;
 
@@ -274,6 +275,7 @@ public class AppSettings {
 		if (ao != AdvancedOptions.CUSTOM) {
 			setAdvancedOptionsWhen(ao.getWhen());
 			setAdvancedOptionsAlsoOnComplete(ao.getAlsoOnComplete());
+			setAdvancedOptionsAlsoOnPlugged(ao.getAlsoOnPlugged());
 		}
 	}
 
@@ -303,5 +305,15 @@ public class AppSettings {
 
 	public boolean getAdvancedOptionsAlsoOnComplete() {
 		return prefs.getBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE, true);
+	}
+
+	public void setAdvancedOptionsAlsoOnPlugged(boolean b) {
+		Editor e = prefs.edit();
+		e.putBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_PLUGGED, b);
+		e.commit();
+	}
+
+	public boolean getAdvancedOptionsAlsoOnPlugged() {
+		return prefs.getBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_PLUGGED, true);
 	}
 }
