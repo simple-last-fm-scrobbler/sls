@@ -22,8 +22,6 @@ package com.adam.aslfms.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import android.util.Log;
-
 import com.adam.aslfms.R;
 
 public enum NetApp {
@@ -32,7 +30,6 @@ public enum NetApp {
 	LIBREFM(0x02, "Libre.fm", "http://turtle.libre.fm/?hs=true", "librefm",
 			"http://libre.fm/", R.drawable.librefm_logo);
 
-	private static final String TAG = "NetApp";
 	private final int val;
 	private final String name;
 	private final String handshakeUrl;
@@ -89,7 +86,7 @@ public enum NetApp {
 	public static NetApp fromValue(int value) {
 		NetApp napp = mValNetAppMap.get(value);
 		if (napp == null) {
-			Log.e(TAG, "Got null netapp in fromValue: " + value);
+			throw new IllegalArgumentException("Got null netapp in fromValue: " + value);
 		}
 		return napp;
 	}

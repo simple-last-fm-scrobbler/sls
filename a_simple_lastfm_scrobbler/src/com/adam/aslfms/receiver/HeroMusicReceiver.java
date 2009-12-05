@@ -19,16 +19,17 @@
 
 package com.adam.aslfms.receiver;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
 public class HeroMusicReceiver extends AbstractPlayStatusReceiver {
 
+	@SuppressWarnings("unused")
 	private static final String TAG = "SLSHeroMusicReceiver";
-	
+
 	public static final String ACTION_HTC_PLAYSTATECHANGED = "com.htc.music.playstatechanged";
 	public static final String ACTION_HTC_STOP = "com.htc.music.playbackcomplete";
 	public static final String ACTION_HTC_METACHANGED = "com.htc.music.metachanged";
@@ -38,27 +39,30 @@ public class HeroMusicReceiver extends AbstractPlayStatusReceiver {
 	}
 
 	@Override
-	protected void parseIntent(String action, Bundle bundle) {
+	protected void parseIntent(Context ctx, String action, Bundle bundle)
+			throws IllegalArgumentException {
 		CharSequence ar = bundle.getCharSequence("artist");
 		CharSequence al = bundle.getCharSequence("album");
 		CharSequence tr = bundle.getCharSequence("track");
-		
 		if (ar == null || al == null || tr == null) {
-			setTrack(null);
-			Log.d(TAG, "Got null values");
-			return;
+			throw new IllegalArgumentException("null values");
 		}
 
-		// As of cupcake, it is not possible (feasible) to get the actual
-		// duration of the playing track, so I default it to three minutes
-		Track track = Track.createTrack(ar.toString(), al.toString(), tr
-				.toString(), Track.DEFAULT_TRACK_LENGTH, Util
-				.currentTimeSecsUTC());
+		Track.Builder b = new Track.Builder();
+		b.setMusicApp(getApp());
+		b.setWhen(Util.currentTimeSecsUTC());
+		b.setArtist(ar.toString());
+		b.setAlbum(al.toString());
+		b.setTrack(tr.toString());
 
 		if (action.equals(ACTION_HTC_STOP)) {
-			setStopped(true);
+			setState(Track.State.PLAYLIST_FINISHED);
+		} else {
+			setState(Track.State.RESUME);
 		}
-		setTrack(track);
+
+		// throws on bad data
+		setTrack(b.build());
 	}
 
 }

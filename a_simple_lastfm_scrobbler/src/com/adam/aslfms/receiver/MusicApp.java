@@ -19,20 +19,27 @@
 
 package com.adam.aslfms.receiver;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum MusicApp {
-	ANDROID_MUSIC(0x01, "Android Music Player", "com.android.music", true), //
-	HERO_MUSIC(0x02, "Hero Music Player", "com.htc.music", true);
+	ANDROID_MUSIC(0x01, "Android Music Player", "com.android.music", null, true), //
+	HERO_MUSIC(0x02, "Hero Music Player", "com.htc.music", null, true), //
+	SCROBBLE_DROID_SUPPORTED_APPS(0x99, "\"Scrobble Droid Apps\"", null,
+			"Apps supported by Scrobble Droid", true);
 
 	private final int val;
 	private final String name;
 	private final String pkg;
+	private final String msg;
 	private final boolean clashWithScrobbleDroid;
 
-	private MusicApp(int val, String name, String pkg,
+	private MusicApp(int val, String name, String pkg, String msg,
 			boolean clashWithScrobbleDroid) {
 		this.val = val;
 		this.name = name;
 		this.pkg = pkg;
+		this.msg = msg;
 		this.clashWithScrobbleDroid = clashWithScrobbleDroid;
 	}
 
@@ -48,7 +55,27 @@ public enum MusicApp {
 		return this.pkg;
 	}
 
+	public String getMsg() {
+		return msg;
+	}
+
 	public boolean clashesWithScrobbleDroid() {
 		return clashWithScrobbleDroid;
+	}
+	
+	private static Map<Integer, MusicApp> mValMusicAppMap;
+
+	static {
+		mValMusicAppMap = new HashMap<Integer, MusicApp>();
+		for (MusicApp app : MusicApp.values())
+			mValMusicAppMap.put(app.getValue(), app);
+	}
+
+	public static MusicApp fromValue(int value) {
+		MusicApp app = mValMusicAppMap.get(value);
+		if (app == null) {
+			throw new IllegalArgumentException("Got null musicapp in fromValue: " + value);
+		}
+		return app;
 	}
 }

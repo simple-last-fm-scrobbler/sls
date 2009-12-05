@@ -57,6 +57,11 @@ public class Util {
 		return Calendar.getInstance(TimeZone.getTimeZone("UTC"))
 				.getTimeInMillis() / 1000;
 	}
+	
+	public static long currentTimeMillisUTC() {
+		return Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+				.getTimeInMillis();
+	}
 
 	public static String timeFromUTCSecs(Context ctx, long secs) {
 		return DateUtils.formatDateTime(ctx, secs * 1000,

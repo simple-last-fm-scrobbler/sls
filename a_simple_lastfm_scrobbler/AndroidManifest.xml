@@ -1,74 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.adam.aslfms" android:versionCode="9" android:versionName="1.1.10">
+<manifest
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	package="com.adam.aslfms"
+	android:versionCode="9"
+	android:versionName="1.1.10">
 
-	<application android:icon="@drawable/icon" android:label="@string/app_name"
-		android:description="@string/about_text">
+	<application
+		android:icon="@drawable/icon"
+		android:label="@string/app_name"
+		android:description="@string/about_text"
+		android:debuggable="true">
 
-		<activity android:name="com.adam.aslfms.SettingsActivity"
-			android:label="@string/app_name" android:icon="@drawable/icon"
+		<activity
+			android:name="com.adam.aslfms.SettingsActivity"
+			android:label="@string/app_name"
+			android:icon="@drawable/icon"
 			android:exported="true">
 			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
+				<action
+					android:name="android.intent.action.MAIN" />
+				<category
+					android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
 
-		<activity android:name="com.adam.aslfms.UserCredsListScreen"
+		<activity
+			android:name="com.adam.aslfms.UserCredsListScreen"
 			android:exported="false">
 		</activity>
-		<activity android:name="com.adam.aslfms.MusicAppsScreen"
+		<activity
+			android:name="com.adam.aslfms.MusicAppsScreen"
 			android:exported="false">
 		</activity>
-		<activity android:name="com.adam.aslfms.AdvancedOptionsScreen"
+		<activity
+			android:name="com.adam.aslfms.AdvancedOptionsScreen"
 			android:exported="false">
 		</activity>
-		<activity android:name="com.adam.aslfms.UserCredActivity"
+		<activity
+			android:name="com.adam.aslfms.UserCredActivity"
 			android:exported="false">
 		</activity>
-		<activity android:name="com.adam.aslfms.StatusActivity"
+		<activity
+			android:name="com.adam.aslfms.StatusActivity"
 			android:exported="false">
 		</activity>
-		<activity android:name="com.adam.aslfms.StatusInfoNetApp"
+		<activity
+			android:name="com.adam.aslfms.StatusInfoNetApp"
 			android:exported="false">
 		</activity>
-		<activity android:name="com.adam.aslfms.ViewScrobbleCacheActivity"
+		<activity
+			android:name="com.adam.aslfms.ViewScrobbleCacheActivity"
 			android:exported="false">
 		</activity>
 
-		<service android:name="com.adam.aslfms.service.ScrobblingService"
-			android:enabled="true" android:exported="false">
+		<service
+			android:name="com.adam.aslfms.service.ScrobblingService"
+			android:enabled="true"
+			android:exported="false">
 			<intent-filter>
-				<action android:name="com.adam.aslfms.service.playstatechanged" />
-				<action android:name="com.adam.aslfms.service.authenticate" />
-				<action android:name="com.adam.aslfms.service.clearcreds" />
-				<action android:name="com.adam.aslfms.service.justscrobble" />
+				<action
+					android:name="com.adam.aslfms.service.playstatechanged" />
+				<action
+					android:name="com.adam.aslfms.service.authenticate" />
+				<action
+					android:name="com.adam.aslfms.service.clearcreds" />
+				<action
+					android:name="com.adam.aslfms.service.justscrobble" />
 			</intent-filter>
 		</service>
 
-		<receiver android:name="com.adam.aslfms.receiver.AndroidMusicReceiver"
-			android:exported="true" android:enabled="true">
+		<receiver
+			android:name="com.adam.aslfms.receiver.AndroidMusicReceiver"
+			android:exported="true"
+			android:enabled="true">
 			<intent-filter>
-				<action android:name="com.android.music.metachanged" />
-				<action android:name="com.android.music.playstatechanged" />
-				<action android:name="com.android.music.playbackcomplete" />
+				<action
+					android:name="com.android.music.metachanged" />
+				<action
+					android:name="com.android.music.playstatechanged" />
+				<action
+					android:name="com.android.music.playbackcomplete" />
 			</intent-filter>
 		</receiver>
 
-		<receiver android:name="com.adam.aslfms.receiver.HeroMusicReceiver"
-			android:exported="true" android:enabled="true">
+		<receiver
+			android:name="com.adam.aslfms.receiver.HeroMusicReceiver"
+			android:exported="true"
+			android:enabled="true">
 			<intent-filter>
-				<action android:name="com.htc.music.metachanged" />
-				<action android:name="com.htc.music.playbackcomplete" />
-				<action android:name="com.htc.music.playstatechanged" />
+				<action
+					android:name="com.htc.music.metachanged" />
+				<action
+					android:name="com.htc.music.playbackcomplete" />
+				<action
+					android:name="com.htc.music.playstatechanged" />
 			</intent-filter>
 		</receiver>
+
+		<receiver
+			android:name="com.adam.aslfms.receiver.ScrobbleDroidMusicReceiver"
+			android:exported="true"
+			android:enabled="true">
+			<intent-filter>
+				<action
+					android:name="net.jjc1138.android.scrobbler.action.MUSIC_STATUS" />
+			</intent-filter>
+		</receiver>
+
 
 	</application>
 
-	<uses-sdk android:minSdkVersion="3" />
+	<uses-sdk
+		android:minSdkVersion="3" />
 
-	<uses-permission android:name="android.permission.INTERNET" />
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	<uses-permission
+		android:name="android.permission.INTERNET" />
+	<uses-permission
+		android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest> 
