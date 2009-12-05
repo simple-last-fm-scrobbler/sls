@@ -59,6 +59,7 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 		String action = intent.getAction();
 		Bundle bundle = intent.getExtras();
 
+		Log.d(TAG, "Action received was: " + action);
 		if (action == null || bundle == null) {
 			Log.e(TAG, "Got null action or null bundle");
 			return;
@@ -67,9 +68,8 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 		AppSettings settings = new AppSettings(context);
 		if (!settings.isAnyAuthenticated()) {
 			Log
-					.i(
-							TAG,
-							"The user has not authenticated, won't propagate the scrobble/np-notification request");
+					.i(TAG,
+							"The user has not authenticated, won't propagate the submission request");
 			return;
 		}
 
@@ -79,31 +79,28 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 			return;
 		}
 
-		Log.d(TAG, "Action received was: " + action);
-
 		mService = new Intent(ScrobblingService.ACTION_PLAYSTATECHANGED);
 
-		parseIntent(action, bundle);
-
-		if (mTrack == null) {
-			Log.i(TAG, "Got a null track from: " + mApp.getName()
-					+ ", ignoring it");
-
-			return;
+		try {
+			parseIntent(context, action, bundle); // might throw
+			InternalTrackTransmitter.appendTrack(mTrack);
+			context.startService(mService);
+		} catch (IllegalArgumentException e) {
+			Log.i(TAG, "Got a bad track from: " + mApp.getName()
+					+ ", ignoring it (" + e.getMessage() + ")");
 		}
 
-		InternalTrackTransmitter.appendTrack(mTrack);
-		context.startService(mService);
 	}
 
-	protected final void setStopped(boolean stopped) {
-		mService.putExtra("stopped", stopped);
+	protected final void setState(Track.State state) {
+		mService.putExtra("state", state.name());
 	}
 
 	protected final void setTrack(Track track) {
 		this.mTrack = track;
 	}
 
-	protected abstract void parseIntent(String action, Bundle bundle);
+	protected abstract void parseIntent(Context ctx, String action, Bundle bundle)
+			throws IllegalArgumentException;
 
 }

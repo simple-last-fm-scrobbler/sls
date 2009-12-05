@@ -119,7 +119,8 @@ public class MusicAppsScreen extends PreferenceActivity {
 
 	private void setSMASummary(Preference pref, MusicApp app) {
 		boolean enabled = settings.isMusicAppEnabled(app);
-		boolean installed = Util.checkForInstalledApp(this, app.getPackage());
+		String pkg = app.getPackage();
+		boolean installed = pkg == null ? true : Util.checkForInstalledApp(this, app.getPackage());
 		if (!enabled) {
 			pref.setSummary(R.string.app_disabled);
 		} else if (!installed) {
@@ -128,7 +129,7 @@ public class MusicAppsScreen extends PreferenceActivity {
 			pref.setSummary(getString(R.string.incompatability_short)
 					.replaceAll("%1", mScrobbleDroidLabel));
 		} else {
-			pref.setSummary(null);
+			pref.setSummary(app.getMsg());
 		}
 	}
 }

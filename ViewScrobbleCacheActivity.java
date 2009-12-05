@@ -221,23 +221,23 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 		@Override
 		public void bindView(View view, Context context, Cursor cursor) {
 			String track = cursor
-					.getString(ScrobblesDatabase.INDEX_TRACK_TRACK);
+					.getString(cursor.getColumnIndex("track"));
 			TextView trackView = (TextView) view.findViewById(R.id.track);
 			trackView.setText(track);
 
-			int time = cursor.getInt(ScrobblesDatabase.INDEX_TRACK_WHEN);
+			int time = cursor.getInt(cursor.getColumnIndex("whenplayed"));
 			String timeString = Util.timeFromUTCSecs(
 					ViewScrobbleCacheActivity.this, time);
 			TextView timeView = (TextView) view.findViewById(R.id.when);
 			timeView.setText(timeString);
 
 			String artist = cursor
-					.getString(ScrobblesDatabase.INDEX_TRACK_ARTIST);
+					.getString(cursor.getColumnIndex("artist"));
 			TextView artistView = (TextView) view.findViewById(R.id.artist);
 			artistView.setText(artist);
 
 			String album = cursor
-					.getString(ScrobblesDatabase.INDEX_TRACK_ALBUM);
+					.getString(cursor.getColumnIndex("album"));
 			TextView albumView = (TextView) view.findViewById(R.id.album);
 			albumView.setText(album);
 		}

@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.adam.aslfms.receiver.MusicApp;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.InternalTrackTransmitter;
 import com.adam.aslfms.util.ScrobblesDatabase;
@@ -50,14 +51,16 @@ public class ScrobblingService extends Service {
 	public static final String BROADCAST_ONAUTHCHANGED = "com.adam.aslfms.service.bcast.onauth";
 	public static final String BROADCAST_ONSTATUSCHANGED = "com.adam.aslfms.service.bcast.onstatus";
 
-	private static final int MIN_SCROBBLE_TIME = 30;
+	private static final long MIN_SCROBBLE_TIME = 30 * 1000;
+	private static final long UPPER_SCROBBLE_MIN_LIMIT = 240 * 1000;
+	private static final long MAX_PLAYTIME_DIFF_TO_SCROBBLE = 3000;
 
 	private AppSettings settings;
 	private ScrobblesDatabase mDb;
 
 	private NetworkerManager mNetManager;
 
-	private Track mCurrentPlayingTrack = null;
+	private Track mCurrentTrack = null;
 
 	@Override
 	public IBinder onBind(Intent intent) {
@@ -108,10 +111,11 @@ public class ScrobblingService extends Service {
 					Log.e(TAG, "launchScrobbler got null napp");
 			}
 		} else if (action.equals(ACTION_PLAYSTATECHANGED)) {
-			boolean stopped = false;
-			if (extras != null) {
-				stopped = extras.getBoolean("stopped", false);
+			if (extras == null) {
+				Log.e(TAG, "Got null extras on playstatechange");
+				return;
 			}
+			Track.State state = Track.State.valueOf(extras.getString("state"));
 
 			Track track = InternalTrackTransmitter.popTrack();
 
@@ -120,41 +124,108 @@ public class ScrobblingService extends Service {
 				return;
 			}
 
-			onPlayStateChanged(track, stopped);
+			onPlayStateChanged(track, state);
 
 		} else {
 			Log.e(TAG, "Weird action in onStart: " + action);
 		}
 	}
 
-	private synchronized void onPlayStateChanged(Track track, boolean stopped) {
-		if (!stopped) {
-			if (track.equals(mCurrentPlayingTrack)) // we have already been here
-				return;
-
-			if (mCurrentPlayingTrack != null) {
-				tryScrobble(mCurrentPlayingTrack, true, false);
-			}
-
-			mCurrentPlayingTrack = track;
-			tryNotifyNP(mCurrentPlayingTrack);
-		} else {
-			if (mCurrentPlayingTrack == null) {
-				tryScrobble(track, false, true);
-			} else {
-				if (!track.equals(mCurrentPlayingTrack)) {
-					Log.e(TAG,
-							"Stopped track doesn't equal currentPlayingTrack!");
-					Log.e(TAG, "t: " + track);
-					Log.e(TAG, "c: " + mCurrentPlayingTrack);
+	private synchronized void onPlayStateChanged(Track track, Track.State state) {
+		Log.d(TAG, "State: " + state.name());
+		if (track == Track.SAME_AS_CURRENT) {
+			// this only happens for apps implementing Scrobble Droid's API
+			// i.e. MusicApp.SCROBBLE_DROID_SUPPORTED_APPS
+			Log.d(TAG, "Got a SAME_AS_CURRENT track");
+			if (mCurrentTrack != null) {
+				if (mCurrentTrack.getMusicApp() == MusicApp.SCROBBLE_DROID_SUPPORTED_APPS) {
+					track = mCurrentTrack;
 				} else {
-					// must scrobble mCurrentPlayingTrack, and not track,
-					// because they have
-					// different timestamps
-					tryScrobble(mCurrentPlayingTrack, true, true);
+					Log
+							.e(TAG,
+									"Got a SAME_AS_CURRENT track, but current wasn't from SD!");
+				}
+
+			} else {
+				Log
+						.e(TAG,
+								"Got a SAME_AS_CURRENT track, but current was null!");
+				return;
+			}
+		}
+
+		if (state == Track.State.START || state == Track.State.RESUME) { // start/resume
+			if (mCurrentTrack != null) { // current is NOT equal to track
+				mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+				tryQueue(mCurrentTrack);
+				tryScrobble();
+				if (track.equals(mCurrentTrack)) {
+					return;
 				}
 			}
-			mCurrentPlayingTrack = null;
+
+			mCurrentTrack = track;
+			mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+			tryNotifyNP(mCurrentTrack);
+		} else if (state == Track.State.PAUSE) { // pause
+			// TODO: test this state
+			if (mCurrentTrack == null) {
+				// just ignore the track
+			} else {
+				mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+				mCurrentTrack.updateTimePlayed(Track.UNKNOWN_COUNT_POINT);
+				// to be set on RESUME
+
+				tryQueue(mCurrentTrack);
+			}
+		} else if (state == Track.State.COMPLETE) { // "complete"
+			// TODO test this state
+			if (mCurrentTrack == null) {
+				// just ignore the track
+			} else {
+				mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+				tryQueue(mCurrentTrack);
+				tryScrobble();
+
+				mCurrentTrack = null;
+			}
+		} else if (state == Track.State.PLAYLIST_FINISHED) { // playlist end
+			if (mCurrentTrack == null) {
+				tryQueue(track); // TODO: this can't succeed (time played = 0)
+				tryScrobble(true);
+			} else {
+				if (!track.equals(mCurrentTrack)) {
+					Log.e(TAG, "PFStopped track doesn't equal currentTrack!");
+					Log.e(TAG, "t: " + track);
+					Log.e(TAG, "c: " + mCurrentTrack);
+				} else {
+					mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+					tryQueue(mCurrentTrack);
+					tryScrobble(true);
+				}
+			}
+
+			mCurrentTrack = null;
+		} else if (state == Track.State.UNKNOWN_NONPLAYING) {
+			// similar to PAUSE, but might scrobble if close enough
+			if (mCurrentTrack == null) {
+				// just ignore the track
+			} else {
+				mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+				mCurrentTrack.updateTimePlayed(Track.UNKNOWN_COUNT_POINT);
+				// to be set on RESUME
+
+				tryQueue(mCurrentTrack);
+				if (!mCurrentTrack.hasUnknownDuration()) {
+					long diff = Math.abs(mCurrentTrack.getDuration() * 1000
+							- mCurrentTrack.getTimePlayed());
+					if (diff < MAX_PLAYTIME_DIFF_TO_SCROBBLE) {
+						tryScrobble();
+					}
+				}
+			}
+		} else {
+			Log.e(TAG, "Unknown track state: " + state.toString());
 		}
 	}
 
@@ -173,29 +244,87 @@ public class ScrobblingService extends Service {
 		}
 	}
 
-	private void tryScrobble(Track track, boolean careAboutTrackTimeStamp,
-			boolean playbackComplete) {
-
+	private void tryQueue(Track track) {
 		if (!settings.isAnyAuthenticated() || !settings.isScrobblingEnabled()) {
 			Log.d(TAG, "Won't prepare scrobble, unauthed or disabled");
 			return;
 		}
 
-		if (track == null) {
-			Log.e(TAG, "Got null track in tryScrobble!");
+		if (track.hasBeenQueued()) {
+			Log.d(TAG, "Trying to queue a track that already has been queued");
+			Log.d(TAG, track.toString());
 			return;
 		}
-		if (checkTime(track, careAboutTrackTimeStamp)) {
-			// TODO: should prepare scrobble earlier
-			// But that will not be possible with the limited info available
-			// from MusicPlaybackService
-			queueTrack(track);
-			settings.setLastListenTime(Util.currentTimeSecsUTC());
 
-			scrobble(playbackComplete);
+		long mintime = 1000 * track.getDuration() / 2;
+		if (track.hasUnknownDuration() || mintime < MIN_SCROBBLE_TIME) {
+			mintime = MIN_SCROBBLE_TIME;
+		} else if (mintime > UPPER_SCROBBLE_MIN_LIMIT) {
+			mintime = UPPER_SCROBBLE_MIN_LIMIT;
+		}
+		if (track.getTimePlayed() >= mintime) {
+			Log.d(TAG, "Will try to queue track, played: "
+					+ track.getTimePlayed() + " vs " + mintime);
+			queue(mCurrentTrack);
+		} else {
+			Log.d(TAG, "Won't queue track, not played long enough: "
+					+ track.getTimePlayed() + " vs " + mintime);
+			Log.d(TAG, track.toString());
 		}
 	}
 
+	/**
+	 * Only to be called by tryQueue(Track track).
+	 * 
+	 * @param track
+	 */
+	private void queue(Track track) {
+
+		long rowId = mDb.insertTrack(track);
+		if (rowId != -1) {
+			track.setQueued();
+			Log.d(TAG, "queued track after playtime: " + track.getTimePlayed());
+			Log.d(TAG, track.toString());
+
+			// now set up scrobbling rels
+			for (NetApp napp : NetApp.values()) {
+				if (settings.isAuthenticated(napp)) {
+					Log.d(TAG, "inserting scrobble: " + napp.getName());
+					mDb.insertScrobble(napp, rowId);
+
+					// tell interested parties
+					Intent i = new Intent(
+							ScrobblingService.BROADCAST_ONSTATUSCHANGED);
+					i.putExtra("netapp", napp.getIntentExtraValue());
+					sendBroadcast(i);
+				}
+			}
+		} else {
+			Log.e(TAG, "Could not insert scrobble into the db");
+			Log.e(TAG, track.toString());
+		}
+	}
+
+	private void tryScrobble() {
+		tryScrobble(false);
+	}
+
+	private void tryScrobble(boolean playbackComplete) {
+
+		if (!settings.isAnyAuthenticated() || !settings.isScrobblingEnabled()) {
+			Log.d(TAG, "Won't prepare scrobble, unauthed or disabled");
+			return;
+		}
+		settings.setLastListenTime(Util.currentTimeSecsUTC());
+
+		scrobble(playbackComplete);
+	}
+
+	/**
+	 * Only to be called by tryScrobble(...).
+	 * 
+	 * @param playbackComplete
+	 */
 	private void scrobble(boolean playbackComplete) {
 		boolean aoc = settings.getAdvancedOptionsAlsoOnComplete();
 		if (aoc && playbackComplete) {
@@ -213,7 +342,9 @@ public class ScrobblingService extends Service {
 			int plugged = intent.getIntExtra("plugged", -1);
 
 			if (plugged != 0) { // == 0 means on battery
-				Log.d(TAG, "Launching scrobbler because plugged to a power source");
+				Log
+						.d(TAG,
+								"Launching scrobbler because plugged to a power source");
 				mNetManager.launchAllScrobblers();
 				return;
 			}
@@ -226,62 +357,5 @@ public class ScrobblingService extends Service {
 				mNetManager.launchScrobbler(napp);
 			}
 		}
-	}
-
-	private boolean checkTime(Track track, boolean careAboutTrackTimeStamp) {
-		long currentTime = Util.currentTimeSecsUTC();
-		long diff = currentTime - settings.getLastListenTime();
-		if (diff < MIN_SCROBBLE_TIME) {
-			Log.i(TAG, "Tried to scrobble " + diff
-					+ "s after last scrobble, which is less than the required "
-					+ MIN_SCROBBLE_TIME + "s");
-			Log.i(TAG, track.toString());
-			return false;
-		}
-		long len = -1;
-		if (careAboutTrackTimeStamp) {
-			len = currentTime - track.getWhen();
-			if (len < MIN_SCROBBLE_TIME) {
-				Log
-						.i(
-								TAG,
-								"Tried to scrobble "
-										+ len
-										+ "s after track start, which is less than the required "
-										+ MIN_SCROBBLE_TIME + "s");
-				return false;
-			}
-		}
-
-		/*
-		 * Log.d(TAG, "Scrobble will be prepared"); Log.d(TAG, diff +
-		 * "s since last scrobble and " + len + "s since track start");
-		 */
-		return true;
-	}
-
-	private void queueTrack(Track track) {
-		long rowId = mDb.insertTrack(track);
-		if (rowId != -1) {
-			Log.d(TAG, "queued track: " + track.toString());
-
-			// now set up scrobbling rels
-			for (NetApp napp : NetApp.values()) {
-				if (settings.isAuthenticated(napp)) {
-					Log.d(TAG, "inserting scrobble: " + napp.getName());
-					mDb.insertScrobble(napp, rowId);
-
-					// tell interested parties
-					Intent i = new Intent(
-							ScrobblingService.BROADCAST_ONSTATUSCHANGED);
-					i.putExtra("netapp", napp.getIntentExtraValue());
-					sendBroadcast(i);
-				}
-			}
-		} else {
-			Log.d(TAG, "Could not insert scrobble into the db");
-			Log.d(TAG, track.toString());
-		}
-
 	}
 }

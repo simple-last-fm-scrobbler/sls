@@ -27,6 +27,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.adam.aslfms.receiver.MusicApp;
 import com.adam.aslfms.service.NetApp;
 
 /**
@@ -45,19 +46,15 @@ public class ScrobblesDatabase {
 	private static final String TABLENAME_SCROBBLES = "scrobbles";
 	private static final String TABLENAME_CORRNETAPP = "scrobbles_netapp";
 
-	public static final String KEY_TRACK_TRACK = "track";
-	public static final String KEY_TRACK_WHEN = "whenplayed";
-
-	public static final int INDEX_TRACK_ARTIST = 1;
-	public static final int INDEX_TRACK_ALBUM = 2;
-	public static final int INDEX_TRACK_TRACK = 3;
-	public static final int INDEX_TRACK_WHEN = 5;
-
 	private static final String DATABASE_CREATE_SCROBBLES = "create table scrobbles ("
 			+ "_id integer primary key autoincrement, "
+			+ "musicapp integer not null, "
 			+ "artist text not null, "
 			+ "album text not null, "
 			+ "track text not null, "
+			+ "tracknr text not null, "
+			+ "mbid text not null, "
+			+ "source text not null, "
 			+ "duration integer not null, "
 			+ "whenplayed integer not null);";
 
@@ -68,7 +65,7 @@ public class ScrobblesDatabase {
 			+ "foreign key (trackid) references scrobbles_netapp(_id) "
 			+ "on delete cascade on update cascade)";
 
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 5;
 
 	public enum SortOrder {
 		ASCENDING("asc"), DESCENDING("desc");
@@ -135,14 +132,18 @@ public class ScrobblesDatabase {
 	 * @return rowId or -1 if failed
 	 */
 	public long insertTrack(Track track) {
-		ContentValues initialValues = new ContentValues();
-		initialValues.put("artist", track.getArtist().toString());
-		initialValues.put("album", track.getAlbum().toString());
-		initialValues.put("track", track.getTrack().toString());
-		initialValues.put("duration", track.getDuration());
-		initialValues.put("whenplayed", track.getWhen());
+		ContentValues vals = new ContentValues();
+		vals.put("musicapp", track.getMusicApp().getValue());
+		vals.put("artist", track.getArtist());
+		vals.put("album", track.getAlbum());
+		vals.put("track", track.getTrack());
+		vals.put("whenplayed", track.getWhen());
+		vals.put("duration", track.getDuration());
+		vals.put("tracknr", track.getTrackNr());
+		vals.put("mbid", track.getMbid());
+		vals.put("source", track.getSource());
 
-		return mDb.insert(TABLENAME_SCROBBLES, null, initialValues);
+		return mDb.insert(TABLENAME_SCROBBLES, null, vals);
 	}
 
 	/**
@@ -186,6 +187,22 @@ public class ScrobblesDatabase {
 		return true;
 	}
 
+	private Track readTrack(Cursor c) {
+		Track.Builder b = new Track.Builder();
+		b.setMusicApp(MusicApp.fromValue(c.getInt(c.getColumnIndex("musicapp"))));
+		b.setArtist(c.getString(c.getColumnIndex("artist")));
+		b.setAlbum(c.getString(c.getColumnIndex("album")));
+		b.setTrack(c.getString(c.getColumnIndex("track")));
+		b.setWhen(c.getLong(c.getColumnIndex("whenplayed")));
+		b.setDuration(c.getInt(c.getColumnIndex("duration")));
+		b.setRowId(c.getInt(c.getColumnIndex("_id")));
+		b.setTrackNr(c.getString(c.getColumnIndex("tracknr")));
+		b.setMbid(c.getString(c.getColumnIndex("mbid")));
+		b.setSource(c.getString(c.getColumnIndex("source")));
+
+		return b.build(); // theoretically might throw, shouldn't though
+	}
+
 	public Track[] fetchTracksArray(NetApp napp, int maxFetch) {
 		Cursor c;
 		// try {
@@ -204,8 +221,7 @@ public class ScrobblesDatabase {
 		c.moveToFirst();
 		Track[] tracks = new Track[count];
 		for (int i = 0; i < count; i++) {
-			tracks[i] = Track.createTrackFromDb(c.getString(1), c.getString(2),
-					c.getString(3), c.getInt(4), c.getLong(5), c.getInt(0));
+			tracks[i] = readTrack(c);
 			c.moveToNext();
 		}
 		c.close();
@@ -220,7 +236,7 @@ public class ScrobblesDatabase {
 		c = mDb.rawQuery(sql, null);
 		return c;
 	}
-	
+
 	public Cursor fetchAllTracksCursor(SortOrder so) {
 		Cursor c;
 		String sql = "select * from scrobbles order by _id " + so.getSql();
@@ -236,8 +252,7 @@ public class ScrobblesDatabase {
 			return null;
 
 		c.moveToFirst();
-		Track track = Track.createTrackFromDb(c.getString(1), c.getString(2), c
-				.getString(3), c.getInt(4), c.getLong(5), c.getInt(0));
+		Track track = readTrack(c);
 		c.close();
 		return track;
 	}
