@@ -21,7 +21,6 @@ package com.adam.aslfms.service;
 
 import android.app.Service;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
@@ -33,6 +32,7 @@ import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
+import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
 
 /**
  * 
@@ -158,9 +158,10 @@ public class ScrobblingService extends Service {
 			if (mCurrentTrack != null) { // current is NOT equal to track
 				mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
 				tryQueue(mCurrentTrack);
-				tryScrobble();
 				if (track.equals(mCurrentTrack)) {
 					return;
+				} else {
+					tryScrobble();
 				}
 			}
 
@@ -237,7 +238,8 @@ public class ScrobblingService extends Service {
 	 *            the currently playing track
 	 */
 	private void tryNotifyNP(Track track) {
-		if (settings.isAnyAuthenticated() && settings.isNowPlayingEnabled()) {
+		if (settings.isAnyAuthenticated()
+				&& settings.isNowPlayingEnabled(Util.checkPower(this))) {
 			mNetManager.launchNPNotifier(track);
 		} else {
 			Log.d(TAG, "Won't notify NP, unauthed or disabled");
@@ -245,7 +247,7 @@ public class ScrobblingService extends Service {
 	}
 
 	private void tryQueue(Track track) {
-		if (!settings.isAnyAuthenticated() || !settings.isScrobblingEnabled()) {
+		if (!settings.isAnyAuthenticated() || !settings.isScrobblingEnabled(Util.checkPower(this))) {
 			Log.d(TAG, "Won't prepare scrobble, unauthed or disabled");
 			return;
 		}
@@ -311,11 +313,10 @@ public class ScrobblingService extends Service {
 
 	private void tryScrobble(boolean playbackComplete) {
 
-		if (!settings.isAnyAuthenticated() || !settings.isScrobblingEnabled()) {
+		if (!settings.isAnyAuthenticated() || !settings.isScrobblingEnabled(Util.checkPower(this))) {
 			Log.d(TAG, "Won't prepare scrobble, unauthed or disabled");
 			return;
 		}
-		settings.setLastListenTime(Util.currentTimeSecsUTC());
 
 		scrobble(playbackComplete);
 	}
@@ -326,31 +327,23 @@ public class ScrobblingService extends Service {
 	 * @param playbackComplete
 	 */
 	private void scrobble(boolean playbackComplete) {
-		boolean aoc = settings.getAdvancedOptionsAlsoOnComplete();
+
+		PowerOptions pow = Util.checkPower(this);
+
+		boolean aoc = settings.getAdvancedOptionsAlsoOnComplete(pow);
 		if (aoc && playbackComplete) {
 			Log.d(TAG, "Launching scrobbler because playlist is finished");
 			mNetManager.launchAllScrobblers();
 			return;
 		}
 
-		boolean aop = settings.getAdvancedOptionsAlsoOnPlugged();
-		if (aop) {
-			// check if plugged into AC
-			IntentFilter battFilter = new IntentFilter(
-					Intent.ACTION_BATTERY_CHANGED);
-			Intent intent = registerReceiver(null, battFilter);
-			int plugged = intent.getIntExtra("plugged", -1);
+		/*
+		 * boolean aop = settings.getAdvancedOptionsAlsoOnPlugged(); if (aop) {
+		 * Log.d(TAG, "Launching scrobbler because plugged to a power source");
+		 * mNetManager.launchAllScrobblers(); return; }
+		 */
 
-			if (plugged != 0) { // == 0 means on battery
-				Log
-						.d(TAG,
-								"Launching scrobbler because plugged to a power source");
-				mNetManager.launchAllScrobblers();
-				return;
-			}
-		}
-
-		AdvancedOptionsWhen aow = settings.getAdvancedOptionsWhen();
+		AdvancedOptionsWhen aow = settings.getAdvancedOptionsWhen(pow);
 		for (NetApp napp : NetApp.values()) {
 			int numInCache = mDb.queryNumberOfScrobbles(napp);
 			if (numInCache >= aow.getTracksToWaitFor()) {

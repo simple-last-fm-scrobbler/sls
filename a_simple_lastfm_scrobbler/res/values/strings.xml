@@ -3,14 +3,14 @@
 	<string
 		name="app_name">Simple Last.fm Scrobbler</string>
 	<string
-		name="scrobbling">Scrobbling</string>
+		name="scrobbling">Scrobble</string>
 	<string
 		name="scrobbling_enable">Submit listening information when
 		you\'ve listened
 		to a song
 	</string>
 	<string
-		name="nowplaying">Now playing</string>
+		name="nowplaying">Notify now playing</string>
 	<string
 		name="nowplaying_enable">Broadcast what song you currently are listening to
 	</string>
@@ -178,9 +178,15 @@
 	<string
 		name="reset_stats">Reset statistics</string>
 	<string
+		name="options_title">Options</string>
+	<string
 		name="advanced_options_title">Advanced options</string>
 	<string
-		name="advanced_options_summary">Including battery conserving settings</string>
+		name="ao_battery_title">On battery</string>
+	<string
+		name="ao_plugged_title">Plugged in</string>
+	<string
+		name="options_summary">Including battery conserving settings</string>
 	<string
 		name="advanced_options_custom_category_title">Custom scrobbling options</string>
 	<string

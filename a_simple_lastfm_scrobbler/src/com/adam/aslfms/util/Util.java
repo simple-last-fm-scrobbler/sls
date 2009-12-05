@@ -26,6 +26,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.DialogInterface.OnClickListener;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
@@ -39,6 +40,7 @@ import android.widget.Toast;
 import com.adam.aslfms.R;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
+import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
 
 /**
  * This class is way too bloated. FIXME
@@ -49,6 +51,19 @@ import com.adam.aslfms.service.ScrobblingService;
 public class Util {
 	private static final String TAG = "Util";
 
+	public static PowerOptions checkPower(Context ctx) {
+		// check if plugged into AC
+		IntentFilter battFilter = new IntentFilter(
+				Intent.ACTION_BATTERY_CHANGED);
+		Intent intent = ctx.registerReceiver(null, battFilter);
+		int plugged = intent.getIntExtra("plugged", -1);
+		if (plugged == 0) { // == 0 means on battery
+			return PowerOptions.BATTERY;
+		} else {
+			return PowerOptions.PLUGGED_IN;
+		}
+	}
+	
 	/**
 	 * 
 	 * @return the current time since 1970, UTC, in seconds

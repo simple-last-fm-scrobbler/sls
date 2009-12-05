@@ -19,11 +19,9 @@
 
 package com.adam.aslfms;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.database.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -32,35 +30,39 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.preference.Preference.OnPreferenceChangeListener;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
-import com.adam.aslfms.util.ScrobblesDatabase;
-import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptions;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
+import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
 
 public class AdvancedOptionsScreen extends PreferenceActivity {
 	private static final String TAG = "AdvancedOptionsScreen";
 
-	private static final String KEY_ADVANCED_OPTIONS_CHOOSER = "advanced_options_chooser";
-	private static final String KEY_ADVANCED_OPTIONS_WHEN = "advanced_options_when";
-	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE = "advanced_options_also_on_complete";
-	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_PLUGGED = "advanced_options_also_on_plugged";
+	private static final String KEY_BATTERY_SCROBBLING = "toggle_battery_scrobbling";
+	private static final String KEY_BATTERY_NP = "toggle_battery_np";
+	private static final String KEY_BATTERY_CHOOSER = "ao_battery_chooser";
+	private static final String KEY_BATTERY_WHEN = "ao_battery_when";
+	private static final String KEY_BATTERY_AOC = "ao_battery_aoc";
 
-	private static final String KEY_SCROBBLE_ALL_NOW = "scrobble_all_now";
-	private static final String KEY_VIEW_SCROBBLE_CACHE = "view_scrobble_cache";
+	private static final String KEY_PLUGGED_SCROBBLING = "toggle_plugged_scrobbling";
+	private static final String KEY_PLUGGED_NP = "toggle_plugged_np";
+	private static final String KEY_PLUGGED_CHOOSER = "ao_plugged_chooser";
+	private static final String KEY_PLUGGED_WHEN = "ao_plugged_when";
+	private static final String KEY_PLUGGED_AOC = "ao_plugged_aoc";
 
 	private AppSettings settings;
-	private ScrobblesDatabase mDb;
 
-	private ListPreference mAOptionsChooser;
-	private ListPreference mAOptionsWhen;
-	private CheckBoxPreference mAOptionsAlsoOnComplete;
-	private CheckBoxPreference mAOptionsAlsoOnPlugged;
-	private Preference mScrobbleAllNow;
-	private Preference mViewScrobbleCache;
+	private static class AOptionsPrefs {
+		public CheckBoxPreference scrobble;
+		public CheckBoxPreference np;
+		public ListPreference chooser;
+		public ListPreference when;
+		public CheckBoxPreference also_on_complete;
+	}
+
+	private AOptionsPrefs mBatteryOptions;
+	private AOptionsPrefs mPluggedOptions;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,159 +71,165 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 
 		settings = new AppSettings(this);
 
-		mDb = new ScrobblesDatabase(this);
-		try {
-			mDb.open();
-		} catch (SQLException e) {
-			Log.e(TAG, "Cannot open database!");
-			Log.e(TAG, e.getMessage());
-			mDb = null;
-		}
+		mBatteryOptions = new AOptionsPrefs();
 
-		mAOptionsChooser = (ListPreference) findPreference(KEY_ADVANCED_OPTIONS_CHOOSER);
-		mAOptionsWhen = (ListPreference) findPreference(KEY_ADVANCED_OPTIONS_WHEN);
-		mAOptionsAlsoOnComplete = (CheckBoxPreference) findPreference(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE);
-		mAOptionsAlsoOnPlugged = (CheckBoxPreference) findPreference(KEY_ADVANCED_OPTIONS_ALSO_ON_PLUGGED);
+		mBatteryOptions.scrobble = (CheckBoxPreference) findPreference(KEY_BATTERY_SCROBBLING);
+		mBatteryOptions.np = (CheckBoxPreference) findPreference(KEY_BATTERY_NP);
+		mBatteryOptions.chooser = (ListPreference) findPreference(KEY_BATTERY_CHOOSER);
+		mBatteryOptions.when = (ListPreference) findPreference(KEY_BATTERY_WHEN);
+		mBatteryOptions.also_on_complete = (CheckBoxPreference) findPreference(KEY_BATTERY_AOC);
 
-		init();
+		init(mBatteryOptions, new ArrayList<AdvancedOptions>(Arrays.asList(AdvancedOptions.values())));
 
-		mScrobbleAllNow = findPreference(KEY_SCROBBLE_ALL_NOW);
-		mViewScrobbleCache = findPreference(KEY_VIEW_SCROBBLE_CACHE);
+		mPluggedOptions = new AOptionsPrefs();
 
+		mPluggedOptions.scrobble = (CheckBoxPreference) findPreference(KEY_PLUGGED_SCROBBLING);
+		mPluggedOptions.np = (CheckBoxPreference) findPreference(KEY_PLUGGED_NP);
+		mPluggedOptions.chooser = (ListPreference) findPreference(KEY_PLUGGED_CHOOSER);
+		mPluggedOptions.when = (ListPreference) findPreference(KEY_PLUGGED_WHEN);
+		mPluggedOptions.also_on_complete = (CheckBoxPreference) findPreference(KEY_PLUGGED_AOC);
+		
+		AdvancedOptions[] ar = AdvancedOptions.values();
+		ArrayList<AdvancedOptions> arrr = new ArrayList<AdvancedOptions>();
+		for (AdvancedOptions ao : ar)
+			if (ao != AdvancedOptions.BATTERY_SAVING)
+				arrr.add(ao);
+		
+		init(mPluggedOptions, arrr);
 	}
 
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		mDb.close();
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
-
-		unregisterReceiver(onStatusChange);
 	}
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-
-		IntentFilter ifs = new IntentFilter();
-		ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
-
-		registerReceiver(onStatusChange, ifs);
 		update();
 	}
 
-	private void init() {
+	private void init(AOptionsPrefs prefs, ArrayList<AdvancedOptions> scrobOpts) {
 		// set the entries for mOptionsChooser
-		AdvancedOptions[] scrobOpts = AdvancedOptions.values();
-		CharSequence[] vals = new CharSequence[scrobOpts.length];
-		for (int i = 0; i < scrobOpts.length; i++)
-			vals[i] = scrobOpts[i].getName(this);
-		mAOptionsChooser.setEntries(vals);
+		CharSequence[] vals = new CharSequence[scrobOpts.size()];
+		for (int i = 0; i < scrobOpts.size(); i++)
+			vals[i] = scrobOpts.get(i).getName(this);
+		prefs.chooser.setEntries(vals);
 
 		// set the values for mOptionsChooser
-		vals = new CharSequence[scrobOpts.length];
-		for (int i = 0; i < scrobOpts.length; i++)
-			vals[i] = scrobOpts[i].toString();
-		mAOptionsChooser.setEntryValues(vals);
+		vals = new CharSequence[scrobOpts.size()];
+		for (int i = 0; i < scrobOpts.size(); i++)
+			vals[i] = scrobOpts.get(i).toString();
+		prefs.chooser.setEntryValues(vals);
 
 		AdvancedOptionsWhen[] scrobOptsWhen = AdvancedOptionsWhen.values();
 		vals = new CharSequence[scrobOptsWhen.length];
 		for (int i = 0; i < scrobOptsWhen.length; i++)
 			vals[i] = scrobOptsWhen[i].getName(this);
-		mAOptionsWhen.setEntries(vals);
+		prefs.when.setEntries(vals);
 
 		// set the values for mOptionsChooser
 		vals = new CharSequence[scrobOptsWhen.length];
 		for (int i = 0; i < scrobOptsWhen.length; i++)
 			vals[i] = scrobOptsWhen[i].toString();
-		mAOptionsWhen.setEntryValues(vals);
+		prefs.when.setEntryValues(vals);
 
-		mAOptionsChooser.setOnPreferenceChangeListener(mOnOptionsChange);
-		mAOptionsWhen.setOnPreferenceChangeListener(mOnOptionsWhenChange);
+		prefs.chooser.setOnPreferenceChangeListener(mOnOptionsChange);
+		prefs.when.setOnPreferenceChangeListener(mOnOptionsWhenChange);
 	}
 
 	@Override
 	public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
 			Preference pref) {
 
-		if (pref == mAOptionsAlsoOnComplete) {
-			settings.setAdvancedOptionsAlsoOnComplete(mAOptionsAlsoOnComplete
-					.isChecked());
+		if (pref == mBatteryOptions.scrobble) {
+			settings.setScrobblingEnabled(PowerOptions.BATTERY, mBatteryOptions.scrobble.isChecked());
 			update();
 			return true;
-		} else if (pref == mAOptionsAlsoOnPlugged) {
-			settings.setAdvancedOptionsAlsoOnPlugged(mAOptionsAlsoOnPlugged
-					.isChecked());
+		} else if (pref == mPluggedOptions.scrobble) {
+			settings.setScrobblingEnabled(PowerOptions.PLUGGED_IN, mPluggedOptions.scrobble.isChecked());
 			update();
 			return true;
-		} else if (pref == mScrobbleAllNow) {
-			int numInCache = mDb.queryNumberOfTracks();
-			Util.scrobbleAllIfPossible(this, numInCache);
+		} else if (pref == mBatteryOptions.np) {
+			settings.setNowPlayingEnabled(PowerOptions.BATTERY, mBatteryOptions.np.isChecked());
+			update();
 			return true;
-		} else if (pref == mViewScrobbleCache) {
-			Intent i = new Intent(this, ViewScrobbleCacheActivity.class);
-			i.putExtra("viewall", true);
-			startActivity(i);
+		} else if (pref == mPluggedOptions.np) {
+			settings.setNowPlayingEnabled(PowerOptions.PLUGGED_IN, mPluggedOptions.np.isChecked());
+			update();
 			return true;
-		}
+		} else if (pref == mBatteryOptions.also_on_complete) {
+			settings.setAdvancedOptionsAlsoOnComplete(PowerOptions.BATTERY,
+					mBatteryOptions.also_on_complete.isChecked());
+			update();
+			return true;
+		} else if (pref == mPluggedOptions.also_on_complete) {
+			settings.setAdvancedOptionsAlsoOnComplete(PowerOptions.PLUGGED_IN,
+					mPluggedOptions.also_on_complete.isChecked());
+			update();
+			return true;
+		} else 
 
 		return super.onPreferenceTreeClick(prefScreen, pref);
 	}
 
 	private void update() {
-		AdvancedOptions so = settings.getAdvancedOptions();
-		setScrobblingOptionsRestEnabled(so == AdvancedOptions.CUSTOM);
+		Log.d(TAG, "updating...");
+		updateInner(mBatteryOptions, PowerOptions.BATTERY);
+		updateInner(mPluggedOptions, PowerOptions.PLUGGED_IN);
+	}
+	
+	private void updateInner(AOptionsPrefs prefs, PowerOptions pow) {
+		AdvancedOptions so = settings.getAdvancedOptions(pow);
+		setScrobblingOptionsRestEnabled(prefs, so == AdvancedOptions.CUSTOM);
+		
+		prefs.scrobble.setChecked(settings.isScrobblingEnabled(pow));
+		prefs.np.setChecked(settings.isNowPlayingEnabled(pow));
+		
+		prefs.chooser.setSummary(so.getName(this));
+		prefs.when.setSummary(settings.getAdvancedOptionsWhen(pow).getName(
+				this));
+		prefs.also_on_complete.setChecked(settings.getAdvancedOptionsAlsoOnComplete(pow));
 
-		mAOptionsChooser.setSummary(so.getName(this));
-		mAOptionsWhen.setSummary(settings.getAdvancedOptionsWhen()
-				.getName(this));
-		mAOptionsAlsoOnComplete.setChecked(settings
-				.getAdvancedOptionsAlsoOnComplete());
-		mAOptionsAlsoOnPlugged.setChecked(settings
-				.getAdvancedOptionsAlsoOnPlugged());
-
-		mAOptionsChooser.setValue(settings.getAdvancedOptions().toString());
-		mAOptionsWhen.setValue(settings.getAdvancedOptionsWhen().toString());
-
-		int numCache = mDb.queryNumberOfTracks();
-		mScrobbleAllNow.setSummary(getString(R.string.scrobbles_cache).replace(
-				"%1", Integer.toString(numCache)));
-		mScrobbleAllNow.setEnabled(numCache > 0);
+		prefs.chooser.setValue(settings.getAdvancedOptions(pow).toString());
+		prefs.when.setValue(settings.getAdvancedOptionsWhen(pow).toString());
 	}
 
-	private void setScrobblingOptionsRestEnabled(boolean enabled) {
-		mAOptionsWhen.setEnabled(enabled);
-		mAOptionsAlsoOnComplete.setEnabled(enabled);
-		mAOptionsAlsoOnPlugged.setEnabled(enabled);
+	private void setScrobblingOptionsRestEnabled(AOptionsPrefs prefs, boolean enabled) {
+		prefs.scrobble.setEnabled(enabled);
+		prefs.np.setEnabled(enabled);
+		prefs.when.setEnabled(enabled);
+		prefs.also_on_complete.setEnabled(enabled);
 	}
 
 	private OnPreferenceChangeListener mOnOptionsChange = new OnPreferenceChangeListener() {
 		@Override
-		public boolean onPreferenceChange(Preference preference, Object newValue) {
+		public boolean onPreferenceChange(Preference pref, Object newValue) {
 			if (!(newValue instanceof CharSequence)) {
 				Log.e(TAG, "Got weird newValue on options change: " + newValue);
 				return false;
 			}
 			CharSequence newcs = (CharSequence) newValue;
 			AdvancedOptions so = AdvancedOptions.valueOf(newcs.toString());
-			settings.setAdvancedOptions(so);
-
-			if (so == AdvancedOptions.BATTERY_SAVING) {
-				Toast.makeText(AdvancedOptionsScreen.this,
-						getString(R.string.should_disable_np),
-						Toast.LENGTH_LONG).show();
-			}
+			
+			PowerOptions pow = PowerOptions.BATTERY;
+			if (pref == mPluggedOptions.chooser)
+				pow = PowerOptions.PLUGGED_IN;
+			
+			settings.setAdvancedOptions(pow, so);
+			
 			update();
 			return true;
 		}
 	};
 	private OnPreferenceChangeListener mOnOptionsWhenChange = new OnPreferenceChangeListener() {
 		@Override
-		public boolean onPreferenceChange(Preference preference, Object newValue) {
+		public boolean onPreferenceChange(Preference pref, Object newValue) {
 			if (!(newValue instanceof CharSequence)) {
 				Log.e(TAG, "Got weird newValue on options when change: "
 						+ newValue);
@@ -230,17 +238,14 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 			CharSequence newcs = (CharSequence) newValue;
 			AdvancedOptionsWhen sow = AdvancedOptionsWhen.valueOf(newcs
 					.toString());
-			settings.setAdvancedOptionsWhen(sow);
+			
+			PowerOptions pow = PowerOptions.BATTERY;
+			if (pref == mPluggedOptions.when)
+				pow = PowerOptions.PLUGGED_IN;
+			
+			settings.setAdvancedOptionsWhen(pow, sow);
 			update();
 			return true;
-		}
-	};
-
-	private BroadcastReceiver onStatusChange = new BroadcastReceiver() {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			AdvancedOptionsScreen.this.update();
 		}
 	};
 }

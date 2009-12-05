@@ -1,33 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
 	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<PreferenceCategory
+		android:title="@string/ao_battery_title" />
+	<ListPreference
+		android:key="ao_battery_chooser"
+		android:title="@string/options_title" />
+
+	<CheckBoxPreference
+		android:key="toggle_battery_scrobbling"
+		android:title="@string/scrobbling"
+		android:summaryOff="@string/scrobbling_enable"
+		android:persistent="false"
+		android:enabled="true" />
+	<CheckBoxPreference
+		android:key="toggle_battery_np"
+		android:title="@string/nowplaying"
+		android:summaryOff="@string/nowplaying_enable"
+		android:persistent="false"
+		android:enabled="true" />
+
 	<PreferenceCategory
 		android:title="@string/advanced_options_title" />
 	<ListPreference
-		android:key="advanced_options_chooser"
-		android:title="@string/advanced_options_title" />
-	<PreferenceCategory
-		android:title="@string/advanced_options_custom_category_title" />
-	<ListPreference
-		android:key="advanced_options_when"
+		android:key="ao_battery_when"
 		android:title="@string/advanced_options_when_title" />
 	<CheckBoxPreference
-		android:key="advanced_options_also_on_complete"
+		android:key="ao_battery_aoc"
 		android:title="@string/advanced_options_also_on_complete_title"
 		android:summary="@string/advanced_options_also_on_complete_summary"
 		android:persistent="false" />
-	<CheckBoxPreference
-		android:key="advanced_options_also_on_plugged"
-		android:title="@string/advanced_options_also_on_plugged_title"
-		android:summary="@string/advanced_options_also_on_plugged_summary"
-		android:persistent="false" />
+
 	<PreferenceCategory
-		android:title="@string/advanced_actions" />
-	<Preference
-		android:key="scrobble_all_now"
-		android:title="@string/scrobble_now" />
-	<Preference
-		android:key="view_scrobble_cache"
-		android:title="@string/view_sc"
-		android:summary="@string/view_sc_for_all_summary" />
+		android:title="@string/ao_plugged_title" />
+	<ListPreference
+		android:key="ao_plugged_chooser"
+		android:title="@string/options_title" />
+
+	<CheckBoxPreference
+		android:key="toggle_plugged_scrobbling"
+		android:title="@string/scrobbling"
+		android:summaryOff="@string/scrobbling_enable"
+		android:persistent="false"
+		android:enabled="true" />
+	<CheckBoxPreference
+		android:key="toggle_plugged_np"
+		android:title="@string/nowplaying"
+		android:summaryOff="@string/nowplaying_enable"
+		android:persistent="false"
+		android:enabled="true" />
+
+	<PreferenceCategory
+		android:title="@string/advanced_options_title" />
+	<ListPreference
+		android:key="ao_plugged_when"
+		android:title="@string/advanced_options_when_title" />
+	<CheckBoxPreference
+		android:key="ao_plugged_aoc"
+		android:title="@string/advanced_options_also_on_complete_title"
+		android:summary="@string/advanced_options_also_on_complete_summary"
+		android:persistent="false" />
+
+
 </PreferenceScreen>
