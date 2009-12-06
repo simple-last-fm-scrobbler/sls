@@ -144,14 +144,14 @@ public class StatusInfoNetApp extends ListActivity {
 		scstats.setValue(Integer.toString(settings.getNumberOfSubmissions(
 				mNetApp, SubmissionType.SCROBBLE)));
 		list.add(scstats);
-		
+
 		// np stats
 		Pair npstats = new Pair();
 		npstats.setKey(getString(R.string.stats_nps));
 		npstats.setValue(Integer.toString(settings.getNumberOfSubmissions(
 				mNetApp, SubmissionType.NP)));
 		list.add(npstats);
-		
+
 		ArrayAdapter<Pair> adapter = new MyArrayAdapter(this,
 				R.layout.status_info_row, R.id.key, list);
 
@@ -205,30 +205,18 @@ public class StatusInfoNetApp extends ListActivity {
 	}
 
 	private String getSubmissionStatusValue(SubmissionType stype) {
-		if (!settings.isSubmissionsEnabled(stype)) {
-			return sGetDisabled(stype);
+		long time = settings.getLastSubmissionTime(mNetApp, stype);
+		String when;
+		String what;
+		if (time == -1) {
+			when = getString(R.string.never);
+			what = "";
 		} else {
-			long time = settings.getLastSubmissionTime(mNetApp, stype);
-			String when;
-			String what;
-			if (time == -1) {
-				when = getString(R.string.never);
-				what = "";
-			} else {
-				when = Util.timeFromLocalMillis(this, time);
-				what = "\n" + settings.getLastSubmissionInfo(mNetApp, stype);
-			}
-
-			return when + what;
+			when = Util.timeFromLocalMillis(this, time);
+			what = "\n" + settings.getLastSubmissionInfo(mNetApp, stype);
 		}
-	}
 
-	private String sGetDisabled(SubmissionType stype) {
-		if (stype == SubmissionType.SCROBBLE) {
-			return getString(R.string.scrobbling_disabled);
-		} else {
-			return getString(R.string.nowplaying_disabled);
-		}
+		return when + what;
 	}
 
 	private String sGetLastAt(SubmissionType stype) {

@@ -49,7 +49,7 @@ public class HeroMusicReceiver extends AbstractPlayStatusReceiver {
 		}
 
 		Track.Builder b = new Track.Builder();
-		b.setMusicApp(getApp());
+		b.setMusicApp(getMusicApp());
 		b.setWhen(Util.currentTimeSecsUTC());
 		b.setArtist(ar.toString());
 		b.setAlbum(al.toString());

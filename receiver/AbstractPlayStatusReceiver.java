@@ -40,18 +40,18 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 
 	private static final String TAG = "SLSPlayStatusReceiver";
 
-	private MusicApp mApp;
+	private MusicApp mMusicApp;
 
 	private Intent mService = null;
 	private Track mTrack = null;
 
 	public AbstractPlayStatusReceiver(MusicApp app) {
 		super();
-		this.mApp = app;
+		this.mMusicApp = app;
 	}
 
-	public MusicApp getApp() {
-		return mApp;
+	public MusicApp getMusicApp() {
+		return mMusicApp;
 	}
 
 	@Override
@@ -73,8 +73,8 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 			return;
 		}
 
-		if (!settings.isMusicAppEnabled(mApp)) {
-			Log.i(TAG, "App: " + mApp.getName()
+		if (!settings.isMusicAppEnabled(mMusicApp)) {
+			Log.i(TAG, "App: " + mMusicApp.getName()
 					+ " has been disabled, won't propagate");
 			return;
 		}
@@ -86,7 +86,7 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 			InternalTrackTransmitter.appendTrack(mTrack);
 			context.startService(mService);
 		} catch (IllegalArgumentException e) {
-			Log.i(TAG, "Got a bad track from: " + mApp.getName()
+			Log.i(TAG, "Got a bad track from: " + mMusicApp.getName()
 					+ ", ignoring it (" + e.getMessage() + ")");
 		}
 

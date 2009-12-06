@@ -51,7 +51,7 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 		int msid = bundle.getInt("id", -1);
 
 		Track.Builder b = new Track.Builder();
-		b.setMusicApp(getApp());
+		b.setMusicApp(getMusicApp());
 		b.setWhen(Util.currentTimeSecsUTC());
 
 		if (msid != -1) { // read from MediaStore

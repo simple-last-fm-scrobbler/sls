@@ -48,33 +48,58 @@ public class AppSettingsEnums {
 			return numberOfPrefix;
 		}
 	}
+	
+	public enum PowerOptions {
+		BATTERY(""), //
+		PLUGGED_IN("_plugged");
+		private final String settingsPath;
+
+		private PowerOptions(String settingsPath) {
+			this.settingsPath = settingsPath;
+		}
+
+		public String getSettingsPath() {
+			return settingsPath;
+		}
+	}
 
 	public enum AdvancedOptions {
-		STANDARD("ao_standard", AdvancedOptionsWhen.AFTER_1, true, true,
+		STANDARD("ao_standard", true, true, AdvancedOptionsWhen.AFTER_1, true,
 				R.string.advanced_options_type_standard_name), // 
-		BATTERY_SAVING("ao_battery", AdvancedOptionsWhen.AFTER_10, true, true,
+		BATTERY_SAVING("ao_battery", true, false, AdvancedOptionsWhen.AFTER_10, true,
 				R.string.advanced_options_type_battery_name), // 
-		CUSTOM("ao_custom", AdvancedOptionsWhen.AFTER_1, true, true,
+		CUSTOM("ao_custom", true, true, AdvancedOptionsWhen.AFTER_1, true,
 				R.string.advanced_options_type_custom_name); // these values are
 		// ignored for CUSTOM
 
 		private final String settingsVal;
+		private final boolean enableScrobbling;
+		private final boolean enableNp;
 		private final AdvancedOptionsWhen when;
 		private final boolean alsoOnComplete;
 		private final int nameRID;
-		private final boolean alsoOnPlugged;
 
-		private AdvancedOptions(String settingsVal, AdvancedOptionsWhen when,
-				boolean alsoOnComplete, boolean alsoOnPlugged, int nameRID) {
+		private AdvancedOptions(String settingsVal, boolean enableScrobbling,
+				boolean enableNp, AdvancedOptionsWhen when,
+				boolean alsoOnComplete, int nameRID) {
 			this.settingsVal = settingsVal;
+			this.enableScrobbling = enableScrobbling;
+			this.enableNp = enableNp;
 			this.when = when;
 			this.alsoOnComplete = alsoOnComplete;
-			this.alsoOnPlugged = alsoOnPlugged;
 			this.nameRID = nameRID;
 		}
 
 		public String getSettingsVal() {
 			return settingsVal;
+		}
+		
+		public boolean isScrobblingEnabled() {
+			return enableScrobbling;
+		}
+
+		public boolean isNpEnabled() {
+			return enableNp;
 		}
 
 		public AdvancedOptionsWhen getWhen() {
@@ -83,10 +108,6 @@ public class AppSettingsEnums {
 
 		public boolean getAlsoOnComplete() {
 			return alsoOnComplete;
-		}
-
-		public boolean getAlsoOnPlugged() {
-			return alsoOnPlugged;
 		}
 
 		public String getName(Context ctx) {

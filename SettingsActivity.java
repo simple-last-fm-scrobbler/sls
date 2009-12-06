@@ -19,15 +19,22 @@
 
 package com.adam.aslfms;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.database.SQLException;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Util;
 
 /**
@@ -42,19 +49,19 @@ import com.adam.aslfms.util.Util;
  */
 public class SettingsActivity extends PreferenceActivity {
 
-	@SuppressWarnings("unused")
 	private static final String TAG = "SettingsActivity";
-
-	// keys to Preference objects
-	private static final String KEY_TOGGLE_SCROBBLING = "toggle_scrobbling";
-	private static final String KEY_TOGGLE_NOWPLAYING = "toggle_nowplaying";
+	
+	private static final String KEY_SCROBBLE_ALL_NOW = "scrobble_all_now";
+	private static final String KEY_VIEW_SCROBBLE_CACHE = "view_scrobble_cache";
 
 	private static final int MENU_ABOUT_ID = 0;
 
 	private AppSettings settings;
-
-	private CheckBoxPreference mScrobblePref;
-	private CheckBoxPreference mNowplayPref;
+	
+	private ScrobblesDatabase mDb;
+	
+	private Preference mScrobbleAllNow;
+	private Preference mViewScrobbleCache;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +69,18 @@ public class SettingsActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.settings_prefs);
 
 		settings = new AppSettings(this);
-
-		mScrobblePref = (CheckBoxPreference) findPreference(KEY_TOGGLE_SCROBBLING);
-		mNowplayPref = (CheckBoxPreference) findPreference(KEY_TOGGLE_NOWPLAYING);
+		
+		mDb = new ScrobblesDatabase(this);
+		try {
+			mDb.open();
+		} catch (SQLException e) {
+			Log.e(TAG, "Cannot open database!");
+			Log.e(TAG, e.getMessage());
+			mDb = null;
+		}
+		
+		mScrobbleAllNow = findPreference(KEY_SCROBBLE_ALL_NOW);
+		mViewScrobbleCache = findPreference(KEY_VIEW_SCROBBLE_CACHE);
 
 		int v = Util.getAppVersionCode(this, getPackageName());
 		if (settings.getWhatsNewViewedVersion() < v) {
@@ -72,35 +88,49 @@ public class SettingsActivity extends PreferenceActivity {
 			settings.setWhatsNewViewedVersion(v);
 		}
 	}
+	
+	
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		mDb.close();
+	}
+
+	
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+		unregisterReceiver(onStatusChange);
+	}
+
+
 
 	@Override
 	protected void onResume() {
 		super.onResume();
-
+		IntentFilter ifs = new IntentFilter();
+		ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
+		registerReceiver(onStatusChange, ifs);
 		update();
 	}
 
 	@Override
 	public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
 			Preference pref) {
-
-		if (pref == mScrobblePref) {
-			toggleScrobbling(mScrobblePref.isChecked());
+		
+		if (pref == mScrobbleAllNow) {
+			int numInCache = mDb.queryNumberOfTracks();
+			Util.scrobbleAllIfPossible(this, numInCache);
 			return true;
-		} else if (pref == mNowplayPref) {
-			toggleNowplaying(mNowplayPref.isChecked());
+		} else if (pref == mViewScrobbleCache) {
+			Intent i = new Intent(this, ViewScrobbleCacheActivity.class);
+			i.putExtra("viewall", true);
+			startActivity(i);
 			return true;
 		}
-
 		return super.onPreferenceTreeClick(prefScreen, pref);
-	}
-
-	private void toggleScrobbling(boolean toggle) {
-		settings.setScrobblingEnabled(toggle);
-	}
-
-	private void toggleNowplaying(boolean toggle) {
-		settings.setNowPlayingEnabled(toggle);
 	}
 
 	/**
@@ -108,8 +138,10 @@ public class SettingsActivity extends PreferenceActivity {
 	 * whether stuff is enabled or checked, etc.
 	 */
 	private void update() {
-		mScrobblePref.setChecked(settings.isScrobblingEnabled());
-		mNowplayPref.setChecked(settings.isNowPlayingEnabled());
+		int numCache = mDb.queryNumberOfTracks();
+		mScrobbleAllNow.setSummary(getString(R.string.scrobbles_cache).replace(
+				"%1", Integer.toString(numCache)));
+		mScrobbleAllNow.setEnabled(numCache > 0);
 	}
 
 	@Override
@@ -128,4 +160,12 @@ public class SettingsActivity extends PreferenceActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
+	private BroadcastReceiver onStatusChange = new BroadcastReceiver() {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			SettingsActivity.this.update();
+		}
+	};
 }

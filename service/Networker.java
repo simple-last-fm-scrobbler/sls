@@ -61,7 +61,7 @@ public class Networker {
 
 		mComparator = new NetRunnableComparator();
 
-		// FIXME: what should the keepAliveTime/unit be?
+		// TODO: what should the keepAliveTime/unit be?
 		mExecutor = new ThreadPoolExecutor(1, 1, 2, TimeUnit.SECONDS,
 				new PriorityBlockingQueue<Runnable>(1, mComparator));
 

@@ -73,6 +73,7 @@ public class ViewScrobbleInfoDialog {
 
 		String time = Util.timeFromUTCSecs(mCtx, mTrack.getWhen());
 		list.add(time);
+		list.add(mTrack.getMusicApp().getName());
 		list.add(mTrack.getTrack());
 		list.add(mTrack.getArtist());
 		list.add(mTrack.getAlbum());

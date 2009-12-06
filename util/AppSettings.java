@@ -27,6 +27,7 @@ import com.adam.aslfms.receiver.MusicApp;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptions;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
+import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
 import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
 
 /**
@@ -49,14 +50,12 @@ public class AppSettings {
 
 	private static final String KEY_AUTH_STATUS = "authstatus";
 
-	private static final String KEY_LAST_LISTEN_TIME = "last_listen_time";
-
 	private static final String KEY_WHATSNEW_VIEWED_VERSION = "whatsnew_viewed_version";
 
+	private static final String KEY_SCROBBLE_POINT = "scrobble_point";
 	private static final String KEY_ADVANCED_OPTIONS = "advanced_options_type";
 	private static final String KEY_ADVANCED_OPTIONS_WHEN = "advanced_options_when";
 	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE = "scrobbling_options_also_on_complete";
-	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_PLUGGED = "scrobbling_options_also_on_plugged";
 
 	private final SharedPreferences prefs;
 
@@ -116,34 +115,6 @@ public class AppSettings {
 		return prefs.getString(napp.getSettingsPrefix() + KEY_PWDMD5, "");
 	}
 
-	public boolean isSubmissionsEnabled(SubmissionType stype) {
-		if (stype == SubmissionType.SCROBBLE) {
-			return isScrobblingEnabled();
-		} else {
-			return isNowPlayingEnabled();
-		}
-	}
-
-	public void setScrobblingEnabled(boolean b) {
-		Editor e = prefs.edit();
-		e.putBoolean(KEY_SCROBBLING_ENABLE, b);
-		e.commit();
-	}
-
-	public boolean isScrobblingEnabled() {
-		return prefs.getBoolean(KEY_SCROBBLING_ENABLE, false);
-	}
-
-	public void setNowPlayingEnabled(boolean b) {
-		Editor e = prefs.edit();
-		e.putBoolean(KEY_NOWPLAYING_ENABLE, b);
-		e.commit();
-	}
-
-	public boolean isNowPlayingEnabled() {
-		return prefs.getBoolean(KEY_NOWPLAYING_ENABLE, false);
-	}
-
 	public void setMusicAppEnabled(MusicApp app, boolean enabled) {
 		Editor e = prefs.edit();
 		e.putBoolean(KEY_MUSIC_APP_ENABLE_PREFIX + app.toString(), enabled);
@@ -175,16 +146,6 @@ public class AppSettings {
 
 	public boolean isAuthenticated(NetApp napp) {
 		return getAuthStatus(napp) == Status.AUTHSTATUS_OK;
-	}
-
-	public void setLastListenTime(long time) {
-		Editor e = prefs.edit();
-		e.putLong(KEY_LAST_LISTEN_TIME, time);
-		e.commit();
-	}
-
-	public long getLastListenTime() {
-		return prefs.getLong(KEY_LAST_LISTEN_TIME, 0);
 	}
 
 	public void setWhatsNewViewedVersion(int i) {
@@ -266,54 +227,93 @@ public class AppSettings {
 	}
 
 	// scrobbling options
-
-	public void setAdvancedOptions(AdvancedOptions ao) {
-		// TODO
-		Editor e = prefs.edit();
-		e.putString(KEY_ADVANCED_OPTIONS, ao.getSettingsVal());
-		e.commit();
-		if (ao != AdvancedOptions.CUSTOM) {
-			setAdvancedOptionsWhen(ao.getWhen());
-			setAdvancedOptionsAlsoOnComplete(ao.getAlsoOnComplete());
-			setAdvancedOptionsAlsoOnPlugged(ao.getAlsoOnPlugged());
+	public boolean isSubmissionsEnabled(SubmissionType stype, PowerOptions pow) {
+		if (stype == SubmissionType.SCROBBLE) {
+			return isScrobblingEnabled(pow);
+		} else {
+			return isNowPlayingEnabled(pow);
 		}
 	}
 
-	public AdvancedOptions getAdvancedOptions() {
-		String s = prefs.getString(KEY_ADVANCED_OPTIONS,
-				AdvancedOptions.STANDARD.getSettingsVal());
-		return AdvancedOptions.fromSettingsVal(s);
-	}
-
-	public void setAdvancedOptionsWhen(AdvancedOptionsWhen aow) {
+	public void setScrobblingEnabled(PowerOptions pow, boolean b) {
 		Editor e = prefs.edit();
-		e.putString(KEY_ADVANCED_OPTIONS_WHEN, aow.getSettingsVal());
+		e.putBoolean(KEY_SCROBBLING_ENABLE + pow.getSettingsPath(), b);
 		e.commit();
 	}
 
-	public AdvancedOptionsWhen getAdvancedOptionsWhen() {
-		String s = prefs.getString(KEY_ADVANCED_OPTIONS_WHEN,
-				AdvancedOptionsWhen.AFTER_1.getSettingsVal());
-		return AdvancedOptionsWhen.fromSettingsVal(s);
+	public boolean isScrobblingEnabled(PowerOptions pow) {
+		return prefs.getBoolean(KEY_SCROBBLING_ENABLE + pow.getSettingsPath(), getAdvancedOptions(pow).isScrobblingEnabled());
 	}
 
-	public void setAdvancedOptionsAlsoOnComplete(boolean b) {
+	public void setNowPlayingEnabled(PowerOptions pow, boolean b) {
 		Editor e = prefs.edit();
-		e.putBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE, b);
+		e.putBoolean(KEY_NOWPLAYING_ENABLE + pow.getSettingsPath(), b);
 		e.commit();
 	}
 
-	public boolean getAdvancedOptionsAlsoOnComplete() {
-		return prefs.getBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE, true);
+	public boolean isNowPlayingEnabled(PowerOptions pow) {
+		return prefs.getBoolean(KEY_NOWPLAYING_ENABLE + pow.getSettingsPath(), getAdvancedOptions(pow).isNpEnabled());
+	}
+	
+	public void setScrobblePoint(int sp) {
+		Editor e = prefs.edit();
+		e.putInt(KEY_SCROBBLE_POINT, sp);
+		e.commit();
+	}
+	
+	public int getScrobblePoint() {
+		return prefs.getInt(KEY_SCROBBLE_POINT, 50);
 	}
 
-	public void setAdvancedOptionsAlsoOnPlugged(boolean b) {
+	public void setAdvancedOptions(PowerOptions pow, AdvancedOptions ao) {
 		Editor e = prefs.edit();
-		e.putBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_PLUGGED, b);
+		e.putString(KEY_ADVANCED_OPTIONS + pow.getSettingsPath(), ao
+				.getSettingsVal());
+		e.commit();
+		if (ao != AdvancedOptions.CUSTOM) {
+			setScrobblingEnabled(pow, ao.isScrobblingEnabled());
+			setNowPlayingEnabled(pow, ao.isNpEnabled());
+			setAdvancedOptionsWhen(pow, ao.getWhen());
+			setAdvancedOptionsAlsoOnComplete(pow, ao.getAlsoOnComplete());
+		}
+	}
+
+	public AdvancedOptions getAdvancedOptions(PowerOptions pow) {
+		String s = prefs.getString(
+				KEY_ADVANCED_OPTIONS + pow.getSettingsPath(), null);
+		if (s == null) {
+			return AdvancedOptions.STANDARD;
+		} else {
+			return AdvancedOptions.fromSettingsVal(s);
+		}
+	}
+
+	public void setAdvancedOptionsWhen(PowerOptions pow, AdvancedOptionsWhen aow) {
+		Editor e = prefs.edit();
+		e.putString(KEY_ADVANCED_OPTIONS_WHEN + pow.getSettingsPath(), aow
+				.getSettingsVal());
 		e.commit();
 	}
 
-	public boolean getAdvancedOptionsAlsoOnPlugged() {
-		return prefs.getBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_PLUGGED, true);
+	public AdvancedOptionsWhen getAdvancedOptionsWhen(PowerOptions pow) {
+		String s = prefs.getString(KEY_ADVANCED_OPTIONS_WHEN
+				+ pow.getSettingsPath(), null);
+		if (s == null) {
+			return getAdvancedOptions(pow).getWhen();
+		} else {
+			return AdvancedOptionsWhen.fromSettingsVal(s);
+		}
+	}
+
+	public void setAdvancedOptionsAlsoOnComplete(PowerOptions pow, boolean b) {
+		Editor e = prefs.edit();
+		e.putBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE
+				+ pow.getSettingsPath(), b);
+		e.commit();
+	}
+
+	public boolean getAdvancedOptionsAlsoOnComplete(PowerOptions pow) {
+		return prefs.getBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE
+				+ pow.getSettingsPath(), getAdvancedOptions(pow).getAlsoOnComplete());
 	}
 }
