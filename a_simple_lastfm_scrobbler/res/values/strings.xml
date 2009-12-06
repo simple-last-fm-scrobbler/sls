@@ -147,7 +147,7 @@
 	<string
 		name="about_text">
 		A lightweight scrobbler that submits information to
-		Last.fm on
+		Last.fm (and/or Libre.fm) on
 		what music you play on your android phone.
 		Last.fm then lets
 		you view
@@ -222,7 +222,7 @@
 	<string
 		name="advanced_options_when_never_name">When you press the scrobble now button</string>
 	<string
-		name="advanced_actions">Advanced actions</string>
+		name="scrobble_cache_title">Scrobble cache</string>
 	<string
 		name="confirm_stats_reset">Are you sure you want to reset your submission
 		statistics for %1?
@@ -288,4 +288,6 @@
 		name="all_websites">all websites</string>
 	<string
 		name="status">Status</string>
+<string name="scrobble_point_title">Scrobble point</string>
+<string name="scrobble_point_summary">Will scrobble track after %1% of it has been played</string>
 </resources>

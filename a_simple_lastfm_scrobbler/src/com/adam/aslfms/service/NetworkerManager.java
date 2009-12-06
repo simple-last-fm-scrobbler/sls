@@ -31,17 +31,17 @@ import com.adam.aslfms.util.Track;
 public class NetworkerManager {
 
 	@SuppressWarnings("unused")
-	private static final String TAG = "NetworkerManager";
+	private static final String TAG = "SLSNetManager";
 
 	private final AppSettings settings;
 
 	private Map<NetApp, Networker> mSupportedNetApps;
 
-	public NetworkerManager(Context ctx, ScrobblesDatabase dbHelper) {
+	public NetworkerManager(Context ctx, ScrobblesDatabase db) {
 		this.settings = new AppSettings(ctx);
 		mSupportedNetApps = new EnumMap<NetApp, Networker>(NetApp.class);
 		for (NetApp napp : NetApp.values())
-			mSupportedNetApps.put(napp, new Networker(napp, ctx, dbHelper));
+			mSupportedNetApps.put(napp, new Networker(napp, ctx, db));
 	}
 
 	public void launchAuthenticator(NetApp napp) {

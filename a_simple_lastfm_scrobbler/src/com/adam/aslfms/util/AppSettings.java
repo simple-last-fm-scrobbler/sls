@@ -52,6 +52,7 @@ public class AppSettings {
 
 	private static final String KEY_WHATSNEW_VIEWED_VERSION = "whatsnew_viewed_version";
 
+	private static final String KEY_SCROBBLE_POINT = "scrobble_point";
 	private static final String KEY_ADVANCED_OPTIONS = "advanced_options_type";
 	private static final String KEY_ADVANCED_OPTIONS_WHEN = "advanced_options_when";
 	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE = "scrobbling_options_also_on_complete";
@@ -252,6 +253,16 @@ public class AppSettings {
 
 	public boolean isNowPlayingEnabled(PowerOptions pow) {
 		return prefs.getBoolean(KEY_NOWPLAYING_ENABLE + pow.getSettingsPath(), getAdvancedOptions(pow).isNpEnabled());
+	}
+	
+	public void setScrobblePoint(int sp) {
+		Editor e = prefs.edit();
+		e.putInt(KEY_SCROBBLE_POINT, sp);
+		e.commit();
+	}
+	
+	public int getScrobblePoint() {
+		return prefs.getInt(KEY_SCROBBLE_POINT, 50);
 	}
 
 	public void setAdvancedOptions(PowerOptions pow, AdvancedOptions ao) {

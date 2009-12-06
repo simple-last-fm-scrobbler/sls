@@ -2,6 +2,11 @@
 <PreferenceScreen
 	xmlns:android="http://schemas.android.com/apk/res/android">
 
+	<com.adam.aslfms.SeekBarPreference
+		android:key="scrobble_pointer"
+		android:title="@string/scrobble_point_title"
+		android:summary="@string/scrobble_point_summary" />
+
 	<PreferenceCategory
 		android:title="@string/ao_battery_title" />
 	<ListPreference
@@ -21,8 +26,6 @@
 		android:persistent="false"
 		android:enabled="true" />
 
-	<PreferenceCategory
-		android:title="@string/advanced_options_title" />
 	<ListPreference
 		android:key="ao_battery_when"
 		android:title="@string/advanced_options_when_title" />
@@ -51,8 +54,6 @@
 		android:persistent="false"
 		android:enabled="true" />
 
-	<PreferenceCategory
-		android:title="@string/advanced_options_title" />
 	<ListPreference
 		android:key="ao_plugged_when"
 		android:title="@string/advanced_options_when_title" />

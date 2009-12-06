@@ -51,7 +51,7 @@ public class ScrobblingService extends Service {
 	public static final String BROADCAST_ONAUTHCHANGED = "com.adam.aslfms.service.bcast.onauth";
 	public static final String BROADCAST_ONSTATUSCHANGED = "com.adam.aslfms.service.bcast.onstatus";
 
-	private static final long MIN_SCROBBLE_TIME = 30 * 1000;
+	private static final long MIN_LISTENING_TIME = 30 * 1000;
 	private static final long UPPER_SCROBBLE_MIN_LIMIT = 240 * 1000;
 	private static final long MAX_PLAYTIME_DIFF_TO_SCROBBLE = 3000;
 
@@ -247,20 +247,22 @@ public class ScrobblingService extends Service {
 	}
 
 	private void tryQueue(Track track) {
-		if (!settings.isAnyAuthenticated() || !settings.isScrobblingEnabled(Util.checkPower(this))) {
+		if (!settings.isAnyAuthenticated()
+				|| !settings.isScrobblingEnabled(Util.checkPower(this))) {
 			Log.d(TAG, "Won't prepare scrobble, unauthed or disabled");
 			return;
 		}
 
 		if (track.hasBeenQueued()) {
 			Log.d(TAG, "Trying to queue a track that already has been queued");
-			Log.d(TAG, track.toString());
+			// Log.d(TAG, track.toString());
 			return;
 		}
-
-		long mintime = 1000 * track.getDuration() / 2;
-		if (track.hasUnknownDuration() || mintime < MIN_SCROBBLE_TIME) {
-			mintime = MIN_SCROBBLE_TIME;
+		double sp = settings.getScrobblePoint() / (double) 100;
+		sp -= 0.01; // to be safe
+		long mintime = (long) (sp * 1000 * track.getDuration());
+		if (track.hasUnknownDuration() || mintime < MIN_LISTENING_TIME) {
+			mintime = MIN_LISTENING_TIME;
 		} else if (mintime > UPPER_SCROBBLE_MIN_LIMIT) {
 			mintime = UPPER_SCROBBLE_MIN_LIMIT;
 		}
@@ -281,7 +283,6 @@ public class ScrobblingService extends Service {
 	 * @param track
 	 */
 	private void queue(Track track) {
-
 		long rowId = mDb.insertTrack(track);
 		if (rowId != -1) {
 			track.setQueued();
@@ -313,7 +314,8 @@ public class ScrobblingService extends Service {
 
 	private void tryScrobble(boolean playbackComplete) {
 
-		if (!settings.isAnyAuthenticated() || !settings.isScrobblingEnabled(Util.checkPower(this))) {
+		if (!settings.isAnyAuthenticated()
+				|| !settings.isScrobblingEnabled(Util.checkPower(this))) {
 			Log.d(TAG, "Won't prepare scrobble, unauthed or disabled");
 			return;
 		}

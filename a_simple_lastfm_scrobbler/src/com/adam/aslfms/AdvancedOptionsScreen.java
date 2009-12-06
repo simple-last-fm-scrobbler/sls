@@ -38,6 +38,8 @@ import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
 
 public class AdvancedOptionsScreen extends PreferenceActivity {
 	private static final String TAG = "AdvancedOptionsScreen";
+	
+	private static final String KEY_SCROBBLE_POINT = "scrobble_pointer";
 
 	private static final String KEY_BATTERY_SCROBBLING = "toggle_battery_scrobbling";
 	private static final String KEY_BATTERY_NP = "toggle_battery_np";
@@ -61,6 +63,7 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 		public CheckBoxPreference also_on_complete;
 	}
 
+	private SeekBarPreference mScrobblePoint;
 	private AOptionsPrefs mBatteryOptions;
 	private AOptionsPrefs mPluggedOptions;
 
@@ -70,6 +73,17 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.advanced_options);
 
 		settings = new AppSettings(this);
+		
+		mScrobblePoint = (SeekBarPreference) findPreference(KEY_SCROBBLE_POINT);
+		mScrobblePoint.setDefaults(settings.getScrobblePoint()-50, 50);
+		mScrobblePoint.setSaver(new SeekBarPreference.Saver() {
+			@Override
+			public void save(int value) {
+				settings.setScrobblePoint(value+50);
+				mScrobblePoint.setDefaults(settings.getScrobblePoint()-50, 50);
+				AdvancedOptionsScreen.this.update();
+			}
+		});
 
 		mBatteryOptions = new AOptionsPrefs();
 
@@ -180,6 +194,8 @@ public class AdvancedOptionsScreen extends PreferenceActivity {
 
 	private void update() {
 		Log.d(TAG, "updating...");
+		String sp = Integer.toString(settings.getScrobblePoint());
+		mScrobblePoint.setSummary(getString(R.string.scrobble_point_summary).replaceAll("%1", sp));
 		updateInner(mBatteryOptions, PowerOptions.BATTERY);
 		updateInner(mPluggedOptions, PowerOptions.PLUGGED_IN);
 	}

@@ -28,6 +28,7 @@ public class NetRunnableComparator implements Comparator<Runnable> {
 			5);
 
 	public NetRunnableComparator() {
+		// in order of priority, from highest to lowest
 		mPriorityList.add(NetworkWaiter.class);
 		mPriorityList.add(Sleeper.class);
 		mPriorityList.add(Handshaker.class);

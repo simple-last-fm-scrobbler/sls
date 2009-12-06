@@ -29,7 +29,7 @@
 	</PreferenceScreen>
 
 	<PreferenceCategory
-		android:title="@string/advanced_actions" />
+		android:title="@string/scrobble_cache_title" />
 	<Preference
 		android:key="scrobble_all_now"
 		android:title="@string/scrobble_now" />
