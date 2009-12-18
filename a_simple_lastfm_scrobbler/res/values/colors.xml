@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="status_highlight">#FFFFFF</color>
+	<color name="status_mediumlight">#ABABAB</color>
+	<color name="status_lowlight">#888888</color>
+
+	<color name="buttons_background">#CCCCCC</color>
+</resources>

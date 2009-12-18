@@ -1,0 +1,39 @@
+- 1.2.1
+  * Small bugfixes, removed username length limit
+
+- 1.2
+  * Added support for the Scrobble Droid API - can now scrobble for all apps that can scrobble through Scrobble Droid.
+  * Changes to the options screen: more battery / plugged in settings + more
+
+- 1.1.10
+  * Added advanced option to always submit when plugged to a power source
+  * Fixed (for the second time, sorry) a bug where SLS would crash when interrupted by other apps
+
+- 1.1.9
+  * Can now view and edit scrobble cache
+  * GUI improvements
+
+- 1.1.7
+  * Added advanced options to not scrobble immediately
+  * Added options to conserve battery
+
+- 1.1.5
+  * Added support to scrobble to Libre.fm
+
+- 1.1
+  * Major architectural overhaul
+  * Handles offline mode better, scrobbles will be submitted immediately when the phone comes online again
+  * These change notes
+  * The about screen
+
+- 1.0.2
+  * Fixed a bug where a crash would occur if you unmounted/re-mounted the sd-card
+
+- 1.0.1
+  * Added support for HTC Hero
+
+- 1.0
+  * First release!
+  * Supports scrobbling and now-playing notifications from the default android music app
+  * Scrobbles are cached if they can't be submitted right away
+  * Starts automatically when music is played
