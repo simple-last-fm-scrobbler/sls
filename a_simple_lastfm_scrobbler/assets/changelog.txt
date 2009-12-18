@@ -1,3 +1,6 @@
+- 1.2.1
+  * Small bugfixes, removed username length limit
+
 - 1.2
   * Added support for the Scrobble Droid API - can now scrobble for all apps that can scrobble through Scrobble Droid.
   * Changes to the options screen: more battery / plugged in settings + more

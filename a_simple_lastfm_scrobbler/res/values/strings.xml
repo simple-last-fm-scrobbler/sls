@@ -289,5 +289,5 @@
 	<string
 		name="status">Status</string>
 <string name="scrobble_point_title">Scrobble point</string>
-<string name="scrobble_point_summary">Will scrobble track after %1% of it has been played</string>
+<string name="scrobble_point_summary">Will cache scrobble after %1% of it has been played</string>
 </resources>
