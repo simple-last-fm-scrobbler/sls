@@ -25,7 +25,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.adam.aslfms.receiver.MusicApp;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.InternalTrackTransmitter;
 import com.adam.aslfms.util.ScrobblesDatabase;
@@ -135,17 +134,9 @@ public class ScrobblingService extends Service {
 		Log.d(TAG, "State: " + state.name());
 		if (track == Track.SAME_AS_CURRENT) {
 			// this only happens for apps implementing Scrobble Droid's API
-			// i.e. MusicApp.SCROBBLE_DROID_SUPPORTED_APPS
 			Log.d(TAG, "Got a SAME_AS_CURRENT track");
 			if (mCurrentTrack != null) {
-				if (mCurrentTrack.getMusicApp() == MusicApp.SCROBBLE_DROID_SUPPORTED_APPS) {
-					track = mCurrentTrack;
-				} else {
-					Log
-							.e(TAG,
-									"Got a SAME_AS_CURRENT track, but current wasn't from SD!");
-				}
-
+				track = mCurrentTrack;
 			} else {
 				Log
 						.e(TAG,
@@ -173,22 +164,33 @@ public class ScrobblingService extends Service {
 			if (mCurrentTrack == null) {
 				// just ignore the track
 			} else {
-				mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
-				mCurrentTrack.updateTimePlayed(Track.UNKNOWN_COUNT_POINT);
-				// to be set on RESUME
-
-				tryQueue(mCurrentTrack);
+				if (!track.equals(mCurrentTrack)) {
+					Log.e(TAG, "PStopped track doesn't equal currentTrack!");
+					Log.e(TAG, "t: " + track);
+					Log.e(TAG, "c: " + mCurrentTrack);
+				} else {
+					mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+					// below: to be set on RESUME 
+					mCurrentTrack.updateTimePlayed(Track.UNKNOWN_COUNT_POINT);
+	
+					tryQueue(mCurrentTrack);
+				}
 			}
 		} else if (state == Track.State.COMPLETE) { // "complete"
 			// TODO test this state
 			if (mCurrentTrack == null) {
 				// just ignore the track
 			} else {
-				mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
-				tryQueue(mCurrentTrack);
-				tryScrobble();
-
-				mCurrentTrack = null;
+				if (!track.equals(mCurrentTrack)) {
+					Log.e(TAG, "CStopped track doesn't equal currentTrack!");
+					Log.e(TAG, "t: " + track);
+					Log.e(TAG, "c: " + mCurrentTrack);
+				} else {
+					mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+					tryQueue(mCurrentTrack);
+					tryScrobble();
+					mCurrentTrack = null;
+				}
 			}
 		} else if (state == Track.State.PLAYLIST_FINISHED) { // playlist end
 			if (mCurrentTrack == null) {
@@ -213,8 +215,8 @@ public class ScrobblingService extends Service {
 				// just ignore the track
 			} else {
 				mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+				// below: to be set on RESUME
 				mCurrentTrack.updateTimePlayed(Track.UNKNOWN_COUNT_POINT);
-				// to be set on RESUME
 
 				tryQueue(mCurrentTrack);
 				if (!mCurrentTrack.hasUnknownDuration()) {

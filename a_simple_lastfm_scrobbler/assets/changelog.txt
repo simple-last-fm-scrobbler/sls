@@ -1,3 +1,7 @@
+- 1.2.3
+  * Implemented an API for new music apps
+  * Now detects music apps that can scrobble through SLS automatically
+
 - 1.2.1
   * Small bugfixes, removed username length limit
 

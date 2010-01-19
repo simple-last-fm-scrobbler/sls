@@ -110,8 +110,6 @@
 		or uninstall %1. 
     </string>
 	<string
-		name="show_supported_apps_list_title">Supported apps</string>
-	<string
 		name="show_supported_apps_list_summary">Enable/disable scrobbling from apps</string>
 	<string
 		name="supported_apps_category_title">Supported apps</string>
@@ -119,6 +117,10 @@
 		name="app_disabled">Won\'t scrobble music from this app</string>
 	<string
 		name="not_installed">This app is not installed</string>
+	<string
+		name="no_supported_mapis_title">No music apps detected</string>
+	<string
+		name="no_supported_mapis_summary">Play music in a supported app and it will appear here</string>
 	<string
 		name="scrobbles_cache_nonum">Scrobbles in local cache:</string>
 	<string
@@ -147,9 +149,11 @@
 	<string
 		name="about_text">
 		A lightweight scrobbler that submits information to
-		Last.fm (and/or Libre.fm) on
+		Last.fm
+		(and/or Libre.fm) on
 		what music you play on your android phone.
-		Last.fm then lets
+		Last.fm
+		then lets
 		you view
 		listening statistics and recommends new music you
 		might like.
@@ -172,7 +176,8 @@
 	<string
 		name="supported_netapps">Supported websites: %1</string>
 	<string
-		name="supported_musicapps">Supported apps: %1</string>
+		name="supported_musicapps">Supported apps: Android Music Player, HTC Hero Music Player,
+		Meridian Player, RockOn</string>
 	<string
 		name="scrobble_now">Scrobble now</string>
 	<string
@@ -288,6 +293,8 @@
 		name="all_websites">all websites</string>
 	<string
 		name="status">Status</string>
-<string name="scrobble_point_title">Scrobble point</string>
-<string name="scrobble_point_summary">Will cache scrobble after %1% of it has been played</string>
+	<string
+		name="scrobble_point_title">Scrobble point</string>
+	<string
+		name="scrobble_point_summary">Will cache scrobble after %1% of it has been played</string>
 </resources>

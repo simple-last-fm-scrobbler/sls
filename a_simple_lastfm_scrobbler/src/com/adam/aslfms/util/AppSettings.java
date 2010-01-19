@@ -23,7 +23,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
-import com.adam.aslfms.receiver.MusicApp;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptions;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
@@ -46,7 +45,7 @@ public class AppSettings {
 	private static final String KEY_SCROBBLING_ENABLE = "enable_scrobbling";
 	private static final String KEY_NOWPLAYING_ENABLE = "enable_nowplaying";
 
-	private static final String KEY_MUSIC_APP_ENABLE_PREFIX = "appenable_";
+	//private static final String KEY_MUSIC_APP_ENABLE_PREFIX = "appenable_";
 
 	private static final String KEY_AUTH_STATUS = "authstatus";
 
@@ -113,17 +112,6 @@ public class AppSettings {
 
 	public String getPwdMd5(NetApp napp) {
 		return prefs.getString(napp.getSettingsPrefix() + KEY_PWDMD5, "");
-	}
-
-	public void setMusicAppEnabled(MusicApp app, boolean enabled) {
-		Editor e = prefs.edit();
-		e.putBoolean(KEY_MUSIC_APP_ENABLE_PREFIX + app.toString(), enabled);
-		e.commit();
-	}
-
-	public boolean isMusicAppEnabled(MusicApp app) {
-		return prefs.getBoolean(KEY_MUSIC_APP_ENABLE_PREFIX + app.toString(),
-				true);
 	}
 
 	public void setAuthStatus(NetApp napp, int i) {

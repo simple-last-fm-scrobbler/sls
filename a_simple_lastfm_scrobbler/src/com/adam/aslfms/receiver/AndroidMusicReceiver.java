@@ -48,22 +48,23 @@ public class AndroidMusicReceiver extends AbstractPlayStatusReceiver {
 	public static final String ACTION_ANDROID_STOP = "com.android.music.playbackcomplete";
 	public static final String ACTION_ANDROID_METACHANGED = "com.android.music.metachanged";
 
-	public AndroidMusicReceiver() {
-		super(MusicApp.ANDROID_MUSIC);
-	}
-
 	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
 			throws IllegalArgumentException {
+
+		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx, "Android Music Player",
+				"com.android.music", null, true);
+		setMusicAPI(musicAPI);
+
 		CharSequence ar = bundle.getCharSequence("artist");
 		CharSequence al = bundle.getCharSequence("album");
 		CharSequence tr = bundle.getCharSequence("track");
 		if (ar == null || al == null || tr == null) {
-			throw new IllegalArgumentException("null values");
+			throw new IllegalArgumentException("null track values");
 		}
 
 		Track.Builder b = new Track.Builder();
-		b.setMusicApp(getMusicApp());
+		b.setMusicAPI(musicAPI);
 		b.setWhen(Util.currentTimeSecsUTC());
 		b.setArtist(ar.toString());
 		b.setAlbum(al.toString());
@@ -74,7 +75,7 @@ public class AndroidMusicReceiver extends AbstractPlayStatusReceiver {
 		} else {
 			setState(Track.State.RESUME);
 		}
-		
+
 		// throws on bad data
 		setTrack(b.build());
 	}

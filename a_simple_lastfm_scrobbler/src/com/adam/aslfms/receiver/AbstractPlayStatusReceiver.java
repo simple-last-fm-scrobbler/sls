@@ -19,16 +19,16 @@
 
 package com.adam.aslfms.receiver;
 
-import com.adam.aslfms.service.ScrobblingService;
-import com.adam.aslfms.util.AppSettings;
-import com.adam.aslfms.util.InternalTrackTransmitter;
-import com.adam.aslfms.util.Track;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.adam.aslfms.service.ScrobblingService;
+import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.InternalTrackTransmitter;
+import com.adam.aslfms.util.Track;
 
 /**
  * Base class for play status receivers.
@@ -40,18 +40,12 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 
 	private static final String TAG = "SLSPlayStatusReceiver";
 
-	private MusicApp mMusicApp;
-
+	private MusicAPI mMusicAPI = null;
 	private Intent mService = null;
 	private Track mTrack = null;
 
-	public AbstractPlayStatusReceiver(MusicApp app) {
+	public AbstractPlayStatusReceiver() {
 		super();
-		this.mMusicApp = app;
-	}
-
-	public MusicApp getMusicApp() {
-		return mMusicApp;
 	}
 
 	@Override
@@ -73,23 +67,36 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 			return;
 		}
 
-		if (!settings.isMusicAppEnabled(mMusicApp)) {
-			Log.i(TAG, "App: " + mMusicApp.getName()
-					+ " has been disabled, won't propagate");
-			return;
-		}
-
 		mService = new Intent(ScrobblingService.ACTION_PLAYSTATECHANGED);
 
 		try {
 			parseIntent(context, action, bundle); // might throw
+
+			if (mMusicAPI == null) {
+				throw new IllegalArgumentException("null music api");
+			} else if (mTrack == null) {
+				throw new IllegalArgumentException("null track");
+			}
+
+			if (!mMusicAPI.isEnabled()) {
+				Log.i(TAG, "App: " + mMusicAPI.getName()
+						+ " has been disabled, won't propagate");
+				return;
+			}
+
 			InternalTrackTransmitter.appendTrack(mTrack);
+
 			context.startService(mService);
 		} catch (IllegalArgumentException e) {
-			Log.i(TAG, "Got a bad track from: " + mMusicApp.getName()
+			Log.i(TAG, "Got a bad track from: "
+					+ ((mMusicAPI == null) ? "null" : mMusicAPI.getName())
 					+ ", ignoring it (" + e.getMessage() + ")");
 		}
 
+	}
+
+	protected final void setMusicAPI(MusicAPI mapi) {
+		mMusicAPI = mapi;
 	}
 
 	protected final void setState(Track.State state) {
@@ -97,10 +104,10 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 	}
 
 	protected final void setTrack(Track track) {
-		this.mTrack = track;
+		mTrack = track;
 	}
 
-	protected abstract void parseIntent(Context ctx, String action, Bundle bundle)
-			throws IllegalArgumentException;
+	protected abstract void parseIntent(Context ctx, String action,
+			Bundle bundle) throws IllegalArgumentException;
 
 }

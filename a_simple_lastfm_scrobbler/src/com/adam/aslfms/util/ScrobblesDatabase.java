@@ -27,7 +27,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.adam.aslfms.receiver.MusicApp;
+import com.adam.aslfms.receiver.MusicAPI;
 import com.adam.aslfms.service.NetApp;
 
 /**
@@ -41,8 +41,10 @@ public class ScrobblesDatabase {
 
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
+	
+	private final Context mCtx;
 
-	private static final String DATABASE_NAME = "data";
+	public static final String DATABASE_NAME = "data";
 	private static final String TABLENAME_SCROBBLES = "scrobbles";
 	private static final String TABLENAME_CORRNETAPP = "scrobbles_netapp";
 
@@ -81,8 +83,6 @@ public class ScrobblesDatabase {
 		}
 	}
 
-	private final Context mCtx;
-
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 
 		DatabaseHelper(Context context) {
@@ -99,7 +99,7 @@ public class ScrobblesDatabase {
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
+			Log.w(TAG, "Upgrading scrobbles database from version " + oldVersion + " to "
 					+ newVersion + ", which will destroy all old data");
 			db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_SCROBBLES);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_CORRNETAPP);
@@ -133,7 +133,7 @@ public class ScrobblesDatabase {
 	 */
 	public long insertTrack(Track track) {
 		ContentValues vals = new ContentValues();
-		vals.put("musicapp", track.getMusicApp().getValue());
+		vals.put("musicapp", track.getMusicAPI().getId());
 		vals.put("artist", track.getArtist());
 		vals.put("album", track.getAlbum());
 		vals.put("track", track.getTrack());
@@ -189,7 +189,7 @@ public class ScrobblesDatabase {
 
 	private Track readTrack(Cursor c) {
 		Track.Builder b = new Track.Builder();
-		b.setMusicApp(MusicApp.fromValue(c.getInt(c.getColumnIndex("musicapp"))));
+		b.setMusicAPI(MusicAPI.fromDatabase(mCtx, c.getLong(c.getColumnIndex("musicapp"))));
 		b.setArtist(c.getString(c.getColumnIndex("artist")));
 		b.setAlbum(c.getString(c.getColumnIndex("album")));
 		b.setTrack(c.getString(c.getColumnIndex("track")));

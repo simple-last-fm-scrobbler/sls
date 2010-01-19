@@ -26,7 +26,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.adam.aslfms.receiver.MusicApp;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.util.Util;
 
@@ -104,14 +103,7 @@ public class AboutDialog {
 				"%1", sb.toString()));
 
 		// supported music apps
-		sb = new StringBuilder();
-		for (MusicApp app : MusicApp.values()) {
-			sb.append(app.getName());
-			sb.append(", ");
-		}
-		sb.setLength(sb.length() - 2);
-		musicApps.setText(mCtx.getString(R.string.supported_musicapps).replace(
-				"%1", sb.toString()));
+		musicApps.setText(R.string.supported_musicapps);
 
 		// website
 		website.setText(mCtx.getString(R.string.website) + " "

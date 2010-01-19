@@ -16,13 +16,14 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 
 	public static final String SCROBBLE_DROID_MUSIC_STATUS = "net.jjc1138.android.scrobbler.action.MUSIC_STATUS";
 
-	public ScrobbleDroidMusicReceiver() {
-		super(MusicApp.SCROBBLE_DROID_SUPPORTED_APPS);
-	}
-
 	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
 			throws IllegalArgumentException {
+		
+		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx, "\"Scrobble Droid Apps\"",
+				MusicAPI.NOT_AN_APPLICATION_PACKAGE + "scrobbledroidapi",
+				"Apps supported by Scrobble Droid", true);
+		setMusicAPI(musicAPI);
 
 		/*
 		 * Intent i = new
@@ -51,7 +52,7 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 		int msid = bundle.getInt("id", -1);
 
 		Track.Builder b = new Track.Builder();
-		b.setMusicApp(getMusicApp());
+		b.setMusicAPI(musicAPI);
 		b.setWhen(Util.currentTimeSecsUTC());
 
 		if (msid != -1) { // read from MediaStore
@@ -136,7 +137,6 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 		// we've handled stopping/pausing at the top
 		setState(Track.State.RESUME);
 
-		// throws on bad data
 		setTrack(b.build());
 	}
 }

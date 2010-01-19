@@ -19,7 +19,7 @@
 
 package com.adam.aslfms.util;
 
-import com.adam.aslfms.receiver.MusicApp;
+import com.adam.aslfms.receiver.MusicAPI;
 
 /**
  * Simple structure that holds information about a track. It has two factory
@@ -46,13 +46,13 @@ public class Track {
 	// track information if it's "playing" boolean is set to false
 	public static final Track SAME_AS_CURRENT;
 	
+	
+	
 	static {
-		Builder b = new Builder();
-		b.setMusicApp(MusicApp.SCROBBLE_DROID_SUPPORTED_APPS);
-		b.setArtist("This is not good");
-		b.setTrack("But whatever");
-		b.setWhen(1);
-		SAME_AS_CURRENT = b.build();
+		SAME_AS_CURRENT = new Track();
+		SAME_AS_CURRENT.mArtist = "SAME_AS_CURRENT";
+		SAME_AS_CURRENT.mAlbum  = "SAME_AS_CURRENT";
+		SAME_AS_CURRENT.mTrack  = "SAME_AS_CURRENT";
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class Track {
 	public static final int DEFAULT_TRACK_LENGTH = 180;
 	public static final long UNKNOWN_COUNT_POINT = -1;
 
-	private MusicApp mMusicApp;
+	private MusicAPI mMusicAPI;
 	private String mArtist;
 	private String mAlbum;
 	private String mTrack;
@@ -88,8 +88,8 @@ public class Track {
 			_track = new Track();
 		}
 
-		public void setMusicApp(MusicApp musicApp) {
-			_track.mMusicApp = musicApp;
+		public void setMusicAPI(MusicAPI musicAPI) {
+			_track.mMusicAPI = musicAPI;
 		}
 
 		public void setArtist(String artist) {
@@ -136,7 +136,7 @@ public class Track {
 	}
 
 	private Track() {
-		mMusicApp = null;
+		mMusicAPI = null;
 		mArtist = null;
 		mAlbum = "";
 		mTrack = null;
@@ -155,8 +155,8 @@ public class Track {
 	}
 
 	public void validate() throws IllegalArgumentException {
-		if (mMusicApp == null)
-			throw new IllegalArgumentException("music app is null");
+		if (mMusicAPI == null)
+			throw new IllegalArgumentException("music api is null");
 		
 		if (mArtist == null || mArtist.length() == 0)
 			throw new IllegalArgumentException("artist is null or empty");
@@ -188,8 +188,8 @@ public class Track {
 		}
 	}
 
-	public MusicApp getMusicApp() {
-		return mMusicApp;
+	public MusicAPI getMusicAPI() {
+		return mMusicAPI;
 	}
 
 	public String getArtist() {
@@ -265,7 +265,7 @@ public class Track {
 	public String toString() {
 		return "Track [mAlbum=" + mAlbum + ", mArtist=" + mArtist
 				+ ", mDuration=" + mDuration + ", mMbId=" + mMbId
-				+ ", mMusicApp=" + mMusicApp + ", mQueued=" + mQueued
+				+ ", mMusicApp=" + mMusicAPI + ", mQueued=" + mQueued
 				+ ", mRowId=" + mRowId + ", mSource=" + mSource
 				+ ", mTimePlayed=" + mTimePlayed + ", mTrack=" + mTrack
 				+ ", mTracknr=" + mTracknr + ", mUnknownDuration="
@@ -279,7 +279,7 @@ public class Track {
 		result = prime * result + ((mAlbum == null) ? 0 : mAlbum.hashCode());
 		result = prime * result + ((mArtist == null) ? 0 : mArtist.hashCode());
 		result = prime * result
-				+ ((mMusicApp == null) ? 0 : mMusicApp.hashCode());
+				+ ((mMusicAPI == null) ? 0 : mMusicAPI.hashCode());
 		result = prime * result + ((mTrack == null) ? 0 : mTrack.hashCode());
 		return result;
 	}
@@ -307,10 +307,10 @@ public class Track {
 				return false;
 		} else if (!mArtist.equals(other.mArtist))
 			return false;
-		if (mMusicApp == null) {
-			if (other.mMusicApp != null)
+		if (mMusicAPI == null) {
+			if (other.mMusicAPI != null)
 				return false;
-		} else if (!mMusicApp.equals(other.mMusicApp))
+		} else if (!mMusicAPI.equals(other.mMusicAPI))
 			return false;
 		if (mTrack == null) {
 			if (other.mTrack != null)

@@ -28,8 +28,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 
-import com.adam.aslfms.receiver.MusicApp;
-import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.receiver.MusicAPI;
 import com.adam.aslfms.util.Util;
 
 public class MusicAppsScreen extends PreferenceActivity {
@@ -40,11 +39,9 @@ public class MusicAppsScreen extends PreferenceActivity {
 
 	private static final String KEY_SUPPORTED_MUSICAPPS_LIST = "supported_music_apps_list";
 
-	private AppSettings settings;
-
 	private PreferenceCategory mSupportedMusicAppsList;
-	private HashMap<CheckBoxPreference, MusicApp> mPrefsToAppsMap;
-	private HashMap<MusicApp, CheckBoxPreference> mAppsToPrefsMap;
+	private HashMap<CheckBoxPreference, MusicAPI> mPrefsToMapisMap;
+	private HashMap<MusicAPI, CheckBoxPreference> mMapisToPrefsMap;
 
 	private boolean mScrobbleDroidInstalled;
 	private String mScrobbleDroidLabel;
@@ -54,25 +51,9 @@ public class MusicAppsScreen extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.music_apps);
 
-		settings = new AppSettings(this);
-
 		mSupportedMusicAppsList = (PreferenceCategory) findPreference(KEY_SUPPORTED_MUSICAPPS_LIST);
-		mPrefsToAppsMap = new HashMap<CheckBoxPreference, MusicApp>();
-		mAppsToPrefsMap = new HashMap<MusicApp, CheckBoxPreference>();
-
-		MusicApp[] apps = MusicApp.values();
-		for (MusicApp app : apps) {
-			boolean enabled = settings.isMusicAppEnabled(app);
-
-			CheckBoxPreference appPref = new CheckBoxPreference(this, null);
-			appPref.setTitle(app.getName());
-			appPref.setPersistent(false); // TODO: what does this mean?
-			appPref.setChecked(enabled);
-
-			mSupportedMusicAppsList.addPreference(appPref);
-			mPrefsToAppsMap.put(appPref, app);
-			mAppsToPrefsMap.put(app, appPref);
-		}
+		mPrefsToMapisMap = new HashMap<CheckBoxPreference, MusicAPI>();
+		mMapisToPrefsMap = new HashMap<MusicAPI, CheckBoxPreference>();
 
 		mScrobbleDroidInstalled = Util.checkForInstalledApp(this,
 				PACKAGE_SCROBBLE_DROID);
@@ -90,15 +71,15 @@ public class MusicAppsScreen extends PreferenceActivity {
 			Preference pref) {
 
 		// we clicked an "enable music app" checkbox
-		MusicApp app = mPrefsToAppsMap.get(pref);
-		if (app != null) {
+		MusicAPI mapi = mPrefsToMapisMap.get(pref);
+		if (mapi != null) {
 			CheckBoxPreference cbp = (CheckBoxPreference) pref;
 			boolean checked = cbp.isChecked();
-			settings.setMusicAppEnabled(app, checked);
-			setSMASummary(pref, app);
+			mapi.setEnabled(this, checked);
+			setSMASummary(pref, mapi);
 
 			if (checked && mScrobbleDroidInstalled
-					&& app.clashesWithScrobbleDroid()) {
+					&& mapi.clashesWithScrobbleDroid()) {
 				Util.warningDialog(this, getString(
 						R.string.incompatability_long).replaceAll("%1",
 						mScrobbleDroidLabel));
@@ -110,26 +91,48 @@ public class MusicAppsScreen extends PreferenceActivity {
 	}
 
 	private void update() {
-		MusicApp[] apps = MusicApp.values();
-		for (MusicApp app : apps) {
-			CheckBoxPreference appPref = mAppsToPrefsMap.get(app);
-			setSMASummary(appPref, app);
+		mSupportedMusicAppsList.removeAll();
+		mPrefsToMapisMap.clear();
+		mMapisToPrefsMap.clear();
+
+		MusicAPI[] mapis = MusicAPI.all(this);
+		if (mapis.length == 0) {
+			Preference empty = new Preference(this);
+			empty.setTitle(R.string.no_supported_mapis_title);
+			empty.setSummary(R.string.no_supported_mapis_summary);
+			mSupportedMusicAppsList.addPreference(empty);
+		} else {
+			for (MusicAPI mapi : mapis) {
+				CheckBoxPreference appPref = new CheckBoxPreference(this, null);
+				appPref.setTitle(mapi.getName());
+				appPref.setPersistent(false); // TODO: what does this mean?
+				appPref.setChecked(mapi.isEnabled());
+
+				mSupportedMusicAppsList.addPreference(appPref);
+				mPrefsToMapisMap.put(appPref, mapi);
+				mMapisToPrefsMap.put(mapi, appPref);
+				setSMASummary(appPref, mapi);
+			}
 		}
 	}
 
-	private void setSMASummary(Preference pref, MusicApp app) {
-		boolean enabled = settings.isMusicAppEnabled(app);
-		String pkg = app.getPackage();
-		boolean installed = pkg == null ? true : Util.checkForInstalledApp(this, app.getPackage());
-		if (!enabled) {
+	private void setSMASummary(Preference pref, MusicAPI mapi) {
+		String pkg = mapi.getPackage();
+		boolean installed;
+		if ((pkg == null || pkg.startsWith(MusicAPI.NOT_AN_APPLICATION_PACKAGE)))
+			installed = true; // i.e. it cannot be installed in this case
+		else
+			installed = Util.checkForInstalledApp(this, mapi.getPackage());
+			
+		if (!mapi.isEnabled()) {
 			pref.setSummary(R.string.app_disabled);
 		} else if (!installed) {
 			pref.setSummary(R.string.not_installed);
-		} else if (mScrobbleDroidInstalled && app.clashesWithScrobbleDroid()) {
+		} else if (mScrobbleDroidInstalled && mapi.clashesWithScrobbleDroid()) {
 			pref.setSummary(getString(R.string.incompatability_short)
 					.replaceAll("%1", mScrobbleDroidLabel));
 		} else {
-			pref.setSummary(app.getMsg());
+			pref.setSummary(mapi.getMessage());
 		}
 	}
 }

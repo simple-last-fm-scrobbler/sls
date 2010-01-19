@@ -2,13 +2,14 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.adam.aslfms"
-	android:versionCode="11"
-	android:versionName="1.2.1">
+	android:versionCode="12"
+	android:versionName="1.2.3">
 
 	<application
 		android:icon="@drawable/icon"
 		android:label="@string/app_name"
-		android:description="@string/about_text">
+		android:description="@string/about_text"
+		android:debuggable="true">
 
 		<activity
 			android:name="com.adam.aslfms.SettingsActivity"
@@ -106,7 +107,15 @@
 			</intent-filter>
 		</receiver>
 
-
+		<receiver
+			android:name="com.adam.aslfms.receiver.SLSAPIReceiver"
+			android:exported="true"
+			android:enabled="true">
+			<intent-filter>
+				<action
+					android:name="com.adam.aslfms.notify.playstatechanged" />
+			</intent-filter>
+		</receiver>
 	</application>
 
 	<uses-sdk
