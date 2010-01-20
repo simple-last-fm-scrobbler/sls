@@ -1,5 +1,7 @@
 package com.adam.aslfms.receiver;
 
+import com.adam.aslfms.MusicAppsScreen;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -7,10 +9,23 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * A class for representing and dealing different scrobbling APIs / music apps.
+ * 
+ * @see #fromReceiver(Context, String, String, String, boolean)
+ * @see #fromDatabase(Context, long)
+ * @see #all(Context)
+ * 
+ * @author tgwizard
+ * @since 1.2.3
+ */
 public class MusicAPI {
 
 	private static final String TAG = "MusicAPI";
 
+	/**
+	 * Constant value: "not.an.application."
+	 */
 	public static final String NOT_AN_APPLICATION_PACKAGE = "not.an.application.";
 
 	private long id;
@@ -30,31 +45,74 @@ public class MusicAPI {
 		this.clashWithScrobbleDroid = clashWithScrobbleDroid ? 1 : 0;
 		this.enabled = enabled ? 1 : 0;
 	}
-
+	
+	/**
+	 * Returns the id for this MusicAPI, used in the database.
+	 * 
+	 * @return a valid id.
+	 */
 	public long getId() {
 		return id;
 	}
-
+	
+	/**
+	 * Returns a name that can be shown to the user. A music app can
+	 * change this name at any time through broadcasts using the SLS
+	 * API.
+	 * 
+	 * @return a user-friendly name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * The package of the application that scrobbles using this API, or
+	 * {@link #NOT_AN_APPLICATION_PACKAGE} + [appropriate name] - which means
+	 * essentially any application.
+	 * 
+	 * @return a package name, or {@link #NOT_AN_APPLICATION_PACKAGE} + [appropriate name]
+	 */
 	public String getPackage() {
 		return pkg;
 	}
-
+	
+	/**
+	 * Gives extra information to be displayed to the user in the {@link MusicAppsScreen}.
+	 * 
+	 * @return a string with extra information for the user
+	 */
 	public String getMessage() {
 		return msg;
 	}
 
+	/**
+	 * Returns whether Scrobble Droid also can scrobble from this API / music app.
+	 * @return true if Scrobble Droid can scrobble from this API / music app, false otherwise.
+	 */
 	public boolean clashesWithScrobbleDroid() {
 		return clashWithScrobbleDroid == 1;
 	}
-
+	
+	/**
+	 * Returns true if the user has enabled scrobbling through this API / music app. Default is true.
+	 * 
+	 * @see MusicAppsScreen
+	 * 
+	 * @return true if scrobbling from this API / music app is enabled, fales otherwise.
+	 */
 	public boolean isEnabled() {
 		return enabled == 1;
 	}
 
+	/**
+	 * Enables / disables scrobbling from this API / music app.
+	 * 
+	 * @see MusicAPpsScreen
+	 * 
+	 * @param ctx		context to enable database calls.
+	 * @param enabled	whether this API / app should be enabled or disabled
+	 */
 	public void setEnabled(Context ctx, boolean enabled) {
 		int en = enabled ? 1 : 0;
 		if (en == this.enabled)
@@ -99,9 +157,23 @@ public class MusicAPI {
 				+ ", enabled=" + enabled + ", id=" + id + ", msg=" + msg
 				+ ", name=" + name + ", pkg=" + pkg + "]";
 	}
-
-	// ------------
-
+	
+	/**
+	 * Takes some parameters describing an API / music app and (1) saves it
+	 * to a database and (2) returns it as a MusicAPI object.
+	 * <p>
+	 * All MusicAPI objects need to have unique package names when saved to the
+	 * database. This means that if this method is called twice with the same
+	 * {@code pkg} but different names, the last {@code name} will be the one
+	 * left in the database.
+	 * @param ctx	context to enable database calls
+	 * @param name	name of the music app, see {@link #getName()}
+	 * @param pkg	package of the music app, see {@link #getPackage()}
+	 * @param msg	extra info for the user, see {@link #getMessage()}
+	 * @param clashWithScrobbleDroid	see {@link #clashesWithScrobbleDroid()}
+	 * @return		a MusicAPI object with the parameters as values, "never" null
+	 * @throws IllegalArgumentException	if {@code pkg} or {@code name} is null
+	 */
 	public static MusicAPI fromReceiver(Context ctx, String name, String pkg,
 			String msg, boolean clashWithScrobbleDroid) {
 
@@ -185,11 +257,18 @@ public class MusicAPI {
 		return mapi;
 	}
 
-	public static MusicAPI fromDatabase(Context ctx, long l) {
+	/**
+	 * Returns the MusicAPI stored in the database with the id {@code id}.
+	 * 
+	 * @param ctx	context to enable database calls
+	 * @param id	id of a MusicAPI in the database
+	 * @return		the MusicAPI in the database with {@code id}, "never" null
+	 */
+	public static MusicAPI fromDatabase(Context ctx, long id) {
 		DatabaseHelper dbHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 
-		String sql = "select * from music_api where _id = " + l;
+		String sql = "select * from music_api where _id = " + id;
 		Cursor c = db.rawQuery(sql, null);
 
 		MusicAPI mapi = null;
@@ -202,6 +281,13 @@ public class MusicAPI {
 		return mapi;
 	}
 
+	/**
+	 * Returns all MusicAPI objects stored in the database. If there are 
+	 * no such objects, an array with length zero will be returned.
+	 * 
+	 * @param ctx	context to enable database calls
+	 * @return		all MusicAPI objects stored in the database, never null
+	 */
 	public static MusicAPI[] all(Context ctx) {
 		DatabaseHelper dbHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = dbHelper.getWritableDatabase();

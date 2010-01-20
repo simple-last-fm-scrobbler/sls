@@ -9,6 +9,17 @@ import android.provider.MediaStore;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
+/**
+ * A BroadcastReceiver for the <a href="http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI">
+ * Scrobbler Droid API</a>. New music apps are recommended to use the <a
+ * href="http://code.google.com/p/a-simple-lastfm-scrobbler/wiki/Developers"> SLS 
+ * API</a> instead.
+ * 
+ * @see AbstractPlayStatusReceiver
+ * 
+ * @author tgwizard
+ * @since 1.2
+ */
 public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 
 	@SuppressWarnings("unused")

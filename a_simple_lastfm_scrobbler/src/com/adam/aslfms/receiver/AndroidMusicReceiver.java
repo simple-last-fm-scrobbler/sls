@@ -22,23 +22,18 @@ package com.adam.aslfms.receiver;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
-/**
- * PlayStatusReceiver listens to broadcasts sent by the android music player.
- * When a broadcast has been received, it is translated into a Track, and sent
- * to ScrobblingService.
- * 
- * @see ScrobblingService
- * @see <a
- *      href="http://code.google.com/p/a-simple-lastfm-scrobbler/wiki/Developers">Example
- *      code</a>
- * @author tgwizard
- * 
- */
 
+/**
+ * A BroadcastReceiver for intents sent by the Android Music Player.
+ * 
+ * @see AbstractPlayStatusReceiver
+ * 
+ * @author tgwizard
+ * @since 1.0.1
+ */
 public class AndroidMusicReceiver extends AbstractPlayStatusReceiver {
 
 	@SuppressWarnings("unused")

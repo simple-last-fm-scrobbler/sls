@@ -25,6 +25,14 @@ import android.os.Bundle;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
+/**
+ * A BroadcastReceiver for intents sent by the HTC Hero Music Player.
+ * 
+ * @see AbstractPlayStatusReceiver
+ * 
+ * @author tgwizard
+ * @since 1.0.1
+ */
 public class HeroMusicReceiver extends AbstractPlayStatusReceiver {
 
 	@SuppressWarnings("unused")
