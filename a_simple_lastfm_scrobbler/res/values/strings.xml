@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string
+		name="app_name">Simple Last.fm Scrobbler</string>
+	<string
+		name="scrobbling">Scrobble</string>
+	<string
+		name="scrobbling_enable">Submit listening information when
+		you\'ve listened
+		to a song
+	</string>
+	<string
+		name="nowplaying">Notify now playing</string>
+	<string
+		name="nowplaying_enable">Broadcast what song you currently are listening to
+	</string>
+
+	<string
+		name="user_credentials_title">User credentials</string>
+	<string
+		name="user_credentials_summary">Set username and password for your %1 account
+	</string>
+	<string
+		name="user_credentials_summary_no_napp">Set username and password for your account(s)
+	</string>
+	<string
+		name="user_credentials_enter_ok">Authenticate</string>
+	<string
+		name="user_credentials_enter_cancel">Cancel</string>
+	<string
+		name="user_credentials_clear_title">Clear credentials</string>
+	<string
+		name="user_credentials_clear_summary">Clears username and session key</string>
+	<string
+		name="scrobble_status_title">Scrobble status</string>
+	<string
+		name="username">Username</string>
+	<string
+		name="password">Password</string>
+	<string
+		name="auth_client_banned">This version of the app is deprecated, please
+		upgrade</string>
+	<string
+		name="auth_bad_auth">Wrong username/password</string>
+	<string
+		name="auth_server_error">Server error: %1, retrying...</string>
+	<string
+		name="auth_timing_error">Client side timing error, retrying...</string>
+	<string
+		name="auth_network_error">Network error, retrying...</string>
+	<string
+		name="auth_updating">Authenticating...</string>
+	<string
+		name="auth_internal_error">Internal error</string>
+	<string
+		name="auth_just_error">Error, retrying...</string>
+	<string
+		name="logged_in">Logged in as:</string>
+	<string
+		name="logged_in_as">Logged in as: %1</string>
+	<string
+		name="not_logged_in">Not logged in</string>
+	<string
+		name="create_user_title">Sign up</string>
+	<string
+		name="create_user_summary">Sign up for an account at %1</string>
+	<string
+		name="other_category_title">Other</string>
+
+
+
+	<string
+		name="status_show_title">Status</string>
+	<string
+		name="status_show_summary">Show statistics and overall status</string>
+	<string
+		name="status_title">Status info</string>
+	<string
+		name="ok">Ok</string>
+	<string
+		name="scrobbling_disabled">Scrobbling is disabled</string>
+	<string
+		name="scrobble_last_at">Last scrobble submitted at:</string>
+	<string
+		name="scrobble_last_fail_at">Last scrobble submission failed at:</string>
+	<string
+		name="nowplaying_disabled">Now playing notifications are disabled</string>
+	<string
+		name="nowplaying_last_at">Last now playing notification submitted at:
+	</string>
+	<string
+		name="nowplaying_last_fail_at">Last scrobble submission failed at:</string>
+	<string
+		name="stats_scrobbles">Total tracks scrobbled:</string>
+	<string
+		name="never">Never</string>
+	<string
+		name="stats_nps">Total now playing notifications:</string>
+	<string
+		name="it_was">It was:</string>
+	<string
+		name="by">by</string>
+	<string
+		name="incompatability_short">Warning: %1 is installed and may cause double
+		scrobbling. 	</string>
+	<string
+		name="incompatability_long">Warning: %1 is installed and may cause
+		incompatibilities with
+		scrobbling. Disable scrobbling from this app,
+		or uninstall %1. 
+    </string>
+	<string
+		name="show_supported_apps_list_summary">Enable/disable scrobbling from apps</string>
+	<string
+		name="supported_apps_category_title">Supported apps</string>
+	<string
+		name="app_disabled">Won\'t scrobble music from this app</string>
+	<string
+		name="not_installed">This app is not installed</string>
+	<string
+		name="no_supported_mapis_title">No music apps detected</string>
+	<string
+		name="no_supported_mapis_summary">Play music in a supported app and it will appear here</string>
+	<string
+		name="scrobbles_cache_nonum">Scrobbles in local cache:</string>
+	<string
+		name="scrobbles_cache">Scrobbles in local cache: %1</string>
+	<string
+		name="db_error">Database error</string>
+	<string
+		name="about">About</string>
+	<string
+		name="whats_new">What's new</string>
+	<string
+		name="close">Close</string>
+	<string
+		name="email_addr">simple.lfm.scrobbler@gmail.com</string>
+	<string
+		name="website_url">http://code.google.com/p/a-simple-lastfm-scrobbler/
+	</string>
+	<string
+		name="contact">Contact:</string>
+	<string
+		name="website">Website:</string>
+	<string
+		name="by_adam">by Adam Renberg</string>
+	<string
+		name="license">Released under GPL v3</string>
+	<string
+		name="about_text">
+		A lightweight scrobbler that submits information to
+		Last.fm
+		(and/or Libre.fm) on
+		what music you play on your android phone.
+		Last.fm
+		then lets
+		you view
+		listening statistics and recommends new music you
+		might like.
+	</string>
+	<string
+		name="file_error">File error!</string>
+	<string
+		name="thats_new">That which is new</string>
+	<string
+		name="supported_netapps_category_title">Supported websites</string>
+	<string
+		name="will_submit_stuff">Will submit listening information to this website
+	</string>
+
+	<string
+		name="log_in_to">Sign in to</string>
+	<string
+		name="everything_disabled">Scrobbling/now playing is disabled.
+	</string>
+	<string
+		name="supported_netapps">Supported websites: %1</string>
+	<string
+		name="supported_musicapps">Supported apps: Android Music Player, HTC Hero Music Player,
+		Meridian Player, RockOn</string>
+	<string
+		name="scrobble_now">Scrobble now</string>
+	<string
+		name="reset_stats">Reset statistics</string>
+	<string
+		name="options_title">Options</string>
+	<string
+		name="advanced_options_title">Advanced options</string>
+	<string
+		name="ao_battery_title">On battery</string>
+	<string
+		name="ao_plugged_title">Plugged in</string>
+	<string
+		name="options_summary">Including battery conserving settings</string>
+	<string
+		name="advanced_options_custom_category_title">Custom scrobbling options</string>
+	<string
+		name="advanced_options_when_title">When to scrobble</string>
+	<string
+		name="advanced_options_also_on_complete_title">Also on playlist finish</string>
+	<string
+		name="advanced_options_also_on_complete_summary">Also scrobble when you\'ve finished listening to a playlist
+	</string>
+	<string
+		name="advanced_options_also_on_plugged_title">Also when plugged in</string>
+	<string
+		name="advanced_options_also_on_plugged_summary">Also scrobble when you\'re plugged in to a power source
+    </string>
+	<string
+		name="should_disable_np">You should also disable now playing notifications
+		to better
+		conserve battery</string>
+	<string
+		name="advanced_options_type_standard_name">Standard</string>
+	<string
+		name="advanced_options_type_battery_name">Conserve Battery</string>
+	<string
+		name="advanced_options_type_custom_name">Custom</string>
+	<string
+		name="advanced_options_when_1_name">After every track</string>
+	<string
+		name="advanced_options_when_5_name">After five tracks</string>
+	<string
+		name="advanced_options_when_10_name">After ten tracks</string>
+	<string
+		name="advanced_options_when_25_name">After 25 tracks</string>
+	<string
+		name="advanced_options_when_never_name">When you press the scrobble now button</string>
+	<string
+		name="scrobble_cache_title">Scrobble cache</string>
+	<string
+		name="confirm_stats_reset">Are you sure you want to reset your submission
+		statistics for %1?
+		This operation cannot be undone.</string>
+	<string
+		name="confirm_clear_creds">Are you sure you want to clear your user
+		credentials for %1? This
+		will also remove any unsubmitted scrobbles.
+	</string>
+	<string
+		name="confirm_clear_all_creds">Are you sure you want to clear your user
+		credentials for all
+		logged in accounts? This will also remove any
+		unsubmitted scrobbles.
+	</string>
+	<string
+		name="confirm_delete_sc">Are you sure you don\'t want to scrobble this
+		track
+		to %1? This
+		operation cannot be undone.</string>
+	<string
+		name="confirm_delete_sc_from_all">Are you sure you don\'t want to scrobble this
+		track? This
+		operation cannot be undone.</string>
+	<string
+		name="confirm_delete_all_sc">Are you sure you want to clear all tracks in the
+		cache for %1?
+		This operation cannot be undone.</string>
+	<string
+		name="confirm_delete_all_sc_from_all">Are you sure you want to clear all tracks in the
+		cache? This
+		operation cannot be undone.</string>
+	<string
+		name="remove">Remove</string>
+	<string
+		name="reset">Reset</string>
+	<string
+		name="clear_creds">Clear</string>
+	<string
+		name="cancel">Cancel</string>
+	<string
+		name="are_you_sure">Are you sure?</string>
+	<string
+		name="warning">Warning</string>
+	<string
+		name="no_scrobbles_in_cache">There are no cached scrobbles</string>
+	<string
+		name="view_sc">View scrobble cache</string>
+	<string
+		name="view_sc_details">View details</string>
+	<string
+		name="delete_sc">Remove from cache</string>
+	<string
+		name="clear_cache">Clear cache</string>
+	<string
+		name="track_info">Track info</string>
+
+	<string
+		name="view_sc_title_for">Scrobble cache for %1</string>
+	<string
+		name="view_sc_for_all_summary">View and edit the list of unsubmitted scrobbles</string>
+	<string
+		name="all_websites">all websites</string>
+	<string
+		name="status">Status</string>
+	<string
+		name="scrobble_point_title">Scrobble point</string>
+	<string
+		name="scrobble_point_summary">Will cache scrobble after %1% of it has been played</string>
+	<string
+		name="profile_page">Profile page</string>
+</resources>
