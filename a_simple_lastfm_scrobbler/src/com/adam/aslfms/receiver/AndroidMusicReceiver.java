@@ -25,7 +25,6 @@ import android.os.Bundle;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
-
 /**
  * A BroadcastReceiver for intents sent by the Android Music Player.
  * 

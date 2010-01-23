@@ -33,7 +33,7 @@ import com.adam.aslfms.service.NetApp;
 /**
  * 
  * @author tgwizard
- * 
+ * @since 0.9
  */
 public class ScrobblesDatabase {
 
@@ -41,10 +41,12 @@ public class ScrobblesDatabase {
 
 	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
-	
+
 	private final Context mCtx;
 
-	public static final String DATABASE_NAME = "data";
+	private static final String DATABASE_NAME = "data";
+	private static final int DATABASE_VERSION = 5;
+
 	private static final String TABLENAME_SCROBBLES = "scrobbles";
 	private static final String TABLENAME_CORRNETAPP = "scrobbles_netapp";
 
@@ -67,8 +69,13 @@ public class ScrobblesDatabase {
 			+ "foreign key (trackid) references scrobbles_netapp(_id) "
 			+ "on delete cascade on update cascade)";
 
-	private static final int DATABASE_VERSION = 5;
-
+	/**
+	 * A convenient way to send the sort order of a query as a parameter to the
+	 * method.
+	 * 
+	 * @author tgwizard
+	 * 
+	 */
 	public enum SortOrder {
 		ASCENDING("asc"), DESCENDING("desc");
 
@@ -99,8 +106,9 @@ public class ScrobblesDatabase {
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			Log.w(TAG, "Upgrading scrobbles database from version " + oldVersion + " to "
-					+ newVersion + ", which will destroy all old data");
+			Log.w(TAG, "Upgrading scrobbles database from version "
+					+ oldVersion + " to " + newVersion
+					+ ", which will destroy all old data");
 			db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_SCROBBLES);
 			db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_CORRNETAPP);
 			onCreate(db);
@@ -189,7 +197,8 @@ public class ScrobblesDatabase {
 
 	private Track readTrack(Cursor c) {
 		Track.Builder b = new Track.Builder();
-		b.setMusicAPI(MusicAPI.fromDatabase(mCtx, c.getLong(c.getColumnIndex("musicapp"))));
+		b.setMusicAPI(MusicAPI.fromDatabase(mCtx, c.getLong(c
+				.getColumnIndex("musicapp"))));
 		b.setArtist(c.getString(c.getColumnIndex("artist")));
 		b.setAlbum(c.getString(c.getColumnIndex("album")));
 		b.setTrack(c.getString(c.getColumnIndex("track")));

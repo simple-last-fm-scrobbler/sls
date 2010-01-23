@@ -22,18 +22,18 @@ package com.adam.aslfms.util;
 import com.adam.aslfms.receiver.MusicAPI;
 
 /**
- * Simple structure that holds information about a track. It has two factory
- * methods to construct new tracks,
- * {@link Track#createTrack(CharSequence, CharSequence, CharSequence, int, long)
- * createTrack()} and
- * {@link Track#createTrackFromDb(CharSequence, CharSequence, CharSequence, int, long, int)
- * createTrackFromDB()}.
+ * Simple "immutable" structure that holds information about a track. The only
+ * way to create a track is through the {@link Builder}.
+ * <p>
+ * A track is immutable in the sense that the descriptive paramters (artist,
+ * album, duration, etc.) cannot be changed. But there are methods for keeping
+ * track of how long the track has been playing, for instance. See
+ * {@link #updateTimePlayed(long)} and {@link #setQueued()}.
+ * <p>
+ * The tracks are saved in a database using the {@link ScrobblesDatabase}.
  * 
- * @see Track#createTrack(CharSequence, CharSequence, CharSequence, int, long)
- * @see Track#createTrackFromDb(CharSequence, CharSequence, CharSequence, int,
- *      long, int)
  * @author tgwizard
- * 
+ * @since 0.9
  */
 public class Track {
 
@@ -41,18 +41,18 @@ public class Track {
 	public enum State {
 		START, RESUME, PAUSE, COMPLETE, PLAYLIST_FINISHED, UNKNOWN_NONPLAYING
 	};
-	
-	// We have to use this, as signals sent to scrobble droid can be void of any
-	// track information if it's "playing" boolean is set to false
+
+	/**
+	 * We have to use this, as signals sent to Scrobble Droid can be void of any
+	 * track information if it's "playing" boolean is set to false
+	 */
 	public static final Track SAME_AS_CURRENT;
-	
-	
-	
+
 	static {
 		SAME_AS_CURRENT = new Track();
 		SAME_AS_CURRENT.mArtist = "SAME_AS_CURRENT";
-		SAME_AS_CURRENT.mAlbum  = "SAME_AS_CURRENT";
-		SAME_AS_CURRENT.mTrack  = "SAME_AS_CURRENT";
+		SAME_AS_CURRENT.mAlbum = "SAME_AS_CURRENT";
+		SAME_AS_CURRENT.mTrack = "SAME_AS_CURRENT";
 	}
 
 	/**
@@ -75,12 +75,21 @@ public class Track {
 
 	private long mWhen;
 	private int mRowId;
-	
+
 	// non-track-data stuff
 	private long mTimePlayed; // in milliseconds
 	private long mWhenToCountTimeFrom; // in milliseconds
 	private boolean mQueued;
 
+	/**
+	 * A class for constructing new tracks, using the Builder pattern. The only
+	 * way to create tracks, which then become "immutable".
+	 * 
+	 * @see #build()
+	 * 
+	 * @author tgwizard
+	 * @since 1.2
+	 */
 	public static class Builder {
 		Track _track;
 
@@ -129,6 +138,14 @@ public class Track {
 			_track.mRowId = rowId;
 		}
 
+		/**
+		 * Validates and creates a track with the values set using the setters
+		 * for this class.
+		 * 
+		 * @return the new, validated, track
+		 * @throws IllegalArgumentException
+		 *             if any of the fields for the track-to-be are invalid
+		 */
 		public Track build() throws IllegalArgumentException {
 			_track.validate();
 			return _track;
@@ -147,17 +164,17 @@ public class Track {
 		mSource = "P";
 		mWhen = -1;
 		mRowId = -1;
-		
+
 		// non-track-data stuff
 		mQueued = false;
 		mTimePlayed = 0;
 		mWhenToCountTimeFrom = UNKNOWN_COUNT_POINT;
 	}
 
-	public void validate() throws IllegalArgumentException {
+	private void validate() throws IllegalArgumentException {
 		if (mMusicAPI == null)
 			throw new IllegalArgumentException("music api is null");
-		
+
 		if (mArtist == null || mArtist.length() == 0)
 			throw new IllegalArgumentException("artist is null or empty");
 
@@ -168,7 +185,8 @@ public class Track {
 			throw new IllegalArgumentException("track is null or empty");
 
 		if (mDuration < 0)
-			throw new IllegalArgumentException("duration is negative");
+			throw new IllegalArgumentException("negative duration: "
+					+ mDuration);
 
 		if (mTracknr == null)
 			throw new IllegalArgumentException("tracknr is null");
@@ -177,10 +195,10 @@ public class Track {
 			throw new IllegalArgumentException("mbid is null");
 		}
 
-		if (!mSource.equals("P") && !mSource.equals("R") && !mSource.equals("U")
-				&& !mSource.equals("E")) {
-			throw new IllegalArgumentException("source is invalid, \"" + mSource
-					+ "\"");
+		if (!mSource.equals("P") && !mSource.equals("R")
+				&& !mSource.equals("U") && !mSource.equals("E")) {
+			throw new IllegalArgumentException("source is invalid, \""
+					+ mSource + "\"");
 		}
 
 		if (mWhen < 0) {
@@ -207,7 +225,13 @@ public class Track {
 	public int getDuration() {
 		return mDuration;
 	}
-	
+
+	/**
+	 * Returns whether the duration of this track is unknown (i.e. set to
+	 * {@link #DEFAULT_TRACK_LENGTH} or known.
+	 * 
+	 * @return true if the duration is unknown, false otherwise
+	 */
 	public boolean hasUnknownDuration() {
 		return mUnknownDuration;
 	}
@@ -228,36 +252,67 @@ public class Track {
 		return mWhen;
 	}
 
+	/**
+	 * Returns the database id for this track, or -1 if not loaded from the
+	 * database.
+	 * 
+	 * @see ScrobblesDatabase
+	 * 
+	 * @return the database id, or -1 if not loaded from the database
+	 */
 	public int getRowId() {
 		return mRowId;
 	}
-	
+
+	/**
+	 * Specifies that this track has been queued for scrobbling (i.e. added to
+	 * the scrobble cache database table, see {@link ScrobblesDatabase}).
+	 * 
+	 * @see #hasBeenQueued()
+	 */
 	public void setQueued() {
 		mQueued = true;
 	}
-	
+
+	/**
+	 * Returns whether this track has been queued for scrobbling.
+	 * 
+	 * @see #setQueued()
+	 * 
+	 * @return true if this track has been queued for scrobbling, false otherwise
+	 */
 	public boolean hasBeenQueued() {
 		return mQueued;
 	}
-	
+
+	/**
+	 * Returns the duration for which this track has been played, in milliseconds.
+	 * 
+	 * @see #updateTimePlayed(long)
+	 * 
+	 * @return the duration for which this track has been played, in milliseconds
+	 */
 	public long getTimePlayed() {
 		return mTimePlayed;
 	}
-	
+
+	/**
+	 * TODO:
+	 * @param currentTime
+	 */
 	public void updateTimePlayed(long currentTime) {
-		if (currentTime != UNKNOWN_COUNT_POINT && mWhenToCountTimeFrom != UNKNOWN_COUNT_POINT) {
+		if (currentTime != UNKNOWN_COUNT_POINT
+				&& mWhenToCountTimeFrom != UNKNOWN_COUNT_POINT) {
 			// only if we have a valid points to count from
 			incTimePlayed(currentTime - mWhenToCountTimeFrom);
 		}
 		mWhenToCountTimeFrom = currentTime;
 	}
-	/**
-	 * 
-	 * @param tp nonnegative time increase in milliseconds
-	 */
-	public void incTimePlayed(long tp) {
+
+	private void incTimePlayed(long tp) {
 		if (tp < 0)
-			throw new IllegalArgumentException("time-played increase was negative: " + tp);
+			throw new IllegalArgumentException(
+					"time-played increase was negative: " + tp);
 		mTimePlayed += tp;
 	}
 
@@ -285,7 +340,7 @@ public class Track {
 	}
 
 	/**
-	 * Only checks artist, album and track strings (+ MusicApp), which means
+	 * Only checks artist, album and track strings (+ {@link MusicApp}), which means
 	 * that tracks sent to ScrobblingService can be properly compared.
 	 */
 	@Override

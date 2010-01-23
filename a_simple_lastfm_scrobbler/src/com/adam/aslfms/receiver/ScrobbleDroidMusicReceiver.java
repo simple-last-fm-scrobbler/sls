@@ -10,10 +10,11 @@ import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
 /**
- * A BroadcastReceiver for the <a href="http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI">
- * Scrobbler Droid API</a>. New music apps are recommended to use the <a
- * href="http://code.google.com/p/a-simple-lastfm-scrobbler/wiki/Developers"> SLS 
- * API</a> instead.
+ * A BroadcastReceiver for the <a
+ * href="http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI"> Scrobbler
+ * Droid API</a>. New music apps are recommended to use the <a
+ * href="http://code.google.com/p/a-simple-lastfm-scrobbler/wiki/Developers">
+ * SLS API</a> instead.
  * 
  * @see AbstractPlayStatusReceiver
  * 
@@ -30,9 +31,10 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
 			throws IllegalArgumentException {
-		
-		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx, "\"Scrobble Droid Apps\"",
-				MusicAPI.NOT_AN_APPLICATION_PACKAGE + "scrobbledroidapi",
+
+		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx,
+				"\"Scrobble Droid Apps\"", MusicAPI.NOT_AN_APPLICATION_PACKAGE
+						+ "scrobbledroidapi",
 				"Apps supported by Scrobble Droid", true);
 		setMusicAPI(musicAPI);
 

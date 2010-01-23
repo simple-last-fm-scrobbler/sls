@@ -28,6 +28,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +37,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.adam.aslfms.service.NetApp;
@@ -58,6 +60,8 @@ public class StatusInfoNetApp extends ListActivity {
 
 	private AppSettings settings;
 	private ScrobblesDatabase mDb;
+
+	private int mProfilePageLinkPosition = -1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +123,17 @@ public class StatusInfoNetApp extends ListActivity {
 			auth.setValue(settings.getUsername(mNetApp));
 		}
 		list.add(auth);
+
+		// link to profile
+		Pair prof_link = new Pair();
+		prof_link.setKey(getString(R.string.profile_page));
+		if (settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_NOAUTH) {
+			prof_link.setValue(getString(R.string.not_logged_in));
+		} else {
+			prof_link.setValue(mNetApp.getProfileUrl(settings));
+		}
+		list.add(prof_link);
+		mProfilePageLinkPosition = list.size() - 1;
 
 		// scrobble
 		Pair scrobble = new Pair();
@@ -194,6 +209,18 @@ public class StatusInfoNetApp extends ListActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		super.onListItemClick(l, v, position, id);
+		if (position == mProfilePageLinkPosition
+				&& settings.getAuthStatus(mNetApp) != Status.AUTHSTATUS_NOAUTH) {
+			String url = mNetApp.getProfileUrl(settings);
+			Log.d(TAG, "Clicked link to profile page, opening: " + url);
+			Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+			startActivity(browser);
+		}
 	}
 
 	private String getSubmissionStatusKey(SubmissionType stype) {

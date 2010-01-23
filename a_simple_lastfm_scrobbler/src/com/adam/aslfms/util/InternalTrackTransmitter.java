@@ -21,36 +21,44 @@ package com.adam.aslfms.util;
 
 import java.util.LinkedList;
 
+import com.adam.aslfms.receiver.AbstractPlayStatusReceiver;
 import com.adam.aslfms.service.ScrobblingService;
 
 /**
- * Internal class that transmits tracks from {@link PlayStatusReceiver} to
+ * Internal class that transmits tracks from the scrobbling API listeners to the
  * {@link ScrobblingService}.
  * 
- * @author tgwizard
+ * @see AbstractPlayStatusReceiver
  * 
+ * @author tgwizard
+ * @since 0.9
  */
 public class InternalTrackTransmitter {
 	private static LinkedList<Track> tracks = new LinkedList<Track>();
 
 	/**
-	 * Appends <code>track</code> to the queue of tracks that
+	 * Appends {@code track} to the queue of tracks that
 	 * {@link ScrobblingService} will pickup.
 	 * <p>
 	 * The method is thread-safe.
 	 * 
+	 * @see #popTrack()
+	 * 
 	 * @param track
+	 *            the track to be appended
 	 */
 	public static synchronized void appendTrack(Track track) {
 		tracks.addLast(track);
 	}
 
 	/**
-	 * Pops a Track from the queue of tracks in FIFO order.
+	 * Pops a {@code Track} from the queue of tracks in FIFO order.
 	 * <p>
 	 * The method is thread-safe.
 	 * 
-	 * @return
+	 * @see #appendTrack(Track)
+	 * 
+	 * @return the track at the front of the list
 	 */
 	public synchronized static Track popTrack() {
 		if (tracks.isEmpty())

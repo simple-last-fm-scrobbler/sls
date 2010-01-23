@@ -51,6 +51,15 @@ import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
 public class Util {
 	private static final String TAG = "Util";
 
+	/**
+	 * Returns whether the phone is running on battery or if it is connected
+	 * to a charger.
+	 * 
+	 * @see PowerOptions
+	 * 
+	 * @param ctx	context to get access to battery-checking methods
+	 * @return		an enum indicating what the power source is
+	 */
 	public static PowerOptions checkPower(Context ctx) {
 		// check if plugged into AC
 		IntentFilter battFilter = new IntentFilter(
@@ -65,7 +74,7 @@ public class Util {
 	}
 	
 	/**
-	 * 
+	 * Returns the current time since 1970, UTC, in seconds.
 	 * @return the current time since 1970, UTC, in seconds
 	 */
 	public static long currentTimeSecsUTC() {
@@ -73,17 +82,33 @@ public class Util {
 				.getTimeInMillis() / 1000;
 	}
 	
+	/**
+	 * Returns the current time since 1970, UTC, in milliseconds.
+	 * @return the current time since 1970, UTC, in milliseconds
+	 */
 	public static long currentTimeMillisUTC() {
 		return Calendar.getInstance(TimeZone.getTimeZone("UTC"))
 				.getTimeInMillis();
 	}
 
+	/**
+	 * Converts time from a long to a string in a format set by the
+	 * user in the phone's settings.
+	 * 
+	 * @param ctx	context to get access to the conversion methods
+	 * @param secs	time since 1970, UTC, in seconds
+	 * @return		the time since 1970, UTC, as a string (e.g. 2009-10-23 12:25)
+	 */
 	public static String timeFromUTCSecs(Context ctx, long secs) {
 		return DateUtils.formatDateTime(ctx, secs * 1000,
 				DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE
 						| DateUtils.FORMAT_NUMERIC_DATE);
 	}
 
+	/**
+	 * Returns the current time since 1970, local time zone, in milliseconds.
+	 * @return the current time since 1970, local time zone, in milliseconds
+	 */
 	public static long currentTimeMillisLocal() {
 		return Calendar.getInstance(TimeZone.getDefault()).getTimeInMillis();
 	}

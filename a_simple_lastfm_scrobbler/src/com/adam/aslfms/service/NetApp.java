@@ -23,27 +23,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.adam.aslfms.R;
+import com.adam.aslfms.util.AppSettings;
 
 public enum NetApp {
 	LASTFM(0x01, "Last.fm", "http://post.audioscrobbler.com/?hs=true", "",
-			"https://www.last.fm/join", R.drawable.lastfm_logo), //
+			"https://www.last.fm/join", "http://www.last.fm/user/%1", R.drawable.lastfm_logo), //
 	LIBREFM(0x02, "Libre.fm", "http://turtle.libre.fm/?hs=true", "librefm",
-			"http://libre.fm/", R.drawable.librefm_logo);
+			"http://libre.fm/", "http://libre.fm/user/%1", R.drawable.librefm_logo);
 
 	private final int val;
 	private final String name;
 	private final String handshakeUrl;
 	private final String settingsPrefix;
 	private final String signUpUrl;
+	private final String profileUrl;
 	private final int logoRes;
 
-	NetApp(int v, String n, String handshakeUrl, String settingsPrefix,
-			String signUpUrl, int logoRes) {
-		this.val = v;
-		this.name = n;
+	
+
+	private NetApp(int val, String name, String handshakeUrl,
+			String settingsPrefix, String signUpUrl, String profileUrl,
+			int logoRes) {
+		this.val = val;
+		this.name = name;
 		this.handshakeUrl = handshakeUrl;
 		this.settingsPrefix = settingsPrefix;
 		this.signUpUrl = signUpUrl;
+		this.profileUrl = profileUrl;
 		this.logoRes = logoRes;
 	}
 
@@ -65,6 +71,10 @@ public enum NetApp {
 
 	public String getSettingsPrefix() {
 		return settingsPrefix;
+	}
+
+	public String getProfileUrl(AppSettings settings) {
+		return profileUrl.replaceAll("%1", settings.getUsername(this));
 	}
 
 	public String getSignUpUrl() {

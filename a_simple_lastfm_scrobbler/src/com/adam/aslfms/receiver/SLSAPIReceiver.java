@@ -23,6 +23,11 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 	private static final String TAG = "SLSAPIReceiver";
 
 	public static final String SLS_API_BROADCAST_INTENT = "com.adam.aslfms.notify.playstatechanged";
+	
+	public static final int STATE_START = 0;
+	public static final int STATE_RESUME = 1;
+	public static final int STATE_PAUSE = 2;
+	public static final int STATE_COMPLETE = 3;
 
 	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
@@ -45,13 +50,13 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 		if (state == -1)
 			throw new IllegalArgumentException("no state");
 
-		if (state == 0)
+		if (state == STATE_START)
 			setState(Track.State.START);
-		else if (state == 1)
+		else if (state == STATE_RESUME)
 			setState(Track.State.RESUME);
-		else if (state == 2)
+		else if (state == STATE_PAUSE)
 			setState(Track.State.PAUSE);
-		else if (state == 3)
+		else if (state == STATE_COMPLETE)
 			setState(Track.State.COMPLETE);
 		else
 			throw new IllegalArgumentException("bad state: " + state);
