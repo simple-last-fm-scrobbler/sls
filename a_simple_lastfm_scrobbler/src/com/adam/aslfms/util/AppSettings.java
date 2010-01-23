@@ -23,6 +23,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
+import com.adam.aslfms.UserCredActivity;
+import com.adam.aslfms.service.Handshaker;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptions;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
@@ -45,7 +47,7 @@ public class AppSettings {
 	private static final String KEY_SCROBBLING_ENABLE = "enable_scrobbling";
 	private static final String KEY_NOWPLAYING_ENABLE = "enable_nowplaying";
 
-	//private static final String KEY_MUSIC_APP_ENABLE_PREFIX = "appenable_";
+	// private static final String KEY_MUSIC_APP_ENABLE_PREFIX = "appenable_";
 
 	private static final String KEY_AUTH_STATUS = "authstatus";
 
@@ -94,22 +96,68 @@ public class AppSettings {
 		return prefs.getString(napp.getSettingsPrefix() + KEY_USERNAME, "");
 	}
 
+	/**
+	 * Saves the password in plain-text for a user account at the {@link NetApp}
+	 * {@code napp}. This is only used as an intermediary step, and is removed
+	 * when the authentication is successful in {@link Handshaker#run()}
+	 * 
+	 * @see #setPwdMd5(NetApp)
+	 * 
+	 * @param napp
+	 *            the {@code NetApp} for which a user account has this password
+	 * @param s
+	 *            the password, in plain-text
+	 */
 	public void setPassword(NetApp napp, String s) {
 		Editor e = prefs.edit();
 		e.putString(napp.getSettingsPrefix() + KEY_PASSWORD, s);
 		e.commit();
 	}
 
+	/**
+	 * Returns the password in plain-text for a user account at the
+	 * {@link NetApp} {@code napp}. This is only used as an intermediary step,
+	 * and is removed when the authentication is successful in
+	 * {@link Handshaker#run()}
+	 * 
+	 * @see #getPwdMd5(NetApp)
+	 * 
+	 * @param napp
+	 *            the {@code NetApp} for which a user account has this password
+	 * @return the password, in plain-text
+	 */
 	public String getPassword(NetApp napp) {
 		return prefs.getString(napp.getSettingsPrefix() + KEY_PASSWORD, "");
 	}
 
+	/**
+	 * Saves an MD5 hash of the password for a user account at the
+	 * {@link NetApp} {@code napp}. This is stored in the settings file until it
+	 * is cleared by the user through {@link UserCredActivity}. It is "safe" to
+	 * store a password this way, as it would take a very, very long time to
+	 * extract the original password from the MD5 hash.
+	 * 
+	 * @param napp
+	 *            the {@code NetApp} for which a user account has this password
+	 * @param s
+	 *            the password, as an MD5 hash
+	 */
 	public void setPwdMd5(NetApp napp, String s) {
 		Editor e = prefs.edit();
 		e.putString(napp.getSettingsPrefix() + KEY_PWDMD5, s);
 		e.commit();
 	}
 
+	/**
+	 * Returns the password as an MD5 hash for a user account at the
+	 * {@link NetApp} {@code napp}.
+	 * 
+	 * @see #getPwdMd5(NetApp)
+	 * 
+	 * @param napp
+	 *            the {@code NetApp} for which a user account has this password
+	 * @return the password, as an MD5 hash
+	 */
 	public String getPwdMd5(NetApp napp) {
 		return prefs.getString(napp.getSettingsPrefix() + KEY_PWDMD5, "");
 	}
@@ -230,7 +278,8 @@ public class AppSettings {
 	}
 
 	public boolean isScrobblingEnabled(PowerOptions pow) {
-		return prefs.getBoolean(KEY_SCROBBLING_ENABLE + pow.getSettingsPath(), getAdvancedOptions(pow).isScrobblingEnabled());
+		return prefs.getBoolean(KEY_SCROBBLING_ENABLE + pow.getSettingsPath(),
+				getAdvancedOptions(pow).isScrobblingEnabled());
 	}
 
 	public void setNowPlayingEnabled(PowerOptions pow, boolean b) {
@@ -240,15 +289,16 @@ public class AppSettings {
 	}
 
 	public boolean isNowPlayingEnabled(PowerOptions pow) {
-		return prefs.getBoolean(KEY_NOWPLAYING_ENABLE + pow.getSettingsPath(), getAdvancedOptions(pow).isNpEnabled());
+		return prefs.getBoolean(KEY_NOWPLAYING_ENABLE + pow.getSettingsPath(),
+				getAdvancedOptions(pow).isNpEnabled());
 	}
-	
+
 	public void setScrobblePoint(int sp) {
 		Editor e = prefs.edit();
 		e.putInt(KEY_SCROBBLE_POINT, sp);
 		e.commit();
 	}
-	
+
 	public int getScrobblePoint() {
 		return prefs.getInt(KEY_SCROBBLE_POINT, 50);
 	}
@@ -302,6 +352,7 @@ public class AppSettings {
 
 	public boolean getAdvancedOptionsAlsoOnComplete(PowerOptions pow) {
 		return prefs.getBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE
-				+ pow.getSettingsPath(), getAdvancedOptions(pow).getAlsoOnComplete());
+				+ pow.getSettingsPath(), getAdvancedOptions(pow)
+				.getAlsoOnComplete());
 	}
 }

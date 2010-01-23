@@ -87,7 +87,7 @@ public class Handshaker extends NetRunnable {
 			// no more sleeping, handshake succeeded
 			getNetworker().resetSleeper();
 
-			// we don't need it anymore, settings.getPwdMd5() is enough
+			// we don't need/want it anymore, settings.getPwdMd5() is enough
 			settings.setPassword(getNetApp(), "");
 
 			notifyAuthStatusUpdate(Status.AUTHSTATUS_OK);

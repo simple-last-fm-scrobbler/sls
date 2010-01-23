@@ -99,6 +99,10 @@ public class EditUserCredentials extends DialogPreference {
 			username = username.replaceAll("\\s", "");
 			settings.setUsername(mNetApp, username);
 			String password = mPassword.getText().toString();
+
+			// Here we save the plain-text password temporarily. When the
+			// authentication request succeeds, it is removed by
+			// Handshaker.run()
 			settings.setPassword(mNetApp, password);
 			settings.setPwdMd5(mNetApp, MD5.getHashString(password));
 
