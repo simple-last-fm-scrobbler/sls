@@ -1,10 +1,13 @@
+- 1.2.4
+  * Fixed bug where SLS would crash if you hadn't scrobbled all your cached tracks before upgrading to 1.2.3
+
 - 1.2.3
   * Implemented an API for new music apps
   * Now detects music apps that can scrobble through SLS automatically
   * Added link to profile page in the status screen
 
 - 1.2.1
-  * Small bugfixes, removed username length limit
+  * Small bugfixes, removed (stupid) username length limit
 
 - 1.2
   * Added support for the Scrobble Droid API - can now scrobble for all apps that can scrobble through Scrobble Droid.

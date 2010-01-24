@@ -1,6 +1,7 @@
 package com.adam.aslfms.receiver;
 
 import com.adam.aslfms.MusicAppsScreen;
+import com.adam.aslfms.R;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -301,6 +302,12 @@ public class MusicAPI {
 		c.moveToFirst();
 		if (!c.isAfterLast()) {
 			mapi = readMusicAPI(c);
+		} else {
+			// this means that the music api the user used to listen to this
+			// track
+			// hasn't been played after the upgrade to v1.2.3
+			mapi = new MusicAPI(-1, ctx.getString(R.string.unknown_mapi),
+					NOT_AN_APPLICATION_PACKAGE + "pre_1_2_3", null, false, true);
 		}
 		c.close();
 		dbHelper.close();
