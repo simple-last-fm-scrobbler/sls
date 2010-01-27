@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<com.adam.aslfms.SeekBarPreference
+		android:key="scrobble_pointer"
+		android:title="@string/scrobble_point_title"
+		android:summary="@string/scrobble_point_summary" />
+
+	<PreferenceCategory
+		android:title="@string/ao_battery_title" />
+	<ListPreference
+		android:key="ao_battery_chooser"
+		android:title="@string/options_title" />
+
+	<CheckBoxPreference
+		android:key="toggle_battery_scrobbling"
+		android:title="@string/scrobbling"
+		android:summaryOff="@string/scrobbling_enable"
+		android:persistent="false"
+		android:enabled="true" />
+	<CheckBoxPreference
+		android:key="toggle_battery_np"
+		android:title="@string/nowplaying"
+		android:summaryOff="@string/nowplaying_enable"
+		android:persistent="false"
+		android:enabled="true" />
+
+	<ListPreference
+		android:key="ao_battery_when"
+		android:title="@string/advanced_options_when_title" />
+	<CheckBoxPreference
+		android:key="ao_battery_aoc"
+		android:title="@string/advanced_options_also_on_complete_title"
+		android:summary="@string/advanced_options_also_on_complete_summary"
+		android:persistent="false" />
+
+	<PreferenceCategory
+		android:title="@string/ao_plugged_title" />
+	<ListPreference
+		android:key="ao_plugged_chooser"
+		android:title="@string/options_title" />
+
+	<CheckBoxPreference
+		android:key="toggle_plugged_scrobbling"
+		android:title="@string/scrobbling"
+		android:summaryOff="@string/scrobbling_enable"
+		android:persistent="false"
+		android:enabled="true" />
+	<CheckBoxPreference
+		android:key="toggle_plugged_np"
+		android:title="@string/nowplaying"
+		android:summaryOff="@string/nowplaying_enable"
+		android:persistent="false"
+		android:enabled="true" />
+
+	<ListPreference
+		android:key="ao_plugged_when"
+		android:title="@string/advanced_options_when_title" />
+	<CheckBoxPreference
+		android:key="ao_plugged_aoc"
+		android:title="@string/advanced_options_also_on_complete_title"
+		android:summary="@string/advanced_options_also_on_complete_summary"
+		android:persistent="false" />
+
+
+</PreferenceScreen>
