@@ -177,7 +177,7 @@
 		name="supported_netapps">Supported websites: %1</string>
 	<string
 		name="supported_musicapps">Supported apps: Android Music Player, HTC Hero Music Player,
-		Meridian Player, RockOn</string>
+		Meridian Player, RockOn, MixZing</string>
 	<string
 		name="scrobble_now">Scrobble now</string>
 	<string
@@ -299,6 +299,10 @@
 		name="scrobble_point_summary">Will cache scrobble after %1% of it has been played</string>
 	<string
 		name="profile_page">Profile page</string>
-		<string
-        name="unknown_mapi">Unknown app (pre SLS v1.2.3)</string>
+	<string
+		name="unknown_mapi">Unknown app (pre SLS v1.2.3)</string>
+	<string
+		name="also_disable_np_title">Also disable now-playing</string>
+	<string
+		name="also_disable_np_summary">[Hmpf]</string>
 </resources>

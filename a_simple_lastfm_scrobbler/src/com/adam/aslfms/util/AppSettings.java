@@ -47,8 +47,6 @@ public class AppSettings {
 	private static final String KEY_SCROBBLING_ENABLE = "enable_scrobbling";
 	private static final String KEY_NOWPLAYING_ENABLE = "enable_nowplaying";
 
-	// private static final String KEY_MUSIC_APP_ENABLE_PREFIX = "appenable_";
-
 	private static final String KEY_AUTH_STATUS = "authstatus";
 
 	private static final String KEY_WHATSNEW_VIEWED_VERSION = "whatsnew_viewed_version";
@@ -57,6 +55,9 @@ public class AppSettings {
 	private static final String KEY_ADVANCED_OPTIONS = "advanced_options_type";
 	private static final String KEY_ADVANCED_OPTIONS_WHEN = "advanced_options_when";
 	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE = "scrobbling_options_also_on_complete";
+
+	// Widget stuff
+	private static final String KEY_WIDGET_ALSO_DISABLE_NP = "widget_also_disable_np";
 
 	private final SharedPreferences prefs;
 
@@ -354,5 +355,16 @@ public class AppSettings {
 		return prefs.getBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE
 				+ pow.getSettingsPath(), getAdvancedOptions(pow)
 				.getAlsoOnComplete());
+	}
+
+	// Widget stuff
+	public void setWidgetAlsoDisableNP(boolean b) {
+		Editor e = prefs.edit();
+		e.putBoolean(KEY_WIDGET_ALSO_DISABLE_NP, b);
+		e.commit();
+	}
+
+	public boolean getWidgetAlsoDisableNP() {
+		return prefs.getBoolean(KEY_WIDGET_ALSO_DISABLE_NP, false);
 	}
 }

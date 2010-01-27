@@ -2,8 +2,8 @@
 <manifest
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.adam.aslfms"
-	android:versionCode="13"
-	android:versionName="1.2.4">
+	android:versionCode="14"
+	android:versionName="1.2.5">
 
 	<application
 		android:icon="@drawable/icon"
@@ -115,6 +115,9 @@
 					android:name="com.adam.aslfms.notify.playstatechanged" />
 			</intent-filter>
 		</receiver>
+
+
+
 	</application>
 
 	<uses-sdk

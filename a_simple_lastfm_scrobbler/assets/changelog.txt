@@ -1,3 +1,6 @@
+- 1.2.5
+  * New icon by Tha PHLASH
+
 - 1.2.4
   * Fixed bug where SLS would crash if you hadn't scrobbled all your cached tracks before upgrading to 1.2.3
 
