@@ -279,18 +279,21 @@ public class Track {
 	 * 
 	 * @see #setQueued()
 	 * 
-	 * @return true if this track has been queued for scrobbling, false otherwise
+	 * @return true if this track has been queued for scrobbling, false
+	 *         otherwise
 	 */
 	public boolean hasBeenQueued() {
 		return mQueued;
 	}
 
 	/**
-	 * Returns the duration for which this track has been played, in milliseconds.
+	 * Returns the duration for which this track has been played, in
+	 * milliseconds.
 	 * 
 	 * @see #updateTimePlayed(long)
 	 * 
-	 * @return the duration for which this track has been played, in milliseconds
+	 * @return the duration for which this track has been played, in
+	 *         milliseconds
 	 */
 	public long getTimePlayed() {
 		return mTimePlayed;
@@ -298,6 +301,7 @@ public class Track {
 
 	/**
 	 * TODO:
+	 * 
 	 * @param currentTime
 	 */
 	public void updateTimePlayed(long currentTime) {
@@ -318,13 +322,13 @@ public class Track {
 
 	@Override
 	public String toString() {
-		return "Track [mAlbum=" + mAlbum + ", mArtist=" + mArtist
-				+ ", mDuration=" + mDuration + ", mMbId=" + mMbId
+		return "Track [mArtist=" + mArtist + ", mAlbum=" + mAlbum + ", mTrack="
+				+ mTrack + ", mDuration=" + mDuration + ", mMbId=" + mMbId
 				+ ", mMusicApp=" + mMusicAPI + ", mQueued=" + mQueued
 				+ ", mRowId=" + mRowId + ", mSource=" + mSource
-				+ ", mTimePlayed=" + mTimePlayed + ", mTrack=" + mTrack
-				+ ", mTracknr=" + mTracknr + ", mUnknownDuration="
-				+ mUnknownDuration + ", mWhen=" + mWhen + "]";
+				+ ", mTimePlayed=" + mTimePlayed + ", mTracknr=" + mTracknr
+				+ ", mUnknownDuration=" + mUnknownDuration + ", mWhen=" + mWhen
+				+ "]";
 	}
 
 	@Override
@@ -340,8 +344,8 @@ public class Track {
 	}
 
 	/**
-	 * Only checks artist, album and track strings (+ {@link MusicApp}), which means
-	 * that tracks sent to ScrobblingService can be properly compared.
+	 * Only checks artist, album and track strings (+ {@link MusicApp}), which
+	 * means that tracks sent to ScrobblingService can be properly compared.
 	 */
 	@Override
 	public boolean equals(Object obj) {

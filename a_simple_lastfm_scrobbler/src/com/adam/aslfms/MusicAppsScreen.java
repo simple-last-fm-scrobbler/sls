@@ -105,7 +105,7 @@ public class MusicAppsScreen extends PreferenceActivity {
 			for (MusicAPI mapi : mapis) {
 				CheckBoxPreference appPref = new CheckBoxPreference(this, null);
 				appPref.setTitle(mapi.getName());
-				appPref.setPersistent(false); // TODO: what does this mean?
+				appPref.setPersistent(false);
 				appPref.setChecked(mapi.isEnabled());
 
 				mSupportedMusicAppsList.addPreference(appPref);

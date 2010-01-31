@@ -244,10 +244,11 @@ public class MusicAPI {
 			}
 
 			if (changed) {
+				String msgNull = mapi.msg == null ? "NULL" : "'" + mapi.msg + "'";
 				String update = "update music_api set " //
 						+ "name = '" + mapi.name + "', " //
 						+ "pkg = '" + mapi.pkg + "', " //
-						+ "msg = '" + mapi.msg + "', " //
+						+ "msg = " + msgNull + ", " //
 						+ "sdclash = " + mapi.clashWithScrobbleDroid //
 						+ " where _id = " + mapi.id;
 				Log.d(TAG, "doing an music api db update");
