@@ -146,7 +146,7 @@ public class ScrobblingService extends Service {
 		}
 
 		if (state == Track.State.START || state == Track.State.RESUME) { // start/resume
-			if (mCurrentTrack != null) { // current is NOT equal to track
+			if (mCurrentTrack != null) {
 				mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
 				tryQueue(mCurrentTrack);
 				if (track.equals(mCurrentTrack)) {
@@ -170,9 +170,9 @@ public class ScrobblingService extends Service {
 					Log.e(TAG, "c: " + mCurrentTrack);
 				} else {
 					mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
-					// below: to be set on RESUME 
+					// below: to be set on RESUME
 					mCurrentTrack.updateTimePlayed(Track.UNKNOWN_COUNT_POINT);
-	
+
 					tryQueue(mCurrentTrack);
 				}
 			}

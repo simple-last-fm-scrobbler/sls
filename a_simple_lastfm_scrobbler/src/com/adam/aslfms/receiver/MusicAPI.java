@@ -119,7 +119,7 @@ public class MusicAPI {
 		return enabled == 1;
 	}
 
-	/**
+	/** 
 	 * Enables / disables scrobbling from this API / music app.
 	 * 
 	 * @see MusicAppsScreen
@@ -244,7 +244,8 @@ public class MusicAPI {
 			}
 
 			if (changed) {
-				String msgNull = mapi.msg == null ? "NULL" : "'" + mapi.msg + "'";
+				String msgNull = mapi.msg == null ? "NULL" : "'" + mapi.msg
+						+ "'";
 				String update = "update music_api set " //
 						+ "name = '" + mapi.name + "', " //
 						+ "pkg = '" + mapi.pkg + "', " //

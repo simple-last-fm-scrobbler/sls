@@ -7,8 +7,8 @@ import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
 /**
- * A BroadcastReceiver for the Simple Last.fm Scrobbler API.
- * More info available at the SLS <a
+ * A BroadcastReceiver for the Simple Last.fm Scrobbler API. More info available
+ * at the SLS <a
  * href="http://code.google.com/p/a-simple-lastfm-scrobbler/wiki/Developers">
  * dev page</a>.
  * 
@@ -23,7 +23,7 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 	private static final String TAG = "SLSAPIReceiver";
 
 	public static final String SLS_API_BROADCAST_INTENT = "com.adam.aslfms.notify.playstatechanged";
-	
+
 	public static final int STATE_START = 0;
 	public static final int STATE_RESUME = 1;
 	public static final int STATE_PAUSE = 2;

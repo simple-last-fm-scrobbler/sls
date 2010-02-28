@@ -75,12 +75,12 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 					MediaStore.Audio.AudioColumns.DURATION,
 					MediaStore.Audio.AudioColumns.ALBUM,
 					MediaStore.Audio.AudioColumns.TRACK, };
-			
+
 			Cursor cur = ctx.getContentResolver().query(
 					ContentUris.withAppendedId(
 							MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, msid),
 					columns, null, null, null);
-			
+
 			if (cur == null) {
 				throw new IllegalArgumentException(
 						"could not open cursor to media in media store");
