@@ -1,6 +1,6 @@
 - 1.2.?? (?????????)
-  * Added support to scrobble only on 3G or Wifi etc
-  * Minor fixes
+  * Added support to scrobble only when on certain types of network (3G, Wifi, etc.)
+  * Minor bug-fixes
 
 - 1.2.7  (2010-03-01)
   * Minor bug-fixes

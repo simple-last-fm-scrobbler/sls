@@ -1,18 +1,18 @@
 /**
- *  This file is part of A Simple Last.fm Scrobbler.
+ *  This file is part of Simple Last.fm Scrobbler.
  *
- *  A Simple Last.fm Scrobbler is free software: you can redistribute it and/or modify
+ *  Simple Last.fm Scrobbler is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
  *  the Free Software Foundation, either version 3 of the License, or
  *  (at your option) any later version.
  *
- *  A Simple Last.fm Scrobbler is distributed in the hope that it will be useful,
+ *  Simple Last.fm Scrobbler is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with A Simple Last.fm Scrobbler.  If not, see <http://www.gnu.org/licenses/>.
+ *  along with Simple Last.fm Scrobbler.  If not, see <http://www.gnu.org/licenses/>.
  *  
  *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
  */
@@ -50,16 +50,16 @@ import com.adam.aslfms.util.Util;
 public class SettingsActivity extends PreferenceActivity {
 
 	private static final String TAG = "SettingsActivity";
-	
+
 	private static final String KEY_SCROBBLE_ALL_NOW = "scrobble_all_now";
 	private static final String KEY_VIEW_SCROBBLE_CACHE = "view_scrobble_cache";
 
 	private static final int MENU_ABOUT_ID = 0;
 
 	private AppSettings settings;
-	
+
 	private ScrobblesDatabase mDb;
-	
+
 	private Preference mScrobbleAllNow;
 	private Preference mViewScrobbleCache;
 
@@ -69,7 +69,7 @@ public class SettingsActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.settings_prefs);
 
 		settings = new AppSettings(this);
-		
+
 		mDb = new ScrobblesDatabase(this);
 		try {
 			mDb.open();
@@ -78,7 +78,7 @@ public class SettingsActivity extends PreferenceActivity {
 			Log.e(TAG, e.getMessage());
 			mDb = null;
 		}
-		
+
 		mScrobbleAllNow = findPreference(KEY_SCROBBLE_ALL_NOW);
 		mViewScrobbleCache = findPreference(KEY_VIEW_SCROBBLE_CACHE);
 
@@ -88,8 +88,6 @@ public class SettingsActivity extends PreferenceActivity {
 			settings.setWhatsNewViewedVersion(v);
 		}
 	}
-	
-	
 
 	@Override
 	protected void onDestroy() {
@@ -97,15 +95,11 @@ public class SettingsActivity extends PreferenceActivity {
 		mDb.close();
 	}
 
-	
-
 	@Override
 	protected void onPause() {
 		super.onPause();
 		unregisterReceiver(onStatusChange);
 	}
-
-
 
 	@Override
 	protected void onResume() {
@@ -119,7 +113,7 @@ public class SettingsActivity extends PreferenceActivity {
 	@Override
 	public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
 			Preference pref) {
-		
+
 		if (pref == mScrobbleAllNow) {
 			int numInCache = mDb.queryNumberOfTracks();
 			Util.scrobbleAllIfPossible(this, numInCache);
@@ -160,7 +154,7 @@ public class SettingsActivity extends PreferenceActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	private BroadcastReceiver onStatusChange = new BroadcastReceiver() {
 
 		@Override

@@ -1,3 +1,22 @@
+/**
+ *  This file is part of Simple Last.fm Scrobbler.
+ *
+ *  Simple Last.fm Scrobbler is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Simple Last.fm Scrobbler is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Simple Last.fm Scrobbler.  If not, see <http://www.gnu.org/licenses/>.
+ *  
+ *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
+ */
+
 package com.adam.aslfms;
 
 import android.app.ListActivity;
@@ -90,7 +109,7 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		
+
 		if (mScrobblesCursor != null)
 			mScrobblesCursor.requery();
 
@@ -220,8 +239,7 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 
 		@Override
 		public void bindView(View view, Context context, Cursor cursor) {
-			String track = cursor
-					.getString(cursor.getColumnIndex("track"));
+			String track = cursor.getString(cursor.getColumnIndex("track"));
 			TextView trackView = (TextView) view.findViewById(R.id.track);
 			trackView.setText(track);
 
@@ -231,13 +249,11 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 			TextView timeView = (TextView) view.findViewById(R.id.when);
 			timeView.setText(timeString);
 
-			String artist = cursor
-					.getString(cursor.getColumnIndex("artist"));
+			String artist = cursor.getString(cursor.getColumnIndex("artist"));
 			TextView artistView = (TextView) view.findViewById(R.id.artist);
 			artistView.setText(artist);
 
-			String album = cursor
-					.getString(cursor.getColumnIndex("album"));
+			String album = cursor.getString(cursor.getColumnIndex("album"));
 			TextView albumView = (TextView) view.findViewById(R.id.album);
 			albumView.setText(album);
 		}
