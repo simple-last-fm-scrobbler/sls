@@ -182,9 +182,9 @@ public class Handshaker extends NetRunnable {
 		// ------------ for this app
 		// ---------------------------------------------
 		// -----------------------------------------------------------------------
-		// these values should only be used for this app. If other code
+		// These values should only be used for SLS. If other code
 		// misbehaves using these values, this app might get banned.
-		// You can ask last.fm for new id's for your app
+		// You can ask Last.fm for your own ids.
 		String clientid = getContext().getString(R.string.client_id);
 		String clientver = getContext().getString(R.string.client_ver);
 		// ------------ end

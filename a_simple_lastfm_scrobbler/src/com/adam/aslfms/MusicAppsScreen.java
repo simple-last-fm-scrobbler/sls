@@ -96,24 +96,28 @@ public class MusicAppsScreen extends PreferenceActivity {
 		mMapisToPrefsMap.clear();
 
 		MusicAPI[] mapis = MusicAPI.all(this);
-		if (mapis.length == 0) {
-			Preference empty = new Preference(this);
-			empty.setTitle(R.string.no_supported_mapis_title);
-			empty.setSummary(R.string.no_supported_mapis_summary);
-			mSupportedMusicAppsList.addPreference(empty);
-		} else {
-			for (MusicAPI mapi : mapis) {
-				CheckBoxPreference appPref = new CheckBoxPreference(this, null);
-				appPref.setTitle(mapi.getName());
-				appPref.setPersistent(false);
-				appPref.setChecked(mapi.isEnabled());
+		for (MusicAPI mapi : mapis) {
+			CheckBoxPreference appPref = new CheckBoxPreference(this, null);
+			appPref.setTitle(mapi.getName());
+			appPref.setPersistent(false);
+			appPref.setChecked(mapi.isEnabled());
 
-				mSupportedMusicAppsList.addPreference(appPref);
-				mPrefsToMapisMap.put(appPref, mapi);
-				mMapisToPrefsMap.put(mapi, appPref);
-				setSMASummary(appPref, mapi);
-			}
+			mSupportedMusicAppsList.addPreference(appPref);
+			mPrefsToMapisMap.put(appPref, mapi);
+			mMapisToPrefsMap.put(mapi, appPref);
+			setSMASummary(appPref, mapi);
 		}
+		
+		// explanation text, for what this screen does
+		Preference detect = new Preference(this);
+		if (mapis.length == 0)
+			detect.setTitle(R.string.no_supported_mapis_title);
+		else if (mapis.length == 1)
+			detect.setTitle(R.string.find_supported_mapis_one_title);
+		else
+			detect.setTitle(getString(R.string.find_supported_mapis_many_title).replace("%1", Integer.toString(mapis.length)));
+		detect.setSummary(R.string.find_supported_mapis_summary);
+		mSupportedMusicAppsList.addPreference(detect);
 	}
 
 	private void setSMASummary(Preference pref, MusicAPI mapi) {
@@ -123,7 +127,7 @@ public class MusicAppsScreen extends PreferenceActivity {
 			installed = true; // i.e. it cannot be installed in this case
 		else
 			installed = Util.checkForInstalledApp(this, mapi.getPackage());
-			
+
 		if (!mapi.isEnabled()) {
 			pref.setSummary(R.string.app_disabled);
 		} else if (!installed) {

@@ -45,22 +45,23 @@ public class ScrobblesDatabase {
 	private final Context mCtx;
 
 	private static final String DATABASE_NAME = "data";
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 6;
 
 	private static final String TABLENAME_SCROBBLES = "scrobbles";
 	private static final String TABLENAME_CORRNETAPP = "scrobbles_netapp";
 
 	private static final String DATABASE_CREATE_SCROBBLES = "create table scrobbles ("
-			+ "_id integer primary key autoincrement, "
-			+ "musicapp integer not null, "
-			+ "artist text not null, "
-			+ "album text not null, "
-			+ "track text not null, "
-			+ "tracknr text not null, "
-			+ "mbid text not null, "
-			+ "source text not null, "
-			+ "duration integer not null, "
-			+ "whenplayed integer not null);";
+			+ "_id integer primary key autoincrement, " //
+			+ "musicapp integer not null, " //
+			+ "artist text not null, " //
+			+ "album text not null, " //
+			+ "track text not null, " //
+			+ "tracknr text not null, " //
+			+ "mbid text not null, " //
+			+ "source text not null, " //
+			+ "duration integer not null, " //
+			+ "whenplayed integer not null," //
+			+ "rating text not null);";
 
 	private static final String DATABASE_CREATE_CORRNETAPP = "create table scrobbles_netapp ("
 			+ "netappid integer not null, "
@@ -150,6 +151,7 @@ public class ScrobblesDatabase {
 		vals.put("tracknr", track.getTrackNr());
 		vals.put("mbid", track.getMbid());
 		vals.put("source", track.getSource());
+		vals.put("rating", track.getRating());
 
 		return mDb.insert(TABLENAME_SCROBBLES, null, vals);
 	}
@@ -208,6 +210,7 @@ public class ScrobblesDatabase {
 		b.setTrackNr(c.getString(c.getColumnIndex("tracknr")));
 		b.setMbid(c.getString(c.getColumnIndex("mbid")));
 		b.setSource(c.getString(c.getColumnIndex("source")));
+		b.setRating(c.getString(c.getColumnIndex("rating")));
 
 		return b.build(); // theoretically might throw, shouldn't though
 	}

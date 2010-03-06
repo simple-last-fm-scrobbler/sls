@@ -19,7 +19,9 @@
 
 package com.adam.aslfms.util;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 import android.app.AlertDialog;
@@ -33,6 +35,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -40,6 +44,7 @@ import android.widget.Toast;
 import com.adam.aslfms.R;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
+import com.adam.aslfms.util.AppSettingsEnums.NetworkOptions;
 import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
 
 /**
@@ -52,13 +57,14 @@ public class Util {
 	private static final String TAG = "Util";
 
 	/**
-	 * Returns whether the phone is running on battery or if it is connected
-	 * to a charger.
+	 * Returns whether the phone is running on battery or if it is connected to
+	 * a charger.
 	 * 
 	 * @see PowerOptions
 	 * 
-	 * @param ctx	context to get access to battery-checking methods
-	 * @return		an enum indicating what the power source is
+	 * @param ctx
+	 *            context to get access to battery-checking methods
+	 * @return an enum indicating what the power source is
 	 */
 	public static PowerOptions checkPower(Context ctx) {
 		// check if plugged into AC
@@ -72,18 +78,52 @@ public class Util {
 			return PowerOptions.PLUGGED_IN;
 		}
 	}
-	
+
+	public static List<NetworkOptions> checkNetworkStatus(Context ctx) {
+		ConnectivityManager connectivityManager = (ConnectivityManager) ctx
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+		if (networkInfo == null) {
+			return new ArrayList<NetworkOptions>();
+		}
+		int netType = networkInfo.getType();
+		int netSubType = networkInfo.getSubtype();
+		
+		Log.d(TAG, "NetType: " + netType);
+		Log.d(TAG, "NetType: " + netSubType);
+
+		NetworkOptions[] nos = NetworkOptions.values();
+		List<NetworkOptions> list = new ArrayList<NetworkOptions>(nos.length);
+		
+		for (NetworkOptions no : nos) {
+			Log.d(TAG, no.toString());
+			Log.d(TAG, no.getForbiddenNetworkTypes().toString());
+			Log.d(TAG, no.getForbiddenNetworkSubTypes().toString());
+			if (no.isNetworkTypeForbidden(netType) || no.isNetworkSubTypeForbidden(netSubType)) {
+				continue;
+			} else {
+				list.add(no);
+			}
+		}
+		
+		Log.d(TAG, "NetOptions: " + list);
+		
+		return list;
+	}
+
 	/**
 	 * Returns the current time since 1970, UTC, in seconds.
+	 * 
 	 * @return the current time since 1970, UTC, in seconds
 	 */
 	public static long currentTimeSecsUTC() {
 		return Calendar.getInstance(TimeZone.getTimeZone("UTC"))
 				.getTimeInMillis() / 1000;
 	}
-	
+
 	/**
 	 * Returns the current time since 1970, UTC, in milliseconds.
+	 * 
 	 * @return the current time since 1970, UTC, in milliseconds
 	 */
 	public static long currentTimeMillisUTC() {
@@ -92,12 +132,14 @@ public class Util {
 	}
 
 	/**
-	 * Converts time from a long to a string in a format set by the
-	 * user in the phone's settings.
+	 * Converts time from a long to a string in a format set by the user in the
+	 * phone's settings.
 	 * 
-	 * @param ctx	context to get access to the conversion methods
-	 * @param secs	time since 1970, UTC, in seconds
-	 * @return		the time since 1970, UTC, as a string (e.g. 2009-10-23 12:25)
+	 * @param ctx
+	 *            context to get access to the conversion methods
+	 * @param secs
+	 *            time since 1970, UTC, in seconds
+	 * @return the time since 1970, UTC, as a string (e.g. 2009-10-23 12:25)
 	 */
 	public static String timeFromUTCSecs(Context ctx, long secs) {
 		return DateUtils.formatDateTime(ctx, secs * 1000,
@@ -107,6 +149,7 @@ public class Util {
 
 	/**
 	 * Returns the current time since 1970, local time zone, in milliseconds.
+	 * 
 	 * @return the current time since 1970, local time zone, in milliseconds
 	 */
 	public static long currentTimeMillisLocal() {
@@ -276,7 +319,7 @@ public class Util {
 				return ctx.getString(R.string.logged_in_as).replace("%1",
 						settings.getUsername(napp));
 			else
-				return ctx.getString(R.string.logged_in);
+				return ctx.getString(R.string.logged_in_just);
 		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_NOAUTH) {
 			if (includeValues)
 				return ctx.getString(R.string.user_credentials_summary)

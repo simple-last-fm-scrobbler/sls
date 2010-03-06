@@ -28,6 +28,7 @@ import com.adam.aslfms.service.Handshaker;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptions;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
+import com.adam.aslfms.util.AppSettingsEnums.NetworkOptions;
 import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
 import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
 
@@ -37,6 +38,9 @@ import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
  * 
  */
 public class AppSettings {
+
+	@SuppressWarnings("unused")
+	private static final String TAG = "SLSAppSettings";
 
 	private static final String SETTINGS_NAME = "settings";
 
@@ -55,6 +59,7 @@ public class AppSettings {
 	private static final String KEY_ADVANCED_OPTIONS = "advanced_options_type";
 	private static final String KEY_ADVANCED_OPTIONS_WHEN = "advanced_options_when";
 	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE = "scrobbling_options_also_on_complete";
+	private static final String KEY_ADVANCED_OPTIONS_NETWORK = "advanced_options_network";
 
 	// Widget stuff
 	private static final String KEY_WIDGET_ALSO_DISABLE_NP = "widget_also_disable_np";
@@ -276,6 +281,14 @@ public class AppSettings {
 		Editor e = prefs.edit();
 		e.putBoolean(KEY_SCROBBLING_ENABLE + pow.getSettingsPath(), b);
 		e.commit();
+
+		// if the options for plugged in is set to "same as for battery", then
+		// we need to update it's settings as well
+		if (pow == PowerOptions.BATTERY
+				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
+			setNowPlayingEnabled(PowerOptions.PLUGGED_IN,
+					isNowPlayingEnabled(PowerOptions.BATTERY));
+		}
 	}
 
 	public boolean isScrobblingEnabled(PowerOptions pow) {
@@ -287,6 +300,14 @@ public class AppSettings {
 		Editor e = prefs.edit();
 		e.putBoolean(KEY_NOWPLAYING_ENABLE + pow.getSettingsPath(), b);
 		e.commit();
+
+		// if the options for plugged in is set to "same as for battery", then
+		// we need to update it's settings as well
+		if (pow == PowerOptions.BATTERY
+				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
+			setNowPlayingEnabled(PowerOptions.PLUGGED_IN,
+					isNowPlayingEnabled(PowerOptions.BATTERY));
+		}
 	}
 
 	public boolean isNowPlayingEnabled(PowerOptions pow) {
@@ -305,6 +326,18 @@ public class AppSettings {
 	}
 
 	public void setAdvancedOptions(PowerOptions pow, AdvancedOptions ao) {
+		boolean found = false;
+		for (AdvancedOptions aof : pow.getApplicableOptions()) {
+			if (aof == ao) {
+				found = true;
+				break;
+			}
+		}
+		if (!found) {
+			throw new IllegalArgumentException(
+					"Bad option for this power setting: " + ao + ", " + pow);
+		}
+		
 		Editor e = prefs.edit();
 		e.putString(KEY_ADVANCED_OPTIONS + pow.getSettingsPath(), ao
 				.getSettingsVal());
@@ -314,10 +347,33 @@ public class AppSettings {
 			setNowPlayingEnabled(pow, ao.isNpEnabled());
 			setAdvancedOptionsWhen(pow, ao.getWhen());
 			setAdvancedOptionsAlsoOnComplete(pow, ao.getAlsoOnComplete());
+			setNetworkOptions(pow, ao.getNetworkOptions());
+		}
+
+		// if the options for plugged in is set to "same as for battery", then
+		// we need to update it's settings as well
+		if (pow == PowerOptions.PLUGGED_IN
+				&& ao == AdvancedOptions.SAME_AS_BATTERY) {
+			setScrobblingEnabled(PowerOptions.PLUGGED_IN,
+					isScrobblingEnabled(PowerOptions.BATTERY));
+			setNowPlayingEnabled(PowerOptions.PLUGGED_IN,
+					isNowPlayingEnabled(PowerOptions.BATTERY));
+			setAdvancedOptionsWhen(PowerOptions.PLUGGED_IN,
+					getAdvancedOptionsWhen(PowerOptions.BATTERY));
+			setAdvancedOptionsAlsoOnComplete(PowerOptions.PLUGGED_IN,
+					getAdvancedOptionsAlsoOnComplete(PowerOptions.BATTERY));
+			setNetworkOptions(PowerOptions.PLUGGED_IN,
+					getNetworkOptions(PowerOptions.BATTERY));
 		}
 	}
 
-	public AdvancedOptions getAdvancedOptions(PowerOptions pow) {
+	/**
+	 * Wow, I apologize for this mess. I'll clean it up when I figure out how.
+	 * 
+	 * @param pow
+	 * @return
+	 */
+	public AdvancedOptions getAdvancedOptions_raw(PowerOptions pow) {
 		String s = prefs.getString(
 				KEY_ADVANCED_OPTIONS + pow.getSettingsPath(), null);
 		if (s == null) {
@@ -327,11 +383,30 @@ public class AppSettings {
 		}
 	}
 
+	public AdvancedOptions getAdvancedOptions(PowerOptions pow) {
+		AdvancedOptions ao = getAdvancedOptions_raw(pow);
+		// if we have said that we don't want custom settings for plugged in
+		if (pow == PowerOptions.PLUGGED_IN
+				&& ao == AdvancedOptions.SAME_AS_BATTERY) {
+			// return the advanced settings used for battery
+			return getAdvancedOptions_raw(PowerOptions.BATTERY);
+		}
+		return ao;
+	}
+
 	public void setAdvancedOptionsWhen(PowerOptions pow, AdvancedOptionsWhen aow) {
 		Editor e = prefs.edit();
 		e.putString(KEY_ADVANCED_OPTIONS_WHEN + pow.getSettingsPath(), aow
 				.getSettingsVal());
 		e.commit();
+
+		// if the options for plugged in is set to "same as for battery", then
+		// we need to update it's settings as well
+		if (pow == PowerOptions.BATTERY
+				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
+			setAdvancedOptionsWhen(PowerOptions.PLUGGED_IN,
+					getAdvancedOptionsWhen(PowerOptions.BATTERY));
+		}
 	}
 
 	public AdvancedOptionsWhen getAdvancedOptionsWhen(PowerOptions pow) {
@@ -349,12 +424,45 @@ public class AppSettings {
 		e.putBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE
 				+ pow.getSettingsPath(), b);
 		e.commit();
+
+		// if the options for plugged in is set to "same as for battery", then
+		// we need to update it's settings as well
+		if (pow == PowerOptions.BATTERY
+				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
+			setAdvancedOptionsAlsoOnComplete(PowerOptions.PLUGGED_IN,
+					getAdvancedOptionsAlsoOnComplete(PowerOptions.BATTERY));
+		}
 	}
 
 	public boolean getAdvancedOptionsAlsoOnComplete(PowerOptions pow) {
 		return prefs.getBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE
 				+ pow.getSettingsPath(), getAdvancedOptions(pow)
 				.getAlsoOnComplete());
+	}
+
+	public void setNetworkOptions(PowerOptions pow, NetworkOptions no) {
+		Editor e = prefs.edit();
+		e.putString(KEY_ADVANCED_OPTIONS_NETWORK + pow.getSettingsPath(), no
+				.getSettingsVal());
+		e.commit();
+
+		// if the options for plugged in is set to "same as for battery", then
+		// we need to update it's settings as well
+		if (pow == PowerOptions.BATTERY
+				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
+			setNetworkOptions(PowerOptions.PLUGGED_IN,
+					getNetworkOptions(PowerOptions.BATTERY));
+		}
+	}
+
+	public NetworkOptions getNetworkOptions(PowerOptions pow) {
+		String s = prefs.getString(KEY_ADVANCED_OPTIONS_NETWORK
+				+ pow.getSettingsPath(), null);
+		if (s == null) {
+			return NetworkOptions.ANY;
+		} else {
+			return NetworkOptions.fromSettingsVal(s);
+		}
 	}
 
 	// Widget stuff

@@ -73,6 +73,8 @@ public class Track {
 	private String mMbId;
 	private String mSource;
 
+	private String mRating;
+
 	private long mWhen;
 	private int mRowId;
 
@@ -130,6 +132,10 @@ public class Track {
 			_track.mSource = source;
 		}
 
+		public void setRating(String rating) {
+			_track.mRating = rating;
+		}
+
 		public void setWhen(long when) {
 			_track.mWhen = when;
 		}
@@ -164,6 +170,7 @@ public class Track {
 		mSource = "P";
 		mWhen = -1;
 		mRowId = -1;
+		mRating = "";
 
 		// non-track-data stuff
 		mQueued = false;
@@ -195,11 +202,13 @@ public class Track {
 			throw new IllegalArgumentException("mbid is null");
 		}
 
-		if (!mSource.equals("P") && !mSource.equals("R")
-				&& !mSource.equals("U") && !mSource.equals("E")) {
-			throw new IllegalArgumentException("source is invalid, \""
-					+ mSource + "\"");
+		if (mSource == null || !(mSource.equals("P") || mSource.equals("R")
+				|| mSource.equals("U") || mSource.equals("E"))) {
+			throw new IllegalArgumentException("source is invalid: " + mSource);
 		}
+
+		if (mRating == null || !(mRating.equals("") || mRating.equals("L")))
+			throw new IllegalArgumentException("rating is invalid: " + mRating);
 
 		if (mWhen < 0) {
 			throw new IllegalArgumentException("when is negative");
@@ -246,6 +255,10 @@ public class Track {
 
 	public String getMbid() {
 		return mMbId;
+	}
+
+	public String getRating() {
+		return mRating;
 	}
 
 	public long getWhen() {
@@ -322,13 +335,14 @@ public class Track {
 
 	@Override
 	public String toString() {
-		return "Track [mArtist=" + mArtist + ", mAlbum=" + mAlbum + ", mTrack="
-				+ mTrack + ", mDuration=" + mDuration + ", mMbId=" + mMbId
-				+ ", mMusicApp=" + mMusicAPI + ", mQueued=" + mQueued
-				+ ", mRowId=" + mRowId + ", mSource=" + mSource
-				+ ", mTimePlayed=" + mTimePlayed + ", mTracknr=" + mTracknr
-				+ ", mUnknownDuration=" + mUnknownDuration + ", mWhen=" + mWhen
-				+ "]";
+		return "Track [mAlbum=" + mAlbum + ", mArtist=" + mArtist
+				+ ", mDuration=" + mDuration + ", mMbId=" + mMbId
+				+ ", mMusicAPI=" + mMusicAPI + ", mQueued=" + mQueued
+				+ ", mRating=" + mRating + ", mRowId=" + mRowId + ", mSource="
+				+ mSource + ", mTimePlayed=" + mTimePlayed + ", mTrack="
+				+ mTrack + ", mTracknr=" + mTracknr + ", mUnknownDuration="
+				+ mUnknownDuration + ", mWhen=" + mWhen
+				+ ", mWhenToCountTimeFrom=" + mWhenToCountTimeFrom + "]";
 	}
 
 	@Override

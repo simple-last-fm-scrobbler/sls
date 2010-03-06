@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string
+		name="options_title">Options</string>
+	<string
+		name="advanced_options_title">Advanced options</string>
+
+	<string
+		name="scrobbling">Scrobble</string>
+	<string
+		name="scrobbling_enable">Submit listening information when
+		you\'ve listened
+		to a song
+	</string>
+	<string
+		name="nowplaying">Notify now playing</string>
+	<string
+		name="nowplaying_enable">Broadcast what song you currently are listening to
+    </string>
+
+	<string
+		name="scrobble_point_title">Scrobble point</string>
+	<string
+		name="scrobble_point_summary">Will cache scrobble after %1% of it has been played</string>
+
+	<string
+		name="ao_battery_title">On battery</string>
+	<string
+		name="ao_plugged_title">Plugged in</string>
+	<string
+		name="options_summary">Including battery conserving settings</string>
+	<string
+		name="advanced_options_custom_category_title">Custom scrobbling options</string>
+	<string
+		name="advanced_options_when_title">When to scrobble</string>
+	<string
+		name="advanced_options_also_on_complete_title">Also on playlist finish</string>
+	<string
+		name="advanced_options_also_on_complete_summary">Also scrobble when you\'ve finished listening to a playlist
+	</string>
+	<string
+		name="advanced_options_also_on_plugged_title">Also when plugged in</string>
+	<string
+		name="advanced_options_also_on_plugged_summary">Also scrobble when you\'re plugged in to a power source
+    </string>
+	<string
+		name="should_disable_np">You should also disable now playing notifications
+		to better
+		conserve battery</string>
+	<string
+		name="advanced_options_type_standard_name">Standard</string>
+	<string
+		name="advanced_options_type_battery_name">Conserve Battery</string>
+	<string
+		name="advanced_options_type_same_as_battery_name">Same as for battery</string>
+	<string
+		name="advanced_options_type_custom_name">Custom</string>
+	<string
+		name="advanced_options_when_1_name">After every track</string>
+	<string
+		name="advanced_options_when_5_name">After five tracks</string>
+	<string
+		name="advanced_options_when_10_name">After ten tracks</string>
+	<string
+		name="advanced_options_when_25_name">After 25 tracks</string>
+	<string
+		name="advanced_options_when_never_name">When you press the scrobble now button</string>
+	<string
+		name="advanced_options_net_title">Network</string>
+	<string
+		name="advanced_options_net_summary">Submit on: %1</string>
+	<string
+		name="advanced_options_net_any_name">Any network</string>
+	<string
+		name="advanced_options_net_3gup_name">3G and Wifi</string>
+	<string
+		name="advanced_options_net_wifi_name">Wifi only</string>
+</resources>

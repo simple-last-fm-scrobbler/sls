@@ -23,6 +23,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.content.Context;
+import android.net.ConnectivityManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.adam.aslfms.R;
@@ -48,73 +50,102 @@ public class AppSettingsEnums {
 			return numberOfPrefix;
 		}
 	}
-	
-	public enum PowerOptions {
-		BATTERY(""), //
-		PLUGGED_IN("_plugged");
-		private final String settingsPath;
 
-		private PowerOptions(String settingsPath) {
+	public enum PowerOptions {
+		BATTERY("", new AdvancedOptions[] { AdvancedOptions.STANDARD,
+				AdvancedOptions.BATTERY_SAVING, AdvancedOptions.CUSTOM }), //
+		PLUGGED_IN("_plugged", new AdvancedOptions[] {
+				AdvancedOptions.SAME_AS_BATTERY, AdvancedOptions.STANDARD,
+				AdvancedOptions.CUSTOM });
+
+		private final String settingsPath;
+		private final AdvancedOptions[] applicableOptions;
+
+		private PowerOptions(String settingsPath,
+				AdvancedOptions[] applicableOptions) {
 			this.settingsPath = settingsPath;
+			this.applicableOptions = applicableOptions;
 		}
 
-		public String getSettingsPath() {
+		String getSettingsPath() {
 			return settingsPath;
 		}
+
+		public AdvancedOptions[] getApplicableOptions() {
+			return applicableOptions;
+		}
+
 	}
 
 	public enum AdvancedOptions {
+		// the values below for SAME will be ignored
+		SAME_AS_BATTERY("ao_same_as_battery", true, true,
+				AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY,
+				R.string.advanced_options_type_same_as_battery_name), // 
 		STANDARD("ao_standard", true, true, AdvancedOptionsWhen.AFTER_1, true,
+				NetworkOptions.ANY,
 				R.string.advanced_options_type_standard_name), // 
-		BATTERY_SAVING("ao_battery", true, false, AdvancedOptionsWhen.AFTER_10, true,
-				R.string.advanced_options_type_battery_name), // 
+		// not available for plugged in
+		BATTERY_SAVING("ao_battery", true, false, AdvancedOptionsWhen.AFTER_10,
+				true, NetworkOptions.ANY,
+				R.string.advanced_options_type_battery_name), //
+		// the values below for CUSTOM will be ignored
 		CUSTOM("ao_custom", true, true, AdvancedOptionsWhen.AFTER_1, true,
-				R.string.advanced_options_type_custom_name); // these values are
-		// ignored for CUSTOM
+				NetworkOptions.ANY, R.string.advanced_options_type_custom_name);
 
 		private final String settingsVal;
 		private final boolean enableScrobbling;
 		private final boolean enableNp;
 		private final AdvancedOptionsWhen when;
 		private final boolean alsoOnComplete;
+		private final NetworkOptions networkOptions;
 		private final int nameRID;
 
 		private AdvancedOptions(String settingsVal, boolean enableScrobbling,
 				boolean enableNp, AdvancedOptionsWhen when,
-				boolean alsoOnComplete, int nameRID) {
+				boolean alsoOnComplete, NetworkOptions networkOptions,
+				int nameRID) {
 			this.settingsVal = settingsVal;
 			this.enableScrobbling = enableScrobbling;
 			this.enableNp = enableNp;
 			this.when = when;
 			this.alsoOnComplete = alsoOnComplete;
+			this.networkOptions = networkOptions;
 			this.nameRID = nameRID;
 		}
 
-		public String getSettingsVal() {
+		// these methods are intentionally package-private, they are only used
+		// by AppSettings
+
+		String getSettingsVal() {
 			return settingsVal;
 		}
-		
-		public boolean isScrobblingEnabled() {
+
+		boolean isScrobblingEnabled() {
 			return enableScrobbling;
 		}
 
-		public boolean isNpEnabled() {
+		boolean isNpEnabled() {
 			return enableNp;
 		}
 
-		public AdvancedOptionsWhen getWhen() {
+		AdvancedOptionsWhen getWhen() {
 			return when;
 		}
 
-		public boolean getAlsoOnComplete() {
+		boolean getAlsoOnComplete() {
 			return alsoOnComplete;
+		}
+
+		public NetworkOptions getNetworkOptions() {
+			return networkOptions;
 		}
 
 		public String getName(Context ctx) {
 			return ctx.getString(nameRID);
 		}
 
-		private static final String TAG = "AdvancedOptions";
+		private static final String TAG = "SLSAdvancedOptions";
 		private static Map<String, AdvancedOptions> mSAOMap;
 		static {
 			AdvancedOptions[] aos = AdvancedOptions.values();
@@ -154,7 +185,7 @@ public class AppSettingsEnums {
 			this.nameRID = nameRID;
 		}
 
-		public String getSettingsVal() {
+		String getSettingsVal() {
 			return settingsVal;
 		}
 
@@ -166,7 +197,7 @@ public class AppSettingsEnums {
 			return ctx.getString(nameRID);
 		}
 
-		private static final String TAG = "AdvancedOptionsWhen";
+		private static final String TAG = "SLSAdvancedOptionsWhen";
 		private static Map<String, AdvancedOptionsWhen> mSAOWMap;
 		static {
 			AdvancedOptionsWhen[] aows = AdvancedOptionsWhen.values();
@@ -184,6 +215,84 @@ public class AppSettingsEnums {
 				aow = AdvancedOptionsWhen.AFTER_1;
 			}
 			return aow;
+		}
+	}
+
+	public enum NetworkOptions {
+		ANY("any", new int[] {}, new int[] {},
+				R.string.advanced_options_net_any_name), //
+		THREEG_AND_UP("3g_and_up", new int[] {}, new int[] {
+				TelephonyManager.NETWORK_TYPE_UNKNOWN,
+				TelephonyManager.NETWORK_TYPE_GPRS },
+				R.string.advanced_options_net_3gup_name), //
+		WIFI_ONLY("wifi", new int[] { ConnectivityManager.TYPE_MOBILE },
+				new int[] {}, R.string.advanced_options_net_wifi_name);
+
+		private final String settingsVal;
+		private final int[] forbiddenNetworkTypes;
+		private final int[] forbiddenNetworkSubTypes;
+		private final int nameRID;
+
+		private NetworkOptions(String settingsVal, int[] forbiddenNetworkTypes,
+				int[] forbiddenNetworkSubTypes, int nameRID) {
+			this.settingsVal = settingsVal;
+			this.forbiddenNetworkTypes = forbiddenNetworkTypes;
+			this.forbiddenNetworkSubTypes = forbiddenNetworkSubTypes;
+			this.nameRID = nameRID;
+		}
+
+		public String getSettingsVal() {
+			return settingsVal;
+		}
+
+		public int[] getForbiddenNetworkTypes() {
+			return forbiddenNetworkTypes;
+		}
+
+		public boolean isNetworkTypeForbidden(int netType) {
+			for (int nt : forbiddenNetworkTypes)
+				if (nt == netType)
+					return true;
+			return false;
+		}
+
+		public int[] getForbiddenNetworkSubTypes() {
+			return forbiddenNetworkSubTypes;
+		}
+
+		public boolean isNetworkSubTypeForbidden(int netSubType) {
+			for (int nt : forbiddenNetworkSubTypes)
+				if (nt == netSubType)
+					return true;
+			return false;
+		}
+
+		public int getNameRID() {
+			return nameRID;
+		}
+
+		public String getName(Context ctx) {
+			return ctx.getString(nameRID);
+		}
+
+		private static final String TAG = "SLSNetworkOptions";
+		private static Map<String, NetworkOptions> mNOMap;
+		static {
+			NetworkOptions[] nos = NetworkOptions.values();
+			mNOMap = new HashMap<String, NetworkOptions>(nos.length);
+			for (NetworkOptions no : nos)
+				mNOMap.put(no.getSettingsVal(), no);
+		}
+
+		public static NetworkOptions fromSettingsVal(String s) {
+			NetworkOptions no = mNOMap.get(s);
+			if (no == null) {
+				Log
+						.e(TAG,
+								"got null network option from settings, defaulting to standard");
+				no = NetworkOptions.ANY;
+			}
+			return no;
 		}
 	}
 

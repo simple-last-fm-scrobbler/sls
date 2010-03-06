@@ -164,7 +164,7 @@ public class Scrobbler extends AbstractSubmitter {
 					.getDuration())));
 			data.add(new BasicNameValuePair("n" + is, track.getTrackNr())); // track-number
 			data.add(new BasicNameValuePair("m" + is, track.getMbid())); // mbid
-			data.add(new BasicNameValuePair("r" + is, "")); // rating
+			data.add(new BasicNameValuePair("r" + is, track.getRating())); // rating
 		}
 
 		try {

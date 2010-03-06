@@ -8,7 +8,8 @@
 	<application
 		android:icon="@drawable/icon"
 		android:label="@string/app_name"
-		android:description="@string/about_text">
+		android:description="@string/about_text"
+		android:debuggable="true">
 
 		<activity
 			android:name="com.adam.aslfms.SettingsActivity"
@@ -32,7 +33,7 @@
 			android:exported="false">
 		</activity>
 		<activity
-			android:name="com.adam.aslfms.AdvancedOptionsScreen"
+			android:name="com.adam.aslfms.OptionsScreen"
 			android:exported="false">
 		</activity>
 		<activity
@@ -123,11 +124,12 @@
 	<supports-screens
 		android:smallScreens="true"
 		android:normalScreens="true"
-		android:largeScreens="true"
-		android:anyDensity="true" />
+		android:largeScreens="false"
+		android:anyDensity="false" />
 
 	<uses-sdk
-		android:minSdkVersion="3" />
+		android:minSdkVersion="3"
+		android:targetSdkVersion="4" />
 
 	<uses-permission
 		android:name="android.permission.INTERNET" />
