@@ -116,21 +116,22 @@ public class StatusInfoNetApp extends ListActivity {
 
 		// auth
 		Pair auth = new Pair();
-		auth.setKey(Util.getStatusSummary(this, settings, mNetApp, false));
-		if (settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_NOAUTH) {
-			auth.setValue(getString(R.string.everything_disabled));
-		} else {
+		if (settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_OK) {
+			auth.setKey(getString(R.string.logged_in_just));
 			auth.setValue(settings.getUsername(mNetApp));
+		} else {
+			auth.setKey(getString(R.string.not_logged_in));
+			auth.setValue(Util.getStatusSummary(this, settings, mNetApp, false));
 		}
 		list.add(auth);
 
 		// link to profile
 		Pair prof_link = new Pair();
 		prof_link.setKey(getString(R.string.profile_page));
-		if (settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_NOAUTH) {
-			prof_link.setValue(getString(R.string.not_logged_in));
-		} else {
+		if (settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_OK) {
 			prof_link.setValue(mNetApp.getProfileUrl(settings));
+		} else {
+			prof_link.setValue(getString(R.string.not_logged_in));
 		}
 		list.add(prof_link);
 		mProfilePageLinkPosition = list.size() - 1;
@@ -215,7 +216,7 @@ public class StatusInfoNetApp extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		if (position == mProfilePageLinkPosition
-				&& settings.getAuthStatus(mNetApp) != Status.AUTHSTATUS_NOAUTH) {
+				&& settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_OK) {
 			String url = mNetApp.getProfileUrl(settings);
 			Log.d(TAG, "Clicked link to profile page, opening: " + url);
 			Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

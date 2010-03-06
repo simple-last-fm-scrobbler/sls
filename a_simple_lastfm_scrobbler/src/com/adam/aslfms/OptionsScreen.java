@@ -45,42 +45,6 @@ public class OptionsScreen extends PreferenceActivity {
 
 	private AppSettings settings;
 
-	private class PowerSpecificPrefs {
-
-		public PowerSpecificPrefs(PowerOptions power,
-				PreferenceCategory category) {
-			super();
-			this.power = power;
-			this.category = category;
-		}
-
-		public PowerOptions power;
-		public PreferenceCategory category;
-
-		public ListPreference chooser;
-		public CheckBoxPreference scrobble;
-		public CheckBoxPreference np;
-		public ListPreference when;
-		public CheckBoxPreference also_on_complete;
-		public ListPreference net;
-
-		public boolean update(Preference pref) {
-			if (pref == scrobble) {
-				settings.setScrobblingEnabled(power, scrobble.isChecked());
-				return true;
-			} else if (pref == np) {
-				settings.setNowPlayingEnabled(power, np.isChecked());
-				return true;
-			} else if (pref == also_on_complete) {
-				settings.setAdvancedOptionsAlsoOnComplete(power,
-						also_on_complete.isChecked());
-				return true;
-			}
-			return false;
-		}
-
-	}
-
 	private SeekBarPreference mScrobblePoint;
 
 	private PowerSpecificPrefs mBatteryOptions;
@@ -107,107 +71,11 @@ public class OptionsScreen extends PreferenceActivity {
 
 		mBatteryOptions = new PowerSpecificPrefs(PowerOptions.BATTERY,
 				(PreferenceCategory) findPreference(KEY_BATTERY));
-		createChooserPreference(mBatteryOptions);
-		createScrobbleEnablePreference(mBatteryOptions);
-		createNPEnablePreference(mBatteryOptions);
-		createWhenPreference(mBatteryOptions);
-		createAOCPreference(mBatteryOptions);
-		createNetPreference(mBatteryOptions);
+		mBatteryOptions.create();
 
 		mPluggedOptions = new PowerSpecificPrefs(PowerOptions.PLUGGED_IN,
 				(PreferenceCategory) findPreference(KEY_PLUGGED));
-		createChooserPreference(mPluggedOptions);
-		createScrobbleEnablePreference(mPluggedOptions);
-		createNPEnablePreference(mPluggedOptions);
-		createWhenPreference(mPluggedOptions);
-		createAOCPreference(mPluggedOptions);
-		createNetPreference(mPluggedOptions);
-	}
-
-	public void createChooserPreference(PowerSpecificPrefs prefs) {
-		prefs.chooser = new ListPreference(this);
-		prefs.category.addPreference(prefs.chooser);
-		prefs.chooser.setTitle(R.string.options_title);
-
-		AdvancedOptions[] scrobOpts = prefs.power.getApplicableOptions();
-		// set the entries for mOptionsChooser
-		CharSequence[] vals = new CharSequence[scrobOpts.length];
-		for (int i = 0; i < scrobOpts.length; i++)
-			vals[i] = scrobOpts[i].getName(this);
-		prefs.chooser.setEntries(vals);
-
-		// set the values for mOptionsChooser
-		vals = new CharSequence[scrobOpts.length];
-		for (int i = 0; i < scrobOpts.length; i++)
-			vals[i] = scrobOpts[i].toString();
-		prefs.chooser.setEntryValues(vals);
-
-		prefs.chooser.setOnPreferenceChangeListener(mOnOptionsChange);
-	}
-
-	public void createScrobbleEnablePreference(PowerSpecificPrefs prefs) {
-		prefs.scrobble = new CheckBoxPreference(this);
-		prefs.category.addPreference(prefs.scrobble);
-		prefs.scrobble.setTitle(R.string.scrobbling);
-		prefs.scrobble.setSummaryOff(R.string.scrobbling_enable);
-	}
-
-	public void createNPEnablePreference(PowerSpecificPrefs prefs) {
-		prefs.np = new CheckBoxPreference(this);
-		prefs.category.addPreference(prefs.np);
-		prefs.np.setTitle(R.string.nowplaying);
-		prefs.np.setSummaryOff(R.string.nowplaying_enable);
-	}
-
-	public void createWhenPreference(PowerSpecificPrefs prefs) {
-		prefs.when = new ListPreference(this);
-		prefs.category.addPreference(prefs.when);
-		prefs.when.setTitle(R.string.advanced_options_when_title);
-
-		AdvancedOptionsWhen[] scrobOptsWhen = AdvancedOptionsWhen.values();
-		CharSequence[] vals = new CharSequence[scrobOptsWhen.length];
-		for (int i = 0; i < scrobOptsWhen.length; i++)
-			vals[i] = scrobOptsWhen[i].getName(this);
-		prefs.when.setEntries(vals);
-
-		// set the values for mOptionsChooser
-		vals = new CharSequence[scrobOptsWhen.length];
-		for (int i = 0; i < scrobOptsWhen.length; i++)
-			vals[i] = scrobOptsWhen[i].toString();
-		prefs.when.setEntryValues(vals);
-
-		prefs.when.setOnPreferenceChangeListener(mOnOptionsWhenChange);
-	}
-
-	public void createAOCPreference(PowerSpecificPrefs prefs) {
-		prefs.also_on_complete = new CheckBoxPreference(this);
-		prefs.category.addPreference(prefs.also_on_complete);
-		prefs.also_on_complete
-				.setTitle(R.string.advanced_options_also_on_complete_title);
-		prefs.also_on_complete
-				.setSummary(R.string.advanced_options_also_on_complete_summary);
-	}
-
-	public void createNetPreference(PowerSpecificPrefs prefs) {
-		prefs.net = new ListPreference(this);
-		prefs.category.addPreference(prefs.net);
-		prefs.net.setTitle(R.string.advanced_options_net_title);
-
-		NetworkOptions[] nopps = NetworkOptions.values();
-
-		CharSequence[] vals = new CharSequence[nopps.length];
-		for (int i = 0; i < nopps.length; i++)
-			vals[i] = nopps[i].getName(this);
-		prefs.net.setEntries(vals);
-
-		// set the values for mOptionsChooser
-		vals = new CharSequence[nopps.length];
-		for (int i = 0; i < nopps.length; i++)
-			vals[i] = nopps[i].toString();
-		prefs.net.setEntryValues(vals);
-
-		prefs.net.setOnPreferenceChangeListener(mOnNetOptionsChange);
-
+		mPluggedOptions.create();
 	}
 
 	@Override
@@ -230,10 +98,10 @@ public class OptionsScreen extends PreferenceActivity {
 	public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
 			Preference pref) {
 
-		if (mBatteryOptions.update(pref)) {
+		if (mBatteryOptions.onClick(pref)) {
 			update();
 			return true;
-		} else if (mPluggedOptions.update(pref)) {
+		} else if (mPluggedOptions.onClick(pref)) {
 			update();
 			return true;
 		}
@@ -246,104 +114,217 @@ public class OptionsScreen extends PreferenceActivity {
 		String sp = Integer.toString(settings.getScrobblePoint());
 		mScrobblePoint.setSummary(getString(R.string.scrobble_point_summary)
 				.replaceAll("%1", sp));
-		updateInner(mBatteryOptions);
-		updateInner(mPluggedOptions);
+		mBatteryOptions.update();
+		mPluggedOptions.update();
 	}
 
-	private void updateInner(PowerSpecificPrefs prefs) {
-		AdvancedOptions ao = settings.getAdvancedOptions_raw(prefs.power);
-		setScrobblingOptionsRestEnabled(prefs, ao);
+	private class PowerSpecificPrefs {
 
-		prefs.chooser.setSummary(ao.getName(this));
-		prefs.chooser.setValue(ao.toString());
+		public PowerSpecificPrefs(PowerOptions power,
+				PreferenceCategory category) {
+			super();
+			this.power = power;
+			this.category = category;
+		}
 
-		prefs.scrobble.setChecked(settings.isScrobblingEnabled(prefs.power));
-		prefs.np.setChecked(settings.isNowPlayingEnabled(prefs.power));
+		private PowerOptions power;
+		private PreferenceCategory category;
 
-		prefs.when.setSummary(settings.getAdvancedOptionsWhen(prefs.power)
-				.getName(this));
-		prefs.when.setValue(settings.getAdvancedOptionsWhen(prefs.power)
-				.toString());
+		private ListPreference chooser;
+		private CheckBoxPreference scrobble;
+		private CheckBoxPreference np;
+		private ListPreference when;
+		private CheckBoxPreference also_on_complete;
+		private ListPreference net;
+		private CheckBoxPreference roaming;
 
-		prefs.also_on_complete.setChecked(settings
-				.getAdvancedOptionsAlsoOnComplete(prefs.power));
+		public void create() {
+			createChooserPreference();
+			createScrobbleEnablePreference();
+			createNPEnablePreference();
+			createWhenPreference();
+			createAOCPreference();
+			createNetPreference();
+			createRoamingPreference();
+		}
 
-		NetworkOptions no = settings.getNetworkOptions(prefs.power);
-		prefs.net.setSummary(getString(R.string.advanced_options_net_summary)
-				.replace("%1", no.getName(this)));
-		prefs.net.setValue(no.toString());
+		public boolean onClick(Preference pref) {
+			if (pref == scrobble) {
+				settings.setScrobblingEnabled(power, scrobble.isChecked());
+				return true;
+			} else if (pref == np) {
+				settings.setNowPlayingEnabled(power, np.isChecked());
+				return true;
+			} else if (pref == also_on_complete) {
+				settings.setAdvancedOptionsAlsoOnComplete(power,
+						also_on_complete.isChecked());
+				return true;
+			} else if (pref == roaming) {
+				settings.setSubmitOnRoaming(power, roaming.isChecked());
+				return true;
+			}
+			return false;
+		}
+
+		private void update() {
+			AdvancedOptions ao = settings.getAdvancedOptions_raw(power);
+			setScrobblingOptionsRestEnabled(ao);
+
+			chooser.setSummary(ao.getName(OptionsScreen.this));
+			chooser.setValue(ao.toString());
+
+			scrobble.setChecked(settings.isScrobblingEnabled(power));
+			np.setChecked(settings.isNowPlayingEnabled(power));
+
+			AdvancedOptionsWhen aow = settings.getAdvancedOptionsWhen(power);
+			when.setSummary(aow.getName(OptionsScreen.this));
+			when.setValue(aow.toString());
+
+			also_on_complete.setChecked(settings
+					.getAdvancedOptionsAlsoOnComplete(power));
+
+			NetworkOptions no = settings.getNetworkOptions(power);
+			net.setSummary(getString(R.string.advanced_options_net_summary)
+					.replace("%1", no.getName(OptionsScreen.this))); 
+			net.setValue(no.toString());
+
+			roaming.setChecked(settings.getSubmitOnRoaming(power));
+		}
+
+		private void setScrobblingOptionsRestEnabled(AdvancedOptions ao) {
+			scrobble.setEnabled(ao == AdvancedOptions.CUSTOM);
+			np.setEnabled(ao == AdvancedOptions.CUSTOM);
+			when.setEnabled(ao == AdvancedOptions.CUSTOM);
+			also_on_complete.setEnabled(ao == AdvancedOptions.CUSTOM);
+			net.setEnabled(ao == AdvancedOptions.CUSTOM);
+			roaming.setEnabled(ao == AdvancedOptions.CUSTOM);
+		}
+
+		private void createChooserPreference() {
+			chooser = new ListPreference(OptionsScreen.this);
+			category.addPreference(chooser);
+			chooser.setTitle(R.string.options_title);
+
+			AdvancedOptions[] scrobOpts = power.getApplicableOptions();
+			// set the entries for mOptionsChooser
+			CharSequence[] vals = new CharSequence[scrobOpts.length];
+			for (int i = 0; i < scrobOpts.length; i++)
+				vals[i] = scrobOpts[i].getName(OptionsScreen.this);
+			chooser.setEntries(vals);
+
+			// set the values for mOptionsChooser
+			vals = new CharSequence[scrobOpts.length];
+			for (int i = 0; i < scrobOpts.length; i++)
+				vals[i] = scrobOpts[i].toString();
+			chooser.setEntryValues(vals);
+
+			chooser.setOnPreferenceChangeListener(mOnListPrefChange);
+		}
+
+		private void createScrobbleEnablePreference() {
+			scrobble = new CheckBoxPreference(OptionsScreen.this);
+			category.addPreference(scrobble);
+			scrobble.setTitle(R.string.scrobbling);
+			scrobble.setSummaryOff(R.string.scrobbling_enable);
+		}
+
+		private void createNPEnablePreference() {
+			np = new CheckBoxPreference(OptionsScreen.this);
+			category.addPreference(np);
+			np.setTitle(R.string.nowplaying);
+			np.setSummaryOff(R.string.nowplaying_enable);
+		}
+
+		private void createWhenPreference() {
+			when = new ListPreference(OptionsScreen.this);
+			category.addPreference(when);
+			when.setTitle(R.string.advanced_options_when_title);
+
+			AdvancedOptionsWhen[] scrobOptsWhen = AdvancedOptionsWhen.values();
+			CharSequence[] vals = new CharSequence[scrobOptsWhen.length];
+			for (int i = 0; i < scrobOptsWhen.length; i++)
+				vals[i] = scrobOptsWhen[i].getName(OptionsScreen.this);
+			when.setEntries(vals);
+
+			// set the values for mOptionsChooser
+			vals = new CharSequence[scrobOptsWhen.length];
+			for (int i = 0; i < scrobOptsWhen.length; i++)
+				vals[i] = scrobOptsWhen[i].toString();
+			when.setEntryValues(vals);
+
+			when.setOnPreferenceChangeListener(mOnListPrefChange);
+		}
+
+		private void createAOCPreference() {
+			also_on_complete = new CheckBoxPreference(OptionsScreen.this);
+			category.addPreference(also_on_complete);
+			also_on_complete
+					.setTitle(R.string.advanced_options_also_on_complete_title);
+			also_on_complete
+					.setSummary(R.string.advanced_options_also_on_complete_summary);
+		}
+
+		private void createNetPreference() {
+			net = new ListPreference(OptionsScreen.this);
+			category.addPreference(net);
+			net.setTitle(R.string.advanced_options_net_title);
+
+			NetworkOptions[] nopps = NetworkOptions.values();
+
+			CharSequence[] vals = new CharSequence[nopps.length];
+			for (int i = 0; i < nopps.length; i++)
+				vals[i] = nopps[i].getName(OptionsScreen.this);
+			net.setEntries(vals);
+
+			// set the values for mOptionsChooser
+			vals = new CharSequence[nopps.length];
+			for (int i = 0; i < nopps.length; i++)
+				vals[i] = nopps[i].toString();
+			net.setEntryValues(vals);
+
+			net.setOnPreferenceChangeListener(mOnListPrefChange);
+		}
+
+		private void createRoamingPreference() {
+			roaming = new CheckBoxPreference(OptionsScreen.this);
+			category.addPreference(roaming);
+			roaming.setTitle(R.string.advanced_options_net_roaming_title);
+			roaming
+					.setSummaryOff(R.string.advanced_options_net_roaming_summary_off);
+			roaming
+					.setSummaryOn(R.string.advanced_options_net_roaming_summary_on);
+		}
+
+		private OnPreferenceChangeListener mOnListPrefChange = new OnPreferenceChangeListener() {
+			@Override
+			public boolean onPreferenceChange(Preference pref, Object newValue) {
+				if (!(newValue instanceof CharSequence)) {
+					Log.e(TAG, "Got weird newValue on options change: "
+							+ newValue);
+					return false;
+				}
+				CharSequence newcs = (CharSequence) newValue;
+
+				if (pref == chooser) {
+					AdvancedOptions so = AdvancedOptions.valueOf(newcs
+							.toString());
+					settings.setAdvancedOptions(power, so);
+				} else if (pref == when) {
+					AdvancedOptionsWhen aow = AdvancedOptionsWhen.valueOf(newcs
+							.toString());
+					settings.setAdvancedOptionsWhen(power, aow);
+				} else if (pref == net) {
+					NetworkOptions no = NetworkOptions
+							.valueOf(newcs.toString());
+					settings.setNetworkOptions(power, no);
+				} else {
+					Log.e(TAG, "Got weird change for a list preference: "
+							+ newValue);
+				}
+
+				OptionsScreen.this.update();
+				return true;
+			}
+		};
 	}
-
-	private void setScrobblingOptionsRestEnabled(PowerSpecificPrefs prefs,
-			AdvancedOptions ao) {
-		prefs.scrobble.setEnabled(ao == AdvancedOptions.CUSTOM);
-		prefs.np.setEnabled(ao == AdvancedOptions.CUSTOM);
-		prefs.when.setEnabled(ao == AdvancedOptions.CUSTOM);
-		prefs.also_on_complete.setEnabled(ao == AdvancedOptions.CUSTOM);
-		prefs.net.setEnabled(ao == AdvancedOptions.CUSTOM);
-	}
-
-	private OnPreferenceChangeListener mOnOptionsChange = new OnPreferenceChangeListener() {
-		@Override
-		public boolean onPreferenceChange(Preference pref, Object newValue) {
-			if (!(newValue instanceof CharSequence)) {
-				Log.e(TAG, "Got weird newValue on options change: " + newValue);
-				return false;
-			}
-			CharSequence newcs = (CharSequence) newValue;
-			AdvancedOptions so = AdvancedOptions.valueOf(newcs.toString());
-
-			PowerOptions pow = PowerOptions.BATTERY;
-			if (pref == mPluggedOptions.chooser)
-				pow = PowerOptions.PLUGGED_IN;
-
-			settings.setAdvancedOptions(pow, so);
-
-			OptionsScreen.this.update();
-			return true;
-		}
-	};
-
-	private OnPreferenceChangeListener mOnOptionsWhenChange = new OnPreferenceChangeListener() {
-		@Override
-		public boolean onPreferenceChange(Preference pref, Object newValue) {
-			if (!(newValue instanceof CharSequence)) {
-				Log.e(TAG, "Got weird newValue on options when change: "
-						+ newValue);
-				return false;
-			}
-			CharSequence newcs = (CharSequence) newValue;
-			AdvancedOptionsWhen sow = AdvancedOptionsWhen.valueOf(newcs
-					.toString());
-
-			PowerOptions pow = PowerOptions.BATTERY;
-			if (pref == mPluggedOptions.when)
-				pow = PowerOptions.PLUGGED_IN;
-
-			settings.setAdvancedOptionsWhen(pow, sow);
-			update();
-			return true;
-		}
-	};
-
-	private OnPreferenceChangeListener mOnNetOptionsChange = new OnPreferenceChangeListener() {
-		@Override
-		public boolean onPreferenceChange(Preference pref, Object newValue) {
-			if (!(newValue instanceof CharSequence)) {
-				Log.e(TAG, "Got weird newValue on options when change: "
-						+ newValue);
-				return false;
-			}
-			CharSequence newcs = (CharSequence) newValue;
-			NetworkOptions no = NetworkOptions.valueOf(newcs.toString());
-
-			PowerOptions pow = PowerOptions.BATTERY;
-			if (pref == mPluggedOptions.net)
-				pow = PowerOptions.PLUGGED_IN;
-
-			settings.setNetworkOptions(pow, no);
-			update();
-			return true;
-		}
-	};
 }

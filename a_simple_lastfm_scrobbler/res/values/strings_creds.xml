@@ -32,7 +32,9 @@
 	<string
 		name="auth_timing_error">Client side timing error, retrying...</string>
 	<string
-		name="auth_network_error">Network error, retrying...</string>
+		name="auth_network_error_retrying">Network error, retrying...</string>
+	<string
+		name="auth_network_unfit">Not allowed to submit data on network, change in Options screen</string>
 	<string
 		name="auth_updating">Authenticating...</string>
 	<string

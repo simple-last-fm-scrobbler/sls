@@ -68,11 +68,17 @@
 	<string
 		name="advanced_options_net_title">Network</string>
 	<string
-		name="advanced_options_net_summary">Submit on: %1</string>
+		name="advanced_options_net_summary">Submit data on: %1</string>
 	<string
 		name="advanced_options_net_any_name">Any network</string>
 	<string
 		name="advanced_options_net_3gup_name">3G and Wifi</string>
 	<string
 		name="advanced_options_net_wifi_name">Wifi only</string>
+	<string
+		name="advanced_options_net_roaming_title">Roaming</string>
+	<string
+		name="advanced_options_net_roaming_summary_off">Won\'t submit data when roaming</string>
+	<string
+		name="advanced_options_net_roaming_summary_on">Will submit data when roaming</string>
 </resources>

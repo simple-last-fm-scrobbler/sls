@@ -63,6 +63,7 @@ public class AppSettings {
 	private static final String KEY_ADVANCED_OPTIONS_WHEN = "advanced_options_when";
 	private static final String KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE = "scrobbling_options_also_on_complete";
 	private static final String KEY_ADVANCED_OPTIONS_NETWORK = "advanced_options_network";
+	private static final String KEY_ADVANCED_OPTIONS_ROAMING = "advanced_options_roaming";
 
 	// Widget stuff
 	private static final String KEY_WIDGET_ALSO_DISABLE_NP = "widget_also_disable_np";
@@ -208,17 +209,12 @@ public class AppSettings {
 	// status stuff
 
 	public void clearSubmissionStats(NetApp napp) {
-		setLastSubmissionTime(napp, SubmissionType.SCROBBLE, -1);
-		setLastSubmissionTime(napp, SubmissionType.NP, -1);
-
-		setLastSubmissionSuccess(napp, SubmissionType.SCROBBLE, true);
-		setLastSubmissionSuccess(napp, SubmissionType.NP, true);
-
-		setLastSubmissionInfo(napp, SubmissionType.SCROBBLE, "");
-		setLastSubmissionInfo(napp, SubmissionType.NP, "");
-
-		setNumberOfSubmissions(napp, SubmissionType.SCROBBLE, 0);
-		setNumberOfSubmissions(napp, SubmissionType.NP, 0);
+		for (SubmissionType st : SubmissionType.values()) {
+			setLastSubmissionTime(napp, st, -1);
+			setLastSubmissionSuccess(napp, st, true);
+			setLastSubmissionInfo(napp, st, "");
+			setNumberOfSubmissions(napp, st, 0);
+		}
 	}
 
 	// submission notifying
@@ -347,12 +343,14 @@ public class AppSettings {
 		e.putString(KEY_ADVANCED_OPTIONS + pow.getSettingsPath(), ao
 				.getSettingsVal());
 		e.commit();
-		if (ao != AdvancedOptions.CUSTOM) {
+		if (ao != AdvancedOptions.CUSTOM
+				&& ao != AdvancedOptions.SAME_AS_BATTERY) {
 			setScrobblingEnabled(pow, ao.isScrobblingEnabled());
 			setNowPlayingEnabled(pow, ao.isNpEnabled());
 			setAdvancedOptionsWhen(pow, ao.getWhen());
 			setAdvancedOptionsAlsoOnComplete(pow, ao.getAlsoOnComplete());
 			setNetworkOptions(pow, ao.getNetworkOptions());
+			setSubmitOnRoaming(pow, ao.getRoaming());
 		}
 
 		// if the options for plugged in is set to "same as for battery", then
@@ -369,6 +367,8 @@ public class AppSettings {
 					getAdvancedOptionsAlsoOnComplete(PowerOptions.BATTERY));
 			setNetworkOptions(PowerOptions.PLUGGED_IN,
 					getNetworkOptions(PowerOptions.BATTERY));
+			setSubmitOnRoaming(PowerOptions.PLUGGED_IN,
+					getSubmitOnRoaming(PowerOptions.BATTERY));
 		}
 	}
 
@@ -382,6 +382,8 @@ public class AppSettings {
 		String s = prefs.getString(
 				KEY_ADVANCED_OPTIONS + pow.getSettingsPath(), null);
 		if (s == null) {
+			if (pow == PowerOptions.PLUGGED_IN)
+				return AdvancedOptions.SAME_AS_BATTERY;
 			return AdvancedOptions.STANDARD;
 		} else {
 			return AdvancedOptions.fromSettingsVal(s);
@@ -470,6 +472,27 @@ public class AppSettings {
 		} else {
 			return NetworkOptions.fromSettingsVal(s);
 		}
+	}
+
+	public void setSubmitOnRoaming(PowerOptions pow, boolean b) {
+		Editor e = prefs.edit();
+		e.putBoolean(KEY_ADVANCED_OPTIONS_ROAMING + pow.getSettingsPath(), b);
+		e.commit();
+
+		// if the options for plugged in is set to "same as for battery", then
+		// we need to update it's settings as well
+		if (pow == PowerOptions.BATTERY
+				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
+			setSubmitOnRoaming(PowerOptions.PLUGGED_IN,
+					getSubmitOnRoaming(PowerOptions.BATTERY));
+		}
+
+		mCtx.sendBroadcast(new Intent(ACTION_NETWORK_OPTIONS_CHANGED));
+	}
+
+	public boolean getSubmitOnRoaming(PowerOptions pow) {
+		return prefs.getBoolean(KEY_ADVANCED_OPTIONS_ROAMING
+				+ pow.getSettingsPath(), getAdvancedOptions(pow).getRoaming());
 	}
 
 	// Widget stuff

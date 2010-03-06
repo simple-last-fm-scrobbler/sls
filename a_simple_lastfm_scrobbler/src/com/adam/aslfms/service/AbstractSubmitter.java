@@ -28,6 +28,7 @@ import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
+import com.adam.aslfms.util.Util.NetworkStatus;
 
 public abstract class AbstractSubmitter extends NetRunnable {
 
@@ -44,9 +45,9 @@ public abstract class AbstractSubmitter extends NetRunnable {
 	public final void run() {
 
 		// check network status
-		if (!Util.checkForOkNetwork(getContext(), settings
-				.getNetworkOptions(Util.checkPower(getContext())))) {
-			Log.d(TAG, "Waits on network, not OK for submission");
+		NetworkStatus ns = Util.checkForOkNetwork(getContext());
+		if (ns != NetworkStatus.OK) {
+			Log.d(TAG, "Waits on network, network-status: " + ns);
 			getNetworker().launchNetworkWaiter();
 			relaunchThis();
 			return;

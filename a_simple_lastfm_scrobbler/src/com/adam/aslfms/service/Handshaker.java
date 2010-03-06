@@ -42,6 +42,7 @@ import com.adam.aslfms.util.Status.BadAuthException;
 import com.adam.aslfms.util.Status.ClientBannedException;
 import com.adam.aslfms.util.Status.TemporaryFailureException;
 import com.adam.aslfms.util.Status.UnknownResponseException;
+import com.adam.aslfms.util.Util.NetworkStatus;
 
 /**
  * 
@@ -70,17 +71,36 @@ public class Handshaker extends NetRunnable {
 	@Override
 	public void run() {
 
-		// check network status
-		if (!Util.checkForOkNetwork(getContext(), settings
-				.getNetworkOptions(Util.checkPower(getContext())))) {
-			Log.d(TAG, "Waits on network, not OK for submission");
-			getNetworker().launchNetworkWaiter();
-			getNetworker().launchHandshaker(hsAction);
+		if (hsAction == HandshakeAction.CLEAR_CREDS) {
+			settings.clearCreds(getNetApp());
+			// current hInfo is invalid
+			getNetworker().setHandshakeResult(null);
+			// this should mean that the user called launchClearCreds, and that
+			// all user information is gone
+			notifyAuthStatusUpdate(Status.AUTHSTATUS_NOAUTH);
+			// can't scrobble without a user
+			getNetworker().unlaunchScrobblingAndNPNotifying();
 			return;
 		}
 
 		if (hsAction == HandshakeAction.AUTH)
 			notifyAuthStatusUpdate(Status.AUTHSTATUS_UPDATING);
+
+		// check network status
+		NetworkStatus ns = Util.checkForOkNetwork(getContext());
+		if (ns != NetworkStatus.OK) {
+			Log.d(TAG, "Waits on network, network-status: " + ns);
+			if (hsAction == HandshakeAction.AUTH) {
+				if (ns == NetworkStatus.UNFIT)
+					notifyAuthStatusUpdate(Status.AUTHSTATUS_NETWORKUNFIT);
+				else
+					notifyAuthStatusUpdate(Status.AUTHSTATUS_RETRYLATER);
+			}
+
+			getNetworker().launchNetworkWaiter();
+			getNetworker().launchHandshaker(hsAction);
+			return;
+		}
 
 		try {
 			// current hInfo is invalid
@@ -108,13 +128,9 @@ public class Handshaker extends NetRunnable {
 			if (hsAction == HandshakeAction.AUTH
 					|| hsAction == HandshakeAction.HANDSHAKE)
 				notifyAuthStatusUpdate(Status.AUTHSTATUS_BADAUTH);
-			else if (hsAction == HandshakeAction.CLEAR_CREDS) {
-				// this should mean that the user called launchClearCreds, and
-				// that
-				// all user information is gone
-				notifyAuthStatusUpdate(Status.AUTHSTATUS_NOAUTH);
-			} else {
-				Log.e(TAG, "got badauth when doAuth is unknown: "
+			else {
+				// CLEAR_CREDS should've been caught eariler
+				Log.e(TAG, "got badauth when doAuth is weird: "
 						+ hsAction.toString());
 			}
 			// badauth means we cant do any scrobbling/notifying, so clear them
@@ -127,8 +143,7 @@ public class Handshaker extends NetRunnable {
 			if (hsAction == HandshakeAction.AUTH)
 				notifyAuthStatusUpdate(Status.AUTHSTATUS_RETRYLATER);
 
-			if (!Util.checkForOkNetwork(getContext(), settings
-					.getNetworkOptions(Util.checkPower(getContext())))) {
+			if (Util.checkForOkNetwork(getContext()) != NetworkStatus.OK) {
 				// no more sleeping, network down
 				getNetworker().resetSleeper();
 				getNetworker().launchNetworkWaiter();
@@ -171,7 +186,9 @@ public class Handshaker extends NetRunnable {
 		String pwdMd5 = settings.getPwdMd5(getNetApp());
 
 		if (username.length() == 0) {
-			Log.d(TAG, "Invalid username: " + getNetApp().getName());
+			Log
+					.d(TAG, "Invalid (empty) username for: "
+							+ getNetApp().getName());
 			throw new BadAuthException(getContext().getString(
 					R.string.auth_bad_auth));
 		}
@@ -248,10 +265,9 @@ public class Handshaker extends NetRunnable {
 			}
 
 		} catch (ClientProtocolException e) {
-			throw new TemporaryFailureException(e.getMessage());
+			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
 		} catch (IOException e) {
-			throw new TemporaryFailureException(getContext().getString(
-					R.string.auth_network_error));
+			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
 		} finally {
 			http.getConnectionManager().shutdown();
 		}

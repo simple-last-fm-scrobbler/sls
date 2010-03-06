@@ -77,25 +77,40 @@ public class Util {
 		}
 	}
 
-	public static boolean checkForOkNetwork(Context ctx, NetworkOptions no) {
+	public static enum NetworkStatus {
+		OK, UNFIT, DISCONNECTED
+	}
+
+	public static NetworkStatus checkForOkNetwork(Context ctx) {
+		AppSettings settings = new AppSettings(ctx);
+		PowerOptions pow = checkPower(ctx);
+
+		NetworkOptions no = settings.getNetworkOptions(pow);
+		boolean roaming = settings.getSubmitOnRoaming(pow);
+
 		ConnectivityManager cMgr = (ConnectivityManager) ctx
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = cMgr.getActiveNetworkInfo();
+
 		if (netInfo == null)
-			return false;
+			return NetworkStatus.DISCONNECTED;
 		if (!netInfo.isConnected())
-			return false;
-		
-		
+			return NetworkStatus.DISCONNECTED;
+		if (netInfo.isRoaming() && !roaming)
+			return NetworkStatus.UNFIT;
+
 		int netType = netInfo.getType();
 		int netSubType = netInfo.getSubtype();
 
-		if (no.isNetworkTypeForbidden(netType))
-			return false;
-		if (no.isNetworkSubTypeForbidden(netSubType))
-			return false;
+		// Log.d(TAG, "netType: " + netType);
+		// Log.d(TAG, "netSubType: " + netSubType);
 
-		return true;
+		if (no.isNetworkTypeForbidden(netType))
+			return NetworkStatus.UNFIT;
+		if (no.isNetworkSubTypeForbidden(netType, netSubType))
+			return NetworkStatus.UNFIT;
+
+		return NetworkStatus.OK;
 	}
 
 	/**
@@ -287,7 +302,7 @@ public class Util {
 	}
 
 	/**
-	 * TODO: Should it be here?
+	 * TODO: Should it be here? (And it is quite ugly...)
 	 * 
 	 * @param ctx
 	 * @param settings
@@ -300,7 +315,9 @@ public class Util {
 		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_FAILED) {
 			return ctx.getString(R.string.auth_internal_error);
 		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_RETRYLATER) {
-			return ctx.getString(R.string.auth_network_error);
+			return ctx.getString(R.string.auth_network_error_retrying);
+		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_NETWORKUNFIT) {
+			return ctx.getString(R.string.auth_network_unfit);
 		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_OK) {
 			if (includeValues)
 				return ctx.getString(R.string.logged_in_as).replace("%1",

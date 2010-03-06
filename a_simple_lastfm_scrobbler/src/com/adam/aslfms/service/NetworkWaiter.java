@@ -28,16 +28,15 @@ import android.util.Log;
 
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.Util;
+import com.adam.aslfms.util.Util.NetworkStatus;
 
 public class NetworkWaiter extends NetRunnable {
 
 	private static final String TAG = "NetworkWaiter";
-	private AppSettings settings;
 	private boolean mWait;
 
 	NetworkWaiter(NetApp napp, Context ctx, Networker net) {
 		super(napp, ctx, net);
-		this.settings = new AppSettings(ctx);
 	}
 
 	@Override
@@ -49,8 +48,7 @@ public class NetworkWaiter extends NetRunnable {
 		getContext().registerReceiver(mConnReceiver, ifs);
 
 		synchronized (this) {
-			mWait = !Util.checkForOkNetwork(getContext(), settings
-					.getNetworkOptions(Util.checkPower(getContext())));
+			mWait = Util.checkForOkNetwork(getContext()) != NetworkStatus.OK;
 			while (mWait) {
 				try {
 					Log.d(TAG, "waiting for network connection: "
@@ -75,8 +73,7 @@ public class NetworkWaiter extends NetRunnable {
 		public void onReceive(Context context, Intent intent) {
 			synchronized (NetworkWaiter.this) {
 				Log.d(TAG, "received broadcast: " + intent.getAction());
-				if (Util.checkForOkNetwork(getContext(), settings
-						.getNetworkOptions(Util.checkPower(getContext())))) {
+				if (Util.checkForOkNetwork(getContext()) == NetworkStatus.OK) {
 					NetworkWaiter.this.mWait = false;
 					NetworkWaiter.this.notifyAll();
 				}

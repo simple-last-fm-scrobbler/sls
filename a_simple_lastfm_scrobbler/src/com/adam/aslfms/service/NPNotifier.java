@@ -81,7 +81,7 @@ public class NPNotifier extends AbstractSubmitter {
 			Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
 					+ getNetApp().getName());
 			notifySubmissionStatusFailure(getContext().getString(
-					R.string.auth_network_error));
+					R.string.auth_network_error_retrying));
 			ret = false;
 		}
 		return ret;
@@ -147,10 +147,9 @@ public class NPNotifier extends AbstractSubmitter {
 			}
 
 		} catch (ClientProtocolException e) {
-			throw new TemporaryFailureException(e.getMessage());
+			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
 		} catch (IOException e) {
-			throw new TemporaryFailureException(getContext().getString(
-					R.string.auth_network_error));
+			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
 		} finally {
 			http.getConnectionManager().shutdown();
 		}

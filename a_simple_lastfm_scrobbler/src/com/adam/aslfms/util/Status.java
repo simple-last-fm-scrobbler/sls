@@ -34,6 +34,7 @@ public class Status {
 	public static final int AUTHSTATUS_RETRYLATER = 4;
 	public static final int AUTHSTATUS_OK = 5;
 	public static final int AUTHSTATUS_CLIENTBANNED = 6;
+	public static final int AUTHSTATUS_NETWORKUNFIT = 7;
 
 	public static class StatusException extends Exception {
 		private static final long serialVersionUID = 7204759787220898684L;

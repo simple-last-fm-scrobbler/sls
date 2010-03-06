@@ -29,7 +29,7 @@ import android.util.Log;
 
 import com.adam.aslfms.R;
 
-public class AppSettingsEnums {
+public final class AppSettingsEnums {
 	public enum SubmissionType {
 		SCROBBLE("status_last_scrobble", "status_nscrobbles"), // 
 		NP("status_last_np", "status_nnps");
@@ -80,18 +80,19 @@ public class AppSettingsEnums {
 	public enum AdvancedOptions {
 		// the values below for SAME will be ignored
 		SAME_AS_BATTERY("ao_same_as_battery", true, true,
-				AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY,
+				AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, false,
 				R.string.advanced_options_type_same_as_battery_name), // 
 		STANDARD("ao_standard", true, true, AdvancedOptionsWhen.AFTER_1, true,
-				NetworkOptions.ANY,
+				NetworkOptions.ANY, false,
 				R.string.advanced_options_type_standard_name), // 
 		// not available for plugged in
 		BATTERY_SAVING("ao_battery", true, false, AdvancedOptionsWhen.AFTER_10,
-				true, NetworkOptions.ANY,
+				true, NetworkOptions.ANY, false,
 				R.string.advanced_options_type_battery_name), //
 		// the values below for CUSTOM will be ignored
 		CUSTOM("ao_custom", true, true, AdvancedOptionsWhen.AFTER_1, true,
-				NetworkOptions.ANY, R.string.advanced_options_type_custom_name);
+				NetworkOptions.ANY, false,
+				R.string.advanced_options_type_custom_name);
 
 		private final String settingsVal;
 		private final boolean enableScrobbling;
@@ -99,18 +100,20 @@ public class AppSettingsEnums {
 		private final AdvancedOptionsWhen when;
 		private final boolean alsoOnComplete;
 		private final NetworkOptions networkOptions;
+		private final boolean roaming;
 		private final int nameRID;
 
 		private AdvancedOptions(String settingsVal, boolean enableScrobbling,
 				boolean enableNp, AdvancedOptionsWhen when,
 				boolean alsoOnComplete, NetworkOptions networkOptions,
-				int nameRID) {
+				boolean roaming, int nameRID) {
 			this.settingsVal = settingsVal;
 			this.enableScrobbling = enableScrobbling;
 			this.enableNp = enableNp;
 			this.when = when;
 			this.alsoOnComplete = alsoOnComplete;
 			this.networkOptions = networkOptions;
+			this.roaming = roaming;
 			this.nameRID = nameRID;
 		}
 
@@ -139,6 +142,10 @@ public class AppSettingsEnums {
 
 		public NetworkOptions getNetworkOptions() {
 			return networkOptions;
+		}
+
+		public boolean getRoaming() {
+			return roaming;
 		}
 
 		public String getName(Context ctx) {
@@ -230,14 +237,14 @@ public class AppSettingsEnums {
 
 		private final String settingsVal;
 		private final int[] forbiddenNetworkTypes;
-		private final int[] forbiddenNetworkSubTypes;
+		private final int[] forbiddenMobileNetworkSubTypes;
 		private final int nameRID;
 
 		private NetworkOptions(String settingsVal, int[] forbiddenNetworkTypes,
-				int[] forbiddenNetworkSubTypes, int nameRID) {
+				int[] forbiddenMobileNetworkSubTypes, int nameRID) {
 			this.settingsVal = settingsVal;
 			this.forbiddenNetworkTypes = forbiddenNetworkTypes;
-			this.forbiddenNetworkSubTypes = forbiddenNetworkSubTypes;
+			this.forbiddenMobileNetworkSubTypes = forbiddenMobileNetworkSubTypes;
 			this.nameRID = nameRID;
 		}
 
@@ -256,12 +263,14 @@ public class AppSettingsEnums {
 			return false;
 		}
 
-		public int[] getForbiddenNetworkSubTypes() {
-			return forbiddenNetworkSubTypes;
+		public int[] getForbiddenMobileNetworkSubTypes() {
+			return forbiddenMobileNetworkSubTypes;
 		}
 
-		public boolean isNetworkSubTypeForbidden(int netSubType) {
-			for (int nt : forbiddenNetworkSubTypes)
+		public boolean isNetworkSubTypeForbidden(int netType, int netSubType) {
+			if (netType != ConnectivityManager.TYPE_MOBILE)
+				return false;
+			for (int nt : forbiddenMobileNetworkSubTypes)
 				if (nt == netSubType)
 					return true;
 			return false;
@@ -296,4 +305,7 @@ public class AppSettingsEnums {
 		}
 	}
 
+	private AppSettingsEnums() {
+
+	}
 }

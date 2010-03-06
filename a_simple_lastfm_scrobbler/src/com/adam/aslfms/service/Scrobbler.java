@@ -115,7 +115,7 @@ public class Scrobbler extends AbstractSubmitter {
 			Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
 					+ getNetApp().getName());
 			notifySubmissionStatusFailure(getContext().getString(
-					R.string.auth_network_error));
+					R.string.auth_network_error_retrying));
 			ret = false;
 		}
 		return ret;
