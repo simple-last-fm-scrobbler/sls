@@ -20,6 +20,7 @@
 package com.adam.aslfms.util;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
@@ -41,6 +42,8 @@ public class AppSettings {
 
 	@SuppressWarnings("unused")
 	private static final String TAG = "SLSAppSettings";
+
+	public static final String ACTION_NETWORK_OPTIONS_CHANGED = "com.adam.aslfms.service.bcast.onnetoptions";
 
 	private static final String SETTINGS_NAME = "settings";
 
@@ -64,10 +67,12 @@ public class AppSettings {
 	// Widget stuff
 	private static final String KEY_WIDGET_ALSO_DISABLE_NP = "widget_also_disable_np";
 
+	private final Context mCtx;
 	private final SharedPreferences prefs;
 
 	public AppSettings(Context ctx) {
 		super();
+		mCtx = ctx;
 		prefs = ctx.getSharedPreferences(SETTINGS_NAME, 0);
 	}
 
@@ -337,7 +342,7 @@ public class AppSettings {
 			throw new IllegalArgumentException(
 					"Bad option for this power setting: " + ao + ", " + pow);
 		}
-		
+
 		Editor e = prefs.edit();
 		e.putString(KEY_ADVANCED_OPTIONS + pow.getSettingsPath(), ao
 				.getSettingsVal());
@@ -453,6 +458,8 @@ public class AppSettings {
 			setNetworkOptions(PowerOptions.PLUGGED_IN,
 					getNetworkOptions(PowerOptions.BATTERY));
 		}
+
+		mCtx.sendBroadcast(new Intent(ACTION_NETWORK_OPTIONS_CHANGED));
 	}
 
 	public NetworkOptions getNetworkOptions(PowerOptions pow) {

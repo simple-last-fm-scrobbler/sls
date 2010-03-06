@@ -27,7 +27,7 @@ public class Sleeper extends NetRunnable {
 	private static final String TAG = "Sleeper";
 
 	// TODO: correct value
-	private static final long START_TIME = 5000; // 60 * 1000; // 1 min
+	private static final long START_TIME = 60 * 1000; // 1 min
 	private static final long MAX_TIME = 120 * 60 * 1000; // 120 min
 
 	private long mSleepTime;

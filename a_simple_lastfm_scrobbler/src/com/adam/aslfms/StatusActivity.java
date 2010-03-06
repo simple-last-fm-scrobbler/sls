@@ -1,12 +1,12 @@
 package com.adam.aslfms;
 
-import com.adam.aslfms.service.NetApp;
-import com.adam.aslfms.util.AppSettings;
-
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
+
+import com.adam.aslfms.service.NetApp;
+import com.adam.aslfms.util.AppSettings;
 
 public class StatusActivity extends TabActivity {
 	private TabHost mTabHost;

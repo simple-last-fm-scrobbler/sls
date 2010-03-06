@@ -33,7 +33,6 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 
-import com.adam.aslfms.R;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;

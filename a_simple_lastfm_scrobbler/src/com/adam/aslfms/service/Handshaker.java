@@ -31,8 +31,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.util.Log;
 
 import com.adam.aslfms.R;
@@ -71,6 +69,15 @@ public class Handshaker extends NetRunnable {
 
 	@Override
 	public void run() {
+
+		// check network status
+		if (!Util.checkForOkNetwork(getContext(), settings
+				.getNetworkOptions(Util.checkPower(getContext())))) {
+			Log.d(TAG, "Waits on network, not OK for submission");
+			getNetworker().launchNetworkWaiter();
+			getNetworker().launchHandshaker(hsAction);
+			return;
+		}
 
 		if (hsAction == HandshakeAction.AUTH)
 			notifyAuthStatusUpdate(Status.AUTHSTATUS_UPDATING);
@@ -120,11 +127,8 @@ public class Handshaker extends NetRunnable {
 			if (hsAction == HandshakeAction.AUTH)
 				notifyAuthStatusUpdate(Status.AUTHSTATUS_RETRYLATER);
 
-			ConnectivityManager cMgr = (ConnectivityManager) getContext()
-					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo netInfo = cMgr.getActiveNetworkInfo();
-
-			if (netInfo == null || !netInfo.isConnected()) {
+			if (!Util.checkForOkNetwork(getContext(), settings
+					.getNetworkOptions(Util.checkPower(getContext())))) {
 				// no more sleeping, network down
 				getNetworker().resetSleeper();
 				getNetworker().launchNetworkWaiter();

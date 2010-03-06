@@ -19,9 +19,7 @@
 
 package com.adam.aslfms.util;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.TimeZone;
 
 import android.app.AlertDialog;
@@ -79,36 +77,25 @@ public class Util {
 		}
 	}
 
-	public static List<NetworkOptions> checkNetworkStatus(Context ctx) {
-		ConnectivityManager connectivityManager = (ConnectivityManager) ctx
+	public static boolean checkForOkNetwork(Context ctx, NetworkOptions no) {
+		ConnectivityManager cMgr = (ConnectivityManager) ctx
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
-		if (networkInfo == null) {
-			return new ArrayList<NetworkOptions>();
-		}
-		int netType = networkInfo.getType();
-		int netSubType = networkInfo.getSubtype();
+		NetworkInfo netInfo = cMgr.getActiveNetworkInfo();
+		if (netInfo == null)
+			return false;
+		if (!netInfo.isConnected())
+			return false;
 		
-		Log.d(TAG, "NetType: " + netType);
-		Log.d(TAG, "NetType: " + netSubType);
+		
+		int netType = netInfo.getType();
+		int netSubType = netInfo.getSubtype();
 
-		NetworkOptions[] nos = NetworkOptions.values();
-		List<NetworkOptions> list = new ArrayList<NetworkOptions>(nos.length);
-		
-		for (NetworkOptions no : nos) {
-			Log.d(TAG, no.toString());
-			Log.d(TAG, no.getForbiddenNetworkTypes().toString());
-			Log.d(TAG, no.getForbiddenNetworkSubTypes().toString());
-			if (no.isNetworkTypeForbidden(netType) || no.isNetworkSubTypeForbidden(netSubType)) {
-				continue;
-			} else {
-				list.add(no);
-			}
-		}
-		
-		Log.d(TAG, "NetOptions: " + list);
-		
-		return list;
+		if (no.isNetworkTypeForbidden(netType))
+			return false;
+		if (no.isNetworkSubTypeForbidden(netSubType))
+			return false;
+
+		return true;
 	}
 
 	/**

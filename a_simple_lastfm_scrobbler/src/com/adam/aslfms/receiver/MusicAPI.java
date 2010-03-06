@@ -1,14 +1,14 @@
 package com.adam.aslfms.receiver;
 
-import com.adam.aslfms.MusicAppsScreen;
-import com.adam.aslfms.R;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.adam.aslfms.MusicAppsScreen;
+import com.adam.aslfms.R;
 
 /**
  * A class for representing and dealing different scrobbling APIs / music apps.

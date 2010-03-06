@@ -20,6 +20,7 @@
 package com.adam.aslfms.service;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.adam.aslfms.R;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
@@ -30,7 +31,6 @@ import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
 
 public abstract class AbstractSubmitter extends NetRunnable {
 
-	@SuppressWarnings("unused")
 	private static final String TAG = "ASubmitter";
 
 	protected final AppSettings settings;
@@ -42,6 +42,16 @@ public abstract class AbstractSubmitter extends NetRunnable {
 
 	@Override
 	public final void run() {
+
+		// check network status
+		if (!Util.checkForOkNetwork(getContext(), settings
+				.getNetworkOptions(Util.checkPower(getContext())))) {
+			Log.d(TAG, "Waits on network, not OK for submission");
+			getNetworker().launchNetworkWaiter();
+			relaunchThis();
+			return;
+		}
+
 		HandshakeResult hInfo = getNetworker().getHandshakeResult();
 		if (hInfo == null) {
 			getNetworker().launchHandshaker();

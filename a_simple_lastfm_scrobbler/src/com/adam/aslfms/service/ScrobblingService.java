@@ -19,8 +19,6 @@
 
 package com.adam.aslfms.service;
 
-import java.util.List;
-
 import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
@@ -33,7 +31,6 @@ import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
-import com.adam.aslfms.util.AppSettingsEnums.NetworkOptions;
 import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
 
 /**
@@ -250,10 +247,6 @@ public class ScrobblingService extends Service {
 			Log.d(TAG, "Won't notify NP, unauthed or disabled");
 			return;
 		}
-		
-		if (abortDueToNetwork(pow)) {
-			return;
-		}
 
 		mNetManager.launchNPNotifier(track);
 	}
@@ -344,22 +337,12 @@ public class ScrobblingService extends Service {
 
 		PowerOptions pow = Util.checkPower(this);
 
-		if (abortDueToNetwork(pow)) {
-			return;
-		}
-
 		boolean aoc = settings.getAdvancedOptionsAlsoOnComplete(pow);
 		if (aoc && playbackComplete) {
 			Log.d(TAG, "Launching scrobbler because playlist is finished");
 			mNetManager.launchAllScrobblers();
 			return;
 		}
-
-		/*
-		 * boolean aop = settings.getAdvancedOptionsAlsoOnPlugged(); if (aop) {
-		 * Log.d(TAG, "Launching scrobbler because plugged to a power source");
-		 * mNetManager.launchAllScrobblers(); return; }
-		 */
 
 		AdvancedOptionsWhen aow = settings.getAdvancedOptionsWhen(pow);
 		for (NetApp napp : NetApp.values()) {
@@ -368,18 +351,5 @@ public class ScrobblingService extends Service {
 				mNetManager.launchScrobbler(napp);
 			}
 		}
-	}
-
-	private boolean abortDueToNetwork(PowerOptions pow) {
-		List<NetworkOptions> nos = Util.checkNetworkStatus(this);
-		NetworkOptions no = settings.getNetworkOptions(pow);
-
-		if (!nos.contains(no)) {
-			Log
-					.d(TAG, "Preventing submission because of network status: "
-							+ no);
-			return true;
-		}
-		return false;
 	}
 }

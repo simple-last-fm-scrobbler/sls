@@ -24,17 +24,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.os.Bundle;
 import android.util.Log;
+
+import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.Util;
 
 public class NetworkWaiter extends NetRunnable {
 
 	private static final String TAG = "NetworkWaiter";
-	boolean mWait;
+	private AppSettings settings;
+	private boolean mWait;
 
 	NetworkWaiter(NetApp napp, Context ctx, Networker net) {
 		super(napp, ctx, net);
+		this.settings = new AppSettings(ctx);
 	}
 
 	@Override
@@ -42,13 +45,12 @@ public class NetworkWaiter extends NetRunnable {
 		// register receiver
 		IntentFilter ifs = new IntentFilter();
 		ifs.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+		ifs.addAction(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED);
 		getContext().registerReceiver(mConnReceiver, ifs);
 
 		synchronized (this) {
-			ConnectivityManager cMgr = (ConnectivityManager) getContext()
-					.getSystemService(Context.CONNECTIVITY_SERVICE);
-			NetworkInfo netInfo = cMgr.getActiveNetworkInfo();
-			mWait = netInfo == null || !netInfo.isConnected();
+			mWait = !Util.checkForOkNetwork(getContext(), settings
+					.getNetworkOptions(Util.checkPower(getContext())));
 			while (mWait) {
 				try {
 					Log.d(TAG, "waiting for network connection: "
@@ -72,10 +74,9 @@ public class NetworkWaiter extends NetRunnable {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			synchronized (NetworkWaiter.this) {
-				Bundle extras = intent.getExtras();
-				if (extras == null
-						|| !extras
-								.getBoolean(ConnectivityManager.EXTRA_NO_CONNECTIVITY)) {
+				Log.d(TAG, "received broadcast: " + intent.getAction());
+				if (Util.checkForOkNetwork(getContext(), settings
+						.getNetworkOptions(Util.checkPower(getContext())))) {
 					NetworkWaiter.this.mWait = false;
 					NetworkWaiter.this.notifyAll();
 				}
