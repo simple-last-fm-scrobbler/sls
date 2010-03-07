@@ -158,13 +158,12 @@ public class Scrobbler extends AbstractSubmitter {
 			data.add(new BasicNameValuePair("t" + is, track.getTrack()));
 			data.add(new BasicNameValuePair("i" + is, Long.toString(track
 					.getWhen())));
-			data.add(new BasicNameValuePair("o" + is, track.getSource())); // source
-																			// (player)
+			data.add(new BasicNameValuePair("o" + is, track.getSource()));
 			data.add(new BasicNameValuePair("l" + is, Integer.toString(track
 					.getDuration())));
-			data.add(new BasicNameValuePair("n" + is, track.getTrackNr())); // track-number
-			data.add(new BasicNameValuePair("m" + is, track.getMbid())); // mbid
-			data.add(new BasicNameValuePair("r" + is, track.getRating())); // rating
+			data.add(new BasicNameValuePair("n" + is, track.getTrackNr()));
+			data.add(new BasicNameValuePair("m" + is, track.getMbid()));
+			data.add(new BasicNameValuePair("r" + is, track.getRating()));
 		}
 
 		try {

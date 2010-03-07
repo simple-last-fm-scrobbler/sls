@@ -131,6 +131,8 @@ public class NPNotifier extends AbstractSubmitter {
 		data.add(new BasicNameValuePair("t", track.getTrack()));
 		data.add(new BasicNameValuePair("l", Integer.toString(track
 				.getDuration())));
+		data.add(new BasicNameValuePair("n", track.getTrackNr()));
+		data.add(new BasicNameValuePair("m", track.getMbid()));
 
 		try {
 			request.setEntity(new UrlEncodedFormEntity(data, "UTF-8"));
