@@ -23,6 +23,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.util.Log;
 
 import com.adam.aslfms.UserCredActivity;
 import com.adam.aslfms.service.Handshaker;
@@ -31,6 +32,7 @@ import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptions;
 import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
 import com.adam.aslfms.util.AppSettingsEnums.NetworkOptions;
 import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
+import com.adam.aslfms.util.AppSettingsEnums.SortField;
 import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
 
 /**
@@ -40,7 +42,6 @@ import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
  */
 public class AppSettings {
 
-	@SuppressWarnings("unused")
 	private static final String TAG = "SLSAppSettings";
 
 	public static final String ACTION_NETWORK_OPTIONS_CHANGED = "com.adam.aslfms.service.bcast.onnetoptions";
@@ -57,6 +58,8 @@ public class AppSettings {
 	private static final String KEY_AUTH_STATUS = "authstatus";
 
 	private static final String KEY_WHATSNEW_VIEWED_VERSION = "whatsnew_viewed_version";
+
+	private static final String KEY_VIEW_CACHE_SORTFIELD = "view_cache_sortfield";
 
 	private static final String KEY_SCROBBLE_POINT = "scrobble_point";
 	private static final String KEY_ADVANCED_OPTIONS = "advanced_options_type";
@@ -267,6 +270,29 @@ public class AppSettings {
 	public int getNumberOfSubmissions(NetApp napp, SubmissionType stype) {
 		return prefs.getInt(napp.getSettingsPrefix()
 				+ stype.getNumberOfPrefix(), 0);
+	}
+
+	// view cache options
+	public void setCacheSortField(SortField sf) {
+		Editor e = prefs.edit();
+		e.putString(KEY_VIEW_CACHE_SORTFIELD, sf.name());
+		e.commit();
+	}
+
+	public SortField getCacheSortField() {
+		String s = prefs.getString(KEY_VIEW_CACHE_SORTFIELD,
+				SortField.WHEN_DESC.name());
+
+		SortField sf = SortField.WHEN_DESC;
+		try {
+			sf = SortField.valueOf(s);
+		} catch (Exception e) {
+			Log.e(TAG, "Got exception when trying to convert to sort-order: "
+					+ s);
+			Log.e(TAG, e.getMessage());
+		}
+
+		return sf;
 	}
 
 	// scrobbling options

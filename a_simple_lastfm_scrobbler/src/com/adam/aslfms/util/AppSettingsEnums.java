@@ -30,7 +30,7 @@ import android.util.Log;
 import com.adam.aslfms.R;
 
 public final class AppSettingsEnums {
-	public enum SubmissionType {
+	public static enum SubmissionType {
 		SCROBBLE("status_last_scrobble", "status_nscrobbles"), // 
 		NP("status_last_np", "status_nnps");
 
@@ -51,7 +51,7 @@ public final class AppSettingsEnums {
 		}
 	}
 
-	public enum PowerOptions {
+	public static enum PowerOptions {
 		BATTERY("", new AdvancedOptions[] { AdvancedOptions.STANDARD,
 				AdvancedOptions.BATTERY_SAVING, AdvancedOptions.CUSTOM }), //
 		PLUGGED_IN("_plugged", new AdvancedOptions[] {
@@ -77,7 +77,7 @@ public final class AppSettingsEnums {
 
 	}
 
-	public enum AdvancedOptions {
+	public static enum AdvancedOptions {
 		// the values below for SAME will be ignored
 		SAME_AS_BATTERY("ao_same_as_battery", true, true,
 				AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, false,
@@ -173,7 +173,7 @@ public final class AppSettingsEnums {
 		}
 	}
 
-	public enum AdvancedOptionsWhen {
+	public static enum AdvancedOptionsWhen {
 		AFTER_1("aow_1", 1, R.string.advanced_options_when_1_name), //
 		AFTER_5("aow_5", 5, R.string.advanced_options_when_5_name), //
 		AFTER_10("aow_10", 10, R.string.advanced_options_when_10_name), //
@@ -225,7 +225,7 @@ public final class AppSettingsEnums {
 		}
 	}
 
-	public enum NetworkOptions {
+	public static enum NetworkOptions {
 		ANY("any", new int[] {}, new int[] {},
 				R.string.advanced_options_net_any_name), //
 		THREEG_AND_UP("3g_and_up", new int[] {}, new int[] {
@@ -307,5 +307,78 @@ public final class AppSettingsEnums {
 
 	private AppSettingsEnums() {
 
+	}
+
+	/**
+	 * A convenient way to send the sort order of a query as a parameter to the
+	 * method.
+	 * 
+	 * @author tgwizard
+	 * 
+	 */
+	public static enum SortOrder {
+		ASCENDING("asc"), DESCENDING("desc");
+
+		private final String sql;
+
+		private SortOrder(String sql) {
+			this.sql = sql;
+		}
+
+		public String getSql() {
+			return sql;
+		}
+	}
+
+	public static enum SortField {
+		WHEN_ASC("whenplayed", SortOrder.ASCENDING, R.string.sc_sort_when_asc), //
+		WHEN_DESC("whenplayed", SortOrder.DESCENDING,
+				R.string.sc_sort_when_desc), //
+		ARTIST_ASC("artist", SortOrder.ASCENDING, R.string.sc_sort_artist_asc), //
+		ARTIST_DESC("artist", SortOrder.DESCENDING,
+				R.string.sc_sort_artist_desc), //
+		ALBUM_ASC("album", SortOrder.ASCENDING, R.string.sc_sort_album_asc), //
+		ALBUM_DESC("album", SortOrder.DESCENDING, R.string.sc_sort_album_desc), //
+		TRACK_ASC("track", SortOrder.ASCENDING, R.string.sc_sort_track_asc), //
+		TRACK_DESC("track", SortOrder.DESCENDING, R.string.sc_sort_track_desc);
+
+		private final String field;
+		private final SortOrder sortOrder;
+		private final int nameRID;
+
+		private SortField(String field,
+				com.adam.aslfms.util.AppSettingsEnums.SortOrder sortOrder,
+				int nameRID) {
+			this.field = field;
+			this.sortOrder = sortOrder;
+			this.nameRID = nameRID;
+		}
+
+		public String getField() {
+			return field;
+		}
+
+		public SortOrder getSortOrder() {
+			return sortOrder;
+		}
+
+		public int getNameRID() {
+			return nameRID;
+		}
+
+		public String getName(Context ctx) {
+			return ctx.getString(nameRID);
+		}
+
+		public static CharSequence[] toCharSequenceArray(Context ctx) {
+			return new CharSequence[] { ctx.getString(WHEN_ASC.nameRID),
+					ctx.getString(WHEN_DESC.nameRID),
+					ctx.getString(ARTIST_ASC.nameRID),
+					ctx.getString(ARTIST_DESC.nameRID),
+					ctx.getString(ALBUM_ASC.nameRID),
+					ctx.getString(ALBUM_DESC.nameRID),
+					ctx.getString(TRACK_ASC.nameRID),
+					ctx.getString(TRACK_DESC.nameRID), };
+		}
 	}
 }

@@ -1,5 +1,6 @@
 - 1.2.?? (?????????)
   * Added support to scrobble only when on certain types of network (3G, Wifi, etc.)
+  * Added ability to reorder the cache using different criteria
   * Minor bug-fixes
 
 - 1.2.7  (2010-03-01)

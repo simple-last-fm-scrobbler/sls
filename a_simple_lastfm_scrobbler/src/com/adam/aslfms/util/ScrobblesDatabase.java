@@ -29,6 +29,7 @@ import android.util.Log;
 
 import com.adam.aslfms.receiver.MusicAPI;
 import com.adam.aslfms.service.NetApp;
+import com.adam.aslfms.util.AppSettingsEnums.SortField;
 
 /**
  * 
@@ -69,27 +70,6 @@ public class ScrobblesDatabase {
 			+ "primary key (netappid, trackid), "
 			+ "foreign key (trackid) references scrobbles_netapp(_id) "
 			+ "on delete cascade on update cascade)";
-
-	/**
-	 * A convenient way to send the sort order of a query as a parameter to the
-	 * method.
-	 * 
-	 * @author tgwizard
-	 * 
-	 */
-	public enum SortOrder {
-		ASCENDING("asc"), DESCENDING("desc");
-
-		private final String sql;
-
-		private SortOrder(String sql) {
-			this.sql = sql;
-		}
-
-		public String getSql() {
-			return sql;
-		}
-	}
 
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 
@@ -240,18 +220,20 @@ public class ScrobblesDatabase {
 		return tracks;
 	}
 
-	public Cursor fetchTracksCursor(NetApp napp, SortOrder so) {
+	public Cursor fetchTracksCursor(NetApp napp, SortField sf) {
 		Cursor c;
 		String sql = "select * from scrobbles, scrobbles_netapp "
 				+ "where _id = trackid and netappid = " + napp.getValue()
-				+ " order by _id " + so.getSql();
+				+ " order by " + sf.getField() + " "
+				+ sf.getSortOrder().getSql();
 		c = mDb.rawQuery(sql, null);
 		return c;
 	}
 
-	public Cursor fetchAllTracksCursor(SortOrder so) {
+	public Cursor fetchAllTracksCursor(SortField sf) {
 		Cursor c;
-		String sql = "select * from scrobbles order by _id " + so.getSql();
+		String sql = "select * from scrobbles order by " + sf.getField() + " "
+				+ sf.getSortOrder().getSql();
 		c = mDb.rawQuery(sql, null);
 		return c;
 	}

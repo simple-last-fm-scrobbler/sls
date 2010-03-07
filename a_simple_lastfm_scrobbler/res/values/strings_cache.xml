@@ -51,4 +51,27 @@
 		name="view_sc_for_all_summary">View and edit the list of unsubmitted scrobbles</string>
 	<string
 		name="all_websites">all websites</string>
+	<string
+		name="sc_sorted_by">Ordered by: %1</string>
+	<string
+		name="sc_sort_title">Sort order</string>
+	<string
+		name="sc_sortorder_change">Change sort order</string>
+	<string
+		name="sc_sort_when_asc">Time played, ascending</string>
+	<string
+		name="sc_sort_when_desc">Time played, descending</string>
+	<string
+		name="sc_sort_artist_asc">Artist, ascending</string>
+	<string
+		name="sc_sort_artist_desc">Artist, descending</string>
+	<string
+		name="sc_sort_album_asc">Album, ascending</string>
+	<string
+		name="sc_sort_album_desc">Album, descending</string>
+	<string
+		name="sc_sort_track_asc">Track name, ascending</string>
+	<string
+		name="sc_sort_track_desc">Track name, descending</string>
+
 </resources>
