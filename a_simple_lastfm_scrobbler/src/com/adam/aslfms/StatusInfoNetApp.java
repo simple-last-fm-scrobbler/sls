@@ -180,9 +180,13 @@ public class StatusInfoNetApp extends ListActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean ret = super.onCreateOptionsMenu(menu);
 
-		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now);
-		menu.add(0, MENU_VIEW_CACHE_ID, 0, R.string.view_sc);
-		menu.add(0, MENU_RESET_STATS_ID, 0, R.string.reset_stats);
+		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now).setIcon(
+				android.R.drawable.ic_menu_upload);
+		menu.add(0, MENU_RESET_STATS_ID, 0, R.string.reset_stats).setIcon(
+				android.R.drawable.ic_menu_close_clear_cancel);
+		menu.add(0, MENU_VIEW_CACHE_ID, 0, R.string.view_sc).setIcon(
+				android.R.drawable.ic_menu_view);
+
 		return ret;
 	}
 

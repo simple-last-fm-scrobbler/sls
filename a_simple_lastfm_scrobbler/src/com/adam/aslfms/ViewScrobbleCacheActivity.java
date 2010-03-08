@@ -160,9 +160,14 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean ret = super.onCreateOptionsMenu(menu);
-		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now);
-		menu.add(0, MENU_CLEAR_CACHE_ID, 0, R.string.clear_cache);
-		menu.add(0, MENU_CHANGE_SORT_ORDER_ID, 0, R.string.sc_sortorder_change);
+
+		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now).setIcon(
+				android.R.drawable.ic_menu_upload);
+		menu.add(0, MENU_CLEAR_CACHE_ID, 0, R.string.clear_cache).setIcon(
+				android.R.drawable.ic_menu_close_clear_cancel);
+		menu.add(0, MENU_CHANGE_SORT_ORDER_ID, 0, R.string.sc_sortorder_change)
+				.setIcon(android.R.drawable.ic_menu_sort_alphabetically);
+
 		return ret;
 	}
 
@@ -201,8 +206,12 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 		if (info.id < 0)
 			return;
 		super.onCreateContextMenu(menu, v, menuInfo);
-		menu.add(0, CONTEXT_MENU_DETAILS_ID, 0, R.string.view_sc_details);
-		menu.add(0, CONTEXT_MENU_DELETE_ID, 0, R.string.delete_sc);
+		menu.add(0, CONTEXT_MENU_DETAILS_ID, 0, R.string.view_sc_details)
+				.setIcon(android.R.drawable.ic_menu_view);
+		;
+		menu.add(0, CONTEXT_MENU_DELETE_ID, 0, R.string.delete_sc).setIcon(
+				android.R.drawable.ic_menu_delete);
+		;
 	}
 
 	@Override
