@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string
+		name="ok">Ok</string>
+	<string
+		name="close">Close</string>
+	<string
+		name="remove">Remove</string>
+	<string
+		name="reset">Reset</string>
+	<string
+		name="clear_creds">Clear</string>
+	<string
+		name="cancel">Cancel</string>
+	<string
+		name="are_you_sure">Are you sure?</string>
+	<string
+		name="warning">Warning</string>
+	
+	<string
+		name="will_submit_stuff">Will submit listening information to this website
+	</string>
+	
+	<string
+		name="also_disable_np_title">Also disable now-playing</string>
+	<string
+		name="also_disable_np_summary">[Hmpf]</string>
+</resources>

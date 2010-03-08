@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceScreen
+		android:title="@string/user_credentials_title"
+		android:summary="@string/user_credentials_summary_no_napp">
+		<intent
+			android:action="android.intent.action.MAIN"
+			android:targetPackage="com.adam.aslfms"
+			android:targetClass="com.adam.aslfms.UserCredsListScreen" />
+	</PreferenceScreen>
+
+	<PreferenceScreen
+		android:title="@string/supported_apps_category_title"
+		android:summary="@string/show_supported_apps_list_summary">
+		<intent
+			android:action="android.intent.action.MAIN"
+			android:targetPackage="com.adam.aslfms"
+			android:targetClass="com.adam.aslfms.MusicAppsScreen" />
+	</PreferenceScreen>
+
+	<PreferenceScreen
+		android:title="@string/options_title"
+		android:summary="@string/options_summary">
+		<intent
+			android:action="android.intent.action.MAIN"
+			android:targetPackage="com.adam.aslfms"
+			android:targetClass="com.adam.aslfms.OptionsScreen" />
+	</PreferenceScreen>
+
+	<PreferenceCategory
+		android:title="@string/scrobble_cache_title" />
+	<Preference
+		android:key="scrobble_all_now"
+		android:title="@string/scrobble_now" />
+	<Preference
+		android:key="view_scrobble_cache"
+		android:title="@string/view_sc"
+		android:summary="@string/view_sc_for_all_summary" />
+
+	<PreferenceCategory
+		android:title="@string/scrobble_status_title" />
+	<Preference
+		android:title="@string/status_show_title"
+		android:summary="@string/status_show_summary">
+		<intent
+			android:action="android.intent.action.MAIN"
+			android:targetPackage="com.adam.aslfms"
+			android:targetClass="com.adam.aslfms.StatusActivity" />
+	</Preference>
+</PreferenceScreen>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<PreferenceCategory android:key="user_creds_header" />
+	<com.adam.aslfms.EditUserCredentials
+		android:key="edit_user_credentials" android:title="@string/user_credentials_title"
+		android:dialogTitle="@string/user_credentials_title"
+		android:positiveButtonText="@string/user_credentials_enter_ok"
+		android:negativeButtonText="@string/user_credentials_enter_cancel" />
+	<Preference android:key="clear_user_credentials"
+		android:title="@string/user_credentials_clear_title" android:summary="@string/user_credentials_clear_summary" />
+	<PreferenceCategory android:title="@string/other_category_title" />
+	<Preference android:key="create_user" android:title="@string/create_user_title" />
+</PreferenceScreen>
