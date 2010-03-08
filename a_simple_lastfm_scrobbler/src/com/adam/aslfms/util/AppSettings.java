@@ -308,17 +308,14 @@ public class AppSettings {
 		Editor e = prefs.edit();
 		e.putBoolean(KEY_SCROBBLING_ENABLE + pow.getSettingsPath(), b);
 		e.commit();
-
-		// if the options for plugged in is set to "same as for battery", then
-		// we need to update it's settings as well
-		if (pow == PowerOptions.BATTERY
-				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
-			setNowPlayingEnabled(PowerOptions.PLUGGED_IN,
-					isNowPlayingEnabled(PowerOptions.BATTERY));
-		}
 	}
 
 	public boolean isScrobblingEnabled(PowerOptions pow) {
+		if (pow == PowerOptions.PLUGGED_IN
+				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
+			pow = PowerOptions.BATTERY;
+		}
+
 		return prefs.getBoolean(KEY_SCROBBLING_ENABLE + pow.getSettingsPath(),
 				getAdvancedOptions(pow).isScrobblingEnabled());
 	}
@@ -327,17 +324,14 @@ public class AppSettings {
 		Editor e = prefs.edit();
 		e.putBoolean(KEY_NOWPLAYING_ENABLE + pow.getSettingsPath(), b);
 		e.commit();
-
-		// if the options for plugged in is set to "same as for battery", then
-		// we need to update it's settings as well
-		if (pow == PowerOptions.BATTERY
-				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
-			setNowPlayingEnabled(PowerOptions.PLUGGED_IN,
-					isNowPlayingEnabled(PowerOptions.BATTERY));
-		}
 	}
 
 	public boolean isNowPlayingEnabled(PowerOptions pow) {
+		if (pow == PowerOptions.PLUGGED_IN
+				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
+			pow = PowerOptions.BATTERY;
+		}
+
 		return prefs.getBoolean(KEY_NOWPLAYING_ENABLE + pow.getSettingsPath(),
 				getAdvancedOptions(pow).isNpEnabled());
 	}
@@ -378,24 +372,6 @@ public class AppSettings {
 			setNetworkOptions(pow, ao.getNetworkOptions());
 			setSubmitOnRoaming(pow, ao.getRoaming());
 		}
-
-		// if the options for plugged in is set to "same as for battery", then
-		// we need to update it's settings as well
-		if (pow == PowerOptions.PLUGGED_IN
-				&& ao == AdvancedOptions.SAME_AS_BATTERY) {
-			setScrobblingEnabled(PowerOptions.PLUGGED_IN,
-					isScrobblingEnabled(PowerOptions.BATTERY));
-			setNowPlayingEnabled(PowerOptions.PLUGGED_IN,
-					isNowPlayingEnabled(PowerOptions.BATTERY));
-			setAdvancedOptionsWhen(PowerOptions.PLUGGED_IN,
-					getAdvancedOptionsWhen(PowerOptions.BATTERY));
-			setAdvancedOptionsAlsoOnComplete(PowerOptions.PLUGGED_IN,
-					getAdvancedOptionsAlsoOnComplete(PowerOptions.BATTERY));
-			setNetworkOptions(PowerOptions.PLUGGED_IN,
-					getNetworkOptions(PowerOptions.BATTERY));
-			setSubmitOnRoaming(PowerOptions.PLUGGED_IN,
-					getSubmitOnRoaming(PowerOptions.BATTERY));
-		}
 	}
 
 	/**
@@ -432,17 +408,14 @@ public class AppSettings {
 		e.putString(KEY_ADVANCED_OPTIONS_WHEN + pow.getSettingsPath(), aow
 				.getSettingsVal());
 		e.commit();
-
-		// if the options for plugged in is set to "same as for battery", then
-		// we need to update it's settings as well
-		if (pow == PowerOptions.BATTERY
-				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
-			setAdvancedOptionsWhen(PowerOptions.PLUGGED_IN,
-					getAdvancedOptionsWhen(PowerOptions.BATTERY));
-		}
 	}
 
 	public AdvancedOptionsWhen getAdvancedOptionsWhen(PowerOptions pow) {
+		if (pow == PowerOptions.PLUGGED_IN
+				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
+			pow = PowerOptions.BATTERY;
+		}
+
 		String s = prefs.getString(KEY_ADVANCED_OPTIONS_WHEN
 				+ pow.getSettingsPath(), null);
 		if (s == null) {
@@ -457,17 +430,14 @@ public class AppSettings {
 		e.putBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE
 				+ pow.getSettingsPath(), b);
 		e.commit();
-
-		// if the options for plugged in is set to "same as for battery", then
-		// we need to update it's settings as well
-		if (pow == PowerOptions.BATTERY
-				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
-			setAdvancedOptionsAlsoOnComplete(PowerOptions.PLUGGED_IN,
-					getAdvancedOptionsAlsoOnComplete(PowerOptions.BATTERY));
-		}
 	}
 
 	public boolean getAdvancedOptionsAlsoOnComplete(PowerOptions pow) {
+		if (pow == PowerOptions.PLUGGED_IN
+				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
+			pow = PowerOptions.BATTERY;
+		}
+
 		return prefs.getBoolean(KEY_ADVANCED_OPTIONS_ALSO_ON_COMPLETE
 				+ pow.getSettingsPath(), getAdvancedOptions(pow)
 				.getAlsoOnComplete());
@@ -479,18 +449,15 @@ public class AppSettings {
 				.getSettingsVal());
 		e.commit();
 
-		// if the options for plugged in is set to "same as for battery", then
-		// we need to update it's settings as well
-		if (pow == PowerOptions.BATTERY
-				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
-			setNetworkOptions(PowerOptions.PLUGGED_IN,
-					getNetworkOptions(PowerOptions.BATTERY));
-		}
-
 		mCtx.sendBroadcast(new Intent(ACTION_NETWORK_OPTIONS_CHANGED));
 	}
 
 	public NetworkOptions getNetworkOptions(PowerOptions pow) {
+		if (pow == PowerOptions.PLUGGED_IN
+				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
+			pow = PowerOptions.BATTERY;
+		}
+
 		String s = prefs.getString(KEY_ADVANCED_OPTIONS_NETWORK
 				+ pow.getSettingsPath(), null);
 		if (s == null) {
@@ -505,18 +472,15 @@ public class AppSettings {
 		e.putBoolean(KEY_ADVANCED_OPTIONS_ROAMING + pow.getSettingsPath(), b);
 		e.commit();
 
-		// if the options for plugged in is set to "same as for battery", then
-		// we need to update it's settings as well
-		if (pow == PowerOptions.BATTERY
-				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
-			setSubmitOnRoaming(PowerOptions.PLUGGED_IN,
-					getSubmitOnRoaming(PowerOptions.BATTERY));
-		}
-
 		mCtx.sendBroadcast(new Intent(ACTION_NETWORK_OPTIONS_CHANGED));
 	}
 
 	public boolean getSubmitOnRoaming(PowerOptions pow) {
+		if (pow == PowerOptions.PLUGGED_IN
+				&& getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
+			pow = PowerOptions.BATTERY;
+		}
+
 		return prefs.getBoolean(KEY_ADVANCED_OPTIONS_ROAMING
 				+ pow.getSettingsPath(), getAdvancedOptions(pow).getRoaming());
 	}

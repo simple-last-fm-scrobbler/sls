@@ -3,7 +3,7 @@
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.adam.aslfms"
 	android:versionCode="17"
-	android:versionName="1.3.0">
+	android:versionName="1.3">
 
 	<application
 		android:icon="@drawable/icon"

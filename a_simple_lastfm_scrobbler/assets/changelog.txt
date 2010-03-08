@@ -1,6 +1,7 @@
-- 1.3.0 (2010-03-08)
+- 1.3 (2010-03-08)
   * Added support to scrobble only when on certain types of network (3G, Wifi, etc.)
-  * Added ability to reorder the cache using different criteria
+  * Reworked the options screen a little
+  * Added ability to view the local cache sorted in different ways
   * Minor fixes
 
 - 1.2.7  (2010-03-01)
