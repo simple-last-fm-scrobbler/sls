@@ -141,7 +141,8 @@ public class SettingsActivity extends PreferenceActivity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		boolean ret = super.onCreateOptionsMenu(menu);
-		menu.add(0, MENU_ABOUT_ID, 0, R.string.about).setIcon(android.R.drawable.ic_menu_info_details);
+		menu.add(0, MENU_ABOUT_ID, 0, R.string.about).setIcon(
+				android.R.drawable.ic_menu_info_details);
 		return ret;
 	}
 

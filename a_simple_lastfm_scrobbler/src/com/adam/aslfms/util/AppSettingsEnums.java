@@ -370,6 +370,10 @@ public final class AppSettingsEnums {
 			return ctx.getString(nameRID);
 		}
 
+		public String getSql() {
+			return field + " " + sortOrder.getSql();
+		}
+
 		public static CharSequence[] toCharSequenceArray(Context ctx) {
 			return new CharSequence[] { ctx.getString(WHEN_ASC.nameRID),
 					ctx.getString(WHEN_DESC.nameRID),

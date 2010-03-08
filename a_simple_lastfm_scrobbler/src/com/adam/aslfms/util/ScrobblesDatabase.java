@@ -224,16 +224,14 @@ public class ScrobblesDatabase {
 		Cursor c;
 		String sql = "select * from scrobbles, scrobbles_netapp "
 				+ "where _id = trackid and netappid = " + napp.getValue()
-				+ " order by " + sf.getField() + " "
-				+ sf.getSortOrder().getSql();
+				+ " order by " + sf.getSql();
 		c = mDb.rawQuery(sql, null);
 		return c;
 	}
 
 	public Cursor fetchAllTracksCursor(SortField sf) {
 		Cursor c;
-		String sql = "select * from scrobbles order by " + sf.getField() + " "
-				+ sf.getSortOrder().getSql();
+		String sql = "select * from scrobbles order by " + sf.getSql();
 		c = mDb.rawQuery(sql, null);
 		return c;
 	}
