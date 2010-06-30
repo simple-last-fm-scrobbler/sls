@@ -35,9 +35,10 @@
 		name="everything_disabled">Scrobbling/now playing is disabled.
     </string>
 	<string
-		name="supported_musicapps">Supported apps: Android Music Player, HTC Hero Music Player,
+		name="supported_musicapps">Supported apps: Android Music Player, HTC Hero/Sense Music Player,
 		Meridian Player, RockOn, MixZing, Archos Music Player, Rhapsody
-		Android Beta</string>
+		Android Beta, Vanilla Music Player, bTunes, ³ (cubed), WIMP, more...
+		</string>
 	<string
 		name="file_error">File error!</string>
 	<string
