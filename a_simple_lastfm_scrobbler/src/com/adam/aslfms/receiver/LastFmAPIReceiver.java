@@ -47,7 +47,7 @@ public class LastFmAPIReceiver extends AbstractPlayStatusReceiver {
 		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx, "Last.fm Android App API", MusicAPI.NOT_AN_APPLICATION_PACKAGE,
 				"Apps using the Last.fm Android App API", false);
 		setMusicAPI(musicAPI);
-		
+
 		if (action.equals(ACTION_LASTFMAPI_START)) {
 			setState(Track.State.START);
 			Track.Builder b = new Track.Builder();
@@ -61,7 +61,7 @@ public class LastFmAPIReceiver extends AbstractPlayStatusReceiver {
 			// throws on bad data
 			setTrack(b.build());
 		} else if (action.equals(ACTION_LASTFMAPI_PAUSERESUME)) {
-			if (bundle.get("position") != null) {
+			if (bundle.containsKey("position")) {
 				setState(Track.State.RESUME);
 			} else {
 				setState(Track.State.PAUSE);

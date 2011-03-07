@@ -20,21 +20,24 @@
 package com.adam.aslfms.receiver;
 
 /**
- * A BroadcastReceiver for intents sent by the myTouch 4G Music Player.
+ * A BroadcastReceiver for intents sent by the Winamp Music Player.
  * 
  * @see BuiltInMusicAppReceiver
  * 
  * @author tgwizard
  * @since 1.3.2
  */
-public class MyTouch4GMusicReceiver extends BuiltInMusicAppReceiver {
-	// these first two are untested
-	public static final String ACTION_MYTOUCH4G_PLAYSTATECHANGED = "com.real.IMP.playstatechanged";
-	public static final String ACTION_MYTOUCH4G_STOP = "com.real.IMP.playbackcomplete";
-	// should work
-	public static final String ACTION_MYTOUCH4G_METACHANGED = "com.real.IMP.metachanged";
+public class WinampMusicReceiver extends BuiltInMusicAppReceiver {
+	@SuppressWarnings("unused")
+	private static final String TAG = "SLSWinampReceiver";
 
-	public MyTouch4GMusicReceiver() {
-		super(ACTION_MYTOUCH4G_STOP, "com.real.IMP", "myTouch 4G Music Player");
+	public static final String ACTION_WINAMP_START = "com.nullsoft.winamp.metachanged";
+	public static final String ACTION_WINAMP_PAUSERESUME = "com.nullsoft.winamp.playstatechanged";
+	// doesn't seem to work
+	public static final String ACTION_WINAMP_STOP = "com.nullsoft.winamp.playbackcomplete";
+	
+	public WinampMusicReceiver() {
+		super(ACTION_WINAMP_STOP, "com.nullsoft.winamp", "Winamp");
 	}
+
 }

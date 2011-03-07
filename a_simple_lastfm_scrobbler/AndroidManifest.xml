@@ -95,6 +95,20 @@
                     android:name="com.htc.music.playstatechanged" />
             </intent-filter>
         </receiver>
+        
+        <receiver
+            android:name="com.adam.aslfms.receiver.WinampMusicReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action
+                    android:name="com.nullsoft.winamp.metachanged" />
+                <action
+                    android:name="com.nullsoft.winamp.playbackcomplete" />
+                <action
+                    android:name="com.nullsoft.winamp.playstatechanged" />
+            </intent-filter>
+        </receiver>
 
         <receiver
             android:name="com.adam.aslfms.receiver.MyTouch4GMusicReceiver"
@@ -170,6 +184,8 @@
             </intent-filter>
         </receiver>
 
+        <!--  
+           - will probably interfere badly with Winamp
         <receiver
             android:name="com.adam.aslfms.receiver.LastFmAPIReceiver"
             android:exported="true"
@@ -183,7 +199,7 @@
                     android:name="fm.last.android.playbackcomplete" />
             </intent-filter>
         </receiver>
-
+        -->
 
 
     </application>
