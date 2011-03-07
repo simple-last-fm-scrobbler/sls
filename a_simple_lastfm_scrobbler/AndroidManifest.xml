@@ -95,7 +95,7 @@
                     android:name="com.htc.music.playstatechanged" />
             </intent-filter>
         </receiver>
-        
+
         <receiver
             android:name="com.adam.aslfms.receiver.WinampMusicReceiver"
             android:exported="true"
@@ -184,21 +184,15 @@
             </intent-filter>
         </receiver>
 
-        <!--  
-           - will probably interfere badly with Winamp
-        <receiver
+        <!--
+            - will probably interfere badly with Winamp <receiver
             android:name="com.adam.aslfms.receiver.LastFmAPIReceiver"
-            android:exported="true"
-            android:enabled="true">
-            <intent-filter>
-                <action
-                    android:name="fm.last.android.metachanged" />
-                <action
-                    android:name="fm.last.android.playbackpaused" />
-                <action
-                    android:name="fm.last.android.playbackcomplete" />
-            </intent-filter>
-        </receiver>
+            android:exported="true" android:enabled="true">
+            <intent-filter> <action
+            android:name="fm.last.android.metachanged" /> <action
+            android:name="fm.last.android.playbackpaused" /> <action
+            android:name="fm.last.android.playbackcomplete" />
+            </intent-filter> </receiver>
         -->
 
 
