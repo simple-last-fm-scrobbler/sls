@@ -20,19 +20,16 @@ public class InternalTrackTransmitterTest extends AndroidTestCase {
 	}
 
 	public void testAppendAndPop() {
-		Track initialTrack = tracks[0];
-		InternalTrackTransmitter.appendTrack(initialTrack);
-		assertSame(initialTrack, InternalTrackTransmitter.popTrack());
+		InternalTrackTransmitter.appendTrack(tracks[0]);
+		assertSame(tracks[0], InternalTrackTransmitter.popTrack());
 		assertNull(InternalTrackTransmitter.popTrack());
 	}
 
 	public void testAppendAndPopOrder() {
-		Track initialTrackA = tracks[0];
-		Track initialTrackB = tracks[1];
-		InternalTrackTransmitter.appendTrack(initialTrackA);
-		InternalTrackTransmitter.appendTrack(initialTrackB);
-		assertSame(initialTrackA, InternalTrackTransmitter.popTrack());
-		assertSame(initialTrackB, InternalTrackTransmitter.popTrack());
+		InternalTrackTransmitter.appendTrack(tracks[0]);
+		InternalTrackTransmitter.appendTrack(tracks[1]);
+		assertSame(tracks[0], InternalTrackTransmitter.popTrack());
+		assertSame(tracks[1], InternalTrackTransmitter.popTrack());
 		assertNull(InternalTrackTransmitter.popTrack());
 	}
 }
