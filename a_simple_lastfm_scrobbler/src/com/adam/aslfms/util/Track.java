@@ -63,25 +63,25 @@ public class Track {
 	public static final int DEFAULT_TRACK_LENGTH = 180;
 	public static final long UNKNOWN_COUNT_POINT = -1;
 
-	private MusicAPI mMusicAPI;
-	private String mArtist;
-	private String mAlbum;
-	private String mTrack;
-	private int mDuration;
-	private boolean mUnknownDuration;
-	private String mTracknr;
-	private String mMbId;
-	private String mSource;
+	MusicAPI mMusicAPI;
+	String mArtist;
+	String mAlbum;
+	String mTrack;
+	int mDuration;
+	boolean mUnknownDuration;
+	String mTracknr;
+	String mMbId;
+	String mSource;
 
-	private String mRating;
+	String mRating;
 
-	private long mWhen;
-	private int mRowId;
+	long mWhen;
+	int mRowId;
 
 	// non-track-data stuff
-	private long mTimePlayed; // in milliseconds
-	private long mWhenToCountTimeFrom; // in milliseconds
-	private boolean mQueued;
+	long mTimePlayed; // in milliseconds
+	long mWhenToCountTimeFrom; // in milliseconds
+	boolean mQueued;
 
 	/**
 	 * A class for constructing new tracks, using the Builder pattern. The only
@@ -158,7 +158,7 @@ public class Track {
 		}
 	}
 
-	private Track() {
+	Track() {
 		mMusicAPI = null;
 		mArtist = null;
 		mAlbum = "";
@@ -178,7 +178,7 @@ public class Track {
 		mWhenToCountTimeFrom = UNKNOWN_COUNT_POINT;
 	}
 
-	private void validate() throws IllegalArgumentException {
+	void validate() throws IllegalArgumentException {
 		if (mMusicAPI == null)
 			throw new IllegalArgumentException("music api is null");
 
@@ -327,7 +327,7 @@ public class Track {
 		mWhenToCountTimeFrom = currentTime;
 	}
 
-	private void incTimePlayed(long tp) {
+	void incTimePlayed(long tp) {
 		if (tp < 0)
 			throw new IllegalArgumentException(
 					"time-played increase was negative: " + tp);

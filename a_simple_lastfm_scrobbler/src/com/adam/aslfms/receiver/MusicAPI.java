@@ -49,14 +49,14 @@ public class MusicAPI {
 	 */
 	public static final String NOT_AN_APPLICATION_PACKAGE = "not.an.application.";
 
-	private long id;
-	private String name;
-	private String pkg;
-	private String msg;
-	private int clashWithScrobbleDroid;
-	private int enabled;
+	long id;
+	String name;
+	String pkg;
+	String msg;
+	int clashWithScrobbleDroid;
+	int enabled;
 
-	private MusicAPI(long id, String name, String pkg, String msg,
+	MusicAPI(long id, String name, String pkg, String msg,
 			boolean clashWithScrobbleDroid, boolean enabled) {
 		super();
 
