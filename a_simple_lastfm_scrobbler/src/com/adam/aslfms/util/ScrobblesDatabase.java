@@ -29,7 +29,7 @@ import android.util.Log;
 
 import com.adam.aslfms.receiver.MusicAPI;
 import com.adam.aslfms.service.NetApp;
-import com.adam.aslfms.util.AppSettingsEnums.SortField;
+import com.adam.aslfms.util.enums.SortField;
 
 /**
  * 

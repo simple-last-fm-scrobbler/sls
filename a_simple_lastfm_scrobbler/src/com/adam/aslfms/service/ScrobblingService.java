@@ -30,8 +30,8 @@ import com.adam.aslfms.util.InternalTrackTransmitter;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
-import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
-import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
+import com.adam.aslfms.util.enums.AdvancedOptionsWhen;
+import com.adam.aslfms.util.enums.PowerOptions;
 
 /**
  * 

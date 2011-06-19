@@ -37,10 +37,10 @@ import android.util.Log;
 import com.adam.aslfms.R;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
 import com.adam.aslfms.util.Track;
-import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
 import com.adam.aslfms.util.Status.BadSessionException;
 import com.adam.aslfms.util.Status.TemporaryFailureException;
 import com.adam.aslfms.util.Status.UnknownResponseException;
+import com.adam.aslfms.util.enums.SubmissionType;
 
 /**
  * 

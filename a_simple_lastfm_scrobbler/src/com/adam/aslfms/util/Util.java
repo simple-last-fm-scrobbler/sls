@@ -42,8 +42,8 @@ import android.widget.Toast;
 import com.adam.aslfms.R;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
-import com.adam.aslfms.util.AppSettingsEnums.NetworkOptions;
-import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
+import com.adam.aslfms.util.enums.NetworkOptions;
+import com.adam.aslfms.util.enums.PowerOptions;
 
 /**
  * This class is way too bloated. FIXME

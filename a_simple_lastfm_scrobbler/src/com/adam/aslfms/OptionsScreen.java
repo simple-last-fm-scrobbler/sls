@@ -30,10 +30,10 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.util.Log;
 
 import com.adam.aslfms.util.AppSettings;
-import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptions;
-import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
-import com.adam.aslfms.util.AppSettingsEnums.NetworkOptions;
-import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
+import com.adam.aslfms.util.enums.AdvancedOptions;
+import com.adam.aslfms.util.enums.AdvancedOptionsWhen;
+import com.adam.aslfms.util.enums.NetworkOptions;
+import com.adam.aslfms.util.enums.PowerOptions;
 
 public class OptionsScreen extends PreferenceActivity {
 	private static final String TAG = "OptionsGeneralScreen";

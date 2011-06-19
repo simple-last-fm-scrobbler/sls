@@ -46,7 +46,7 @@ import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Status;
 import com.adam.aslfms.util.Util;
-import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
+import com.adam.aslfms.util.enums.SubmissionType;
 
 public class StatusInfoNetApp extends ListActivity {
 

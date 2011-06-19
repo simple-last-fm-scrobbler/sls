@@ -48,7 +48,7 @@ import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
-import com.adam.aslfms.util.AppSettingsEnums.SortField;
+import com.adam.aslfms.util.enums.SortField;
 
 public class ViewScrobbleCacheActivity extends ListActivity {
 	private static final String TAG = "VSCacheActivity";

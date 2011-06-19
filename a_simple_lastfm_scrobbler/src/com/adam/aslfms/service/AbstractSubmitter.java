@@ -27,8 +27,8 @@ import com.adam.aslfms.service.Handshaker.HandshakeResult;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
-import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
 import com.adam.aslfms.util.Util.NetworkStatus;
+import com.adam.aslfms.util.enums.SubmissionType;
 
 public abstract class AbstractSubmitter extends NetRunnable {
 

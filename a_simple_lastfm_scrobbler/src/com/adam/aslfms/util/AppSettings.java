@@ -28,12 +28,12 @@ import android.util.Log;
 import com.adam.aslfms.UserCredActivity;
 import com.adam.aslfms.service.Handshaker;
 import com.adam.aslfms.service.NetApp;
-import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptions;
-import com.adam.aslfms.util.AppSettingsEnums.AdvancedOptionsWhen;
-import com.adam.aslfms.util.AppSettingsEnums.NetworkOptions;
-import com.adam.aslfms.util.AppSettingsEnums.PowerOptions;
-import com.adam.aslfms.util.AppSettingsEnums.SortField;
-import com.adam.aslfms.util.AppSettingsEnums.SubmissionType;
+import com.adam.aslfms.util.enums.AdvancedOptions;
+import com.adam.aslfms.util.enums.AdvancedOptionsWhen;
+import com.adam.aslfms.util.enums.NetworkOptions;
+import com.adam.aslfms.util.enums.PowerOptions;
+import com.adam.aslfms.util.enums.SortField;
+import com.adam.aslfms.util.enums.SubmissionType;
 
 /**
  * 
