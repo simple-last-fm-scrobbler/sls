@@ -310,29 +310,29 @@ public class Util {
 	 */
 	public static String getStatusSummary(Context ctx, AppSettings settings,
 			NetApp napp, boolean includeValues) {
-		if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_BADAUTH) {
+		if (settings.getAuthStatus(napp) == AuthStatus.AUTHSTATUS_BADAUTH) {
 			return ctx.getString(R.string.auth_bad_auth);
-		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_FAILED) {
+		} else if (settings.getAuthStatus(napp) == AuthStatus.AUTHSTATUS_FAILED) {
 			return ctx.getString(R.string.auth_internal_error);
-		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_RETRYLATER) {
+		} else if (settings.getAuthStatus(napp) == AuthStatus.AUTHSTATUS_RETRYLATER) {
 			return ctx.getString(R.string.auth_network_error_retrying);
-		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_NETWORKUNFIT) {
+		} else if (settings.getAuthStatus(napp) == AuthStatus.AUTHSTATUS_NETWORKUNFIT) {
 			return ctx.getString(R.string.auth_network_unfit);
-		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_OK) {
+		} else if (settings.getAuthStatus(napp) == AuthStatus.AUTHSTATUS_OK) {
 			if (includeValues)
 				return ctx.getString(R.string.logged_in_as).replace("%1",
 						settings.getUsername(napp));
 			else
 				return ctx.getString(R.string.logged_in_just);
-		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_NOAUTH) {
+		} else if (settings.getAuthStatus(napp) == AuthStatus.AUTHSTATUS_NOAUTH) {
 			if (includeValues)
 				return ctx.getString(R.string.user_credentials_summary)
 						.replace("%1", napp.getName());
 			else
 				return ctx.getString(R.string.not_logged_in);
-		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_UPDATING) {
+		} else if (settings.getAuthStatus(napp) == AuthStatus.AUTHSTATUS_UPDATING) {
 			return ctx.getString(R.string.auth_updating);
-		} else if (settings.getAuthStatus(napp) == Status.AUTHSTATUS_CLIENTBANNED) {
+		} else if (settings.getAuthStatus(napp) == AuthStatus.AUTHSTATUS_CLIENTBANNED) {
 			return ctx.getString(R.string.auth_client_banned);
 		} else {
 			return "";

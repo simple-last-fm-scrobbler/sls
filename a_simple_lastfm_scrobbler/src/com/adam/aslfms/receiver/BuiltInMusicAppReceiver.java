@@ -1,20 +1,21 @@
 /**
- *  This file is part of Simple Last.fm Scrobbler.
- *
- *  Simple Last.fm Scrobbler is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  Simple Last.fm Scrobbler is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Simple Last.fm Scrobbler.  If not, see <http://www.gnu.org/licenses/>.
- *  
- *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
+ * This file is part of Simple Last.fm Scrobbler.
+ * 
+ *     http://code.google.com/p/a-simple-lastfm-scrobbler/
+ * 
+ * Copyright 2011 Simple Last.fm Scrobbler Team
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *     
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.adam.aslfms.receiver;
@@ -39,17 +40,16 @@ import com.adam.aslfms.util.Util;
  * @author tgwizard
  * @since 1.2.7
  */
-public class BuiltInMusicAppReceiver extends AbstractPlayStatusReceiver {
+public abstract class BuiltInMusicAppReceiver extends AbstractPlayStatusReceiver {
 
 	private static final String TAG = "SLSBuiltInMusicAppReceiver";
 
-	private final String stop_action;
+	final String stop_action;
 
-	private final String app_package;
-	private final String app_name;
+	final String app_package;
+	final String app_name;
 
-	public BuiltInMusicAppReceiver(String stopAction, String appPackage,
-			String appName) {
+	public BuiltInMusicAppReceiver(String stopAction, String appPackage, String appName) {
 		super();
 		stop_action = stopAction;
 		app_package = appPackage;
@@ -57,11 +57,9 @@ public class BuiltInMusicAppReceiver extends AbstractPlayStatusReceiver {
 	}
 
 	@Override
-	protected void parseIntent(Context ctx, String action, Bundle bundle)
-			throws IllegalArgumentException {
+	protected void parseIntent(Context ctx, String action, Bundle bundle) throws IllegalArgumentException {
 
-		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx, app_name, app_package,
-				null, true);
+		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx, app_name, app_package, null, true);
 		setMusicAPI(musicAPI);
 
 		Track.Builder b = new Track.Builder();
@@ -81,49 +79,37 @@ public class BuiltInMusicAppReceiver extends AbstractPlayStatusReceiver {
 
 			Log.d(TAG, "Will read data from mediastore");
 
-			final String[] columns = new String[] {
-					MediaStore.Audio.AudioColumns.ARTIST,
-					MediaStore.Audio.AudioColumns.TITLE,
-					MediaStore.Audio.AudioColumns.DURATION,
-					MediaStore.Audio.AudioColumns.ALBUM,
-					MediaStore.Audio.AudioColumns.TRACK, };
+			final String[] columns = new String[] { MediaStore.Audio.AudioColumns.ARTIST,
+					MediaStore.Audio.AudioColumns.TITLE, MediaStore.Audio.AudioColumns.DURATION,
+					MediaStore.Audio.AudioColumns.ALBUM, MediaStore.Audio.AudioColumns.TRACK, };
 
 			Cursor cur = ctx.getContentResolver().query(
-					ContentUris.withAppendedId(
-							MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
-							audioid), columns, null, null, null);
+					ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, audioid), columns, null,
+					null, null);
 
 			if (cur == null) {
-				throw new IllegalArgumentException(
-						"could not open cursor to media in media store");
+				throw new IllegalArgumentException("could not open cursor to media in media store");
 			}
 
 			try {
 				if (!cur.moveToFirst()) {
-					throw new IllegalArgumentException(
-							"no such media in media store");
+					throw new IllegalArgumentException("no such media in media store");
 				}
-				String artist = cur.getString(cur
-						.getColumnIndex(MediaStore.Audio.AudioColumns.ARTIST));
+				String artist = cur.getString(cur.getColumnIndex(MediaStore.Audio.AudioColumns.ARTIST));
 				b.setArtist(artist);
 
-				String track = cur.getString(cur
-						.getColumnIndex(MediaStore.Audio.AudioColumns.TITLE));
+				String track = cur.getString(cur.getColumnIndex(MediaStore.Audio.AudioColumns.TITLE));
 				b.setTrack(track);
 
-				String album = cur.getString(cur
-						.getColumnIndex(MediaStore.Audio.AudioColumns.ALBUM));
+				String album = cur.getString(cur.getColumnIndex(MediaStore.Audio.AudioColumns.ALBUM));
 				b.setAlbum(album);
 
-				int duration = (int) (cur
-						.getLong(cur
-								.getColumnIndex(MediaStore.Audio.AudioColumns.DURATION)) / 1000);
+				int duration = (int) (cur.getLong(cur.getColumnIndex(MediaStore.Audio.AudioColumns.DURATION)) / 1000);
 				if (duration != 0) {
 					b.setDuration(duration);
 				}
 
-				int tracknr = cur.getInt(cur
-						.getColumnIndex(MediaStore.Audio.AudioColumns.TRACK));
+				int tracknr = cur.getInt(cur.getColumnIndex(MediaStore.Audio.AudioColumns.TRACK));
 				// tracknumber is returned in the format DTTT where D is the
 				// disc number and TTT is the track number
 				tracknr %= 1000;

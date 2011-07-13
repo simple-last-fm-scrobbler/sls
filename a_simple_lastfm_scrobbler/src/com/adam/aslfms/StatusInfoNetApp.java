@@ -44,7 +44,7 @@ import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
-import com.adam.aslfms.util.Status;
+import com.adam.aslfms.util.AuthStatus;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.enums.SubmissionType;
 
@@ -116,7 +116,7 @@ public class StatusInfoNetApp extends ListActivity {
 
 		// auth
 		Pair auth = new Pair();
-		if (settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_OK) {
+		if (settings.getAuthStatus(mNetApp) == AuthStatus.AUTHSTATUS_OK) {
 			auth.setKey(getString(R.string.logged_in_just));
 			auth.setValue(settings.getUsername(mNetApp));
 		} else {
@@ -130,7 +130,7 @@ public class StatusInfoNetApp extends ListActivity {
 		// link to profile
 		Pair prof_link = new Pair();
 		prof_link.setKey(getString(R.string.profile_page));
-		if (settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_OK) {
+		if (settings.getAuthStatus(mNetApp) == AuthStatus.AUTHSTATUS_OK) {
 			prof_link.setValue(mNetApp.getProfileUrl(settings));
 		} else {
 			prof_link.setValue(getString(R.string.not_logged_in));
@@ -222,7 +222,7 @@ public class StatusInfoNetApp extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 		if (position == mProfilePageLinkPosition
-				&& settings.getAuthStatus(mNetApp) == Status.AUTHSTATUS_OK) {
+				&& settings.getAuthStatus(mNetApp) == AuthStatus.AUTHSTATUS_OK) {
 			String url = mNetApp.getProfileUrl(settings);
 			Log.d(TAG, "Clicked link to profile page, opening: " + url);
 			Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(url));

@@ -36,12 +36,12 @@ import android.util.Log;
 import com.adam.aslfms.R;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.MD5;
-import com.adam.aslfms.util.Status;
+import com.adam.aslfms.util.AuthStatus;
 import com.adam.aslfms.util.Util;
-import com.adam.aslfms.util.Status.BadAuthException;
-import com.adam.aslfms.util.Status.ClientBannedException;
-import com.adam.aslfms.util.Status.TemporaryFailureException;
-import com.adam.aslfms.util.Status.UnknownResponseException;
+import com.adam.aslfms.util.AuthStatus.BadAuthException;
+import com.adam.aslfms.util.AuthStatus.ClientBannedException;
+import com.adam.aslfms.util.AuthStatus.TemporaryFailureException;
+import com.adam.aslfms.util.AuthStatus.UnknownResponseException;
 import com.adam.aslfms.util.Util.NetworkStatus;
 
 /**
@@ -77,14 +77,14 @@ public class Handshaker extends NetRunnable {
 			getNetworker().setHandshakeResult(null);
 			// this should mean that the user called launchClearCreds, and that
 			// all user information is gone
-			notifyAuthStatusUpdate(Status.AUTHSTATUS_NOAUTH);
+			notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_NOAUTH);
 			// can't scrobble without a user
 			getNetworker().unlaunchScrobblingAndNPNotifying();
 			return;
 		}
 
 		if (hsAction == HandshakeAction.AUTH)
-			notifyAuthStatusUpdate(Status.AUTHSTATUS_UPDATING);
+			notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_UPDATING);
 
 		// check network status
 		NetworkStatus ns = Util.checkForOkNetwork(getContext());
@@ -92,9 +92,9 @@ public class Handshaker extends NetRunnable {
 			Log.d(TAG, "Waits on network, network-status: " + ns);
 			if (hsAction == HandshakeAction.AUTH) {
 				if (ns == NetworkStatus.UNFIT)
-					notifyAuthStatusUpdate(Status.AUTHSTATUS_NETWORKUNFIT);
+					notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_NETWORKUNFIT);
 				else
-					notifyAuthStatusUpdate(Status.AUTHSTATUS_RETRYLATER);
+					notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_RETRYLATER);
 			}
 
 			getNetworker().launchNetworkWaiter();
@@ -117,7 +117,7 @@ public class Handshaker extends NetRunnable {
 			// we don't need/want it anymore, settings.getPwdMd5() is enough
 			settings.setPassword(getNetApp(), "");
 
-			notifyAuthStatusUpdate(Status.AUTHSTATUS_OK);
+			notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_OK);
 
 			// won't do anything if there aren't any scrobbles,
 			// but will submit those tracks that were prepared
@@ -127,7 +127,7 @@ public class Handshaker extends NetRunnable {
 		} catch (BadAuthException e) {
 			if (hsAction == HandshakeAction.AUTH
 					|| hsAction == HandshakeAction.HANDSHAKE)
-				notifyAuthStatusUpdate(Status.AUTHSTATUS_BADAUTH);
+				notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_BADAUTH);
 			else {
 				// CLEAR_CREDS should've been caught eariler
 				Log.e(TAG, "got badauth when doAuth is weird: "
@@ -141,7 +141,7 @@ public class Handshaker extends NetRunnable {
 					+ getNetApp().getName());
 
 			if (hsAction == HandshakeAction.AUTH)
-				notifyAuthStatusUpdate(Status.AUTHSTATUS_RETRYLATER);
+				notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_RETRYLATER);
 
 			if (Util.checkForOkNetwork(getContext()) != NetworkStatus.OK) {
 				// no more sleeping, network down
@@ -158,7 +158,7 @@ public class Handshaker extends NetRunnable {
 					+ getNetApp().getName());
 			Log.e(TAG, e.getMessage());
 			// TODO: what??
-			notifyAuthStatusUpdate(Status.AUTHSTATUS_CLIENTBANNED);
+			notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_CLIENTBANNED);
 		}
 	}
 

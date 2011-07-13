@@ -20,15 +20,5 @@
 
 package com.adam.aslfms.receiver;
 
-import android.content.Context;
-
-public class MusicAPITestUtils {
-	
-	public static MusicAPI getDummyMusicAPI() {
-		return new MusicAPI(0, "SLS Test", "com.testing.sls", null, false, true);
-	}
-	
-	public static void deleteDatabase(Context ctx) {
-		ctx.deleteDatabase(MusicAPI.DATABASE_NAME);
-	}
+public abstract class BuiltInMusicAppReceiverTest extends AbstractReceiverTest {
 }

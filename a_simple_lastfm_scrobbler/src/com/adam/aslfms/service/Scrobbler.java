@@ -38,8 +38,8 @@ import com.adam.aslfms.R;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
-import com.adam.aslfms.util.Status.BadSessionException;
-import com.adam.aslfms.util.Status.TemporaryFailureException;
+import com.adam.aslfms.util.AuthStatus.BadSessionException;
+import com.adam.aslfms.util.AuthStatus.TemporaryFailureException;
 import com.adam.aslfms.util.enums.SubmissionType;
 
 /**

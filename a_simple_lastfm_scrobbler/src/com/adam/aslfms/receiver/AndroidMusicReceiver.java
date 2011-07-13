@@ -1,20 +1,21 @@
 /**
- *  This file is part of Simple Last.fm Scrobbler.
- *
- *  Simple Last.fm Scrobbler is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- *
- *  Simple Last.fm Scrobbler is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License
- *  along with Simple Last.fm Scrobbler.  If not, see <http://www.gnu.org/licenses/>.
- *  
- *  See http://code.google.com/p/a-simple-lastfm-scrobbler/ for the latest version.
+ * This file is part of Simple Last.fm Scrobbler.
+ * 
+ *     http://code.google.com/p/a-simple-lastfm-scrobbler/
+ * 
+ * Copyright 2011 Simple Last.fm Scrobbler Team
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *     
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package com.adam.aslfms.receiver;
@@ -33,8 +34,11 @@ public class AndroidMusicReceiver extends BuiltInMusicAppReceiver {
 	public static final String ACTION_ANDROID_STOP = "com.android.music.playbackcomplete";
 	public static final String ACTION_ANDROID_METACHANGED = "com.android.music.metachanged";
 
+	public static final String PACKAGE_NAME = "com.android.music";
+	public static final String NAME = "Android Music Player";
+
 	public AndroidMusicReceiver() {
-		super(ACTION_ANDROID_STOP, "com.android.music", "Android Music Player");
+		super(ACTION_ANDROID_STOP, PACKAGE_NAME, NAME);
 	}
 
 }

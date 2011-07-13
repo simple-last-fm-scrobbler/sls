@@ -36,7 +36,7 @@ import android.util.Log;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
-import com.adam.aslfms.util.Status;
+import com.adam.aslfms.util.AuthStatus;
 import com.adam.aslfms.util.Util;
 
 public class UserCredActivity extends PreferenceActivity {
@@ -123,7 +123,7 @@ public class UserCredActivity extends PreferenceActivity {
 	private void update() {
 		mEditCreds.setSummary(Util.getStatusSummary(this, settings, mNetApp));
 
-		boolean hasCreds = settings.getAuthStatus(mNetApp) != Status.AUTHSTATUS_NOAUTH
+		boolean hasCreds = settings.getAuthStatus(mNetApp) != AuthStatus.AUTHSTATUS_NOAUTH
 				|| settings.getUsername(mNetApp).length() != 0
 				|| settings.getPassword(mNetApp).length() != 0
 				|| settings.getPwdMd5(mNetApp).length() != 0;

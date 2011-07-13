@@ -84,11 +84,11 @@ public class AppSettings {
 		setUsername(napp, "");
 		setPassword(napp, "");
 		setPwdMd5(napp, "");
-		setAuthStatus(napp, Status.AUTHSTATUS_NOAUTH);
+		setAuthStatus(napp, AuthStatus.AUTHSTATUS_NOAUTH);
 	}
 
 	public boolean hasCreds(NetApp napp) {
-		return getAuthStatus(napp) != Status.AUTHSTATUS_NOAUTH
+		return getAuthStatus(napp) != AuthStatus.AUTHSTATUS_NOAUTH
 				|| getUsername(napp).length() != 0
 				|| getPassword(napp).length() != 0
 				|| getPwdMd5(napp).length() != 0;
@@ -185,7 +185,7 @@ public class AppSettings {
 
 	public int getAuthStatus(NetApp napp) {
 		return prefs.getInt(napp.getSettingsPrefix() + KEY_AUTH_STATUS,
-				Status.AUTHSTATUS_NOAUTH);
+				AuthStatus.AUTHSTATUS_NOAUTH);
 	}
 
 	public boolean isAnyAuthenticated() {
@@ -196,7 +196,7 @@ public class AppSettings {
 	}
 
 	public boolean isAuthenticated(NetApp napp) {
-		return getAuthStatus(napp) == Status.AUTHSTATUS_OK;
+		return getAuthStatus(napp) == AuthStatus.AUTHSTATUS_OK;
 	}
 
 	public void setWhatsNewViewedVersion(int i) {

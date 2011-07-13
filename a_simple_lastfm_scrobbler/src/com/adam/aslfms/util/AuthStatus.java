@@ -26,7 +26,7 @@ package com.adam.aslfms.util;
  * @author tgwizard
  * 
  */
-public class Status {
+public class AuthStatus {
 	public static final int AUTHSTATUS_NOAUTH = 0;
 	public static final int AUTHSTATUS_UPDATING = 1;
 	public static final int AUTHSTATUS_BADAUTH = 2;
@@ -87,6 +87,6 @@ public class Status {
 	/**
 	 * This class is not meant to be instantiated.
 	 */
-	private Status() {
+	private AuthStatus() {
 	}
 }

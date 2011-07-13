@@ -1,3 +1,23 @@
+/**
+ * This file is part of Simple Last.fm Scrobbler.
+ * 
+ *     http://code.google.com/p/a-simple-lastfm-scrobbler/
+ * 
+ * Copyright 2011 Simple Last.fm Scrobbler Team
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * 
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *     
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.adam.aslfms.util;
 
 import com.adam.aslfms.receiver.MusicAPI;
@@ -26,7 +46,11 @@ public class TrackTestUtils {
 	}
 
 	public static Track buildSimpleTrack() {
-		return buildTrack(TEST_MUSIC_API, TEST_ARTIST, TEST_ALBUM, TEST_TRACK);
+		return buildSimpleTrack(TEST_MUSIC_API);
+	}
+
+	public static Track buildSimpleTrack(MusicAPI mapi) {
+		return buildTrack(mapi, TEST_ARTIST, TEST_ALBUM, TEST_TRACK);
 	}
 
 	public static Track buildTrack(MusicAPI mapi, String artist, String album, String track) {
