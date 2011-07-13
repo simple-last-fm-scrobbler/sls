@@ -1,0 +1,1186 @@
+mError=0x0 (No error)
+Package Groups (1)
+Package Group 0 id=127 packageCount=1 name=com.spotify.mobile.android.ui
+  Package 0 id=127 name=com.spotify.mobile.android.ui typeCount=10
+    type 0 configCount=0 entryCount=0
+    type 1 configCount=1 entryCount=219
+      spec resource 0x7f020000 com.spotify.mobile.android.ui:drawable/album_frame: flags=0x00000000
+      spec resource 0x7f020001 com.spotify.mobile.android.ui:drawable/android_checkbox_off: flags=0x00000000
+      spec resource 0x7f020002 com.spotify.mobile.android.ui:drawable/android_checkbox_on: flags=0x00000000
+      spec resource 0x7f020003 com.spotify.mobile.android.ui:drawable/bg_badge: flags=0x00000000
+      spec resource 0x7f020004 com.spotify.mobile.android.ui:drawable/bg_bottombar_dark: flags=0x00000000
+      spec resource 0x7f020005 com.spotify.mobile.android.ui:drawable/bg_bottombar_dark_hover: flags=0x00000000
+      spec resource 0x7f020006 com.spotify.mobile.android.ui:drawable/bg_bottombar_light: flags=0x00000000
+      spec resource 0x7f020007 com.spotify.mobile.android.ui:drawable/bg_bottombar_light_hover: flags=0x00000000
+      spec resource 0x7f020008 com.spotify.mobile.android.ui:drawable/bg_bottombar_play: flags=0x00000000
+      spec resource 0x7f020009 com.spotify.mobile.android.ui:drawable/bg_bottombar_rot_dark: flags=0x00000000
+      spec resource 0x7f02000a com.spotify.mobile.android.ui:drawable/bg_bottombar_rot_light: flags=0x00000000
+      spec resource 0x7f02000b com.spotify.mobile.android.ui:drawable/bg_bottombar_rot_selected: flags=0x00000000
+      spec resource 0x7f02000c com.spotify.mobile.android.ui:drawable/bg_bottombar_selected: flags=0x00000000
+      spec resource 0x7f02000d com.spotify.mobile.android.ui:drawable/bg_dialog: flags=0x00000000
+      spec resource 0x7f02000e com.spotify.mobile.android.ui:drawable/bg_dialog2: flags=0x00000000
+      spec resource 0x7f02000f com.spotify.mobile.android.ui:drawable/bg_dialog2_warning: flags=0x00000000
+      spec resource 0x7f020010 com.spotify.mobile.android.ui:drawable/bg_dialog_orig: flags=0x00000000
+      spec resource 0x7f020011 com.spotify.mobile.android.ui:drawable/bg_header_shade: flags=0x00000000
+      spec resource 0x7f020012 com.spotify.mobile.android.ui:drawable/bg_header_shade_bottom: flags=0x00000000
+      spec resource 0x7f020013 com.spotify.mobile.android.ui:drawable/bg_input: flags=0x00000000
+      spec resource 0x7f020014 com.spotify.mobile.android.ui:drawable/bg_input_sel: flags=0x00000000
+      spec resource 0x7f020015 com.spotify.mobile.android.ui:drawable/bg_item_shade: flags=0x00000000
+      spec resource 0x7f020016 com.spotify.mobile.android.ui:drawable/bg_menubar_hover: flags=0x00000000
+      spec resource 0x7f020017 com.spotify.mobile.android.ui:drawable/bg_menubar_selected: flags=0x00000000
+      spec resource 0x7f020018 com.spotify.mobile.android.ui:drawable/bg_player: flags=0x00000000
+      spec resource 0x7f020019 com.spotify.mobile.android.ui:drawable/bg_player_info: flags=0x00000000
+      spec resource 0x7f02001a com.spotify.mobile.android.ui:drawable/bg_player_info_hover: flags=0x00000000
+      spec resource 0x7f02001b com.spotify.mobile.android.ui:drawable/bg_player_infobutton: flags=0x00000000
+      spec resource 0x7f02001c com.spotify.mobile.android.ui:drawable/bg_player_trackinfo: flags=0x00000000
+      spec resource 0x7f02001d com.spotify.mobile.android.ui:drawable/bg_player_trackname: flags=0x00000000
+      spec resource 0x7f02001e com.spotify.mobile.android.ui:drawable/bg_playercontrol_left: flags=0x00000000
+      spec resource 0x7f02001f com.spotify.mobile.android.ui:drawable/bg_playercontrol_left_hover: flags=0x00000000
+      spec resource 0x7f020020 com.spotify.mobile.android.ui:drawable/bg_playercontrol_mid: flags=0x00000000
+      spec resource 0x7f020021 com.spotify.mobile.android.ui:drawable/bg_playercontrol_mid_hover: flags=0x00000000
+      spec resource 0x7f020022 com.spotify.mobile.android.ui:drawable/bg_playercontrol_right: flags=0x00000000
+      spec resource 0x7f020023 com.spotify.mobile.android.ui:drawable/bg_playercontrol_right_hover: flags=0x00000000
+      spec resource 0x7f020024 com.spotify.mobile.android.ui:drawable/bg_playlistsep: flags=0x00000000
+      spec resource 0x7f020025 com.spotify.mobile.android.ui:drawable/bg_progress_background: flags=0x00000000
+      spec resource 0x7f020026 com.spotify.mobile.android.ui:drawable/bg_progress_offline: flags=0x00000000
+      spec resource 0x7f020027 com.spotify.mobile.android.ui:drawable/bg_progress_position: flags=0x00000000
+      spec resource 0x7f020028 com.spotify.mobile.android.ui:drawable/bg_progress_position2: flags=0x00000000
+      spec resource 0x7f020029 com.spotify.mobile.android.ui:drawable/bg_progressbar: flags=0x00000000
+      spec resource 0x7f02002a com.spotify.mobile.android.ui:drawable/bg_progressbar_progress: flags=0x00000000
+      spec resource 0x7f02002b com.spotify.mobile.android.ui:drawable/bg_topcover: flags=0x00000000
+      spec resource 0x7f02002c com.spotify.mobile.android.ui:drawable/bluebutton: flags=0x00000000
+      spec resource 0x7f02002d com.spotify.mobile.android.ui:drawable/bottom_row: flags=0x00000000
+      spec resource 0x7f02002e com.spotify.mobile.android.ui:drawable/bottom_row2: flags=0x00000000
+      spec resource 0x7f02002f com.spotify.mobile.android.ui:drawable/bottombutton: flags=0x00000000
+      spec resource 0x7f020030 com.spotify.mobile.android.ui:drawable/bottombutton_dark: flags=0x00000000
+      spec resource 0x7f020031 com.spotify.mobile.android.ui:drawable/bottombutton_light: flags=0x00000000
+      spec resource 0x7f020032 com.spotify.mobile.android.ui:drawable/btn_back: flags=0x00000000
+      spec resource 0x7f020033 com.spotify.mobile.android.ui:drawable/btn_back_hover: flags=0x00000000
+      spec resource 0x7f020034 com.spotify.mobile.android.ui:drawable/btn_bluebutton: flags=0x00000000
+      spec resource 0x7f020035 com.spotify.mobile.android.ui:drawable/btn_bluebutton_hover: flags=0x00000000
+      spec resource 0x7f020036 com.spotify.mobile.android.ui:drawable/btn_custombutton: flags=0x00000000
+      spec resource 0x7f020037 com.spotify.mobile.android.ui:drawable/btn_custombutton_hover: flags=0x00000000
+      spec resource 0x7f020038 com.spotify.mobile.android.ui:drawable/btn_dark_general: flags=0x00000000
+      spec resource 0x7f020039 com.spotify.mobile.android.ui:drawable/btn_dark_general_hover: flags=0x00000000
+      spec resource 0x7f02003a com.spotify.mobile.android.ui:drawable/btn_dark_warning: flags=0x00000000
+      spec resource 0x7f02003b com.spotify.mobile.android.ui:drawable/btn_dark_warning_hover: flags=0x00000000
+      spec resource 0x7f02003c com.spotify.mobile.android.ui:drawable/btn_general: flags=0x00000000
+      spec resource 0x7f02003d com.spotify.mobile.android.ui:drawable/btn_greenbutton: flags=0x00000000
+      spec resource 0x7f02003e com.spotify.mobile.android.ui:drawable/btn_greenbutton_hover: flags=0x00000000
+      spec resource 0x7f02003f com.spotify.mobile.android.ui:drawable/btn_light: flags=0x00000000
+      spec resource 0x7f020040 com.spotify.mobile.android.ui:drawable/btn_light_hover: flags=0x00000000
+      spec resource 0x7f020041 com.spotify.mobile.android.ui:drawable/btn_light_small: flags=0x00000000
+      spec resource 0x7f020042 com.spotify.mobile.android.ui:drawable/btn_light_small_hover: flags=0x00000000
+      spec resource 0x7f020043 com.spotify.mobile.android.ui:drawable/btn_next: flags=0x00000000
+      spec resource 0x7f020044 com.spotify.mobile.android.ui:drawable/btn_next_disabled: flags=0x00000000
+      spec resource 0x7f020045 com.spotify.mobile.android.ui:drawable/btn_next_img: flags=0x00000000
+      spec resource 0x7f020046 com.spotify.mobile.android.ui:drawable/btn_next_selected: flags=0x00000000
+      spec resource 0x7f020047 com.spotify.mobile.android.ui:drawable/btn_pause: flags=0x00000000
+      spec resource 0x7f020048 com.spotify.mobile.android.ui:drawable/btn_play: flags=0x00000000
+      spec resource 0x7f020049 com.spotify.mobile.android.ui:drawable/btn_player_close: flags=0x00000000
+      spec resource 0x7f02004a com.spotify.mobile.android.ui:drawable/btn_player_infobutton: flags=0x00000000
+      spec resource 0x7f02004b com.spotify.mobile.android.ui:drawable/btn_player_infobutton_hover: flags=0x00000000
+      spec resource 0x7f02004c com.spotify.mobile.android.ui:drawable/btn_player_showinfo: flags=0x00000000
+      spec resource 0x7f02004d com.spotify.mobile.android.ui:drawable/btn_prev: flags=0x00000000
+      spec resource 0x7f02004e com.spotify.mobile.android.ui:drawable/btn_prev_disabled: flags=0x00000000
+      spec resource 0x7f02004f com.spotify.mobile.android.ui:drawable/btn_prev_img: flags=0x00000000
+      spec resource 0x7f020050 com.spotify.mobile.android.ui:drawable/btn_prev_selected: flags=0x00000000
+      spec resource 0x7f020051 com.spotify.mobile.android.ui:drawable/btn_radio_off: flags=0x00000000
+      spec resource 0x7f020052 com.spotify.mobile.android.ui:drawable/btn_radio_on: flags=0x00000000
+      spec resource 0x7f020053 com.spotify.mobile.android.ui:drawable/btn_sync: flags=0x00000000
+      spec resource 0x7f020054 com.spotify.mobile.android.ui:drawable/btn_sync_hover: flags=0x00000000
+      spec resource 0x7f020055 com.spotify.mobile.android.ui:drawable/button_light: flags=0x00000000
+      spec resource 0x7f020056 com.spotify.mobile.android.ui:drawable/button_light_small: flags=0x00000000
+      spec resource 0x7f020057 com.spotify.mobile.android.ui:drawable/c: flags=0x00000000
+      spec resource 0x7f020058 com.spotify.mobile.android.ui:drawable/checkbox2_off: flags=0x00000000
+      spec resource 0x7f020059 com.spotify.mobile.android.ui:drawable/checkbox2_on: flags=0x00000000
+      spec resource 0x7f02005a com.spotify.mobile.android.ui:drawable/checkbox_off: flags=0x00000000
+      spec resource 0x7f02005b com.spotify.mobile.android.ui:drawable/checkbox_on: flags=0x00000000
+      spec resource 0x7f02005c com.spotify.mobile.android.ui:drawable/custombutton: flags=0x00000000
+      spec resource 0x7f02005d com.spotify.mobile.android.ui:drawable/dark_button: flags=0x00000000
+      spec resource 0x7f02005e com.spotify.mobile.android.ui:drawable/dark_button_warning: flags=0x00000000
+      spec resource 0x7f02005f com.spotify.mobile.android.ui:drawable/greenbutton: flags=0x00000000
+      spec resource 0x7f020060 com.spotify.mobile.android.ui:drawable/header_hov: flags=0x00000000
+      spec resource 0x7f020061 com.spotify.mobile.android.ui:drawable/header_normal: flags=0x00000000
+      spec resource 0x7f020062 com.spotify.mobile.android.ui:drawable/header_shade: flags=0x00000000
+      spec resource 0x7f020063 com.spotify.mobile.android.ui:drawable/ic_addtoplaylist: flags=0x00000000
+      spec resource 0x7f020064 com.spotify.mobile.android.ui:drawable/ic_addtoplaylist_dark: flags=0x00000000
+      spec resource 0x7f020065 com.spotify.mobile.android.ui:drawable/ic_album: flags=0x00000000
+      spec resource 0x7f020066 com.spotify.mobile.android.ui:drawable/ic_album_dark: flags=0x00000000
+      spec resource 0x7f020067 com.spotify.mobile.android.ui:drawable/ic_artist: flags=0x00000000
+      spec resource 0x7f020068 com.spotify.mobile.android.ui:drawable/ic_artist_dark: flags=0x00000000
+      spec resource 0x7f020069 com.spotify.mobile.android.ui:drawable/ic_dialog_menu_generic: flags=0x00000000
+      spec resource 0x7f02006a com.spotify.mobile.android.ui:drawable/ic_down: flags=0x00000000
+      spec resource 0x7f02006b com.spotify.mobile.android.ui:drawable/ic_home: flags=0x00000000
+      spec resource 0x7f02006c com.spotify.mobile.android.ui:drawable/ic_home_sel: flags=0x00000000
+      spec resource 0x7f02006d com.spotify.mobile.android.ui:drawable/ic_menu_delete: flags=0x00000000
+      spec resource 0x7f02006e com.spotify.mobile.android.ui:drawable/ic_menu_edit: flags=0x00000000
+      spec resource 0x7f02006f com.spotify.mobile.android.ui:drawable/ic_menu_queue: flags=0x00000000
+      spec resource 0x7f020070 com.spotify.mobile.android.ui:drawable/ic_menu_repeat_off: flags=0x00000000
+      spec resource 0x7f020071 com.spotify.mobile.android.ui:drawable/ic_menu_repeat_on: flags=0x00000000
+      spec resource 0x7f020072 com.spotify.mobile.android.ui:drawable/ic_menu_share: flags=0x00000000
+      spec resource 0x7f020073 com.spotify.mobile.android.ui:drawable/ic_menu_shuffle_off: flags=0x00000000
+      spec resource 0x7f020074 com.spotify.mobile.android.ui:drawable/ic_menu_shuffle_on: flags=0x00000000
+      spec resource 0x7f020075 com.spotify.mobile.android.ui:drawable/ic_menu_trackoptions: flags=0x00000000
+      spec resource 0x7f020076 com.spotify.mobile.android.ui:drawable/ic_more: flags=0x00000000
+      spec resource 0x7f020077 com.spotify.mobile.android.ui:drawable/ic_more_sel: flags=0x00000000
+      spec resource 0x7f020078 com.spotify.mobile.android.ui:drawable/ic_news: flags=0x00000000
+      spec resource 0x7f020079 com.spotify.mobile.android.ui:drawable/ic_now_playing_paused: flags=0x00000000
+      spec resource 0x7f02007a com.spotify.mobile.android.ui:drawable/ic_now_playing_playing: flags=0x00000000
+      spec resource 0x7f02007b com.spotify.mobile.android.ui:drawable/ic_offlinesync: flags=0x00000000
+      spec resource 0x7f02007c com.spotify.mobile.android.ui:drawable/ic_play: flags=0x00000000
+      spec resource 0x7f02007d com.spotify.mobile.android.ui:drawable/ic_playlist: flags=0x00000000
+      spec resource 0x7f02007e com.spotify.mobile.android.ui:drawable/ic_playlist_big: flags=0x00000000
+      spec resource 0x7f02007f com.spotify.mobile.android.ui:drawable/ic_playlist_big_disabled: flags=0x00000000
+      spec resource 0x7f020080 com.spotify.mobile.android.ui:drawable/ic_playlist_collab_big: flags=0x00000000
+      spec resource 0x7f020081 com.spotify.mobile.android.ui:drawable/ic_playlist_small_colab: flags=0x00000000
+      spec resource 0x7f020082 com.spotify.mobile.android.ui:drawable/ic_playlists: flags=0x00000000
+      spec resource 0x7f020083 com.spotify.mobile.android.ui:drawable/ic_playlists_sel: flags=0x00000000
+      spec resource 0x7f020084 com.spotify.mobile.android.ui:drawable/ic_radio: flags=0x00000000
+      spec resource 0x7f020085 com.spotify.mobile.android.ui:drawable/ic_repeat_off: flags=0x00000000
+      spec resource 0x7f020086 com.spotify.mobile.android.ui:drawable/ic_repeat_on: flags=0x00000000
+      spec resource 0x7f020087 com.spotify.mobile.android.ui:drawable/ic_search: flags=0x00000000
+      spec resource 0x7f020088 com.spotify.mobile.android.ui:drawable/ic_search_sel: flags=0x00000000
+      spec resource 0x7f020089 com.spotify.mobile.android.ui:drawable/ic_settings: flags=0x00000000
+      spec resource 0x7f02008a com.spotify.mobile.android.ui:drawable/ic_shuffle_off: flags=0x00000000
+      spec resource 0x7f02008b com.spotify.mobile.android.ui:drawable/ic_shuffle_on: flags=0x00000000
+      spec resource 0x7f02008c com.spotify.mobile.android.ui:drawable/ic_song: flags=0x00000000
+      spec resource 0x7f02008d com.spotify.mobile.android.ui:drawable/ic_song_dark: flags=0x00000000
+      spec resource 0x7f02008e com.spotify.mobile.android.ui:drawable/ic_song_disabled: flags=0x00000000
+      spec resource 0x7f02008f com.spotify.mobile.android.ui:drawable/icn_left_arrow: flags=0x00000000
+      spec resource 0x7f020090 com.spotify.mobile.android.ui:drawable/icn_nowplaying: flags=0x00000000
+      spec resource 0x7f020091 com.spotify.mobile.android.ui:drawable/icn_offline_downloading_0: flags=0x00000000
+      spec resource 0x7f020092 com.spotify.mobile.android.ui:drawable/icn_offline_downloading_1: flags=0x00000000
+      spec resource 0x7f020093 com.spotify.mobile.android.ui:drawable/icn_offline_downloading_2: flags=0x00000000
+      spec resource 0x7f020094 com.spotify.mobile.android.ui:drawable/icn_offline_downloading_3: flags=0x00000000
+      spec resource 0x7f020095 com.spotify.mobile.android.ui:drawable/icn_offline_error: flags=0x00000000
+      spec resource 0x7f020096 com.spotify.mobile.android.ui:drawable/icn_offline_ok: flags=0x00000000
+      spec resource 0x7f020097 com.spotify.mobile.android.ui:drawable/icn_offline_pending: flags=0x00000000
+      spec resource 0x7f020098 com.spotify.mobile.android.ui:drawable/icn_offline_sync: flags=0x00000000
+      spec resource 0x7f020099 com.spotify.mobile.android.ui:drawable/icn_playing: flags=0x00000000
+      spec resource 0x7f02009a com.spotify.mobile.android.ui:drawable/icn_playlist: flags=0x00000000
+      spec resource 0x7f02009b com.spotify.mobile.android.ui:drawable/icn_playlist_big: flags=0x00000000
+      spec resource 0x7f02009c com.spotify.mobile.android.ui:drawable/icn_right_arrow: flags=0x00000000
+      spec resource 0x7f02009d com.spotify.mobile.android.ui:drawable/icn_right_arrow_disabled: flags=0x00000000
+      spec resource 0x7f02009e com.spotify.mobile.android.ui:drawable/icn_search_small: flags=0x00000000
+      spec resource 0x7f02009f com.spotify.mobile.android.ui:drawable/icon: flags=0x00000000
+      spec resource 0x7f0200a0 com.spotify.mobile.android.ui:drawable/icon_small: flags=0x00000000
+      spec resource 0x7f0200a1 com.spotify.mobile.android.ui:drawable/icon_small_bw: flags=0x00000000
+      spec resource 0x7f0200a2 com.spotify.mobile.android.ui:drawable/list_hl: flags=0x00000000
+      spec resource 0x7f0200a3 com.spotify.mobile.android.ui:drawable/list_item: flags=0x00000000
+      spec resource 0x7f0200a4 com.spotify.mobile.android.ui:drawable/list_selection: flags=0x00000000
+      spec resource 0x7f0200a5 com.spotify.mobile.android.ui:drawable/list_selection_def: flags=0x00000000
+      spec resource 0x7f0200a6 com.spotify.mobile.android.ui:drawable/list_separator: flags=0x00000000
+      spec resource 0x7f0200a7 com.spotify.mobile.android.ui:drawable/login_header_logo: flags=0x00000000
+      spec resource 0x7f0200a8 com.spotify.mobile.android.ui:drawable/notbar_icon: flags=0x00000000
+      spec resource 0x7f0200a9 com.spotify.mobile.android.ui:drawable/notbar_icon2: flags=0x00000000
+      spec resource 0x7f0200aa com.spotify.mobile.android.ui:drawable/notbar_icon3: flags=0x00000000
+      spec resource 0x7f0200ab com.spotify.mobile.android.ui:drawable/notbar_icon3_pause: flags=0x00000000
+      spec resource 0x7f0200ac com.spotify.mobile.android.ui:drawable/notbar_icon3_play: flags=0x00000000
+      spec resource 0x7f0200ad com.spotify.mobile.android.ui:drawable/notbar_icon_pause: flags=0x00000000
+      spec resource 0x7f0200ae com.spotify.mobile.android.ui:drawable/notbar_icon_play: flags=0x00000000
+      spec resource 0x7f0200af com.spotify.mobile.android.ui:drawable/offlineprogress: flags=0x00000000
+      spec resource 0x7f0200b0 com.spotify.mobile.android.ui:drawable/player_covershine: flags=0x00000000
+      spec resource 0x7f0200b1 com.spotify.mobile.android.ui:drawable/player_defaultcover: flags=0x00000000
+      spec resource 0x7f0200b2 com.spotify.mobile.android.ui:drawable/player_infobar: flags=0x00000000
+      spec resource 0x7f0200b3 com.spotify.mobile.android.ui:drawable/playerprogress: flags=0x00000000
+      spec resource 0x7f0200b4 com.spotify.mobile.android.ui:drawable/progress: flags=0x00000000
+      spec resource 0x7f0200b5 com.spotify.mobile.android.ui:drawable/progress_offline: flags=0x00000000
+      spec resource 0x7f0200b6 com.spotify.mobile.android.ui:drawable/radiobutton2_off: flags=0x00000000
+      spec resource 0x7f0200b7 com.spotify.mobile.android.ui:drawable/radiobutton2_on: flags=0x00000000
+      spec resource 0x7f0200b8 com.spotify.mobile.android.ui:drawable/search_input: flags=0x00000000
+      spec resource 0x7f0200b9 com.spotify.mobile.android.ui:drawable/semitransp_black10: flags=0x00000000
+      spec resource 0x7f0200ba com.spotify.mobile.android.ui:drawable/semitransp_black25: flags=0x00000000
+      spec resource 0x7f0200bb com.spotify.mobile.android.ui:drawable/semitransp_black50: flags=0x00000000
+      spec resource 0x7f0200bc com.spotify.mobile.android.ui:drawable/sep_list: flags=0x00000000
+      spec resource 0x7f0200bd com.spotify.mobile.android.ui:drawable/subactivity_green_titlebar: flags=0x00000000
+      spec resource 0x7f0200be com.spotify.mobile.android.ui:drawable/sync_button: flags=0x00000000
+      spec resource 0x7f0200bf com.spotify.mobile.android.ui:drawable/tab_selected: flags=0x00000000
+      spec resource 0x7f0200c0 com.spotify.mobile.android.ui:drawable/tab_separator: flags=0x00000000
+      spec resource 0x7f0200c1 com.spotify.mobile.android.ui:drawable/tab_unselected: flags=0x00000000
+      spec resource 0x7f0200c2 com.spotify.mobile.android.ui:drawable/titlebar: flags=0x00000000
+      spec resource 0x7f0200c3 com.spotify.mobile.android.ui:drawable/titlebar_bg: flags=0x00000000
+      spec resource 0x7f0200c4 com.spotify.mobile.android.ui:drawable/titlebar_bg_gray: flags=0x00000000
+      spec resource 0x7f0200c5 com.spotify.mobile.android.ui:drawable/titlebar_offline_bg: flags=0x00000000
+      spec resource 0x7f0200c6 com.spotify.mobile.android.ui:drawable/translucent: flags=0x00000000
+      spec resource 0x7f0200c7 com.spotify.mobile.android.ui:drawable/transparent_fill: flags=0x00000000
+      spec resource 0x7f0200c8 com.spotify.mobile.android.ui:drawable/widget_bg: flags=0x00000000
+      spec resource 0x7f0200c9 com.spotify.mobile.android.ui:drawable/widget_btn: flags=0x00000000
+      spec resource 0x7f0200ca com.spotify.mobile.android.ui:drawable/widget_btn_down: flags=0x00000000
+      spec resource 0x7f0200cb com.spotify.mobile.android.ui:drawable/widget_btn_hover: flags=0x00000000
+      spec resource 0x7f0200cc com.spotify.mobile.android.ui:drawable/widget_btn_next: flags=0x00000000
+      spec resource 0x7f0200cd com.spotify.mobile.android.ui:drawable/widget_btn_paused: flags=0x00000000
+      spec resource 0x7f0200ce com.spotify.mobile.android.ui:drawable/widget_btn_playing: flags=0x00000000
+      spec resource 0x7f0200cf com.spotify.mobile.android.ui:drawable/widget_btn_prev: flags=0x00000000
+      spec resource 0x7f0200d0 com.spotify.mobile.android.ui:drawable/widget_cover_cover: flags=0x00000000
+      spec resource 0x7f0200d1 com.spotify.mobile.android.ui:drawable/widget_cover_shade: flags=0x00000000
+      spec resource 0x7f0200d2 com.spotify.mobile.android.ui:drawable/widget_small_icon: flags=0x00000000
+      spec resource 0x7f0200d3 com.spotify.mobile.android.ui:drawable/widgetbutton: flags=0x00000000
+      spec resource 0x7f0200d4 com.spotify.mobile.android.ui:drawable/red: flags=0x00000000
+      spec resource 0x7f0200d5 com.spotify.mobile.android.ui:drawable/blue: flags=0x00000000
+      spec resource 0x7f0200d6 com.spotify.mobile.android.ui:drawable/green: flags=0x00000000
+      spec resource 0x7f0200d7 com.spotify.mobile.android.ui:drawable/yellow: flags=0x00000000
+      spec resource 0x7f0200d8 com.spotify.mobile.android.ui:drawable/screen_background_black: flags=0x00000000
+      spec resource 0x7f0200d9 com.spotify.mobile.android.ui:drawable/translucent_background: flags=0x00000000
+      spec resource 0x7f0200da com.spotify.mobile.android.ui:drawable/transparent_background: flags=0x00000000
+      config 0 lang=-- cnt=-- orien=0 touch=0 density=0 key=0 infl=0 nav=0 w=0 h=0
+        resource 0x7f020000 com.spotify.mobile.android.ui:drawable/album_frame: t=0x03 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f020001 com.spotify.mobile.android.ui:drawable/android_checkbox_off: t=0x03 d=0x00000001 (s=0x0008 r=0x00)
+        resource 0x7f020002 com.spotify.mobile.android.ui:drawable/android_checkbox_on: t=0x03 d=0x00000002 (s=0x0008 r=0x00)
+        resource 0x7f020003 com.spotify.mobile.android.ui:drawable/bg_badge: t=0x03 d=0x00000003 (s=0x0008 r=0x00)
+        resource 0x7f020004 com.spotify.mobile.android.ui:drawable/bg_bottombar_dark: t=0x03 d=0x00000004 (s=0x0008 r=0x00)
+        resource 0x7f020005 com.spotify.mobile.android.ui:drawable/bg_bottombar_dark_hover: t=0x03 d=0x00000005 (s=0x0008 r=0x00)
+        resource 0x7f020006 com.spotify.mobile.android.ui:drawable/bg_bottombar_light: t=0x03 d=0x00000006 (s=0x0008 r=0x00)
+        resource 0x7f020007 com.spotify.mobile.android.ui:drawable/bg_bottombar_light_hover: t=0x03 d=0x00000007 (s=0x0008 r=0x00)
+        resource 0x7f020008 com.spotify.mobile.android.ui:drawable/bg_bottombar_play: t=0x03 d=0x00000008 (s=0x0008 r=0x00)
+        resource 0x7f020009 com.spotify.mobile.android.ui:drawable/bg_bottombar_rot_dark: t=0x03 d=0x00000009 (s=0x0008 r=0x00)
+        resource 0x7f02000a com.spotify.mobile.android.ui:drawable/bg_bottombar_rot_light: t=0x03 d=0x0000000a (s=0x0008 r=0x00)
+        resource 0x7f02000b com.spotify.mobile.android.ui:drawable/bg_bottombar_rot_selected: t=0x03 d=0x0000000b (s=0x0008 r=0x00)
+        resource 0x7f02000c com.spotify.mobile.android.ui:drawable/bg_bottombar_selected: t=0x03 d=0x0000000c (s=0x0008 r=0x00)
+        resource 0x7f02000d com.spotify.mobile.android.ui:drawable/bg_dialog: t=0x03 d=0x0000000d (s=0x0008 r=0x00)
+        resource 0x7f02000e com.spotify.mobile.android.ui:drawable/bg_dialog2: t=0x03 d=0x0000000e (s=0x0008 r=0x00)
+        resource 0x7f02000f com.spotify.mobile.android.ui:drawable/bg_dialog2_warning: t=0x03 d=0x0000000f (s=0x0008 r=0x00)
+        resource 0x7f020010 com.spotify.mobile.android.ui:drawable/bg_dialog_orig: t=0x03 d=0x00000010 (s=0x0008 r=0x00)
+        resource 0x7f020011 com.spotify.mobile.android.ui:drawable/bg_header_shade: t=0x03 d=0x00000011 (s=0x0008 r=0x00)
+        resource 0x7f020012 com.spotify.mobile.android.ui:drawable/bg_header_shade_bottom: t=0x03 d=0x00000012 (s=0x0008 r=0x00)
+        resource 0x7f020013 com.spotify.mobile.android.ui:drawable/bg_input: t=0x03 d=0x00000013 (s=0x0008 r=0x00)
+        resource 0x7f020014 com.spotify.mobile.android.ui:drawable/bg_input_sel: t=0x03 d=0x00000014 (s=0x0008 r=0x00)
+        resource 0x7f020015 com.spotify.mobile.android.ui:drawable/bg_item_shade: t=0x03 d=0x00000015 (s=0x0008 r=0x00)
+        resource 0x7f020016 com.spotify.mobile.android.ui:drawable/bg_menubar_hover: t=0x03 d=0x00000016 (s=0x0008 r=0x00)
+        resource 0x7f020017 com.spotify.mobile.android.ui:drawable/bg_menubar_selected: t=0x03 d=0x00000017 (s=0x0008 r=0x00)
+        resource 0x7f020018 com.spotify.mobile.android.ui:drawable/bg_player: t=0x03 d=0x00000018 (s=0x0008 r=0x00)
+        resource 0x7f020019 com.spotify.mobile.android.ui:drawable/bg_player_info: t=0x03 d=0x00000019 (s=0x0008 r=0x00)
+        resource 0x7f02001a com.spotify.mobile.android.ui:drawable/bg_player_info_hover: t=0x03 d=0x0000001a (s=0x0008 r=0x00)
+        resource 0x7f02001b com.spotify.mobile.android.ui:drawable/bg_player_infobutton: t=0x03 d=0x0000001b (s=0x0008 r=0x00)
+        resource 0x7f02001c com.spotify.mobile.android.ui:drawable/bg_player_trackinfo: t=0x03 d=0x0000001c (s=0x0008 r=0x00)
+        resource 0x7f02001d com.spotify.mobile.android.ui:drawable/bg_player_trackname: t=0x03 d=0x0000001d (s=0x0008 r=0x00)
+        resource 0x7f02001e com.spotify.mobile.android.ui:drawable/bg_playercontrol_left: t=0x03 d=0x0000001e (s=0x0008 r=0x00)
+        resource 0x7f02001f com.spotify.mobile.android.ui:drawable/bg_playercontrol_left_hover: t=0x03 d=0x0000001f (s=0x0008 r=0x00)
+        resource 0x7f020020 com.spotify.mobile.android.ui:drawable/bg_playercontrol_mid: t=0x03 d=0x00000020 (s=0x0008 r=0x00)
+        resource 0x7f020021 com.spotify.mobile.android.ui:drawable/bg_playercontrol_mid_hover: t=0x03 d=0x00000021 (s=0x0008 r=0x00)
+        resource 0x7f020022 com.spotify.mobile.android.ui:drawable/bg_playercontrol_right: t=0x03 d=0x00000022 (s=0x0008 r=0x00)
+        resource 0x7f020023 com.spotify.mobile.android.ui:drawable/bg_playercontrol_right_hover: t=0x03 d=0x00000023 (s=0x0008 r=0x00)
+        resource 0x7f020024 com.spotify.mobile.android.ui:drawable/bg_playlistsep: t=0x03 d=0x00000024 (s=0x0008 r=0x00)
+        resource 0x7f020025 com.spotify.mobile.android.ui:drawable/bg_progress_background: t=0x03 d=0x00000025 (s=0x0008 r=0x00)
+        resource 0x7f020026 com.spotify.mobile.android.ui:drawable/bg_progress_offline: t=0x03 d=0x00000026 (s=0x0008 r=0x00)
+        resource 0x7f020027 com.spotify.mobile.android.ui:drawable/bg_progress_position: t=0x03 d=0x00000027 (s=0x0008 r=0x00)
+        resource 0x7f020028 com.spotify.mobile.android.ui:drawable/bg_progress_position2: t=0x03 d=0x00000028 (s=0x0008 r=0x00)
+        resource 0x7f020029 com.spotify.mobile.android.ui:drawable/bg_progressbar: t=0x03 d=0x00000029 (s=0x0008 r=0x00)
+        resource 0x7f02002a com.spotify.mobile.android.ui:drawable/bg_progressbar_progress: t=0x03 d=0x0000002a (s=0x0008 r=0x00)
+        resource 0x7f02002b com.spotify.mobile.android.ui:drawable/bg_topcover: t=0x03 d=0x0000002b (s=0x0008 r=0x00)
+        resource 0x7f02002c com.spotify.mobile.android.ui:drawable/bluebutton: t=0x03 d=0x0000002c (s=0x0008 r=0x00)
+        resource 0x7f02002d com.spotify.mobile.android.ui:drawable/bottom_row: t=0x03 d=0x0000002d (s=0x0008 r=0x00)
+        resource 0x7f02002e com.spotify.mobile.android.ui:drawable/bottom_row2: t=0x03 d=0x0000002e (s=0x0008 r=0x00)
+        resource 0x7f02002f com.spotify.mobile.android.ui:drawable/bottombutton: t=0x03 d=0x0000002f (s=0x0008 r=0x00)
+        resource 0x7f020030 com.spotify.mobile.android.ui:drawable/bottombutton_dark: t=0x03 d=0x00000030 (s=0x0008 r=0x00)
+        resource 0x7f020031 com.spotify.mobile.android.ui:drawable/bottombutton_light: t=0x03 d=0x00000031 (s=0x0008 r=0x00)
+        resource 0x7f020032 com.spotify.mobile.android.ui:drawable/btn_back: t=0x03 d=0x00000032 (s=0x0008 r=0x00)
+        resource 0x7f020033 com.spotify.mobile.android.ui:drawable/btn_back_hover: t=0x03 d=0x00000033 (s=0x0008 r=0x00)
+        resource 0x7f020034 com.spotify.mobile.android.ui:drawable/btn_bluebutton: t=0x03 d=0x00000034 (s=0x0008 r=0x00)
+        resource 0x7f020035 com.spotify.mobile.android.ui:drawable/btn_bluebutton_hover: t=0x03 d=0x00000035 (s=0x0008 r=0x00)
+        resource 0x7f020036 com.spotify.mobile.android.ui:drawable/btn_custombutton: t=0x03 d=0x00000036 (s=0x0008 r=0x00)
+        resource 0x7f020037 com.spotify.mobile.android.ui:drawable/btn_custombutton_hover: t=0x03 d=0x00000037 (s=0x0008 r=0x00)
+        resource 0x7f020038 com.spotify.mobile.android.ui:drawable/btn_dark_general: t=0x03 d=0x00000038 (s=0x0008 r=0x00)
+        resource 0x7f020039 com.spotify.mobile.android.ui:drawable/btn_dark_general_hover: t=0x03 d=0x00000039 (s=0x0008 r=0x00)
+        resource 0x7f02003a com.spotify.mobile.android.ui:drawable/btn_dark_warning: t=0x03 d=0x0000003a (s=0x0008 r=0x00)
+        resource 0x7f02003b com.spotify.mobile.android.ui:drawable/btn_dark_warning_hover: t=0x03 d=0x0000003b (s=0x0008 r=0x00)
+        resource 0x7f02003c com.spotify.mobile.android.ui:drawable/btn_general: t=0x03 d=0x0000003c (s=0x0008 r=0x00)
+        resource 0x7f02003d com.spotify.mobile.android.ui:drawable/btn_greenbutton: t=0x03 d=0x0000003d (s=0x0008 r=0x00)
+        resource 0x7f02003e com.spotify.mobile.android.ui:drawable/btn_greenbutton_hover: t=0x03 d=0x0000003e (s=0x0008 r=0x00)
+        resource 0x7f02003f com.spotify.mobile.android.ui:drawable/btn_light: t=0x03 d=0x0000003f (s=0x0008 r=0x00)
+        resource 0x7f020040 com.spotify.mobile.android.ui:drawable/btn_light_hover: t=0x03 d=0x00000040 (s=0x0008 r=0x00)
+        resource 0x7f020041 com.spotify.mobile.android.ui:drawable/btn_light_small: t=0x03 d=0x00000041 (s=0x0008 r=0x00)
+        resource 0x7f020042 com.spotify.mobile.android.ui:drawable/btn_light_small_hover: t=0x03 d=0x00000042 (s=0x0008 r=0x00)
+        resource 0x7f020043 com.spotify.mobile.android.ui:drawable/btn_next: t=0x03 d=0x00000043 (s=0x0008 r=0x00)
+        resource 0x7f020044 com.spotify.mobile.android.ui:drawable/btn_next_disabled: t=0x03 d=0x00000044 (s=0x0008 r=0x00)
+        resource 0x7f020045 com.spotify.mobile.android.ui:drawable/btn_next_img: t=0x03 d=0x00000045 (s=0x0008 r=0x00)
+        resource 0x7f020046 com.spotify.mobile.android.ui:drawable/btn_next_selected: t=0x03 d=0x00000046 (s=0x0008 r=0x00)
+        resource 0x7f020047 com.spotify.mobile.android.ui:drawable/btn_pause: t=0x03 d=0x00000047 (s=0x0008 r=0x00)
+        resource 0x7f020048 com.spotify.mobile.android.ui:drawable/btn_play: t=0x03 d=0x00000048 (s=0x0008 r=0x00)
+        resource 0x7f020049 com.spotify.mobile.android.ui:drawable/btn_player_close: t=0x03 d=0x00000049 (s=0x0008 r=0x00)
+        resource 0x7f02004a com.spotify.mobile.android.ui:drawable/btn_player_infobutton: t=0x03 d=0x0000004a (s=0x0008 r=0x00)
+        resource 0x7f02004b com.spotify.mobile.android.ui:drawable/btn_player_infobutton_hover: t=0x03 d=0x0000004b (s=0x0008 r=0x00)
+        resource 0x7f02004c com.spotify.mobile.android.ui:drawable/btn_player_showinfo: t=0x03 d=0x0000004c (s=0x0008 r=0x00)
+        resource 0x7f02004d com.spotify.mobile.android.ui:drawable/btn_prev: t=0x03 d=0x0000004d (s=0x0008 r=0x00)
+        resource 0x7f02004e com.spotify.mobile.android.ui:drawable/btn_prev_disabled: t=0x03 d=0x0000004e (s=0x0008 r=0x00)
+        resource 0x7f02004f com.spotify.mobile.android.ui:drawable/btn_prev_img: t=0x03 d=0x0000004f (s=0x0008 r=0x00)
+        resource 0x7f020050 com.spotify.mobile.android.ui:drawable/btn_prev_selected: t=0x03 d=0x00000050 (s=0x0008 r=0x00)
+        resource 0x7f020051 com.spotify.mobile.android.ui:drawable/btn_radio_off: t=0x03 d=0x00000051 (s=0x0008 r=0x00)
+        resource 0x7f020052 com.spotify.mobile.android.ui:drawable/btn_radio_on: t=0x03 d=0x00000052 (s=0x0008 r=0x00)
+        resource 0x7f020053 com.spotify.mobile.android.ui:drawable/btn_sync: t=0x03 d=0x00000053 (s=0x0008 r=0x00)
+        resource 0x7f020054 com.spotify.mobile.android.ui:drawable/btn_sync_hover: t=0x03 d=0x00000054 (s=0x0008 r=0x00)
+        resource 0x7f020055 com.spotify.mobile.android.ui:drawable/button_light: t=0x03 d=0x00000055 (s=0x0008 r=0x00)
+        resource 0x7f020056 com.spotify.mobile.android.ui:drawable/button_light_small: t=0x03 d=0x00000056 (s=0x0008 r=0x00)
+        resource 0x7f020057 com.spotify.mobile.android.ui:drawable/c: t=0x03 d=0x00000057 (s=0x0008 r=0x00)
+        resource 0x7f020058 com.spotify.mobile.android.ui:drawable/checkbox2_off: t=0x03 d=0x00000058 (s=0x0008 r=0x00)
+        resource 0x7f020059 com.spotify.mobile.android.ui:drawable/checkbox2_on: t=0x03 d=0x00000059 (s=0x0008 r=0x00)
+        resource 0x7f02005a com.spotify.mobile.android.ui:drawable/checkbox_off: t=0x03 d=0x0000005a (s=0x0008 r=0x00)
+        resource 0x7f02005b com.spotify.mobile.android.ui:drawable/checkbox_on: t=0x03 d=0x0000005b (s=0x0008 r=0x00)
+        resource 0x7f02005c com.spotify.mobile.android.ui:drawable/custombutton: t=0x03 d=0x0000005c (s=0x0008 r=0x00)
+        resource 0x7f02005d com.spotify.mobile.android.ui:drawable/dark_button: t=0x03 d=0x0000005d (s=0x0008 r=0x00)
+        resource 0x7f02005e com.spotify.mobile.android.ui:drawable/dark_button_warning: t=0x03 d=0x0000005e (s=0x0008 r=0x00)
+        resource 0x7f02005f com.spotify.mobile.android.ui:drawable/greenbutton: t=0x03 d=0x0000005f (s=0x0008 r=0x00)
+        resource 0x7f020060 com.spotify.mobile.android.ui:drawable/header_hov: t=0x03 d=0x00000060 (s=0x0008 r=0x00)
+        resource 0x7f020061 com.spotify.mobile.android.ui:drawable/header_normal: t=0x03 d=0x00000061 (s=0x0008 r=0x00)
+        resource 0x7f020062 com.spotify.mobile.android.ui:drawable/header_shade: t=0x03 d=0x00000062 (s=0x0008 r=0x00)
+        resource 0x7f020063 com.spotify.mobile.android.ui:drawable/ic_addtoplaylist: t=0x03 d=0x00000063 (s=0x0008 r=0x00)
+        resource 0x7f020064 com.spotify.mobile.android.ui:drawable/ic_addtoplaylist_dark: t=0x03 d=0x00000064 (s=0x0008 r=0x00)
+        resource 0x7f020065 com.spotify.mobile.android.ui:drawable/ic_album: t=0x03 d=0x00000065 (s=0x0008 r=0x00)
+        resource 0x7f020066 com.spotify.mobile.android.ui:drawable/ic_album_dark: t=0x03 d=0x00000066 (s=0x0008 r=0x00)
+        resource 0x7f020067 com.spotify.mobile.android.ui:drawable/ic_artist: t=0x03 d=0x00000067 (s=0x0008 r=0x00)
+        resource 0x7f020068 com.spotify.mobile.android.ui:drawable/ic_artist_dark: t=0x03 d=0x00000068 (s=0x0008 r=0x00)
+        resource 0x7f020069 com.spotify.mobile.android.ui:drawable/ic_dialog_menu_generic: t=0x03 d=0x00000069 (s=0x0008 r=0x00)
+        resource 0x7f02006a com.spotify.mobile.android.ui:drawable/ic_down: t=0x03 d=0x0000006a (s=0x0008 r=0x00)
+        resource 0x7f02006b com.spotify.mobile.android.ui:drawable/ic_home: t=0x03 d=0x0000006b (s=0x0008 r=0x00)
+        resource 0x7f02006c com.spotify.mobile.android.ui:drawable/ic_home_sel: t=0x03 d=0x0000006c (s=0x0008 r=0x00)
+        resource 0x7f02006d com.spotify.mobile.android.ui:drawable/ic_menu_delete: t=0x03 d=0x0000006d (s=0x0008 r=0x00)
+        resource 0x7f02006e com.spotify.mobile.android.ui:drawable/ic_menu_edit: t=0x03 d=0x0000006e (s=0x0008 r=0x00)
+        resource 0x7f02006f com.spotify.mobile.android.ui:drawable/ic_menu_queue: t=0x03 d=0x0000006f (s=0x0008 r=0x00)
+        resource 0x7f020070 com.spotify.mobile.android.ui:drawable/ic_menu_repeat_off: t=0x03 d=0x00000070 (s=0x0008 r=0x00)
+        resource 0x7f020071 com.spotify.mobile.android.ui:drawable/ic_menu_repeat_on: t=0x03 d=0x00000071 (s=0x0008 r=0x00)
+        resource 0x7f020072 com.spotify.mobile.android.ui:drawable/ic_menu_share: t=0x03 d=0x00000072 (s=0x0008 r=0x00)
+        resource 0x7f020073 com.spotify.mobile.android.ui:drawable/ic_menu_shuffle_off: t=0x03 d=0x00000073 (s=0x0008 r=0x00)
+        resource 0x7f020074 com.spotify.mobile.android.ui:drawable/ic_menu_shuffle_on: t=0x03 d=0x00000074 (s=0x0008 r=0x00)
+        resource 0x7f020075 com.spotify.mobile.android.ui:drawable/ic_menu_trackoptions: t=0x03 d=0x00000075 (s=0x0008 r=0x00)
+        resource 0x7f020076 com.spotify.mobile.android.ui:drawable/ic_more: t=0x03 d=0x00000076 (s=0x0008 r=0x00)
+        resource 0x7f020077 com.spotify.mobile.android.ui:drawable/ic_more_sel: t=0x03 d=0x00000077 (s=0x0008 r=0x00)
+        resource 0x7f020078 com.spotify.mobile.android.ui:drawable/ic_news: t=0x03 d=0x00000078 (s=0x0008 r=0x00)
+        resource 0x7f020079 com.spotify.mobile.android.ui:drawable/ic_now_playing_paused: t=0x03 d=0x00000079 (s=0x0008 r=0x00)
+        resource 0x7f02007a com.spotify.mobile.android.ui:drawable/ic_now_playing_playing: t=0x03 d=0x0000007a (s=0x0008 r=0x00)
+        resource 0x7f02007b com.spotify.mobile.android.ui:drawable/ic_offlinesync: t=0x03 d=0x0000007b (s=0x0008 r=0x00)
+        resource 0x7f02007c com.spotify.mobile.android.ui:drawable/ic_play: t=0x03 d=0x0000007c (s=0x0008 r=0x00)
+        resource 0x7f02007d com.spotify.mobile.android.ui:drawable/ic_playlist: t=0x03 d=0x0000007d (s=0x0008 r=0x00)
+        resource 0x7f02007e com.spotify.mobile.android.ui:drawable/ic_playlist_big: t=0x03 d=0x0000007e (s=0x0008 r=0x00)
+        resource 0x7f02007f com.spotify.mobile.android.ui:drawable/ic_playlist_big_disabled: t=0x03 d=0x0000007f (s=0x0008 r=0x00)
+        resource 0x7f020080 com.spotify.mobile.android.ui:drawable/ic_playlist_collab_big: t=0x03 d=0x00000080 (s=0x0008 r=0x00)
+        resource 0x7f020081 com.spotify.mobile.android.ui:drawable/ic_playlist_small_colab: t=0x03 d=0x00000081 (s=0x0008 r=0x00)
+        resource 0x7f020082 com.spotify.mobile.android.ui:drawable/ic_playlists: t=0x03 d=0x00000082 (s=0x0008 r=0x00)
+        resource 0x7f020083 com.spotify.mobile.android.ui:drawable/ic_playlists_sel: t=0x03 d=0x00000083 (s=0x0008 r=0x00)
+        resource 0x7f020084 com.spotify.mobile.android.ui:drawable/ic_radio: t=0x03 d=0x00000084 (s=0x0008 r=0x00)
+        resource 0x7f020085 com.spotify.mobile.android.ui:drawable/ic_repeat_off: t=0x03 d=0x00000085 (s=0x0008 r=0x00)
+        resource 0x7f020086 com.spotify.mobile.android.ui:drawable/ic_repeat_on: t=0x03 d=0x00000086 (s=0x0008 r=0x00)
+        resource 0x7f020087 com.spotify.mobile.android.ui:drawable/ic_search: t=0x03 d=0x00000087 (s=0x0008 r=0x00)
+        resource 0x7f020088 com.spotify.mobile.android.ui:drawable/ic_search_sel: t=0x03 d=0x00000088 (s=0x0008 r=0x00)
+        resource 0x7f020089 com.spotify.mobile.android.ui:drawable/ic_settings: t=0x03 d=0x00000089 (s=0x0008 r=0x00)
+        resource 0x7f02008a com.spotify.mobile.android.ui:drawable/ic_shuffle_off: t=0x03 d=0x0000008a (s=0x0008 r=0x00)
+        resource 0x7f02008b com.spotify.mobile.android.ui:drawable/ic_shuffle_on: t=0x03 d=0x0000008b (s=0x0008 r=0x00)
+        resource 0x7f02008c com.spotify.mobile.android.ui:drawable/ic_song: t=0x03 d=0x0000008c (s=0x0008 r=0x00)
+        resource 0x7f02008d com.spotify.mobile.android.ui:drawable/ic_song_dark: t=0x03 d=0x0000008d (s=0x0008 r=0x00)
+        resource 0x7f02008e com.spotify.mobile.android.ui:drawable/ic_song_disabled: t=0x03 d=0x0000008e (s=0x0008 r=0x00)
+        resource 0x7f02008f com.spotify.mobile.android.ui:drawable/icn_left_arrow: t=0x03 d=0x0000008f (s=0x0008 r=0x00)
+        resource 0x7f020090 com.spotify.mobile.android.ui:drawable/icn_nowplaying: t=0x03 d=0x00000090 (s=0x0008 r=0x00)
+        resource 0x7f020091 com.spotify.mobile.android.ui:drawable/icn_offline_downloading_0: t=0x03 d=0x00000091 (s=0x0008 r=0x00)
+        resource 0x7f020092 com.spotify.mobile.android.ui:drawable/icn_offline_downloading_1: t=0x03 d=0x00000092 (s=0x0008 r=0x00)
+        resource 0x7f020093 com.spotify.mobile.android.ui:drawable/icn_offline_downloading_2: t=0x03 d=0x00000093 (s=0x0008 r=0x00)
+        resource 0x7f020094 com.spotify.mobile.android.ui:drawable/icn_offline_downloading_3: t=0x03 d=0x00000094 (s=0x0008 r=0x00)
+        resource 0x7f020095 com.spotify.mobile.android.ui:drawable/icn_offline_error: t=0x03 d=0x00000095 (s=0x0008 r=0x00)
+        resource 0x7f020096 com.spotify.mobile.android.ui:drawable/icn_offline_ok: t=0x03 d=0x00000096 (s=0x0008 r=0x00)
+        resource 0x7f020097 com.spotify.mobile.android.ui:drawable/icn_offline_pending: t=0x03 d=0x00000097 (s=0x0008 r=0x00)
+        resource 0x7f020098 com.spotify.mobile.android.ui:drawable/icn_offline_sync: t=0x03 d=0x00000098 (s=0x0008 r=0x00)
+        resource 0x7f020099 com.spotify.mobile.android.ui:drawable/icn_playing: t=0x03 d=0x00000099 (s=0x0008 r=0x00)
+        resource 0x7f02009a com.spotify.mobile.android.ui:drawable/icn_playlist: t=0x03 d=0x0000009a (s=0x0008 r=0x00)
+        resource 0x7f02009b com.spotify.mobile.android.ui:drawable/icn_playlist_big: t=0x03 d=0x0000009b (s=0x0008 r=0x00)
+        resource 0x7f02009c com.spotify.mobile.android.ui:drawable/icn_right_arrow: t=0x03 d=0x0000009c (s=0x0008 r=0x00)
+        resource 0x7f02009d com.spotify.mobile.android.ui:drawable/icn_right_arrow_disabled: t=0x03 d=0x0000009d (s=0x0008 r=0x00)
+        resource 0x7f02009e com.spotify.mobile.android.ui:drawable/icn_search_small: t=0x03 d=0x0000009e (s=0x0008 r=0x00)
+        resource 0x7f02009f com.spotify.mobile.android.ui:drawable/icon: t=0x03 d=0x0000009f (s=0x0008 r=0x00)
+        resource 0x7f0200a0 com.spotify.mobile.android.ui:drawable/icon_small: t=0x03 d=0x000000a0 (s=0x0008 r=0x00)
+        resource 0x7f0200a1 com.spotify.mobile.android.ui:drawable/icon_small_bw: t=0x03 d=0x000000a1 (s=0x0008 r=0x00)
+        resource 0x7f0200a2 com.spotify.mobile.android.ui:drawable/list_hl: t=0x03 d=0x000000a2 (s=0x0008 r=0x00)
+        resource 0x7f0200a3 com.spotify.mobile.android.ui:drawable/list_item: t=0x03 d=0x000000a3 (s=0x0008 r=0x00)
+        resource 0x7f0200a4 com.spotify.mobile.android.ui:drawable/list_selection: t=0x03 d=0x000000a4 (s=0x0008 r=0x00)
+        resource 0x7f0200a5 com.spotify.mobile.android.ui:drawable/list_selection_def: t=0x03 d=0x000000a5 (s=0x0008 r=0x00)
+        resource 0x7f0200a6 com.spotify.mobile.android.ui:drawable/list_separator: t=0x03 d=0x000000a6 (s=0x0008 r=0x00)
+        resource 0x7f0200a7 com.spotify.mobile.android.ui:drawable/login_header_logo: t=0x03 d=0x000000a7 (s=0x0008 r=0x00)
+        resource 0x7f0200a8 com.spotify.mobile.android.ui:drawable/notbar_icon: t=0x03 d=0x000000a8 (s=0x0008 r=0x00)
+        resource 0x7f0200a9 com.spotify.mobile.android.ui:drawable/notbar_icon2: t=0x03 d=0x000000a9 (s=0x0008 r=0x00)
+        resource 0x7f0200aa com.spotify.mobile.android.ui:drawable/notbar_icon3: t=0x03 d=0x000000aa (s=0x0008 r=0x00)
+        resource 0x7f0200ab com.spotify.mobile.android.ui:drawable/notbar_icon3_pause: t=0x03 d=0x000000ab (s=0x0008 r=0x00)
+        resource 0x7f0200ac com.spotify.mobile.android.ui:drawable/notbar_icon3_play: t=0x03 d=0x000000ac (s=0x0008 r=0x00)
+        resource 0x7f0200ad com.spotify.mobile.android.ui:drawable/notbar_icon_pause: t=0x03 d=0x000000ad (s=0x0008 r=0x00)
+        resource 0x7f0200ae com.spotify.mobile.android.ui:drawable/notbar_icon_play: t=0x03 d=0x000000ae (s=0x0008 r=0x00)
+        resource 0x7f0200af com.spotify.mobile.android.ui:drawable/offlineprogress: t=0x03 d=0x000000af (s=0x0008 r=0x00)
+        resource 0x7f0200b0 com.spotify.mobile.android.ui:drawable/player_covershine: t=0x03 d=0x000000b0 (s=0x0008 r=0x00)
+        resource 0x7f0200b1 com.spotify.mobile.android.ui:drawable/player_defaultcover: t=0x03 d=0x000000b1 (s=0x0008 r=0x00)
+        resource 0x7f0200b2 com.spotify.mobile.android.ui:drawable/player_infobar: t=0x03 d=0x000000b2 (s=0x0008 r=0x00)
+        resource 0x7f0200b3 com.spotify.mobile.android.ui:drawable/playerprogress: t=0x03 d=0x000000b3 (s=0x0008 r=0x00)
+        resource 0x7f0200b4 com.spotify.mobile.android.ui:drawable/progress: t=0x03 d=0x000000b4 (s=0x0008 r=0x00)
+        resource 0x7f0200b5 com.spotify.mobile.android.ui:drawable/progress_offline: t=0x03 d=0x000000b5 (s=0x0008 r=0x00)
+        resource 0x7f0200b6 com.spotify.mobile.android.ui:drawable/radiobutton2_off: t=0x03 d=0x000000b6 (s=0x0008 r=0x00)
+        resource 0x7f0200b7 com.spotify.mobile.android.ui:drawable/radiobutton2_on: t=0x03 d=0x000000b7 (s=0x0008 r=0x00)
+        resource 0x7f0200b8 com.spotify.mobile.android.ui:drawable/search_input: t=0x03 d=0x000000b8 (s=0x0008 r=0x00)
+        resource 0x7f0200b9 com.spotify.mobile.android.ui:drawable/semitransp_black10: t=0x03 d=0x000000b9 (s=0x0008 r=0x00)
+        resource 0x7f0200ba com.spotify.mobile.android.ui:drawable/semitransp_black25: t=0x03 d=0x000000ba (s=0x0008 r=0x00)
+        resource 0x7f0200bb com.spotify.mobile.android.ui:drawable/semitransp_black50: t=0x03 d=0x000000bb (s=0x0008 r=0x00)
+        resource 0x7f0200bc com.spotify.mobile.android.ui:drawable/sep_list: t=0x03 d=0x000000bc (s=0x0008 r=0x00)
+        resource 0x7f0200bd com.spotify.mobile.android.ui:drawable/subactivity_green_titlebar: t=0x03 d=0x000000bd (s=0x0008 r=0x00)
+        resource 0x7f0200be com.spotify.mobile.android.ui:drawable/sync_button: t=0x03 d=0x000000be (s=0x0008 r=0x00)
+        resource 0x7f0200bf com.spotify.mobile.android.ui:drawable/tab_selected: t=0x03 d=0x000000bf (s=0x0008 r=0x00)
+        resource 0x7f0200c0 com.spotify.mobile.android.ui:drawable/tab_separator: t=0x03 d=0x000000c0 (s=0x0008 r=0x00)
+        resource 0x7f0200c1 com.spotify.mobile.android.ui:drawable/tab_unselected: t=0x03 d=0x000000c1 (s=0x0008 r=0x00)
+        resource 0x7f0200c2 com.spotify.mobile.android.ui:drawable/titlebar: t=0x03 d=0x000000c2 (s=0x0008 r=0x00)
+        resource 0x7f0200c3 com.spotify.mobile.android.ui:drawable/titlebar_bg: t=0x03 d=0x000000c3 (s=0x0008 r=0x00)
+        resource 0x7f0200c4 com.spotify.mobile.android.ui:drawable/titlebar_bg_gray: t=0x03 d=0x000000c4 (s=0x0008 r=0x00)
+        resource 0x7f0200c5 com.spotify.mobile.android.ui:drawable/titlebar_offline_bg: t=0x03 d=0x000000c5 (s=0x0008 r=0x00)
+        resource 0x7f0200c6 com.spotify.mobile.android.ui:drawable/translucent: t=0x03 d=0x000000c6 (s=0x0008 r=0x00)
+        resource 0x7f0200c7 com.spotify.mobile.android.ui:drawable/transparent_fill: t=0x03 d=0x000000c7 (s=0x0008 r=0x00)
+        resource 0x7f0200c8 com.spotify.mobile.android.ui:drawable/widget_bg: t=0x03 d=0x000000c8 (s=0x0008 r=0x00)
+        resource 0x7f0200c9 com.spotify.mobile.android.ui:drawable/widget_btn: t=0x03 d=0x000000c9 (s=0x0008 r=0x00)
+        resource 0x7f0200ca com.spotify.mobile.android.ui:drawable/widget_btn_down: t=0x03 d=0x000000ca (s=0x0008 r=0x00)
+        resource 0x7f0200cb com.spotify.mobile.android.ui:drawable/widget_btn_hover: t=0x03 d=0x000000cb (s=0x0008 r=0x00)
+        resource 0x7f0200cc com.spotify.mobile.android.ui:drawable/widget_btn_next: t=0x03 d=0x000000cc (s=0x0008 r=0x00)
+        resource 0x7f0200cd com.spotify.mobile.android.ui:drawable/widget_btn_paused: t=0x03 d=0x000000cd (s=0x0008 r=0x00)
+        resource 0x7f0200ce com.spotify.mobile.android.ui:drawable/widget_btn_playing: t=0x03 d=0x000000ce (s=0x0008 r=0x00)
+        resource 0x7f0200cf com.spotify.mobile.android.ui:drawable/widget_btn_prev: t=0x03 d=0x000000cf (s=0x0008 r=0x00)
+        resource 0x7f0200d0 com.spotify.mobile.android.ui:drawable/widget_cover_cover: t=0x03 d=0x000000d0 (s=0x0008 r=0x00)
+        resource 0x7f0200d1 com.spotify.mobile.android.ui:drawable/widget_cover_shade: t=0x03 d=0x000000d1 (s=0x0008 r=0x00)
+        resource 0x7f0200d2 com.spotify.mobile.android.ui:drawable/widget_small_icon: t=0x03 d=0x000000d2 (s=0x0008 r=0x00)
+        resource 0x7f0200d3 com.spotify.mobile.android.ui:drawable/widgetbutton: t=0x03 d=0x000000d3 (s=0x0008 r=0x00)
+        resource 0x7f0200d4 com.spotify.mobile.android.ui:drawable/red: t=0x1e d=0x77ff0000 (s=0x0008 r=0x00)
+        resource 0x7f0200d5 com.spotify.mobile.android.ui:drawable/blue: t=0x1c d=0x770000ff (s=0x0008 r=0x00)
+        resource 0x7f0200d6 com.spotify.mobile.android.ui:drawable/green: t=0x1c d=0x7700ff00 (s=0x0008 r=0x00)
+        resource 0x7f0200d7 com.spotify.mobile.android.ui:drawable/yellow: t=0x1c d=0x77ffff00 (s=0x0008 r=0x00)
+        resource 0x7f0200d8 com.spotify.mobile.android.ui:drawable/screen_background_black: t=0x1c d=0xff000000 (s=0x0008 r=0x00)
+        resource 0x7f0200d9 com.spotify.mobile.android.ui:drawable/translucent_background: t=0x1c d=0xe0000000 (s=0x0008 r=0x00)
+        resource 0x7f0200da com.spotify.mobile.android.ui:drawable/transparent_background: t=0x1c d=0x00000000 (s=0x0008 r=0x00)
+    type 2 configCount=3 entryCount=47
+      spec resource 0x7f030000 com.spotify.mobile.android.ui:layout/base: flags=0x00000280
+      spec resource 0x7f030001 com.spotify.mobile.android.ui:layout/component_tabcontroller: flags=0x00000000
+      spec resource 0x7f030002 com.spotify.mobile.android.ui:layout/listitem_albumbrowse: flags=0x00000000
+      spec resource 0x7f030003 com.spotify.mobile.android.ui:layout/listitem_general: flags=0x00000000
+      spec resource 0x7f030004 com.spotify.mobile.android.ui:layout/listitem_more: flags=0x00000000
+      spec resource 0x7f030005 com.spotify.mobile.android.ui:layout/listitem_myplaylists_offline: flags=0x00000000
+      spec resource 0x7f030006 com.spotify.mobile.android.ui:layout/listitem_myplaylists_simple: flags=0x00000000
+      spec resource 0x7f030007 com.spotify.mobile.android.ui:layout/listitem_playlist: flags=0x00000000
+      spec resource 0x7f030008 com.spotify.mobile.android.ui:layout/listitem_quality_settings: flags=0x00000000
+      spec resource 0x7f030009 com.spotify.mobile.android.ui:layout/listitem_search: flags=0x00000000
+      spec resource 0x7f03000a com.spotify.mobile.android.ui:layout/listitem_search_album: flags=0x00000000
+      spec resource 0x7f03000b com.spotify.mobile.android.ui:layout/listitem_search_artist: flags=0x00000000
+      spec resource 0x7f03000c com.spotify.mobile.android.ui:layout/listitem_search_test: flags=0x00000000
+      spec resource 0x7f03000d com.spotify.mobile.android.ui:layout/listitem_search_track: flags=0x00000000
+      spec resource 0x7f03000e com.spotify.mobile.android.ui:layout/listitem_searchresult: flags=0x00000000
+      spec resource 0x7f03000f com.spotify.mobile.android.ui:layout/listitem_settings: flags=0x00000000
+      spec resource 0x7f030010 com.spotify.mobile.android.ui:layout/listitem_whatsnew: flags=0x00000000
+      spec resource 0x7f030011 com.spotify.mobile.android.ui:layout/none: flags=0x00000000
+      spec resource 0x7f030012 com.spotify.mobile.android.ui:layout/searchresult_listitem: flags=0x00000000
+      spec resource 0x7f030013 com.spotify.mobile.android.ui:layout/subactivity_albumbrowser: flags=0x00000000
+      spec resource 0x7f030014 com.spotify.mobile.android.ui:layout/subactivity_artistbrowser: flags=0x00000000
+      spec resource 0x7f030015 com.spotify.mobile.android.ui:layout/subactivity_confirm: flags=0x00000000
+      spec resource 0x7f030016 com.spotify.mobile.android.ui:layout/subactivity_confirm_roaming: flags=0x00000000
+      spec resource 0x7f030017 com.spotify.mobile.android.ui:layout/subactivity_contextmenu: flags=0x00000000
+      spec resource 0x7f030018 com.spotify.mobile.android.ui:layout/subactivity_login: flags=0x00000000
+      spec resource 0x7f030019 com.spotify.mobile.android.ui:layout/subactivity_ok: flags=0x00000000
+      spec resource 0x7f03001a com.spotify.mobile.android.ui:layout/subactivity_playlist_selector: flags=0x00000000
+      spec resource 0x7f03001b com.spotify.mobile.android.ui:layout/subactivity_playqueue: flags=0x00000000
+      spec resource 0x7f03001c com.spotify.mobile.android.ui:layout/subactivity_premium: flags=0x00000000
+      spec resource 0x7f03001d com.spotify.mobile.android.ui:layout/subactivity_textinput: flags=0x00000000
+      spec resource 0x7f03001e com.spotify.mobile.android.ui:layout/subactivity_tos: flags=0x00000000
+      spec resource 0x7f03001f com.spotify.mobile.android.ui:layout/subactivity_waiting: flags=0x00000000
+      spec resource 0x7f030020 com.spotify.mobile.android.ui:layout/tab_button: flags=0x00000000
+      spec resource 0x7f030021 com.spotify.mobile.android.ui:layout/tabview_artistbiography: flags=0x00000000
+      spec resource 0x7f030022 com.spotify.mobile.android.ui:layout/tabview_list: flags=0x00000000
+      spec resource 0x7f030023 com.spotify.mobile.android.ui:layout/view_about: flags=0x00000000
+      spec resource 0x7f030024 com.spotify.mobile.android.ui:layout/view_more: flags=0x00000000
+      spec resource 0x7f030025 com.spotify.mobile.android.ui:layout/view_myplaylists: flags=0x00000000
+      spec resource 0x7f030026 com.spotify.mobile.android.ui:layout/view_news: flags=0x00000000
+      spec resource 0x7f030027 com.spotify.mobile.android.ui:layout/view_player: flags=0x00000000
+      spec resource 0x7f030028 com.spotify.mobile.android.ui:layout/view_player_widescreen: flags=0x00000000
+      spec resource 0x7f030029 com.spotify.mobile.android.ui:layout/view_playlist: flags=0x00000000
+      spec resource 0x7f03002a com.spotify.mobile.android.ui:layout/view_search: flags=0x00000000
+      spec resource 0x7f03002b com.spotify.mobile.android.ui:layout/view_settings: flags=0x00000000
+      spec resource 0x7f03002c com.spotify.mobile.android.ui:layout/widget: flags=0x00000000
+      spec resource 0x7f03002d com.spotify.mobile.android.ui:layout/widget_large: flags=0x00000000
+      spec resource 0x7f03002e com.spotify.mobile.android.ui:layout/widget_small: flags=0x00000000
+      config 0 lang=-- cnt=-- orien=0 touch=0 density=0 key=0 infl=0 nav=0 w=0 h=0
+        resource 0x7f030000 com.spotify.mobile.android.ui:layout/base: t=0x03 d=0x000000d4 (s=0x0008 r=0x00)
+        resource 0x7f030001 com.spotify.mobile.android.ui:layout/component_tabcontroller: t=0x03 d=0x000000d6 (s=0x0008 r=0x00)
+        resource 0x7f030002 com.spotify.mobile.android.ui:layout/listitem_albumbrowse: t=0x03 d=0x000000d7 (s=0x0008 r=0x00)
+        resource 0x7f030003 com.spotify.mobile.android.ui:layout/listitem_general: t=0x03 d=0x000000d8 (s=0x0008 r=0x00)
+        resource 0x7f030004 com.spotify.mobile.android.ui:layout/listitem_more: t=0x03 d=0x000000d9 (s=0x0008 r=0x00)
+        resource 0x7f030005 com.spotify.mobile.android.ui:layout/listitem_myplaylists_offline: t=0x03 d=0x000000da (s=0x0008 r=0x00)
+        resource 0x7f030006 com.spotify.mobile.android.ui:layout/listitem_myplaylists_simple: t=0x03 d=0x000000db (s=0x0008 r=0x00)
+        resource 0x7f030007 com.spotify.mobile.android.ui:layout/listitem_playlist: t=0x03 d=0x000000dc (s=0x0008 r=0x00)
+        resource 0x7f030008 com.spotify.mobile.android.ui:layout/listitem_quality_settings: t=0x03 d=0x000000dd (s=0x0008 r=0x00)
+        resource 0x7f030009 com.spotify.mobile.android.ui:layout/listitem_search: t=0x03 d=0x000000de (s=0x0008 r=0x00)
+        resource 0x7f03000a com.spotify.mobile.android.ui:layout/listitem_search_album: t=0x03 d=0x000000df (s=0x0008 r=0x00)
+        resource 0x7f03000b com.spotify.mobile.android.ui:layout/listitem_search_artist: t=0x03 d=0x000000e0 (s=0x0008 r=0x00)
+        resource 0x7f03000c com.spotify.mobile.android.ui:layout/listitem_search_test: t=0x03 d=0x000000e1 (s=0x0008 r=0x00)
+        resource 0x7f03000d com.spotify.mobile.android.ui:layout/listitem_search_track: t=0x03 d=0x000000e2 (s=0x0008 r=0x00)
+        resource 0x7f03000e com.spotify.mobile.android.ui:layout/listitem_searchresult: t=0x03 d=0x000000e3 (s=0x0008 r=0x00)
+        resource 0x7f03000f com.spotify.mobile.android.ui:layout/listitem_settings: t=0x03 d=0x000000e4 (s=0x0008 r=0x00)
+        resource 0x7f030010 com.spotify.mobile.android.ui:layout/listitem_whatsnew: t=0x03 d=0x000000e5 (s=0x0008 r=0x00)
+        resource 0x7f030011 com.spotify.mobile.android.ui:layout/none: t=0x03 d=0x000000e6 (s=0x0008 r=0x00)
+        resource 0x7f030013 com.spotify.mobile.android.ui:layout/subactivity_albumbrowser: t=0x03 d=0x000000e8 (s=0x0008 r=0x00)
+        resource 0x7f030014 com.spotify.mobile.android.ui:layout/subactivity_artistbrowser: t=0x03 d=0x000000e9 (s=0x0008 r=0x00)
+        resource 0x7f030015 com.spotify.mobile.android.ui:layout/subactivity_confirm: t=0x03 d=0x000000ea (s=0x0008 r=0x00)
+        resource 0x7f030016 com.spotify.mobile.android.ui:layout/subactivity_confirm_roaming: t=0x03 d=0x000000eb (s=0x0008 r=0x00)
+        resource 0x7f030017 com.spotify.mobile.android.ui:layout/subactivity_contextmenu: t=0x03 d=0x000000ec (s=0x0008 r=0x00)
+        resource 0x7f030018 com.spotify.mobile.android.ui:layout/subactivity_login: t=0x03 d=0x000000ed (s=0x0008 r=0x00)
+        resource 0x7f030019 com.spotify.mobile.android.ui:layout/subactivity_ok: t=0x03 d=0x000000ee (s=0x0008 r=0x00)
+        resource 0x7f03001a com.spotify.mobile.android.ui:layout/subactivity_playlist_selector: t=0x03 d=0x000000ef (s=0x0008 r=0x00)
+        resource 0x7f03001b com.spotify.mobile.android.ui:layout/subactivity_playqueue: t=0x03 d=0x000000f0 (s=0x0008 r=0x00)
+        resource 0x7f03001c com.spotify.mobile.android.ui:layout/subactivity_premium: t=0x03 d=0x000000f1 (s=0x0008 r=0x00)
+        resource 0x7f03001d com.spotify.mobile.android.ui:layout/subactivity_textinput: t=0x03 d=0x000000f2 (s=0x0008 r=0x00)
+        resource 0x7f03001e com.spotify.mobile.android.ui:layout/subactivity_tos: t=0x03 d=0x000000f3 (s=0x0008 r=0x00)
+        resource 0x7f03001f com.spotify.mobile.android.ui:layout/subactivity_waiting: t=0x03 d=0x000000f4 (s=0x0008 r=0x00)
+        resource 0x7f030020 com.spotify.mobile.android.ui:layout/tab_button: t=0x03 d=0x000000f5 (s=0x0008 r=0x00)
+        resource 0x7f030021 com.spotify.mobile.android.ui:layout/tabview_artistbiography: t=0x03 d=0x000000f6 (s=0x0008 r=0x00)
+        resource 0x7f030022 com.spotify.mobile.android.ui:layout/tabview_list: t=0x03 d=0x000000f7 (s=0x0008 r=0x00)
+        resource 0x7f030023 com.spotify.mobile.android.ui:layout/view_about: t=0x03 d=0x000000f8 (s=0x0008 r=0x00)
+        resource 0x7f030024 com.spotify.mobile.android.ui:layout/view_more: t=0x03 d=0x000000f9 (s=0x0008 r=0x00)
+        resource 0x7f030025 com.spotify.mobile.android.ui:layout/view_myplaylists: t=0x03 d=0x000000fa (s=0x0008 r=0x00)
+        resource 0x7f030026 com.spotify.mobile.android.ui:layout/view_news: t=0x03 d=0x000000fb (s=0x0008 r=0x00)
+        resource 0x7f030027 com.spotify.mobile.android.ui:layout/view_player: t=0x03 d=0x000000fc (s=0x0008 r=0x00)
+        resource 0x7f030028 com.spotify.mobile.android.ui:layout/view_player_widescreen: t=0x03 d=0x000000fd (s=0x0008 r=0x00)
+        resource 0x7f030029 com.spotify.mobile.android.ui:layout/view_playlist: t=0x03 d=0x000000fe (s=0x0008 r=0x00)
+        resource 0x7f03002a com.spotify.mobile.android.ui:layout/view_search: t=0x03 d=0x000000ff (s=0x0008 r=0x00)
+        resource 0x7f03002b com.spotify.mobile.android.ui:layout/view_settings: t=0x03 d=0x00000100 (s=0x0008 r=0x00)
+        resource 0x7f03002c com.spotify.mobile.android.ui:layout/widget: t=0x03 d=0x00000101 (s=0x0008 r=0x00)
+        resource 0x7f03002d com.spotify.mobile.android.ui:layout/widget_large: t=0x03 d=0x00000102 (s=0x0008 r=0x00)
+        resource 0x7f03002e com.spotify.mobile.android.ui:layout/widget_small: t=0x03 d=0x00000103 (s=0x0008 r=0x00)
+      config 1 lang=-- cnt=-- orien=1 touch=0 density=0 key=0 infl=0 nav=0 w=320 h=240
+        resource 0x7f030000 com.spotify.mobile.android.ui:layout/base: t=0x03 d=0x000000d5 (s=0x0008 r=0x00)
+      config 2 lang=-- cnt=-- orien=2 touch=0 density=0 key=0 infl=0 nav=0 w=0 h=0
+        resource 0x7f030012 com.spotify.mobile.android.ui:layout/searchresult_listitem: t=0x03 d=0x000000e7 (s=0x0008 r=0x00)
+    type 3 configCount=1 entryCount=23
+      spec resource 0x7f040000 com.spotify.mobile.android.ui:anim/cover_crossfade_in: flags=0x00000000
+      spec resource 0x7f040001 com.spotify.mobile.android.ui:anim/cover_crossfade_none: flags=0x00000000
+      spec resource 0x7f040002 com.spotify.mobile.android.ui:anim/cover_crossfade_out: flags=0x00000000
+      spec resource 0x7f040003 com.spotify.mobile.android.ui:anim/cover_push_left_in: flags=0x00000000
+      spec resource 0x7f040004 com.spotify.mobile.android.ui:anim/cover_push_left_out: flags=0x00000000
+      spec resource 0x7f040005 com.spotify.mobile.android.ui:anim/cover_push_right_in: flags=0x00000000
+      spec resource 0x7f040006 com.spotify.mobile.android.ui:anim/cover_push_right_out: flags=0x00000000
+      spec resource 0x7f040007 com.spotify.mobile.android.ui:anim/player_background_in: flags=0x00000000
+      spec resource 0x7f040008 com.spotify.mobile.android.ui:anim/player_background_out: flags=0x00000000
+      spec resource 0x7f040009 com.spotify.mobile.android.ui:anim/player_in: flags=0x00000000
+      spec resource 0x7f04000a com.spotify.mobile.android.ui:anim/player_out: flags=0x00000000
+      spec resource 0x7f04000b com.spotify.mobile.android.ui:anim/push_down_in: flags=0x00000000
+      spec resource 0x7f04000c com.spotify.mobile.android.ui:anim/push_down_out: flags=0x00000000
+      spec resource 0x7f04000d com.spotify.mobile.android.ui:anim/push_left_in: flags=0x00000000
+      spec resource 0x7f04000e com.spotify.mobile.android.ui:anim/push_left_out: flags=0x00000000
+      spec resource 0x7f04000f com.spotify.mobile.android.ui:anim/push_right_in: flags=0x00000000
+      spec resource 0x7f040010 com.spotify.mobile.android.ui:anim/push_right_out: flags=0x00000000
+      spec resource 0x7f040011 com.spotify.mobile.android.ui:anim/push_up_in: flags=0x00000000
+      spec resource 0x7f040012 com.spotify.mobile.android.ui:anim/push_up_out: flags=0x00000000
+      spec resource 0x7f040013 com.spotify.mobile.android.ui:anim/scale_bg_in: flags=0x00000000
+      spec resource 0x7f040014 com.spotify.mobile.android.ui:anim/scale_bg_out: flags=0x00000000
+      spec resource 0x7f040015 com.spotify.mobile.android.ui:anim/scale_in: flags=0x00000000
+      spec resource 0x7f040016 com.spotify.mobile.android.ui:anim/scale_out: flags=0x00000000
+      config 0 lang=-- cnt=-- orien=0 touch=0 density=0 key=0 infl=0 nav=0 w=0 h=0
+        resource 0x7f040000 com.spotify.mobile.android.ui:anim/cover_crossfade_in: t=0x03 d=0x00000104 (s=0x0008 r=0x00)
+        resource 0x7f040001 com.spotify.mobile.android.ui:anim/cover_crossfade_none: t=0x03 d=0x00000105 (s=0x0008 r=0x00)
+        resource 0x7f040002 com.spotify.mobile.android.ui:anim/cover_crossfade_out: t=0x03 d=0x00000106 (s=0x0008 r=0x00)
+        resource 0x7f040003 com.spotify.mobile.android.ui:anim/cover_push_left_in: t=0x03 d=0x00000107 (s=0x0008 r=0x00)
+        resource 0x7f040004 com.spotify.mobile.android.ui:anim/cover_push_left_out: t=0x03 d=0x00000108 (s=0x0008 r=0x00)
+        resource 0x7f040005 com.spotify.mobile.android.ui:anim/cover_push_right_in: t=0x03 d=0x00000109 (s=0x0008 r=0x00)
+        resource 0x7f040006 com.spotify.mobile.android.ui:anim/cover_push_right_out: t=0x03 d=0x0000010a (s=0x0008 r=0x00)
+        resource 0x7f040007 com.spotify.mobile.android.ui:anim/player_background_in: t=0x03 d=0x0000010b (s=0x0008 r=0x00)
+        resource 0x7f040008 com.spotify.mobile.android.ui:anim/player_background_out: t=0x03 d=0x0000010c (s=0x0008 r=0x00)
+        resource 0x7f040009 com.spotify.mobile.android.ui:anim/player_in: t=0x03 d=0x0000010d (s=0x0008 r=0x00)
+        resource 0x7f04000a com.spotify.mobile.android.ui:anim/player_out: t=0x03 d=0x0000010e (s=0x0008 r=0x00)
+        resource 0x7f04000b com.spotify.mobile.android.ui:anim/push_down_in: t=0x03 d=0x0000010f (s=0x0008 r=0x00)
+        resource 0x7f04000c com.spotify.mobile.android.ui:anim/push_down_out: t=0x03 d=0x00000110 (s=0x0008 r=0x00)
+        resource 0x7f04000d com.spotify.mobile.android.ui:anim/push_left_in: t=0x03 d=0x00000111 (s=0x0008 r=0x00)
+        resource 0x7f04000e com.spotify.mobile.android.ui:anim/push_left_out: t=0x03 d=0x00000112 (s=0x0008 r=0x00)
+        resource 0x7f04000f com.spotify.mobile.android.ui:anim/push_right_in: t=0x03 d=0x00000113 (s=0x0008 r=0x00)
+        resource 0x7f040010 com.spotify.mobile.android.ui:anim/push_right_out: t=0x03 d=0x00000114 (s=0x0008 r=0x00)
+        resource 0x7f040011 com.spotify.mobile.android.ui:anim/push_up_in: t=0x03 d=0x00000115 (s=0x0008 r=0x00)
+        resource 0x7f040012 com.spotify.mobile.android.ui:anim/push_up_out: t=0x03 d=0x00000116 (s=0x0008 r=0x00)
+        resource 0x7f040013 com.spotify.mobile.android.ui:anim/scale_bg_in: t=0x03 d=0x00000117 (s=0x0008 r=0x00)
+        resource 0x7f040014 com.spotify.mobile.android.ui:anim/scale_bg_out: t=0x03 d=0x00000118 (s=0x0008 r=0x00)
+        resource 0x7f040015 com.spotify.mobile.android.ui:anim/scale_in: t=0x03 d=0x00000119 (s=0x0008 r=0x00)
+        resource 0x7f040016 com.spotify.mobile.android.ui:anim/scale_out: t=0x03 d=0x0000011a (s=0x0008 r=0x00)
+    type 4 configCount=1 entryCount=3
+      spec resource 0x7f050000 com.spotify.mobile.android.ui:xml/playlist_searchable: flags=0x00000000
+      spec resource 0x7f050001 com.spotify.mobile.android.ui:xml/searchable: flags=0x00000000
+      spec resource 0x7f050002 com.spotify.mobile.android.ui:xml/widget_info: flags=0x00000000
+      config 0 lang=-- cnt=-- orien=0 touch=0 density=0 key=0 infl=0 nav=0 w=0 h=0
+        resource 0x7f050000 com.spotify.mobile.android.ui:xml/playlist_searchable: t=0x03 d=0x0000011b (s=0x0008 r=0x00)
+        resource 0x7f050001 com.spotify.mobile.android.ui:xml/searchable: t=0x03 d=0x0000011c (s=0x0008 r=0x00)
+        resource 0x7f050002 com.spotify.mobile.android.ui:xml/widget_info: t=0x03 d=0x0000011d (s=0x0008 r=0x00)
+    type 5 configCount=1 entryCount=4
+      spec resource 0x7f060000 com.spotify.mobile.android.ui:color/solid_red: flags=0x00000000
+      spec resource 0x7f060001 com.spotify.mobile.android.ui:color/solid_blue: flags=0x00000000
+      spec resource 0x7f060002 com.spotify.mobile.android.ui:color/solid_green: flags=0x00000000
+      spec resource 0x7f060003 com.spotify.mobile.android.ui:color/solid_yellow: flags=0x00000000
+      config 0 lang=-- cnt=-- orien=0 touch=0 density=0 key=0 infl=0 nav=0 w=0 h=0
+        resource 0x7f060000 com.spotify.mobile.android.ui:color/solid_red: t=0x1f d=0xffff0000 (s=0x0008 r=0x00)
+        resource 0x7f060001 com.spotify.mobile.android.ui:color/solid_blue: t=0x1d d=0xff0000ff (s=0x0008 r=0x00)
+        resource 0x7f060002 com.spotify.mobile.android.ui:color/solid_green: t=0x1e d=0xff00ff00 (s=0x0008 r=0x00)
+        resource 0x7f060003 com.spotify.mobile.android.ui:color/solid_yellow: t=0x1c d=0xffffff00 (s=0x0008 r=0x00)
+    type 6 configCount=1 entryCount=166
+      spec resource 0x7f070000 com.spotify.mobile.android.ui:string/app_name: flags=0x00000000
+      spec resource 0x7f070001 com.spotify.mobile.android.ui:string/title_about: flags=0x00000000
+      spec resource 0x7f070002 com.spotify.mobile.android.ui:string/title_playlists: flags=0x00000000
+      spec resource 0x7f070003 com.spotify.mobile.android.ui:string/title_whatsnew: flags=0x00000000
+      spec resource 0x7f070004 com.spotify.mobile.android.ui:string/title_more: flags=0x00000000
+      spec resource 0x7f070005 com.spotify.mobile.android.ui:string/title_settings: flags=0x00000000
+      spec resource 0x7f070006 com.spotify.mobile.android.ui:string/title_search: flags=0x00000000
+      spec resource 0x7f070007 com.spotify.mobile.android.ui:string/title_player: flags=0x00000000
+      spec resource 0x7f070008 com.spotify.mobile.android.ui:string/title_settings_quality_stream: flags=0x00000000
+      spec resource 0x7f070009 com.spotify.mobile.android.ui:string/title_settings_quality_sync: flags=0x00000000
+      spec resource 0x7f07000a com.spotify.mobile.android.ui:string/login_logging_in: flags=0x00000000
+      spec resource 0x7f07000b com.spotify.mobile.android.ui:string/login_username: flags=0x00000000
+      spec resource 0x7f07000c com.spotify.mobile.android.ui:string/login_password: flags=0x00000000
+      spec resource 0x7f07000d com.spotify.mobile.android.ui:string/login_button_title: flags=0x00000000
+      spec resource 0x7f07000e com.spotify.mobile.android.ui:string/login_accept_terms_of_service: flags=0x00000000
+      spec resource 0x7f07000f com.spotify.mobile.android.ui:string/login_accept_terms_of_service_str: flags=0x00000000
+      spec resource 0x7f070010 com.spotify.mobile.android.ui:string/login_terms_of_service_link: flags=0x00000000
+      spec resource 0x7f070011 com.spotify.mobile.android.ui:string/login_menu_option_clear_cache: flags=0x00000000
+      spec resource 0x7f070012 com.spotify.mobile.android.ui:string/login_clearcache_confirmation_title: flags=0x00000000
+      spec resource 0x7f070013 com.spotify.mobile.android.ui:string/login_clearcache_confirmation_text: flags=0x00000000
+      spec resource 0x7f070014 com.spotify.mobile.android.ui:string/login_premium_url_link: flags=0x00000000
+      spec resource 0x7f070015 com.spotify.mobile.android.ui:string/login_premium_url: flags=0x00000000
+      spec resource 0x7f070016 com.spotify.mobile.android.ui:string/roaming_title: flags=0x00000000
+      spec resource 0x7f070017 com.spotify.mobile.android.ui:string/roaming_body: flags=0x00000000
+      spec resource 0x7f070018 com.spotify.mobile.android.ui:string/roaming_stay_offline: flags=0x00000000
+      spec resource 0x7f070019 com.spotify.mobile.android.ui:string/roaming_go_online: flags=0x00000000
+      spec resource 0x7f07001a com.spotify.mobile.android.ui:string/terms_of_service_title: flags=0x00000000
+      spec resource 0x7f07001b com.spotify.mobile.android.ui:string/login_data_warning_title: flags=0x00000000
+      spec resource 0x7f07001c com.spotify.mobile.android.ui:string/login_data_warning_body: flags=0x00000000
+      spec resource 0x7f07001d com.spotify.mobile.android.ui:string/audio_gap: flags=0x00000000
+      spec resource 0x7f07001e com.spotify.mobile.android.ui:string/error_token_lost_title: flags=0x00000000
+      spec resource 0x7f07001f com.spotify.mobile.android.ui:string/error_token_lost: flags=0x00000000
+      spec resource 0x7f070020 com.spotify.mobile.android.ui:string/update_update: flags=0x00000000
+      spec resource 0x7f070021 com.spotify.mobile.android.ui:string/update_close: flags=0x00000000
+      spec resource 0x7f070022 com.spotify.mobile.android.ui:string/update_title: flags=0x00000000
+      spec resource 0x7f070023 com.spotify.mobile.android.ui:string/update_body: flags=0x00000000
+      spec resource 0x7f070024 com.spotify.mobile.android.ui:string/search_label: flags=0x00000000
+      spec resource 0x7f070025 com.spotify.mobile.android.ui:string/search_hint: flags=0x00000000
+      spec resource 0x7f070026 com.spotify.mobile.android.ui:string/search_setting_description: flags=0x00000000
+      spec resource 0x7f070027 com.spotify.mobile.android.ui:string/playlists_offline_sync_button_title: flags=0x00000000
+      spec resource 0x7f070028 com.spotify.mobile.android.ui:string/playlists_offline_sync_button_subtext_0: flags=0x00000000
+      spec resource 0x7f070029 com.spotify.mobile.android.ui:string/playlists_offline_sync_button_subtext_1: flags=0x00000000
+      spec resource 0x7f07002a com.spotify.mobile.android.ui:string/playlists_offline_sync_button_subtext_n: flags=0x00000000
+      spec resource 0x7f07002b com.spotify.mobile.android.ui:string/plalyists_offline_sync_info: flags=0x00000000
+      spec resource 0x7f07002c com.spotify.mobile.android.ui:string/playlists_offline_sync_done_button_title: flags=0x00000000
+      spec resource 0x7f07002d com.spotify.mobile.android.ui:string/playlists_offline_sync_offline_warning: flags=0x00000000
+      spec resource 0x7f07002e com.spotify.mobile.android.ui:string/playlists_context_delete_title: flags=0x00000000
+      spec resource 0x7f07002f com.spotify.mobile.android.ui:string/playlists_context_delete_subtext: flags=0x00000000
+      spec resource 0x7f070030 com.spotify.mobile.android.ui:string/playlists_context_rename_title: flags=0x00000000
+      spec resource 0x7f070031 com.spotify.mobile.android.ui:string/playlists_context_rename_subtext: flags=0x00000000
+      spec resource 0x7f070032 com.spotify.mobile.android.ui:string/playlists_context_share_playlist_title: flags=0x00000000
+      spec resource 0x7f070033 com.spotify.mobile.android.ui:string/playlists_context_share_playlist_subtext: flags=0x00000000
+      spec resource 0x7f070034 com.spotify.mobile.android.ui:string/playlists_context_make_collaborative_title: flags=0x00000000
+      spec resource 0x7f070035 com.spotify.mobile.android.ui:string/playlists_context_make_collaborative_subtext: flags=0x00000000
+      spec resource 0x7f070036 com.spotify.mobile.android.ui:string/playlists_context_unmake_collaborative_title: flags=0x00000000
+      spec resource 0x7f070037 com.spotify.mobile.android.ui:string/playlists_context_unmake_collaborative_subtext: flags=0x00000000
+      spec resource 0x7f070038 com.spotify.mobile.android.ui:string/playlists_menu_create_playlist: flags=0x00000000
+      spec resource 0x7f070039 com.spotify.mobile.android.ui:string/playlists_delete_confirm_text: flags=0x00000000
+      spec resource 0x7f07003a com.spotify.mobile.android.ui:string/playlists_playlist_title_loading: flags=0x00000000
+      spec resource 0x7f07003b com.spotify.mobile.android.ui:string/playlist_context_delete_track_title: flags=0x00000000
+      spec resource 0x7f07003c com.spotify.mobile.android.ui:string/playlist_context_delete_track_subtext: flags=0x00000000
+      spec resource 0x7f07003d com.spotify.mobile.android.ui:string/playlist_offline_warning: flags=0x00000000
+      spec resource 0x7f07003e com.spotify.mobile.android.ui:string/playlist_item_subtext: flags=0x00000000
+      spec resource 0x7f07003f com.spotify.mobile.android.ui:string/player_add_to_playlist_button_title: flags=0x00000000
+      spec resource 0x7f070040 com.spotify.mobile.android.ui:string/player_repeat_button_title: flags=0x00000000
+      spec resource 0x7f070041 com.spotify.mobile.android.ui:string/player_shuffle_button_title: flags=0x00000000
+      spec resource 0x7f070042 com.spotify.mobile.android.ui:string/player_repeat_button_off_title: flags=0x00000000
+      spec resource 0x7f070043 com.spotify.mobile.android.ui:string/player_shuffle_button_off_title: flags=0x00000000
+      spec resource 0x7f070044 com.spotify.mobile.android.ui:string/player_add_to_playlist_success: flags=0x00000000
+      spec resource 0x7f070045 com.spotify.mobile.android.ui:string/player_add_to_playlist_error: flags=0x00000000
+      spec resource 0x7f070046 com.spotify.mobile.android.ui:string/player_infolink_offline_warning: flags=0x00000000
+      spec resource 0x7f070047 com.spotify.mobile.android.ui:string/player_add_to_playlist_offline_warning: flags=0x00000000
+      spec resource 0x7f070048 com.spotify.mobile.android.ui:string/player_show_info: flags=0x00000000
+      spec resource 0x7f070049 com.spotify.mobile.android.ui:string/player_hide_info: flags=0x00000000
+      spec resource 0x7f07004a com.spotify.mobile.android.ui:string/player_playqueue: flags=0x00000000
+      spec resource 0x7f07004b com.spotify.mobile.android.ui:string/search_button_title: flags=0x00000000
+      spec resource 0x7f07004c com.spotify.mobile.android.ui:string/search_input_hint: flags=0x00000000
+      spec resource 0x7f07004d com.spotify.mobile.android.ui:string/search_searching: flags=0x00000000
+      spec resource 0x7f07004e com.spotify.mobile.android.ui:string/search_tab_tracks: flags=0x00000000
+      spec resource 0x7f07004f com.spotify.mobile.android.ui:string/search_tab_albums: flags=0x00000000
+      spec resource 0x7f070050 com.spotify.mobile.android.ui:string/search_tab_artists: flags=0x00000000
+      spec resource 0x7f070051 com.spotify.mobile.android.ui:string/search_startinfo: flags=0x00000000
+      spec resource 0x7f070052 com.spotify.mobile.android.ui:string/search_offline_warning: flags=0x00000000
+      spec resource 0x7f070053 com.spotify.mobile.android.ui:string/search_context_add_to_playlist_title: flags=0x00000000
+      spec resource 0x7f070054 com.spotify.mobile.android.ui:string/search_context_add_to_playlist_subtext: flags=0x00000000
+      spec resource 0x7f070055 com.spotify.mobile.android.ui:string/search_context_view_tracks_title: flags=0x00000000
+      spec resource 0x7f070056 com.spotify.mobile.android.ui:string/search_context_view_tracks_subtext: flags=0x00000000
+      spec resource 0x7f070057 com.spotify.mobile.android.ui:string/search_context_view_artist_title: flags=0x00000000
+      spec resource 0x7f070058 com.spotify.mobile.android.ui:string/search_context_view_artist_subtext: flags=0x00000000
+      spec resource 0x7f070059 com.spotify.mobile.android.ui:string/search_context_share_track_title: flags=0x00000000
+      spec resource 0x7f07005a com.spotify.mobile.android.ui:string/search_context_share_track_subtext: flags=0x00000000
+      spec resource 0x7f07005b com.spotify.mobile.android.ui:string/search_context_share_album_title: flags=0x00000000
+      spec resource 0x7f07005c com.spotify.mobile.android.ui:string/search_context_share_album_subtext: flags=0x00000000
+      spec resource 0x7f07005d com.spotify.mobile.android.ui:string/search_no_results: flags=0x00000000
+      spec resource 0x7f07005e com.spotify.mobile.android.ui:string/search_clear_history: flags=0x00000000
+      spec resource 0x7f07005f com.spotify.mobile.android.ui:string/settings_title_offline: flags=0x00000000
+      spec resource 0x7f070060 com.spotify.mobile.android.ui:string/settings_title_sync_wifi: flags=0x00000000
+      spec resource 0x7f070061 com.spotify.mobile.android.ui:string/settings_title_sync_3g: flags=0x00000000
+      spec resource 0x7f070062 com.spotify.mobile.android.ui:string/settings_title_clearcache: flags=0x00000000
+      spec resource 0x7f070063 com.spotify.mobile.android.ui:string/settings_subtext_offline: flags=0x00000000
+      spec resource 0x7f070064 com.spotify.mobile.android.ui:string/settings_subtext_sync_wifi: flags=0x00000000
+      spec resource 0x7f070065 com.spotify.mobile.android.ui:string/settings_subtext_sync_3g: flags=0x00000000
+      spec resource 0x7f070066 com.spotify.mobile.android.ui:string/settings_subtext_clearcache: flags=0x00000000
+      spec resource 0x7f070067 com.spotify.mobile.android.ui:string/settings_clearcache_confirmation_title: flags=0x00000000
+      spec resource 0x7f070068 com.spotify.mobile.android.ui:string/settings_clearcache_confirmation_text: flags=0x00000000
+      spec resource 0x7f070069 com.spotify.mobile.android.ui:string/settings_quality_title_high: flags=0x00000000
+      spec resource 0x7f07006a com.spotify.mobile.android.ui:string/settings_quality_title_low: flags=0x00000000
+      spec resource 0x7f07006b com.spotify.mobile.android.ui:string/settings_quality_stream_subtext_high: flags=0x00000000
+      spec resource 0x7f07006c com.spotify.mobile.android.ui:string/settings_quality_stream_subtext_low: flags=0x00000000
+      spec resource 0x7f07006d com.spotify.mobile.android.ui:string/settings_quality_sync_subtext_high: flags=0x00000000
+      spec resource 0x7f07006e com.spotify.mobile.android.ui:string/settings_quality_sync_subtext_low: flags=0x00000000
+      spec resource 0x7f07006f com.spotify.mobile.android.ui:string/more_title_settings: flags=0x00000000
+      spec resource 0x7f070070 com.spotify.mobile.android.ui:string/more_title_about: flags=0x00000000
+      spec resource 0x7f070071 com.spotify.mobile.android.ui:string/more_title_logout: flags=0x00000000
+      spec resource 0x7f070072 com.spotify.mobile.android.ui:string/more_subtext_settings: flags=0x00000000
+      spec resource 0x7f070073 com.spotify.mobile.android.ui:string/more_subtext_about: flags=0x00000000
+      spec resource 0x7f070074 com.spotify.mobile.android.ui:string/more_subtext_logout: flags=0x00000000
+      spec resource 0x7f070075 com.spotify.mobile.android.ui:string/more_logout_confirmation_text: flags=0x00000000
+      spec resource 0x7f070076 com.spotify.mobile.android.ui:string/about_copyright: flags=0x00000000
+      spec resource 0x7f070077 com.spotify.mobile.android.ui:string/about_version_number: flags=0x00000000
+      spec resource 0x7f070078 com.spotify.mobile.android.ui:string/about_total_storage: flags=0x00000000
+      spec resource 0x7f070079 com.spotify.mobile.android.ui:string/about_used_storage: flags=0x00000000
+      spec resource 0x7f07007a com.spotify.mobile.android.ui:string/about_available_storage: flags=0x00000000
+      spec resource 0x7f07007b com.spotify.mobile.android.ui:string/about_network_connection: flags=0x00000000
+      spec resource 0x7f07007c com.spotify.mobile.android.ui:string/about_device_id: flags=0x00000000
+      spec resource 0x7f07007d com.spotify.mobile.android.ui:string/about_go_online_within: flags=0x00000000
+      spec resource 0x7f07007e com.spotify.mobile.android.ui:string/popup_albumbrowser_add_playlist: flags=0x00000000
+      spec resource 0x7f07007f com.spotify.mobile.android.ui:string/popup_playlistselector_title: flags=0x00000000
+      spec resource 0x7f070080 com.spotify.mobile.android.ui:string/popup_contextmenu_title: flags=0x00000000
+      spec resource 0x7f070081 com.spotify.mobile.android.ui:string/artistview_top_hits: flags=0x00000000
+      spec resource 0x7f070082 com.spotify.mobile.android.ui:string/artistview_overview: flags=0x00000000
+      spec resource 0x7f070083 com.spotify.mobile.android.ui:string/artistview_biography: flags=0x00000000
+      spec resource 0x7f070084 com.spotify.mobile.android.ui:string/artistview_overview_albums: flags=0x00000000
+      spec resource 0x7f070085 com.spotify.mobile.android.ui:string/artistview_overview_singles: flags=0x00000000
+      spec resource 0x7f070086 com.spotify.mobile.android.ui:string/artistview_overview_compilations: flags=0x00000000
+      spec resource 0x7f070087 com.spotify.mobile.android.ui:string/artistview_overview_appearson: flags=0x00000000
+      spec resource 0x7f070088 com.spotify.mobile.android.ui:string/whatsnew_offline_warning: flags=0x00000000
+      spec resource 0x7f070089 com.spotify.mobile.android.ui:string/generic_ok: flags=0x00000000
+      spec resource 0x7f07008a com.spotify.mobile.android.ui:string/generic_done: flags=0x00000000
+      spec resource 0x7f07008b com.spotify.mobile.android.ui:string/generic_cancel: flags=0x00000000
+      spec resource 0x7f07008c com.spotify.mobile.android.ui:string/generic_exit: flags=0x00000000
+      spec resource 0x7f07008d com.spotify.mobile.android.ui:string/generic_back: flags=0x00000000
+      spec resource 0x7f07008e com.spotify.mobile.android.ui:string/generic_refresh: flags=0x00000000
+      spec resource 0x7f07008f com.spotify.mobile.android.ui:string/generic_quit_confirmation: flags=0x00000000
+      spec resource 0x7f070090 com.spotify.mobile.android.ui:string/generic_quit_confirmation_home_tip: flags=0x00000000
+      spec resource 0x7f070091 com.spotify.mobile.android.ui:string/error_ok: flags=0x00000000
+      spec resource 0x7f070092 com.spotify.mobile.android.ui:string/error_login_username_password: flags=0x00000000
+      spec resource 0x7f070093 com.spotify.mobile.android.ui:string/error_user_banned: flags=0x00000000
+      spec resource 0x7f070094 com.spotify.mobile.android.ui:string/error_client_too_old: flags=0x00000000
+      spec resource 0x7f070095 com.spotify.mobile.android.ui:string/error_temp_ap_error: flags=0x00000000
+      spec resource 0x7f070096 com.spotify.mobile.android.ui:string/error_dns_resolving: flags=0x00000000
+      spec resource 0x7f070097 com.spotify.mobile.android.ui:string/error_disk_cache: flags=0x00000000
+      spec resource 0x7f070098 com.spotify.mobile.android.ui:string/error_protocol: flags=0x00000000
+      spec resource 0x7f070099 com.spotify.mobile.android.ui:string/error_missing_user_info: flags=0x00000000
+      spec resource 0x7f07009a com.spotify.mobile.android.ui:string/error_forbidden_service: flags=0x00000000
+      spec resource 0x7f07009b com.spotify.mobile.android.ui:string/error_region_mismatch: flags=0x00000000
+      spec resource 0x7f07009c com.spotify.mobile.android.ui:string/error_no_auth_method: flags=0x00000000
+      spec resource 0x7f07009d com.spotify.mobile.android.ui:string/error_unknown: flags=0x00000000
+      spec resource 0x7f07009e com.spotify.mobile.android.ui:string/error_offline_sync_title: flags=0x00000000
+      spec resource 0x7f07009f com.spotify.mobile.android.ui:string/error_offline_expired: flags=0x00000000
+      spec resource 0x7f0700a0 com.spotify.mobile.android.ui:string/error_offline_download_failure: flags=0x00000000
+      spec resource 0x7f0700a1 com.spotify.mobile.android.ui:string/error_offline_too_many_tracks: flags=0x00000000
+      spec resource 0x7f0700a2 com.spotify.mobile.android.ui:string/error_rate_imited: flags=0x00000000
+      spec resource 0x7f0700a3 com.spotify.mobile.android.ui:string/error_offline_license_server_error: flags=0x00000000
+      spec resource 0x7f0700a4 com.spotify.mobile.android.ui:string/error_offline_license_lost: flags=0x00000000
+      spec resource 0x7f0700a5 com.spotify.mobile.android.ui:string/error_offline_not_allowed: flags=0x00000000
+      config 0 lang=-- cnt=-- orien=0 touch=0 density=0 key=0 infl=0 nav=0 w=0 h=0
+        resource 0x7f070000 com.spotify.mobile.android.ui:string/app_name: t=0x03 d=0x0000011e (s=0x0008 r=0x00)
+        resource 0x7f070001 com.spotify.mobile.android.ui:string/title_about: t=0x03 d=0x0000011f (s=0x0008 r=0x00)
+        resource 0x7f070002 com.spotify.mobile.android.ui:string/title_playlists: t=0x03 d=0x00000120 (s=0x0008 r=0x00)
+        resource 0x7f070003 com.spotify.mobile.android.ui:string/title_whatsnew: t=0x03 d=0x00000121 (s=0x0008 r=0x00)
+        resource 0x7f070004 com.spotify.mobile.android.ui:string/title_more: t=0x03 d=0x00000122 (s=0x0008 r=0x00)
+        resource 0x7f070005 com.spotify.mobile.android.ui:string/title_settings: t=0x03 d=0x00000123 (s=0x0008 r=0x00)
+        resource 0x7f070006 com.spotify.mobile.android.ui:string/title_search: t=0x03 d=0x00000124 (s=0x0008 r=0x00)
+        resource 0x7f070007 com.spotify.mobile.android.ui:string/title_player: t=0x03 d=0x00000125 (s=0x0008 r=0x00)
+        resource 0x7f070008 com.spotify.mobile.android.ui:string/title_settings_quality_stream: t=0x03 d=0x00000126 (s=0x0008 r=0x00)
+        resource 0x7f070009 com.spotify.mobile.android.ui:string/title_settings_quality_sync: t=0x03 d=0x00000127 (s=0x0008 r=0x00)
+        resource 0x7f07000a com.spotify.mobile.android.ui:string/login_logging_in: t=0x03 d=0x00000128 (s=0x0008 r=0x00)
+        resource 0x7f07000b com.spotify.mobile.android.ui:string/login_username: t=0x03 d=0x00000129 (s=0x0008 r=0x00)
+        resource 0x7f07000c com.spotify.mobile.android.ui:string/login_password: t=0x03 d=0x0000012a (s=0x0008 r=0x00)
+        resource 0x7f07000d com.spotify.mobile.android.ui:string/login_button_title: t=0x03 d=0x0000012b (s=0x0008 r=0x00)
+        resource 0x7f07000e com.spotify.mobile.android.ui:string/login_accept_terms_of_service: t=0x03 d=0x0000012c (s=0x0008 r=0x00)
+        resource 0x7f07000f com.spotify.mobile.android.ui:string/login_accept_terms_of_service_str: t=0x03 d=0x0000012d (s=0x0008 r=0x00)
+        resource 0x7f070010 com.spotify.mobile.android.ui:string/login_terms_of_service_link: t=0x03 d=0x0000012e (s=0x0008 r=0x00)
+        resource 0x7f070011 com.spotify.mobile.android.ui:string/login_menu_option_clear_cache: t=0x03 d=0x0000012f (s=0x0008 r=0x00)
+        resource 0x7f070012 com.spotify.mobile.android.ui:string/login_clearcache_confirmation_title: t=0x03 d=0x0000012f (s=0x0008 r=0x00)
+        resource 0x7f070013 com.spotify.mobile.android.ui:string/login_clearcache_confirmation_text: t=0x03 d=0x00000130 (s=0x0008 r=0x00)
+        resource 0x7f070014 com.spotify.mobile.android.ui:string/login_premium_url_link: t=0x03 d=0x00000131 (s=0x0008 r=0x00)
+        resource 0x7f070015 com.spotify.mobile.android.ui:string/login_premium_url: t=0x03 d=0x00000131 (s=0x0008 r=0x00)
+        resource 0x7f070016 com.spotify.mobile.android.ui:string/roaming_title: t=0x03 d=0x00000132 (s=0x0008 r=0x00)
+        resource 0x7f070017 com.spotify.mobile.android.ui:string/roaming_body: t=0x03 d=0x00000133 (s=0x0008 r=0x00)
+        resource 0x7f070018 com.spotify.mobile.android.ui:string/roaming_stay_offline: t=0x03 d=0x00000134 (s=0x0008 r=0x00)
+        resource 0x7f070019 com.spotify.mobile.android.ui:string/roaming_go_online: t=0x03 d=0x00000135 (s=0x0008 r=0x00)
+        resource 0x7f07001a com.spotify.mobile.android.ui:string/terms_of_service_title: t=0x03 d=0x00000136 (s=0x0008 r=0x00)
+        resource 0x7f07001b com.spotify.mobile.android.ui:string/login_data_warning_title: t=0x03 d=0x00000137 (s=0x0008 r=0x00)
+        resource 0x7f07001c com.spotify.mobile.android.ui:string/login_data_warning_body: t=0x03 d=0x00000138 (s=0x0008 r=0x00)
+        resource 0x7f07001d com.spotify.mobile.android.ui:string/audio_gap: t=0x03 d=0x00000139 (s=0x0008 r=0x00)
+        resource 0x7f07001e com.spotify.mobile.android.ui:string/error_token_lost_title: t=0x03 d=0x0000013a (s=0x0008 r=0x00)
+        resource 0x7f07001f com.spotify.mobile.android.ui:string/error_token_lost: t=0x03 d=0x0000013b (s=0x0008 r=0x00)
+        resource 0x7f070020 com.spotify.mobile.android.ui:string/update_update: t=0x03 d=0x0000013c (s=0x0008 r=0x00)
+        resource 0x7f070021 com.spotify.mobile.android.ui:string/update_close: t=0x03 d=0x0000013d (s=0x0008 r=0x00)
+        resource 0x7f070022 com.spotify.mobile.android.ui:string/update_title: t=0x03 d=0x0000013e (s=0x0008 r=0x00)
+        resource 0x7f070023 com.spotify.mobile.android.ui:string/update_body: t=0x03 d=0x0000013f (s=0x0008 r=0x00)
+        resource 0x7f070024 com.spotify.mobile.android.ui:string/search_label: t=0x03 d=0x00000140 (s=0x0008 r=0x00)
+        resource 0x7f070025 com.spotify.mobile.android.ui:string/search_hint: t=0x03 d=0x00000141 (s=0x0008 r=0x00)
+        resource 0x7f070026 com.spotify.mobile.android.ui:string/search_setting_description: t=0x03 d=0x00000142 (s=0x0008 r=0x00)
+        resource 0x7f070027 com.spotify.mobile.android.ui:string/playlists_offline_sync_button_title: t=0x03 d=0x00000143 (s=0x0008 r=0x00)
+        resource 0x7f070028 com.spotify.mobile.android.ui:string/playlists_offline_sync_button_subtext_0: t=0x03 d=0x00000144 (s=0x0008 r=0x00)
+        resource 0x7f070029 com.spotify.mobile.android.ui:string/playlists_offline_sync_button_subtext_1: t=0x03 d=0x00000145 (s=0x0008 r=0x00)
+        resource 0x7f07002a com.spotify.mobile.android.ui:string/playlists_offline_sync_button_subtext_n: t=0x03 d=0x00000146 (s=0x0008 r=0x00)
+        resource 0x7f07002b com.spotify.mobile.android.ui:string/plalyists_offline_sync_info: t=0x03 d=0x00000147 (s=0x0008 r=0x00)
+        resource 0x7f07002c com.spotify.mobile.android.ui:string/playlists_offline_sync_done_button_title: t=0x03 d=0x00000148 (s=0x0008 r=0x00)
+        resource 0x7f07002d com.spotify.mobile.android.ui:string/playlists_offline_sync_offline_warning: t=0x03 d=0x00000149 (s=0x0008 r=0x00)
+        resource 0x7f07002e com.spotify.mobile.android.ui:string/playlists_context_delete_title: t=0x03 d=0x0000014a (s=0x0008 r=0x00)
+        resource 0x7f07002f com.spotify.mobile.android.ui:string/playlists_context_delete_subtext: t=0x03 d=0x0000014b (s=0x0008 r=0x00)
+        resource 0x7f070030 com.spotify.mobile.android.ui:string/playlists_context_rename_title: t=0x03 d=0x0000014c (s=0x0008 r=0x00)
+        resource 0x7f070031 com.spotify.mobile.android.ui:string/playlists_context_rename_subtext: t=0x03 d=0x0000014d (s=0x0008 r=0x00)
+        resource 0x7f070032 com.spotify.mobile.android.ui:string/playlists_context_share_playlist_title: t=0x03 d=0x0000014e (s=0x0008 r=0x00)
+        resource 0x7f070033 com.spotify.mobile.android.ui:string/playlists_context_share_playlist_subtext: t=0x03 d=0x0000014f (s=0x0008 r=0x00)
+        resource 0x7f070034 com.spotify.mobile.android.ui:string/playlists_context_make_collaborative_title: t=0x03 d=0x00000150 (s=0x0008 r=0x00)
+        resource 0x7f070035 com.spotify.mobile.android.ui:string/playlists_context_make_collaborative_subtext: t=0x03 d=0x00000151 (s=0x0008 r=0x00)
+        resource 0x7f070036 com.spotify.mobile.android.ui:string/playlists_context_unmake_collaborative_title: t=0x03 d=0x00000152 (s=0x0008 r=0x00)
+        resource 0x7f070037 com.spotify.mobile.android.ui:string/playlists_context_unmake_collaborative_subtext: t=0x03 d=0x00000153 (s=0x0008 r=0x00)
+        resource 0x7f070038 com.spotify.mobile.android.ui:string/playlists_menu_create_playlist: t=0x03 d=0x00000154 (s=0x0008 r=0x00)
+        resource 0x7f070039 com.spotify.mobile.android.ui:string/playlists_delete_confirm_text: t=0x03 d=0x00000155 (s=0x0008 r=0x00)
+        resource 0x7f07003a com.spotify.mobile.android.ui:string/playlists_playlist_title_loading: t=0x03 d=0x00000156 (s=0x0008 r=0x00)
+        resource 0x7f07003b com.spotify.mobile.android.ui:string/playlist_context_delete_track_title: t=0x03 d=0x0000014a (s=0x0008 r=0x00)
+        resource 0x7f07003c com.spotify.mobile.android.ui:string/playlist_context_delete_track_subtext: t=0x03 d=0x00000157 (s=0x0008 r=0x00)
+        resource 0x7f07003d com.spotify.mobile.android.ui:string/playlist_offline_warning: t=0x03 d=0x00000158 (s=0x0008 r=0x00)
+        resource 0x7f07003e com.spotify.mobile.android.ui:string/playlist_item_subtext: t=0x03 d=0x00000159 (s=0x0008 r=0x00)
+        resource 0x7f07003f com.spotify.mobile.android.ui:string/player_add_to_playlist_button_title: t=0x03 d=0x0000015a (s=0x0008 r=0x00)
+        resource 0x7f070040 com.spotify.mobile.android.ui:string/player_repeat_button_title: t=0x03 d=0x0000015b (s=0x0008 r=0x00)
+        resource 0x7f070041 com.spotify.mobile.android.ui:string/player_shuffle_button_title: t=0x03 d=0x0000015c (s=0x0008 r=0x00)
+        resource 0x7f070042 com.spotify.mobile.android.ui:string/player_repeat_button_off_title: t=0x03 d=0x0000015d (s=0x0008 r=0x00)
+        resource 0x7f070043 com.spotify.mobile.android.ui:string/player_shuffle_button_off_title: t=0x03 d=0x0000015e (s=0x0008 r=0x00)
+        resource 0x7f070044 com.spotify.mobile.android.ui:string/player_add_to_playlist_success: t=0x03 d=0x0000015f (s=0x0008 r=0x00)
+        resource 0x7f070045 com.spotify.mobile.android.ui:string/player_add_to_playlist_error: t=0x03 d=0x00000160 (s=0x0008 r=0x00)
+        resource 0x7f070046 com.spotify.mobile.android.ui:string/player_infolink_offline_warning: t=0x03 d=0x00000161 (s=0x0008 r=0x00)
+        resource 0x7f070047 com.spotify.mobile.android.ui:string/player_add_to_playlist_offline_warning: t=0x03 d=0x00000162 (s=0x0008 r=0x00)
+        resource 0x7f070048 com.spotify.mobile.android.ui:string/player_show_info: t=0x03 d=0x00000163 (s=0x0008 r=0x00)
+        resource 0x7f070049 com.spotify.mobile.android.ui:string/player_hide_info: t=0x03 d=0x00000164 (s=0x0008 r=0x00)
+        resource 0x7f07004a com.spotify.mobile.android.ui:string/player_playqueue: t=0x03 d=0x00000165 (s=0x0008 r=0x00)
+        resource 0x7f07004b com.spotify.mobile.android.ui:string/search_button_title: t=0x03 d=0x00000140 (s=0x0008 r=0x00)
+        resource 0x7f07004c com.spotify.mobile.android.ui:string/search_input_hint: t=0x03 d=0x00000140 (s=0x0008 r=0x00)
+        resource 0x7f07004d com.spotify.mobile.android.ui:string/search_searching: t=0x03 d=0x00000166 (s=0x0008 r=0x00)
+        resource 0x7f07004e com.spotify.mobile.android.ui:string/search_tab_tracks: t=0x03 d=0x00000167 (s=0x0008 r=0x00)
+        resource 0x7f07004f com.spotify.mobile.android.ui:string/search_tab_albums: t=0x03 d=0x00000168 (s=0x0008 r=0x00)
+        resource 0x7f070050 com.spotify.mobile.android.ui:string/search_tab_artists: t=0x03 d=0x00000169 (s=0x0008 r=0x00)
+        resource 0x7f070051 com.spotify.mobile.android.ui:string/search_startinfo: t=0x03 d=0x0000016a (s=0x0008 r=0x00)
+        resource 0x7f070052 com.spotify.mobile.android.ui:string/search_offline_warning: t=0x03 d=0x0000016b (s=0x0008 r=0x00)
+        resource 0x7f070053 com.spotify.mobile.android.ui:string/search_context_add_to_playlist_title: t=0x03 d=0x0000016c (s=0x0008 r=0x00)
+        resource 0x7f070054 com.spotify.mobile.android.ui:string/search_context_add_to_playlist_subtext: t=0x03 d=0x0000016d (s=0x0008 r=0x00)
+        resource 0x7f070055 com.spotify.mobile.android.ui:string/search_context_view_tracks_title: t=0x03 d=0x0000016e (s=0x0008 r=0x00)
+        resource 0x7f070056 com.spotify.mobile.android.ui:string/search_context_view_tracks_subtext: t=0x03 d=0x0000016f (s=0x0008 r=0x00)
+        resource 0x7f070057 com.spotify.mobile.android.ui:string/search_context_view_artist_title: t=0x03 d=0x00000170 (s=0x0008 r=0x00)
+        resource 0x7f070058 com.spotify.mobile.android.ui:string/search_context_view_artist_subtext: t=0x03 d=0x00000171 (s=0x0008 r=0x00)
+        resource 0x7f070059 com.spotify.mobile.android.ui:string/search_context_share_track_title: t=0x03 d=0x00000172 (s=0x0008 r=0x00)
+        resource 0x7f07005a com.spotify.mobile.android.ui:string/search_context_share_track_subtext: t=0x03 d=0x00000173 (s=0x0008 r=0x00)
+        resource 0x7f07005b com.spotify.mobile.android.ui:string/search_context_share_album_title: t=0x03 d=0x00000174 (s=0x0008 r=0x00)
+        resource 0x7f07005c com.spotify.mobile.android.ui:string/search_context_share_album_subtext: t=0x03 d=0x00000175 (s=0x0008 r=0x00)
+        resource 0x7f07005d com.spotify.mobile.android.ui:string/search_no_results: t=0x03 d=0x00000176 (s=0x0008 r=0x00)
+        resource 0x7f07005e com.spotify.mobile.android.ui:string/search_clear_history: t=0x03 d=0x00000177 (s=0x0008 r=0x00)
+        resource 0x7f07005f com.spotify.mobile.android.ui:string/settings_title_offline: t=0x03 d=0x00000178 (s=0x0008 r=0x00)
+        resource 0x7f070060 com.spotify.mobile.android.ui:string/settings_title_sync_wifi: t=0x03 d=0x00000179 (s=0x0008 r=0x00)
+        resource 0x7f070061 com.spotify.mobile.android.ui:string/settings_title_sync_3g: t=0x03 d=0x0000017a (s=0x0008 r=0x00)
+        resource 0x7f070062 com.spotify.mobile.android.ui:string/settings_title_clearcache: t=0x03 d=0x0000017b (s=0x0008 r=0x00)
+        resource 0x7f070063 com.spotify.mobile.android.ui:string/settings_subtext_offline: t=0x03 d=0x0000017c (s=0x0008 r=0x00)
+        resource 0x7f070064 com.spotify.mobile.android.ui:string/settings_subtext_sync_wifi: t=0x03 d=0x0000017d (s=0x0008 r=0x00)
+        resource 0x7f070065 com.spotify.mobile.android.ui:string/settings_subtext_sync_3g: t=0x03 d=0x0000017e (s=0x0008 r=0x00)
+        resource 0x7f070066 com.spotify.mobile.android.ui:string/settings_subtext_clearcache: t=0x03 d=0x0000017f (s=0x0008 r=0x00)
+        resource 0x7f070067 com.spotify.mobile.android.ui:string/settings_clearcache_confirmation_title: t=0x03 d=0x0000017b (s=0x0008 r=0x00)
+        resource 0x7f070068 com.spotify.mobile.android.ui:string/settings_clearcache_confirmation_text: t=0x03 d=0x00000180 (s=0x0008 r=0x00)
+        resource 0x7f070069 com.spotify.mobile.android.ui:string/settings_quality_title_high: t=0x03 d=0x00000181 (s=0x0008 r=0x00)
+        resource 0x7f07006a com.spotify.mobile.android.ui:string/settings_quality_title_low: t=0x03 d=0x00000182 (s=0x0008 r=0x00)
+        resource 0x7f07006b com.spotify.mobile.android.ui:string/settings_quality_stream_subtext_high: t=0x03 d=0x00000183 (s=0x0008 r=0x00)
+        resource 0x7f07006c com.spotify.mobile.android.ui:string/settings_quality_stream_subtext_low: t=0x03 d=0x00000184 (s=0x0008 r=0x00)
+        resource 0x7f07006d com.spotify.mobile.android.ui:string/settings_quality_sync_subtext_high: t=0x03 d=0x00000185 (s=0x0008 r=0x00)
+        resource 0x7f07006e com.spotify.mobile.android.ui:string/settings_quality_sync_subtext_low: t=0x03 d=0x00000186 (s=0x0008 r=0x00)
+        resource 0x7f07006f com.spotify.mobile.android.ui:string/more_title_settings: t=0x03 d=0x00000123 (s=0x0008 r=0x00)
+        resource 0x7f070070 com.spotify.mobile.android.ui:string/more_title_about: t=0x03 d=0x00000187 (s=0x0008 r=0x00)
+        resource 0x7f070071 com.spotify.mobile.android.ui:string/more_title_logout: t=0x03 d=0x00000188 (s=0x0008 r=0x00)
+        resource 0x7f070072 com.spotify.mobile.android.ui:string/more_subtext_settings: t=0x03 d=0x00000189 (s=0x0008 r=0x00)
+        resource 0x7f070073 com.spotify.mobile.android.ui:string/more_subtext_about: t=0x03 d=0x0000018a (s=0x0008 r=0x00)
+        resource 0x7f070074 com.spotify.mobile.android.ui:string/more_subtext_logout: t=0x03 d=0x0000018b (s=0x0008 r=0x00)
+        resource 0x7f070075 com.spotify.mobile.android.ui:string/more_logout_confirmation_text: t=0x03 d=0x0000018c (s=0x0008 r=0x00)
+        resource 0x7f070076 com.spotify.mobile.android.ui:string/about_copyright: t=0x03 d=0x0000018d (s=0x0008 r=0x00)
+        resource 0x7f070077 com.spotify.mobile.android.ui:string/about_version_number: t=0x03 d=0x0000018e (s=0x0008 r=0x00)
+        resource 0x7f070078 com.spotify.mobile.android.ui:string/about_total_storage: t=0x03 d=0x0000018f (s=0x0008 r=0x00)
+        resource 0x7f070079 com.spotify.mobile.android.ui:string/about_used_storage: t=0x03 d=0x00000190 (s=0x0008 r=0x00)
+        resource 0x7f07007a com.spotify.mobile.android.ui:string/about_available_storage: t=0x03 d=0x00000191 (s=0x0008 r=0x00)
+        resource 0x7f07007b com.spotify.mobile.android.ui:string/about_network_connection: t=0x03 d=0x00000192 (s=0x0008 r=0x00)
+        resource 0x7f07007c com.spotify.mobile.android.ui:string/about_device_id: t=0x03 d=0x00000193 (s=0x0008 r=0x00)
+        resource 0x7f07007d com.spotify.mobile.android.ui:string/about_go_online_within: t=0x03 d=0x00000194 (s=0x0008 r=0x00)
+        resource 0x7f07007e com.spotify.mobile.android.ui:string/popup_albumbrowser_add_playlist: t=0x03 d=0x0000015a (s=0x0008 r=0x00)
+        resource 0x7f07007f com.spotify.mobile.android.ui:string/popup_playlistselector_title: t=0x03 d=0x00000195 (s=0x0008 r=0x00)
+        resource 0x7f070080 com.spotify.mobile.android.ui:string/popup_contextmenu_title: t=0x03 d=0x00000196 (s=0x0008 r=0x00)
+        resource 0x7f070081 com.spotify.mobile.android.ui:string/artistview_top_hits: t=0x03 d=0x00000197 (s=0x0008 r=0x00)
+        resource 0x7f070082 com.spotify.mobile.android.ui:string/artistview_overview: t=0x03 d=0x00000198 (s=0x0008 r=0x00)
+        resource 0x7f070083 com.spotify.mobile.android.ui:string/artistview_biography: t=0x03 d=0x00000199 (s=0x0008 r=0x00)
+        resource 0x7f070084 com.spotify.mobile.android.ui:string/artistview_overview_albums: t=0x03 d=0x00000168 (s=0x0008 r=0x00)
+        resource 0x7f070085 com.spotify.mobile.android.ui:string/artistview_overview_singles: t=0x03 d=0x0000019a (s=0x0008 r=0x00)
+        resource 0x7f070086 com.spotify.mobile.android.ui:string/artistview_overview_compilations: t=0x03 d=0x0000019b (s=0x0008 r=0x00)
+        resource 0x7f070087 com.spotify.mobile.android.ui:string/artistview_overview_appearson: t=0x03 d=0x0000019c (s=0x0008 r=0x00)
+        resource 0x7f070088 com.spotify.mobile.android.ui:string/whatsnew_offline_warning: t=0x03 d=0x0000019d (s=0x0008 r=0x00)
+        resource 0x7f070089 com.spotify.mobile.android.ui:string/generic_ok: t=0x03 d=0x0000019e (s=0x0008 r=0x00)
+        resource 0x7f07008a com.spotify.mobile.android.ui:string/generic_done: t=0x03 d=0x00000148 (s=0x0008 r=0x00)
+        resource 0x7f07008b com.spotify.mobile.android.ui:string/generic_cancel: t=0x03 d=0x0000019f (s=0x0008 r=0x00)
+        resource 0x7f07008c com.spotify.mobile.android.ui:string/generic_exit: t=0x03 d=0x0000013d (s=0x0008 r=0x00)
+        resource 0x7f07008d com.spotify.mobile.android.ui:string/generic_back: t=0x03 d=0x000001a0 (s=0x0008 r=0x00)
+        resource 0x7f07008e com.spotify.mobile.android.ui:string/generic_refresh: t=0x03 d=0x000001a1 (s=0x0008 r=0x00)
+        resource 0x7f07008f com.spotify.mobile.android.ui:string/generic_quit_confirmation: t=0x03 d=0x000001a2 (s=0x0008 r=0x00)
+        resource 0x7f070090 com.spotify.mobile.android.ui:string/generic_quit_confirmation_home_tip: t=0x03 d=0x000001a3 (s=0x0008 r=0x00)
+        resource 0x7f070091 com.spotify.mobile.android.ui:string/error_ok: t=0x03 d=0x000001a4 (s=0x0008 r=0x00)
+        resource 0x7f070092 com.spotify.mobile.android.ui:string/error_login_username_password: t=0x03 d=0x000001a5 (s=0x0008 r=0x00)
+        resource 0x7f070093 com.spotify.mobile.android.ui:string/error_user_banned: t=0x03 d=0x000001a6 (s=0x0008 r=0x00)
+        resource 0x7f070094 com.spotify.mobile.android.ui:string/error_client_too_old: t=0x03 d=0x000001a7 (s=0x0008 r=0x00)
+        resource 0x7f070095 com.spotify.mobile.android.ui:string/error_temp_ap_error: t=0x03 d=0x000001a8 (s=0x0008 r=0x00)
+        resource 0x7f070096 com.spotify.mobile.android.ui:string/error_dns_resolving: t=0x03 d=0x000001a9 (s=0x0008 r=0x00)
+        resource 0x7f070097 com.spotify.mobile.android.ui:string/error_disk_cache: t=0x03 d=0x000001aa (s=0x0008 r=0x00)
+        resource 0x7f070098 com.spotify.mobile.android.ui:string/error_protocol: t=0x03 d=0x000001ab (s=0x0008 r=0x00)
+        resource 0x7f070099 com.spotify.mobile.android.ui:string/error_missing_user_info: t=0x03 d=0x000001ac (s=0x0008 r=0x00)
+        resource 0x7f07009a com.spotify.mobile.android.ui:string/error_forbidden_service: t=0x03 d=0x000001ad (s=0x0008 r=0x00)
+        resource 0x7f07009b com.spotify.mobile.android.ui:string/error_region_mismatch: t=0x03 d=0x000001ae (s=0x0008 r=0x00)
+        resource 0x7f07009c com.spotify.mobile.android.ui:string/error_no_auth_method: t=0x03 d=0x000001af (s=0x0008 r=0x00)
+        resource 0x7f07009d com.spotify.mobile.android.ui:string/error_unknown: t=0x03 d=0x000001b0 (s=0x0008 r=0x00)
+        resource 0x7f07009e com.spotify.mobile.android.ui:string/error_offline_sync_title: t=0x03 d=0x000001b1 (s=0x0008 r=0x00)
+        resource 0x7f07009f com.spotify.mobile.android.ui:string/error_offline_expired: t=0x03 d=0x000001b2 (s=0x0008 r=0x00)
+        resource 0x7f0700a0 com.spotify.mobile.android.ui:string/error_offline_download_failure: t=0x03 d=0x000001b3 (s=0x0008 r=0x00)
+        resource 0x7f0700a1 com.spotify.mobile.android.ui:string/error_offline_too_many_tracks: t=0x03 d=0x000001b4 (s=0x0008 r=0x00)
+        resource 0x7f0700a2 com.spotify.mobile.android.ui:string/error_rate_imited: t=0x03 d=0x000001b5 (s=0x0008 r=0x00)
+        resource 0x7f0700a3 com.spotify.mobile.android.ui:string/error_offline_license_server_error: t=0x03 d=0x000001b6 (s=0x0008 r=0x00)
+        resource 0x7f0700a4 com.spotify.mobile.android.ui:string/error_offline_license_lost: t=0x03 d=0x000001b7 (s=0x0008 r=0x00)
+        resource 0x7f0700a5 com.spotify.mobile.android.ui:string/error_offline_not_allowed: t=0x03 d=0x000001b8 (s=0x0008 r=0x00)
+    type 7 configCount=1 entryCount=14
+      spec resource 0x7f080000 com.spotify.mobile.android.ui:style/Theme.NoTitleDialog: flags=0x00000000
+      spec resource 0x7f080001 com.spotify.mobile.android.ui:style/Theme.NoBackground: flags=0x00000000
+      spec resource 0x7f080002 com.spotify.mobile.android.ui:style/titlebar: flags=0x00000000
+      spec resource 0x7f080003 com.spotify.mobile.android.ui:style/dialog_title: flags=0x00000000
+      spec resource 0x7f080004 com.spotify.mobile.android.ui:style/footer_text: flags=0x00000000
+      spec resource 0x7f080005 com.spotify.mobile.android.ui:style/login_description: flags=0x00000000
+      spec resource 0x7f080006 com.spotify.mobile.android.ui:style/login_description_tos: flags=0x00000000
+      spec resource 0x7f080007 com.spotify.mobile.android.ui:style/title: flags=0x00000000
+      spec resource 0x7f080008 com.spotify.mobile.android.ui:style/infotext: flags=0x00000000
+      spec resource 0x7f080009 com.spotify.mobile.android.ui:style/song_title: flags=0x00000000
+      spec resource 0x7f08000a com.spotify.mobile.android.ui:style/subtext: flags=0x00000000
+      spec resource 0x7f08000b com.spotify.mobile.android.ui:style/scrollbar_subtext: flags=0x00000000
+      spec resource 0x7f08000c com.spotify.mobile.android.ui:style/song_subtext: flags=0x00000000
+      spec resource 0x7f08000d com.spotify.mobile.android.ui:style/badge_text: flags=0x00000000
+      config 0 lang=-- cnt=-- orien=0 touch=0 density=0 key=0 infl=0 nav=0 w=0 h=0
+        resource 0x7f080000 com.spotify.mobile.android.ui:style/Theme.NoTitleDialog: <bag>
+        resource 0x7f080001 com.spotify.mobile.android.ui:style/Theme.NoBackground: <bag>
+        resource 0x7f080002 com.spotify.mobile.android.ui:style/titlebar: <bag>
+        resource 0x7f080003 com.spotify.mobile.android.ui:style/dialog_title: <bag>
+        resource 0x7f080004 com.spotify.mobile.android.ui:style/footer_text: <bag>
+        resource 0x7f080005 com.spotify.mobile.android.ui:style/login_description: <bag>
+        resource 0x7f080006 com.spotify.mobile.android.ui:style/login_description_tos: <bag>
+        resource 0x7f080007 com.spotify.mobile.android.ui:style/title: <bag>
+        resource 0x7f080008 com.spotify.mobile.android.ui:style/infotext: <bag>
+        resource 0x7f080009 com.spotify.mobile.android.ui:style/song_title: <bag>
+        resource 0x7f08000a com.spotify.mobile.android.ui:style/subtext: <bag>
+        resource 0x7f08000b com.spotify.mobile.android.ui:style/scrollbar_subtext: <bag>
+        resource 0x7f08000c com.spotify.mobile.android.ui:style/song_subtext: <bag>
+        resource 0x7f08000d com.spotify.mobile.android.ui:style/badge_text: <bag>
+    type 8 configCount=1 entryCount=1
+      spec resource 0x7f090000 com.spotify.mobile.android.ui:menu/playlist_menu: flags=0x00000000
+      config 0 lang=-- cnt=-- orien=0 touch=0 density=0 key=0 infl=0 nav=0 w=0 h=0
+        resource 0x7f090000 com.spotify.mobile.android.ui:menu/playlist_menu: t=0x03 d=0x000001b9 (s=0x0008 r=0x00)
+    type 9 configCount=1 entryCount=103
+      spec resource 0x7f0a0000 com.spotify.mobile.android.ui:id/main: flags=0x00000000
+      spec resource 0x7f0a0001 com.spotify.mobile.android.ui:id/top_layout: flags=0x00000000
+      spec resource 0x7f0a0002 com.spotify.mobile.android.ui:id/topbar: flags=0x00000000
+      spec resource 0x7f0a0003 com.spotify.mobile.android.ui:id/custombutton: flags=0x00000000
+      spec resource 0x7f0a0004 com.spotify.mobile.android.ui:id/custombutton_button: flags=0x00000000
+      spec resource 0x7f0a0005 com.spotify.mobile.android.ui:id/custombutton_icon: flags=0x00000000
+      spec resource 0x7f0a0006 com.spotify.mobile.android.ui:id/custombutton_singletitle: flags=0x00000000
+      spec resource 0x7f0a0007 com.spotify.mobile.android.ui:id/custombutton_subtext: flags=0x00000000
+      spec resource 0x7f0a0008 com.spotify.mobile.android.ui:id/back: flags=0x00000000
+      spec resource 0x7f0a0009 com.spotify.mobile.android.ui:id/top_infotext: flags=0x00000000
+      spec resource 0x7f0a000a com.spotify.mobile.android.ui:id/page_title: flags=0x00000000
+      spec resource 0x7f0a000b com.spotify.mobile.android.ui:id/base_main: flags=0x00000000
+      spec resource 0x7f0a000c com.spotify.mobile.android.ui:id/tabflipper: flags=0x00000000
+      spec resource 0x7f0a000d com.spotify.mobile.android.ui:id/menubar: flags=0x00000000
+      spec resource 0x7f0a000e com.spotify.mobile.android.ui:id/menubar2: flags=0x00000000
+      spec resource 0x7f0a000f com.spotify.mobile.android.ui:id/menuicon_playlist: flags=0x00000000
+      spec resource 0x7f0a0010 com.spotify.mobile.android.ui:id/menuicon_search: flags=0x00000000
+      spec resource 0x7f0a0011 com.spotify.mobile.android.ui:id/menuicon_play: flags=0x00000000
+      spec resource 0x7f0a0012 com.spotify.mobile.android.ui:id/menuicon_home: flags=0x00000000
+      spec resource 0x7f0a0013 com.spotify.mobile.android.ui:id/menuicon_more: flags=0x00000000
+      spec resource 0x7f0a0014 com.spotify.mobile.android.ui:id/menubar3: flags=0x00000000
+      spec resource 0x7f0a0015 com.spotify.mobile.android.ui:id/background_cache: flags=0x00000000
+      spec resource 0x7f0a0016 com.spotify.mobile.android.ui:id/top_cover: flags=0x00000000
+      spec resource 0x7f0a0017 com.spotify.mobile.android.ui:id/movable: flags=0x00000000
+      spec resource 0x7f0a0018 com.spotify.mobile.android.ui:id/move_header: flags=0x00000000
+      spec resource 0x7f0a0019 com.spotify.mobile.android.ui:id/play_icon: flags=0x00000000
+      spec resource 0x7f0a001a com.spotify.mobile.android.ui:id/player_parent: flags=0x00000000
+      spec resource 0x7f0a001b com.spotify.mobile.android.ui:id/tabcontroller_component: flags=0x00000000
+      spec resource 0x7f0a001c com.spotify.mobile.android.ui:id/tabcontroller_buttons: flags=0x00000000
+      spec resource 0x7f0a001d com.spotify.mobile.android.ui:id/tabviewswitcher: flags=0x00000000
+      spec resource 0x7f0a001e com.spotify.mobile.android.ui:id/progress_spinnr: flags=0x00000000
+      spec resource 0x7f0a001f com.spotify.mobile.android.ui:id/listitem_layout: flags=0x00000000
+      spec resource 0x7f0a0020 com.spotify.mobile.android.ui:id/title: flags=0x00000000
+      spec resource 0x7f0a0021 com.spotify.mobile.android.ui:id/subtext: flags=0x00000000
+      spec resource 0x7f0a0022 com.spotify.mobile.android.ui:id/arrow: flags=0x00000000
+      spec resource 0x7f0a0023 com.spotify.mobile.android.ui:id/icon: flags=0x00000000
+      spec resource 0x7f0a0024 com.spotify.mobile.android.ui:id/spinnr: flags=0x00000000
+      spec resource 0x7f0a0025 com.spotify.mobile.android.ui:id/state_icon: flags=0x00000000
+      spec resource 0x7f0a0026 com.spotify.mobile.android.ui:id/offline_progress: flags=0x00000000
+      spec resource 0x7f0a0027 com.spotify.mobile.android.ui:id/subactivity_frame: flags=0x00000000
+      spec resource 0x7f0a0028 com.spotify.mobile.android.ui:id/subactivity_main: flags=0x00000000
+      spec resource 0x7f0a0029 com.spotify.mobile.android.ui:id/add_playlist_button: flags=0x00000000
+      spec resource 0x7f0a002a com.spotify.mobile.android.ui:id/okbutton: flags=0x00000000
+      spec resource 0x7f0a002b com.spotify.mobile.android.ui:id/progress_spinnr2: flags=0x00000000
+      spec resource 0x7f0a002c com.spotify.mobile.android.ui:id/progress_caption: flags=0x00000000
+      spec resource 0x7f0a002d com.spotify.mobile.android.ui:id/tabcontroller: flags=0x00000000
+      spec resource 0x7f0a002e com.spotify.mobile.android.ui:id/confirm_infotext: flags=0x00000000
+      spec resource 0x7f0a002f com.spotify.mobile.android.ui:id/confirm_bodytext: flags=0x00000000
+      spec resource 0x7f0a0030 com.spotify.mobile.android.ui:id/ok_button: flags=0x00000000
+      spec resource 0x7f0a0031 com.spotify.mobile.android.ui:id/cancel_button: flags=0x00000000
+      spec resource 0x7f0a0032 com.spotify.mobile.android.ui:id/logging_in_layout: flags=0x00000000
+      spec resource 0x7f0a0033 com.spotify.mobile.android.ui:id/autologin_text: flags=0x00000000
+      spec resource 0x7f0a0034 com.spotify.mobile.android.ui:id/login_layout: flags=0x00000000
+      spec resource 0x7f0a0035 com.spotify.mobile.android.ui:id/username: flags=0x00000000
+      spec resource 0x7f0a0036 com.spotify.mobile.android.ui:id/password: flags=0x00000000
+      spec resource 0x7f0a0037 com.spotify.mobile.android.ui:id/tos_layout: flags=0x00000000
+      spec resource 0x7f0a0038 com.spotify.mobile.android.ui:id/login_tos_text: flags=0x00000000
+      spec resource 0x7f0a0039 com.spotify.mobile.android.ui:id/login_tos_link: flags=0x00000000
+      spec resource 0x7f0a003a com.spotify.mobile.android.ui:id/login_button: flags=0x00000000
+      spec resource 0x7f0a003b com.spotify.mobile.android.ui:id/premium_infotext: flags=0x00000000
+      spec resource 0x7f0a003c com.spotify.mobile.android.ui:id/premium_bodytext: flags=0x00000000
+      spec resource 0x7f0a003d com.spotify.mobile.android.ui:id/premium_link: flags=0x00000000
+      spec resource 0x7f0a003e com.spotify.mobile.android.ui:id/edittext: flags=0x00000000
+      spec resource 0x7f0a003f com.spotify.mobile.android.ui:id/tos_webview: flags=0x00000000
+      spec resource 0x7f0a0040 com.spotify.mobile.android.ui:id/waiting_text: flags=0x00000000
+      spec resource 0x7f0a0041 com.spotify.mobile.android.ui:id/artist_bio: flags=0x00000000
+      spec resource 0x7f0a0042 com.spotify.mobile.android.ui:id/mainLayout: flags=0x00000000
+      spec resource 0x7f0a0043 com.spotify.mobile.android.ui:id/offline: flags=0x00000000
+      spec resource 0x7f0a0044 com.spotify.mobile.android.ui:id/info_offline: flags=0x00000000
+      spec resource 0x7f0a0045 com.spotify.mobile.android.ui:id/song_title: flags=0x00000000
+      spec resource 0x7f0a0046 com.spotify.mobile.android.ui:id/artist_title: flags=0x00000000
+      spec resource 0x7f0a0047 com.spotify.mobile.android.ui:id/scroller: flags=0x00000000
+      spec resource 0x7f0a0048 com.spotify.mobile.android.ui:id/images: flags=0x00000000
+      spec resource 0x7f0a0049 com.spotify.mobile.android.ui:id/img0: flags=0x00000000
+      spec resource 0x7f0a004a com.spotify.mobile.android.ui:id/img1: flags=0x00000000
+      spec resource 0x7f0a004b com.spotify.mobile.android.ui:id/img2: flags=0x00000000
+      spec resource 0x7f0a004c com.spotify.mobile.android.ui:id/player_info: flags=0x00000000
+      spec resource 0x7f0a004d com.spotify.mobile.android.ui:id/infolink_artist: flags=0x00000000
+      spec resource 0x7f0a004e com.spotify.mobile.android.ui:id/infolink_album: flags=0x00000000
+      spec resource 0x7f0a004f com.spotify.mobile.android.ui:id/infolink_add_to_playlist: flags=0x00000000
+      spec resource 0x7f0a0050 com.spotify.mobile.android.ui:id/repeat_button: flags=0x00000000
+      spec resource 0x7f0a0051 com.spotify.mobile.android.ui:id/shuffle_button: flags=0x00000000
+      spec resource 0x7f0a0052 com.spotify.mobile.android.ui:id/player_controls: flags=0x00000000
+      spec resource 0x7f0a0053 com.spotify.mobile.android.ui:id/prev: flags=0x00000000
+      spec resource 0x7f0a0054 com.spotify.mobile.android.ui:id/pause: flags=0x00000000
+      spec resource 0x7f0a0055 com.spotify.mobile.android.ui:id/next: flags=0x00000000
+      spec resource 0x7f0a0056 com.spotify.mobile.android.ui:id/toggle_info: flags=0x00000000
+      spec resource 0x7f0a0057 com.spotify.mobile.android.ui:id/player_seektime: flags=0x00000000
+      spec resource 0x7f0a0058 com.spotify.mobile.android.ui:id/player_seekcontainer: flags=0x00000000
+      spec resource 0x7f0a0059 com.spotify.mobile.android.ui:id/song_progress_time: flags=0x00000000
+      spec resource 0x7f0a005a com.spotify.mobile.android.ui:id/progress: flags=0x00000000
+      spec resource 0x7f0a005b com.spotify.mobile.android.ui:id/song_duration: flags=0x00000000
+      spec resource 0x7f0a005c com.spotify.mobile.android.ui:id/widget: flags=0x00000000
+      spec resource 0x7f0a005d com.spotify.mobile.android.ui:id/widget_icon_shade: flags=0x00000000
+      spec resource 0x7f0a005e com.spotify.mobile.android.ui:id/widget_icon: flags=0x00000000
+      spec resource 0x7f0a005f com.spotify.mobile.android.ui:id/widget_icon_cover: flags=0x00000000
+      spec resource 0x7f0a0060 com.spotify.mobile.android.ui:id/widget_text1: flags=0x00000000
+      spec resource 0x7f0a0061 com.spotify.mobile.android.ui:id/widget_prev: flags=0x00000000
+      spec resource 0x7f0a0062 com.spotify.mobile.android.ui:id/widget_play: flags=0x00000000
+      spec resource 0x7f0a0063 com.spotify.mobile.android.ui:id/widget_pause: flags=0x00000000
+      spec resource 0x7f0a0064 com.spotify.mobile.android.ui:id/widget_next: flags=0x00000000
+      spec resource 0x7f0a0065 com.spotify.mobile.android.ui:id/menu_home: flags=0x00000000
+      spec resource 0x7f0a0066 com.spotify.mobile.android.ui:id/menu_search: flags=0x00000000
+      config 0 lang=-- cnt=-- orien=0 touch=0 density=0 key=0 infl=0 nav=0 w=0 h=0
+        resource 0x7f0a0000 com.spotify.mobile.android.ui:id/main: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0001 com.spotify.mobile.android.ui:id/top_layout: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0002 com.spotify.mobile.android.ui:id/topbar: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0003 com.spotify.mobile.android.ui:id/custombutton: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0004 com.spotify.mobile.android.ui:id/custombutton_button: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0005 com.spotify.mobile.android.ui:id/custombutton_icon: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0006 com.spotify.mobile.android.ui:id/custombutton_singletitle: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0007 com.spotify.mobile.android.ui:id/custombutton_subtext: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0008 com.spotify.mobile.android.ui:id/back: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0009 com.spotify.mobile.android.ui:id/top_infotext: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a000a com.spotify.mobile.android.ui:id/page_title: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a000b com.spotify.mobile.android.ui:id/base_main: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a000c com.spotify.mobile.android.ui:id/tabflipper: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a000d com.spotify.mobile.android.ui:id/menubar: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a000e com.spotify.mobile.android.ui:id/menubar2: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a000f com.spotify.mobile.android.ui:id/menuicon_playlist: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0010 com.spotify.mobile.android.ui:id/menuicon_search: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0011 com.spotify.mobile.android.ui:id/menuicon_play: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0012 com.spotify.mobile.android.ui:id/menuicon_home: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0013 com.spotify.mobile.android.ui:id/menuicon_more: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0014 com.spotify.mobile.android.ui:id/menubar3: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0015 com.spotify.mobile.android.ui:id/background_cache: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0016 com.spotify.mobile.android.ui:id/top_cover: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0017 com.spotify.mobile.android.ui:id/movable: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0018 com.spotify.mobile.android.ui:id/move_header: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0019 com.spotify.mobile.android.ui:id/play_icon: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a001a com.spotify.mobile.android.ui:id/player_parent: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a001b com.spotify.mobile.android.ui:id/tabcontroller_component: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a001c com.spotify.mobile.android.ui:id/tabcontroller_buttons: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a001d com.spotify.mobile.android.ui:id/tabviewswitcher: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a001e com.spotify.mobile.android.ui:id/progress_spinnr: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a001f com.spotify.mobile.android.ui:id/listitem_layout: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0020 com.spotify.mobile.android.ui:id/title: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0021 com.spotify.mobile.android.ui:id/subtext: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0022 com.spotify.mobile.android.ui:id/arrow: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0023 com.spotify.mobile.android.ui:id/icon: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0024 com.spotify.mobile.android.ui:id/spinnr: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0025 com.spotify.mobile.android.ui:id/state_icon: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0026 com.spotify.mobile.android.ui:id/offline_progress: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0027 com.spotify.mobile.android.ui:id/subactivity_frame: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0028 com.spotify.mobile.android.ui:id/subactivity_main: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0029 com.spotify.mobile.android.ui:id/add_playlist_button: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a002a com.spotify.mobile.android.ui:id/okbutton: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a002b com.spotify.mobile.android.ui:id/progress_spinnr2: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a002c com.spotify.mobile.android.ui:id/progress_caption: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a002d com.spotify.mobile.android.ui:id/tabcontroller: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a002e com.spotify.mobile.android.ui:id/confirm_infotext: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a002f com.spotify.mobile.android.ui:id/confirm_bodytext: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0030 com.spotify.mobile.android.ui:id/ok_button: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0031 com.spotify.mobile.android.ui:id/cancel_button: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0032 com.spotify.mobile.android.ui:id/logging_in_layout: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0033 com.spotify.mobile.android.ui:id/autologin_text: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0034 com.spotify.mobile.android.ui:id/login_layout: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0035 com.spotify.mobile.android.ui:id/username: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0036 com.spotify.mobile.android.ui:id/password: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0037 com.spotify.mobile.android.ui:id/tos_layout: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0038 com.spotify.mobile.android.ui:id/login_tos_text: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0039 com.spotify.mobile.android.ui:id/login_tos_link: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a003a com.spotify.mobile.android.ui:id/login_button: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a003b com.spotify.mobile.android.ui:id/premium_infotext: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a003c com.spotify.mobile.android.ui:id/premium_bodytext: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a003d com.spotify.mobile.android.ui:id/premium_link: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a003e com.spotify.mobile.android.ui:id/edittext: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a003f com.spotify.mobile.android.ui:id/tos_webview: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0040 com.spotify.mobile.android.ui:id/waiting_text: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0041 com.spotify.mobile.android.ui:id/artist_bio: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0042 com.spotify.mobile.android.ui:id/mainLayout: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0043 com.spotify.mobile.android.ui:id/offline: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0044 com.spotify.mobile.android.ui:id/info_offline: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0045 com.spotify.mobile.android.ui:id/song_title: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0046 com.spotify.mobile.android.ui:id/artist_title: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0047 com.spotify.mobile.android.ui:id/scroller: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0048 com.spotify.mobile.android.ui:id/images: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0049 com.spotify.mobile.android.ui:id/img0: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a004a com.spotify.mobile.android.ui:id/img1: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a004b com.spotify.mobile.android.ui:id/img2: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a004c com.spotify.mobile.android.ui:id/player_info: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a004d com.spotify.mobile.android.ui:id/infolink_artist: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a004e com.spotify.mobile.android.ui:id/infolink_album: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a004f com.spotify.mobile.android.ui:id/infolink_add_to_playlist: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0050 com.spotify.mobile.android.ui:id/repeat_button: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0051 com.spotify.mobile.android.ui:id/shuffle_button: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0052 com.spotify.mobile.android.ui:id/player_controls: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0053 com.spotify.mobile.android.ui:id/prev: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0054 com.spotify.mobile.android.ui:id/pause: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0055 com.spotify.mobile.android.ui:id/next: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0056 com.spotify.mobile.android.ui:id/toggle_info: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0057 com.spotify.mobile.android.ui:id/player_seektime: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0058 com.spotify.mobile.android.ui:id/player_seekcontainer: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0059 com.spotify.mobile.android.ui:id/song_progress_time: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a005a com.spotify.mobile.android.ui:id/progress: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a005b com.spotify.mobile.android.ui:id/song_duration: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a005c com.spotify.mobile.android.ui:id/widget: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a005d com.spotify.mobile.android.ui:id/widget_icon_shade: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a005e com.spotify.mobile.android.ui:id/widget_icon: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a005f com.spotify.mobile.android.ui:id/widget_icon_cover: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0060 com.spotify.mobile.android.ui:id/widget_text1: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0061 com.spotify.mobile.android.ui:id/widget_prev: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0062 com.spotify.mobile.android.ui:id/widget_play: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0063 com.spotify.mobile.android.ui:id/widget_pause: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0064 com.spotify.mobile.android.ui:id/widget_next: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0065 com.spotify.mobile.android.ui:id/menu_home: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
+        resource 0x7f0a0066 com.spotify.mobile.android.ui:id/menu_search: t=0x12 d=0x00000000 (s=0x0008 r=0x00)
