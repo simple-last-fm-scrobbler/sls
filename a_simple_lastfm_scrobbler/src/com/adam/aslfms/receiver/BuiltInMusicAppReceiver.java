@@ -44,6 +44,8 @@ public abstract class BuiltInMusicAppReceiver extends AbstractPlayStatusReceiver
 
 	private static final String TAG = "SLSBuiltInMusicAppReceiver";
 
+	static final int NO_AUDIO_ID = -1;
+
 	final String stop_action;
 
 	final String app_package;
@@ -66,75 +68,7 @@ public abstract class BuiltInMusicAppReceiver extends AbstractPlayStatusReceiver
 		b.setMusicAPI(musicAPI);
 		b.setWhen(Util.currentTimeSecsUTC());
 
-		long audioid = -1;
-		Object idBundle = bundle.get("id");
-		if (idBundle != null) {
-			if (idBundle instanceof Long)
-				audioid = (Long) idBundle;
-			else if (idBundle instanceof Integer)
-				audioid = (Integer) idBundle;
-		}
-
-		if (audioid != -1) { // read from MediaStore
-
-			Log.d(TAG, "Will read data from mediastore");
-
-			final String[] columns = new String[] { MediaStore.Audio.AudioColumns.ARTIST,
-					MediaStore.Audio.AudioColumns.TITLE, MediaStore.Audio.AudioColumns.DURATION,
-					MediaStore.Audio.AudioColumns.ALBUM, MediaStore.Audio.AudioColumns.TRACK, };
-
-			Cursor cur = ctx.getContentResolver().query(
-					ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, audioid), columns, null,
-					null, null);
-
-			if (cur == null) {
-				throw new IllegalArgumentException("could not open cursor to media in media store");
-			}
-
-			try {
-				if (!cur.moveToFirst()) {
-					throw new IllegalArgumentException("no such media in media store");
-				}
-				String artist = cur.getString(cur.getColumnIndex(MediaStore.Audio.AudioColumns.ARTIST));
-				b.setArtist(artist);
-
-				String track = cur.getString(cur.getColumnIndex(MediaStore.Audio.AudioColumns.TITLE));
-				b.setTrack(track);
-
-				String album = cur.getString(cur.getColumnIndex(MediaStore.Audio.AudioColumns.ALBUM));
-				b.setAlbum(album);
-
-				int duration = (int) (cur.getLong(cur.getColumnIndex(MediaStore.Audio.AudioColumns.DURATION)) / 1000);
-				if (duration != 0) {
-					b.setDuration(duration);
-				}
-
-				int tracknr = cur.getInt(cur.getColumnIndex(MediaStore.Audio.AudioColumns.TRACK));
-				// tracknumber is returned in the format DTTT where D is the
-				// disc number and TTT is the track number
-				tracknr %= 1000;
-				b.setTrackNr(String.valueOf(tracknr));
-
-			} finally {
-				cur.close();
-			}
-
-		} else { // read from intent
-
-			Log.d(TAG, "Will read data from intent");
-
-			CharSequence ar = bundle.getCharSequence("artist");
-			CharSequence al = bundle.getCharSequence("album");
-			CharSequence tr = bundle.getCharSequence("track");
-			if (ar == null || al == null || tr == null) {
-				throw new IllegalArgumentException("null track values");
-			}
-
-			b.setArtist(ar.toString());
-			b.setAlbum(al.toString());
-			b.setTrack(tr.toString());
-
-		}
+		parseTrack(ctx, b, bundle);
 
 		if (action.equals(stop_action)) {
 			setState(Track.State.PLAYLIST_FINISHED);
@@ -144,5 +78,95 @@ public abstract class BuiltInMusicAppReceiver extends AbstractPlayStatusReceiver
 
 		// throws on bad data
 		setTrack(b.build());
+	}
+
+	void parseTrack(Context ctx, Track.Builder b, Bundle bundle) {
+		long audioid = getAudioId(bundle);
+
+		if (shouldFetchFromMediaStore(ctx, audioid)) { // read from MediaStore
+			readTrackFromMediaStore(ctx, b, audioid);
+		} else {
+			readTrackFromBundleData(b, bundle);
+		}
+	}
+
+	boolean shouldFetchFromMediaStore(Context ctx, long audioid) {
+		return audioid != NO_AUDIO_ID;
+	}
+
+	void readTrackFromMediaStore(Context ctx, Track.Builder b, long audioid) {
+		Log.d(TAG, "Will read data from mediastore");
+
+		final String[] columns = new String[] { MediaStore.Audio.AudioColumns.ARTIST,
+				MediaStore.Audio.AudioColumns.TITLE, MediaStore.Audio.AudioColumns.DURATION,
+				MediaStore.Audio.AudioColumns.ALBUM, MediaStore.Audio.AudioColumns.TRACK, };
+
+		Cursor cur = ctx.getContentResolver().query(
+				ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, audioid), columns, null, null,
+				null);
+
+		if (cur == null) {
+			throw new IllegalArgumentException("could not open cursor to media in media store");
+		}
+
+		try {
+			if (!cur.moveToFirst()) {
+				throw new IllegalArgumentException("no such media in media store");
+			}
+			String artist = cur.getString(cur.getColumnIndex(MediaStore.Audio.AudioColumns.ARTIST));
+			b.setArtist(artist);
+
+			String track = cur.getString(cur.getColumnIndex(MediaStore.Audio.AudioColumns.TITLE));
+			b.setTrack(track);
+
+			String album = cur.getString(cur.getColumnIndex(MediaStore.Audio.AudioColumns.ALBUM));
+			b.setAlbum(album);
+
+			int duration = (int) (cur.getLong(cur.getColumnIndex(MediaStore.Audio.AudioColumns.DURATION)) / 1000);
+			if (duration != 0) {
+				b.setDuration(duration);
+			}
+
+			int tracknr = cur.getInt(cur.getColumnIndex(MediaStore.Audio.AudioColumns.TRACK));
+			// tracknumber is returned in the format DTTT where D is the
+			// disc number and TTT is the track number
+			tracknr %= 1000;
+			b.setTrackNr(String.valueOf(tracknr));
+
+		} finally {
+			cur.close();
+		}
+	}
+
+	void readTrackFromBundleData(Track.Builder b, Bundle bundle) {
+		Log.d(TAG, "Will read data from intent");
+
+		CharSequence ar = bundle.getCharSequence("artist");
+		CharSequence al = bundle.getCharSequence("album");
+		CharSequence tr = bundle.getCharSequence("track");
+		if (ar == null || al == null || tr == null) {
+			throw new IllegalArgumentException("null track values");
+		}
+
+		b.setArtist(ar.toString());
+		b.setAlbum(al.toString());
+		b.setTrack(tr.toString());
+	}
+
+	long getAudioId(Bundle bundle) {
+		long id = NO_AUDIO_ID;
+		Object idBundle = bundle.get("id");
+		if (idBundle != null) {
+			if (idBundle instanceof Long)
+				id = (Long) idBundle;
+			else if (idBundle instanceof Integer)
+				id = (Integer) idBundle;
+			else if (idBundle instanceof String) {
+				id = Long.valueOf((String) idBundle).longValue();
+			} else {
+				Log.w(TAG, "Got unsupported idBundle type: " + idBundle.getClass());
+			}
+		}
+		return id;
 	}
 }

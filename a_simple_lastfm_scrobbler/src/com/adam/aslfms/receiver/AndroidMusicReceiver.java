@@ -20,6 +20,10 @@
 
 package com.adam.aslfms.receiver;
 
+import android.content.Context;
+
+import com.adam.aslfms.util.Util;
+
 /**
  * A BroadcastReceiver for intents sent by the Android Music Player.
  * 
@@ -37,8 +41,16 @@ public class AndroidMusicReceiver extends BuiltInMusicAppReceiver {
 	public static final String PACKAGE_NAME = "com.android.music";
 	public static final String NAME = "Android Music Player";
 
+	static final String GOOGLE_MUSIC_PACKAGE = "com.google.android.music";
+
 	public AndroidMusicReceiver() {
 		super(ACTION_ANDROID_STOP, PACKAGE_NAME, NAME);
+	}
+
+	boolean shouldFetchFromMediaStore(Context ctx, long audioid) {
+		if (Util.checkForInstalledApp(ctx, GOOGLE_MUSIC_PACKAGE))
+			return false;
+		return super.shouldFetchFromMediaStore(ctx, audioid);
 	}
 
 }
