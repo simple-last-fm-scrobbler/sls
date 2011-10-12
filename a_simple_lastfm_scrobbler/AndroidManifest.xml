@@ -2,8 +2,8 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.adam.aslfms"
-    android:versionCode="21"
-    android:versionName="1.3.3">
+    android:versionCode="22"
+    android:versionName="1.3.4">
 
     <application
         android:icon="@drawable/icon"
@@ -122,6 +122,16 @@
                     android:name="com.real.IMP.playbackcomplete" />
                 <action
                     android:name="com.real.IMP.playstatechanged" />
+            </intent-filter>
+        </receiver>
+        
+        <receiver android:name="com.adam.aslfms.receiver.MIUIMusicReceiver"
+                    android:enabled="true"
+                    android:exported="true">
+            <intent-filter>
+                <action android:name="com.miui.player.metachanged" />
+                <action android:name="com.miui.player.playstatechanged" />
+                <action android:name="com.miui.player.playbackcomplete" />
             </intent-filter>
         </receiver>
 
