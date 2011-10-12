@@ -36,10 +36,10 @@
     </string>
     <string
         name="supported_musicapps">Supported apps: Android Music Player, HTC Hero/Sense Music
-        Player, Google Music (Beta),
-        Meridian Player, RockOn, MixZing, Archos Music Player, Rhapsody
-        Android Beta, Vanilla Music Player, bTunes, ³ (cubed), WIMP, Zimly, Just
-        Playlists, PowerAMP, Winamp, myTouch 4G, more...
+        Player, Google Music, Player Pro,
+        Meridian Player, MixZing, Archos Music Player, Rhapsody Android, 
+        Vanilla Music Player, bTunes, ³ (cubed), WIMP, Zimly, Just
+        Playlists, PowerAMP, Winamp, myTouch 4G, RockOn, jukefox, DAAP Media Player, Folder Player, GoneMAD Music Player, more...
 		</string>
     <string
         name="file_error">File error!</string>

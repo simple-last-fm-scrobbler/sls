@@ -95,7 +95,7 @@ public class EditUserCredentials extends DialogPreference {
 			Intent service = new Intent(ScrobblingService.ACTION_AUTHENTICATE);
 			service.putExtra("netapp", mNetApp.getIntentExtraValue());
 
-			String username = mUsername.getText().toString();
+			String username = mUsername.getText().toString().trim();
 			settings.setUsername(mNetApp, username);
 			
 			String password = mPassword.getText().toString();
