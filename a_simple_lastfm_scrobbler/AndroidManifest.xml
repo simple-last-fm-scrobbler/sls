@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.adam.aslfms"
+    android:versionCode="22"
+    android:versionName="1.3.4">
+
+    <application
+        android:icon="@drawable/icon"
+        android:label="@string/app_name"
+        android:description="@string/about_text">
+
+        <activity
+            android:name="com.adam.aslfms.SettingsActivity"
+            android:label="@string/app_name"
+            android:icon="@drawable/icon"
+            android:exported="true">
+            <intent-filter>
+                <action
+                    android:name="android.intent.action.MAIN" />
+                <category
+                    android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.adam.aslfms.UserCredsListScreen"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name="com.adam.aslfms.MusicAppsScreen"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name="com.adam.aslfms.OptionsScreen"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name="com.adam.aslfms.UserCredActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name="com.adam.aslfms.StatusActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name="com.adam.aslfms.StatusInfoNetApp"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name="com.adam.aslfms.ViewScrobbleCacheActivity"
+            android:exported="false">
+        </activity>
+
+        <service
+            android:name="com.adam.aslfms.service.ScrobblingService"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action
+                    android:name="com.adam.aslfms.service.playstatechanged" />
+                <action
+                    android:name="com.adam.aslfms.service.authenticate" />
+                <action
+                    android:name="com.adam.aslfms.service.clearcreds" />
+                <action
+                    android:name="com.adam.aslfms.service.justscrobble" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.adam.aslfms.receiver.AndroidMusicReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action
+                    android:name="com.android.music.metachanged" />
+                <action
+                    android:name="com.android.music.playstatechanged" />
+                <action
+                    android:name="com.android.music.playbackcomplete" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.adam.aslfms.receiver.HeroMusicReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action
+                    android:name="com.htc.music.metachanged" />
+                <action
+                    android:name="com.htc.music.playbackcomplete" />
+                <action
+                    android:name="com.htc.music.playstatechanged" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.adam.aslfms.receiver.WinampMusicReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action
+                    android:name="com.nullsoft.winamp.metachanged" />
+                <action
+                    android:name="com.nullsoft.winamp.playbackcomplete" />
+                <action
+                    android:name="com.nullsoft.winamp.playstatechanged" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.adam.aslfms.receiver.MyTouch4GMusicReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action
+                    android:name="com.real.IMP.metachanged" />
+                <!-- don't know if these two works -->
+                <action
+                    android:name="com.real.IMP.playbackcomplete" />
+                <action
+                    android:name="com.real.IMP.playstatechanged" />
+            </intent-filter>
+        </receiver>
+        
+        <receiver android:name="com.adam.aslfms.receiver.MIUIMusicReceiver"
+                    android:enabled="true"
+                    android:exported="true">
+            <intent-filter>
+                <action android:name="com.miui.player.metachanged" />
+                <action android:name="com.miui.player.playstatechanged" />
+                <action android:name="com.miui.player.playbackcomplete" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.adam.aslfms.receiver.SamsungMusicReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <!--  doesn't work -->
+            <intent-filter>
+                <action
+                    android:name="com.samsung.sec.android.MusicPlayer.metachanged" />
+                <action
+                    android:name="com.samsung.sec.android.MusicPlayer.playbackcomplete" />
+                <action
+                    android:name="com.samsung.sec.android.MusicPlayer.playstatechanged" />
+                <action
+                    android:name="com.samsung.music.metachanged" />
+                <action
+                    android:name="com.samsung.music.playbackcomplete" />
+                <action
+                    android:name="com.samsung.music.playstatechanged" />
+                <action
+                    android:name="com.samsung.sec.metachanged" />
+                <action
+                    android:name="com.samsung.sec.playbackcomplete" />
+                <action
+                    android:name="com.samsung.sec.playstatechanged" />
+                <action
+                    android:name="com.samsung.sec.android.metachanged" />
+                <action
+                    android:name="com.samsung.sec.android.playbackcomplete" />
+                <action
+                    android:name="com.samsung.sec.android.playstatechanged" />
+                <action
+                    android:name="com.samsung.MusicPlayer.metachanged" />
+                <action
+                    android:name="com.samsung.MusicPlayer.playbackcomplete" />
+                <action
+                    android:name="com.samsung.MusicPlayer.playstatechanged" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.adam.aslfms.receiver.ScrobbleDroidMusicReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action
+                    android:name="net.jjc1138.android.scrobbler.action.MUSIC_STATUS" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.adam.aslfms.receiver.SLSAPIReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action
+                    android:name="com.adam.aslfms.notify.playstatechanged" />
+            </intent-filter>
+        </receiver>
+
+        <!--
+            - will probably interfere badly with Winamp <receiver
+            android:name="com.adam.aslfms.receiver.LastFmAPIReceiver"
+            android:exported="true" android:enabled="true">
+            <intent-filter> <action
+            android:name="fm.last.android.metachanged" /> <action
+            android:name="fm.last.android.playbackpaused" /> <action
+            android:name="fm.last.android.playbackcomplete" />
+            </intent-filter> </receiver>
+        -->
+
+
+    </application>
+
+    <supports-screens
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="false"
+        android:anyDensity="false" />
+
+    <uses-sdk
+        android:minSdkVersion="3"
+        android:targetSdkVersion="4" />
+
+    <uses-permission
+        android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+</manifest> 

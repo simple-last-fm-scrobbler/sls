@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string
+        name="app_name">Simple Last.fm Scrobbler</string>
+    <string
+        name="by">by</string>
+    <string
+        name="email_addr">simple.lfm.scrobbler@gmail.com</string>
+    <string
+        name="website_url">http://code.google.com/p/a-simple-lastfm-scrobbler/
+    </string>
+    <string
+        name="contact">Contact:</string>
+    <string
+        name="website">Website:</string>
+    <string
+        name="by_adam">by Adam Renberg</string>
+    <string
+        name="by_tha_phlash">Icon by Tha PHLASH</string>
+    <string
+        name="license">Released under Apache License 2.0</string>
+    <string
+        name="about_text">
+        A lightweight scrobbler that submits information to
+        Last.fm
+        (and/or Libre.fm) on
+        what music you play on your android phone.
+        Last.fm
+        then lets
+        you view
+        listening statistics and recommends new music you
+        might like.
+    </string>
+    <string
+        name="everything_disabled">Scrobbling/now playing is disabled.
+    </string>
+    <string
+        name="supported_musicapps">Supported apps: Android Music Player, HTC Hero/Sense Music
+        Player, Google Music, Player Pro,
+        Meridian Player, MixZing, Archos Music Player, Rhapsody Android, 
+        Vanilla Music Player, bTunes, ³ (cubed), WIMP, Zimly, Just
+        Playlists, PowerAMP, Winamp, myTouch 4G, RockOn, jukefox, DAAP Media Player, Folder Player, GoneMAD Music Player, more...
+		</string>
+    <string
+        name="file_error">File error!</string>
+    <string
+        name="thats_new">That which is new</string>
+    <string
+        name="about">About</string>
+    <string
+        name="whats_new">What\'s new</string>
+    <string
+        name="supported_netapps">Supported websites: %1</string>
+</resources>
