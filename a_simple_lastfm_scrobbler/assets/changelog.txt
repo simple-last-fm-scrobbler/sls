@@ -1,3 +1,6 @@
+- 1.3.5 (2012-02-01)
+  * Added support for Sony Ericsson/Xperia phones (thanks to Mark Gillespie)
+
 - 1.3.4 (2011-10-12)
   * Added support for MIUI Music Player (thanks to Andrew Thomson)
 
