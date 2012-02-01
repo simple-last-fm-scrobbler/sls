@@ -2,8 +2,8 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.adam.aslfms"
-    android:versionCode="22"
-    android:versionName="1.3.4">
+    android:versionCode="23"
+    android:versionName="1.3.5">
 
     <application
         android:icon="@drawable/icon"
@@ -132,6 +132,19 @@
                 <action android:name="com.miui.player.metachanged" />
                 <action android:name="com.miui.player.playstatechanged" />
                 <action android:name="com.miui.player.playbackcomplete" />
+            </intent-filter>
+        </receiver>
+        
+        <receiver android:name="com.adam.aslfms.receiver.SEMCMusicReceiver"
+                    android:enabled="true"
+                    android:exported="true">
+            <intent-filter>
+                <action android:name="com.sonyericsson.music.playbackcontrol.ACTION_PLAYBACK_PLAY" />
+                <action android:name="com.sonyericsson.music.playbackcontrol.ACTION_PLAYBACK_PAUSE" />
+                <action android:name="com.sonyericsson.music.TRACK_COMPLETED" />
+                <action android:name="com.sonyericsson.music.metachanged" />
+                <action android:name="com.sonyericsson.music.playbackcomplete" />
+                <action android:name="com.sonyericsson.music.playstatechanged" />
             </intent-filter>
         </receiver>
 
