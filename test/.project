@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>a_simple_lastfm_scrobbler_test</name>
+	<name>sls_test</name>
 	<comment></comment>
 	<projects>
 		<project>a_simple_lastfm_scrobbler</project>
