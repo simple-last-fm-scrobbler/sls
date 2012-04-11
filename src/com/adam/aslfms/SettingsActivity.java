@@ -30,6 +30,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.adam.aslfms.service.ScrobblingService;
@@ -48,13 +49,10 @@ import com.adam.aslfms.util.Util;
  * 
  */
 public class SettingsActivity extends PreferenceActivity {
-
 	private static final String TAG = "SettingsActivity";
 
 	private static final String KEY_SCROBBLE_ALL_NOW = "scrobble_all_now";
 	private static final String KEY_VIEW_SCROBBLE_CACHE = "view_scrobble_cache";
-
-	private static final int MENU_ABOUT_ID = 0;
 
 	private AppSettings settings;
 
@@ -113,7 +111,6 @@ public class SettingsActivity extends PreferenceActivity {
 	@Override
 	public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
 			Preference pref) {
-
 		if (pref == mScrobbleAllNow) {
 			int numInCache = mDb.queryNumberOfTracks();
 			Util.scrobbleAllIfPossible(this, numInCache);
@@ -140,16 +137,15 @@ public class SettingsActivity extends PreferenceActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		boolean ret = super.onCreateOptionsMenu(menu);
-		menu.add(0, MENU_ABOUT_ID, 0, R.string.about).setIcon(
-				android.R.drawable.ic_menu_info_details);
-		return ret;
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main, menu);
+		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case MENU_ABOUT_ID:
+		case R.id.menu_about:
 			new AboutDialog(this).show();
 			return true;
 		}
@@ -157,7 +153,6 @@ public class SettingsActivity extends PreferenceActivity {
 	}
 
 	private BroadcastReceiver onStatusChange = new BroadcastReceiver() {
-
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			SettingsActivity.this.update();

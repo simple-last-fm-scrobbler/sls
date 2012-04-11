@@ -33,6 +33,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -178,8 +179,8 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 			if (mNetApp == null) {
 				Util.scrobbleAllIfPossible(this, mScrobblesCursor.getCount());
 			} else {
-				Util.scrobbleIfPossible(this, mNetApp, mScrobblesCursor
-						.getCount());
+				Util.scrobbleIfPossible(this, mNetApp,
+						mScrobblesCursor.getCount());
 			}
 			return true;
 		case MENU_CLEAR_CACHE_ID:
