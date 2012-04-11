@@ -5,6 +5,23 @@
     android:versionCode="24"
     android:versionName="1.3.5">
 
+    <supports-screens
+        android:resizeable="true"
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        android:anyDensity="true" />
+        
+    <uses-sdk
+        android:minSdkVersion="4"
+        android:targetSdkVersion="12" />
+
+    <uses-permission
+        android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:icon="@drawable/icon"
         android:label="@string/app_name"
@@ -220,20 +237,4 @@
 
 
     </application>
-
-    <supports-screens
-        android:smallScreens="true"
-        android:normalScreens="true"
-        android:largeScreens="false"
-        android:anyDensity="false" />
-
-    <uses-sdk
-        android:minSdkVersion="3"
-        android:targetSdkVersion="4" />
-
-    <uses-permission
-        android:name="android.permission.INTERNET" />
-    <uses-permission
-        android:name="android.permission.ACCESS_NETWORK_STATE" />
-
 </manifest> 
