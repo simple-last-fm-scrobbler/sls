@@ -58,7 +58,7 @@ Apps
  * [myTouch 4G](http://mytouch.t-mobile.com/)
  * [Google Music](http://music.google.com/music/)
  * [Player Pro](http://www.aplayerpro.com/) ([market](https://market.android.com/details?id=com.tbig.playerpro))
- * [jukefox(http://www.jukefox.org/)] ([market](https://market.android.com/details?id=ch.ethz.dcg.pancho2)) **(a)**
+ * [jukefox](http://www.jukefox.org/) ([market](https://market.android.com/details?id=ch.ethz.dcg.pancho2)) **(a)**
  * [DAAP Media Player](http://code.google.com/p/daap-client/ ) ([market](https://market.android.com/details?id=org.mult.daap))
  * [Folder Player](http://folderplayer.com/) ([market](https://market.android.com/details?id=com.folderplayer))
  * [GoneMAD Music Player](http://gonemadmusicplayer.blogspot.com/) ([market](https://market.android.com/details?id=gonemad.gmmp))
@@ -72,7 +72,7 @@ Apps
 **(b)** It presents itself to SLS as the Android Music Player. This means that it won't show up under "Enabled apps" under its real name, but under Android Music Player.
 
 
-Known compatible devices: **(c)**
+Known compatible devices **(c)**
 -----------------------------
 
 Tested by me:
@@ -105,7 +105,7 @@ Reported working:
 
 Issues:
 
- * Motorola CLIQ/DEXT ([http://code.google.com/p/a-simple-lastfm-scrobbler/issues/detail?id=25 see this])
+ * Motorola CLIQ/DEXT doesn't seem to work
 
 **(c)** SLS should work on any device that can install it, and that can run one of the music apps above.
 
@@ -124,19 +124,22 @@ If you can't find it there, you can always email me,
 [simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com),
 or open an issue here on github.
 
-
 Developers
 ----------
 If you want to scrobble music through SLS, see [the wiki (old)](http://code.google.com/p/a-simple-lastfm-scrobbler/wiki/Developers ).
 
+
 Credits
 -------
 
-All of the code is open source, and as of 2010-04-27 lincesed under the Apache License 2.0 (it was previously GPLv3). **I've not yet removed the refernces to GPL from the source code**.
+All of the code is open source, and as of 2010-04-27 lincesed under the
+[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0) (it was previously GPLv3).
+**I've not yet removed the refernces to GPL from the source code**.
 
- * Almost all of the code is written by me, so: Copyright 2009 Adam Renberg.
+ * Almost all of the code is written by me, so: Copyright 2009-2012 Adam Renberg.
 
- * A small MD5 utilities class seems to be written by many people, but it is released under GPLv2, and I got it from [ostermiller.org](http://ostermiller.org/utils/MD5.html ).
+ * A small MD5 utilities class seems to be written by many people,
+but it is released under GPLv2, and I got it from [ostermiller.org](http://ostermiller.org/utils/MD5.html).
 
  * The icon was made by [Tha PHLASH](http://www.thaphlash.com/).
 
