@@ -65,6 +65,7 @@ Apps
  * MIUI Music Player
  * [ServeStream](http://sourceforge.net/projects/servestream/) ([market](https://market.android.com/details?id=net.sourceforge.servestream))
  * Default Sony Ericsson/Xperia Music Player
+ * [Neutron Music Player](http://neutronmp.com/) ([market](https://play.google.com/store/apps/details?id=com.neutroncode.mp))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
