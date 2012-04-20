@@ -22,14 +22,15 @@ package com.adam.aslfms.service;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.adam.aslfms.R;
 import com.adam.aslfms.util.AppSettings;
 
 public enum NetApp {
-	LASTFM(0x01, "Last.fm", "http://post.audioscrobbler.com/?hs=true", "",
-			"https://www.last.fm/join", "http://www.last.fm/user/%1", R.drawable.lastfm_logo), //
-	LIBREFM(0x02, "Libre.fm", "http://turtle.libre.fm/?hs=true", "librefm",
-			"http://libre.fm/", "http://libre.fm/user/%1", R.drawable.librefm_logo);
+	LASTFM(
+		0x01, "Last.fm", "http://post.audioscrobbler.com/?hs=true", "",
+		"https://www.last.fm/join", "http://www.last.fm/user/%1"), //
+	LIBREFM(
+		0x02, "Libre.fm", "http://turtle.libre.fm/?hs=true", "librefm",
+		"http://libre.fm/", "http://libre.fm/user/%1");
 
 	private final int val;
 	private final String name;
@@ -37,20 +38,15 @@ public enum NetApp {
 	private final String settingsPrefix;
 	private final String signUpUrl;
 	private final String profileUrl;
-	private final int logoRes;
-
-	
 
 	private NetApp(int val, String name, String handshakeUrl,
-			String settingsPrefix, String signUpUrl, String profileUrl,
-			int logoRes) {
+		String settingsPrefix, String signUpUrl, String profileUrl) {
 		this.val = val;
 		this.name = name;
 		this.handshakeUrl = handshakeUrl;
 		this.settingsPrefix = settingsPrefix;
 		this.signUpUrl = signUpUrl;
 		this.profileUrl = profileUrl;
-		this.logoRes = logoRes;
 	}
 
 	public String getIntentExtraValue() {
@@ -81,10 +77,6 @@ public enum NetApp {
 		return signUpUrl;
 	}
 
-	public int getLogoRes() {
-		return logoRes;
-	}
-
 	private static Map<Integer, NetApp> mValNetAppMap;
 
 	static {
@@ -96,7 +88,8 @@ public enum NetApp {
 	public static NetApp fromValue(int value) {
 		NetApp napp = mValNetAppMap.get(value);
 		if (napp == null) {
-			throw new IllegalArgumentException("Got null netapp in fromValue: " + value);
+			throw new IllegalArgumentException("Got null netapp in fromValue: "
+				+ value);
 		}
 		return napp;
 	}
