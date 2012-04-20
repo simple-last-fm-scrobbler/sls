@@ -1,4 +1,4 @@
-- 1.3.6 ()
+- 1.3.6 (2012-04-21)
   * Added support for Neutron Music Player (thanks to Dmitry Kostjuchenko)
 
 - 1.3.5 (2012-02-01)
