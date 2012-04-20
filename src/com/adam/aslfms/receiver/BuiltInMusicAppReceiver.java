@@ -40,7 +40,8 @@ import com.adam.aslfms.util.Util;
  * @author tgwizard
  * @since 1.2.7
  */
-public abstract class BuiltInMusicAppReceiver extends AbstractPlayStatusReceiver {
+public abstract class BuiltInMusicAppReceiver extends
+	AbstractPlayStatusReceiver {
 
 	private static final String TAG = "SLSBuiltInMusicAppReceiver";
 
@@ -51,7 +52,8 @@ public abstract class BuiltInMusicAppReceiver extends AbstractPlayStatusReceiver
 	final String app_package;
 	final String app_name;
 
-	public BuiltInMusicAppReceiver(String stopAction, String appPackage, String appName) {
+	public BuiltInMusicAppReceiver(String stopAction, String appPackage,
+		String appName) {
 		super();
 		stop_action = stopAction;
 		app_package = appPackage;
@@ -59,9 +61,9 @@ public abstract class BuiltInMusicAppReceiver extends AbstractPlayStatusReceiver
 	}
 
 	@Override
-	protected void parseIntent(Context ctx, String action, Bundle bundle) throws IllegalArgumentException {
-
-		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx, app_name, app_package, null, true);
+	protected void parseIntent(Context ctx, String action, Bundle bundle)
+		throws IllegalArgumentException {
+		MusicAPI musicAPI = getMusicAPI(ctx, bundle);
 		setMusicAPI(musicAPI);
 
 		Track.Builder b = new Track.Builder();
@@ -80,6 +82,26 @@ public abstract class BuiltInMusicAppReceiver extends AbstractPlayStatusReceiver
 		setTrack(b.build());
 	}
 
+	MusicAPI getMusicAPI(Context ctx, Bundle bundle) {
+		CharSequence bundleAppName = bundle.getCharSequence("player");
+		CharSequence bundleAppPackage = bundle.getCharSequence("package");
+
+		MusicAPI musicAPI;
+		if ((bundleAppName != null) && (bundleAppPackage != null)) {
+			Log.d(
+				TAG,
+				String.format(
+					"Will load MusicAPI from bundle: [appName: %s, appPackage: %s]",
+					bundleAppName, bundleAppPackage));
+			musicAPI = MusicAPI.fromReceiver(ctx, bundleAppName.toString(),
+				bundleAppPackage.toString(), null, true);
+		} else {
+			musicAPI = MusicAPI.fromReceiver(ctx, app_name, app_package, null,
+				true);
+		}
+		return musicAPI;
+	}
+
 	void parseTrack(Context ctx, Track.Builder b, Bundle bundle) {
 		long audioid = getAudioId(bundle);
 
@@ -90,20 +112,44 @@ public abstract class BuiltInMusicAppReceiver extends AbstractPlayStatusReceiver
 		}
 	}
 
+	long getAudioId(Bundle bundle) {
+		long id = NO_AUDIO_ID;
+		Object idBundle = bundle.get("id");
+		if (idBundle != null) {
+			if (idBundle instanceof Long)
+				id = (Long) idBundle;
+			else if (idBundle instanceof Integer)
+				id = (Integer) idBundle;
+			else if (idBundle instanceof String) {
+				id = Long.valueOf((String) idBundle).longValue();
+			} else {
+				Log.w(TAG,
+					"Got unsupported idBundle type: " + idBundle.getClass());
+			}
+		}
+		return id;
+	}
+
 	boolean shouldFetchFromMediaStore(Context ctx, long audioid) {
-		return audioid != NO_AUDIO_ID;
+		if (audioid > 0)
+			return true;
+		return false;
 	}
 
 	void readTrackFromMediaStore(Context ctx, Track.Builder b, long audioid) {
 		Log.d(TAG, "Will read data from mediastore");
 
-		final String[] columns = new String[] { MediaStore.Audio.AudioColumns.ARTIST,
-				MediaStore.Audio.AudioColumns.TITLE, MediaStore.Audio.AudioColumns.DURATION,
-				MediaStore.Audio.AudioColumns.ALBUM, MediaStore.Audio.AudioColumns.TRACK, };
+		final String[] columns = new String[] {
+			MediaStore.Audio.AudioColumns.ARTIST,
+			MediaStore.Audio.AudioColumns.TITLE,
+			MediaStore.Audio.AudioColumns.DURATION,
+			MediaStore.Audio.AudioColumns.ALBUM,
+			MediaStore.Audio.AudioColumns.TRACK, };
 
 		Cursor cur = ctx.getContentResolver().query(
-				ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, audioid), columns, null, null,
-				null);
+			ContentUris.withAppendedId(
+				MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, audioid), columns,
+			null, null, null);
 
 		if (cur == null) {
 			throw new IllegalArgumentException("could not open cursor to media in media store");
@@ -151,22 +197,5 @@ public abstract class BuiltInMusicAppReceiver extends AbstractPlayStatusReceiver
 		b.setArtist(ar.toString());
 		b.setAlbum(al.toString());
 		b.setTrack(tr.toString());
-	}
-
-	long getAudioId(Bundle bundle) {
-		long id = NO_AUDIO_ID;
-		Object idBundle = bundle.get("id");
-		if (idBundle != null) {
-			if (idBundle instanceof Long)
-				id = (Long) idBundle;
-			else if (idBundle instanceof Integer)
-				id = (Integer) idBundle;
-			else if (idBundle instanceof String) {
-				id = Long.valueOf((String) idBundle).longValue();
-			} else {
-				Log.w(TAG, "Got unsupported idBundle type: " + idBundle.getClass());
-			}
-		}
-		return id;
 	}
 }
