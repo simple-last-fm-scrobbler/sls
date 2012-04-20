@@ -1,3 +1,4 @@
 gen/
 bin/
+releases/
 lint.xml
