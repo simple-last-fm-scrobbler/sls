@@ -117,7 +117,7 @@ For a complete list of changes, see [the changelog](https://github.com/tgwizard/
 Questions, Bugs, Suggestions, Contributions, Thoughts...
 --------------------------------------------------------
 
-First, read the [FAQ (old)](http://code.google.com/p/a-simple-lastfm-scrobbler/wiki/FAQ)
+First, read the [FAQ](https://github.com/tgwizard/sls/wiki/FAQ)
 to see if you can find any help with your issue.
 
 If you can't find it there, you can always email me,
@@ -126,8 +126,8 @@ or open an issue here on github.
 
 Developers
 ----------
-If you want to scrobble music through SLS, see [the wiki (old)](http://code.google.com/p/a-simple-lastfm-scrobbler/wiki/Developers ).
-
+If you want to enable your app to scrobble music through SLS, see
+[Developer's API](https://github.com/tgwizard/sls/wiki/Developer's-API).
 
 Credits
 -------
