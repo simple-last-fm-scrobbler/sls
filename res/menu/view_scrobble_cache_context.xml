@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item
+        android:id="@+id/menu_show_scrobble_details"
+        android:icon="@android:drawable/ic_menu_view"
+        android:title="@string/view_sc_details"/>
+    <item
+        android:id="@+id/menu_delete_scrobble"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="@string/delete_sc"/>
+</menu>

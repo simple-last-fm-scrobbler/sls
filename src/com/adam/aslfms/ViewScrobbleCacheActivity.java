@@ -24,24 +24,24 @@ import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
@@ -53,9 +53,6 @@ import com.adam.aslfms.util.enums.SortField;
 
 public class ViewScrobbleCacheActivity extends ListActivity {
 	private static final String TAG = "VSCacheActivity";
-
-	private static final int CONTEXT_MENU_DETAILS_ID = 0;
-	private static final int CONTEXT_MENU_DELETE_ID = 1;
 
 	private AppSettings settings;
 
@@ -195,19 +192,15 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 		if (info.id < 0)
 			return;
 
-		super.onCreateContextMenu(menu, v, menuInfo);
-
-		menu.add(0, CONTEXT_MENU_DETAILS_ID, 0, R.string.view_sc_details).setIcon(
-			android.R.drawable.ic_menu_view);
-		menu.add(0, CONTEXT_MENU_DELETE_ID, 0, R.string.delete_sc).setIcon(
-			android.R.drawable.ic_menu_delete);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.view_scrobble_cache_context, menu);
 	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		switch (item.getItemId()) {
-		case CONTEXT_MENU_DELETE_ID:
+		case R.id.menu_delete_scrobble:
 			if (mNetApp == null) {
 				Util.deleteScrobbleFromAllCaches(this, mDb, mScrobblesCursor,
 					(int) info.id);
@@ -217,7 +210,7 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 			}
 
 			return true;
-		case CONTEXT_MENU_DETAILS_ID:
+		case R.id.menu_show_scrobble_details:
 			viewSCDetails((int) info.id);
 			return true;
 		}
