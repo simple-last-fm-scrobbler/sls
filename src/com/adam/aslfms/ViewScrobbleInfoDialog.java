@@ -47,7 +47,7 @@ public class ViewScrobbleInfoDialog {
 	private NetApp[] mNetApps;
 
 	public ViewScrobbleInfoDialog(Context mCtx, ScrobblesDatabase mDb,
-			NetApp mNetApp, Cursor mParentCursor, Track mTrack) {
+		NetApp mNetApp, Cursor mParentCursor, Track mTrack) {
 		super();
 		this.mCtx = mCtx;
 		this.mDb = mDb;
@@ -66,23 +66,21 @@ public class ViewScrobbleInfoDialog {
 		ListAdapter adapter = fillData();
 
 		AlertDialog.Builder adBuilder = new AlertDialog.Builder(mCtx).setTitle(
-				R.string.track_info).setIcon(android.R.drawable.ic_dialog_info)
-				.setAdapter(adapter, null).setPositiveButton(R.string.remove,
-						new OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								if (mNetApp == null) {
-									Util.deleteScrobbleFromAllCaches(mCtx, mDb,
-											mParentCursor, mTrack.getRowId());
-								} else {
-									Util.deleteScrobbleFromCache(mCtx, mDb,
-											mNetApp, mParentCursor, mTrack
-													.getRowId());
-								}
+			R.string.track_info).setIcon(android.R.drawable.ic_dialog_info).setAdapter(
+			adapter, null).setPositiveButton(R.string.remove,
+			new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					if (mNetApp == null) {
+						Util.deleteScrobbleFromAllCaches(mCtx, mDb,
+							mParentCursor, mTrack.getRowId());
+					} else {
+						Util.deleteScrobbleFromCache(mCtx, mDb, mNetApp,
+							mParentCursor, mTrack.getRowId());
+					}
 
-							}
-						}).setNegativeButton(R.string.close, null);
+				}
+			}).setNegativeButton(R.string.close, null);
 
 		adBuilder.show();
 	}
@@ -107,9 +105,7 @@ public class ViewScrobbleInfoDialog {
 			list.add(sb.toString());
 		}
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(mCtx,
-				R.layout.scrobble_info_row, R.id.text, list);
-
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(mCtx, R.layout.scrobble_info_row, R.id.text, list);
 		return adapter;
 	}
 }
