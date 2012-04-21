@@ -148,6 +148,9 @@ public class SettingsActivity extends PreferenceActivity {
 		case R.id.menu_about:
 			new AboutDialog(this).show();
 			return true;
+		case R.id.menu_whats_new:
+			new WhatsNewDialog(this).show();
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
