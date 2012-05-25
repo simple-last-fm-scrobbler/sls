@@ -87,6 +87,7 @@ Reported working:
  * Acer Liquid A1
  * Archos 5 Internet Tablet
  * HTC Desire HD
+ * HTC Desire S
  * HTC Desire Z
  * HTC Dream
  * HTC Droid Eris
