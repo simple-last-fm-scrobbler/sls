@@ -296,7 +296,7 @@ public class OptionsScreen extends PreferenceActivity {
 		}
 
 		private OnPreferenceChangeListener mOnListPrefChange = new OnPreferenceChangeListener() {
-			@Override
+			
 			public boolean onPreferenceChange(Preference pref, Object newValue) {
 				if (!(newValue instanceof CharSequence)) {
 					Log.e(TAG, "Got weird newValue on options change: "

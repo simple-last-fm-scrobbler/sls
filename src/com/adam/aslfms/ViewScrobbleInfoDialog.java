@@ -69,7 +69,7 @@ public class ViewScrobbleInfoDialog {
 				R.string.track_info).setIcon(android.R.drawable.ic_dialog_info)
 				.setAdapter(adapter, null).setPositiveButton(R.string.remove,
 						new OnClickListener() {
-							@Override
+							
 							public void onClick(DialogInterface dialog,
 									int which) {
 								if (mNetApp == null) {

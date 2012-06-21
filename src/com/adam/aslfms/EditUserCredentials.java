@@ -66,17 +66,17 @@ public class EditUserCredentials extends DialogPreference {
 		mPassword = (EditText) view.findViewById(R.id.password);
 		mUsername.addTextChangedListener(new TextWatcher() {
 
-			@Override
+		
 			public void onTextChanged(CharSequence s, int start, int before,
 					int count) {
 			}
 
-			@Override
+		
 			public void beforeTextChanged(CharSequence s, int start, int count,
 					int after) {
 			}
 
-			@Override
+
 			public void afterTextChanged(Editable s) {
 				// TODO: disable the auth button if username is empty
 			}
