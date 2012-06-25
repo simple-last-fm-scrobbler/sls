@@ -206,7 +206,7 @@ public class Util {
 		Util.confirmDialog(ctx, ctx.getString(R.string.confirm_delete_sc)
 				.replaceAll("%1", napp.getName()), R.string.remove,
 				R.string.cancel, new OnClickListener() {
-					@Override
+					
 					public void onClick(DialogInterface dialog, int which) {
 
 						Log.d(TAG, "Will remove scrobble from cache: "
@@ -226,7 +226,7 @@ public class Util {
 		Util.confirmDialog(ctx, ctx
 				.getString(R.string.confirm_delete_sc_from_all),
 				R.string.remove, R.string.cancel, new OnClickListener() {
-					@Override
+				
 					public void onClick(DialogInterface dialog, int which) {
 
 						Log.d(TAG, "Will remove scrobble from all caches: "
@@ -250,7 +250,7 @@ public class Util {
 					R.string.confirm_delete_all_sc).replaceAll("%1",
 					napp.getName()), R.string.clear_cache, R.string.cancel,
 					new OnClickListener() {
-						@Override
+
 						public void onClick(DialogInterface dialog, int which) {
 							Log.d(TAG, "Will remove all scrobbles from cache: "
 									+ napp.getName());
@@ -276,7 +276,7 @@ public class Util {
 					.getString(R.string.confirm_delete_all_sc_from_all),
 					R.string.clear_cache, R.string.cancel,
 					new OnClickListener() {
-						@Override
+						
 						public void onClick(DialogInterface dialog, int which) {
 							Log
 									.d(TAG,

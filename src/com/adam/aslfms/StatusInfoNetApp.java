@@ -207,7 +207,7 @@ public class StatusInfoNetApp extends ListActivity {
 					.replaceAll("%1", mNetApp.getName()), R.string.reset,
 					R.string.cancel,
 					new android.content.DialogInterface.OnClickListener() {
-						@Override
+						
 						public void onClick(DialogInterface dialog, int which) {
 							settings.clearSubmissionStats(mNetApp);
 							fillData();

@@ -56,7 +56,7 @@ public class AboutDialog {
 							}
 						}).setNegativeButton(R.string.close,
 						new DialogInterface.OnClickListener() {
-							@Override
+							
 							public void onClick(DialogInterface dialog,
 									int which) {
 							}

@@ -92,7 +92,7 @@ public class UserCredActivity extends PreferenceActivity {
 						getString(R.string.confirm_clear_creds).replaceAll(
 								"%1", mNetApp.getName()), R.string.clear_creds,
 						R.string.cancel, new OnClickListener() {
-							@Override
+						
 							public void onClick(DialogInterface dialog,
 									int which) {
 								sendClearCreds();

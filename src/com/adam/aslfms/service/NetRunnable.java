@@ -53,7 +53,7 @@ public abstract class NetRunnable implements Runnable {
 		mContext.sendBroadcast(i);
 	}
 
-	@Override
+
 	public abstract void run();
 
 }

@@ -261,7 +261,7 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 				R.string.sc_sort_title).setSingleChoiceItems(
 				SortField.toCharSequenceArray(this), selected,
 				new OnClickListener() {
-					@Override
+				
 					public void onClick(DialogInterface dialog, int which) {
 						SortField sf = SortField.values()[which];
 						settings.setCacheSortField(sf);

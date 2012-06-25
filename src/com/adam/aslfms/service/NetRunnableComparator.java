@@ -36,7 +36,7 @@ public class NetRunnableComparator implements Comparator<Runnable> {
 		mPriorityList.add(NPNotifier.class);
 	}
 
-	@Override
+	
 	public int compare(Runnable a, Runnable b) {
 		int ap = mPriorityList.indexOf(a.getClass());
 		int bp = mPriorityList.indexOf(b.getClass());
