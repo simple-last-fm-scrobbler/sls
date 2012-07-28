@@ -49,6 +49,18 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 	public static final int STATE_PAUSE = 2;
 	public static final int STATE_COMPLETE = 3;
 
+	private int getIntFromBundle(Bundle bundle, String key, int onErrorValue, boolean throwOnFailure, String throwString)
+			throws IllegalArgumentException {
+		int value = bundle.getInt(key, onErrorValue);
+		if (value == onErrorValue) {
+			value = (int) bundle.getLong(key, onErrorValue);
+		}
+		if ((throwOnFailure == true) && (value == onErrorValue)) {
+			throw new IllegalArgumentException(throwString);
+		}
+		return value;
+	}
+	
 	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
 			throws IllegalArgumentException {
@@ -65,12 +77,7 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 		setMusicAPI(musicAPI);
 
 		// state, required
-		int state = bundle.getInt("state", -1);
-		if (state == -1) {
-			state = (int) bundle.getLong("state", -1);
-		}
-		if (state == -1)
-			throw new IllegalArgumentException("no state");
+		int state = getIntFromBundle(bundle, "state", -1, true, "no state");
 
 		if (state == STATE_START)
 			setState(Track.State.START);
@@ -94,19 +101,11 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 		b.setTrack(bundle.getString("track"));
 
 		// duration, required
-		int duration = bundle.getInt("duration", -1);
-		if (duration == -1) {
-					duration = (int) bundle.getLong("duration", -1);
-		}
-		if (duration == -1)
-			throw new IllegalArgumentException("no duration");
+		int duration = getIntFromBundle(bundle,"duration", -1, true, "no duration");
 		b.setDuration(duration);
 
 		// tracknr, optional
-		int tracknr = bundle.getInt("track-number", -1);
-		if (tracknr == -1) {
-					tracknr = (int) bundle.getLong("track-number", -1);
-		}
+		int tracknr = getIntFromBundle(bundle, "track-number", -1, false, null);
 		if (tracknr != -1)
 			b.setTrackNr(Integer.toString(tracknr));
 
