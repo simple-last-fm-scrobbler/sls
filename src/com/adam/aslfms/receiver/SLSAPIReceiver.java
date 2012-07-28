@@ -66,7 +66,9 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 
 		// state, required
 		int state = bundle.getInt("state", -1);
-
+		if (state == -1) {
+			state = (int) bundle.getLong("state", -1);
+		}
 		if (state == -1)
 			throw new IllegalArgumentException("no state");
 
@@ -93,12 +95,18 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 
 		// duration, required
 		int duration = bundle.getInt("duration", -1);
+		if (duration == -1) {
+					duration = (int) bundle.getLong("duration", -1);
+		}
 		if (duration == -1)
 			throw new IllegalArgumentException("no duration");
 		b.setDuration(duration);
 
 		// tracknr, optional
 		int tracknr = bundle.getInt("track-number", -1);
+		if (tracknr == -1) {
+					tracknr = (int) bundle.getLong("track-number", -1);
+		}
 		if (tracknr != -1)
 			b.setTrackNr(Integer.toString(tracknr));
 
