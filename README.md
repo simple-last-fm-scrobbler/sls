@@ -82,6 +82,7 @@ Tested by me:
  * Google Nexus One
  * HTC Magic
  * HTC Desire
+ * Google Galaxy Nexus
 
 Reported working:
 
