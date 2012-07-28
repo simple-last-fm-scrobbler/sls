@@ -43,31 +43,31 @@ Apps
  * Default Android Music Player
  * HTC Hero Music Player
  * [Meridian Player](http://sites.google.com/site/eternalsandbox/Home/meridian-video-player) **(a)**
- * [RockOn](http://abrantix.org/rockon.php) ([market](https://market.android.com/details?id=org.abrantes.filex)) **(a)**
- * [MixZing](http://mixzing.com/android.html ) ([market](https://market.android.com/details?id=com.mixzing.basic)) **(a)**
+ * [RockOn](http://abrantix.org/rockon.php) ([Google Play](https://play.google.com/store/apps/details?id=org.abrantes.filex)) **(a)**
+ * [MixZing](http://mixzing.com/android.html ) ([Google Play](https://play.google.com/store/apps/details?id=com.mixzing.basic)) **(a)**
  * [Archos Music Player](http://www.archos.com/products/imt/archos_5it/index.html) **(b)**
  * [Rhapsody Android Beta](http://www.rhapsody.com/android/download) **(b)**
- * [Vanilla Music Player](http://github.com/kreed/vanilla) ([market](https://market.android.com/details?id=org.kreed.vanilla)) **(a)**
- * [bTunes](http://www.btunesmusicplayer.com/default.html) ([market](https://market.android.com/details?id=com.bmayers.bTunesRelease), and [more](http://www.facebook.com/pages/bTunes/362875048125?v=wall))
- * [³ (cubed)](http://abrantix.org/3.php) - Appears as !RockOn !NextGen in the Enabled Apps screen ([market](https://market.android.com/details?id=org.abrantix.rockon.rockonnggl))
+ * [Vanilla Music Player](http://github.com/kreed/vanilla) ([Google Play](https://play.google.com/store/apps/details?id=org.kreed.vanilla)) **(a)**
+ * [bTunes](http://www.btunesmusicplayer.com/default.html) ([Google Play](https://play.google.com/store/apps/details?id=com.bmayers.bTunesRelease), and [more](http://www.facebook.com/pages/bTunes/362875048125?v=wall))
+ * [³ (cubed)](http://abrantix.org/3.php) - Appears as !RockOn !NextGen in the Enabled Apps screen ([Google Play](https://play.google.com/store/apps/details?id=org.abrantix.rockon.rockonnggl))
  * [WIMP](http://wimp.no/)
  * [Zimly](http://zim.ly/)
  * [Just Playlists](http://jp.folsoms.info)
- * [PowerAMP](http://powerampapp.com/) ([market](https://market.android.com/details?id=com.maxmpz.audioplayer))
+ * [PowerAMP](http://powerampapp.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer))
  * [Winamp](http://blog.winamp.com/2010/11/30/winamp-for-android/)
  * [myTouch 4G](http://mytouch.t-mobile.com/)
  * [Google Music](http://music.google.com/music/)
- * [Player Pro](http://www.aplayerpro.com/) ([market](https://market.android.com/details?id=com.tbig.playerpro))
- * [jukefox](http://www.jukefox.org/) ([market](https://market.android.com/details?id=ch.ethz.dcg.pancho2)) **(a)**
- * [DAAP Media Player](http://code.google.com/p/daap-client/ ) ([market](https://market.android.com/details?id=org.mult.daap))
- * [Folder Player](http://folderplayer.com/) ([market](https://market.android.com/details?id=com.folderplayer))
- * [GoneMAD Music Player](http://gonemadmusicplayer.blogspot.com/) ([market](https://market.android.com/details?id=gonemad.gmmp))
+ * [Player Pro](http://www.aplayerpro.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.tbig.playerpro))
+ * [jukefox](http://www.jukefox.org/) ([Google Play](https://play.google.com/store/apps/details?id=ch.ethz.dcg.pancho2)) **(a)**
+ * [DAAP Media Player](http://code.google.com/p/daap-client/ ) ([Google Play](https://play.google.com/store/apps/details?id=org.mult.daap))
+ * [Folder Player](http://folderplayer.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.folderplayer))
+ * [GoneMAD Music Player](http://gonemadmusicplayer.blogspot.com/) ([Google Play](https://play.google.com/store/apps/details?id=gonemad.gmmp))
  * MIUI Music Player
- * [ServeStream](http://sourceforge.net/projects/servestream/) ([market](https://market.android.com/details?id=net.sourceforge.servestream))
+ * [ServeStream](http://sourceforge.net/projects/servestream/) ([Google Play](https://play.google.com/store/apps/details?id=net.sourceforge.servestream))
  * Default Sony Ericsson/Xperia Music Player
- * [Neutron Music Player](http://neutronmp.com/) ([market](https://play.google.com/store/apps/details?id=com.neutroncode.mp))
- * [Music2Dance2](http://www.argoday.com/wiki/Music2Dance2) ([market](https://play.google.com/store/apps/developer?id=Argoday))
- * [Rdio](http://www.rdio.com/) ([market](https://play.google.com/store/apps/details?id=com.rdio.android.ui))
+ * [Neutron Music Player](http://neutronmp.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.neutroncode.mp))
+ * [Music2Dance2](http://www.argoday.com/wiki/Music2Dance2) ([Google Play](https://play.google.com/store/apps/developer?id=Argoday))
+ * [Rdio](http://www.rdio.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.rdio.android.ui))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
