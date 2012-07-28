@@ -1,5 +1,6 @@
-- 1.3.7 (2012-07-30)
+- 1.3.7 (2012-07-28)
   * Added support for Music2Dance2 (thanks to Argoday)
+  * Added support for Rdio (thanks to stermi)
   * Stability improvements
 
 - 1.3.6 (2012-04-21)

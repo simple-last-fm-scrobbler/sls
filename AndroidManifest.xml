@@ -149,6 +149,16 @@
         </receiver>
 
         <receiver
+            android:name="com.adam.aslfms.receiver.RdioMusicReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.rdio.android.playstatechanged" />
+                <action android:name="com.rdio.android.metachanged" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
             android:name="com.adam.aslfms.receiver.SamsungMusicReceiver"
             android:exported="true"
             android:enabled="true">
