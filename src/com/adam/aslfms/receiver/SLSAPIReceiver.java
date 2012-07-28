@@ -22,6 +22,7 @@ package com.adam.aslfms.receiver;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
@@ -49,16 +50,24 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 	public static final int STATE_PAUSE = 2;
 	public static final int STATE_COMPLETE = 3;
 
-	private int getIntFromBundle(Bundle bundle, String key, int onErrorValue, boolean throwOnFailure, String throwString)
+	private int getIntFromBundle(Bundle bundle, String key, boolean throwOnFailure)
 			throws IllegalArgumentException {
-		int value = bundle.getInt(key, onErrorValue);
-		if (value == onErrorValue) {
-			value = (int) bundle.getLong(key, onErrorValue);
+		long value = -1;
+		Object obj = bundle.get(key);
+		
+		if (obj instanceof Long)
+			value = (Long) obj;
+		else if (obj instanceof Integer)
+			value = (Integer) obj;
+		else if (obj instanceof String) {
+			value = Long.valueOf((String) obj).longValue();
 		}
-		if ((throwOnFailure == true) && (value == onErrorValue)) {
-			throw new IllegalArgumentException(throwString);
+
+		if (throwOnFailure && value == -1) {
+			throw new IllegalArgumentException(key + "not found in intent");
 		}
-		return value;
+		
+		return (int) value;
 	}
 	
 	@Override
@@ -77,7 +86,7 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 		setMusicAPI(musicAPI);
 
 		// state, required
-		int state = getIntFromBundle(bundle, "state", -1, true, "no state");
+		int state = getIntFromBundle(bundle, "state", true);
 
 		if (state == STATE_START)
 			setState(Track.State.START);
@@ -101,11 +110,11 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 		b.setTrack(bundle.getString("track"));
 
 		// duration, required
-		int duration = getIntFromBundle(bundle,"duration", -1, true, "no duration");
+		int duration = getIntFromBundle(bundle, "duration", true);
 		b.setDuration(duration);
 
 		// tracknr, optional
-		int tracknr = getIntFromBundle(bundle, "track-number", -1, false, null);
+		int tracknr = getIntFromBundle(bundle, "track-number", false);
 		if (tracknr != -1)
 			b.setTrackNr(Integer.toString(tracknr));
 
