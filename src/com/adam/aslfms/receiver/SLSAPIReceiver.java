@@ -22,7 +22,6 @@ package com.adam.aslfms.receiver;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
@@ -59,13 +58,10 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 			value = (Long) obj;
 		else if (obj instanceof Integer)
 			value = (Integer) obj;
-		else if (obj instanceof String) {
+		else if (obj instanceof String)
 			value = Long.valueOf((String) obj).longValue();
-		}
-
-		if (throwOnFailure && value == -1) {
+		else if (throwOnFailure)
 			throw new IllegalArgumentException(key + "not found in intent");
-		}
 		
 		return (int) value;
 	}
