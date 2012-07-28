@@ -66,6 +66,7 @@ Apps
  * [ServeStream](http://sourceforge.net/projects/servestream/) ([market](https://market.android.com/details?id=net.sourceforge.servestream))
  * Default Sony Ericsson/Xperia Music Player
  * [Neutron Music Player](http://neutronmp.com/) ([market](https://play.google.com/store/apps/details?id=com.neutroncode.mp))
+ * [Music2Dance2](http://www.argoday.com/wiki/Music2Dance2) ([market](https://play.google.com/store/apps/developer?id=Argoday))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
