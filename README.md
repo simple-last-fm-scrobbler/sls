@@ -88,6 +88,7 @@ Reported working:
 
  * Acer Liquid A1
  * Archos 5 Internet Tablet
+ * Google Nexus 7
  * HTC Desire HD
  * HTC Desire S
  * HTC Desire Z
@@ -102,6 +103,7 @@ Reported working:
  * LG Optimus One P500
  * LG Optimus V
  * Motorola Droid
+ * Motorola Droid 3
  * Motorola Milestone
  * Samsung Galaxy Ace (probably doesn't work with builtin player)
  * Samsung Galaxy S2
