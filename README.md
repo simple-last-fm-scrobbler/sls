@@ -110,6 +110,7 @@ Reported working:
  * Samsung Galaxy S2
  * Samsung Galaxy Spica (doesn't work with the built-in 2.1 music app)
  * Sony Ericsson Xperia X10 Mini Pro
+ * Sony Ericsson Xperia Pro
 
 Issues:
 
