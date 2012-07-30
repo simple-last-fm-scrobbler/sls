@@ -9,7 +9,7 @@ at Last.fm.
 
 More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/help/faq?category=Scrobbling#201).
 
-**If anyone wants to take part in developing this app further, I'm looking for contributors. Please email me.**
+**If anyone wants to take part in developing this app further, I'm looking for contributors. Please email me, or just fork and code away.**
 
 If you need inspiration on stuff to do, you might want to have a look at the list of issues.
 
