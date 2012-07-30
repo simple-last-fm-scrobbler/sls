@@ -155,7 +155,7 @@ but it is released under GPLv2, and I got it from [ostermiller.org](http://oster
 I use copyright here only in the sense of proper attribution. Do whatever you want with the code (as long as the licenses are followed). I switched to the Apache License 2.0 for a less viral license.
 
 Contributors
-============
+------------
 
  * Adam Renberg, [tgwizard](https://github.com/tgwizard), main author
  * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), icon
