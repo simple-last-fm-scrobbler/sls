@@ -164,3 +164,5 @@ Contributors
  * Dmitry Kostjuchenko, support for Neutron Music Player
  * Argoday, [argoday](https://github.com/argoday), support for Music2Dance2
  * stermi, support for Rdio
+
+Several people have also contributed with comments, suggestions and [issues](https://github.com/tgwizard/sls/issues/).
