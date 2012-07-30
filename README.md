@@ -146,14 +146,21 @@ All of the code is open source, and as of 2010-04-27 lincesed under the
 **I've not yet removed the refernces to GPL from the source code**.
 
  * Almost all of the code is written by me, so: Copyright 2009-2012 Adam Renberg.
-
  * A small MD5 utilities class seems to be written by many people,
 but it is released under GPLv2, and I got it from [ostermiller.org](http://ostermiller.org/utils/MD5.html).
-
  * The icon was made by [Tha PHLASH](http://www.thaphlash.com/).
-
  * The Last.fm logo is copyright of Last.fm, taken from their [media kit](http://www.last.fm/resources).
-
  * The Libre.fm logo is probably copyright of Libre.fm, used in good faith. (Because of their name and stated mission, I assume it is okay).
 
 I use copyright here only in the sense of proper attribution. Do whatever you want with the code (as long as the licenses are followed). I switched to the Apache License 2.0 for a less viral license.
+
+Contributors
+============
+
+ * Adam Renberg, [tgwizard](https://github.com/tgwizard), main author
+ * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), icon
+ * Andrew Thomson, support for MIUI Music Player
+ * Mark Gillespie, support for Sony/Sony Ericsson/Xperia phones
+ * Dmitry Kostjuchenko, support for Neutron Music Player
+ * Argoday, [argoday](https://github.com/argoday), support for Music2Dance2
+ * stermi, support for Rdio
