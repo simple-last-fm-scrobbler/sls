@@ -40,9 +40,7 @@ public class StatusActivity extends TabActivity {
 			Intent i = new Intent(this, StatusInfoNetApp.class);
 			i.putExtra("netapp", napp.getIntentExtraValue());
 			mTabHost.addTab(mTabHost.newTabSpec(napp.toString()).setIndicator(
-					getString(R.string.status),
-					getResources().getDrawable(napp.getLogoRes()))
-					.setContent(i));
+				napp.getName()).setContent(i));
 		}
 
 		// switch to the first netapp that is authenticated

@@ -24,23 +24,24 @@ import android.app.ListActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnClickListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
@@ -52,13 +53,6 @@ import com.adam.aslfms.util.enums.SortField;
 
 public class ViewScrobbleCacheActivity extends ListActivity {
 	private static final String TAG = "VSCacheActivity";
-
-	private static final int MENU_SCROBBLE_NOW_ID = 0;
-	private static final int MENU_CLEAR_CACHE_ID = 1;
-	private static final int MENU_CHANGE_SORT_ORDER_ID = 2;
-
-	private static final int CONTEXT_MENU_DETAILS_ID = 0;
-	private static final int CONTEXT_MENU_DELETE_ID = 1;
 
 	private AppSettings settings;
 
@@ -98,7 +92,7 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 		setContentView(R.layout.scrobble_cache_list);
 
 		View header = getLayoutInflater().inflate(
-				R.layout.scrobble_cache_header, null);
+			R.layout.scrobble_cache_header, null);
 		mSortHeaderTextView = (TextView) header.findViewById(R.id.sort_title);
 		getListView().addHeaderView(header);
 
@@ -153,46 +147,38 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 		CursorAdapter adapter = new MyAdapter(this, mScrobblesCursor);
 		setListAdapter(adapter);
 
-		mSortHeaderTextView.setText(getString(R.string.sc_sorted_by)
-				.replaceAll("%1", sf.getName(this)));
+		mSortHeaderTextView.setText(getString(R.string.sc_sorted_by).replaceAll(
+			"%1", sf.getName(this)));
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		boolean ret = super.onCreateOptionsMenu(menu);
-
-		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now).setIcon(
-				android.R.drawable.ic_menu_upload);
-		menu.add(0, MENU_CLEAR_CACHE_ID, 0, R.string.clear_cache).setIcon(
-				android.R.drawable.ic_menu_close_clear_cancel);
-		menu.add(0, MENU_CHANGE_SORT_ORDER_ID, 0, R.string.sc_sortorder_change)
-				.setIcon(android.R.drawable.ic_menu_sort_alphabetically);
-
-		return ret;
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.view_scrobble_cache, menu);
+		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case MENU_SCROBBLE_NOW_ID:
+		case R.id.menu_scrobble_now:
 			if (mNetApp == null) {
 				Util.scrobbleAllIfPossible(this, mScrobblesCursor.getCount());
 			} else {
-				Util.scrobbleIfPossible(this, mNetApp, mScrobblesCursor
-						.getCount());
+				Util.scrobbleIfPossible(this, mNetApp,
+					mScrobblesCursor.getCount());
 			}
 			return true;
-		case MENU_CLEAR_CACHE_ID:
+		case R.id.menu_clear_cache:
 			if (mNetApp == null) {
 				Util.deleteAllScrobblesFromAllCaches(this, mDb,
-						mScrobblesCursor);
+					mScrobblesCursor);
 			} else {
 				Util.deleteAllScrobblesFromCache(this, mDb, mNetApp,
-						mScrobblesCursor);
+					mScrobblesCursor);
 			}
-
 			return true;
-		case MENU_CHANGE_SORT_ORDER_ID:
+		case R.id.menu_change_sort_order:
 			viewChangeSortOrder();
 			return true;
 		}
@@ -201,35 +187,30 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
+		ContextMenuInfo menuInfo) {
 		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
 		if (info.id < 0)
 			return;
-		super.onCreateContextMenu(menu, v, menuInfo);
-		menu.add(0, CONTEXT_MENU_DETAILS_ID, 0, R.string.view_sc_details)
-				.setIcon(android.R.drawable.ic_menu_view);
-		;
-		menu.add(0, CONTEXT_MENU_DELETE_ID, 0, R.string.delete_sc).setIcon(
-				android.R.drawable.ic_menu_delete);
-		;
+
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.view_scrobble_cache_context, menu);
 	}
 
 	@Override
 	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-				.getMenuInfo();
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item.getMenuInfo();
 		switch (item.getItemId()) {
-		case CONTEXT_MENU_DELETE_ID:
+		case R.id.menu_delete_scrobble:
 			if (mNetApp == null) {
 				Util.deleteScrobbleFromAllCaches(this, mDb, mScrobblesCursor,
-						(int) info.id);
+					(int) info.id);
 			} else {
 				Util.deleteScrobbleFromCache(this, mDb, mNetApp,
-						mScrobblesCursor, (int) info.id);
+					mScrobblesCursor, (int) info.id);
 			}
 
 			return true;
-		case CONTEXT_MENU_DETAILS_ID:
+		case R.id.menu_show_scrobble_details:
 			viewSCDetails((int) info.id);
 			return true;
 		}
@@ -258,18 +239,18 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 		}
 
 		AlertDialog.Builder adBuilder = new AlertDialog.Builder(this).setTitle(
-				R.string.sc_sort_title).setSingleChoiceItems(
-				SortField.toCharSequenceArray(this), selected,
-				new OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						SortField sf = SortField.values()[which];
-						settings.setCacheSortField(sf);
-						refillData();
-						mScrobblesCursor.requery();
-						dialog.dismiss();
-					}
-				});
+			R.string.sc_sort_title).setSingleChoiceItems(
+			SortField.toCharSequenceArray(this), selected,
+			new OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+					SortField sf = SortField.values()[which];
+					settings.setCacheSortField(sf);
+					refillData();
+					mScrobblesCursor.requery();
+					dialog.dismiss();
+				}
+			});
 
 		adBuilder.show();
 	}
@@ -280,12 +261,10 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 			Log.e(TAG, "Got null track with id: " + id);
 			return;
 		}
-		new ViewScrobbleInfoDialog(this, mDb, mNetApp, mScrobblesCursor, track)
-				.show();
+		new ViewScrobbleInfoDialog(this, mDb, mNetApp, mScrobblesCursor, track).show();
 	}
 
 	private BroadcastReceiver onChange = new BroadcastReceiver() {
-
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			Bundle extras = intent.getExtras();
@@ -306,7 +285,6 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 	};
 
 	private class MyAdapter extends CursorAdapter {
-
 		public MyAdapter(Context context, Cursor c) {
 			super(context, c);
 		}
@@ -319,7 +297,7 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 
 			int time = cursor.getInt(cursor.getColumnIndex("whenplayed"));
 			String timeString = Util.timeFromUTCSecs(
-					ViewScrobbleCacheActivity.this, time);
+				ViewScrobbleCacheActivity.this, time);
 			TextView timeView = (TextView) view.findViewById(R.id.when);
 			timeView.setText(timeString);
 
@@ -335,9 +313,8 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 		@Override
 		public View newView(Context context, Cursor cursor, ViewGroup parent) {
 			return LayoutInflater.from(context).inflate(
-					R.layout.scrobble_cache_row, parent, false);
+				R.layout.scrobble_cache_row, parent, false);
 
 		}
-
 	}
 }

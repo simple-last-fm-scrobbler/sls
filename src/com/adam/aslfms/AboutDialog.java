@@ -47,20 +47,13 @@ public class AboutDialog {
 		innerUpdate(dialogView);
 
 		AlertDialog.Builder adBuilder = new AlertDialog.Builder(mCtx).setTitle(
-				R.string.about).setIcon(android.R.drawable.ic_dialog_info)
-				.setView(dialogView).setPositiveButton(R.string.whats_new,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								new WhatsNewDialog(mCtx).show();
-							}
-						}).setNegativeButton(R.string.close,
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-							}
-						});
+			R.string.about).setIcon(android.R.drawable.ic_dialog_info).setView(
+			dialogView).setNegativeButton(R.string.close,
+			new DialogInterface.OnClickListener() {
+				@Override
+				public void onClick(DialogInterface dialog, int which) {
+				}
+			});
 
 		adBuilder.show();
 	}
@@ -68,21 +61,17 @@ public class AboutDialog {
 	private void innerUpdate(View dialogView) {
 		TextView appName = (TextView) dialogView.findViewById(R.id.app_name);
 		TextView author = (TextView) dialogView.findViewById(R.id.author);
-		TextView graphics_byline = (TextView) dialogView
-				.findViewById(R.id.graphics_byline);
+		TextView graphics_byline = (TextView) dialogView.findViewById(R.id.graphics_byline);
 		TextView license = (TextView) dialogView.findViewById(R.id.license);
-		TextView whatIsThis = (TextView) dialogView
-				.findViewById(R.id.what_is_this);
-		TextView netApps = (TextView) dialogView
-				.findViewById(R.id.supported_netapps);
-		TextView musicApps = (TextView) dialogView
-				.findViewById(R.id.supported_musicapps);
+		TextView whatIsThis = (TextView) dialogView.findViewById(R.id.what_is_this);
+		TextView netApps = (TextView) dialogView.findViewById(R.id.supported_netapps);
+		TextView musicApps = (TextView) dialogView.findViewById(R.id.supported_musicapps);
 		TextView website = (TextView) dialogView.findViewById(R.id.website);
 		TextView email = (TextView) dialogView.findViewById(R.id.email);
 
 		// app name & version
 		String appText = Util.getAppName(mCtx, mCtx.getPackageName()) + " v"
-				+ Util.getAppVersionName(mCtx, mCtx.getPackageName());
+			+ Util.getAppVersionName(mCtx, mCtx.getPackageName());
 		appName.setText(appText);
 
 		// author
@@ -105,18 +94,18 @@ public class AboutDialog {
 		}
 		sb.setLength(sb.length() - 2);
 		netApps.setText(mCtx.getString(R.string.supported_netapps).replace(
-				"%1", sb.toString()));
+			"%1", sb.toString()));
 
 		// supported music apps
 		musicApps.setText(R.string.supported_musicapps);
 
 		// website
 		website.setText(mCtx.getString(R.string.website) + " "
-				+ mCtx.getString(R.string.website_url));
+			+ mCtx.getString(R.string.website_url));
 
 		// email
 		email.setText(mCtx.getString(R.string.contact) + " "
-				+ mCtx.getString(R.string.email_addr));
+			+ mCtx.getString(R.string.email_addr));
 	}
 
 }
