@@ -52,10 +52,6 @@ public class StatusInfoNetApp extends ListActivity {
 
 	private static final String TAG = "StatusInfoNetApp";
 
-	private static final int MENU_SCROBBLE_NOW_ID = 0;
-	private static final int MENU_VIEW_CACHE_ID = 1;
-	private static final int MENU_RESET_STATS_ID = 2;
-
 	private NetApp mNetApp;
 
 	private AppSettings settings;
@@ -110,7 +106,7 @@ public class StatusInfoNetApp extends ListActivity {
 		fillData();
 	}
 
-	private void fillData() {
+	protected void fillData() {
 		List<Pair> list = new ArrayList<Pair>();
 		int numInCache = mDb.queryNumberOfScrobbles(mNetApp);
 
@@ -174,48 +170,6 @@ public class StatusInfoNetApp extends ListActivity {
 				R.layout.status_info_row, R.id.key, list);
 
 		setListAdapter(adapter);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		boolean ret = super.onCreateOptionsMenu(menu);
-
-		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now).setIcon(
-				android.R.drawable.ic_menu_upload);
-		menu.add(0, MENU_RESET_STATS_ID, 0, R.string.reset_stats).setIcon(
-				android.R.drawable.ic_menu_close_clear_cancel);
-		menu.add(0, MENU_VIEW_CACHE_ID, 0, R.string.view_sc).setIcon(
-				android.R.drawable.ic_menu_view);
-
-		return ret;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case MENU_SCROBBLE_NOW_ID:
-			int numInCache = mDb.queryNumberOfScrobbles(mNetApp);
-			Util.scrobbleIfPossible(this, mNetApp, numInCache);
-			return true;
-		case MENU_VIEW_CACHE_ID:
-			Intent j = new Intent(this, ViewScrobbleCacheActivity.class);
-			j.putExtra("netapp", mNetApp.getIntentExtraValue());
-			startActivity(j);
-			return true;
-		case MENU_RESET_STATS_ID:
-			Util.confirmDialog(this, getString(R.string.confirm_stats_reset)
-					.replaceAll("%1", mNetApp.getName()), R.string.reset,
-					R.string.cancel,
-					new android.content.DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							settings.clearSubmissionStats(mNetApp);
-							fillData();
-						}
-					});
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 	@Override
@@ -284,6 +238,10 @@ public class StatusInfoNetApp extends ListActivity {
 			}
 		}
 	};
+	
+	protected synchronized NetApp getNetApp() {
+		return mNetApp;
+	}
 
 	private static class Pair {
 		private String key;
