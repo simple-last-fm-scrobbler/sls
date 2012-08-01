@@ -157,12 +157,13 @@ I use copyright here only in the sense of proper attribution. Do whatever you wa
 Contributors
 ------------
 
- * Adam Renberg, [tgwizard](https://github.com/tgwizard), main author
+ * Adam Renberg, [github.com/tgwizard](https://github.com/tgwizard), main author
  * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), icon
+ * Sean O'Neil, [github.com/SeanPONeil](https://github.com/SeanPONeil), android 4.0
  * Andrew Thomson, support for MIUI Music Player
  * Mark Gillespie, support for Sony/Sony Ericsson/Xperia phones
  * Dmitry Kostjuchenko, support for Neutron Music Player
- * Argoday, [argoday](https://github.com/argoday), support for Music2Dance2
+ * Argoday, [github.com/argoday](https://github.com/argoday), support for Music2Dance2
  * stermi, support for Rdio
 
 Several people have also contributed with comments, suggestions and [issues](https://github.com/tgwizard/sls/issues/).
