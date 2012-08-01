@@ -72,7 +72,6 @@ public class StatusActivity extends TabActivity {
 
 		mDb = new ScrobblesDatabase(this);
 		mDb.open();
-		settings = new AppSettings(this);
 	}
 
 	@Override
@@ -110,6 +109,7 @@ public class StatusActivity extends TabActivity {
 					new android.content.DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
+							settings = new AppSettings(StatusActivity.this);
 							settings.clearSubmissionStats(mNetApp);
 							currentActivity.fillData();
 						}
