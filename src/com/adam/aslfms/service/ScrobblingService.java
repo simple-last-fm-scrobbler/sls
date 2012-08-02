@@ -81,6 +81,10 @@ public class ScrobblingService extends Service {
 
 	@Override
 	public void onStart(Intent i, int startId) {
+		if(i==null){
+			Log.e(TAG, "got null intent");
+			return;
+		}
 		String action = i.getAction();
 		Bundle extras = i.getExtras();
 		if (action.equals(ACTION_CLEARCREDS)) {
