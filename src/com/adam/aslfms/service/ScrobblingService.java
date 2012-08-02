@@ -80,7 +80,18 @@ public class ScrobblingService extends Service {
 	}
 
 	@Override
+	public int onStartCommand(Intent i,int flags,int startId){
+		handleCommand(i,startId);
+		return Service.START_NOT_STICKY;
+	}
+
+	//Note this function is deprecated starting at API level 5
+	@Override
 	public void onStart(Intent i, int startId) {
+		handleCommand(i,startId);
+	}
+	
+	private void handleCommand(Intent i, int startId) {
 		if(i==null){
 			Log.e(TAG, "got null intent");
 			return;
