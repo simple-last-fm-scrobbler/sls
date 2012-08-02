@@ -21,14 +21,13 @@
 package com.adam.aslfms.util;
 
 import com.adam.aslfms.receiver.MusicAPI;
+import com.adam.aslfms.receiver.MusicAPITestUtils;
 
 import com.adam.aslfms.util.Track;
 
-import static com.adam.aslfms.receiver.MusicAPITestUtils.*;
-
 public class TrackTestUtils {
 
-	public static final MusicAPI TEST_MUSIC_API = getDummyMusicAPI();
+	public static final MusicAPI TEST_MUSIC_API = MusicAPITestUtils.getDummyMusicAPI();
 	public static final String TEST_ARTIST = "Adam";
 	public static final String TEST_ALBUM = "Rocks";
 	public static final String TEST_TRACK = "The World";
@@ -61,9 +60,13 @@ public class TrackTestUtils {
 		t.mTrack = track;
 		return t;
 	}
-
+	
 	public static Track buildFullTrack() {
-		return buildTrack(TEST_MUSIC_API, TEST_ARTIST, TEST_ALBUM, TEST_TRACK, TEST_DURATION, TEST_TRACK_NR, TEST_MBID,
+		return buildFullTrack(TEST_MUSIC_API);
+	}
+
+	public static Track buildFullTrack(MusicAPI mapi) {
+		return buildTrack(mapi, TEST_ARTIST, TEST_ALBUM, TEST_TRACK, TEST_DURATION, TEST_TRACK_NR, TEST_MBID,
 				TEST_SOURCE, TEST_RATING, TEST_WHEN, TEST_ROWID);
 	}
 

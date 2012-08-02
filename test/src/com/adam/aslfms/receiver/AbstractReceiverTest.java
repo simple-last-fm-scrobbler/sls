@@ -106,7 +106,7 @@ public abstract class AbstractReceiverTest extends AndroidTestCase {
 
 	abstract BroadcastReceiver createReceiver();
 
-	abstract Scrobble assembleScrobbleIntent(Track.State start);
+	abstract Scrobble assembleScrobbleIntent(Track.State state);
 
 	/*
 	 * Fixture tests
