@@ -166,5 +166,6 @@ Contributors
  * Mark Gillespie, support for Sony/Sony Ericsson/Xperia phones
  * Dmitry Kostjuchenko, support for Neutron Music Player
  * stermi, support for Rdio
+ * Dmitry Paskal, [github.com/paskal](https://github.com/paskal), listed test device
 
 Several people have also contributed with comments, suggestions and [issues](https://github.com/tgwizard/sls/issues/).
