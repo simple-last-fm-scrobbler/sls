@@ -153,16 +153,14 @@ public class ScrobblingService extends Service {
 			if (mCurrentTrack != null) {
 				track = mCurrentTrack;
 			} else {
-				Log
-						.e(TAG,
-								"Got a SAME_AS_CURRENT track, but current was null!");
+				Log.e(TAG, "Got a SAME_AS_CURRENT track, but current was null!");
 				return;
 			}
 		}
 
 		if (state == Track.State.START || state == Track.State.RESUME) { // start/resume
 			if (mCurrentTrack != null) {
-				mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+				mCurrentTrack.updateTimePlayed();
 				tryQueue(mCurrentTrack);
 				if (track.equals(mCurrentTrack)) {
 					return;
@@ -172,7 +170,7 @@ public class ScrobblingService extends Service {
 			}
 
 			mCurrentTrack = track;
-			mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+			mCurrentTrack.updateTimePlayed();
 			tryNotifyNP(mCurrentTrack);
 		} else if (state == Track.State.PAUSE) { // pause
 			// TODO: test this state
@@ -184,9 +182,9 @@ public class ScrobblingService extends Service {
 					Log.e(TAG, "t: " + track);
 					Log.e(TAG, "c: " + mCurrentTrack);
 				} else {
-					mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+					mCurrentTrack.updateTimePlayed();
 					// below: to be set on RESUME
-					mCurrentTrack.updateTimePlayed(Track.UNKNOWN_COUNT_POINT);
+					mCurrentTrack.stopCountingTime();
 
 					tryQueue(mCurrentTrack);
 				}
@@ -201,7 +199,7 @@ public class ScrobblingService extends Service {
 					Log.e(TAG, "t: " + track);
 					Log.e(TAG, "c: " + mCurrentTrack);
 				} else {
-					mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+					mCurrentTrack.updateTimePlayed();
 					tryQueue(mCurrentTrack);
 					tryScrobble();
 					mCurrentTrack = null;
@@ -217,7 +215,7 @@ public class ScrobblingService extends Service {
 					Log.e(TAG, "t: " + track);
 					Log.e(TAG, "c: " + mCurrentTrack);
 				} else {
-					mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+					mCurrentTrack.updateTimePlayed();
 					tryQueue(mCurrentTrack);
 					tryScrobble(true);
 				}
@@ -229,9 +227,9 @@ public class ScrobblingService extends Service {
 			if (mCurrentTrack == null) {
 				// just ignore the track
 			} else {
-				mCurrentTrack.updateTimePlayed(Util.currentTimeMillisUTC());
+				mCurrentTrack.updateTimePlayed();
 				// below: to be set on RESUME
-				mCurrentTrack.updateTimePlayed(Track.UNKNOWN_COUNT_POINT);
+				mCurrentTrack.stopCountingTime();
 
 				tryQueue(mCurrentTrack);
 				if (!mCurrentTrack.hasUnknownDuration()) {
