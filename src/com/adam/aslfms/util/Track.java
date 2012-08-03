@@ -19,6 +19,8 @@
 
 package com.adam.aslfms.util;
 
+import android.util.Log;
+
 import com.adam.aslfms.receiver.MusicAPI;
 
 /**
@@ -62,6 +64,7 @@ public class Track {
 	 */
 	public static final int DEFAULT_TRACK_LENGTH = 180;
 	public static final long UNKNOWN_COUNT_POINT = -1;
+	static final String TAG = "Track";
 
 	MusicAPI mMusicAPI;
 	String mArtist;
@@ -328,10 +331,13 @@ public class Track {
 	}
 
 	void incTimePlayed(long tp) {
-		if (tp < 0)
-			throw new IllegalArgumentException(
-					"time-played increase was negative: " + tp);
-		mTimePlayed += tp;
+		if (tp < 0) {
+			// this might happen if the user has changed the system clock
+			Log.i(TAG, "time-played increase was negative (" + tp
+					+ ") - has the user changed the system clock?");
+		} else {
+			mTimePlayed += tp;
+		}
 	}
 
 	@Override
