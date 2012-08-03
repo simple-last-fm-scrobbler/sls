@@ -393,7 +393,9 @@ public class MusicAPI {
 	        			DatabaseHelper dbh = new DatabaseHelper(_context.getApplicationContext());
 			        	db = dbh.getWritableDatabase();
 			        	if(db.isOpen()==false){
-			        		Log.e("M2D2","Could not open M2D2 database");
+			        		Log.e(TAG,"Could not open MusicAPI database");
+			        		db = null;
+			        		return null;
 			        	}
 		        	}
 	        		++count;

@@ -85,7 +85,9 @@ public class ScrobblesDatabase {
 	        			DatabaseHelper dbh = new DatabaseHelper(_context.getApplicationContext());
 			        	db = dbh.getWritableDatabase();
 			        	if(db.isOpen()==false){
-			        		Log.e("M2D2","Could not open M2D2 database");
+			        		Log.e(TAG,"Could not open ScrobblesDatabase");
+			        		db = null;
+			        		return null;
 			        	}
 		        	}
 	        		++count;
