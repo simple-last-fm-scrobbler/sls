@@ -154,15 +154,14 @@ public class MusicAPI {
 		if (en == this.enabled)
 			return;
 
-		DatabaseHelper dbHelper = new DatabaseHelper(ctx);
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		SQLiteDatabase db = DatabaseHelper.getDatabase(ctx.getApplicationContext());
 
 		String update = "update music_api set enabled = " + en
 				+ " where _id = " + this.id;
 		db.execSQL(update);
 		this.enabled = en;
 
-		dbHelper.close();
+		DatabaseHelper.closeDatabase();
 	}
 
 	@Override
@@ -226,8 +225,7 @@ public class MusicAPI {
 		if (pkg == null)
 			throw new IllegalArgumentException("null music api pkg");
 
-		DatabaseHelper dbHelper = new DatabaseHelper(ctx);
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		SQLiteDatabase db = DatabaseHelper.getDatabase(ctx.getApplicationContext());
 
 		String sql = "select * from music_api where pkg = '" + pkg + "'";
 		Cursor c = db.rawQuery(sql, null);
@@ -298,7 +296,7 @@ public class MusicAPI {
 					true);
 			Log.d(TAG, mapi.toString());
 		}
-		dbHelper.close();
+		DatabaseHelper.closeDatabase();
 		return mapi;
 	}
 
@@ -314,8 +312,7 @@ public class MusicAPI {
 	 *         null
 	 */
 	public static MusicAPI fromDatabase(Context ctx, long id) {
-		DatabaseHelper dbHelper = new DatabaseHelper(ctx);
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		SQLiteDatabase db = DatabaseHelper.getDatabase(ctx.getApplicationContext());
 
 		String sql = "select * from music_api where _id = " + id;
 		Cursor c = db.rawQuery(sql, null);
@@ -332,7 +329,7 @@ public class MusicAPI {
 					NOT_AN_APPLICATION_PACKAGE + "pre_1_2_3", null, false, true);
 		}
 		c.close();
-		dbHelper.close();
+		DatabaseHelper.closeDatabase();
 		return mapi;
 	}
 
@@ -345,8 +342,7 @@ public class MusicAPI {
 	 * @return all {@code MusicAPI} objects stored in the database, never null
 	 */
 	public static MusicAPI[] all(Context ctx) {
-		DatabaseHelper dbHelper = new DatabaseHelper(ctx);
-		SQLiteDatabase db = dbHelper.getWritableDatabase();
+		SQLiteDatabase db = DatabaseHelper.getDatabase(ctx.getApplicationContext());
 
 		String sql = "select * from music_api";
 		Cursor c = db.rawQuery(sql, null);
@@ -358,7 +354,7 @@ public class MusicAPI {
 			c.moveToNext();
 		}
 		c.close();
-		dbHelper.close();
+		DatabaseHelper.closeDatabase();
 		return mapis;
 	}
 
@@ -384,10 +380,41 @@ public class MusicAPI {
 
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 
-		DatabaseHelper(Context context) {
+		private DatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 
+	    private static Long count = Long.valueOf(0);
+	    private static SQLiteDatabase db = null;
+	    public static SQLiteDatabase getDatabase(Context _context){
+	    	if(db==null){
+	        	synchronized(count){
+	        		if(db==null){
+	        			DatabaseHelper dbh = new DatabaseHelper(_context.getApplicationContext());
+			        	db = dbh.getWritableDatabase();
+			        	if(db.isOpen()==false){
+			        		Log.e("M2D2","Could not open M2D2 database");
+			        	}
+		        	}
+	        		++count;
+		    	}
+	    	}else{
+		    	synchronized(count){
+		    		++count;
+		    	}
+	    	}
+	    	return db;
+	    }
+	    public static void closeDatabase(){
+	    	synchronized(count){
+	    		--count;
+	    		if(count==0){
+	    			db.close();
+	    			db=null;
+	    		}
+	    	}
+	    }
+	    
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			Log.d(TAG, "create sql music api: " + DATABASE_CREATE_MUSIC_API);
