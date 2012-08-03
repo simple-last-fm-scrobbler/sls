@@ -387,25 +387,19 @@ public class MusicAPI {
 	    private static Long count = Long.valueOf(0);
 	    private static SQLiteDatabase db = null;
 	    public static SQLiteDatabase getDatabase(Context _context){
-	    	if(db==null){
-	        	synchronized(count){
-	        		if(db==null){
-	        			DatabaseHelper dbh = new DatabaseHelper(_context.getApplicationContext());
-			        	db = dbh.getWritableDatabase();
-			        	if(db.isOpen()==false){
-			        		Log.e(TAG,"Could not open MusicAPI database");
-			        		db = null;
-			        		return null;
-			        	}
+	    	synchronized(count){
+        		if(db==null){
+        			DatabaseHelper dbh = new DatabaseHelper(_context.getApplicationContext());
+		        	db = dbh.getWritableDatabase();
+		        	if(db.isOpen()==false){
+		        		Log.e(TAG,"Could not open MusicAPI database");
+		        		db = null;
+		        		return null;
 		        	}
-	        		++count;
-		    	}
-	    	}else{
-		    	synchronized(count){
-		    		++count;
-		    	}
+	        	}
+        		++count;
+        		return db;
 	    	}
-	    	return db;
 	    }
 	    public static void closeDatabase(){
 	    	synchronized(count){
