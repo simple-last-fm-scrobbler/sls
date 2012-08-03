@@ -40,7 +40,6 @@ public class ScrobblesDatabase {
 
 	private static final String TAG = "ScrobblesDatabase";
 
-	private DatabaseHelper mDbHelper;
 	private SQLiteDatabase mDb;
 
 	private final Context mCtx;
@@ -73,10 +72,41 @@ public class ScrobblesDatabase {
 
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 
-		DatabaseHelper(Context context) {
-			super(context, DATABASE_NAME, null, DATABASE_VERSION);
-		}
+	    private DatabaseHelper(Context _context) {
+	        super(_context, DATABASE_NAME, null, DATABASE_VERSION);
+	    }
 
+	    private static Long count = Long.valueOf(0);
+	    private static SQLiteDatabase db = null;
+	    public static SQLiteDatabase getDatabase(Context _context){
+	    	if(db==null){
+	        	synchronized(count){
+	        		if(db==null){
+	        			DatabaseHelper dbh = new DatabaseHelper(_context.getApplicationContext());
+			        	db = dbh.getWritableDatabase();
+			        	if(db.isOpen()==false){
+			        		Log.e("M2D2","Could not open M2D2 database");
+			        	}
+		        	}
+	        		++count;
+		    	}
+	    	}else{
+		    	synchronized(count){
+		    		++count;
+		    	}
+	    	}
+	    	return db;
+	    }
+	    public static void closeDatabase(){
+	    	synchronized(count){
+	    		--count;
+	    		if(count==0){
+	    			db.close();
+	    			db=null;
+	    		}
+	    	}
+	    }
+	    
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			Log.d(TAG, "create sql scrobbles: " + DATABASE_CREATE_SCROBBLES);
@@ -106,12 +136,11 @@ public class ScrobblesDatabase {
 	 *             if the database could be neither opened or created
 	 */
 	public void open() throws SQLException {
-		mDbHelper = new DatabaseHelper(mCtx);
-		mDb = mDbHelper.getWritableDatabase();
+		mDb = DatabaseHelper.getDatabase(mCtx.getApplicationContext());
 	}
 
 	public void close() {
-		mDbHelper.close();
+		DatabaseHelper.closeDatabase();
 	}
 
 	/**
