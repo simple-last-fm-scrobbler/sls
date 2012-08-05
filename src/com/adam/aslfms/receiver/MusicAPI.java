@@ -384,38 +384,35 @@ public class MusicAPI {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
 
-	    private static Long count = Long.valueOf(0);
-	    private static SQLiteDatabase db = null;
-	    public static SQLiteDatabase getDatabase(Context _context){
-	    	if(db==null){
-	        	synchronized(count){
-	        		if(db==null){
-	        			DatabaseHelper dbh = new DatabaseHelper(_context.getApplicationContext());
-			        	db = dbh.getWritableDatabase();
-			        	if(db.isOpen()==false){
-			        		Log.e(TAG,"Could not open MusicAPI database");
-			        		db = null;
-			        		return null;
-			        	}
-		        	}
-	        		++count;
-		    	}
-	    	}else{
-		    	synchronized(count){
-		    		++count;
-		    	}
-	    	}
-	    	return db;
-	    }
-	    public static void closeDatabase(){
-	    	synchronized(count){
-	    		--count;
-	    		if(count==0){
-	    			db.close();
-	    			db=null;
-	    		}
-	    	}
-	    }
+	    private static Long connection_count = Long.valueOf(0);
+		private static SQLiteDatabase db = null;
+
+		public static SQLiteDatabase getDatabase(Context _context) {
+			synchronized (connection_count) {
+				if (db == null) {
+					DatabaseHelper dbh = new DatabaseHelper(
+							_context.getApplicationContext());
+					db = dbh.getWritableDatabase();
+					if (db.isOpen() == false) {
+						Log.e(TAG, "Could not open MusicAPI database");
+						db = null;
+						return null;
+					}
+				}
+				++connection_count;
+				return db;
+			}
+		}
+
+		public static void closeDatabase() {
+			synchronized (connection_count) {
+				--connection_count;
+				if (connection_count == 0) {
+					db.close();
+					db = null;
+				}
+			}
+		}
 	    
 		@Override
 		public void onCreate(SQLiteDatabase db) {
