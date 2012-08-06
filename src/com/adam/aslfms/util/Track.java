@@ -19,6 +19,8 @@
 
 package com.adam.aslfms.util;
 
+import android.os.SystemClock;
+
 import com.adam.aslfms.receiver.MusicAPI;
 
 /**
@@ -318,20 +320,26 @@ public class Track {
 	 * 
 	 * @param currentTime
 	 */
-	public void updateTimePlayed(long currentTime) {
-		if (currentTime != UNKNOWN_COUNT_POINT
-				&& mWhenToCountTimeFrom != UNKNOWN_COUNT_POINT) {
-			// only if we have a valid points to count from
+	public void updateTimePlayed() {
+		long currentTime = SystemClock.elapsedRealtime();
+		if (mWhenToCountTimeFrom != UNKNOWN_COUNT_POINT) {
+			// only if we have a valid point to count from
 			incTimePlayed(currentTime - mWhenToCountTimeFrom);
 		}
 		mWhenToCountTimeFrom = currentTime;
 	}
+	
+	public void stopCountingTime() {
+		mWhenToCountTimeFrom = UNKNOWN_COUNT_POINT;
+	}
 
 	void incTimePlayed(long tp) {
-		if (tp < 0)
-			throw new IllegalArgumentException(
-					"time-played increase was negative: " + tp);
-		mTimePlayed += tp;
+		if (tp < 0) {
+			// this might happen if the user has changed the system clock
+			throw new IllegalArgumentException("time-played increase was negative: " + tp);
+		} else {
+			mTimePlayed += tp;
+		}
 	}
 
 	@Override
