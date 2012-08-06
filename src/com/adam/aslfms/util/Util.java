@@ -19,12 +19,15 @@
 
 package com.adam.aslfms.util;
 
+import java.util.Calendar;
+import java.util.TimeZone;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -116,7 +119,8 @@ public class Util {
 	 * @return the current time since 1970, UTC, in seconds
 	 */
 	public static long currentTimeSecsUTC() {
-		return currentTimeMillisUTC() / 1000;
+		return Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+				.getTimeInMillis() / 1000;
 	}
 
 	/**
@@ -125,7 +129,8 @@ public class Util {
 	 * @return the current time since 1970, UTC, in milliseconds
 	 */
 	public static long currentTimeMillisUTC() {
-		return System.currentTimeMillis();
+		return Calendar.getInstance(TimeZone.getTimeZone("UTC"))
+				.getTimeInMillis();
 	}
 
 	/**
@@ -144,7 +149,16 @@ public class Util {
 						| DateUtils.FORMAT_NUMERIC_DATE);
 	}
 
-	public static String timeFromUTCMillis(Context ctx, long millis) {
+	/**
+	 * Returns the current time since 1970, local time zone, in milliseconds.
+	 * 
+	 * @return the current time since 1970, local time zone, in milliseconds
+	 */
+	public static long currentTimeMillisLocal() {
+		return Calendar.getInstance(TimeZone.getDefault()).getTimeInMillis();
+	}
+
+	public static String timeFromLocalMillis(Context ctx, long millis) {
 		return DateUtils.formatDateTime(ctx, millis, DateUtils.FORMAT_SHOW_TIME
 				| DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NUMERIC_DATE);
 	}

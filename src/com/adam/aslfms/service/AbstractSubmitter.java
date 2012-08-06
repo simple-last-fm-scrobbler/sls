@@ -77,7 +77,7 @@ public abstract class AbstractSubmitter extends NetRunnable {
 			Track track, int statsInc) {
 		settings.setLastSubmissionSuccess(getNetApp(), stype, true);
 		settings.setLastSubmissionTime(getNetApp(), stype, Util
-				.currentTimeMillisUTC());
+				.currentTimeMillisLocal());
 		settings.setNumberOfSubmissions(getNetApp(), stype, settings
 				.getNumberOfSubmissions(getNetApp(), stype)
 				+ statsInc);
@@ -93,7 +93,7 @@ public abstract class AbstractSubmitter extends NetRunnable {
 			String reason) {
 		settings.setLastSubmissionSuccess(getNetApp(), stype, false);
 		settings.setLastSubmissionTime(getNetApp(), stype, Util
-				.currentTimeMillisUTC());
+				.currentTimeMillisLocal());
 		settings.setLastSubmissionInfo(getNetApp(), stype, reason);
 		notifyStatusUpdate();
 	}
