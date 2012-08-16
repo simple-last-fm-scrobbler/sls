@@ -70,6 +70,7 @@ Apps
  * [Music2Dance2](http://www.argoday.com/wiki/Music2Dance2) ([Google Play](https://play.google.com/store/apps/developer?id=Argoday))
  * [Rdio](http://www.rdio.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.rdio.android.ui))
  * [DeaDBeeF](http://deadbeef.sourceforge.net/) ([Google Play](https://play.google.com/store/apps/details?id=org.deadbeef.android)) **(a)**
+ * [Music Pump XBMC Remote (Beta)](http://forum.xbmc.org/showthread.php?tid=131303) ([Google Play](https://play.google.com/store/apps/details?id=ch.berard.xbmcremotebeta))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
