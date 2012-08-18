@@ -19,6 +19,7 @@
 
 package com.adam.aslfms.util;
 
+import android.content.Context;
 import android.os.SystemClock;
 
 import com.adam.aslfms.receiver.MusicAPI;
@@ -96,9 +97,12 @@ public class Track {
 	 */
 	public static class Builder {
 		Track _track;
+		SplitsDatabase _db;
 
-		public Builder() {
+		public Builder(Context context) {
 			_track = new Track();
+			_db = new SplitsDatabase(context);
+	    _db.open();
 		}
 
 		public void setMusicAPI(MusicAPI musicAPI) {
@@ -114,7 +118,8 @@ public class Track {
 		}
 
 		public void setTrack(String track) {
-			_track.mTrack = track;
+			//_track.mTrack = track;
+		  _track.mTrack = _db.filterTrack(track);
 		}
 
 		public void setDuration(int duration) {
@@ -156,6 +161,7 @@ public class Track {
 		 */
 		public Track build() throws IllegalArgumentException {
 			_track.validate();
+			_db.close();
 			return _track;
 		}
 	}

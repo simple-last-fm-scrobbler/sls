@@ -95,7 +95,7 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 		else
 			throw new IllegalArgumentException("bad state: " + state);
 
-		Track.Builder b = new Track.Builder();
+		Track.Builder b = new Track.Builder(ctx);
 		b.setMusicAPI(musicAPI);
 		b.setWhen(Util.currentTimeSecsUTC());
 		// artist name, required

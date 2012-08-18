@@ -59,7 +59,7 @@ public class RdioMusicReceiver extends AbstractPlayStatusReceiver {
 		else
 			setState(Track.State.COMPLETE);
 
-		Track.Builder b = new Track.Builder();
+		Track.Builder b = new Track.Builder(ctx);
 		
 		b.setMusicAPI(musicAPI);
 		b.setWhen(Util.currentTimeSecsUTC());
