@@ -48,6 +48,8 @@
         <activity android:name="com.adam.aslfms.StatusActivity" />
         <activity android:name="com.adam.aslfms.StatusInfoNetApp" />
         <activity android:name="com.adam.aslfms.ViewScrobbleCacheActivity" />
+        <activity android:name="com.adam.aslfms.ViewSplitsActivity" />
+        
 
         <!-- the service -->
         <service
