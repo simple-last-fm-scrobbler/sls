@@ -144,9 +144,8 @@ If you want to enable your app to scrobble music through SLS, see
 Credits
 -------
 
-All of the code is open source, and as of 2010-04-27 lincesed under the
-[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0) (it was previously GPLv3).
-**I've not yet removed the refernces to GPL from the source code**.
+All of the code is open source, released under GPLv3. 
+My wish is to release it under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0), but it still contains thirdy-party code licensed under GPL.
 
  * Almost all of the code is written by me, so: Copyright 2009-2012 Adam Renberg.
  * A small MD5 utilities class seems to be written by many people,
