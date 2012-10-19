@@ -74,6 +74,17 @@
             </intent-filter>
         </receiver>
 
+         <receiver
+            android:name="com.adam.aslfms.receiver.AndroidMusicJRTStudioBuildReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.jrtstudio.music.metachanged" />
+                <action android:name="com.jrtstudio.music.playstatechanged" />
+                <action android:name="com.jrtstudio.music.playbackcomplete" />
+            </intent-filter>
+        </receiver>
+        
         <receiver
             android:name="com.adam.aslfms.receiver.HeroMusicReceiver"
             android:exported="true"
