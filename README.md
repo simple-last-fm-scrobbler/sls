@@ -7,6 +7,9 @@ Last.fm (and optionally/additionally Libre.fm) when you play a track, and you
 can then get music recommendations and view you listening history and statistics
 at Last.fm.
 
+A test apk of the next version, v1.4.4, can be found on the [downloads section](https://github.com/tgwizard/sls/downloads).
+This will be released around 2012-10-22.
+
 More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/help/faq?category=Scrobbling#201).
 
 **If anyone wants to take part in developing this app further, I'm looking for contributors. Please email me, or just fork and code away.**
