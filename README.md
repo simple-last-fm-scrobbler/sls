@@ -71,6 +71,7 @@ Apps
  * [Rdio](http://www.rdio.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.rdio.android.ui))
  * [DeaDBeeF](http://deadbeef.sourceforge.net/) ([Google Play](https://play.google.com/store/apps/details?id=org.deadbeef.android)) **(a)**
  * [Music Pump XBMC Remote (Beta)](http://forum.xbmc.org/showthread.php?tid=131303) ([Google Play](https://play.google.com/store/apps/details?id=ch.berard.xbmcremotebeta))
+ * [JRTStudio Android Music Player](http://www.jrtstudio.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.jrtstudio.music))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
@@ -167,6 +168,7 @@ Contributors
  * Mark Gillespie, support for Sony/Sony Ericsson/Xperia phones
  * Dmitry Kostjuchenko, support for Neutron Music Player
  * stermi, support for Rdio
+ * Joseph Cooper, [github.com/grodin](https://github.com/grodin), support for JRTStudio Android Music Player
  * Dmitry Paskal, [github.com/paskal](https://github.com/paskal), listed test device
 
 Several people have also contributed with comments, suggestions and [issues](https://github.com/tgwizard/sls/issues/).
