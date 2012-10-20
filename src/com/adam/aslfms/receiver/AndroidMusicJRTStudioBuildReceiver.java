@@ -47,6 +47,7 @@ public class AndroidMusicJRTStudioBuildReceiver extends BuiltInMusicAppReceiver 
 		super(ACTION_ANDROID_STOP, PACKAGE_NAME, NAME);
 	}
 
+	@Override
 	boolean shouldFetchFromMediaStore(Context ctx, long audioid) {
 		if (Util.checkForInstalledApp(ctx, PACKAGE_NAME))
 			return false;

@@ -66,6 +66,7 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 
 	private TextView mSortHeaderTextView;
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 

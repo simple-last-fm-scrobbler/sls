@@ -44,6 +44,7 @@ public class StatusActivity extends TabActivity {
 
 	int currTab;
 
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.status_activity);
