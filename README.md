@@ -7,8 +7,8 @@ Last.fm (and optionally/additionally Libre.fm) when you play a track, and you
 can then get music recommendations and view you listening history and statistics
 at Last.fm.
 
-A test apk of the next version, v1.4.4, can be found on the [downloads section](https://github.com/tgwizard/sls/downloads).
-This will be released around 2012-10-22.
+Before the release of a new version of SLS, it will be available here to test for
+one week.
 
 More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/help/faq?category=Scrobbling#201).
 
