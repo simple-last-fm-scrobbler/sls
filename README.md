@@ -104,6 +104,7 @@ Reported working:
  * HTC Dream
  * HTC Droid Eris
  * HTC Droid Incredible (should work, email me if it doesn't)
+ * HTC Evo 3D
  * HTC Flyer
  * HTC Hero
  * HTC Legend
