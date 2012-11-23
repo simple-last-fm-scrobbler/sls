@@ -76,6 +76,7 @@ Apps
  * [Music Pump XBMC Remote (Beta)](http://forum.xbmc.org/showthread.php?tid=131303) ([Google Play](https://play.google.com/store/apps/details?id=ch.berard.xbmcremotebeta))
  * [JRTStudio Android Music Player](http://www.jrtstudio.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.jrtstudio.music))
  * [Music Folder Player](https://sites.google.com/site/zorillasoft/) ([Google Play](https://play.google.com/store/apps/details?id=de.zorillasoft.musicfolderplayer))
+ * [Apollo](http://www.seeingpixels.org/2012/05/apollo.html) **(b)**
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
