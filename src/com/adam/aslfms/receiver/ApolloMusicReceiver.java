@@ -28,7 +28,7 @@ package com.adam.aslfms.receiver;
  * @since 1.3.2
  */
 public class ApolloMusicReceiver extends BuiltInMusicAppReceiver {
-  @SuppressWarnings("unused")
+	@SuppressWarnings("unused")
 	public static final String ACTION_APOLLO_START = "com.andrew.apollo.metachanged";
 	public static final String ACTION_APOLLO_PAUSERESUME = "com.andrew.apollo.playstatechanged";
 	public static final String ACTION_APOLLO_STOP = "com.andrew.apollo.stop";
