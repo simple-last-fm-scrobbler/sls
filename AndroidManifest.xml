@@ -202,7 +202,7 @@
             </intent-filter>
         </receiver>
         
-                <receiver
+        <receiver
             android:name="com.adam.aslfms.receiver.ApolloMusicReceiver"
             android:exported="true"
             android:enabled="true">
