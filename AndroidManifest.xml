@@ -201,6 +201,28 @@
                 <action android:name="com.adam.aslfms.notify.playstatechanged" />
             </intent-filter>
         </receiver>
+        
+        <receiver
+            android:name="com.adam.aslfms.receiver.ApolloMusicReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.andrew.apollo.metachanged" />
+                <action android:name="com.andrew.apollo.playstatechanged" />
+                <action android:name="com.andrew.apollo.stop" />
+            </intent-filter>
+        </receiver>
+        
+        <receiver
+            android:name="com.adam.aslfms.receiver.ApolloPlusMusicReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.andrew.apollo.plus.metachanged" />
+                <action android:name="com.andrew.apollo.plus.playstatechanged" />
+                <action android:name="com.andrew.apollo.plus.stop" />
+            </intent-filter>
+        </receiver>
 
         <!-- - will probably interfere badly with Winamp <receiver android:name="com.adam.aslfms.receiver.LastFmAPIReceiver" 
             android:exported="true" android:enabled="true"> <intent-filter> <action android:name="fm.last.android.metachanged" 
