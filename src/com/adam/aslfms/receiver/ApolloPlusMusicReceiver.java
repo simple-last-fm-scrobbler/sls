@@ -29,12 +29,12 @@ package com.adam.aslfms.receiver;
  */
 public class ApolloPlusMusicReceiver extends BuiltInMusicAppReceiver {
 	@SuppressWarnings("unused")
-	public static final String ACTION_APOLLO_START = "com.andrew.apollo.plus.metachanged";
-	public static final String ACTION_APOLLO_PAUSERESUME = "com.andrew.apollo.plus.playstatechanged";
-	public static final String ACTION_APOLLO_STOP = "com.andrew.apollo.plus.stop";
+	public static final String ACTION_APOLLO_PLUS_START = "com.andrew.apollo.plus.metachanged";
+	public static final String ACTION_APOLLO_PLUS_PAUSERESUME = "com.andrew.apollo.plus.playstatechanged";
+	public static final String ACTION_APOLLO_PLUS_STOP = "com.andrew.apollo.plus.stop";
 	
-	public ApolloMusicReceiver() {
-		super(ACTION_APOLLO_STOP, "com.andrew.apollo.plus", "Apollo+");
+	public ApolloPlusMusicReceiver() {
+		super(ACTION_APOLLO_PLUS_STOP, "com.andrew.apollo.plus", "Apollo+");
 	}
 
 }
