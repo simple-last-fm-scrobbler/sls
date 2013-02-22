@@ -23,6 +23,7 @@ package com.adam.aslfms.receiver;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
@@ -59,7 +60,19 @@ public class LgOptimus4xReceiver extends AbstractPlayStatusReceiver {
             b.setArtist(bundle.getString("artist"));
             b.setAlbum(bundle.getString("album"));
             b.setTrack(bundle.getString("track"));
-            b.setDuration(bundle.getInt("duration") / 1000);
+
+            // set duration
+            int duration = -1;
+            Object obj = bundle.get("duration");
+            if (obj instanceof Long) {
+                duration = ((Long)obj).intValue();
+            }
+            else if (obj instanceof Integer) {
+                duration = ((Integer)obj).intValue();
+            }
+            if (duration != -1) {
+                b.setDuration(duration / 1000);
+            }
 
             // throws on bad data
             setTrack(b.build());
@@ -72,8 +85,6 @@ public class LgOptimus4xReceiver extends AbstractPlayStatusReceiver {
             setTrack(Track.SAME_AS_CURRENT);
         }
         else if (action == ACTION_LGE_STOP) {
-            // TODO: currently this action is not received, because the bundle is null and
-            // AbstractPlayStatusReceiver ignores this case.
             setState(Track.State.COMPLETE);
             setTrack(Track.SAME_AS_CURRENT);
         }
