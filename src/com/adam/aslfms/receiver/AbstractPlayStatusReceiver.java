@@ -64,9 +64,9 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 			return;
 		}
 
-        if (bundle == null) {
-            bundle = Bundle.EMPTY;
-        }
+		if (bundle == null) {
+			bundle = Bundle.EMPTY;
+		}
 
 		// we must be logged in to scrobble
 		AppSettings settings = new AppSettings(context);
