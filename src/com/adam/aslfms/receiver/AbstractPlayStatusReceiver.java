@@ -59,9 +59,13 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 		Log.v(TAG, "Action received was: " + action);
 
 		// check to make sure we actually got something
-		if (action == null || bundle == null) {
-			Log.w(TAG, "Got null action or null bundle");
+		if (action == null) {
+			Log.w(TAG, "Got null action");
 			return;
+		}
+
+		if (bundle == null) {
+			bundle = Bundle.EMPTY;
 		}
 
 		// we must be logged in to scrobble
