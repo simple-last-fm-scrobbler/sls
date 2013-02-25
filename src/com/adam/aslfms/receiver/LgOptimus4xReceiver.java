@@ -43,49 +43,57 @@ public class LgOptimus4xReceiver extends AbstractPlayStatusReceiver {
 	static final String ACTION_LGE_PAUSERESUME = "com.lge.music.playstatechanged";
 	static final String ACTION_LGE_STOP = "com.lge.music.endofplayback";
 
+	static final String TAG = "SLSLgOptimus4xReceiver";
+
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
 			throws IllegalArgumentException {
 
-		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx, APP_NAME, APP_PACKAGE, null,
-				false);
+		MusicAPI musicAPI = MusicAPI.fromReceiver(
+			ctx, APP_NAME, APP_PACKAGE, null, false);
 		setMusicAPI(musicAPI);
+
+		if (action == ACTION_LGE_STOP) {
+			setState(Track.State.COMPLETE);
+			setTrack(Track.SAME_AS_CURRENT);
+			Log.d(TAG,"Setting state to COMPLETE");
+			return;
+		}
 
 		if (action == ACTION_LGE_START) {
 			setState(Track.State.START);
-			Track.Builder b = new Track.Builder();
-			b.setMusicAPI(musicAPI);
-			b.setWhen(Util.currentTimeSecsUTC());
-
-			b.setArtist(bundle.getString("artist"));
-			b.setAlbum(bundle.getString("album"));
-			b.setTrack(bundle.getString("track"));
-
-			// set duration
-			int duration = -1;
-			Object obj = bundle.get("duration");
-			if (obj instanceof Long) {
-				duration = ((Long)obj).intValue();
-			}
-			else if (obj instanceof Integer) {
-				duration = ((Integer)obj).intValue();
-			}
-			if (duration != -1) {
-				b.setDuration(duration / 1000);
-			}
-
-			// throws on bad data
-			setTrack(b.build());
+			Log.d(TAG,"Setting state to START");
 		}
 		else if (action == ACTION_LGE_PAUSERESUME) {
-			boolean playing = bundle.getBoolean("isPlaying");
+			boolean playing = bundle.getBoolean("playing");
 			Track.State state =
-					(playing) ? (Track.State.RESUME) : (Track.State.PAUSE);
+				(playing) ? (Track.State.RESUME) : (Track.State.PAUSE);
 			setState(state);
-			setTrack(Track.SAME_AS_CURRENT);
+			Log.d(TAG,"Setting state to " + state.toString());
 		}
-		else if (action == ACTION_LGE_STOP) {
-			setState(Track.State.COMPLETE);
-			setTrack(Track.SAME_AS_CURRENT);
+
+		Track.Builder b = new Track.Builder();
+		b.setMusicAPI(musicAPI);
+		b.setWhen(Util.currentTimeSecsUTC());
+
+		b.setArtist(bundle.getString("artist"));
+		b.setAlbum(bundle.getString("album"));
+		b.setTrack(bundle.getString("track"));
+
+		// set duration
+		int duration = -1;
+		Object obj = bundle.get("duration");
+		if (obj instanceof Long) {
+			duration = ((Long)obj).intValue();
 		}
+		else if (obj instanceof Integer) {
+			duration = ((Integer)obj).intValue();
+		}
+		if (duration != -1) {
+			b.setDuration(duration / 1000);
+		}
+
+		// throws on bad data
+		setTrack(b.build());
+
 	}
 }
