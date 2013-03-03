@@ -176,6 +176,8 @@ Contributors
  * Dmitry Kostjuchenko, support for Neutron Music Player
  * stermi, support for Rdio
  * Joseph Cooper, [github.com/grodin](https://github.com/grodin), support for JRTStudio Android Music Player
+ * Shahar, [github.com/kshahar](https://github.com/kshahar), support for LG
+   Music Player
  * Dmitry Paskal, [github.com/paskal](https://github.com/paskal), listed test device
 
 Several people have also contributed with comments, suggestions and [issues](https://github.com/tgwizard/sls/issues/).
