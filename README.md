@@ -77,6 +77,7 @@ Apps
  * [JRTStudio Android Music Player](http://www.jrtstudio.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.jrtstudio.music))
  * [Music Folder Player](https://sites.google.com/site/zorillasoft/) ([Google Play](https://play.google.com/store/apps/details?id=de.zorillasoft.musicfolderplayer))
  * [Apollo](http://www.seeingpixels.org/2012/05/apollo.html) **(b)**
+ * LG Music Player
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
