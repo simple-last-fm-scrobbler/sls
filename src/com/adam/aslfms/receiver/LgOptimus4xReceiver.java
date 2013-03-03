@@ -45,8 +45,8 @@ public class LgOptimus4xReceiver extends AbstractPlayStatusReceiver {
 
 	static final String TAG = "SLSLgOptimus4xReceiver";
 
-	protected void parseIntent(Context ctx, String action, Bundle bundle)
-			throws IllegalArgumentException {
+	@Override
+	protected void parseIntent(Context ctx, String action, Bundle bundle) {
 
 		MusicAPI musicAPI = MusicAPI.fromReceiver(
 			ctx, APP_NAME, APP_PACKAGE, null, false);
