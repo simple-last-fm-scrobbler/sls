@@ -78,6 +78,7 @@ Apps
  * [Music Folder Player](https://sites.google.com/site/zorillasoft/) ([Google Play](https://play.google.com/store/apps/details?id=de.zorillasoft.musicfolderplayer))
  * [Apollo](http://www.seeingpixels.org/2012/05/apollo.html) **(b)**
  * LG Music Player
+ * [Now Playing](https://plus.google.com/116252656973193786075/posts) ([Google Play](https://play.google.com/store/apps/details?id=com.underwood.now_playing))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
