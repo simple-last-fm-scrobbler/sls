@@ -1,6 +1,13 @@
 Simple Last.fm Scrobbler
 ========================
 
+**This project is unfortunately in a bit of a limbo. The app works, and is available on Google Play, but I don't have the time to maintain it on my own.**
+
+**If anyone wants to take part in developing this app further, I'm looking for contributors. Please email me, or just fork and code away.**
+
+**Pull requests are very welcome!**
+
+
 Simple Last.fm Scrobbler (SLS) is a simple app that scrobbles music listened
 to on an Android phone. Scrobbling means submitting listening information to
 Last.fm (and optionally/additionally Libre.fm) when you play a track, and you
@@ -11,8 +18,6 @@ Before the release of a new version of SLS, it will be available here to test fo
 one week.
 
 More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/help/faq?category=Scrobbling#201).
-
-**If anyone wants to take part in developing this app further, I'm looking for contributors. Please email me, or just fork and code away.**
 
 If you need inspiration on stuff to do, you might want to have a look at the list of issues.
 
