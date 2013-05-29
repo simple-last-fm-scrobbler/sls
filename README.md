@@ -84,6 +84,7 @@ Apps
  * [Apollo](http://www.seeingpixels.org/2012/05/apollo.html) **(b)**
  * LG Music Player
  * [Now Playing](https://plus.google.com/116252656973193786075/posts) ([Google Play](https://play.google.com/store/apps/details?id=com.underwood.now_playing))
+ * [Shuttle Music Player](https://plus.google.com/104842767174352132769/posts) ([Google Play](https://play.google.com/store/apps/details?id=another.music.player))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
