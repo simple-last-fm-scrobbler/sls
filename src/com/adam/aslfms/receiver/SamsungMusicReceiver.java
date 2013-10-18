@@ -52,4 +52,9 @@ public class SamsungMusicReceiver extends BuiltInMusicAppReceiver {
 	public String getPlaybackCompleteAction() {
 		return ACTION_SAMSUNG_STOP;
 	}
+
+	@Override
+	public String getMetaChangedAction() {
+		return ACTION_SAMSUNG_METACHANGED;
+	}
 }

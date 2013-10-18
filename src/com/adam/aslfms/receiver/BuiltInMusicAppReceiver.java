@@ -70,6 +70,8 @@ public abstract class BuiltInMusicAppReceiver extends
 
 		if (action.equals(getPlaybackCompleteAction())) {
 			setState(Track.State.PLAYLIST_FINISHED);
+		} else if (action.equals(getMetaChangedAction())) {
+			setState(Track.State.CHANGED);
 		} else {
 			setState(Track.State.RESUME);
 		}
@@ -200,4 +202,10 @@ public abstract class BuiltInMusicAppReceiver extends
 	 * @return playback complete intent
 	 */
 	abstract public String getPlaybackCompleteAction();
+
+	/**
+	 * Gets meta changed intent string representation.
+	 * @return meta changed intent
+	 */
+	abstract public String getMetaChangedAction();
 }

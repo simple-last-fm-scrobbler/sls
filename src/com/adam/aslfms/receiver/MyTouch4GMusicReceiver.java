@@ -42,4 +42,9 @@ public class MyTouch4GMusicReceiver extends BuiltInMusicAppReceiver {
 	public String getPlaybackCompleteAction() {
 		return ACTION_MYTOUCH4G_STOP;
 	}
+
+	@Override
+	public String getMetaChangedAction() {
+		return ACTION_MYTOUCH4G_METACHANGED;
+	}
 }

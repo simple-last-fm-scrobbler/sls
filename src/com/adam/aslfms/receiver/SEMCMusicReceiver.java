@@ -12,6 +12,7 @@ public class SEMCMusicReceiver extends BuiltInMusicAppReceiver {
 	static final String APP_PACKAGE = "com.sonyericsson.music";
 	// FIXME maybe it should be "com.sonyericsson.music.playbackcomplete" ?
 	static final String ACTION_SEMC_STOP = "com.sonyericsson.music.playbackcontrol.ACTION_PLAYBACK_PAUSE";
+	static final String ACTION_SEMC_METACHANGED = "com.sonyericsson.music.metachanged";
 
 	public SEMCMusicReceiver() {
 		super(APP_PACKAGE, "Sony Ericsson Music Player");
@@ -42,5 +43,10 @@ public class SEMCMusicReceiver extends BuiltInMusicAppReceiver {
 	@Override
 	public String getPlaybackCompleteAction() {
 		return ACTION_SEMC_STOP;
+	}
+
+	@Override
+	public String getMetaChangedAction() {
+		return ACTION_SEMC_METACHANGED;
 	}
 }

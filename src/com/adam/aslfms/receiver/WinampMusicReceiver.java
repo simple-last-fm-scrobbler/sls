@@ -31,7 +31,7 @@ public class WinampMusicReceiver extends BuiltInMusicAppReceiver {
 	@SuppressWarnings("unused")
 	private static final String TAG = "SLSWinampReceiver";
 
-	public static final String ACTION_WINAMP_START = "com.nullsoft.winamp.metachanged";
+	public static final String ACTION_WINAMP_METACHANGED = "com.nullsoft.winamp.metachanged";
 	public static final String ACTION_WINAMP_PAUSERESUME = "com.nullsoft.winamp.playstatechanged";
 	// doesn't seem to work
 	public static final String ACTION_WINAMP_STOP = "com.nullsoft.winamp.playbackcomplete";
@@ -43,5 +43,10 @@ public class WinampMusicReceiver extends BuiltInMusicAppReceiver {
 	@Override
 	public String getPlaybackCompleteAction() {
 		return ACTION_WINAMP_STOP;
+	}
+
+	@Override
+	public String getMetaChangedAction() {
+		return ACTION_WINAMP_METACHANGED;
 	}
 }

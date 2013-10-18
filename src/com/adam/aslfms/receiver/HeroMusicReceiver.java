@@ -42,4 +42,9 @@ public class HeroMusicReceiver extends BuiltInMusicAppReceiver {
 	public String getPlaybackCompleteAction() {
 		return ACTION_HTC_STOP;
 	}
+
+	@Override
+	public String getMetaChangedAction() {
+		return ACTION_HTC_METACHANGED;
+	}
 }

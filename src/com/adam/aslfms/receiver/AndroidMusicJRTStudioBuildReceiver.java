@@ -58,4 +58,9 @@ public class AndroidMusicJRTStudioBuildReceiver extends BuiltInMusicAppReceiver 
 	public String getPlaybackCompleteAction() {
 		return ACTION_ANDROID_STOP;
 	}
+
+	@Override
+	public String getMetaChangedAction() {
+		return ACTION_ANDROID_METACHANGED;
+	}
 }
