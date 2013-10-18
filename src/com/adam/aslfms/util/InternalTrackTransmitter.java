@@ -19,7 +19,8 @@
 
 package com.adam.aslfms.util;
 
-import java.util.LinkedList;
+import java.util.Queue;
+import java.util.concurrent.ConcurrentLinkedQueue;
 
 import com.adam.aslfms.receiver.AbstractPlayStatusReceiver;
 import com.adam.aslfms.service.ScrobblingService;
@@ -34,7 +35,7 @@ import com.adam.aslfms.service.ScrobblingService;
  * @since 0.9
  */
 public class InternalTrackTransmitter {
-	private static LinkedList<Track> tracks = new LinkedList<Track>();
+	private static Queue<Track> tracks = new ConcurrentLinkedQueue<Track>();
 
 	/**
 	 * Appends {@code track} to the queue of tracks that
@@ -47,8 +48,8 @@ public class InternalTrackTransmitter {
 	 * @param track
 	 *            the track to be appended
 	 */
-	public static synchronized void appendTrack(Track track) {
-		tracks.addLast(track);
+	public static void appendTrack(Track track) {
+		tracks.add(track);
 	}
 
 	/**
@@ -60,9 +61,7 @@ public class InternalTrackTransmitter {
 	 * 
 	 * @return the track at the front of the list
 	 */
-	public synchronized static Track popTrack() {
-		if (tracks.isEmpty())
-			return null;
-		return tracks.removeFirst();
+	public static Track popTrack() {
+		return tracks.poll();
 	}
 }

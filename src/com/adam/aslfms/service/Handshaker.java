@@ -173,8 +173,6 @@ public class Handshaker extends NetRunnable {
 	 *             wrong, or that the user requested his/her credentials to be
 	 *             cleared.
 	 * @throws TemporaryFailureException
-	 * @throws UnknownResponseException
-	 *             {@link UnknownResponseException}
 	 * @throws ClientBannedException
 	 *             this version of the client has been banned
 	 */
@@ -212,7 +210,7 @@ public class Handshaker extends NetRunnable {
 		// ------------------------------------------------------
 		// -----------------------------------------------------------------------
 
-		String time = new Long(Util.currentTimeSecsUTC()).toString();
+		String time = Long.toString(Util.currentTimeSecsUTC());
 
 		String authToken = MD5.getHashString(pwdMd5 + time);
 

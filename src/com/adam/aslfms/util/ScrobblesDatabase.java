@@ -85,7 +85,7 @@ public class ScrobblesDatabase {
 			}
 		}
 	    
-		private static DatabaseConnection databaseConnection = new DatabaseConnection();
+		private static final DatabaseConnection databaseConnection = new DatabaseConnection();
 		
 		public static SQLiteDatabase getDatabase(Context _context) {
 			synchronized (databaseConnection) {
@@ -176,7 +176,7 @@ public class ScrobblesDatabase {
 	 * @param napp
 	 *            the NetApp which we'll wanna scrobble to
 	 * @param trackid
-	 *            the rowId of the track to scrobble, see {@link Track.getRowId}
+	 *            the rowId of the track to scrobble, see {@link Track#getRowId}
 	 * @return true if the insert succeeded, false otherwise
 	 */
 	public boolean insertScrobble(NetApp napp, long trackid) {

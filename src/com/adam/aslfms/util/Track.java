@@ -27,10 +27,10 @@ import com.adam.aslfms.receiver.MusicAPI;
  * Simple "immutable" structure that holds information about a track. The only
  * way to create a track is through the {@link Builder}.
  * <p>
- * A track is immutable in the sense that the descriptive paramters (artist,
+ * A track is immutable in the sense that the descriptive parameters (artist,
  * album, duration, etc.) cannot be changed. But there are methods for keeping
  * track of how long the track has been playing, for instance. See
- * {@link #updateTimePlayed(long)} and {@link #setQueued()}.
+ * {@link #updateTimePlayed()} and {@link #setQueued()}.
  * <p>
  * The tracks are saved in a database using the {@link ScrobblesDatabase}.
  * 
@@ -42,7 +42,7 @@ public class Track {
 	// TODO: move me
 	public enum State {
 		START, RESUME, PAUSE, COMPLETE, PLAYLIST_FINISHED, UNKNOWN_NONPLAYING
-	};
+	}
 
 	/**
 	 * We have to use this, as signals sent to Scrobble Droid can be void of any
@@ -306,8 +306,6 @@ public class Track {
 	 * Returns the duration for which this track has been played, in
 	 * milliseconds.
 	 * 
-	 * @see #updateTimePlayed(long)
-	 * 
 	 * @return the duration for which this track has been played, in
 	 *         milliseconds
 	 */
@@ -315,11 +313,6 @@ public class Track {
 		return mTimePlayed;
 	}
 
-	/**
-	 * TODO:
-	 * 
-	 * @param currentTime
-	 */
 	public void updateTimePlayed() {
 		long currentTime = SystemClock.elapsedRealtime();
 		if (mWhenToCountTimeFrom != UNKNOWN_COUNT_POINT) {
@@ -367,7 +360,7 @@ public class Track {
 	}
 
 	/**
-	 * Only checks artist, album and track strings (+ {@link MusicApp}), which
+	 * Only checks artist, album and track strings (+ {@link MusicAPI}), which
 	 * means that tracks sent to ScrobblingService can be properly compared.
 	 */
 	@Override
