@@ -7,13 +7,14 @@ import android.os.Bundle;
 import android.util.Log;
 
 public class SEMCMusicReceiver extends BuiltInMusicAppReceiver {
-
-	static final String APP_PACKAGE = "com.sonyericsson.music";
-	static final String ACTION_SEMC_STOP = "com.sonyericsson.music.playbackcontrol.ACTION_PLAYBACK_PAUSE";
 	private static final String TAG = "SEMCMusicReceiver";
 
+	static final String APP_PACKAGE = "com.sonyericsson.music";
+	// FIXME maybe it should be "com.sonyericsson.music.playbackcomplete" ?
+	static final String ACTION_SEMC_STOP = "com.sonyericsson.music.playbackcontrol.ACTION_PLAYBACK_PAUSE";
+
 	public SEMCMusicReceiver() {
-		super(ACTION_SEMC_STOP, APP_PACKAGE, "Sony Ericsson Music Player");
+		super(APP_PACKAGE, "Sony Ericsson Music Player");
 	}
 
 	@Override
@@ -38,4 +39,8 @@ public class SEMCMusicReceiver extends BuiltInMusicAppReceiver {
 		b.setTrack(tr.toString());
 	}
 
+	@Override
+	public String getPlaybackCompleteAction() {
+		return ACTION_SEMC_STOP;
+	}
 }

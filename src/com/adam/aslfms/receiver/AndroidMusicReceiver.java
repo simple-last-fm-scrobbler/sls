@@ -44,7 +44,7 @@ public class AndroidMusicReceiver extends BuiltInMusicAppReceiver {
 	static final String GOOGLE_MUSIC_PACKAGE = "com.google.android.music";
 
 	public AndroidMusicReceiver() {
-		super(ACTION_ANDROID_STOP, PACKAGE_NAME, NAME);
+		super(PACKAGE_NAME, NAME);
 	}
 
 	@Override
@@ -54,4 +54,8 @@ public class AndroidMusicReceiver extends BuiltInMusicAppReceiver {
 		return super.shouldFetchFromMediaStore(ctx, audioid);
 	}
 
+	@Override
+	public String getPlaybackCompleteAction() {
+		return ACTION_ANDROID_STOP;
+	}
 }

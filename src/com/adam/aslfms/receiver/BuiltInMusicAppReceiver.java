@@ -47,15 +47,11 @@ public abstract class BuiltInMusicAppReceiver extends
 
 	static final int NO_AUDIO_ID = -1;
 
-	final String stop_action;
-
 	final String app_package;
 	final String app_name;
 
-	public BuiltInMusicAppReceiver(String stopAction, String appPackage,
-		String appName) {
+	public BuiltInMusicAppReceiver(String appPackage, String appName) {
 		super();
-		stop_action = stopAction;
 		app_package = appPackage;
 		app_name = appName;
 	}
@@ -72,7 +68,7 @@ public abstract class BuiltInMusicAppReceiver extends
 
 		parseTrack(ctx, b, bundle);
 
-		if (action.equals(stop_action)) {
+		if (action.equals(getPlaybackCompleteAction())) {
 			setState(Track.State.PLAYLIST_FINISHED);
 		} else {
 			setState(Track.State.RESUME);
@@ -198,4 +194,10 @@ public abstract class BuiltInMusicAppReceiver extends
 		b.setAlbum(al.toString());
 		b.setTrack(tr.toString());
 	}
+
+	/**
+	 * Gets playback complete intent string representation.
+	 * @return playback complete intent
+	 */
+	abstract public String getPlaybackCompleteAction();
 }

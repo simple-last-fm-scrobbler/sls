@@ -35,6 +35,11 @@ public class HeroMusicReceiver extends BuiltInMusicAppReceiver {
 	public static final String ACTION_HTC_METACHANGED = "com.htc.music.metachanged";
 
 	public HeroMusicReceiver() {
-		super(ACTION_HTC_STOP, "com.htc.music", "Hero Music Player");
+		super("com.htc.music", "Hero Music Player");
+	}
+
+	@Override
+	public String getPlaybackCompleteAction() {
+		return ACTION_HTC_STOP;
 	}
 }

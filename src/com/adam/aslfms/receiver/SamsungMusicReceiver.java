@@ -38,8 +38,7 @@ public class SamsungMusicReceiver extends BuiltInMusicAppReceiver {
 	public static final String ACTION_SAMSUNG_METACHANGED = "com.samsung.sec.android.MusicPlayer.metachanged";
 
 	public SamsungMusicReceiver() {
-		super(ACTION_SAMSUNG_STOP, "com.samsung.sec.android.MusicPlayer",
-				"Samsung Music Player");
+		super("com.samsung.sec.android.MusicPlayer", "Samsung Music Player");
 	}
 
 	@Override
@@ -49,4 +48,8 @@ public class SamsungMusicReceiver extends BuiltInMusicAppReceiver {
 		super.parseIntent(ctx, action, bundle);
 	}
 
+	@Override
+	public String getPlaybackCompleteAction() {
+		return ACTION_SAMSUNG_STOP;
+	}
 }
