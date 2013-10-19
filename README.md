@@ -120,6 +120,7 @@ Reported working:
  * HTC Legend
  * HTC Tattoo
  * HTC Wildfire
+ * LG Optimus G
  * LG Optimus One P500
  * LG Optimus V
  * Motorola Droid
@@ -166,7 +167,7 @@ My wish is to release it under [Apache License 2.0](http://www.apache.org/licens
  * Almost all of the code is written by me, so: Copyright 2009-2012 Adam Renberg.
  * A small MD5 utilities class seems to be written by many people,
 but it is released under GPLv2, and I got it from [ostermiller.org](http://ostermiller.org/utils/MD5.html).
- * The icon was made by [Tha PHLASH](http://www.thaphlash.com/).
+ * The new icon was made by bmos (https://github.com/bmos).
  * The Last.fm logo is copyright of Last.fm, taken from their [media kit](http://www.last.fm/resources).
  * The Libre.fm logo is probably copyright of Libre.fm, used in good faith. (Because of their name and stated mission, I assume it is okay).
 
@@ -176,7 +177,8 @@ Contributors
 ------------
 
  * Adam Renberg, [github.com/tgwizard](https://github.com/tgwizard), main author
- * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), icon
+ * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), old icon
+ * bmos, [github.com/bmos](https://github.com/bmos), new icon
  * Argoday, [github.com/argoday](https://github.com/argoday), code fixes, support for Music2Dance2
  * Sean O'Neil, [github.com/SeanPONeil](https://github.com/SeanPONeil), android 4.0
  * Andrew Thomson, support for MIUI Music Player
