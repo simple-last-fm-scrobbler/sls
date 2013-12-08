@@ -59,6 +59,10 @@ public abstract class BuiltInMusicAppReceiver extends
 		app_package = appPackage;
 		app_name = appName;
 	}
+	
+	protected boolean isStopAction(String action) {
+		return action.equals(stop_action);
+	}
 
 	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
@@ -72,7 +76,7 @@ public abstract class BuiltInMusicAppReceiver extends
 
 		parseTrack(ctx, b, bundle);
 
-		if (action.equals(stop_action)) {
+		if (isStopAction(action)) {
 			setState(Track.State.PLAYLIST_FINISHED);
 		} else {
 			setState(Track.State.RESUME);

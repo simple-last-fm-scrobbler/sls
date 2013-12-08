@@ -143,6 +143,10 @@
                 <action android:name="com.sonyericsson.music.metachanged" />
                 <action android:name="com.sonyericsson.music.playbackcomplete" />
                 <action android:name="com.sonyericsson.music.playstatechanged" />
+                
+                <!-- from https://github.com/Ambroos/Xperia-Scrobbler-2013-Compatibility/ -->
+                <action android:name="com.sonyericsson.music.playbackcontrol.ACTION_TRACK_STARTED" />
+                <action android:name="com.sonyericsson.music.playbackcontrol.ACTION_PAUSED" />
             </intent-filter>
         </receiver>
 
