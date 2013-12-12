@@ -191,7 +191,7 @@ public class Util {
 
 	public static void scrobbleAllIfPossible(Context ctx, int numInCache) {
 		if (numInCache > 0) {
-			scrobbleAllIfPossible(ctx);
+			scrobbleAllSilentlyIfPossible(ctx, numInCache);
 		} else {
 			Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
 					Toast.LENGTH_LONG).show();
@@ -199,15 +199,19 @@ public class Util {
 	}
 	
 	/**
-	 * Scrobble all cached tracks.
+	 * Scrobble all cached tracks silently.
 	 * 
 	 * @param ctx 
 	 *            the context
+	 * @param numInCache 
+	 *            the number of scrobbles in the cache      
 	 */
-	public static void scrobbleAllIfPossible(final Context ctx) {
-		Intent service = new Intent(ScrobblingService.ACTION_JUSTSCROBBLE);
-		service.putExtra("scrobbleall", true);
-		ctx.startService(service);
+	public static void scrobbleAllSilentlyIfPossible(final Context ctx, final int numInCache) {
+		if (numInCache > 0) {
+			Intent service = new Intent(ScrobblingService.ACTION_JUSTSCROBBLE);
+			service.putExtra("scrobbleall", true);
+			ctx.startService(service);
+		}
 	}
 
 	public static void deleteScrobbleFromCache(Context ctx,
