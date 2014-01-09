@@ -60,6 +60,14 @@ public abstract class BuiltInMusicAppReceiver extends
 		app_name = appName;
 	}
 	
+	/**
+	 * Depending on the action received decide whether it should signal a stop or not.
+	 * By default, it compares it to the unique `this.stop_action`, but there might be
+	 * multiple actions that cause a stop signal.
+	 * 
+	 * @param action	the received action
+	 * @return			true when the received action is a stop action, false otherwise
+	 */
 	protected boolean isStopAction(String action) {
 		return action.equals(stop_action);
 	}

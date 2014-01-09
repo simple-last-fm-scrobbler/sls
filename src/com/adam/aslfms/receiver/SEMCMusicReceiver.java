@@ -18,6 +18,14 @@ public class SEMCMusicReceiver extends BuiltInMusicAppReceiver {
 	}
 	
 	@Override
+	/**
+	 * Checks that the action received is either the one used in the
+	 * newer Sony Xperia devices or that of the previous versions
+	 * of the app.
+	 * 
+	 * @param action	the received action
+	 * @return			true when the received action is a stop action, false otherwise
+	 */
 	protected boolean isStopAction(String action) {
 		return action.equals(ACTION_SEMC_STOP) || action.equals(ACTION_SEMC_STOP_LEGACY);
 	}
