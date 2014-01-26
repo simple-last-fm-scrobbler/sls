@@ -19,9 +19,6 @@
 
 package com.adam.aslfms.service;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.util.SparseArray;
 
 import com.adam.aslfms.util.AppSettings;
