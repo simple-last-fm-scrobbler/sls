@@ -22,6 +22,8 @@ package com.adam.aslfms.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import android.util.SparseArray;
+
 import com.adam.aslfms.util.AppSettings;
 
 public enum NetApp {
@@ -77,10 +79,11 @@ public enum NetApp {
 		return signUpUrl;
 	}
 
-	private static Map<Integer, NetApp> mValNetAppMap;
+	private static SparseArray<NetApp> mValNetAppMap;
 
 	static {
-		mValNetAppMap = new HashMap<Integer, NetApp>();
+		
+		mValNetAppMap = new SparseArray<NetApp>();
 		for (NetApp napp : NetApp.values())
 			mValNetAppMap.put(napp.getValue(), napp);
 	}

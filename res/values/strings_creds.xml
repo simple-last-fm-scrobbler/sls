@@ -28,19 +28,19 @@
 	<string
 		name="auth_bad_auth">Wrong username/password</string>
 	<string
-		name="auth_server_error">Server error: %1, retrying...</string>
+		name="auth_server_error">Server error: %1, retrying…</string>
 	<string
-		name="auth_timing_error">Client side timing error, retrying...</string>
+		name="auth_timing_error">Client side timing error, retrying…</string>
 	<string
-		name="auth_network_error_retrying">Network error, retrying...</string>
+		name="auth_network_error_retrying">Network error, retrying…</string>
 	<string
 		name="auth_network_unfit">Not allowed to submit data on network, change in Options screen</string>
 	<string
-		name="auth_updating">Authenticating...</string>
+		name="auth_updating">Authenticating…</string>
 	<string
 		name="auth_internal_error">Internal error</string>
 	<string
-		name="auth_just_error">Error, retrying...</string>
+		name="auth_just_error">Error, retrying…</string>
 	<string
 		name="logged_in_just">Logged in as:</string>
 	<string

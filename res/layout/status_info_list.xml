@@ -2,7 +2,8 @@
 <LinearLayout
 	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
 
 	<ListView
 		android:id="@id/android:list"
@@ -12,7 +13,6 @@
 		android:id="@id/android:empty"
 		android:layout_width="fill_parent"
 		android:layout_height="fill_parent"
-		android:text="ERROR: THIS SHOULDN'T HAPPEN!"
 		android:textAppearance="?android:attr/textAppearanceMedium"
 		android:textColor="?android:attr/textColorPrimary"
 		android:gravity="center"

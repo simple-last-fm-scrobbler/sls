@@ -3,9 +3,6 @@
 	<string
 		name="options_title">Options</string>
 	<string
-		name="advanced_options_title">Advanced options</string>
-
-	<string
 		name="scrobbling">Scrobble</string>
 	<string
 		name="scrobbling_enable">Submit listening information when
@@ -30,23 +27,12 @@
 	<string
 		name="options_summary">Including battery conserving settings</string>
 	<string
-		name="advanced_options_custom_category_title">Custom scrobbling options</string>
-	<string
 		name="advanced_options_when_title">When to scrobble</string>
 	<string
 		name="advanced_options_also_on_complete_title">Also on playlist finish</string>
 	<string
 		name="advanced_options_also_on_complete_summary">Also scrobble when you\'ve finished listening to a playlist
 	</string>
-	<string
-		name="advanced_options_also_on_plugged_title">Also when plugged in</string>
-	<string
-		name="advanced_options_also_on_plugged_summary">Also scrobble when you\'re plugged in to a power source
-    </string>
-	<string
-		name="should_disable_np">You should also disable now playing notifications
-		to better
-		conserve battery</string>
 	<string
 		name="advanced_options_type_standard_name">Standard</string>
 	<string

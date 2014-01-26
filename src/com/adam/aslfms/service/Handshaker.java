@@ -212,7 +212,7 @@ public class Handshaker extends NetRunnable {
 		// ------------------------------------------------------
 		// -----------------------------------------------------------------------
 
-		String time = new Long(Util.currentTimeSecsUTC()).toString();
+		String time = Long.valueOf(Util.currentTimeSecsUTC()).toString();
 
 		String authToken = MD5.getHashString(pwdMd5 + time);
 
