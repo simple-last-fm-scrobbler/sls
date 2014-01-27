@@ -5,8 +5,6 @@
 	<string
 		name="scrobbles_cache">Scrobbles in local cache: %1</string>
 	<string
-		name="db_error">Database error</string>
-	<string
 		name="scrobble_now">Scrobble now</string>
 	<string
 		name="reset_stats">Reset statistics</string>
