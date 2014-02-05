@@ -116,7 +116,7 @@ public class AppSettings {
 	 * {@code napp}. This is only used as an intermediary step, and is removed
 	 * when the authentication is successful in {@link Handshaker#run()}
 	 * 
-	 * @see #setPwdMd5(NetApp)
+	 * @see #setPwdMd5(NetApp, String)
 	 * 
 	 * @param napp
 	 *            the {@code NetApp} for which a user account has this password

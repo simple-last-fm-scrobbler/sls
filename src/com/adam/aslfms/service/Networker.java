@@ -45,8 +45,6 @@ public class Networker {
 
 	private final ThreadPoolExecutor mExecutor;
 
-	private final NetRunnableComparator mComparator;
-
 	private final NetworkWaiter mNetworkWaiter;
 	private final Sleeper mSleeper;
 
@@ -59,11 +57,10 @@ public class Networker {
 		mCtx = ctx;
 		mDb = db;
 
-		mComparator = new NetRunnableComparator();
-
 		// TODO: what should the keepAliveTime/unit be?
 		mExecutor = new ThreadPoolExecutor(1, 1, 2, TimeUnit.SECONDS,
-				new PriorityBlockingQueue<Runnable>(1, mComparator));
+				new PriorityBlockingQueue<Runnable>(
+						1, new NetRunnableComparator()));
 
 		mSleeper = new Sleeper(mNetApp, ctx, this);
 		mNetworkWaiter = new NetworkWaiter(mNetApp, ctx, this);

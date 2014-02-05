@@ -136,8 +136,7 @@ public class Scrobbler extends AbstractSubmitter {
 	}
 
 	/**
-	 * 
-	 * @return a {@link ScrobbleResult} struct with some info
+	 *
 	 * @throws BadSessionException
 	 * @throws TemporaryFailureException
 	 */

@@ -39,7 +39,6 @@ import com.adam.aslfms.service.Handshaker.HandshakeResult;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.AuthStatus.BadSessionException;
 import com.adam.aslfms.util.AuthStatus.TemporaryFailureException;
-import com.adam.aslfms.util.AuthStatus.UnknownResponseException;
 import com.adam.aslfms.util.enums.SubmissionType;
 
 /**
@@ -110,8 +109,6 @@ public class NPNotifier extends AbstractSubmitter {
 	 * @throws BadSessionException
 	 *             means that a new handshake is needed
 	 * @throws TemporaryFailureException
-	 * @throws UnknownResponseException
-	 *             {@link UnknownResponseException}
 	 * 
 	 */
 	public void notifyNowPlaying(Track track, HandshakeResult hInfo)

@@ -393,7 +393,7 @@ public class MusicAPI {
 			}
 		}
 	    
-		private static DatabaseConnection databaseConnection = new DatabaseConnection();
+		private static final DatabaseConnection databaseConnection = new DatabaseConnection();
 
 		public static SQLiteDatabase getDatabase(Context _context) {
 			synchronized (databaseConnection) {

@@ -7,9 +7,10 @@ public class MIUIMusicReceiver extends BuiltInMusicAppReceiver {
 
 	static final String APP_PACKAGE = "com.miui.player";
 	static final String ACTION_MIUI_STOP = "com.miui.player.playbackcomplete";
+	static final String ACTION_MIUI_METACHANGED = "com.miui.player.metachanged";
 
 	public MIUIMusicReceiver() {
-		super(ACTION_MIUI_STOP, APP_PACKAGE, "MIUI Music Player");
+		super(APP_PACKAGE, "MIUI Music Player");
 	}
 
 	@Override
@@ -17,4 +18,13 @@ public class MIUIMusicReceiver extends BuiltInMusicAppReceiver {
 		super.parseIntent(ctx, action, bundle);
 	}
 
+	@Override
+	public String getPlaybackCompleteAction() {
+		return ACTION_MIUI_STOP;
+	}
+
+	@Override
+	public String getMetaChangedAction() {
+		return ACTION_MIUI_METACHANGED;
+	}
 }
