@@ -9,11 +9,25 @@ import android.util.Log;
 public class SEMCMusicReceiver extends BuiltInMusicAppReceiver {
 
 	static final String APP_PACKAGE = "com.sonyericsson.music";
-	static final String ACTION_SEMC_STOP = "com.sonyericsson.music.playbackcontrol.ACTION_PLAYBACK_PAUSE";
+	static final String ACTION_SEMC_STOP_LEGACY = "com.sonyericsson.music.playbackcontrol.ACTION_PLAYBACK_PAUSE";
+	static final String ACTION_SEMC_STOP = "com.sonyericsson.music.playbackcontrol.ACTION_PAUSED";
 	private static final String TAG = "SEMCMusicReceiver";
 
 	public SEMCMusicReceiver() {
 		super(ACTION_SEMC_STOP, APP_PACKAGE, "Sony Ericsson Music Player");
+	}
+	
+	@Override
+	/**
+	 * Checks that the action received is either the one used in the
+	 * newer Sony Xperia devices or that of the previous versions
+	 * of the app.
+	 * 
+	 * @param action	the received action
+	 * @return			true when the received action is a stop action, false otherwise
+	 */
+	protected boolean isStopAction(String action) {
+		return action.equals(ACTION_SEMC_STOP) || action.equals(ACTION_SEMC_STOP_LEGACY);
 	}
 
 	@Override

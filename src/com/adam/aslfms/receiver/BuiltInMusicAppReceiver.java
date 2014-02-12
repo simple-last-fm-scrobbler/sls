@@ -59,6 +59,18 @@ public abstract class BuiltInMusicAppReceiver extends
 		app_package = appPackage;
 		app_name = appName;
 	}
+	
+	/**
+	 * Depending on the action received decide whether it should signal a stop or not.
+	 * By default, it compares it to the unique `this.stop_action`, but there might be
+	 * multiple actions that cause a stop signal.
+	 * 
+	 * @param action	the received action
+	 * @return			true when the received action is a stop action, false otherwise
+	 */
+	protected boolean isStopAction(String action) {
+		return action.equals(stop_action);
+	}
 
 	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
@@ -72,7 +84,7 @@ public abstract class BuiltInMusicAppReceiver extends
 
 		parseTrack(ctx, b, bundle);
 
-		if (action.equals(stop_action)) {
+		if (isStopAction(action)) {
 			setState(Track.State.PLAYLIST_FINISHED);
 		} else {
 			setState(Track.State.RESUME);
