@@ -1,3 +1,6 @@
+- 1.4.6 (2014-02-12)
+  * Prevent crashes due to insufficient permissions (READ_EXTERNAL_STORAGE) (thanks to Joel Teichroeb)
+
 - 1.4.5 (2013-03-03)
   * Support for LG Music Player (thanks to Shahar)
 
