@@ -25,13 +25,13 @@ Contact email:
 [simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)
 
 Download
---------
+========
 You can find the latest version of Simple Last.fm Scrobbler in the
 [Google Play Store](https://play.google.com/store/apps/details?id=com.adam.aslfms), and here
 in the [downloads section](https://github.com/tgwizard/sls/downloads).
 
 Features
---------
+========
 
  * Scrobbling
  * Now playing notifications
@@ -93,10 +93,12 @@ Apps
 **(b)** It presents itself to SLS as the Android Music Player. This means that it won't show up under "Enabled apps" under its real name, but under Android Music Player.
 
 
-Known compatible devices **(c)**
------------------------------
+Known compatible devices
+------------------------
 
-Tested by me:
+**Note.** SLS should work on any device that can install it, and that can run one of the music apps above.
+
+## Tested by me:
 
  * Google Nexus One
  * HTC Magic
@@ -136,30 +138,32 @@ Issues:
 
  * Motorola CLIQ/DEXT doesn't seem to work
 
-**(c)** SLS should work on any device that can install it, and that can run one of the music apps above.
+
 
 Changes
--------
+=======
 
-For a complete list of changes, see [the changelog](https://github.com/tgwizard/sls/blob/master/assets/changelog.txt)
+For a complete list of changes, see [the changelog](https://github.com/tgwizard/sls/blob/master/assets/changelog.txt).
 
-Questions, Bugs, Suggestions, Contributions, Thoughts...
---------------------------------------------------------
+
+Bugs, Contributions, Thoughts...
+========================================================
 
 First, read the [FAQ](https://github.com/tgwizard/sls/wiki/FAQ)
 to see if you can find any help with your issue.
 
-If you can't find it there, you can always email me,
-[simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com),
-or open an issue here on github.
+If you can't find it there, you can always open an issue or pull request here on GitHub,
+or you can email me: [simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)
+
 
 Developers
-----------
+==========
 If you want to enable your app to scrobble music through SLS, see
 [Developer's API](https://github.com/tgwizard/sls/wiki/Developer's-API).
 
+
 Credits
--------
+=======
 
 All of the code is open source, released under GPLv3.
 My wish is to release it under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0), but it still contains thirdy-party code licensed under GPL.
@@ -185,10 +189,10 @@ Contributors
  * stermi, support for Rdio
  * Joseph Cooper, [github.com/grodin](https://github.com/grodin), support for JRTStudio Android Music Player
  * Shahar, [github.com/kshahar](https://github.com/kshahar), support for LG Music Player
- * Joel Teichroeb [github.com/klusark](https://github.com/klusark), bug fixes
+ * Joel Teichroeb, [github.com/klusark](https://github.com/klusark), bug fixes
  * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), icon
 
-Test device adders
+Test device contributors
 ------------------
  * Dmitry Paskal, [github.com/paskal](https://github.com/paskal)
  * Iļja Gubins, [https://github.com/the-lay](https://github.com/the-lay)
