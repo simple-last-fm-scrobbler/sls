@@ -161,7 +161,7 @@ If you want to enable your app to scrobble music through SLS, see
 Credits
 -------
 
-All of the code is open source, released under GPLv3. 
+All of the code is open source, released under GPLv3.
 My wish is to release it under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0), but it still contains thirdy-party code licensed under GPL.
 
  * Almost all of the code is written by me, so: Copyright 2009-2012 Adam Renberg.
@@ -177,7 +177,6 @@ Contributors
 ------------
 
  * Adam Renberg, [github.com/tgwizard](https://github.com/tgwizard), main author
- * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), icon
  * Argoday, [github.com/argoday](https://github.com/argoday), code fixes, support for Music2Dance2
  * Sean O'Neil, [github.com/SeanPONeil](https://github.com/SeanPONeil), android 4.0
  * Andrew Thomson, support for MIUI Music Player
@@ -185,8 +184,13 @@ Contributors
  * Dmitry Kostjuchenko, support for Neutron Music Player
  * stermi, support for Rdio
  * Joseph Cooper, [github.com/grodin](https://github.com/grodin), support for JRTStudio Android Music Player
- * Shahar, [github.com/kshahar](https://github.com/kshahar), support for LG
-   Music Player
- * Dmitry Paskal, [github.com/paskal](https://github.com/paskal), listed test device
+ * Shahar, [github.com/kshahar](https://github.com/kshahar), support for LG Music Player
+ * Joel Teichroeb [github.com/klusark](https://github.com/klusark), bug fixes
+ * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), icon
+
+Test device adders
+------------------
+ * Dmitry Paskal, [github.com/paskal](https://github.com/paskal)
+ * Iļja Gubins, [https://github.com/the-lay](https://github.com/the-lay)
 
 Several people have also contributed with comments, suggestions and [issues](https://github.com/tgwizard/sls/issues/).
