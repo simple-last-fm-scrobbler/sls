@@ -36,12 +36,12 @@ public class ConnectivityChangeReciever extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(final Context context, final Intent intent) {
-		if(intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
-		    final NetworkInfo networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
-	        if(networkInfo.isConnected()) {
-	        	ScrobblesDatabase db = new ScrobblesDatabase(context);
+		if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
+			final NetworkInfo networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+			if (networkInfo.isConnected()) {
+				ScrobblesDatabase db = new ScrobblesDatabase(context);
 				Util.scrobbleAllSilentlyIfPossible(context, db.queryNumberOfTracks());
-	        }	
+			}
 		}
 	}
 }
