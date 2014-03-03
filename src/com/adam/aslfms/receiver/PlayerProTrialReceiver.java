@@ -1,5 +1,13 @@
 package com.adam.aslfms.receiver;
 
+/**
+ * A BroadcastReceiver for intents sent by the trial version of Player Pro.
+ *
+ * @see BuiltInMusicAppReceiver
+ *
+ * @author metanota <metanota@gmail.com>
+ * @since 1.4.7
+ */
 public class PlayerProTrialReceiver extends BuiltInMusicAppReceiver {
 
     public static final String ACTION_PLAYER_PRO_TRIAL_STOP = "com.tbig.playerprotrial.playbackcomplete";
