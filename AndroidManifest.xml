@@ -218,6 +218,28 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+                android:name="com.adam.aslfms.receiver.PlayerProReceiver"
+                android:exported="true"
+                android:enabled="true">
+            <intent-filter>
+                <action android:name="com.tbig.playerpro.metachanged" />
+                <action android:name="com.tbig.playerpro.playstatechanged" />
+                <action android:name="com.tbig.playerpro.playbackcomplete" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+                android:name="com.adam.aslfms.receiver.PlayerProTrialReceiver"
+                android:exported="true"
+                android:enabled="true">
+            <intent-filter>
+                <action android:name="com.tbig.playerprotrial.metachanged" />
+                <action android:name="com.tbig.playerprotrial.playstatechanged" />
+                <action android:name="com.tbig.playerprotrial.playbackcomplete" />
+            </intent-filter>
+        </receiver>
+
         <!-- - will probably interfere badly with Winamp <receiver android:name="com.adam.aslfms.receiver.LastFmAPIReceiver" 
             android:exported="true" android:enabled="true"> <intent-filter> <action android:name="fm.last.android.metachanged" 
             /> <action android:name="fm.last.android.playbackpaused" /> <action android:name="fm.last.android.playbackcomplete" 
