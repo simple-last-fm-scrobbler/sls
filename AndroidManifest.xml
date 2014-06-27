@@ -218,6 +218,15 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+                android:name="com.adam.aslfms.receiver.AmazonMP3Receiver"
+                android:exported="true"
+                android:enabled="true">
+            <intent-filter>
+                <action android:name="com.amazon.mp3.metachanged" />
+                <action android:name="com.amazon.mp3.playstatechanged" />
+            </intent-filter>
+        </receiver>
         <!-- - will probably interfere badly with Winamp <receiver android:name="com.adam.aslfms.receiver.LastFmAPIReceiver" 
             android:exported="true" android:enabled="true"> <intent-filter> <action android:name="fm.last.android.metachanged" 
             /> <action android:name="fm.last.android.playbackpaused" /> <action android:name="fm.last.android.playbackcomplete" 
