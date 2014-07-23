@@ -192,6 +192,7 @@ Contributors
  * Joseph Cooper, [github.com/grodin](https://github.com/grodin), support for JRTStudio Android Music Player
  * Shahar, [github.com/kshahar](https://github.com/kshahar), support for LG Music Player
  * theli-ua, [github.com/theli-ua](https://github.com/theli-ua), support for Amazon Music
+ * metanota, [github.com/metanota](https://github.com/metanota), support for PlayerPro
  * Joel Teichroeb, [github.com/klusark](https://github.com/klusark), bug fixes
  * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), icon
 
