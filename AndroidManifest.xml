@@ -2,8 +2,8 @@
 <manifest
     xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.adam.aslfms"
-    android:versionCode="33"
-    android:versionName="1.4.6">
+    android:versionCode="35"
+    android:versionName="1.4.7">
 
     <supports-screens
         android:resizeable="true"

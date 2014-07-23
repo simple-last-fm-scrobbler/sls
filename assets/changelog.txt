@@ -1,3 +1,7 @@
+- 1.4.7 (2014-07-23)
+  * Add support for Amazon Music (thanks to theli-ua)
+  * Add support for PlayerPro (thanks to metanota)
+
 - 1.4.6 (2014-02-12)
   * Prevent crashes due to insufficient permissions (READ_EXTERNAL_STORAGE) (thanks to Joel Teichroeb)
 
