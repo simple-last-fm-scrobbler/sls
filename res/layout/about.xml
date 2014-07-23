@@ -100,7 +100,7 @@
 			android:layout_marginTop="8dip"
 			android:layout_marginBottom="4dip" />
 		<TextView
-			android:id="@+id/email"
+			android:id="@+id/issues"
 			android:autoLink="email"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"

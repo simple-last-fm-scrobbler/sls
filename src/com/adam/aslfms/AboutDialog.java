@@ -67,7 +67,7 @@ public class AboutDialog {
 		TextView netApps = (TextView) dialogView.findViewById(R.id.supported_netapps);
 		TextView musicApps = (TextView) dialogView.findViewById(R.id.supported_musicapps);
 		TextView website = (TextView) dialogView.findViewById(R.id.website);
-		TextView email = (TextView) dialogView.findViewById(R.id.email);
+		TextView issues = (TextView) dialogView.findViewById(R.id.issues);
 
 		// app name & version
 		String appText = Util.getAppName(mCtx, mCtx.getPackageName()) + " v"
@@ -104,8 +104,8 @@ public class AboutDialog {
 			+ mCtx.getString(R.string.website_url));
 
 		// email
-		email.setText(mCtx.getString(R.string.contact) + " "
-			+ mCtx.getString(R.string.email_addr));
+		issues.setText(mCtx.getString(R.string.issues) + " "
+			+ mCtx.getString(R.string.issues_url));
 	}
 
 }
