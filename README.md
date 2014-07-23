@@ -66,7 +66,7 @@ Apps
  * [Winamp](http://blog.winamp.com/2010/11/30/winamp-for-android/)
  * [myTouch 4G](http://mytouch.t-mobile.com/)
  * [Google Music](http://music.google.com/music/)
- * [Player Pro](http://www.aplayerpro.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.tbig.playerpro))
+ * [PlayerPro](http://www.aplayerpro.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.tbig.playerpro))
  * [jukefox](http://www.jukefox.org/) ([Google Play](https://play.google.com/store/apps/details?id=ch.ethz.dcg.pancho2)) **(a)**
  * [DAAP Media Player](http://code.google.com/p/daap-client/ ) ([Google Play](https://play.google.com/store/apps/details?id=org.mult.daap))
  * [Folder Player](http://folderplayer.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.folderplayer))
