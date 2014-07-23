@@ -101,7 +101,7 @@
 			android:layout_marginBottom="4dip" />
 		<TextView
 			android:id="@+id/issues"
-			android:autoLink="email"
+			android:autoLink="web"
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:textStyle="bold"
