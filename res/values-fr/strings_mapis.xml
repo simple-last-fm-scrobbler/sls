@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string
+        name="incompatability_short">Attention : %1$s est installé et peut provoquer un 
+        double scrobbling. 
+    </string>
+    <string
+        name="incompatability_long">Attention : %1$s est installé et peut provoquer des
+        incompatibilités avec le
+        scrobbling. Désactivez le scrobbling de cette 
+         apllication, ou désinstallez %1$s. 
+    </string>
+    <string
+        name="show_supported_apps_list_summary">Activer/désactiver le scrobbling depuis les applications</string>
+    <string
+        name="supported_apps_category_title">Applications activées</string>
+    <string
+        name="app_disabled">Pas de scrobble depuis cette application</string>
+    <string
+        name="not_installed">Cette application n\'est pas installée</string>
+    <string
+        name="no_supported_mapis_title">Aucun lecteur de musique détecté</string>
+    <string
+        name="find_supported_mapis_one_title">1 lecteur de musique détecté</string>
+    <string
+        name="find_supported_mapis_many_title">%1 lecteurs de musique détectés</string>
+    <string
+        name="find_supported_mapis_summary">Jouez de la musique dans un lecteur de musique supporté et
+il apparaîtra ici
+    </string>
+    <string
+        name="unknown_mapi">Application inconnue (pre SLS v1.2.3)</string>
+</resources>

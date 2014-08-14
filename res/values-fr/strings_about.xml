@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string
+        name="app_name">Simple Last.fm Scrobbler</string>
+    <string
+        name="by">par</string>
+    <string
+        name="email_addr">simple.lfm.scrobbler@gmail.com</string>
+    <string
+        name="website_url">https://github.com/tgwizard/sls
+    </string>
+    <string
+        name="issues_url">https://github.com/tgwizard/sls/issues
+    </string>
+    <string
+        name="issues">Problèmes :</string>
+    <string
+        name="website">Site web :</string>
+    <string
+        name="by_adam">par Adam Renberg</string>
+    <string
+        name="by_tha_phlash">Icône par Tha PHLASH</string>
+    <string
+        name="license">Sous License Apache 2.0</string>
+    <string
+        name="about_text">
+        Un scrobbler léger qui envoie des informations à
+        Last.fm
+        (et/ou Libre.fm) sur
+        la musique lue sur votre téléphone android.
+        Last.fm
+        vous permet
+        ensuite de
+        voir vos statistiques et vous recommende de nouveaux artistes
+        que vous pourriez aimer.
+    </string>
+    <string
+        name="everything_disabled">Scrobbling/écoute en cours désactivés.
+    </string>
+    <string
+        name="supported_musicapps">Applications supportées: Android Music Player, HTC Hero/Sense Music
+        Player, Google Music, PlayerPro,
+        Meridian Player, MixZing, Archos Music Player, Rhapsody Android,
+        Vanilla Music Player, bTunes, ³ (cubed), WIMP, Zimly, Just
+        Playlists, PowerAMP, Winamp, myTouch 4G, RockOn, jukefox, DAAP Media Player, Folder Player,
+        GoneMAD Music Player, MIUI Music Player, ServeStream, Sony Ericsson (Xperia) Music Player,
+        Neutron Music Player, Music2Dance2, Rdio, DeaDBeeF, Music Pump XBMC
+        Remote (Beta), JRTStudio Android Music Player, Apollo, LG Music Player, Now Playing,
+        Shuttle Music Player, My Cloud Player, SoundSeeder, Amazon Music et plus...
+    </string>
+    <string
+        name="file_error">Erreur de lecture/écriture sur un fichier</string>
+    <string
+        name="thats_new">Ce qui est nouveau</string>
+    <string
+        name="about">À propos</string>
+    <string
+        name="whats_new">Nouveautés</string>
+    <string
+        name="supported_netapps">Sites web supportés : %1</string>
+</resources>
