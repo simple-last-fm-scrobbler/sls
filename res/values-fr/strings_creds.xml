@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string
-		name="user_credentials_title">Identifiants de l\'utitlisateur</string>
+		name="user_credentials_title">Identifiants de l\'utilisateur</string>
 	<string
 		name="user_credentials_summary">Nom d\'utilisateur et mot de passe de votre compte %1
     </string>
@@ -28,25 +28,25 @@
 	<string
 		name="auth_bad_auth">Mauvais nom d\'utilisateur/mot de passe</string>
 	<string
-		name="auth_server_error">Erreur serveur : %1, nouvel essai...</string>
+		name="auth_server_error">Erreur serveur : %1, nouvel essai&#8230;</string>
 	<string
-		name="auth_timing_error">Erreur de timing côté client, nouvel essai...</string>
+		name="auth_timing_error">Erreur de timing côté client, nouvel essai&#8230;</string>
 	<string
-		name="auth_network_error_retrying">Erreur réseau, nouvel essai...</string>
+		name="auth_network_error_retrying">Erreur réseau, nouvel essai&#8230;</string>
 	<string
-		name="auth_network_unfit">Impossible d'envoyer des données sur le réseau, vérifiez vos paramètres dans le menu Options</string>
+		name="auth_network_unfit">Impossible d\'envoyer des données sur le réseau, vérifiez vos paramètres dans le menu Options</string>
 	<string
-		name="auth_updating">Connexion...</string>
+		name="auth_updating">Connexion&#8230;</string>
 	<string
 		name="auth_internal_error">Erreur interne</string>
 	<string
-		name="auth_just_error">Erreur, nouvel essai...</string>
+		name="auth_just_error">Erreur, nouvel essai&#8230;</string>
 	<string
 		name="logged_in_just">Connecté en tant que :</string>
 	<string
 		name="logged_in_as">Connecté en tant que : %1</string>
 	<string
-		name="log_in_to">Se connecter</string>
+		name="log_in_to">Se connecter à</string>
 	<string
 		name="not_logged_in">Non connecté</string>
 	<string

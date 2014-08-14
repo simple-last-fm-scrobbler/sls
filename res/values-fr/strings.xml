@@ -22,7 +22,7 @@
 	</string>
 	
 	<string
-		name="also_disable_np_title">Également désactiver l'affichage du titre en cours de lecture</string>
+		name="also_disable_np_title">Également désactiver l\'affichage du titre en cours de lecture</string>
 	<string
 		name="also_disable_np_summary">[Hmpf]</string>
 </resources>

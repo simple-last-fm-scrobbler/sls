@@ -13,7 +13,7 @@
         name="issues_url">https://github.com/tgwizard/sls/issues
     </string>
     <string
-        name="issues">Problèmes :</string>
+        name="issues">Suivi de problèmes :</string>
     <string
         name="website">Site web :</string>
     <string
@@ -27,7 +27,7 @@
         Un scrobbler léger qui envoie des informations à
         Last.fm
         (et/ou Libre.fm) sur
-        la musique lue sur votre téléphone android.
+        la musique lue sur votre appareil android.
         Last.fm
         vous permet
         ensuite de
@@ -38,7 +38,7 @@
         name="everything_disabled">Scrobbling/écoute en cours désactivés.
     </string>
     <string
-        name="supported_musicapps">Applications supportées: Android Music Player, HTC Hero/Sense Music
+        name="supported_musicapps">Applications supportées : Android Music Player, HTC Hero/Sense Music
         Player, Google Music, PlayerPro,
         Meridian Player, MixZing, Archos Music Player, Rhapsody Android,
         Vanilla Music Player, bTunes, ³ (cubed), WIMP, Zimly, Just
@@ -46,7 +46,7 @@
         GoneMAD Music Player, MIUI Music Player, ServeStream, Sony Ericsson (Xperia) Music Player,
         Neutron Music Player, Music2Dance2, Rdio, DeaDBeeF, Music Pump XBMC
         Remote (Beta), JRTStudio Android Music Player, Apollo, LG Music Player, Now Playing,
-        Shuttle Music Player, My Cloud Player, SoundSeeder, Amazon Music et plus...
+        Shuttle Music Player, My Cloud Player, SoundSeeder, Amazon Music et plus&#8230;
     </string>
     <string
         name="file_error">Erreur de lecture/écriture sur un fichier</string>

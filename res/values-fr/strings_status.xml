@@ -16,22 +16,22 @@
 	<string
 		name="scrobbling_disabled">Scrobbling désactivé</string>
 	<string
-		name="scrobble_last_at">Dernier scrobble envoyé à :</string>
+		name="scrobble_last_at">Dernier scrobble envoyé :</string>
 	<string
-		name="scrobble_last_fail_at">Dernier échec d'envoi de scrobble à :</string>
+		name="scrobble_last_fail_at">Dernier échec d\'envoi de scrobble :</string>
 	<string
-		name="nowplaying_disabled">Diffusion de l'écoute en temps réel désactivée</string>
+		name="nowplaying_disabled">Diffusion de l\'écoute en temps réel désactivée</string>
 	<string
-		name="nowplaying_last_at">Dernière diffusion de l'écoute en temps réel à :
+		name="nowplaying_last_at">Dernière diffusion de l\'écoute en temps réel :
     </string>
 	<string
-		name="nowplaying_last_fail_at">Dernier échec de diffusion de l'écoute en temps réel à :</string>
+		name="nowplaying_last_fail_at">Dernier échec de diffusion de l\'écoute en temps réel :</string>
 	<string
 		name="stats_scrobbles">Nombre de pistes scrobblées :</string>
 	<string
 		name="never">Jamais</string>
 	<string
-		name="stats_nps">Nombre de diffusion de l'écoute en temps réel :</string>
+		name="stats_nps">Nombre de diffusion de l\'écoute en temps réel :</string>
 	<string
 		name="it_was">C\était :</string>
 	<string

@@ -7,12 +7,12 @@
 	<string
 		name="db_error">Erreur dans la base de données</string>
 	<string
-		name="scrobble_now">Scrobble</string>
+		name="scrobble_now">Scrobbler</string>
 	<string
-		name="reset_stats">Remlise à zéro des statistiques</string>
+		name="reset_stats">Remise à zéro des statistiques</string>
 
 	<string
-		name="scrobble_cache_title">Scrobble du cache</string>
+		name="scrobble_cache_title">Cache de scrobble</string>
 
 	<string
 		name="confirm_delete_sc">Êtes vous sûr que vous ne voulez pas scrobbler cette
@@ -31,7 +31,7 @@
 		operation ne peux pas être annulée.</string>
 
 	<string
-		name="no_scrobbles_in_cache">Il n\'y a pas de scrobble dans le cache</string>
+		name="no_scrobbles_in_cache">Aucun scrobble dans le cache</string>
 	<string
 		name="view_sc">Voir le cache des scrobbles</string>
 	<string
@@ -46,7 +46,7 @@
 	<string
 		name="view_sc_title_for">Cache du scrobble pour %1</string>
 	<string
-		name="view_sc_for_all_summary">Voir et modifier la listedes scrobbles non envoyés</string>
+		name="view_sc_for_all_summary">Voir et modifier la liste des scrobbles non envoyés</string>
 	<string
 		name="all_websites">tous les sites web</string>
 	<string
