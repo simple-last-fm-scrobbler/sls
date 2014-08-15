@@ -11,7 +11,7 @@
          apllication, ou désinstallez %1$s. 
     </string>
     <string
-        name="show_supported_apps_list_summary">Activer/désactiver le scrobbling depuis les applications</string>
+        name="show_supported_apps_list_summary">Choix des applications depuis lesquelles il faut scrobbler</string>
     <string
         name="supported_apps_category_title">Applications activées</string>
     <string name="scrobble_droid_supported_apps">Applications supportées par Scrobble Droid</string><!-- Unused for now. See : ScrobbleDroidMusicReceiver.java -->
