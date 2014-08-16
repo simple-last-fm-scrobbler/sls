@@ -1,3 +1,6 @@
+- 1.4.8 (2014-08-16)
+  * Add new high-resolution icon (thanks to Tha Phlash)
+
 - 1.4.7 (2014-07-23)
   * Add support for Amazon Music (thanks to theli-ua)
   * Add support for PlayerPro (thanks to metanota)
