@@ -43,6 +43,11 @@ public class SamsungMusicReceiver extends BuiltInMusicAppReceiver {
 	}
 
 	@Override
+	protected String getMetaChangedAction() {
+		return ACTION_SAMSUNG_METACHANGED;
+	}
+
+	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
 			throws IllegalArgumentException {
 		Toast.makeText(ctx, "MP: " + action, Toast.LENGTH_LONG).show();

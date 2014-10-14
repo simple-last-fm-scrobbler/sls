@@ -37,4 +37,9 @@ public class MyTouch4GMusicReceiver extends BuiltInMusicAppReceiver {
 	public MyTouch4GMusicReceiver() {
 		super(ACTION_MYTOUCH4G_STOP, "com.real.IMP", "myTouch 4G Music Player");
 	}
+
+	@Override
+	protected String getMetaChangedAction() {
+		return ACTION_MYTOUCH4G_METACHANGED;
+	}
 }
