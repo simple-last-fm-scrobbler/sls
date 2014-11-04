@@ -127,6 +127,7 @@ Reported working:
  * HTC Wildfire
  * LG Optimus One P500
  * LG Optimus V
+ * Motorola Defy (MB525)
  * Motorola Droid
  * Motorola Droid 3
  * Motorola Milestone
@@ -135,6 +136,7 @@ Reported working:
  * Samsung Galaxy Spica (doesn't work with the built-in 2.1 music app)
  * Sony Ericsson Xperia X10 Mini Pro
  * Sony Ericsson Xperia Pro
+ * Sony Xperia SP
 
 Issues:
 
