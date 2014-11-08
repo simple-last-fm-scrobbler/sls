@@ -11,7 +11,7 @@
 		name="scrobbling_enable">Enviar información cuando escuche una canción
 	</string>
 	<string
-		name="nowplaying">Notificar 'Escuchando ahora'</string>
+		name="nowplaying">Notificar \'Escuchando ahora\'</string>
 	<string
 		name="nowplaying_enable">Mostrar qué canción está escuchando ahora
     </string>
@@ -42,7 +42,7 @@
 		name="advanced_options_also_on_plugged_summary">También scrobleará cuando esté enchufado a la corriente
     </string>
 	<string
-		name="should_disable_np">Debería deshabilitar 'Escuchando ahora' para un mejor ahorro de la batería</string>
+		name="should_disable_np">Debería deshabilitar \'Escuchando ahora\' para un mejor ahorro de la batería</string>
 	<string
 		name="advanced_options_type_standard_name">Estándar</string>
 	<string
@@ -60,7 +60,7 @@
 	<string
 		name="advanced_options_when_25_name">Después de 25 pistas</string>
 	<string
-		name="advanced_options_when_never_name">Cuando pulse el botón 'Enviar Scrobbles'</string>
+		name="advanced_options_when_never_name">Cuando pulse el botón \'Enviar Scrobbles\'</string>
 	<string
 		name="advanced_options_net_title">Conexión</string>
 	<string
