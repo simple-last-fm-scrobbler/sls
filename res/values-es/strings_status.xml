@@ -20,18 +20,18 @@
 	<string
 		name="scrobble_last_fail_at">Último envío fallido de un scrobble:</string>
 	<string
-		name="nowplaying_disabled">Notificaciones de 'Escuchando ahora' desactivadas</string>
+		name="nowplaying_disabled">Notificaciones de \'Escuchando ahora\' desactivadas</string>
 	<string
-		name="nowplaying_last_at">Última notificación de 'Escuchando ahora':
+		name="nowplaying_last_at">Última notificación de \'Escuchando ahora\':
     </string>
 	<string
-		name="nowplaying_last_fail_at">Último envío fallido de 'Escuchando ahora':</string>
+		name="nowplaying_last_fail_at">Último envío fallido de \'Escuchando ahora\':</string>
 	<string
 		name="stats_scrobbles">Todas las pistas scrobbleadas:</string>
 	<string
 		name="never">Nunca</string>
 	<string
-		name="stats_nps">Todas las notificaciones de 'Escuchando ahora':</string>
+		name="stats_nps">Todas las notificaciones de \'Escuchando ahora\':</string>
 	<string
 		name="it_was">Esto fue:</string>
 	<string
