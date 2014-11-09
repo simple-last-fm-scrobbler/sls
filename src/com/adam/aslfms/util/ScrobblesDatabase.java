@@ -303,14 +303,10 @@ public class ScrobblesDatabase {
 	}
 
 	public int queryNumberOfTracks() {
-		Cursor c;
-		if(mDb==null){
-        		this.open();
-        	}
-        	if(!mDb.isOpen()){
-        		this.open();
-        	}
-		c = mDb.rawQuery("select count(_id) from scrobbles", null);
+		if(mDb == null || !mDb.isOpen()) {
+			open();
+    	}
+		Cursor c = mDb.rawQuery("select count(_id) from scrobbles", null);
 		int count = c.getCount();
 		if (count != 0) {
 			c.moveToFirst();
