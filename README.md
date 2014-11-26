@@ -122,7 +122,9 @@ Reported working:
  * HTC Evo 3D
  * HTC Flyer
  * HTC Hero
+ * HTC Incredible S
  * HTC Legend
+ * HTC One (M8)
  * HTC Tattoo
  * HTC Wildfire
  * LG Optimus One P500
