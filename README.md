@@ -112,6 +112,7 @@ Reported working:
  * Acer Liquid A1
  * Archos 5 Internet Tablet
  * Google Nexus 7
+ * Google Nexus 5
  * Google Nexus 4
  * HTC Desire HD
  * HTC Desire S
