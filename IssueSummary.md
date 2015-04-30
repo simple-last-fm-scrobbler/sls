@@ -60,10 +60,8 @@ Email me HumbleBeeBumbleBeeDebugs@gmail for any fixes or changes for this markdo
 * [170](https://github.com/tgwizard/sls/issues/170)		nl
 * [165](https://github.com/tgwizard/sls/issues/165)		nl
 * [158](https://github.com/tgwizard/sls/issues/158)		nl
-* [153](https://github.com/tgwizard/sls/issues/153)		nl
 * [123](https://github.com/tgwizard/sls/issues/123) [94](https://github.com/tgwizard/sls/issues/94)		nl
 * [91](https://github.com/tgwizard/sls/issues/91)		nl
-* [85](https://github.com/tgwizard/sls/issues/85)		nl
 * [79](https://github.com/tgwizard/sls/issues/79)		nl
 * [78](https://github.com/tgwizard/sls/issues/78)		nl
 * [73](https://github.com/tgwizard/sls/issues/73) [16](https://github.com/tgwizard/sls/issues/16)
@@ -93,7 +91,6 @@ Email me HumbleBeeBumbleBeeDebugs@gmail for any fixes or changes for this markdo
 * [34](https://github.com/tgwizard/sls/issues/34)
 * [36](https://github.com/tgwizard/sls/issues/36)
 * [80](https://github.com/tgwizard/sls/issues/80)
-* [90](https://github.com/tgwizard/sls/issues/90)
 * [93](https://github.com/tgwizard/sls/issues/93)
 * [104](https://github.com/tgwizard/sls/issues/104)		nl
 * [110](https://github.com/tgwizard/sls/pull/110) [106](https://github.com/tgwizard/sls/issues/106)
@@ -204,7 +201,7 @@ Does not detect Android Music Player Since Lollipop, stopped working. Would love
 
 #Personal
 
-* Add information about enabling scrobbling for certain music players in GooglePLay and README.md
+* Add information about enabling scrobbling for certain music players in GooglePLay and README.md Rocket, Vanilla, PowerAmp, etc
 * I am hoping to add a developer email to the Google Play listing so that people can contact someone instead of using github.
 * I will offer up my email address if nobody else is willing and then forward genuine issues to this SLS-ISSUES.md and Github (if it's critical enough).
 * [HumbleBeeBumbleBee](https://github.com/HumbleBeeBumbleBee) email me at HumbleBeeBumbleBeeDebugs@gmail
