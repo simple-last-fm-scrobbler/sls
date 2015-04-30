@@ -21,7 +21,7 @@ package com.adam.aslfms.receiver;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.util.Log;
 
 /**
  * A BroadcastReceiver for intents sent by the Samsung default Music Player.
@@ -32,6 +32,8 @@ import android.widget.Toast;
  * @since 1.3.1
  */
 public class SamsungMusicReceiver extends BuiltInMusicAppReceiver {
+
+	static final String TAG = "SamsungMusicReceiver";
 
 	public static final String ACTION_SAMSUNG_PLAYSTATECHANGED = "com.samsung.sec.android.MusicPlayer.playstatechanged";
 	public static final String ACTION_SAMSUNG_STOP = "com.samsung.sec.android.MusicPlayer.playbackcomplete";
@@ -45,7 +47,7 @@ public class SamsungMusicReceiver extends BuiltInMusicAppReceiver {
 	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
 			throws IllegalArgumentException {
-		Toast.makeText(ctx, "MP: " + action, Toast.LENGTH_LONG).show();
+		Log.e(TAG, "MP: " + action);
 		super.parseIntent(ctx, action, bundle);
 	}
 
