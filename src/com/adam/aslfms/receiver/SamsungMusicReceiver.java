@@ -29,8 +29,6 @@ package com.adam.aslfms.receiver;
  */
 public class SamsungMusicReceiver extends BuiltInMusicAppReceiver {
 
-	static final String TAG = "SamsungMusicReceiver";
-
 	public static final String ACTION_SAMSUNG_PLAYSTATECHANGED = "com.samsung.sec.android.MusicPlayer.playstatechanged";
 	public static final String ACTION_SAMSUNG_STOP = "com.samsung.sec.android.MusicPlayer.playbackcomplete";
 	public static final String ACTION_SAMSUNG_METACHANGED = "com.samsung.sec.android.MusicPlayer.metachanged";
