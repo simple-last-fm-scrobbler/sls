@@ -223,6 +223,7 @@ Contributors
  * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), icon
  * satbadkd [github.com/satbadkd](https://github.com/satbadkd), French translation
  * moshpirit [github.com/moshpirit](https://github.com/moshpirit), Spanish translation 
+ * inverse [github.com/inverse](https://github.com/inverse), Add enhanced Scrobble on Wifi connected
 
 Test device contributors
 ------------------
