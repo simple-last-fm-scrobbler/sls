@@ -25,7 +25,7 @@ Contact emails:
 
 [simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)  <- Lead Developer
 
-[HumbleBeeBumbleBeeDebugs@gmail](mailto:HumbleBeeBumbleBeeDebugs@gmail.com)  <- Support & Maintenance
+[HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gmail.com)  <- Support & Maintenance
 
 (if uncertain please email us both)
  
