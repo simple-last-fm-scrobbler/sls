@@ -1,7 +1,5 @@
 Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gmail.com) for any fixes or changes for this markdown file.
 
-**   == not labelled OR needs label**
-
 #GitHub
 
 
