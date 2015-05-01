@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string
+        name="status">Estado</string>
+	<string
+		name="scrobble_status_title">Scrobble status</string>
+	<string
+		name="other_category_title">Otro</string>
+	<string
+		name="status_show_title">Estado</string>
+	<string
+		name="status_show_summary">Mostrar estadísticas y estados completos</string>
+	<string
+		name="status_title">Información de estado</string>
+
+	<string
+		name="scrobbling_disabled">Scrobbleo desactivado</string>
+	<string
+		name="scrobble_last_at">Último scrobble enviado:</string>
+	<string
+		name="scrobble_last_fail_at">Último envío fallido de un scrobble:</string>
+	<string
+		name="nowplaying_disabled">Notificaciones de \'Escuchando ahora\' desactivadas</string>
+	<string
+		name="nowplaying_last_at">Última notificación de \'Escuchando ahora\':
+    </string>
+	<string
+		name="nowplaying_last_fail_at">Último envío fallido de \'Escuchando ahora\':</string>
+	<string
+		name="stats_scrobbles">Todas las pistas scrobbleadas:</string>
+	<string
+		name="never">Nunca</string>
+	<string
+		name="stats_nps">Todas las notificaciones de \'Escuchando ahora\':</string>
+	<string
+		name="it_was">Esto fue:</string>
+	<string
+		name="confirm_stats_reset">¿Está seguro de que quiere restaurar sus estadísticas de envío de %1? Esta operación no se puede deshacer.</string>
+	<string
+		name="profile_page">Página del perfil:</string>
+
+</resources>

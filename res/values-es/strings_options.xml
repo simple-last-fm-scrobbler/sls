@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string
+		name="options_title">Opciones</string>
+	<string
+		name="advanced_options_title">Opciones avanzadas</string>
+
+	<string
+		name="scrobbling">Scrobbleo</string>
+	<string
+		name="scrobbling_enable">Enviar información cuando escuche una canción
+	</string>
+	<string
+		name="nowplaying">Notificar \'Escuchando ahora\'</string>
+	<string
+		name="nowplaying_enable">Mostrar qué canción está escuchando ahora
+    </string>
+
+	<string
+		name="scrobble_point_title">Porcentaje para scrobblear</string>
+	<string
+		name="scrobble_point_summary">Se memorizará en la caché cuando se reproduca un %1%</string>
+
+	<string
+		name="ao_battery_title">Sólo batería</string>
+	<string
+		name="ao_plugged_title">Enchufado</string>
+	<string
+		name="options_summary">Incluyendo opciones para el ahorro de batería</string>
+	<string
+		name="advanced_options_custom_category_title">Opciones personalizadas para scrobblear</string>
+	<string
+		name="advanced_options_when_title">Cuándo scrobblear</string>
+	<string
+		name="advanced_options_also_on_complete_title">También al finalizar la lista de reproducción</string>
+	<string
+		name="advanced_options_also_on_complete_summary">También scrobbleará cuando haya finalizado la lista de reproducción
+	</string>
+	<string
+		name="advanced_options_also_on_plugged_title">También cuando esté enchufado</string>
+	<string
+		name="advanced_options_also_on_plugged_summary">También scrobleará cuando esté enchufado a la corriente
+    </string>
+	<string
+		name="should_disable_np">Debería deshabilitar \'Escuchando ahora\' para un mejor ahorro de la batería</string>
+	<string
+		name="advanced_options_type_standard_name">Estándar</string>
+	<string
+		name="advanced_options_type_battery_name">Ahorro de batería</string>
+	<string
+		name="advanced_options_type_same_as_battery_name">Igual que cuando sólo está la batería</string>
+	<string
+		name="advanced_options_type_custom_name">Personalizadas</string>
+	<string
+		name="advanced_options_when_1_name">Después de cada pista</string>
+	<string
+		name="advanced_options_when_5_name">Después de cinco pistas</string>
+	<string
+		name="advanced_options_when_10_name">Después de diez pistas</string>
+	<string
+		name="advanced_options_when_25_name">Después de 25 pistas</string>
+	<string
+		name="advanced_options_when_never_name">Cuando pulse el botón \'Enviar Scrobbles\'</string>
+	<string
+		name="advanced_options_net_title">Conexión</string>
+	<string
+		name="advanced_options_net_summary">Enviar datos con: %1</string>
+	<string
+		name="advanced_options_net_any_name">Cualquier red</string>
+	<string
+		name="advanced_options_net_3gup_name">3G y Wifi</string>
+	<string
+		name="advanced_options_net_wifi_name">Sólo Wifi</string>
+	<string
+		name="advanced_options_net_roaming_title">Itinerancia de datos</string>
+	<string
+		name="advanced_options_net_roaming_summary_off">No enviará información bajo itinerancia</string>
+	<string
+		name="advanced_options_net_roaming_summary_on">Enviará información bajo itinerancia</string>
+</resources>

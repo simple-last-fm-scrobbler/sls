@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string
+        name="incompatability_short">Atención: %1$s está instalada y puede causar doble scrobbleo.</string>
+    <string
+        name="incompatability_long">Atención: %1$s está instalada y puede producir incompatibilidades al scrobblear. Desactive el scrobbleo desde esta aplicación o desinstale %1$s.
+    </string>
+    <string
+        name="show_supported_apps_list_summary">Activar/Desactivar scrobbleo desde una aplicación</string>
+    <string
+        name="supported_apps_category_title">aplicaciones activas</string>
+    <string
+        name="app_disabled">No se scrobbleará música desde esta aplicación</string>
+    <string
+        name="not_installed">Esta aplicación no está instalada</string>
+    <string
+        name="no_supported_mapis_title">No se detectan aplicaciones de música</string>
+    <string
+        name="find_supported_mapis_one_title">Una aplicación de música detectada</string>
+    <string
+        name="find_supported_mapis_many_title">%1 aplicaciones de música detectadas</string>
+    <string
+        name="find_supported_mapis_summary">Al reproducir música en una aplicación soportada, aparecerá aquí
+    </string>
+    <string
+        name="unknown_mapi">aplicación desconocida (pre SLS v1.2.3)</string>
+</resources>

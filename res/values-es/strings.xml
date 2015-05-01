@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string
+		name="ok">Ok</string>
+	<string
+		name="close">Cerrar</string>
+	<string
+		name="remove">Eliminar</string>
+	<string
+		name="reset">Resetear</string>
+	<string
+		name="clear_creds">Limpiar</string>
+	<string
+		name="cancel">Cancelar</string>
+	<string
+		name="are_you_sure">¿Está seguro?</string>
+	<string
+		name="warning">Atención</string>
+	
+	<string
+		name="will_submit_stuff">Enviará información a la página web
+	</string>
+	
+	<string
+		name="also_disable_np_title">También deshabilita el Escuchando ahora</string>
+	<string
+		name="also_disable_np_summary">[Hmpf]</string>
+</resources>
