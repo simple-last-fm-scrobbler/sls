@@ -212,6 +212,8 @@ Contributors
  * metanota, [github.com/metanota](https://github.com/metanota), support for PlayerPro
  * Joel Teichroeb, [github.com/klusark](https://github.com/klusark), bug fixes
  * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), icon
+ * satbadkd [github.com/satbadkd](https://github.com/satbadkd), French translation
+ * moshpirit [github.com/moshpirit](https://github.com/moshpirit), Spanish translation 
 
 Test device contributors
 ------------------
