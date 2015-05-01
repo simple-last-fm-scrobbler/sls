@@ -75,7 +75,6 @@ Apps
  * [New Vanilla Music Player](https://github.com/vanilla-music/vanilla) ([Google Play](https://play.google.com/store/apps/details?id=ch.blinkenlights.android.vanilla), [F-Droid](https://f-droid.org/repository/browse/?fdid=ch.blinkenlights.android.vanilla))
  * [SmartVanilla Music](https://github.com/gordon01/vanilla) ([Google Play](https://play.google.com/store/apps/details?id=su.thinkdifferent.vanilla))
  * [bTunes](http://www.btunesmusicplayer.com/default.html) ([Google Play](https://play.google.com/store/apps/details?id=com.bmayers.bTunesRelease), and [more](http://www.facebook.com/pages/bTunes/362875048125?v=wall))
- * [³ (cubed)](http://abrantix.org/3.php) - Appears as !RockOn !NextGen in the Enabled Apps screen ([Google Play](https://play.google.com/store/apps/details?id=org.abrantix.rockon.rockonnggl))
  * [WIMP](http://wimp.no/)
  * [Zimly](http://zim.ly/)
  * [Just Playlists](http://jp.folsoms.info)
