@@ -32,8 +32,9 @@ Contact emails:
 Download
 ========
 You can find the latest version of Simple Last.fm Scrobbler in the
-[Google Play Store](https://play.google.com/store/apps/details?id=com.adam.aslfms), and here
-in the [downloads section](https://github.com/tgwizard/sls/downloads).
+[Google Play Store](https://play.google.com/store/apps/details?id=com.adam.aslfms).
+[F-Droid](https://f-droid.org/repository/browse/?fdid=com.adam.aslfms)
+[Downloads deprecated](https://github.com/blog/1302-goodbye-uploads)
 
 Features
 ========
@@ -61,7 +62,7 @@ Apps
  * [MixZing](http://mixzing.com/android.html ) ([Google Play](https://play.google.com/store/apps/details?id=com.mixzing.basic)) **(a)**
  * [Archos Music Player](http://www.archos.com/products/imt/archos_5it/index.html) **(b)**
  * [Rhapsody Android Beta](http://www.rhapsody.com/android/download) **(b)**
- * [New Vanilla Music Player](https://github.com/vanilla-music/vanilla) ([Google Play](https://play.google.com/store/apps/details?id=ch.blinkenlights.android.vanilla), [F-Droid](https://f-droid.org/repository/browse/?fdfilter=vanilla&fdid=ch.blinkenlights.android.vanilla))
+ * [New Vanilla Music Player](https://github.com/vanilla-music/vanilla) ([Google Play](https://play.google.com/store/apps/details?id=ch.blinkenlights.android.vanilla), [F-Droid](https://f-droid.org/repository/browse/?fdid=ch.blinkenlights.android.vanilla))
  * [SmartVanilla Music](https://github.com/gordon01/vanilla) ([Google Play](https://play.google.com/store/apps/details?id=su.thinkdifferent.vanilla))
  * [bTunes](http://www.btunesmusicplayer.com/default.html) ([Google Play](https://play.google.com/store/apps/details?id=com.bmayers.bTunesRelease), and [more](http://www.facebook.com/pages/bTunes/362875048125?v=wall))
  * [³ (cubed)](http://abrantix.org/3.php) - Appears as !RockOn !NextGen in the Enabled Apps screen ([Google Play](https://play.google.com/store/apps/details?id=org.abrantix.rockon.rockonnggl))
