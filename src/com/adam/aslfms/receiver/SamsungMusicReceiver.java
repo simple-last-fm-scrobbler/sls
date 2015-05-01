@@ -43,12 +43,4 @@ public class SamsungMusicReceiver extends BuiltInMusicAppReceiver {
 		super(ACTION_SAMSUNG_STOP, "com.samsung.sec.android.MusicPlayer",
 				"Samsung Music Player");
 	}
-
-	@Override
-	protected void parseIntent(Context ctx, String action, Bundle bundle)
-			throws IllegalArgumentException {
-		Log.e(TAG, "MP: " + action);
-		super.parseIntent(ctx, action, bundle);
-	}
-
 }
