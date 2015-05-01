@@ -140,6 +140,7 @@ Reported working:
  * HTC One (M8)
  * HTC Tattoo
  * HTC Wildfire
+ * LG Optimus G
  * LG Optimus One P500
  * LG Optimus V
  * Motorola Defy (MB525)
