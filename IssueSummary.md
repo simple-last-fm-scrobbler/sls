@@ -1,4 +1,4 @@
-Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gmail.com) for any fixes or changes for this markdown file.
+Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gmail.com) for any fixes or changes for this markdown file, or fork and make a pull request.
 
 #GitHub
 
