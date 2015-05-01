@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string
+		name="options_title">Options</string>
+	<string
+		name="advanced_options_title">Options avancées</string>
+
+	<string
+		name="scrobbling">Scrobbler</string>
+	<string
+		name="scrobbling_enable">Envoyer les informations quand
+		vous venez d\'écouter
+		une piste
+	</string>
+	<string
+		name="nowplaying">Diffusion d\'écoute en temps réel</string>
+	<string
+		name="nowplaying_enable">Publier le nom de la chanson en cours d\'écoute
+    </string>
+
+	<string
+		name="scrobble_point_title">Limite de scrobble</string>
+	<string
+		name="scrobble_point_summary">Scrobbler le cache quand %1% en a été lu</string>
+
+	<string
+		name="ao_battery_title">Sur batterie</string>
+	<string
+		name="ao_plugged_title">Sur secteur</string>
+	<string
+		name="options_summary">Options et gestion de l\'alimentation</string>
+	<string
+		name="advanced_options_custom_category_title">Options de scrobbling personnalisées</string>
+	<string
+		name="advanced_options_when_title">Quand scrobbler ?</string>
+	<string
+		name="advanced_options_also_on_complete_title">À la fin d\'une piste</string>
+	<string
+		name="advanced_options_also_on_complete_summary">Scrobbler quand la lecture s\'arrête
+	</string>
+	<string
+		name="advanced_options_also_on_plugged_title">Au branchement</string>
+	<string
+		name="advanced_options_also_on_plugged_summary">Scrobbler quand l\'appareil est branché
+    </string>
+	<string
+		name="should_disable_np">Vous devriez aussi désactiver la diffusion d\'écoute en temps
+		réel pour préserver la batterie</string>
+	<string
+		name="advanced_options_type_standard_name">Standard</string>
+	<string
+		name="advanced_options_type_battery_name">Conserver la batterie</string>
+	<string
+		name="advanced_options_type_same_as_battery_name">Pareil que sur batterie</string>
+	<string
+		name="advanced_options_type_custom_name">Personnalisé</string>
+	<string
+		name="advanced_options_when_1_name">Après chaque piste</string>
+	<string
+		name="advanced_options_when_5_name">Toutes les 5 pistes</string>
+	<string
+		name="advanced_options_when_10_name">Toutes les 10 pistes</string>
+	<string
+		name="advanced_options_when_25_name">Toutes les 25 pistes</string>
+	<string
+		name="advanced_options_when_never_name">Manuellement</string>
+	<string
+		name="advanced_options_net_title">Réseau</string>
+	<string
+		name="advanced_options_net_summary">Envoi des données sur : %1</string>
+	<string
+		name="advanced_options_net_any_name">Tout réseau</string>
+	<string
+		name="advanced_options_net_3gup_name">3G et wifi</string>
+	<string
+		name="advanced_options_net_wifi_name">Wifi seulement</string>
+	<string
+		name="advanced_options_net_roaming_title">Itinérance</string>
+	<string
+		name="advanced_options_net_roaming_summary_off">N\'enverra pas les données en itinérance</string>
+	<string
+		name="advanced_options_net_roaming_summary_on">Enverra pas les données en itinérance</string>
+</resources>
