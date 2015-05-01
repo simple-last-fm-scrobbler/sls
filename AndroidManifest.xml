@@ -256,5 +256,13 @@
             /> </intent-filter> </receiver> -->
 
 
+		<receiver
+		   android:name="com.adam.aslfms.util.ConnectivityChangeReciever">
+		   <intent-filter>
+		      <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+		      <action android:name="android.net.wifi.STATE_CHANGE"/>
+		   </intent-filter>
+		</receiver>
+
     </application>
 </manifest> 
