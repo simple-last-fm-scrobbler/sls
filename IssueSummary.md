@@ -1,21 +1,22 @@
-Email me HumbleBeeBumbleBeeDebugs@gmail for any fixes or changes for this markdown file.
+Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gmail.com) for any fixes or changes for this markdown file.
 
-**nl == not labelled OR needs label**
+**   == not labelled OR needs label**
 
 #GitHub
 
 
 ##APPS
 
-* [175](https://github.com/tgwizard/sls/issues/175)		nl	[Beatport](https://play.google.com/store/apps/details?id=com.sfx.beatport)
+* [175](https://github.com/tgwizard/sls/issues/175)		  	[Beatport](https://play.google.com/store/apps/details?id=com.sfx.beatport)
 * [174](https://github.com/tgwizard/sls/issues/174) [97](https://github.com/tgwizard/sls/issues/97) [2](https://github.com/tgwizard/sls/issues/2)		[DS audio](https://play.google.com/store/apps/details?id=com.synology.DSaudio)
 * [172](https://github.com/tgwizard/sls/issues/172) [126](https://github.com/tgwizard/sls/issues/126)		[VLC](https://play.google.com/store/apps/details?id=org.videolan.vlc)
-* [168](https://github.com/tgwizard/sls/issues/168)		nl	[MortPlayer](https://play.google.com/store/apps/details?id=de.stohelit.folderplayer)
-* [160](https://github.com/tgwizard/sls/issues/160)		nl	[VK App](https://play.google.com/store/apps/details?id=com.vkontakte.android)
-* [148](https://github.com/tgwizard/sls/issues/148)		nl	[AIMP](https://play.google.com/store/apps/details?id=com.aimp.player)
-* [147](https://github.com/tgwizard/sls/issues/147)		nl	[Subsonic](https://play.google.com/store/apps/details?id=net.sourceforge.subsonic.androidapp)
-* [147](https://github.com/tgwizard/sls/issues/147)		nl	[Dsub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub)
-* [144](https://github.com/tgwizard/sls/issues/144)		nl	[SoundCloud](https://play.google.com/store/apps/details?id=com.soundcloud.android)
+* [168](https://github.com/tgwizard/sls/issues/168)		  	[MortPlayer](https://play.google.com/store/apps/details?id=de.stohelit.folderplayer)
+* [160](https://github.com/tgwizard/sls/issues/160)		  	[VK App](https://play.google.com/store/apps/details?id=com.vkontakte.android)
+* [159](https://github.com/tgwizard/sls/issues/159) 		[ESexplorer](https://play.google.com/store/apps/details?id=com.estrongs.android.pop)
+* [148](https://github.com/tgwizard/sls/issues/148)		  	[AIMP](https://play.google.com/store/apps/details?id=com.aimp.player)
+* [147](https://github.com/tgwizard/sls/issues/147)		  	[Subsonic](https://play.google.com/store/apps/details?id=net.sourceforge.subsonic.androidapp)
+* [147](https://github.com/tgwizard/sls/issues/147)		  	[Dsub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub)
+* [144](https://github.com/tgwizard/sls/issues/144)		  	[SoundCloud](https://play.google.com/store/apps/details?id=com.soundcloud.android)
 * [138](https://github.com/tgwizard/sls/issues/138)			[Spotify](https://play.google.com/store/apps/details?id=com.spotify.music)
 * [135](https://github.com/tgwizard/sls/issues/135)			[doubleTwist](https://play.google.com/store/apps/details?id=com.doubleTwist.androidPlayer)
 * [132](https://github.com/tgwizard/sls/issues/132)
@@ -25,24 +26,24 @@ Email me HumbleBeeBumbleBeeDebugs@gmail for any fixes or changes for this markdo
 * [115](https://github.com/tgwizard/sls/issues/115)			[BandCamp](https://play.google.com/store/apps/details?id=com.bandcamp.android)
 * [114](https://github.com/tgwizard/sls/issues/114)			[AVRCP]
 * [109](https://github.com/tgwizard/sls/issues/109)			[LEWAOS Player]
-* [96](https://github.com/tgwizard/sls/issues/96)		nl	[DI.FM](https://play.google.com/store/apps/details?id=com.audioaddict.di)
+* [96](https://github.com/tgwizard/sls/issues/96)		  	[DI.FM](https://play.google.com/store/apps/details?id=com.audioaddict.di)
 			[SKY.FM](https://play.google.com/store/apps/details?id=com.audioaddict.sky)
 * [89](https://github.com/tgwizard/sls/issues/89)		[HikiPLayer](https://play.google.com/store/apps/details?id=com.kazufukurou.hikiplayer)
 			[HikiPLayerPro](https://play.google.com/store/apps/details?id=com.kazufukurou.hikiplayer.pro)
-* [88](https://github.com/tgwizard/sls/issues/88)		Users want to control scrobbling [Podcast Addict](https://play.google.com/store/apps/details?id=com.bambuna.podcastaddict) [Pocket Casts](https://play.google.com/store/apps/details?id=au.com.shiftyjelly.pocketcasts)
+* [88](https://github.com/tgwizard/sls/issues/88)		Users want to control scrobbling apps [Podcast Addict](https://play.google.com/store/apps/details?id=com.bambuna.podcastaddict) [Pocket Casts](https://play.google.com/store/apps/details?id=au.com.shiftyjelly.pocketcasts) [DoggCatcher](https://play.google.com/store/apps/details?id=com.snoggdoggler.android.applications.doggcatcher.v1_0)
 * [83](https://github.com/tgwizard/sls/issues/83) [72](https://github.com/tgwizard/sls/issues/72)			MIUI
 * [82](https://github.com/tgwizard/sls/issues/82)		[nPlayer](https://play.google.com/store/apps/details?id=com.n7mobile.nplayer)
-			[nPlayerUnlocker](https://play.google.com/store/apps/details?id=com.n7mobile.nplayerunlocker)
-* [77](https://github.com/tgwizard/sls/issues/77) 	nl 	[DroidSound](https://play.google.com/store/apps/details?id=com.ssb.droidsound)
+			[nPlayerU  ocker](https://play.google.com/store/apps/details?id=com.n7mobile.nplayeru  ocker)
+* [77](https://github.com/tgwizard/sls/issues/77) 	   	[DroidSound](https://play.google.com/store/apps/details?id=com.ssb.droidsound)
 			[DroidSound-E](https://play.google.com/store/apps/details?id=com.droidmjt.droidsounde)
 * [76](https://github.com/tgwizard/sls/issues/76) [20](https://github.com/tgwizard/sls/issues/20)			[Rhapsody](https://play.google.com/store/apps/details?id=com.rhapsody)
-* [74](https://github.com/tgwizard/sls/issues/74)		nl	[TTPod](https://play.google.com/store/apps/details?id=com.sds.android.ttpod)	
-* [72](https://github.com/tgwizard/sls/issues/72)			[Vanilla Music Player](https://play.google.com/store/apps/details?id=ch.blinkenlights.android.vanilla)
+* [74](https://github.com/tgwizard/sls/issues/74)		  	[TTPod](https://play.google.com/store/apps/details?id=com.sds.android.ttpod)	
+* [72](https://github.com/tgwizard/sls/issues/72)			[Vanilla Music Player](https://play.google.com/store/apps/details?id=ch.blinke  ights.android.vanilla)
 			[SmartVanilla Music Player](https://play.google.com/store/apps/details?id=su.thinkdifferent.vanilla)
-* [71](https://github.com/tgwizard/sls/issues/71)		nl	[GrooveShark](http://mobile.grooveshark.com/android)
-* [68](https://github.com/tgwizard/sls/issues/68)		nl	[Tunein](https://play.google.com/store/apps/details?id=tunein.player)
+* [71](https://github.com/tgwizard/sls/issues/71)			[GrooveShark](http://mobile.grooveshark.com/android)
+* [68](https://github.com/tgwizard/sls/issues/68)			[Tunein](https://play.google.com/store/apps/details?id=tunein.player)
 			[TuneinPro](https://play.google.com/store/apps/details?id=radiotime.player)
-* [66](https://github.com/tgwizard/sls/issues/66)		nl	Sony Music Unlimited
+* [66](https://github.com/tgwizard/sls/issues/66)			Sony Music U  imited
 * [63](https://github.com/tgwizard/sls/issues/63)			[Cloudskipper](https://play.google.com/store/apps/details?id=cloudtv.cloudskipper&hl=en)
 * [59](https://github.com/tgwizard/sls/issues/59)			[Jetaudio](https://play.google.com/store/apps/details?id=com.jetappfactory.jetaudio)
 			[JetaudioPlus](https://play.google.com/store/apps/details?id=com.jetappfactory.jetaudioplus)
@@ -54,19 +55,18 @@ Email me HumbleBeeBumbleBeeDebugs@gmail for any fixes or changes for this markdo
 
 ##BUGS
 
-* [179](https://github.com/tgwizard/sls/issues/179)		nl
-* [176](https://github.com/tgwizard/sls/issues/176) [164](https://github.com/tgwizard/sls/issues/164)	nl	[PlayerPro](https://play.google.com/store/apps/details?id=com.tbig.playerpro)
-			[PlayerProTrial](https://play.google.com/store/apps/details?id=com.tbig.playerprotrial)
-* [170](https://github.com/tgwizard/sls/issues/170)		nl
-* [165](https://github.com/tgwizard/sls/issues/165)		nl
-* [158](https://github.com/tgwizard/sls/issues/158)		nl
-* [123](https://github.com/tgwizard/sls/issues/123) [94](https://github.com/tgwizard/sls/issues/94)		nl
-* [91](https://github.com/tgwizard/sls/issues/91)		nl
-* [79](https://github.com/tgwizard/sls/issues/79)		nl
-* [78](https://github.com/tgwizard/sls/issues/78)		nl
+* [179](https://github.com/tgwizard/sls/issues/179)
+* [173](https://github.com/tgwizard/sls/issues/173)
+* [170](https://github.com/tgwizard/sls/issues/170)
+* [165](https://github.com/tgwizard/sls/issues/165)
+* [158](https://github.com/tgwizard/sls/issues/158)
+* [145](https://github.com/tgwizard/sls/issues/145)
+* [95](https://github.com/tgwizard/sls/issues/95)
+* [91](https://github.com/tgwizard/sls/issues/91)
+* [79](https://github.com/tgwizard/sls/issues/79)
+* [78](https://github.com/tgwizard/sls/issues/78)
 * [73](https://github.com/tgwizard/sls/issues/73) [16](https://github.com/tgwizard/sls/issues/16)
-* [69](https://github.com/tgwizard/sls/issues/69)		nl
-* [62](https://github.com/tgwizard/sls/issues/62)		nl
+* [69](https://github.com/tgwizard/sls/issues/69)
 * [58](https://github.com/tgwizard/sls/issues/58)	[40](https://github.com/tgwizard/sls/issues/40) [27](https://github.com/tgwizard/sls/issues/27)		WinAmp			:( not found )
 * [56](https://github.com/tgwizard/sls/issues/56)
 * [45](https://github.com/tgwizard/sls/issues/45)
@@ -74,12 +74,14 @@ Email me HumbleBeeBumbleBeeDebugs@gmail for any fixes or changes for this markdo
 
 ##FEATURES
 
+* [186](https://github.com/tgwizard/sls/issues/186)
 * [163](https://github.com/tgwizard/sls/issues/163)
-* [150](https://github.com/tgwizard/sls/issues/150)
-* [146](https://github.com/tgwizard/sls/issues/146)
-* [130](https://github.com/tgwizard/sls/issues/130) [127](https://github.com/tgwizard/sls/issues/127) [125](https://github.com/tgwizard/sls/issues/125) [119] (https://github.com/tgwizard/sls/issues/119) 
+* [121](https://github.com/tgwizard/sls/issues/121) [150](https://github.com/tgwizard/sls/issues/150)
+* [123](https://github.com/tgwizard/sls/issues/123) [94](https://github.com/tgwizard/sls/issues/94) Users want all supported apps shown Music Apps Activity
+* [130](https://github.com/tgwizard/sls/issues/130) [127](https://github.com/tgwizard/sls/issues/127) [119](https://github.com/tgwizard/sls/issues/119)  [88](https://github.com/tgwizard/sls/issues/88)		Users want to control scrobbling apps
 * [120](https://github.com/tgwizard/sls/issues/120)
-* [92](https://github.com/tgwizard/sls/issues/92)		nl
+* [92](https://github.com/tgwizard/sls/issues/92)
+* [94](https://github.com/tgwizard/sls/issues/94)
 * [18](https://github.com/tgwizard/sls/issues/18)
 
 
@@ -92,33 +94,20 @@ Email me HumbleBeeBumbleBeeDebugs@gmail for any fixes or changes for this markdo
 * [36](https://github.com/tgwizard/sls/issues/36)
 * [80](https://github.com/tgwizard/sls/issues/80)
 * [93](https://github.com/tgwizard/sls/issues/93)
-* [104](https://github.com/tgwizard/sls/issues/104)		nl
+* [104](https://github.com/tgwizard/sls/issues/104)
 * [110](https://github.com/tgwizard/sls/pull/110) [106](https://github.com/tgwizard/sls/issues/106)
 * [107](https://github.com/tgwizard/sls/issues/107) [105](https://github.com/tgwizard/sls/issues/105) [39](https://github.com/tgwizard/sls/issues/39)
 * [113](https://github.com/tgwizard/sls/issues/113)
 * [111](https://github.com/tgwizard/sls/issues/111) [98](https://github.com/tgwizard/sls/issues/98)
 * [121](https://github.com/tgwizard/sls/issues/121)
-* [142](https://github.com/tgwizard/sls/issues/142)
-* [142](https://github.com/tgwizard/sls/issues/142)
-* [151](https://github.com/tgwizard/sls/issues/151)
 * [161](https://github.com/tgwizard/sls/issues/161)
+* [164](https://github.com/tgwizard/sls/issues/164)
 * [177](https://github.com/tgwizard/sls/issues/177) [169](https://github.com/tgwizard/sls/issues/169) [155](https://github.com/tgwizard/sls/issues/155) [149](https://github.com/tgwizard/sls/issues/149) [129](https://github.com/tgwizard/sls/issues/129) [99](https://github.com/tgwizard/sls/issues/3) [44](https://github.com/tgwizard/sls/issues/44)
 
 
 ##Closable
 
-* [3](https://github.com/tgwizard/sls/issues/3)
-* [6](https://github.com/tgwizard/sls/issues/6)
-* [19](https://github.com/tgwizard/sls/issues/19)
-* [22](https://github.com/tgwizard/sls/issues/22)
-* [43](https://github.com/tgwizard/sls/issues/43)
-* [47](https://github.com/tgwizard/sls/issues/47)
-* [54](https://github.com/tgwizard/sls/issues/54)
-* [52](https://github.com/tgwizard/sls/issues/52)
 * [64](https://github.com/tgwizard/sls/issues/64)
-* [65](https://github.com/tgwizard/sls/issues/65)
-* [70](https://github.com/tgwizard/sls/issues/70)
-* [171](https://github.com/tgwizard/sls/issues/171)
 
 
 
@@ -129,12 +118,12 @@ Email me HumbleBeeBumbleBeeDebugs@gmail for any fixes or changes for this markdo
 * [Google Music](https://play.google.com/store/apps/details?id=com.google.android.music)
 * [MusixMatch](https://play.google.com/store/apps/details?id=com.musixmatch.android.lyrify)
 * [PowerAmpTrial](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer)
-* [PowerAmpFull](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer.unlock)		
+* [PowerAmpFull](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer.u  ock)		
 * [MXPlayer](https://play.google.com/store/apps/details?id=com.mxtech.videoplayer.ad)
 * [MXPlayerPro](https://play.google.com/store/apps/details?id=com.mxtech.videoplayer.pro)
 * [8tracks](https://play.google.com/store/apps/details?id=com.e8tracks)
 * [Rocket](https://play.google.com/store/apps/details?id=com.jrtstudio.AnotherMusicPlayer)
-* [RocketPremium](https://play.google.com/store/apps/details?id=com.jrtstudio.AnotherMusicPlayer.Unlocker)
+* [RocketPremium](https://play.google.com/store/apps/details?id=com.jrtstudio.AnotherMusicPlayer.U  ocker)
 * [SomaFm](https://play.google.com/store/apps/details?id=com.somafm)
 * [iHeartRadio](https://play.google.com/store/apps/details?id=com.clearchannel.iheartradio.tv)
 * [Shuttle](https://play.google.com/store/apps/details?id=another.music.player)
@@ -201,7 +190,8 @@ Does not detect Android Music Player Since Lollipop, stopped working. Would love
 
 #Personal
 
-* Add information about enabling scrobbling for certain music players in GooglePLay and README.md Rocket, Vanilla, PowerAmp, etc
+* Add 8tracks to the list of supported music players in README.md and Google Play Store
+* Add information about enabling scrobbling for certain music players in GooglePLay and README.md Rocket, Vanilla, PowerAmp, Noise FM, etc
 * I am hoping to add a developer email to the Google Play listing so that people can contact someone instead of using github.
 * I will offer up my email address if nobody else is willing and then forward genuine issues to this SLS-ISSUES.md and Github (if it's critical enough).
-* [HumbleBeeBumbleBee](https://github.com/HumbleBeeBumbleBee) email me at HumbleBeeBumbleBeeDebugs@gmail
+* [HumbleBeeBumbleBee](https://github.com/HumbleBeeBumbleBee) email me at [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gmail.com)
