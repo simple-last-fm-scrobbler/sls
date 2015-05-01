@@ -33,7 +33,7 @@ public class AmazonMP3Receiver extends AbstractPlayStatusReceiver {
     static final String APP_PACKAGE = "com.amazon.mp3";
     static final String APP_NAME = "Amazon Music";
 
-    static final String ACTION_AMZN_META = "com.amazon.mp3.metachanged";
+    static final String ACTION_AMZN_METACHANGED = "com.amazon.mp3.metachanged";
     static final String ACTION_AMZN_PLAYSTATE = "com.amazon.mp3.playstatechanged";
 
     static final String TAG = "AmazonMP3Receiver";
@@ -46,7 +46,7 @@ public class AmazonMP3Receiver extends AbstractPlayStatusReceiver {
             ctx, APP_NAME, APP_PACKAGE, null, false);
         setMusicAPI(musicAPI);
 
-        if (action == ACTION_AMZN_PLAYSTATE)
+        if (action.equals(ACTION_AMZN_PLAYSTATE))
         {
             setTrack(track);
             int state = bundle.getInt("com.amazon.mp3.playstate");
@@ -67,7 +67,7 @@ public class AmazonMP3Receiver extends AbstractPlayStatusReceiver {
                 Log.d(TAG,"Setting state to RESUME");
             }
         }
-        else if (action == ACTION_AMZN_META)
+        else if (action.equals(ACTION_AMZN_METACHANGED))
         {
             Track.Builder b = new Track.Builder();
             b.setMusicAPI(musicAPI);
