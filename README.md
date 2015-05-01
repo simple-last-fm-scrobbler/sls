@@ -182,6 +182,7 @@ Developers
 If you want to enable your app to scrobble music through SLS, see
 [Developer's API](https://github.com/tgwizard/sls/blob/master/Developer%27s%20API.md).
 
+If you want to help out and start immediately, please see HumbleBeeBumbleBee's [Issue Summary](https://github.com/tgwizard/sls/blob/master/IssueSummary.md)
 
 Credits
 =======
