@@ -156,7 +156,7 @@ For a complete list of changes, see [the changelog](https://github.com/tgwizard/
 Bugs, Contributions, Thoughts...
 ========================================================
 
-First, read the [FAQ](https://github.com/tgwizard/sls/wiki/FAQ)
+First, read the [FAQ](https://github.com/tgwizard/sls/blob/master/FAQ.md)
 to see if you can find any help with your issue.
 
 If you can't find it there, you can always open an issue or pull request here on GitHub,
@@ -166,7 +166,7 @@ or you can email me: [simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobble
 Developers
 ==========
 If you want to enable your app to scrobble music through SLS, see
-[Developer's API](https://github.com/tgwizard/sls/wiki/Developer's-API).
+[Developer's API](https://github.com/tgwizard/sls/blob/master/Developer%27s%20API.md).
 
 
 Credits
