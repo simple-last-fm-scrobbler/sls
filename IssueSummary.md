@@ -33,7 +33,7 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 * [88](https://github.com/tgwizard/sls/issues/88)		Users want to control scrobbling apps [Podcast Addict](https://play.google.com/store/apps/details?id=com.bambuna.podcastaddict) [Pocket Casts](https://play.google.com/store/apps/details?id=au.com.shiftyjelly.pocketcasts) [DoggCatcher](https://play.google.com/store/apps/details?id=com.snoggdoggler.android.applications.doggcatcher.v1_0)
 * [83](https://github.com/tgwizard/sls/issues/83) [72](https://github.com/tgwizard/sls/issues/72)			MIUI
 * [82](https://github.com/tgwizard/sls/issues/82)		[nPlayer](https://play.google.com/store/apps/details?id=com.n7mobile.nplayer)
-			[nPlayerU  ocker](https://play.google.com/store/apps/details?id=com.n7mobile.nplayeru  ocker)
+			[nPlayerUnlocker](https://play.google.com/store/apps/details?id=com.n7mobile.nplayerunlocker)
 * [77](https://github.com/tgwizard/sls/issues/77) 	   	[DroidSound](https://play.google.com/store/apps/details?id=com.ssb.droidsound)
 			[DroidSound-E](https://play.google.com/store/apps/details?id=com.droidmjt.droidsounde)
 * [76](https://github.com/tgwizard/sls/issues/76) [20](https://github.com/tgwizard/sls/issues/20)			[Rhapsody](https://play.google.com/store/apps/details?id=com.rhapsody)
@@ -77,7 +77,7 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 * [186](https://github.com/tgwizard/sls/issues/186)
 * [163](https://github.com/tgwizard/sls/issues/163)
 * [121](https://github.com/tgwizard/sls/issues/121) [150](https://github.com/tgwizard/sls/issues/150)
-* [123](https://github.com/tgwizard/sls/issues/123) [94](https://github.com/tgwizard/sls/issues/94) Users want all supported apps shown in Enabled Apps
+* [123](https://github.com/tgwizard/sls/issues/123) [94](https://github.com/tgwizard/sls/issues/94) Users want all supported apps shown Music Apps Activity
 * [130](https://github.com/tgwizard/sls/issues/130) [127](https://github.com/tgwizard/sls/issues/127) [119](https://github.com/tgwizard/sls/issues/119)  [88](https://github.com/tgwizard/sls/issues/88)		Users want to control scrobbling apps
 * [120](https://github.com/tgwizard/sls/issues/120)
 * [92](https://github.com/tgwizard/sls/issues/92)
@@ -118,12 +118,12 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 * [Google Music](https://play.google.com/store/apps/details?id=com.google.android.music)
 * [MusixMatch](https://play.google.com/store/apps/details?id=com.musixmatch.android.lyrify)
 * [PowerAmpTrial](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer)
-* [PowerAmpFull](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer.u  ock)		
+* [PowerAmpFull](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer.unlock)		
 * [MXPlayer](https://play.google.com/store/apps/details?id=com.mxtech.videoplayer.ad)
 * [MXPlayerPro](https://play.google.com/store/apps/details?id=com.mxtech.videoplayer.pro)
 * [8tracks](https://play.google.com/store/apps/details?id=com.e8tracks)
 * [Rocket](https://play.google.com/store/apps/details?id=com.jrtstudio.AnotherMusicPlayer)
-* [RocketPremium](https://play.google.com/store/apps/details?id=com.jrtstudio.AnotherMusicPlayer.U  ocker)
+* [RocketPremium](https://play.google.com/store/apps/details?id=com.jrtstudio.AnotherMusicPlayer.Unlocker)
 * [SomaFm](https://play.google.com/store/apps/details?id=com.somafm)
 * [iHeartRadio](https://play.google.com/store/apps/details?id=com.clearchannel.iheartradio.tv)
 * [Shuttle](https://play.google.com/store/apps/details?id=another.music.player)
