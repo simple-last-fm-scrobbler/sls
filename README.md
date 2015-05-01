@@ -61,8 +61,8 @@ Apps
  * [MixZing](http://mixzing.com/android.html ) ([Google Play](https://play.google.com/store/apps/details?id=com.mixzing.basic)) **(a)**
  * [Archos Music Player](http://www.archos.com/products/imt/archos_5it/index.html) **(b)**
  * [Rhapsody Android Beta](http://www.rhapsody.com/android/download) **(b)**
- * [Vanilla Music Player](http://github.com/kreed/vanilla) ([Google Play](https://play.google.com/store/apps/details?id=org.kreed.vanilla)) **(a)**
- * [New Vanilla Music Player](https://github.com/vanilla-music/vanilla)
+ * [New Vanilla Music Player](https://github.com/vanilla-music/vanilla) ([F-Droid](https://f-droid.org/repository/browse/?fdfilter=vanilla&fdid=ch.blinkenlights.android.vanilla))
+ * [SmartVanilla Music](https://github.com/gordon01/vanilla) ([Google Play](https://play.google.com/store/apps/details?id=su.thinkdifferent.vanilla))
  * [bTunes](http://www.btunesmusicplayer.com/default.html) ([Google Play](https://play.google.com/store/apps/details?id=com.bmayers.bTunesRelease), and [more](http://www.facebook.com/pages/bTunes/362875048125?v=wall))
  * [³ (cubed)](http://abrantix.org/3.php) - Appears as !RockOn !NextGen in the Enabled Apps screen ([Google Play](https://play.google.com/store/apps/details?id=org.abrantix.rockon.rockonnggl))
  * [WIMP](http://wimp.no/)
