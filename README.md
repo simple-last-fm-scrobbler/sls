@@ -147,7 +147,12 @@ Reported working:
  * Motorola Droid 3
  * Motorola Milestone
  * Samsung Galaxy Ace (probably doesn't work with builtin player)
+ * Samsung Galaxy Core
  * Samsung Galaxy S2
+ * Samsung Galaxy S2 LTE
+ * Samsung Galaxy S3
+ * Samsung Galaxy S4
+ * Samsung Galaxy S5
  * Samsung Galaxy Spica (doesn't work with the built-in 2.1 music app)
  * Sony Ericsson Xperia X10 Mini Pro
  * Sony Ericsson Xperia X8
