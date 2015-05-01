@@ -37,4 +37,9 @@ public class HeroMusicReceiver extends BuiltInMusicAppReceiver {
 	public HeroMusicReceiver() {
 		super(ACTION_HTC_STOP, "com.htc.music", "Hero Music Player");
 	}
+
+	@Override
+	protected String getMetaChangedAction() {
+		return ACTION_HTC_METACHANGED;
+	}
 }
