@@ -188,6 +188,7 @@ Contributors
 ------------
 
  * Adam Renberg, [github.com/tgwizard](https://github.com/tgwizard), main author
+ * HumbleBeeBumbleBee, [github.com/HumbleBeeBumbleBee](https://github.com/HumbleBeeBumbleBee), core contributor
  * Argoday, [github.com/argoday](https://github.com/argoday), code fixes, support for Music2Dance2
  * Sean O'Neil, [github.com/SeanPONeil](https://github.com/SeanPONeil), android 4.0
  * Andrew Thomson, support for MIUI Music Player
