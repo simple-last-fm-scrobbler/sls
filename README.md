@@ -48,6 +48,14 @@ Features
  * Editing scrobble cache
  * More
 
+Supported languages
+-----------------------------------
+
+ * English
+ * Spanish
+ * French
+
+
 Supported websites (to scrobble to)
 -----------------------------------
 
