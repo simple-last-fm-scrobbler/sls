@@ -21,9 +21,14 @@ More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/he
 
 If you need inspiration on stuff to do, you might want to have a look at the list of issues.
 
-Contact email:
-[simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)
+Contact emails: 
 
+[simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)  <- Lead Developer
+
+[HumbleBeeBumbleBeeDebugs@gmail](mailto:HumbleBeeBumbleBeeDebugs@gmail.com)  <- Support & Maintenance
+
+(if uncertain please email us both)
+ 
 Download
 ========
 You can find the latest version of Simple Last.fm Scrobbler in the
