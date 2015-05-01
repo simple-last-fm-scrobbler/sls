@@ -62,6 +62,7 @@ Apps
  * [Archos Music Player](http://www.archos.com/products/imt/archos_5it/index.html) **(b)**
  * [Rhapsody Android Beta](http://www.rhapsody.com/android/download) **(b)**
  * [Vanilla Music Player](http://github.com/kreed/vanilla) ([Google Play](https://play.google.com/store/apps/details?id=org.kreed.vanilla)) **(a)**
+ * [New Vanilla Music Player](https://github.com/vanilla-music/vanilla)
  * [bTunes](http://www.btunesmusicplayer.com/default.html) ([Google Play](https://play.google.com/store/apps/details?id=com.bmayers.bTunesRelease), and [more](http://www.facebook.com/pages/bTunes/362875048125?v=wall))
  * [³ (cubed)](http://abrantix.org/3.php) - Appears as !RockOn !NextGen in the Enabled Apps screen ([Google Play](https://play.google.com/store/apps/details?id=org.abrantix.rockon.rockonnggl))
  * [WIMP](http://wimp.no/)
@@ -94,7 +95,7 @@ Apps
  * SoundSeeder ([Google Play](https://play.google.com/store/apps/details?id=com.kattwinkel.android.soundseeder.player))
  * [Amazon Music](http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000454841) ([Google Play](https://play.google.com/store/apps/details?id=com.amazon.mp3), [Amazon Appstore](http://www.amazon.com/gp/product/B004FRX0MY))
  * [Radio Noise FM](http://noisefm.ru) ([Google Play](https://play.google.com/store/apps/details?id=ru.modi.dubsteponline), [Amazon Appstore](http://www.amazon.com/gp/product/B00GAXBGM2))
- * [8tracks](https://8tracks.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.e8tracks))
+ * [8tracks](https://8tracks.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.e8tracks), [Amazon Appstore](http://www.amazon.com/8tracks/dp/B007JWJIJG/))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
