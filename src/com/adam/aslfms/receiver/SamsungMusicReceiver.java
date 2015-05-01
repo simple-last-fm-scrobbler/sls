@@ -19,9 +19,6 @@
 
 package com.adam.aslfms.receiver;
 
-import android.content.Context;
-import android.os.Bundle;
-
 /**
  * A BroadcastReceiver for intents sent by the Samsung default Music Player.
  * 
