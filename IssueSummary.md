@@ -41,7 +41,6 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 * [71](https://github.com/tgwizard/sls/issues/71)			[GrooveShark](http://mobile.grooveshark.com/android)
 * [68](https://github.com/tgwizard/sls/issues/68)			[Tunein](https://play.google.com/store/apps/details?id=tunein.player)
 			[TuneinPro](https://play.google.com/store/apps/details?id=radiotime.player)
-* [66](https://github.com/tgwizard/sls/issues/66)			Sony Music U  imited
 * [63](https://github.com/tgwizard/sls/issues/63)			[Cloudskipper](https://play.google.com/store/apps/details?id=cloudtv.cloudskipper&hl=en)
 * [59](https://github.com/tgwizard/sls/issues/59)			[Jetaudio](https://play.google.com/store/apps/details?id=com.jetappfactory.jetaudio)
 			[JetaudioPlus](https://play.google.com/store/apps/details?id=com.jetappfactory.jetaudioplus)
@@ -72,7 +71,7 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 
 ##FEATURES
 
-* [186](https://github.com/tgwizard/sls/issues/186)
+* [186](https://github.com/tgwizard/sls/issues/186) 
 * [163](https://github.com/tgwizard/sls/issues/163)
 * [121](https://github.com/tgwizard/sls/issues/121) [150](https://github.com/tgwizard/sls/issues/150)
 * [123](https://github.com/tgwizard/sls/issues/123) [94](https://github.com/tgwizard/sls/issues/94) Users want all supported apps shown Music Apps Activity
@@ -93,7 +92,6 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 * [80](https://github.com/tgwizard/sls/issues/80)
 * [93](https://github.com/tgwizard/sls/issues/93)
 * [104](https://github.com/tgwizard/sls/issues/104)
-* [110](https://github.com/tgwizard/sls/pull/110) [106](https://github.com/tgwizard/sls/issues/106)
 * [107](https://github.com/tgwizard/sls/issues/107) [105](https://github.com/tgwizard/sls/issues/105) [39](https://github.com/tgwizard/sls/issues/39)
 * [113](https://github.com/tgwizard/sls/issues/113)
 * [111](https://github.com/tgwizard/sls/issues/111) [98](https://github.com/tgwizard/sls/issues/98)
