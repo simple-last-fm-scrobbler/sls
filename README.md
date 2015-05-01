@@ -88,6 +88,7 @@ Apps
  * [My Cloud Player](http://mycloudplayers.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.mycloudplayers.mycloudplayer))
  * SoundSeeder ([Google Play](https://play.google.com/store/apps/details?id=com.kattwinkel.android.soundseeder.player))
  * [Amazon Music](http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000454841) ([Google Play](https://play.google.com/store/apps/details?id=com.amazon.mp3), [Amazon Appstore](http://www.amazon.com/gp/product/B004FRX0MY))
+ * [Radio Noise FM](http://noisefm.ru) ([Google Play](https://play.google.com/store/apps/details?id=ru.modi.dubsteponline), [Amazon Appstore](http://www.amazon.com/gp/product/B00GAXBGM2))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
@@ -110,6 +111,7 @@ Known compatible devices
 Reported working:
 
  * Acer Liquid A1
+ * Amazon Kindle Fire HDX
  * Archos 5 Internet Tablet
  * Google Nexus 7
  * Google Nexus 5
@@ -138,8 +140,10 @@ Reported working:
  * Samsung Galaxy S2
  * Samsung Galaxy Spica (doesn't work with the built-in 2.1 music app)
  * Sony Ericsson Xperia X10 Mini Pro
+ * Sony Ericsson Xperia X8
  * Sony Ericsson Xperia Pro
  * Sony Xperia SP
+ * Sony Xperia U
 
 Issues:
 
