@@ -38,6 +38,8 @@ You can find the latest version of Simple Last.fm Scrobbler in the
 
 [Downloads deprecated](https://github.com/blog/1302-goodbye-uploads)
 
+[Old Versions](https://github.com/tgwizard/sls/downloads)
+
 Features
 ========
 
