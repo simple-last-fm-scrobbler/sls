@@ -106,6 +106,7 @@ Apps
  * [Amazon Music](http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000454841) ([Google Play](https://play.google.com/store/apps/details?id=com.amazon.mp3), [Amazon Appstore](http://www.amazon.com/gp/product/B004FRX0MY))
  * [Radio Noise FM](http://noisefm.ru) ([Google Play](https://play.google.com/store/apps/details?id=ru.modi.dubsteponline), [Amazon Appstore](http://www.amazon.com/gp/product/B00GAXBGM2))
  * [8tracks](https://8tracks.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.e8tracks), [Amazon Appstore](http://www.amazon.com/8tracks/dp/B007JWJIJG/))
+ * [VLC](https://www.videolan.org/vlc/download-android.html) ([VLC](https://www.videolan.org/vlc/download-android.html), [Google Play](https://play.google.com/store/apps/details?id=org.videolan.vlc), [F-Droid](https://f-droid.org/repository/browse/?fdid=org.videolan.vlc))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
