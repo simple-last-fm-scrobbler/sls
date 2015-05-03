@@ -79,7 +79,6 @@ Apps
  * [Zimly](http://zim.ly/)
  * [Just Playlists](http://jp.folsoms.info)
  * [PowerAMP](http://powerampapp.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer))
- * [Winamp](http://blog.winamp.com/2010/11/30/winamp-for-android/)
  * [myTouch 4G](http://mytouch.t-mobile.com/)
  * [Google Music](http://music.google.com/music/)
  * [PlayerPro](http://www.aplayerpro.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.tbig.playerpro))
