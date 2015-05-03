@@ -37,4 +37,9 @@ public class SamsungMusicReceiver extends BuiltInMusicAppReceiver {
 		super(ACTION_SAMSUNG_STOP, "com.samsung.sec.android.MusicPlayer",
 				"Samsung Music Player");
 	}
+
+	@Override
+	protected String getMetaChangedAction() {
+		return ACTION_SAMSUNG_METACHANGED;
+	}
 }

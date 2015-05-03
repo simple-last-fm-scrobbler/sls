@@ -189,6 +189,16 @@ public class ScrobblingService extends Service {
 					tryQueue(mCurrentTrack);
 				}
 			}
+		// implemented as a combination of COMPLETE -> START state handlers.
+		} else if (state == Track.State.CHANGED) {
+			if (mCurrentTrack != null) {
+				mCurrentTrack.updateTimePlayed();
+				tryQueue(mCurrentTrack);
+				tryScrobble();
+			}
+			mCurrentTrack = track;
+			mCurrentTrack.updateTimePlayed();
+			tryNotifyNP(mCurrentTrack);
 		} else if (state == Track.State.COMPLETE) { // "complete"
 			// TODO test this state
 			if (mCurrentTrack == null) {

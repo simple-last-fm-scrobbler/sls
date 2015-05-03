@@ -39,7 +39,7 @@ public class LgOptimus4xReceiver extends AbstractPlayStatusReceiver {
 	static final String APP_PACKAGE = "com.lge.music";
 	static final String APP_NAME = "LG Music Player";
 
-	static final String ACTION_LGE_START = "com.lge.music.metachanged";
+	static final String ACTION_LGE_METACHANGED = "com.lge.music.metachanged";
 	static final String ACTION_LGE_PAUSERESUME = "com.lge.music.playstatechanged";
 	static final String ACTION_LGE_STOP = "com.lge.music.endofplayback";
 
@@ -52,18 +52,18 @@ public class LgOptimus4xReceiver extends AbstractPlayStatusReceiver {
 			ctx, APP_NAME, APP_PACKAGE, null, false);
 		setMusicAPI(musicAPI);
 
-		if (action == ACTION_LGE_STOP) {
+		if (action.equals(ACTION_LGE_STOP)) {
 			setState(Track.State.COMPLETE);
 			setTrack(Track.SAME_AS_CURRENT);
 			Log.d(TAG,"Setting state to COMPLETE");
 			return;
 		}
 
-		if (action == ACTION_LGE_START) {
-			setState(Track.State.START);
-			Log.d(TAG,"Setting state to START");
+		if (action.equals(ACTION_LGE_METACHANGED)) {
+			setState(Track.State.CHANGED);
+			Log.d(TAG,"Setting state to CHANGED");
 		}
-		else if (action == ACTION_LGE_PAUSERESUME) {
+		else if (action.equals(ACTION_LGE_PAUSERESUME)) {
 			boolean playing = bundle.getBoolean("playing");
 			Track.State state =
 				(playing) ? (Track.State.RESUME) : (Track.State.PAUSE);

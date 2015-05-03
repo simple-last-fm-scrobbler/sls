@@ -39,7 +39,7 @@ import android.os.Bundle;
  */
 public class LastFmAPIReceiver extends AbstractPlayStatusReceiver {
 
-	public static final String ACTION_LASTFMAPI_START = "fm.last.android.metachanged";
+	public static final String ACTION_LASTFMAPI_METACHANGED = "fm.last.android.metachanged";
 	public static final String ACTION_LASTFMAPI_PAUSERESUME = "fm.last.android.playbackpaused";
 	public static final String ACTION_LASTFMAPI_STOP = "fm.last.android.playbackcomplete";
 
@@ -49,8 +49,8 @@ public class LastFmAPIReceiver extends AbstractPlayStatusReceiver {
 				"Apps using the Last.fm Android App API", false);
 		setMusicAPI(musicAPI);
 
-		if (action.equals(ACTION_LASTFMAPI_START)) {
-			setState(Track.State.START);
+		if (action.equals(ACTION_LASTFMAPI_METACHANGED)) {
+			setState(Track.State.CHANGED);
 			Track.Builder b = new Track.Builder();
 			b.setMusicAPI(musicAPI);
 			b.setWhen(Util.currentTimeSecsUTC());
