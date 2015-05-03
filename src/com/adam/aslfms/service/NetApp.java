@@ -26,7 +26,7 @@ import com.adam.aslfms.util.AppSettings;
 
 public enum NetApp {
 	LASTFM(
-		0x01, "Last.fm", "https://post.audioscrobbler.com/?hs=true", "",
+		0x01, "Last.fm", "http://post.audioscrobbler.com/?hs=true", "",
 		"https://www.last.fm/join", "https://www.last.fm/user/%1"), //
 	LIBREFM(
 		0x02, "Libre.fm", "http://turtle.libre.fm/?hs=true", "librefm",
