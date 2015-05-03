@@ -71,7 +71,7 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 * [186](https://github.com/tgwizard/sls/issues/186) 
 * [163](https://github.com/tgwizard/sls/issues/163)
 * [121](https://github.com/tgwizard/sls/issues/121) [150](https://github.com/tgwizard/sls/issues/150)
-* [123](https://github.com/tgwizard/sls/issues/123) [94](https://github.com/tgwizard/sls/issues/94) Users want all supported apps shown Music Apps Activity
+* [123](https://github.com/tgwizard/sls/issues/123) [94](https://github.com/tgwizard/sls/issues/94) Users want all supported apps shown in Enabled Apps
 * [130](https://github.com/tgwizard/sls/issues/130) [127](https://github.com/tgwizard/sls/issues/127) [119](https://github.com/tgwizard/sls/issues/119)  [88](https://github.com/tgwizard/sls/issues/88)		Users want to control scrobbling apps
 * [120](https://github.com/tgwizard/sls/issues/120)
 * [92](https://github.com/tgwizard/sls/issues/92)
@@ -115,7 +115,6 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 * [PowerAmpFull](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer.unlock)		
 * [MXPlayer](https://play.google.com/store/apps/details?id=com.mxtech.videoplayer.ad)
 * [MXPlayerPro](https://play.google.com/store/apps/details?id=com.mxtech.videoplayer.pro)
-* [8tracks](https://play.google.com/store/apps/details?id=com.e8tracks)
 * [Rocket](https://play.google.com/store/apps/details?id=com.jrtstudio.AnotherMusicPlayer)
 * [RocketPremium](https://play.google.com/store/apps/details?id=com.jrtstudio.AnotherMusicPlayer.Unlocker)
 * [SomaFm](https://play.google.com/store/apps/details?id=com.somafm)
