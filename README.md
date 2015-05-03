@@ -68,7 +68,6 @@ Apps
  * Default Android Music Player
  * HTC Hero Music Player
  * [Meridian Player](http://sites.google.com/site/eternalsandbox/Home/meridian-video-player) **(a)**
- * [RockOn](http://abrantix.org/rockon.php) ([Google Play](https://play.google.com/store/apps/details?id=org.abrantes.filex)) **(a)**
  * [MixZing](http://mixzing.com/android.html ) ([Google Play](https://play.google.com/store/apps/details?id=com.mixzing.basic)) **(a)**
  * [Archos Music Player](http://www.archos.com/products/imt/archos_5it/index.html) **(b)**
  * [Rhapsody Android Beta](http://www.rhapsody.com/android/download) **(b)**
@@ -96,9 +95,8 @@ Apps
  * [Music Pump XBMC Remote (Beta)](http://forum.xbmc.org/showthread.php?tid=131303) ([Google Play](https://play.google.com/store/apps/details?id=ch.berard.xbmcremotebeta))
  * [JRTStudio Android Music Player](http://www.jrtstudio.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.jrtstudio.music))
  * [Music Folder Player](https://sites.google.com/site/zorillasoft/) ([Google Play](https://play.google.com/store/apps/details?id=de.zorillasoft.musicfolderplayer))
- * [Apollo](http://www.seeingpixels.org/2012/05/apollo.html) **(b)**
+ * [Apollo](http://forum.cyanogenmod.org/topic/56681-apollo-music-player/) **(b)**
  * LG Music Player
- * [Now Playing](https://plus.google.com/116252656973193786075/posts) ([Google Play](https://play.google.com/store/apps/details?id=com.underwood.now_playing))
  * [Shuttle Music Player](https://plus.google.com/104842767174352132769/posts) ([Google Play](https://play.google.com/store/apps/details?id=another.music.player))
  * [My Cloud Player](http://mycloudplayers.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.mycloudplayers.mycloudplayer))
  * SoundSeeder ([Google Play](https://play.google.com/store/apps/details?id=com.kattwinkel.android.soundseeder.player))
@@ -106,6 +104,8 @@ Apps
  * [Radio Noise FM](http://noisefm.ru) ([Google Play](https://play.google.com/store/apps/details?id=ru.modi.dubsteponline), [Amazon Appstore](http://www.amazon.com/gp/product/B00GAXBGM2))
  * [8tracks](https://8tracks.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.e8tracks), [Amazon Appstore](http://www.amazon.com/8tracks/dp/B007JWJIJG/))
  * [VLC](https://www.videolan.org/vlc/download-android.html) ([VLC](https://www.videolan.org/vlc/download-android.html), [Google Play](https://play.google.com/store/apps/details?id=org.videolan.vlc), [F-Droid](https://f-droid.org/repository/browse/?fdid=org.videolan.vlc))
+ * [Spotify](https://spotify.com) ([Google Play](https://play.google.com/store/apps/details?id=com.spotify.music))
+ * [SoundCloud](https://soundcloud.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.soundcloud.android))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
@@ -226,12 +226,12 @@ Contributors
  * Joseph Cooper, [github.com/grodin](https://github.com/grodin), support for JRTStudio Android Music Player
  * Shahar, [github.com/kshahar](https://github.com/kshahar), support for LG Music Player
  * theli-ua, [github.com/theli-ua](https://github.com/theli-ua), support for Amazon Music
- * metanota, [github.com/metanota](https://github.com/metanota), support for PlayerPro
+ * metanota, [github.com/metanota](https://github.com/metanota), support for PlayerPro, bug fixes
  * Joel Teichroeb, [github.com/klusark](https://github.com/klusark), bug fixes
  * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), icon
  * satbadkd [github.com/satbadkd](https://github.com/satbadkd), French translation
  * moshpirit [github.com/moshpirit](https://github.com/moshpirit), Spanish translation 
- * inverse [github.com/inverse](https://github.com/inverse), Add enhanced Scrobble on Wifi connected
+ * inverse [github.com/inverse](https://github.com/inverse), bug fixes, SoundCloud support
 
 Test device contributors
 ------------------
