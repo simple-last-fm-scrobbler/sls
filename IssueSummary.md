@@ -19,7 +19,6 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 * [132](https://github.com/tgwizard/sls/issues/132)
 * [131](https://github.com/tgwizard/sls/issues/131)			APOLLO (CM)
 * [128](https://github.com/tgwizard/sls/issues/128)			[JANGO](https://play.google.com/store/apps/details?id=com.jangomobile.android) pbr
-* [53](https://github.com/tgwizard/sls/issues/53)		[Plex](https://play.google.com/store/apps/details?id=com.plexapp.android)
 * [115](https://github.com/tgwizard/sls/issues/115)			[BandCamp](https://play.google.com/store/apps/details?id=com.bandcamp.android) pbr
 * [114](https://github.com/tgwizard/sls/issues/114)			[AVRCP]
 * [109](https://github.com/tgwizard/sls/issues/109)			[LEWAOS Player]
@@ -41,6 +40,7 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 * [59](https://github.com/tgwizard/sls/issues/59)			[Jetaudio](https://play.google.com/store/apps/details?id=com.jetappfactory.jetaudio)
 			[JetaudioPlus](https://play.google.com/store/apps/details?id=com.jetappfactory.jetaudioplus)
 * [55](https://github.com/tgwizard/sls/issues/55)			[Songza](https://play.google.com/store/apps/details?id=com.ad60.songza) pbr
+* [53](https://github.com/tgwizard/sls/issues/53)		[Plex](https://play.google.com/store/apps/details?id=com.plexapp.android)
 * [51](https://github.com/tgwizard/sls/issues/51)			[Slacker Radio](https://play.google.com/store/apps/details?id=com.slacker.radio)
 * [23](https://github.com/tgwizard/sls/issues/23)			[Andless](http://code.google.com/p/andless/)
 * [21](https://github.com/tgwizard/sls/issues/21)			[Queek](https://play.google.com/store/apps/details?id=org.sais.queekhd)
