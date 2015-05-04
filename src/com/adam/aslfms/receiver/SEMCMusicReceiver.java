@@ -33,11 +33,6 @@ public class SEMCMusicReceiver extends BuiltInMusicAppReceiver {
 	}
 
 	@Override
-	protected String getMetaChangedAction() {
-		return ACTION_SEMC_METACHANGED;
-	}
-
-	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle) throws IllegalArgumentException {
 		super.parseIntent(ctx, action, bundle);
 	}
