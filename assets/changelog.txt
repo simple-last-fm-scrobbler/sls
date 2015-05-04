@@ -2,7 +2,6 @@
   * Add French translation (thanks to satbadkd)
   * Add Spanish translation (thanks to  moshpirit)
   * Add enhanced Scrobble on Wifi connected (thanks to inverse)
-  * Add support for single track repeating on most players (thanks to metanota)
   * Add support for Spotify (thanks to HumbleBeeBumbleBee)
   * Add support for SoundCloud (thanks to inverse)
   * Support for VLC (thanks to VLC android team)
