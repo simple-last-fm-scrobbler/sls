@@ -208,6 +208,17 @@
         </receiver>
 
         <receiver
+            android:name="com.adam.aslfms.receiver.plexappReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.plexapp.android.metachanged" />
+                <action android:name="com.plexapp.android.playbackcomplete" />
+                <action android:name="com.plexapp.android.playstatechanged" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
                 android:name="com.adam.aslfms.receiver.LgOptimus4xReceiver"
                 android:exported="true"
                 android:enabled="true">
