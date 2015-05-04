@@ -50,7 +50,7 @@ public class LastFmAPIReceiver extends AbstractPlayStatusReceiver {
 		setMusicAPI(musicAPI);
 
 		if (action.equals(ACTION_LASTFMAPI_METACHANGED)) {
-			setState(Track.State.CHANGED);
+			setState(Track.State.START);
 			Track.Builder b = new Track.Builder();
 			b.setMusicAPI(musicAPI);
 			b.setWhen(Util.currentTimeSecsUTC());
