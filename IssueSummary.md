@@ -7,6 +7,7 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 
 **pending broadcast release == pbr** <- means we can't get the metadata without using messy hacks. Music/Radio player developers need to broadcast their METADATA and PLAYSTATE or add support for scrobbleDroid, Last.fm API, etc.
 
+* [193](https://github.com/tgwizard/sls/issues/193) [Gaana](https://play.google.com/store/apps/details?id=com.gaana) pbr
 * [175](https://github.com/tgwizard/sls/issues/175)		  	[Beatport](https://play.google.com/store/apps/details?id=com.sfx.beatport)
 * [168](https://github.com/tgwizard/sls/issues/168)		  	[MortPlayer](https://play.google.com/store/apps/details?id=de.stohelit.folderplayer)
 * [160](https://github.com/tgwizard/sls/issues/160)		  	[VK App](https://play.google.com/store/apps/details?id=com.vkontakte.android)
