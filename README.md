@@ -1,7 +1,11 @@
 Simple Last.fm Scrobbler
 ========================
 
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/tgwizard/sls)
+
 **This project is unfortunately in a bit of a limbo. The app works, and is available on Google Play, but I don't have the time to maintain it on my own.**
+
+The Creator has left us but we 
 
 **If anyone wants to take part in developing this app further, I'm looking for contributors. Please email me, or just fork and code away.**
 
