@@ -72,23 +72,6 @@ public abstract class BuiltInMusicAppReceiver extends
 		return action.equals(stop_action);
 	}
 
-	/**
-	 * Checks if action is the switching of the musical track.
-	 * Keep in mind that when the track is ended and same track starts again
-	 * (by looping for example) it is also a 'changed' condition.
-	 * @param action
-	 * @return
-	 */
-	protected boolean isChangedAction(String action) {
-		return action.equals(getMetaChangedAction());
-	}
-
-	/**
-	 * Returns 'metachanged' intent action string for concrete application.
-	 * @return concrete 'metachanged' intent
-	 */
-	protected abstract String getMetaChangedAction();
-
 	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
 		throws IllegalArgumentException {
@@ -103,8 +86,6 @@ public abstract class BuiltInMusicAppReceiver extends
 
 		if (isStopAction(action)) {
 			setState(Track.State.PLAYLIST_FINISHED);
-		} else if (isChangedAction(action)) {
-			setState(Track.State.CHANGED);
 		} else {
 			setState(Track.State.RESUME);
 		}
