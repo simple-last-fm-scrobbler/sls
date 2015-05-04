@@ -19,7 +19,7 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 * [132](https://github.com/tgwizard/sls/issues/132)
 * [131](https://github.com/tgwizard/sls/issues/131)			APOLLO (CM)
 * [128](https://github.com/tgwizard/sls/issues/128)			[JANGO](https://play.google.com/store/apps/details?id=com.jangomobile.android) pbr
-* [124](https://github.com/tgwizard/sls/issues/124) [53](https://github.com/tgwizard/sls/issues/53)		[Plex](https://play.google.com/store/apps/details?id=com.plexapp.android)
+* [53](https://github.com/tgwizard/sls/issues/53)		[Plex](https://play.google.com/store/apps/details?id=com.plexapp.android)
 * [115](https://github.com/tgwizard/sls/issues/115)			[BandCamp](https://play.google.com/store/apps/details?id=com.bandcamp.android) pbr
 * [114](https://github.com/tgwizard/sls/issues/114)			[AVRCP]
 * [109](https://github.com/tgwizard/sls/issues/109)			[LEWAOS Player]
