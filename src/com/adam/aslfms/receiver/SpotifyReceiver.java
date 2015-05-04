@@ -69,7 +69,6 @@ public class SpotifyReceiver extends AbstractPlayStatusReceiver {
 				Log.e(TAG, "Identified ad " + bundle.getString("id")
 						+ " ad length " + bundle.getInt("length", 0));
 			} else {
-				setState(Track.State.CHANGED);
 				Track.Builder b = new Track.Builder();
 				b.setMusicAPI(musicAPI);
 				b.setWhen(Util.currentTimeSecsUTC());
