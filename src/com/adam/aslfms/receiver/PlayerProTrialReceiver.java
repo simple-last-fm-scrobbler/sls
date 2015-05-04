@@ -17,9 +17,4 @@ public class PlayerProTrialReceiver extends BuiltInMusicAppReceiver {
     public PlayerProTrialReceiver() {
         super(ACTION_PLAYER_PRO_TRIAL_STOP, "com.tbig.playerprotrial", "Player Pro Trial");
     }
-
-    @Override
-    protected String getMetaChangedAction() {
-        return ACTION_PLAYER_PRO_TRIAL_METACHANGED;
-    }
 }
