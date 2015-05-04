@@ -59,11 +59,11 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 * [91](https://github.com/tgwizard/sls/issues/91)
 * [79](https://github.com/tgwizard/sls/issues/79)
 * [78](https://github.com/tgwizard/sls/issues/78)
-* [73](https://github.com/tgwizard/sls/issues/73) [16](https://github.com/tgwizard/sls/issues/16)
 * [72](https://github.com/tqwizard/sls/issues/72)
 * [69](https://github.com/tgwizard/sls/issues/69)
 * [56](https://github.com/tgwizard/sls/issues/56)
 * [45](https://github.com/tgwizard/sls/issues/45)
+* [16](https://github.com/tgwizard/sls/issues/16)
 
 
 ##FEATURES
