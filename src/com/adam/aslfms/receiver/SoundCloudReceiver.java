@@ -50,7 +50,6 @@ public class SoundCloudReceiver extends AbstractPlayStatusReceiver {
 		setMusicAPI(musicAPI);
 
 		if (action.equals(ACTION_ANDROID_METACHANGED)) {
-			setState(Track.State.CHANGED);
 			Track.Builder b = new Track.Builder();
 			b.setMusicAPI(musicAPI);
 			b.setWhen(Util.currentTimeSecsUTC());
