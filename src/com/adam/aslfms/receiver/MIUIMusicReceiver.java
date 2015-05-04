@@ -14,11 +14,6 @@ public class MIUIMusicReceiver extends BuiltInMusicAppReceiver {
 	}
 
 	@Override
-	protected String getMetaChangedAction() {
-		return ACTION_MIUI_METACHANGED;
-	}
-
-	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle) throws IllegalArgumentException {
 		super.parseIntent(ctx, action, bundle);
 	}
