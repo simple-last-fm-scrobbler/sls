@@ -17,9 +17,4 @@ public class PlayerProReceiver extends BuiltInMusicAppReceiver {
     public PlayerProReceiver() {
         super(ACTION_PLAYER_PRO_STOP, "com.tbig.playerpro", "Player Pro");
     }
-
-    @Override
-    protected String getMetaChangedAction() {
-        return ACTION_PLAYER_PRO_METACHANGED;
-    }
 }
