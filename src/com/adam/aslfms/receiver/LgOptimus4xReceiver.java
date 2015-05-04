@@ -60,8 +60,8 @@ public class LgOptimus4xReceiver extends AbstractPlayStatusReceiver {
 		}
 
 		if (action.equals(ACTION_LGE_METACHANGED)) {
-			setState(Track.State.CHANGED);
-			Log.d(TAG,"Setting state to CHANGED");
+			setState(Track.State.START);
+			Log.d(TAG,"Setting state to START");
 		}
 		else if (action.equals(ACTION_LGE_PAUSERESUME)) {
 			boolean playing = bundle.getBoolean("playing");
