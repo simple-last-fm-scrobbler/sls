@@ -39,9 +39,4 @@ public class WinampMusicReceiver extends BuiltInMusicAppReceiver {
 	public WinampMusicReceiver() {
 		super(ACTION_WINAMP_STOP, "com.nullsoft.winamp", "Winamp");
 	}
-
-	@Override
-	protected String getMetaChangedAction() {
-		return ACTION_WINAMP_METACHANED;
-	}
 }
