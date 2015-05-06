@@ -1,7 +1,6 @@
 - 1.4.9 (2015-05-03)
   * Add French translation (thanks to satbadkd)
   * Add Spanish translation (thanks to  moshpirit)
-  * Add enhanced Scrobble on Wifi connected (thanks to inverse)
   * Add support for Spotify (thanks to HumbleBeeBumbleBee)
   * Add support for SoundCloud (thanks to inverse)
   * Support for VLC (thanks to VLC android team)
