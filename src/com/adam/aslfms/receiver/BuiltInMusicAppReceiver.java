@@ -78,7 +78,7 @@ public abstract class BuiltInMusicAppReceiver extends
 		MusicAPI musicAPI = getMusicAPI(ctx, bundle);
 		setMusicAPI(musicAPI);
 
-		Track.Builder b = new Track.Builder();
+		Track.Builder b = new Track.Builder(ctx);
 		b.setMusicAPI(musicAPI);
 		b.setWhen(Util.currentTimeSecsUTC());
 

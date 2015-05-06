@@ -213,7 +213,7 @@ public class ScrobblesDatabase {
 	}
 
 	private Track readTrack(Cursor c) {
-		Track.Builder b = new Track.Builder();
+		Track.Builder b = new Track.Builder(mCtx);
 		b.setMusicAPI(MusicAPI.fromDatabase(mCtx, c.getLong(c
 				.getColumnIndex("musicapp"))));
 		b.setArtist(c.getString(c.getColumnIndex("artist")));

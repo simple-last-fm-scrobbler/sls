@@ -27,6 +27,15 @@
 			android:targetPackage="com.adam.aslfms"
 			android:targetClass="com.adam.aslfms.OptionsScreen" />
 	</PreferenceScreen>
+	
+	<PreferenceScreen
+    android:title="@string/splits_title"
+    android:summary="@string/splits_summary">
+    <intent
+      android:action="android.intent.action.MAIN"
+      android:targetPackage="com.adam.aslfms"
+      android:targetClass="com.adam.aslfms.ViewSplitsActivity" />
+  </PreferenceScreen>
 
 	<PreferenceCategory
 		android:title="@string/scrobble_cache_title" />

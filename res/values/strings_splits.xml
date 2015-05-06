@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<string name="splits_title">Title Splits</string>
+	<string name="splits_summary">List of track title splits</string>
+	<string name="splits_view_title">Title Splits</string>
+	<string name="splits_add_title">Add new title split</string>
+	<string name="splits_add_message">Enter new split text:</string>
+	<string name="splits_no_in_db">There are no title splits in database.</string>
+
+</resources>
