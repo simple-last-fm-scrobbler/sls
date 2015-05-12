@@ -109,7 +109,7 @@ Apps
  * [8tracks](https://8tracks.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.e8tracks), [Amazon Appstore](http://www.amazon.com/8tracks/dp/B007JWJIJG/))
  * [VLC](https://www.videolan.org/vlc/download-android.html) ([VLC](https://www.videolan.org/vlc/download-android.html), [Google Play](https://play.google.com/store/apps/details?id=org.videolan.vlc), [F-Droid](https://f-droid.org/repository/browse/?fdid=org.videolan.vlc))
  * [Spotify](https://spotify.com) ([Google Play](https://play.google.com/store/apps/details?id=com.spotify.music))
- * [SoundCloud](https://soundcloud.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.soundcloud.android))
+ * [SoundCloud](https://soundcloud.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.soundcloud.android)) <-- pending review
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
@@ -236,7 +236,7 @@ Contributors
  * satbadkd [github.com/satbadkd](https://github.com/satbadkd), French translation
  * moshpirit [github.com/moshpirit](https://github.com/moshpirit), Spanish translation 
  * inverse [github.com/inverse](https://github.com/inverse), bug fixes, SoundCloud support
-
+ * bryansills [github.com/bryansills](https://github.com/bryansills), Eclipse to Android Studio
 Test device contributors
 ------------------
  * Dmitry Paskal, [github.com/paskal](https://github.com/paskal)
