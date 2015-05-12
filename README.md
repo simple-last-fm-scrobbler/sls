@@ -237,6 +237,7 @@ Contributors
  * moshpirit [github.com/moshpirit](https://github.com/moshpirit), Spanish translation 
  * inverse [github.com/inverse](https://github.com/inverse), bug fixes, SoundCloud support
  * bryansills [github.com/bryansills](https://github.com/bryansills), Eclipse to Android Studio
+ 
 Test device contributors
 ------------------
  * Dmitry Paskal, [github.com/paskal](https://github.com/paskal)
