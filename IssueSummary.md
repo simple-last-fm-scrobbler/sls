@@ -6,7 +6,7 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 ##APPS
 
 **pending broadcast release == pbr** <- means we can't get the metadata without using messy hacks. Music/Radio player developers need to broadcast their METADATA and PLAYSTATE or add support for scrobbleDroid, Last.fm API, etc.
-
+* [195](https://github.com/tgwizard/sls/issues/195) [MusixMatch](https://play.google.com/store/apps/details?id=com.musixmatch.android.lyrify)
 * [194](https://github.com/tgwizard/sls/issues/194) [163 Music](http://music.163.com/#/download)
 * [193](https://github.com/tgwizard/sls/issues/193) [Gaana](https://play.google.com/store/apps/details?id=com.gaana) pbr
 * [175](https://github.com/tgwizard/sls/issues/175)		  	[Beatport](https://play.google.com/store/apps/details?id=com.sfx.beatport)
@@ -112,7 +112,6 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 ##APPS
 
 * [Google Music](https://play.google.com/store/apps/details?id=com.google.android.music)
-* [MusixMatch](https://play.google.com/store/apps/details?id=com.musixmatch.android.lyrify)
 * [PowerAmpTrial](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer)
 * [PowerAmpFull](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer.unlock)		
 * [MXPlayer](https://play.google.com/store/apps/details?id=com.mxtech.videoplayer.ad)
