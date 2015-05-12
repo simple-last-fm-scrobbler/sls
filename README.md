@@ -181,7 +181,7 @@ Issues:
 Changes
 =======
 
-For a complete list of changes, see [the changelog](https://github.com/tgwizard/sls/blob/master/assets/changelog.txt).
+For a complete list of changes, see [the changelog](https://github.com/tgwizard/sls/blob/master/app/src/main/assets/changelog.txt).
 
 
 Bugs, Contributions, Thoughts...
