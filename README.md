@@ -210,7 +210,6 @@ My wish is to release it under [Apache License 2.0](http://www.apache.org/licens
  * Almost all of the code is written by me, so: Copyright 2009-2012 Adam Renberg.
  * A small MD5 utilities class seems to be written by many people,
 but it is released under GPLv2, and I got it from [ostermiller.org](http://ostermiller.org/utils/MD5.html).
- * The icon was made by [Tha PHLASH](http://www.thaphlash.com/).
  * The Last.fm logo is copyright of Last.fm, taken from their [media kit](http://www.last.fm/resources).
  * The Libre.fm logo is probably copyright of Libre.fm, used in good faith. (Because of their name and stated mission, I assume it is okay).
 
@@ -232,11 +231,11 @@ Contributors
  * theli-ua, [github.com/theli-ua](https://github.com/theli-ua), support for Amazon Music
  * metanota, [github.com/metanota](https://github.com/metanota), support for PlayerPro, bug fixes
  * Joel Teichroeb, [github.com/klusark](https://github.com/klusark), bug fixes
- * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), icon
+ * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), old icon
  * satbadkd [github.com/satbadkd](https://github.com/satbadkd), French translation
  * moshpirit [github.com/moshpirit](https://github.com/moshpirit), Spanish translation 
  * inverse [github.com/inverse](https://github.com/inverse), bug fixes, SoundCloud support
- * bryansills [github.com/bryansills](https://github.com/bryansills), Eclipse to Android Studio
+ * bryansills [github.com/bryansills](https://github.com/bryansills), Eclipse to Android Studio, new icon
  
 Test device contributors
 ------------------
