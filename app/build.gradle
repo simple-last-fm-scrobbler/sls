@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.adam.aslfms"
         minSdkVersion 7
-        targetSdkVersion 12
+        targetSdkVersion 22
 
         testApplicationId "com.adam.aslfms.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
@@ -19,4 +19,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:support-v4:22.1.1'
 }
