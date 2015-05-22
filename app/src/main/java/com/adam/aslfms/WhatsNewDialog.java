@@ -24,8 +24,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import android.app.AlertDialog;
 import android.content.Context;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,7 +48,7 @@ public class WhatsNewDialog {
 		innerUpdate(dialogView);
 
 		AlertDialog.Builder adBuilder = new AlertDialog.Builder(mCtx).setTitle(
-				R.string.whats_new).setIcon(android.R.drawable.ic_dialog_info)
+                R.string.whats_new).setIcon(android.R.drawable.ic_dialog_info)
 				.setView(dialogView).setNegativeButton(R.string.close, null);
 
 		adBuilder.show();
