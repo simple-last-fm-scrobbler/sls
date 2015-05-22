@@ -38,8 +38,9 @@ import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.AuthStatus;
 import com.adam.aslfms.util.Util;
+import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
-public class UserCredActivity extends PreferenceActivity {
+public class UserCredActivity extends AppCompatPreferenceActivity {
 
 	private static final String TAG = "UserCredActivity";
 

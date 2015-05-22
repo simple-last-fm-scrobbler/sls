@@ -37,8 +37,9 @@ import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.Util;
+import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
-public class UserCredsListScreen extends PreferenceActivity {
+public class UserCredsListScreen extends AppCompatPreferenceActivity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "UserCredsListScreen";
 

@@ -34,8 +34,9 @@ import com.adam.aslfms.util.enums.AdvancedOptions;
 import com.adam.aslfms.util.enums.AdvancedOptionsWhen;
 import com.adam.aslfms.util.enums.NetworkOptions;
 import com.adam.aslfms.util.enums.PowerOptions;
+import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
-public class OptionsScreen extends PreferenceActivity {
+public class OptionsScreen extends AppCompatPreferenceActivity {
 	private static final String TAG = "OptionsGeneralScreen";
 
 	private static final String KEY_SCROBBLE_POINT = "scrobble_pointer";
