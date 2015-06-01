@@ -61,7 +61,6 @@ public class AboutDialog {
 	private void innerUpdate(View dialogView) {
 		TextView appName = (TextView) dialogView.findViewById(R.id.app_name);
 		TextView author = (TextView) dialogView.findViewById(R.id.author);
-		TextView graphics_byline = (TextView) dialogView.findViewById(R.id.graphics_byline);
 		TextView license = (TextView) dialogView.findViewById(R.id.license);
 		TextView whatIsThis = (TextView) dialogView.findViewById(R.id.what_is_this);
 		TextView netApps = (TextView) dialogView.findViewById(R.id.supported_netapps);
@@ -76,9 +75,6 @@ public class AboutDialog {
 
 		// author
 		author.setText(R.string.by_adam);
-
-		// graphics, Tha PHLASH
-		graphics_byline.setText(R.string.by_tha_phlash);
 
 		// license
 		license.setText(R.string.license);
