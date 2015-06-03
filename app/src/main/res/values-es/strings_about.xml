@@ -19,8 +19,6 @@
     <string
         name="by_adam">por Adam Renberg</string>
     <string
-        name="by_tha_phlash">Icono por Tha PHLASH</string>
-    <string
         name="license">Liberado bajo licencia Apache 2.0</string>
     <string
         name="about_text">Un ligero cliente para hacer Scrobbling que envía información a Last.fm (y/o a Libre.fm) sobre qué música reproduces en tu móvil con Android. Last.fm te permite entonces ver estadísticas de lo escuchado y recomendarle nueva música que puede gustarle.
