@@ -13,10 +13,6 @@
         android:xlargeScreens="true"
         android:anyDensity="true" />
 
-    <uses-sdk
-        android:minSdkVersion="7"
-        android:targetSdkVersion="12" />
-
     <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="false" />
@@ -42,13 +38,61 @@
         </activity>
 
         <!-- other activities -->
-        <activity android:name="com.adam.aslfms.UserCredsListScreen" />
-        <activity android:name="com.adam.aslfms.MusicAppsScreen" />
-        <activity android:name="com.adam.aslfms.OptionsScreen" />
-        <activity android:name="com.adam.aslfms.UserCredActivity" />
-        <activity android:name="com.adam.aslfms.StatusActivity" />
-        <activity android:name="com.adam.aslfms.StatusInfoNetApp" />
-        <activity android:name="com.adam.aslfms.ViewScrobbleCacheActivity" />
+        <activity
+            android:name=".UserCredsListScreen"
+            android:parentActivityName=".SettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SettingsActivity" />
+        </activity>
+
+        <activity
+            android:name=".MusicAppsScreen"
+            android:parentActivityName=".SettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SettingsActivity" />
+        </activity>
+
+        <activity
+            android:name=".OptionsScreen"
+            android:parentActivityName=".SettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SettingsActivity" />
+        </activity>
+
+        <activity
+            android:name=".UserCredActivity"
+            android:parentActivityName=".UserCredsListScreen">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UserCredsListScreen" />
+        </activity>
+
+        <activity
+            android:name=".StatusActivity"
+            android:parentActivityName=".SettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SettingsActivity" />
+        </activity>
+
+        <activity
+            android:name=".StatusInfoNetApp"
+            android:parentActivityName=".SettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SettingsActivity" />
+        </activity>
+
+        <activity
+            android:name=".ViewScrobbleCacheActivity"
+            android:parentActivityName=".SettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SettingsActivity" />
+        </activity>
 
         <!-- the service -->
         <service
