@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string
-        name="app_name">Simple Last.fm Scrobbler</string>
-    <string
         name="by">par</string>
-    <string
-        name="email_addr">simple.lfm.scrobbler@gmail.com</string>
-    <string
-        name="website_url">https://github.com/tgwizard/sls
-    </string>
-    <string
-        name="issues_url">https://github.com/tgwizard/sls/issues
-    </string>
     <string
         name="issues">Suivi de problèmes :</string>
     <string
