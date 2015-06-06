@@ -30,6 +30,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -39,6 +40,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
@@ -52,7 +54,7 @@ import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.enums.SortField;
 
-public class ViewScrobbleCacheActivity extends ListActivity {
+public class ViewScrobbleCacheActivity extends AppCompatActivity {
 	private static final String TAG = "VSCacheActivity";
 
 	private AppSettings settings;
@@ -65,6 +67,7 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 
 	private Cursor mScrobblesCursor = null;
 
+	private ListView mListView;
 	private TextView mSortHeaderTextView;
 
 	@Override
@@ -72,7 +75,7 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 		super.onCreate(savedInstanceState);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
 		settings = new AppSettings(this);
@@ -97,16 +100,30 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 		setTitle(getString(R.string.view_sc_title_for).replaceAll("%1", name));
 		setContentView(R.layout.scrobble_cache_list);
 
+		mListView = (ListView) findViewById(R.id.cache_list);
+        mListView.setEmptyView(findViewById(R.id.empty_list));
+
+		mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if (id == -1) {
+					viewChangeSortOrder();
+				} else {
+					viewSCDetails((int) id);
+				}
+			}
+		});
+
 		View header = getLayoutInflater().inflate(
 			R.layout.scrobble_cache_header, null);
 		mSortHeaderTextView = (TextView) header.findViewById(R.id.sort_title);
-		getListView().addHeaderView(header);
+		mListView.addHeaderView(header);
 
 		mDb = new ScrobblesDatabase(this);
 		mDb.open();
 
 		fillData();
-		registerForContextMenu(getListView());
+		registerForContextMenu(mListView);
 	}
 
 	@Override
@@ -151,7 +168,7 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 		}
 		startManagingCursor(mScrobblesCursor);
 		CursorAdapter adapter = new MyAdapter(this, mScrobblesCursor);
-		setListAdapter(adapter);
+		mListView.setAdapter(adapter);
 
 		mSortHeaderTextView.setText(getString(R.string.sc_sorted_by).replaceAll(
 			"%1", sf.getName(this)));
@@ -221,16 +238,6 @@ public class ViewScrobbleCacheActivity extends ListActivity {
 			return true;
 		}
 		return super.onContextItemSelected(item);
-	}
-
-	@Override
-	protected void onListItemClick(ListView l, View v, int position, long id) {
-		super.onListItemClick(l, v, position, id);
-		if (id == -1) {
-			viewChangeSortOrder();
-		} else {
-			viewSCDetails((int) id);
-		}
 	}
 
 	private void viewChangeSortOrder() {

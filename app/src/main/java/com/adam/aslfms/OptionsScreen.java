@@ -58,7 +58,7 @@ public class OptionsScreen extends AppCompatPreferenceActivity {
 		addPreferencesFromResource(R.xml.options);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
 		settings = new AppSettings(this);

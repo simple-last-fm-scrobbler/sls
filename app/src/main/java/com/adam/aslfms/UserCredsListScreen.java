@@ -59,7 +59,7 @@ public class UserCredsListScreen extends AppCompatPreferenceActivity {
 		super.onCreate(savedInstanceState);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
 		addPreferencesFromResource(R.xml.user_creds_list);
