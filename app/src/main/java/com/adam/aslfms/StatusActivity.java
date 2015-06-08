@@ -82,8 +82,10 @@ public class StatusActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
-        adapter.addFragment(StatusFragment.newInstance(), "Category 1");
-        adapter.addFragment(StatusFragment.newInstance(), "Category 2");
+
+        for (NetApp napp : NetApp.values()) {
+            adapter.addFragment(StatusFragment.newInstance(napp.getValue()), napp.getName());
+        }
         viewPager.setAdapter(adapter);
     }
 

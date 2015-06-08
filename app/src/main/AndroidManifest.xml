@@ -81,14 +81,6 @@
         </activity>
 
         <activity
-            android:name=".StatusInfoNetApp"
-            android:parentActivityName=".SettingsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SettingsActivity" />
-        </activity>
-
-        <activity
             android:name=".ViewScrobbleCacheActivity"
             android:parentActivityName=".SettingsActivity">
             <meta-data
