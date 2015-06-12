@@ -42,7 +42,7 @@ import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.Util;
 import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
-public class UserCredsListScreen extends AppCompatPreferenceActivity {
+public class UserCredsListActivity extends AppCompatPreferenceActivity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "UserCredsListScreen";
 
@@ -185,7 +185,7 @@ public class UserCredsListScreen extends AppCompatPreferenceActivity {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			UserCredsListScreen.this.update();
+			UserCredsListActivity.this.update();
 		}
 	};
 }

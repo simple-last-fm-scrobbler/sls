@@ -7,7 +7,7 @@
 		<intent
 			android:action="android.intent.action.MAIN"
 			android:targetPackage="com.adam.aslfms"
-			android:targetClass="com.adam.aslfms.UserCredsListScreen" />
+			android:targetClass="com.adam.aslfms.UserCredsListActivity" />
 	</PreferenceScreen>
 
 	<PreferenceScreen
@@ -16,7 +16,7 @@
 		<intent
 			android:action="android.intent.action.MAIN"
 			android:targetPackage="com.adam.aslfms"
-			android:targetClass="com.adam.aslfms.MusicAppsScreen" />
+			android:targetClass="com.adam.aslfms.MusicAppsActivity" />
 	</PreferenceScreen>
 
 	<PreferenceScreen
@@ -25,7 +25,7 @@
 		<intent
 			android:action="android.intent.action.MAIN"
 			android:targetPackage="com.adam.aslfms"
-			android:targetClass="com.adam.aslfms.OptionsScreen" />
+			android:targetClass="com.adam.aslfms.OptionsActivity" />
 	</PreferenceScreen>
 
 	<PreferenceCategory

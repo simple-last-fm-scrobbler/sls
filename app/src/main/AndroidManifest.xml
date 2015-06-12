@@ -40,7 +40,7 @@
 
         <!-- other activities -->
         <activity
-            android:name=".UserCredsListScreen"
+            android:name=".UserCredsListActivity"
             android:parentActivityName=".SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -48,7 +48,7 @@
         </activity>
 
         <activity
-            android:name=".MusicAppsScreen"
+            android:name=".MusicAppsActivity"
             android:parentActivityName=".SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -56,7 +56,7 @@
         </activity>
 
         <activity
-            android:name=".OptionsScreen"
+            android:name=".OptionsActivity"
             android:parentActivityName=".SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -65,10 +65,10 @@
 
         <activity
             android:name=".UserCredActivity"
-            android:parentActivityName=".UserCredsListScreen">
+            android:parentActivityName=".UserCredsListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".UserCredsListScreen" />
+                android:value=".UserCredsListActivity" />
         </activity>
 
         <activity

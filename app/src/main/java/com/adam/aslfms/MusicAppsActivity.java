@@ -35,7 +35,7 @@ import com.adam.aslfms.receiver.MusicAPI;
 import com.adam.aslfms.util.Util;
 import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
-public class MusicAppsScreen extends AppCompatPreferenceActivity {
+public class MusicAppsActivity extends AppCompatPreferenceActivity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "MusicAppsScreen";
 

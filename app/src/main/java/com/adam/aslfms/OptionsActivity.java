@@ -38,7 +38,7 @@ import com.adam.aslfms.util.enums.NetworkOptions;
 import com.adam.aslfms.util.enums.PowerOptions;
 import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
-public class OptionsScreen extends AppCompatPreferenceActivity {
+public class OptionsActivity extends AppCompatPreferenceActivity {
 	private static final String TAG = "OptionsGeneralScreen";
 
 	private static final String KEY_SCROBBLE_POINT = "scrobble_pointer";
@@ -72,7 +72,7 @@ public class OptionsScreen extends AppCompatPreferenceActivity {
 				settings.setScrobblePoint(value + 50);
 				mScrobblePoint
 						.setDefaults(settings.getScrobblePoint() - 50, 50);
-				OptionsScreen.this.update();
+				OptionsActivity.this.update();
 			}
 		});
 
@@ -188,14 +188,14 @@ public class OptionsScreen extends AppCompatPreferenceActivity {
 			AdvancedOptions ao = settings.getAdvancedOptions_raw(power);
 			setScrobblingOptionsRestEnabled(ao);
 
-			chooser.setSummary(ao.getName(OptionsScreen.this));
+			chooser.setSummary(ao.getName(OptionsActivity.this));
 			chooser.setValue(ao.toString());
 
 			scrobble.setChecked(settings.isScrobblingEnabled(power));
 			np.setChecked(settings.isNowPlayingEnabled(power));
 
 			AdvancedOptionsWhen aow = settings.getAdvancedOptionsWhen(power);
-			when.setSummary(aow.getName(OptionsScreen.this));
+			when.setSummary(aow.getName(OptionsActivity.this));
 			when.setValue(aow.toString());
 
 			also_on_complete.setChecked(settings
@@ -203,7 +203,7 @@ public class OptionsScreen extends AppCompatPreferenceActivity {
 
 			NetworkOptions no = settings.getNetworkOptions(power);
 			net.setSummary(getString(R.string.advanced_options_net_summary)
-					.replace("%1", no.getName(OptionsScreen.this)));
+					.replace("%1", no.getName(OptionsActivity.this)));
 			net.setValue(no.toString());
 
 			roaming.setChecked(settings.getSubmitOnRoaming(power));
@@ -219,7 +219,7 @@ public class OptionsScreen extends AppCompatPreferenceActivity {
 		}
 
 		private void createChooserPreference() {
-			chooser = new ListPreference(OptionsScreen.this);
+			chooser = new ListPreference(OptionsActivity.this);
 			category.addPreference(chooser);
 			chooser.setTitle(R.string.options_title);
 
@@ -227,7 +227,7 @@ public class OptionsScreen extends AppCompatPreferenceActivity {
 			// set the entries for mOptionsChooser
 			CharSequence[] vals = new CharSequence[scrobOpts.length];
 			for (int i = 0; i < scrobOpts.length; i++)
-				vals[i] = scrobOpts[i].getName(OptionsScreen.this);
+				vals[i] = scrobOpts[i].getName(OptionsActivity.this);
 			chooser.setEntries(vals);
 
 			// set the values for mOptionsChooser
@@ -240,28 +240,28 @@ public class OptionsScreen extends AppCompatPreferenceActivity {
 		}
 
 		private void createScrobbleEnablePreference() {
-			scrobble = new CheckBoxPreference(OptionsScreen.this);
+			scrobble = new CheckBoxPreference(OptionsActivity.this);
 			category.addPreference(scrobble);
 			scrobble.setTitle(R.string.scrobbling);
 			scrobble.setSummaryOff(R.string.scrobbling_enable);
 		}
 
 		private void createNPEnablePreference() {
-			np = new CheckBoxPreference(OptionsScreen.this);
+			np = new CheckBoxPreference(OptionsActivity.this);
 			category.addPreference(np);
 			np.setTitle(R.string.nowplaying);
 			np.setSummaryOff(R.string.nowplaying_enable);
 		}
 
 		private void createWhenPreference() {
-			when = new ListPreference(OptionsScreen.this);
+			when = new ListPreference(OptionsActivity.this);
 			category.addPreference(when);
 			when.setTitle(R.string.advanced_options_when_title);
 
 			AdvancedOptionsWhen[] scrobOptsWhen = AdvancedOptionsWhen.values();
 			CharSequence[] vals = new CharSequence[scrobOptsWhen.length];
 			for (int i = 0; i < scrobOptsWhen.length; i++)
-				vals[i] = scrobOptsWhen[i].getName(OptionsScreen.this);
+				vals[i] = scrobOptsWhen[i].getName(OptionsActivity.this);
 			when.setEntries(vals);
 
 			// set the values for mOptionsChooser
@@ -274,7 +274,7 @@ public class OptionsScreen extends AppCompatPreferenceActivity {
 		}
 
 		private void createAOCPreference() {
-			also_on_complete = new CheckBoxPreference(OptionsScreen.this);
+			also_on_complete = new CheckBoxPreference(OptionsActivity.this);
 			category.addPreference(also_on_complete);
 			also_on_complete
 					.setTitle(R.string.advanced_options_also_on_complete_title);
@@ -283,7 +283,7 @@ public class OptionsScreen extends AppCompatPreferenceActivity {
 		}
 
 		private void createNetPreference() {
-			net = new ListPreference(OptionsScreen.this);
+			net = new ListPreference(OptionsActivity.this);
 			category.addPreference(net);
 			net.setTitle(R.string.advanced_options_net_title);
 
@@ -291,7 +291,7 @@ public class OptionsScreen extends AppCompatPreferenceActivity {
 
 			CharSequence[] vals = new CharSequence[nopps.length];
 			for (int i = 0; i < nopps.length; i++)
-				vals[i] = nopps[i].getName(OptionsScreen.this);
+				vals[i] = nopps[i].getName(OptionsActivity.this);
 			net.setEntries(vals);
 
 			// set the values for mOptionsChooser
@@ -304,7 +304,7 @@ public class OptionsScreen extends AppCompatPreferenceActivity {
 		}
 
 		private void createRoamingPreference() {
-			roaming = new CheckBoxPreference(OptionsScreen.this);
+			roaming = new CheckBoxPreference(OptionsActivity.this);
 			category.addPreference(roaming);
 			roaming.setTitle(R.string.advanced_options_net_roaming_title);
 			roaming
@@ -340,7 +340,7 @@ public class OptionsScreen extends AppCompatPreferenceActivity {
 							+ newValue);
 				}
 
-				OptionsScreen.this.update();
+				OptionsActivity.this.update();
 				return true;
 			}
 		};
