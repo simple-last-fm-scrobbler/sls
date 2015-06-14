@@ -41,13 +41,13 @@
     <string name="scrobble_now">Scrobbler</string>
     <string name="reset_stats">Remise à zéro des statistiques</string>
     <string name="scrobble_cache_title">Cache de scrobble</string>
-	<string name="confirm_delete_sc">Êtes vous sûr que vous ne voulez pas scrobbler cette
-		piste
-		vers %1 ? Cette
-		operation ne peux pas être annulée.</string>
-	<string name="confirm_delete_sc_from_all">Êtes vous sûr que vous ne voulez pas scrobbler cette
-		piste ? Cette
-		operation ne peux pas être annulée.</string>
+    <string name="confirm_delete_sc">Êtes vous sûr que vous ne voulez pas scrobbler cette
+        piste
+        vers %1 ? Cette
+        operation ne peux pas être annulée.</string>
+    <string name="confirm_delete_sc_from_all">Êtes vous sûr que vous ne voulez pas scrobbler cette
+        piste ? Cette
+        operation ne peux pas être annulée.</string>
     <string name="confirm_delete_all_sc">Voulez vous vraiment vider le cache vers %1 ? Cette operation ne peux pas être annulée.</string>
     <string name="confirm_delete_all_sc_from_all">Voulez vous vraiment vider tout le cache ? Cette operation ne peux pas être annulée.</string>
     <string name="no_scrobbles_in_cache">Aucun scrobble dans le cache</string>
@@ -95,15 +95,15 @@
     <string name="not_logged_in">Non connecté</string>
     <string name="create_user_title">Créer un compte</string>
     <string name="create_user_summary">Créer un compte sur %1</string>
-	<string name="confirm_clear_creds">Voulez vous vraiment effacer vos identifiants
-		pour %1 ? Cela
-		effacera aussi tous les scrobbles non envoyés.
+    <string name="confirm_clear_creds">Voulez vous vraiment effacer vos identifiants
+        pour %1 ? Cela
+        effacera aussi tous les scrobbles non envoyés.
     </string>
-	<string name="confirm_clear_all_creds">Voulez vous vraiment effacer vos identifiants
-		pour tous les
-		comptes enregistrés ? Cela effacera aussi tous
-		les scrobbles non envoyés.
-	</string>
+    <string name="confirm_clear_all_creds">Voulez vous vraiment effacer vos identifiants
+        pour tous les
+        comptes enregistrés ? Cela effacera aussi tous
+        les scrobbles non envoyés.
+    </string>
     <string name="incompatability_short">Attention : %1$s est installé et peut provoquer un
         double scrobbling.
     </string>
@@ -124,10 +124,10 @@
     <string name="options_title">Options</string>
     <string name="advanced_options_title">Options avancées</string>
     <string name="scrobbling">Scrobbler</string>
-	<string name="scrobbling_enable">Envoyer les informations quand
-		vous venez d\'écouter
-		une piste
-	</string>
+    <string name="scrobbling_enable">Envoyer les informations quand
+        vous venez d\'écouter
+        une piste
+    </string>
     <string name="nowplaying">Diffusion d\'écoute en temps réel</string>
     <string name="nowplaying_enable">Publier le nom de la chanson en cours d\'écoute</string>
     <string name="scrobble_point_title">Limite de scrobble</string>

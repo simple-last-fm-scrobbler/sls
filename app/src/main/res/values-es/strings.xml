@@ -82,8 +82,7 @@
     <string name="confirm_clear_creds">¿Está seguro de que desea limpiar sus credenciales de %1? Esto eliminará también sus scrobbles sin enviar.</string>
     <string name="confirm_clear_all_creds">¿Está seguro de que desea limpiar sus credenciales de todas las cuentas incluidas? Esto también eliminará cualquier scrobble sin enviar.</string>
     <string name="incompatability_short">Atención: %1$s está instalada y puede causar doble scrobbleo.</string>
-    <string name="incompatability_long">Atención: %1$s está instalada y puede producir incompatibilidades al scrobblear. Desactive el scrobbleo desde esta aplicación o desinstale %1$s.
-    </string>
+    <string name="incompatability_long">Atención: %1$s está instalada y puede producir incompatibilidades al scrobblear. Desactive el scrobbleo desde esta aplicación o desinstale %1$s.</string>
     <string name="show_supported_apps_list_summary">Activar/Desactivar scrobbleo desde una aplicación</string>
     <string name="supported_apps_category_title">aplicaciones activas</string>
     <string name="app_disabled">No se scrobbleará música desde esta aplicación</string>
