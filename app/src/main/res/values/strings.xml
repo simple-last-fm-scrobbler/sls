@@ -23,13 +23,13 @@
     <string name="password">Password</string>
     <string name="auth_client_banned">This version of the app is deprecated, please upgrade</string>
     <string name="auth_bad_auth">Wrong username/password</string>
-    <string name="auth_server_error">Server error: %1, retrying...</string>
-    <string name="auth_timing_error">Client side timing error, retrying...</string>
-    <string name="auth_network_error_retrying">Network error, retrying...</string>
+    <string name="auth_server_error">Server error: %1, retrying…</string>
+    <string name="auth_timing_error">Client side timing error, retrying…</string>
+    <string name="auth_network_error_retrying">Network error, retrying…</string>
     <string name="auth_network_unfit">Not allowed to submit data on network, change in Options screen</string>
-    <string name="auth_updating">Authenticating...</string>
+    <string name="auth_updating">Authenticating…</string>
     <string name="auth_internal_error">Internal error</string>
-    <string name="auth_just_error">Error, retrying...</string>
+    <string name="auth_just_error">Error, retrying…</string>
     <string name="logged_in_just">Logged in as:</string>
     <string name="logged_in_as">Logged in as: %1</string>
     <string name="log_in_to">Sign in to</string>
@@ -106,7 +106,7 @@
     <string name="about">About</string>
     <string name="whats_new">What\'s new</string>
     <string name="supported_netapps">Supported websites: %1</string>
-    <string name="supported_apps">Supported apps: %s and more...</string>
+    <string name="supported_apps">Supported apps: %s and more…</string>
         <string name="incompatability_short">Warning: %1$s is installed and may cause double
         scrobbling.
     </string>

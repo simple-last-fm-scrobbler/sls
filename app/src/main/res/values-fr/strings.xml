@@ -29,7 +29,7 @@
     </string>
     <string name="everything_disabled">Scrobbling/écoute en cours désactivés.
     </string>
-    <string name="supported_apps">Applications supportées : %s et plus&#8230;</string>
+    <string name="supported_apps">Applications supportées : %s et plus…</string>
     <string name="file_error">Erreur de lecture/écriture sur un fichier</string>
     <string name="thats_new">Ce qui est nouveau</string>
     <string name="about">À propos</string>
@@ -82,13 +82,13 @@
     <string name="password">Mot de passe</string>
     <string name="auth_client_banned">Cette version de l\'application est obsolète, veuillez la mettre à jour</string>
     <string name="auth_bad_auth">Mauvais nom d\'utilisateur/mot de passe</string>
-    <string name="auth_server_error">Erreur serveur : %1, nouvel essai&#8230;</string>
-    <string name="auth_timing_error">Erreur de timing côté client, nouvel essai&#8230;</string>
-    <string name="auth_network_error_retrying">Erreur réseau, nouvel essai&#8230;</string>
+    <string name="auth_server_error">Erreur serveur : %1, nouvel essai…</string>
+    <string name="auth_timing_error">Erreur de timing côté client, nouvel essai…</string>
+    <string name="auth_network_error_retrying">Erreur réseau, nouvel essai…</string>
     <string name="auth_network_unfit">Impossible d\'envoyer des données sur le réseau, vérifiez vos paramètres dans le menu Options</string>
-    <string name="auth_updating">Connexion&#8230;</string>
+    <string name="auth_updating">Connexion…</string>
     <string name="auth_internal_error">Erreur interne</string>
-    <string name="auth_just_error">Erreur, nouvel essai&#8230;</string>
+    <string name="auth_just_error">Erreur, nouvel essai…</string>
     <string name="logged_in_just">Connecté en tant que :</string>
     <string name="logged_in_as">Connecté en tant que : %1</string>
     <string name="log_in_to">Se connecter à</string>
