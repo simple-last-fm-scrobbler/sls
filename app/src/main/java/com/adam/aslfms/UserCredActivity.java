@@ -123,7 +123,8 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
 	}
 
 	private void sendClearCreds() {
-		Intent service = new Intent(ScrobblingService.ACTION_CLEARCREDS);
+        Intent service = new Intent(this, ScrobblingService.class);
+        service.setAction(ScrobblingService.ACTION_AUTHENTICATE);
 		service.putExtra("netapp", mNetApp.getIntentExtraValue());
 		startService(service);
 	}

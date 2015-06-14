@@ -77,7 +77,8 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 			return;
 		}
 
-		mService = new Intent(ScrobblingService.ACTION_PLAYSTATECHANGED);
+		mService = new Intent(context, ScrobblingService.class);
+		mService.setAction(ScrobblingService.ACTION_PLAYSTATECHANGED);
 
 		try {
 			parseIntent(context, action, bundle); // might throw

@@ -139,7 +139,8 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
 	}
 
 	private void sendClearCreds() {
-		Intent service = new Intent(ScrobblingService.ACTION_CLEARCREDS);
+		Intent service = new Intent(this, ScrobblingService.class);
+		service.setAction(ScrobblingService.ACTION_AUTHENTICATE);
 		service.putExtra("clearall", true);
 		startService(service);
 	}
