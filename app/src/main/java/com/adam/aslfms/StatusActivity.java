@@ -107,7 +107,7 @@ public class StatusActivity extends TabActivity {
 		case MENU_RESET_STATS_ID:
 			Util.confirmDialog(this, getString(R.string.confirm_stats_reset)
 					.replaceAll("%1", mNetApp.getName()), R.string.reset,
-					R.string.cancel,
+					android.R.string.cancel,
 					new android.content.DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
