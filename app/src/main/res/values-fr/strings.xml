@@ -16,19 +16,8 @@
     <string name="website">Site web :</string>
     <string name="by_adam">par Adam Renberg</string>
     <string name="license">Sous License Apache 2.0</string>
-    <string name="about_text">
-        Un scrobbler léger qui envoie des informations à
-        Last.fm
-        (et/ou Libre.fm) sur
-        la musique lue sur votre appareil android.
-        Last.fm
-        vous permet
-        ensuite de
-        voir vos statistiques et vous recommende de nouveaux artistes
-        que vous pourriez aimer.
-    </string>
-    <string name="everything_disabled">Scrobbling/écoute en cours désactivés.
-    </string>
+    <string name="about_text">Un scrobbler léger qui envoie des informations à Last.fm (et/ou Libre.fm) sur la musique lue sur votre appareil android. Last.fm vous permet ensuite de voir vos statistiques et vous recommende de nouveaux artistes que vous pourriez aimer.</string>
+    <string name="everything_disabled">Scrobbling/écoute en cours désactivés.</string>
     <string name="supported_apps">Applications supportées : %s et plus…</string>
     <string name="file_error">Erreur de lecture/écriture sur un fichier</string>
     <string name="thats_new">Ce qui est nouveau</string>
@@ -41,13 +30,8 @@
     <string name="scrobble_now">Scrobbler</string>
     <string name="reset_stats">Remise à zéro des statistiques</string>
     <string name="scrobble_cache_title">Cache de scrobble</string>
-    <string name="confirm_delete_sc">Êtes vous sûr que vous ne voulez pas scrobbler cette
-        piste
-        vers %1 ? Cette
-        operation ne peux pas être annulée.</string>
-    <string name="confirm_delete_sc_from_all">Êtes vous sûr que vous ne voulez pas scrobbler cette
-        piste ? Cette
-        operation ne peux pas être annulée.</string>
+    <string name="confirm_delete_sc">Êtes vous sûr que vous ne voulez pas scrobbler cette piste vers %1 ? Cette operation ne peux pas être annulée.</string>
+    <string name="confirm_delete_sc_from_all">Êtes vous sûr que vous ne voulez pas scrobbler cette piste ? Cette operation ne peux pas être annulée.</string>
     <string name="confirm_delete_all_sc">Voulez vous vraiment vider le cache vers %1 ? Cette operation ne peux pas être annulée.</string>
     <string name="confirm_delete_all_sc_from_all">Voulez vous vraiment vider tout le cache ? Cette operation ne peux pas être annulée.</string>
     <string name="no_scrobbles_in_cache">Aucun scrobble dans le cache</string>
@@ -95,23 +79,10 @@
     <string name="not_logged_in">Non connecté</string>
     <string name="create_user_title">Créer un compte</string>
     <string name="create_user_summary">Créer un compte sur %1</string>
-    <string name="confirm_clear_creds">Voulez vous vraiment effacer vos identifiants
-        pour %1 ? Cela
-        effacera aussi tous les scrobbles non envoyés.
-    </string>
-    <string name="confirm_clear_all_creds">Voulez vous vraiment effacer vos identifiants
-        pour tous les
-        comptes enregistrés ? Cela effacera aussi tous
-        les scrobbles non envoyés.
-    </string>
-    <string name="incompatability_short">Attention : %1$s est installé et peut provoquer un
-        double scrobbling.
-    </string>
-    <string name="incompatability_long">Attention : %1$s est installé et peut provoquer des
-        incompatibilités avec le
-        scrobbling. Désactivez le scrobbling de cette
-         apllication, ou désinstallez %1$s.
-    </string>
+    <string name="confirm_clear_creds">Voulez vous vraiment effacer vos identifiants pour %1 ? Cela effacera aussi tous les scrobbles non envoyés.</string>
+    <string name="confirm_clear_all_creds">Voulez vous vraiment effacer vos identifiants pour tous les comptes enregistrés ? Cela effacera aussi tous les scrobbles non envoyés.</string>
+    <string name="incompatability_short">Attention : %1$s est installé et peut provoquer un double scrobbling.</string>
+    <string name="incompatability_long">Attention : %1$s est installé et peut provoquer des incompatibilités avec le scrobbling. Désactivez le scrobbling de cette apllication, ou désinstallez %1$s.</string>
     <string name="show_supported_apps_list_summary">Choix des applications depuis lesquelles il faut scrobbler</string>
     <string name="supported_apps_category_title">Applications activées</string>
     <string name="app_disabled">Pas de scrobble depuis cette application</string>
@@ -124,10 +95,7 @@
     <string name="options_title">Options</string>
     <string name="advanced_options_title">Options avancées</string>
     <string name="scrobbling">Scrobbler</string>
-    <string name="scrobbling_enable">Envoyer les informations quand
-        vous venez d\'écouter
-        une piste
-    </string>
+    <string name="scrobbling_enable">Envoyer les informations quand vous venez d\'écouter une piste</string>
     <string name="nowplaying">Diffusion d\'écoute en temps réel</string>
     <string name="nowplaying_enable">Publier le nom de la chanson en cours d\'écoute</string>
     <string name="scrobble_point_title">Limite de scrobble</string>

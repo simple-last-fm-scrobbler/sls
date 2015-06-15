@@ -130,7 +130,7 @@
     <string name="advanced_options_net_summary">Daten übertragen: %1</string>
     <string name="auth_client_banned">Die Version dieser App ist veraltet, bitte führe ein Update durch</string>
     <string name="auth_timing_error">Clientseitiger Timingfehler, versuche es erneut…</string>
-    <string name="incompatability_long">Warnung: %1$s ist installiert und könnte zu Scrobble-Inkompatibilitäten führen. Schalte Scrobbeln in         dieser App aus oder deinstalliere %1$s.</string>
+    <string name="incompatability_long">Warnung: %1$s ist installiert und könnte zu Scrobble-Inkompatibilitäten führen. Schalte Scrobbeln in dieser App aus oder deinstalliere %1$s.</string>
     <string name="incompatability_short">Warnung: %1$s ist installiert und könnte zu doppelten Scrobbles führen.</string>
     <string name="user_credentials_summary">Benutzername und Passwort für %1</string>
     <string name="user_credentials_summary_no_napp">Deine Profile verwalten</string>
