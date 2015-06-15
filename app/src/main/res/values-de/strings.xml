@@ -55,7 +55,6 @@
     <string name="not_logged_in">Nicht eingeloggt</string>
     <string name="nowplaying">\'Hört gerade\' übertragen</string>
     <string name="nowplaying_disabled">\'Hört gerade\'-Übertragung ist ausgeschaltet</string>
-    <string name="ok">Ok</string>
     <string name="nowplaying_enable">Übertrage, welchen Song du gerade hörst</string>
     <string name="nowplaying_last_at">Letzte \'Hört gerade\'-Übertragung:</string>
     <string name="nowplaying_last_fail_at">Letztes Scrobbeln gescheitert:</string>
