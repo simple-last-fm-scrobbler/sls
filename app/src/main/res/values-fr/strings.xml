@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- START original strings -->
     <string name="close">Fermer</string>
     <string name="remove">Supprimer</string>
     <string name="reset">Remise à zéero</string>
@@ -9,19 +11,25 @@
     <string name="will_submit_stuff">Enverra des informations sur la musique écoutée à ce site</string>
     <string name="also_disable_np_title">Également désactiver l\'affichage du titre en cours de lecture</string>
     <string name="also_disable_np_summary">[Hmpf]</string>
+    <!-- END original strings -->
+    
+    <!-- START about strings -->
     <string name="by">par</string>
     <string name="issues">Suivi de problèmes :</string>
     <string name="website">Site web :</string>
     <string name="by_adam">par Adam Renberg</string>
-    <string name="license">Sous License Apache 2.0</string>
+    <string name="license">Sous Licence publique générale GNU v3.0</string>
     <string name="about_text">Un scrobbler léger qui envoie des informations à Last.fm (et/ou Libre.fm) sur la musique lue sur votre appareil android. Last.fm vous permet ensuite de voir vos statistiques et vous recommende de nouveaux artistes que vous pourriez aimer.</string>
     <string name="everything_disabled">Scrobbling/écoute en cours désactivés.</string>
-    <string name="supported_apps">Applications supportées : %s et plus…</string>
     <string name="file_error">Erreur de lecture/écriture sur un fichier</string>
     <string name="thats_new">Ce qui est nouveau</string>
     <string name="about">À propos</string>
     <string name="whats_new">Nouveautés</string>
     <string name="supported_netapps">Sites web supportés : %1</string>
+    <string name="supported_apps">Applications supportées : %s et plus…</string>
+    <!-- END about strings -->
+
+    <!-- START cache strings -->
     <string name="scrobbles_cache_nonum">Scrobbles dans le cache local :</string>
     <string name="scrobbles_cache">Scrobbles dans le cache local : %1</string>
     <string name="db_error">Erreur dans la base de données</string>
@@ -51,7 +59,10 @@
     <string name="sc_sort_album_asc">Album, ascendent</string>
     <string name="sc_sort_album_desc">Album, descendent</string>
     <string name="sc_sort_track_asc">Piste, ascendent</string>
-    <string name="sc_sort_track_desc">Piste, descendent</string>
+    <string name="sc_sort_track_desc">Piste, descendent</string>    
+    <!-- END cache strings -->  
+    
+    <!-- START creds strings -->
     <string name="user_credentials_title">Identifiants de l\'utilisateur</string>
     <string name="user_credentials_summary">Nom d\'utilisateur et mot de passe de votre compte %1</string>
     <string name="user_credentials_summary_no_napp">Définir les noms d\'utilisateur et mots de passe pour vos comptes</string>
@@ -78,7 +89,10 @@
     <string name="create_user_title">Créer un compte</string>
     <string name="create_user_summary">Créer un compte sur %1</string>
     <string name="confirm_clear_creds">Voulez vous vraiment effacer vos identifiants pour %1 ? Cela effacera aussi tous les scrobbles non envoyés.</string>
-    <string name="confirm_clear_all_creds">Voulez vous vraiment effacer vos identifiants pour tous les comptes enregistrés ? Cela effacera aussi tous les scrobbles non envoyés.</string>
+    <string name="confirm_clear_all_creds">Voulez vous vraiment effacer vos identifiants pour tous les comptes enregistrés ? Cela effacera aussi tous les scrobbles non envoyés.</string>   
+    <!-- END creds strings -->
+    
+    <!-- START mapis strings -->
     <string name="incompatability_short">Attention : %1$s est installé et peut provoquer un double scrobbling.</string>
     <string name="incompatability_long">Attention : %1$s est installé et peut provoquer des incompatibilités avec le scrobbling. Désactivez le scrobbling de cette apllication, ou désinstallez %1$s.</string>
     <string name="show_supported_apps_list_summary">Choix des applications depuis lesquelles il faut scrobbler</string>
@@ -89,7 +103,10 @@
     <string name="find_supported_mapis_one_title">1 lecteur de musique détecté</string>
     <string name="find_supported_mapis_many_title">%1 lecteurs de musique détectés</string>
     <string name="find_supported_mapis_summary">Jouez de la musique dans un lecteur de musique supporté etil apparaîtra ici</string>
-    <string name="unknown_mapi">Application inconnue (pre SLS v1.2.3)</string>
+    <string name="unknown_mapi">Application inconnue (pre SLS v1.2.3)</string>  
+    <!-- END mapis strings -->
+    
+    <!-- START options strings -->
     <string name="options_title">Options</string>
     <string name="advanced_options_title">Options avancées</string>
     <string name="scrobbling">Scrobbler</string>
@@ -124,7 +141,10 @@
     <string name="advanced_options_net_wifi_name">Wifi seulement</string>
     <string name="advanced_options_net_roaming_title">Itinérance</string>
     <string name="advanced_options_net_roaming_summary_off">N\'enverra pas les données en itinérance</string>
-    <string name="advanced_options_net_roaming_summary_on">Enverra pas les données en itinérance</string>
+    <string name="advanced_options_net_roaming_summary_on">Enverra pas les données en itinérance</string>   
+    <!-- END options strings -->
+    
+    <!-- START status strings -->
     <string name="status">Status</string>
     <string name="scrobble_status_title">Statut du scrobble</string>
     <string name="other_category_title">Autre</string>
@@ -143,4 +163,6 @@
     <string name="it_was">C\était :</string>
     <string name="confirm_stats_reset">Êtes vous sûr de vouloir remettre à zéro les statistiques de %1 ? Cette operation ne peux pas être annulée.</string>
     <string name="profile_page">Page de profil</string>
+    <!-- END status strings -->
+    
 </resources>
