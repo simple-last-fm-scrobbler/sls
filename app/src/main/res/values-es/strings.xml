@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
+    <!-- START original strings -->
     <string name="close">Cerrar</string>
     <string name="remove">Eliminar</string>
     <string name="reset">Resetear</string>
@@ -8,12 +10,15 @@
     <string name="warning">Atención</string>
     <string name="will_submit_stuff">Enviará información a la página web</string>
     <string name="also_disable_np_title">También deshabilita el Escuchando ahora</string>
-    <string name="also_disable_np_summary">[Hmpf]</string>
+    <string name="also_disable_np_summary">[Hmpf]</string>  
+    <!-- END original strings -->
+    
+    <!-- START about strings -->
     <string name="by">por</string>
     <string name="issues">Incidencias:</string>
     <string name="website">Página web:</string>
     <string name="by_adam">por Adam Renberg</string>
-    <string name="license">Liberado bajo licencia Apache 2.0</string>
+    <string name="license">Liberado bajo Licencia Pública General de GNU, v3.0</string>
     <string name="about_text">Un ligero cliente para hacer Scrobbling que envía información a Last.fm (y/o a Libre.fm) sobre qué música reproduces en tu móvil con Android. Last.fm te permite entonces ver estadísticas de lo escuchado y recomendarle nueva música que puede gustarle.</string>
     <string name="everything_disabled">Scrobbling/Escuchando ahora desactivado.</string>
     <string name="file_error">¡Error del archivo!</string>
@@ -21,7 +26,10 @@
     <string name="about">Acerca de</string>
     <string name="whats_new">Novedades</string>
     <string name="supported_netapps">Páginas webs soportadas: %1</string>
-    <string name="supported_apps">Aplicaciones soportadas: %s y más…</string>
+    <string name="supported_apps">Aplicaciones soportadas: %s y más…</string>   
+    <!-- END about strings -->
+
+    <!-- START cache strings -->
     <string name="scrobbles_cache_nonum">Scrobbles en la caché local:</string>
     <string name="scrobbles_cache">Scrobbles en la caché local: %1</string>
     <string name="db_error">Error de la base de datos</string>
@@ -51,7 +59,10 @@
     <string name="sc_sort_album_asc">Álbum, ascendiente</string>
     <string name="sc_sort_album_desc">Álbum, descendiente</string>
     <string name="sc_sort_track_asc">Nombre de la pista, ascendiente</string>
-    <string name="sc_sort_track_desc">Nombre de la pista, descendiente</string>
+    <string name="sc_sort_track_desc">Nombre de la pista, descendiente</string> 
+    <!-- END cache strings -->  
+    
+    <!-- START creds strings -->
     <string name="user_credentials_title">Credenciales de usuario</string>
     <string name="user_credentials_summary">Introduce tu nombre de usuario y contraseña de tu cuenta en %1</string>
     <string name="user_credentials_summary_no_napp">Establece el nombre de usuario y contraseña para de cada cuenta</string>
@@ -78,7 +89,10 @@
     <string name="create_user_title">Registrarse</string>
     <string name="create_user_summary">Registre una cuenta nueva en %1</string>
     <string name="confirm_clear_creds">¿Está seguro de que desea limpiar sus credenciales de %1? Esto eliminará también sus scrobbles sin enviar.</string>
-    <string name="confirm_clear_all_creds">¿Está seguro de que desea limpiar sus credenciales de todas las cuentas incluidas? Esto también eliminará cualquier scrobble sin enviar.</string>
+    <string name="confirm_clear_all_creds">¿Está seguro de que desea limpiar sus credenciales de todas las cuentas incluidas? Esto también eliminará cualquier scrobble sin enviar.</string>    
+    <!-- END creds strings -->
+    
+    <!-- START mapis strings -->
     <string name="incompatability_short">Atención: %1$s está instalada y puede causar doble scrobbleo.</string>
     <string name="incompatability_long">Atención: %1$s está instalada y puede producir incompatibilidades al scrobblear. Desactive el scrobbleo desde esta aplicación o desinstale %1$s.</string>
     <string name="show_supported_apps_list_summary">Activar/Desactivar scrobbleo desde una aplicación</string>
@@ -90,6 +104,9 @@
     <string name="find_supported_mapis_many_title">%1 aplicaciones de música detectadas</string>
     <string name="find_supported_mapis_summary">Al reproducir música en una aplicación soportada, aparecerá aquí</string>
     <string name="unknown_mapi">aplicación desconocida (pre SLS v1.2.3)</string>
+    <!-- END mapis strings -->
+    
+    <!-- START options strings -->
     <string name="options_title">Opciones</string>
     <string name="advanced_options_title">Opciones avanzadas</string>
     <string name="scrobbling">Scrobbleo</string>
@@ -124,7 +141,10 @@
     <string name="advanced_options_net_wifi_name">Sólo Wifi</string>
     <string name="advanced_options_net_roaming_title">Itinerancia de datos</string>
     <string name="advanced_options_net_roaming_summary_off">No enviará información bajo itinerancia</string>
-    <string name="advanced_options_net_roaming_summary_on">Enviará información bajo itinerancia</string>
+    <string name="advanced_options_net_roaming_summary_on">Enviará información bajo itinerancia</string>    
+    <!-- END options strings -->
+    
+    <!-- START status strings -->
     <string name="status">Estado</string>
     <string name="scrobble_status_title">Scrobble status</string>
     <string name="other_category_title">Otro</string>
@@ -143,4 +163,6 @@
     <string name="it_was">Esto fue:</string>
     <string name="confirm_stats_reset">¿Está seguro de que quiere restaurar sus estadísticas de envío de %1? Esta operación no se puede deshacer.</string>
     <string name="profile_page">Página del perfil:</string>
+    <!-- END status strings -->
+    
 </resources>
