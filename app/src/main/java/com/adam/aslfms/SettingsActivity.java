@@ -26,7 +26,6 @@ import android.content.IntentFilter;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceScreen;
 import android.util.Log;
 import android.view.Menu;
@@ -37,6 +36,7 @@ import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Util;
+import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
 /**
  * This is the activity that is shown when the user launches
@@ -48,7 +48,7 @@ import com.adam.aslfms.util.Util;
  * @author tgwizard
  * 
  */
-public class SettingsActivity extends PreferenceActivity {
+public class SettingsActivity extends AppCompatPreferenceActivity {
 	private static final String TAG = "SettingsActivity";
 
 	private static final String KEY_SCROBBLE_ALL_NOW = "scrobble_all_now";

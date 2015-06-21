@@ -180,9 +180,10 @@ public class Util {
 	public static void scrobbleIfPossible(Context ctx, NetApp napp,
 			int numInCache) {
 		if (numInCache > 0) {
-			Intent i = new Intent(ScrobblingService.ACTION_JUSTSCROBBLE);
-			i.putExtra("netapp", napp.getIntentExtraValue());
-			ctx.startService(i);
+            Intent intent = new Intent(ctx, ScrobblingService.class);
+			intent.setAction(ScrobblingService.ACTION_JUSTSCROBBLE);
+			intent.putExtra("netapp", napp.getIntentExtraValue());
+			ctx.startService(intent);
 		} else {
 			Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
 					Toast.LENGTH_LONG).show();
@@ -191,7 +192,8 @@ public class Util {
 
 	public static void scrobbleAllIfPossible(Context ctx, int numInCache) {
 		if (numInCache > 0) {
-			Intent service = new Intent(ScrobblingService.ACTION_JUSTSCROBBLE);
+			Intent service = new Intent(ctx, ScrobblingService.class);
+			service.setAction(ScrobblingService.ACTION_JUSTSCROBBLE);
 			service.putExtra("scrobbleall", true);
 			ctx.startService(service);
 		} else {

@@ -33,13 +33,16 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
 
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.Util;
+import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
-public class UserCredsListScreen extends PreferenceActivity {
+public class UserCredsListActivity extends AppCompatPreferenceActivity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "UserCredsListScreen";
 
@@ -58,7 +61,7 @@ public class UserCredsListScreen extends PreferenceActivity {
 		super.onCreate(savedInstanceState);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
 		addPreferencesFromResource(R.xml.user_creds_list);
@@ -124,8 +127,20 @@ public class UserCredsListScreen extends PreferenceActivity {
 		return super.onPreferenceTreeClick(prefScreen, pref);
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			// Respond to the action bar's Up/Home button
+			case android.R.id.home:
+				NavUtils.navigateUpFromSameTask(this);
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 	private void sendClearCreds() {
-		Intent service = new Intent(ScrobblingService.ACTION_CLEARCREDS);
+		Intent service = new Intent(this, ScrobblingService.class);
+		service.setAction(ScrobblingService.ACTION_AUTHENTICATE);
 		service.putExtra("clearall", true);
 		startService(service);
 	}
@@ -171,7 +186,7 @@ public class UserCredsListScreen extends PreferenceActivity {
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			UserCredsListScreen.this.update();
+			UserCredsListActivity.this.update();
 		}
 	};
 }

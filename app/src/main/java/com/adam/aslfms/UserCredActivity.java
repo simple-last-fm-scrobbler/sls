@@ -32,15 +32,18 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.support.v4.app.NavUtils;
 import android.util.Log;
+import android.view.MenuItem;
 
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.AuthStatus;
 import com.adam.aslfms.util.Util;
+import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
-public class UserCredActivity extends PreferenceActivity {
+public class UserCredActivity extends AppCompatPreferenceActivity {
 
 	private static final String TAG = "UserCredActivity";
 
@@ -65,7 +68,7 @@ public class UserCredActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.user_cred_prefs);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
 		String snapp = getIntent().getExtras().getString("netapp");
@@ -120,7 +123,8 @@ public class UserCredActivity extends PreferenceActivity {
 	}
 
 	private void sendClearCreds() {
-		Intent service = new Intent(ScrobblingService.ACTION_CLEARCREDS);
+        Intent service = new Intent(this, ScrobblingService.class);
+        service.setAction(ScrobblingService.ACTION_AUTHENTICATE);
 		service.putExtra("netapp", mNetApp.getIntentExtraValue());
 		startService(service);
 	}
@@ -152,6 +156,17 @@ public class UserCredActivity extends PreferenceActivity {
 		registerReceiver(onAuthChange, ifs);
 
 		update();
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			// Respond to the action bar's Up/Home button
+			case android.R.id.home:
+				NavUtils.navigateUpFromSameTask(this);
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private BroadcastReceiver onAuthChange = new BroadcastReceiver() {
