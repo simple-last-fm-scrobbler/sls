@@ -27,7 +27,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.adam.aslfms.MusicAppsScreen;
+import com.adam.aslfms.MusicAppsActivity;
 import com.adam.aslfms.R;
 
 /**
@@ -107,7 +107,7 @@ public class MusicAPI {
 
 	/**
 	 * Gives extra information to be displayed to the user in the
-	 * {@link MusicAppsScreen}.
+	 * {@link MusicAppsActivity}.
 	 * 
 	 * @return a string with extra information for the user
 	 */
@@ -130,7 +130,7 @@ public class MusicAPI {
 	 * Returns true if the user has enabled scrobbling through this API / music
 	 * app. Default is true.
 	 * 
-	 * @see MusicAppsScreen
+	 * @see MusicAppsActivity
 	 * 
 	 * @return true if scrobbling from this API / music app is enabled, fales
 	 *         otherwise.
@@ -142,7 +142,7 @@ public class MusicAPI {
 	/**
 	 * Enables / disables scrobbling from this API / music app.
 	 * 
-	 * @see MusicAppsScreen
+	 * @see MusicAppsActivity
 	 * 
 	 * @param ctx
 	 *            context to enable database calls.

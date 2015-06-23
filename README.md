@@ -244,12 +244,12 @@ Contributors
  * satbadkd [github.com/satbadkd](https://github.com/satbadkd), French translation
  * moshpirit [github.com/moshpirit](https://github.com/moshpirit), Spanish translation 
  * inverse [github.com/inverse](https://github.com/inverse), bug fixes, maintenance
- * bryansills [github.com/bryansills](https://github.com/bryansills), Eclipse to Android Studio, new icon
+ * bryansills [github.com/bryansills](https://github.com/bryansills), Eclipse to Android Studio, new icon, Material Design
  * herrherrmann [github.com/herrherrmann](https://github.com/herrherrmann), German translation
  
 Test device contributors
 ------------------
  * Dmitry Paskal, [github.com/paskal](https://github.com/paskal)
- * Iļja Gubins, [https://github.com/the-lay](https://github.com/the-lay)
+ * I?ja Gubins, [https://github.com/the-lay](https://github.com/the-lay)
 
 Several people have also contributed with comments, suggestions and [issues](https://github.com/tgwizard/sls/issues/).

@@ -24,6 +24,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TabHost;
@@ -33,91 +40,81 @@ import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Util;
 
-public class StatusActivity extends TabActivity {
-	private TabHost mTabHost;
+import java.util.ArrayList;
+import java.util.List;
+
+public class StatusActivity extends AppCompatActivity {
 
 	private static final int MENU_SCROBBLE_NOW_ID = 0;
 	private static final int MENU_VIEW_CACHE_ID = 1;
 	private static final int MENU_RESET_STATS_ID = 2;
-
-	private ScrobblesDatabase mDb;
-	private AppSettings settings;
-
-	int currTab;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.status_activity);
 
-		mTabHost = getTabHost();
+		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-		for (NetApp napp : NetApp.values()) {
-			Intent i = new Intent(this, StatusInfoNetApp.class);
-			i.putExtra("netapp", napp.getIntentExtraValue());
-			mTabHost.addTab(mTabHost.newTabSpec(napp.toString())
-					.setIndicator(napp.getName()).setContent(i));
-		}
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        if (viewPager != null) {
+            setupViewPager(viewPager);
+        }
 
-		// switch to the first netapp that is authenticated
-		AppSettings settings = new AppSettings(this);
-		currTab = 0;
-		NetApp[] napps = NetApp.values();
-		for (int i = 0; i < napps.length; i++) {
-			if (settings.isAuthenticated(napps[i])) {
-				currTab = i;
-				break;
-			}
-		}
-
-		mTabHost.setCurrentTab(currTab);
-
-		mDb = new ScrobblesDatabase(this);
-		mDb.open();
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(viewPager);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now).setIcon(
-				android.R.drawable.ic_menu_upload);
+                android.R.drawable.ic_menu_upload);
 		menu.add(0, MENU_RESET_STATS_ID, 0, R.string.reset_stats).setIcon(
-				android.R.drawable.ic_menu_close_clear_cancel);
+                android.R.drawable.ic_menu_close_clear_cancel);
 		menu.add(0, MENU_VIEW_CACHE_ID, 0, R.string.view_sc).setIcon(
-				android.R.drawable.ic_menu_view);
+                android.R.drawable.ic_menu_view);
 
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		final StatusInfoNetApp currentActivity = (StatusInfoNetApp) getLocalActivityManager()
-				.getCurrentActivity();
-		final NetApp mNetApp = currentActivity.getNetApp();
-		switch (item.getItemId()) {
-		case MENU_SCROBBLE_NOW_ID:
-			int numInCache = mDb.queryNumberOfScrobbles(mNetApp);
-			Util.scrobbleIfPossible(this, mNetApp, numInCache);
-			return true;
-		case MENU_VIEW_CACHE_ID:
-			Intent j = new Intent(this, ViewScrobbleCacheActivity.class);
-			j.putExtra("netapp", mNetApp.getIntentExtraValue());
-			startActivity(j);
-			return true;
-		case MENU_RESET_STATS_ID:
-			Util.confirmDialog(this, getString(R.string.confirm_stats_reset)
-					.replaceAll("%1", mNetApp.getName()), R.string.reset,
-					android.R.string.cancel,
-					new android.content.DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							settings = new AppSettings(StatusActivity.this);
-							settings.clearSubmissionStats(mNetApp);
-							currentActivity.fillData();
-						}
-					});
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+    private void setupViewPager(ViewPager viewPager) {
+        TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
+
+        for (NetApp napp : NetApp.values()) {
+            adapter.addFragment(StatusFragment.newInstance(napp.getValue()), napp.getName());
+        }
+        viewPager.setAdapter(adapter);
+    }
+
+    static class TabAdapter extends FragmentPagerAdapter {
+        private final List<Fragment> mFragments = new ArrayList<>();
+        private final List<String> mFragmentTitles = new ArrayList<>();
+
+        public TabAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        public void addFragment(Fragment fragment, String title) {
+            mFragments.add(fragment);
+            mFragmentTitles.add(title);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return mFragments.get(position);
+        }
+
+        @Override
+        public int getCount() {
+            return mFragments.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return mFragmentTitles.get(position);
+        }
+    }
 }

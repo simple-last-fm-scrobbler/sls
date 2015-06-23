@@ -28,11 +28,14 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
 
 import com.adam.aslfms.receiver.MusicAPI;
 import com.adam.aslfms.util.Util;
+import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
-public class MusicAppsScreen extends PreferenceActivity {
+public class MusicAppsActivity extends AppCompatPreferenceActivity {
 	@SuppressWarnings("unused")
 	private static final String TAG = "MusicAppsScreen";
 
@@ -53,7 +56,7 @@ public class MusicAppsScreen extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.music_apps);
 
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 
 		mSupportedMusicAppsList = (PreferenceCategory) findPreference(KEY_SUPPORTED_MUSICAPPS_LIST);
@@ -93,6 +96,17 @@ public class MusicAppsScreen extends PreferenceActivity {
 		}
 
 		return super.onPreferenceTreeClick(prefScreen, pref);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+			// Respond to the action bar's Up/Home button
+			case android.R.id.home:
+				NavUtils.navigateUpFromSameTask(this);
+				return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void update() {
