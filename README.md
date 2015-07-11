@@ -250,6 +250,6 @@ Contributors
 Test device contributors
 ------------------
  * Dmitry Paskal, [github.com/paskal](https://github.com/paskal)
- * I?ja Gubins, [https://github.com/the-lay](https://github.com/the-lay)
+ * Iļja Gubins, [https://github.com/the-lay](https://github.com/the-lay)
 
 Several people have also contributed with comments, suggestions and [issues](https://github.com/tgwizard/sls/issues/).
