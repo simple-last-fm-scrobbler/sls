@@ -6,6 +6,7 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 ##APPS
 
 **pending broadcast release == pbr** <- means we can't get the metadata without using messy hacks. Music/Radio player developers need to broadcast their METADATA and PLAYSTATE or add support for scrobbleDroid, Last.fm API, etc.
+* [210](https://github.com/tgwizard/sls/issues/210)			[Tuba.Fm](https://play.google.com/store/apps/details?id=fm.tuba.android)
 * [199](https://github.com/tgwizard/sls/issues/199)			[Deezer](https://play.google.com/store/apps/details?id=deezer.android.app)
 * [195](https://github.com/tgwizard/sls/issues/195)			[MusixMatch](https://play.google.com/store/apps/details?id=com.musixmatch.android.lyrify)
 * [194](https://github.com/tgwizard/sls/issues/194)			[163 Music/ Netease Music](http://music.163.com/#/download) pbr
@@ -49,6 +50,7 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 
 ##BUGS
 
+* [209](https://github.com/tgwizard/sls/issues/209)
 * [202](https://github.com/tgwizard/sls/issues/202)
 * [179](https://github.com/tgwizard/sls/issues/179)
 * [173](https://github.com/tgwizard/sls/issues/173)

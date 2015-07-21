@@ -5,8 +5,6 @@ Simple Last.fm Scrobbler
 
 **This project is unfortunately in a bit of a limbo. The app works, and is available on Google Play, but I don't have the time to maintain it on my own.**
 
-The Creator has left us but we will git on just fine.
-
 **If anyone wants to take part in developing this app further, I'm looking for contributors. Please email me, or just fork and code away.**
 
 **Pull requests are very welcome!**
