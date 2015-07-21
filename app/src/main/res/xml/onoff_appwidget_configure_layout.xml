@@ -9,7 +9,7 @@
 		android:enabled="true" />
 	<Preference
 		android:key="ok"
-		android:title="@string/ok"
+		android:title="@android:string/ok"
 		android:summaryOff=""
 		android:enabled="true" />
 

@@ -19,11 +19,13 @@ can then get music recommendations and view you listening history and statistics
 at Last.fm.
 
 Before the release of a new version of SLS, it will be available here to test for
-one week.
+one week in the [Beta Testing Versions link](https://github.com/tgwizard/sls/blob/master/README.md#download).
 
 More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/help/faq?category=Scrobbling#201).
 
 If you need inspiration on stuff to do, you might want to have a look at the list of issues.
+
+If you want to help out and start immediately, please see HumbleBeeBumbleBee's [Issue Summary](https://github.com/tgwizard/sls/blob/master/IssueSummary.md)
 
 Contact emails: 
 
@@ -42,6 +44,8 @@ You can find the latest version of Simple Last.fm Scrobbler in the
 
 [Old Versions](https://github.com/tgwizard/sls/downloads)
 
+[Beta Testing Versions]() <-- Does anybody have an agreeable place for hosting? (ex. Some users dislike google drive) Please suggest on Gitter or open an issue.
+
 Features
 ========
 
@@ -58,6 +62,7 @@ Supported languages
  * English
  * Spanish
  * French
+ * German
 
 
 Supported websites (to scrobble to)
@@ -69,12 +74,13 @@ Supported websites (to scrobble to)
 Apps
 ----
 
+Please note that some of the following applications require changing their default settings to enable scrobbling.
+
  * Default Android Music Player
  * HTC Hero Music Player
  * [Meridian Player](http://sites.google.com/site/eternalsandbox/Home/meridian-video-player) **(a)**
  * [MixZing](http://mixzing.com/android.html ) ([Google Play](https://play.google.com/store/apps/details?id=com.mixzing.basic)) **(a)**
  * [Archos Music Player](http://www.archos.com/products/imt/archos_5it/index.html) **(b)**
- * [Rhapsody Android Beta](http://www.rhapsody.com/android/download) **(b)**
  * [New Vanilla Music Player](https://github.com/vanilla-music/vanilla) ([Google Play](https://play.google.com/store/apps/details?id=ch.blinkenlights.android.vanilla), [F-Droid](https://f-droid.org/repository/browse/?fdid=ch.blinkenlights.android.vanilla))
  * [SmartVanilla Music](https://github.com/gordon01/vanilla) ([Google Play](https://play.google.com/store/apps/details?id=su.thinkdifferent.vanilla))
  * [bTunes](http://www.btunesmusicplayer.com/default.html) ([Google Play](https://play.google.com/store/apps/details?id=com.bmayers.bTunesRelease), and [more](http://www.facebook.com/pages/bTunes/362875048125?v=wall))
@@ -109,7 +115,9 @@ Apps
  * [8tracks](https://8tracks.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.e8tracks), [Amazon Appstore](http://www.amazon.com/8tracks/dp/B007JWJIJG/)) **(b)**
  * [VLC](https://www.videolan.org/vlc/download-android.html) ([VLC](https://www.videolan.org/vlc/download-android.html), [Google Play](https://play.google.com/store/apps/details?id=org.videolan.vlc), [F-Droid](https://f-droid.org/repository/browse/?fdid=org.videolan.vlc)) **(b)**
  * [Spotify](https://spotify.com) ([Google Play](https://play.google.com/store/apps/details?id=com.spotify.music))
- * [SoundCloud](https://soundcloud.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.soundcloud.android)) <-- pending review
+ * [n7player](http://n7player.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.n7mobile.nplayer))
+ * [MortPlayer](http://www.sto-helit.de/) ([Google Play](https://play.google.com/store/apps/details?id=de.stohelit.folderplayer))
+ * [Rocket Player](http://www.jrtstudio.com/Music-Player-For-Android) ([Google Play](https://play.google.com/store/apps/details?id=com.jrtstudio.AnotherMusicPlayer))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
@@ -174,6 +182,7 @@ Reported working:
 
 Issues:
 
+ * HTC EVO 4G LTE doesn't seem to work
  * Motorola CLIQ/DEXT doesn't seem to work
 
 
@@ -213,7 +222,7 @@ but it is released under GPLv2, and I got it from [ostermiller.org](http://oster
  * The Last.fm logo is copyright of Last.fm, taken from their [media kit](http://www.last.fm/resources).
  * The Libre.fm logo is probably copyright of Libre.fm, used in good faith. (Because of their name and stated mission, I assume it is okay).
 
-I use copyright here only in the sense of proper attribution. Do whatever you want with the code (as long as the licenses are followed). I switched to the Apache License 2.0 for a less viral license.
+I use copyright here only in the sense of proper attribution. Do whatever you want with the code (as long as the licenses are followed). There is a pending switch to Apache License 2.0 for a less viral license. GPLv3 is the current license.
 
 Contributors
 ------------
@@ -234,8 +243,9 @@ Contributors
  * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), old icon
  * satbadkd [github.com/satbadkd](https://github.com/satbadkd), French translation
  * moshpirit [github.com/moshpirit](https://github.com/moshpirit), Spanish translation 
- * inverse [github.com/inverse](https://github.com/inverse), bug fixes, SoundCloud support
+ * inverse [github.com/inverse](https://github.com/inverse), bug fixes, maintenance
  * bryansills [github.com/bryansills](https://github.com/bryansills), Eclipse to Android Studio, new icon, Material Design
+ * herrherrmann [github.com/herrherrmann](https://github.com/herrherrmann), German translation
  
 Test device contributors
 ------------------

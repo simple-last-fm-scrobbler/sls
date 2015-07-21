@@ -207,7 +207,7 @@ public class Util {
 			final int id) {
 		Util.confirmDialog(ctx, ctx.getString(R.string.confirm_delete_sc)
 				.replaceAll("%1", napp.getName()), R.string.remove,
-				R.string.cancel, new OnClickListener() {
+				android.R.string.cancel, new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 
@@ -227,7 +227,7 @@ public class Util {
 			final ScrobblesDatabase db, final Cursor cursor, final int id) {
 		Util.confirmDialog(ctx, ctx
 				.getString(R.string.confirm_delete_sc_from_all),
-				R.string.remove, R.string.cancel, new OnClickListener() {
+				R.string.remove, android.R.string.cancel, new OnClickListener() {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 
@@ -250,7 +250,7 @@ public class Util {
 		if (numInCache > 0) {
 			Util.confirmDialog(ctx, ctx.getString(
 					R.string.confirm_delete_all_sc).replaceAll("%1",
-					napp.getName()), R.string.clear_cache, R.string.cancel,
+					napp.getName()), R.string.clear_cache, android.R.string.cancel,
 					new OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
@@ -276,7 +276,7 @@ public class Util {
 		if (numInCache > 0) {
 			Util.confirmDialog(ctx, ctx
 					.getString(R.string.confirm_delete_all_sc_from_all),
-					R.string.clear_cache, R.string.cancel,
+					R.string.clear_cache, android.R.string.cancel,
 					new OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {

@@ -100,7 +100,7 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
 			if (settings.isAnyAuthenticated()) {
 				Util.confirmDialog(this,
 						getString(R.string.confirm_clear_all_creds),
-						R.string.clear_creds, R.string.cancel,
+						R.string.clear_creds, android.R.string.cancel,
 						new OnClickListener() {
 							@Override
 							public void onClick(DialogInterface dialog,

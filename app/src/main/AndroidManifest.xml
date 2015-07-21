@@ -288,25 +288,15 @@
             </intent-filter>
         </receiver>
 
-       	<receiver
-		android:name="com.adam.aslfms.receiver.SpotifyReceiver"
-		android:exported="true"
-		android:enabled="true">
-	    <intent-filter>
-		<action	android:name="com.spotify.music.playbackstatechanged"/>
-		<action android:name="com.spotify.music.metadatachanged"/>
-	    </intent-filter>
-	</receiver>
-	
-	<receiver
-		android:name="com.adam.aslfms.receiver.SoundCloudReceiver"
-		android:enabled="true"
-		android:exported="true" >
-	    <intent-filter>
-		<action android:name="com.android.music.metachanged" />
-		<action android:name="com.android.music.playstatechanged" />
-	    </intent-filter>
-	</receiver>	
+        <receiver
+                android:name="com.adam.aslfms.receiver.SpotifyReceiver"
+                android:exported="true"
+                android:enabled="true">
+            <intent-filter>
+                <action android:name="com.spotify.music.playbackstatechanged"/>
+                <action android:name="com.spotify.music.metadatachanged"/>
+            </intent-filter>
+        </receiver>
 
         <!-- - will probably interfere badly with Winamp <receiver android:name="com.adam.aslfms.receiver.LastFmAPIReceiver" 
             android:exported="true" android:enabled="true"> <intent-filter> <action android:name="fm.last.android.metachanged" 

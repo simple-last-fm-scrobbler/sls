@@ -90,10 +90,10 @@ public class AboutDialog {
 		}
 		sb.setLength(sb.length() - 2);
 		netApps.setText(mCtx.getString(R.string.supported_netapps).replace(
-			"%1", sb.toString()));
+				"%1", sb.toString()));
 
 		// supported music apps
-		musicApps.setText(R.string.supported_musicapps);
+		musicApps.setText(mCtx.getString(R.string.supported_apps, mCtx.getString(R.string.supported_musicapps)));
 
 		// website
 		website.setText(mCtx.getString(R.string.website) + " "
@@ -103,5 +103,4 @@ public class AboutDialog {
 		issues.setText(mCtx.getString(R.string.issues) + " "
 			+ mCtx.getString(R.string.issues_url));
 	}
-
 }

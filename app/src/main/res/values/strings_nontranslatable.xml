@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name" translatable="false">Simple Last.fm Scrobbler</string>
+    <string name="email_addr" translatable="false">simple.lfm.scrobbler@gmail.com</string>
+    <string name="website_url" translatable="false">https://github.com/tgwizard/sls</string>
+    <string name="issues_url" translatable="false">https://github.com/tgwizard/sls/issues</string>
+    <string name="supported_musicapps" translatable="false">Android Music Player, HTC Hero/Sense Music Player,
+        Google Music, PlayerPro, Meridian Player, MixZing, Archos Music Player, Vanilla Music Player,
+        SmartVanilla Music, bTunes, WIMP, Zimly, Just Playlists, PowerAMP, myTouch 4G, RockOn, jukefox,
+        DAAP Media Player, Folder Player, GoneMAD Music Player, MIUI Music Player, ServeStream,
+        Default Sony Ericsson/Xperia Music Player, Neutron Music Player, Music2Dance2, Rdio, DeaDBeeF,
+        Music Pump XBMC Remote (Beta), JRTStudio Android Music Player, Music Folder Player, Apollo,
+        LG Music Player, Now Playing, Shuttle Music Player, My Cloud Player, SoundSeeder, Amazon Music,
+        Radio Noise FM, 8tracks, VLC, Spotify, n7player, MortPlayer, Rocket Player,
+    </string>
+</resources>
