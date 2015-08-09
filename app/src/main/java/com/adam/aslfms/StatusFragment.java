@@ -229,14 +229,16 @@ public class StatusFragment extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            String snapp = getActivity().getIntent().getExtras().getString("netapp");
-            if (snapp == null) {
-                Log.e(TAG, "Got null snetapp from broadcast");
-                return;
-            }
-            NetApp napp = NetApp.valueOf(snapp);
-            if (napp == mNetApp) {
-                StatusFragment.this.fillData();
+            if(getActivity().getIntent() != null && getActivity().getIntent().getExtras() != null) {
+                String snapp = getActivity().getIntent().getExtras().getString("netapp");
+                if (snapp == null) {
+                    Log.e(TAG, "Got null snetapp from broadcast");
+                    return;
+                }
+                NetApp napp = NetApp.valueOf(snapp);
+                if (napp == mNetApp) {
+                    StatusFragment.this.fillData();
+                }
             }
         }
     };

@@ -1,5 +1,5 @@
-- 1.4.9 (2015-06-16)
-  * Add French translation (thanks to satbadkd)
+- 1.4.9 (2015-08-09)
+  * Add French translation (thanks to pierreduchemin)
   * Add Spanish translation (thanks to  moshpirit)
   * Add support for Spotify
   * Support for VLC (thanks to VLC android team)
@@ -7,6 +7,7 @@
   * Add new icon (thanks to bryansills)
   * Add German translation (thanks to herrherrmann)
   * Add new Material Design (thanks to bryansills)
+  * Bug fixes and support (thanks to inverse)
 
 - 1.4.8 (2014-08-16)
   * Add new high-resolution icon (thanks to Tha Phlash)

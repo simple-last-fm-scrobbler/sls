@@ -239,7 +239,7 @@ Contributors
  * metanota, [github.com/metanota](https://github.com/metanota), support for PlayerPro, bug fixes
  * Joel Teichroeb, [github.com/klusark](https://github.com/klusark), bug fixes
  * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), old icon
- * satbadkd [github.com/satbadkd](https://github.com/satbadkd), French translation
+ * pierreduchemin [github.com/pierreduchemin](https://github.com/pierreduchemin), French translation
  * moshpirit [github.com/moshpirit](https://github.com/moshpirit), Spanish translation 
  * inverse [github.com/inverse](https://github.com/inverse), bug fixes, maintenance
  * bryansills [github.com/bryansills](https://github.com/bryansills), Eclipse to Android Studio, new icon, Material Design
