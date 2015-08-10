@@ -1,7 +1,7 @@
 - 1.4.9 (2015-08-09)
   * Add French translation (thanks to pierreduchemin)
-  * Add Spanish translation (thanks to  moshpirit)
-  * Add support for Spotify
+  * Add Spanish translation (thanks to moshpirit)
+  * Add support for Spotify (thanks to inverse)
   * Support for VLC (thanks to VLC android team)
   * Fixed support for PlayerPro (thanks to metanota)
   * Add new icon (thanks to bryansills)

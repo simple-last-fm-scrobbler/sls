@@ -87,7 +87,7 @@ Please note that some of the following applications require changing their defau
  * [Just Playlists](http://jp.folsoms.info)
  * [PowerAMP](http://powerampapp.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer))
  * [myTouch 4G](http://mytouch.t-mobile.com/)
- * [Google Music](http://music.google.com/music/)
+ * [Google Music](http://music.google.com/music/) ([Google PLay](https://play.google.com/store/apps/details?id=com.google.android.music))
  * [PlayerPro](http://www.aplayerpro.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.tbig.playerpro))
  * [jukefox](http://www.jukefox.org/) ([Google Play](https://play.google.com/store/apps/details?id=ch.ethz.dcg.pancho2)) **(a)**
  * [DAAP Media Player](http://code.google.com/p/daap-client/ ) ([Google Play](https://play.google.com/store/apps/details?id=org.mult.daap))
@@ -116,6 +116,7 @@ Please note that some of the following applications require changing their defau
  * [n7player](http://n7player.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.n7mobile.nplayer))
  * [MortPlayer](http://www.sto-helit.de/) ([Google Play](https://play.google.com/store/apps/details?id=de.stohelit.folderplayer))
  * [Rocket Player](http://www.jrtstudio.com/Music-Player-For-Android) ([Google Play](https://play.google.com/store/apps/details?id=com.jrtstudio.AnotherMusicPlayer))
+ * BlackPlayer ([Google Play](https://play.google.com/store/apps/details?id=com.kodarkooperativet.blackplayerfree))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".

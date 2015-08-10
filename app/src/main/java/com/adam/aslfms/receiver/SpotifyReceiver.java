@@ -77,7 +77,10 @@ public class SpotifyReceiver extends AbstractPlayStatusReceiver {
 				b.setArtist(bundle.getString("artist"));
 				b.setAlbum(bundle.getString("album"));
 				b.setTrack(bundle.getString("track"));
-				b.setDuration(bundle.getInt("length", 0));
+				int duration = bundle.getInt("length", 0);
+				if (duration != 0) {
+					b.setDuration(duration / 1000);
+				}
 				Log.d(TAG,
 						bundle.getString("artist") + " - "
 								+ bundle.getString("track") + " ("

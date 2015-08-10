@@ -66,6 +66,7 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 
 ##FEATURES
 
+* [212](https://github.com/tgwizard/sls/issues/212) Users want to be able to heart tracks or love tracks with last.fm
 * [200](https://github.com/tgwizard/sls/issues/200) Users want all supported apps Shown in Enabled Apps and Users want to Control All Scrobbling Apps.
 * [150](https://github.com/tgwizard/sls/issues/150) Users want to see user profile on the app and all (or many) recent scrobbles
 * [127](https://github.com/tgwizard/sls/issues/127) Users want a podcast/ebook filter option
@@ -100,6 +101,13 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 
 ##APPS
 
+* [Milk Music](https://play.google.com/store/apps/details?id=com.samsung.mdl.radio)
+* [Pixel Player](https://play.google.com/store/apps/details?id=it.ncaferra.pixelplayerfree)
+* [CloudPlayer by doubleTwist](https://play.google.com/store/apps/details?id=com.doubleTwist.cloudPlayer)
+* [XiiaLive - Internet Radio](https://play.google.com/store/apps/details?id=com.android.DroidLiveLite)
+* [Asus Music](https://play.google.com/store/apps/details?id=com.asus.music)
+* [Phonograph](https://play.google.com/store/apps/details?id=com.kabouzeid.gramophone)
+
 * [Google Music](https://play.google.com/store/apps/details?id=com.google.android.music)
 * [PowerAmpTrial](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer)
 * [PowerAmpFull](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer.unlock)		
@@ -111,7 +119,6 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 * [iHeartRadio](https://play.google.com/store/apps/details?id=com.clearchannel.iheartradio.tv)
 * [Shuttle](https://play.google.com/store/apps/details?id=another.music.player)
 * [Shuttle+](https://play.google.com/store/apps/details?id=com.simplecity.amp_pro)
-* [Milk Music](https://play.google.com/store/apps/details?id=com.samsung.mdl.radio)
 * [Beats Audio](https://play.google.com/store/apps/details?id=com.beatsmusic.android.client)
 * [NRGplayer](https://play.google.com/store/apps/details?id=com.mrgreensoft.nrg.player)
 * [NRGplayer Unlocker](https://play.google.com/store/apps/details?id=com.mrgreensoft.nrg.player.unlocker)
