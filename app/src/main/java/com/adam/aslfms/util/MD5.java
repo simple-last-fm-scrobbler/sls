@@ -29,7 +29,6 @@ public class MD5 {
 	 * @return the hashed string
 	 */
 	public static String getHashString(final String s) {
-		String output = "";
 		try {
 			MessageDigest digest = MessageDigest.getInstance(MD5);
 			digest.update(s.getBytes());
@@ -43,12 +42,12 @@ public class MD5 {
 				}
 				hexString.append(h);
 			}
-			output =  hexString.toString();
+			return hexString.toString();
 
 		} catch (NoSuchAlgorithmException e) {
 			Log.e(TAG, e.getMessage());
+			throw new RuntimeException("MD5 message digest not available", e);
 		}
-		return output;
 	}
 }
 
