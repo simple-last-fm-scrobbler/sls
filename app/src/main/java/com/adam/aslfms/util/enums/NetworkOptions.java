@@ -45,9 +45,12 @@ public enum NetworkOptions {
 	}
 
 	public boolean isNetworkTypeForbidden(int netType) {
-		for (int nt : forbiddenNetworkTypes)
-			if (nt == netType)
+		for (int nt : forbiddenNetworkTypes) {
+			if (nt == netType) {
 				return true;
+			}
+		}
+
 		return false;
 	}
 
@@ -56,11 +59,14 @@ public enum NetworkOptions {
 	}
 
 	public boolean isNetworkSubTypeForbidden(int netType, int netSubType) {
-		if (netType != ConnectivityManager.TYPE_MOBILE)
+		if (netType != ConnectivityManager.TYPE_MOBILE) {
 			return false;
-		for (int nt : forbiddenMobileNetworkSubTypes)
-			if (nt == netSubType)
+		}
+		for (int nt : forbiddenMobileNetworkSubTypes) {
+			if (nt == netSubType) {
 				return true;
+			}
+		}
 		return false;
 	}
 
