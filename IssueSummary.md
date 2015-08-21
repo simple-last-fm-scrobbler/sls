@@ -5,44 +5,44 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 
 ##APPS
 
+**Developers report scrobble support coming soon.**
+* [135](https://github.com/tgwizard/sls/issues/135)			[doubleTwist](https://play.google.com/store/apps/details?id=com.doubleTwist.androidPlayer)
+* [CloudPlayer by doubleTwist](https://play.google.com/store/apps/details?id=com.doubleTwist.cloudPlayer)
+* [Phonograph](https://play.google.com/store/apps/details?id=com.kabouzeid.gramophone)
+
 **pending broadcast release == pbr** <- means we can't get the metadata without using messy hacks. Music/Radio player developers need to broadcast their METADATA and PLAYSTATE or add support for scrobbleDroid, Last.fm API, etc.
-* [210](https://github.com/tgwizard/sls/issues/210)			[Tuba.Fm](https://play.google.com/store/apps/details?id=fm.tuba.android)
-* [199](https://github.com/tgwizard/sls/issues/199)			[Deezer](https://play.google.com/store/apps/details?id=deezer.android.app)
-* [195](https://github.com/tgwizard/sls/issues/195)			[MusixMatch](https://play.google.com/store/apps/details?id=com.musixmatch.android.lyrify)
+* [210](https://github.com/tgwizard/sls/issues/210)			[Tuba.Fm](https://play.google.com/store/apps/details?id=fm.tuba.android) pbr
+* [199](https://github.com/tgwizard/sls/issues/199)			[Deezer](https://play.google.com/store/apps/details?id=deezer.android.app) pbr
+* [195](https://github.com/tgwizard/sls/issues/195)			[MusixMatch](https://play.google.com/store/apps/details?id=com.musixmatch.android.lyrify) pbr
 * [194](https://github.com/tgwizard/sls/issues/194)			[163 Music/ Netease Music](http://music.163.com/#/download) pbr
 * [193](https://github.com/tgwizard/sls/issues/193)			[Gaana](https://play.google.com/store/apps/details?id=com.gaana) pbr
-* [175](https://github.com/tgwizard/sls/issues/175)		  	[Beatport](https://play.google.com/store/apps/details?id=com.sfx.beatport)
-* [160](https://github.com/tgwizard/sls/issues/160)		  	[VK App](https://play.google.com/store/apps/details?id=com.vkontakte.android)
-* [159](https://github.com/tgwizard/sls/issues/159) 		[ESexplorer](https://play.google.com/store/apps/details?id=com.estrongs.android.pop)
-* [148](https://github.com/tgwizard/sls/issues/148)		  	[AIMP](https://play.google.com/store/apps/details?id=com.aimp.player)
-* [147](https://github.com/tgwizard/sls/issues/147)		  	[Subsonic](https://play.google.com/store/apps/details?id=net.sourceforge.subsonic.androidapp)
-* [147](https://github.com/tgwizard/sls/issues/147)		  	[Dsub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub)
+* [175](https://github.com/tgwizard/sls/issues/175)		  	[Beatport](https://play.google.com/store/apps/details?id=com.sfx.beatport) pbr
+* [160](https://github.com/tgwizard/sls/issues/160)		  	[VK App](https://play.google.com/store/apps/details?id=com.vkontakte.android) pbr
+* [159](https://github.com/tgwizard/sls/issues/159) 		[ESexplorer](https://play.google.com/store/apps/details?id=com.estrongs.android.pop) pbr
+* [147](https://github.com/tgwizard/sls/issues/147)		  	[Subsonic](https://play.google.com/store/apps/details?id=net.sourceforge.subsonic.androidapp) pbr
+* [147](https://github.com/tgwizard/sls/issues/147)		  	[Dsub](https://play.google.com/store/apps/details?id=github.daneren2005.dsub) pbr
 * [144](https://github.com/tgwizard/sls/issues/144)			[SoundCloud](https://play.google.com/store/apps/details?id=com.soundcloud.android) pbr
-* [135](https://github.com/tgwizard/sls/issues/135)			[doubleTwist](https://play.google.com/store/apps/details?id=com.doubleTwist.androidPlayer)
-* [132](https://github.com/tgwizard/sls/issues/132)			[Beats Music](https://play.google.com/store/apps/details?id=com.beatsmusic.android.client)
+* [132](https://github.com/tgwizard/sls/issues/132)			[Beats Music](https://play.google.com/store/apps/details?id=com.beatsmusic.android.client) pbr
 * [131](https://github.com/tgwizard/sls/issues/131)			APOLLO (CM)
 * [128](https://github.com/tgwizard/sls/issues/128)			[JANGO](https://play.google.com/store/apps/details?id=com.jangomobile.android) pbr
 * [115](https://github.com/tgwizard/sls/issues/115)			[BandCamp](https://play.google.com/store/apps/details?id=com.bandcamp.android) pbr
 * [114](https://github.com/tgwizard/sls/issues/114)			AVRCP
 * [109](https://github.com/tgwizard/sls/issues/109)			LEWAOS Player
 * [96](https://github.com/tgwizard/sls/issues/96)		  	[DI.FM](https://play.google.com/store/apps/details?id=com.audioaddict.di)
-			[SKY.FM](https://play.google.com/store/apps/details?id=com.audioaddict.sky)
+			[SKY.FM](https://play.google.com/store/apps/details?id=com.audioaddict.sky) pbr
 * [89](https://github.com/tgwizard/sls/issues/89)		[HikiPLayer](https://play.google.com/store/apps/details?id=com.kazufukurou.hikiplayer)
-			[HikiPLayerPro](https://play.google.com/store/apps/details?id=com.kazufukurou.hikiplayer.pro)
-* [87](https://github.com/tgwizard/sls/issues/87)		[Pandora](https://play.google.com/store/apps/details?id=com.pandora.android.atv)
+			[HikiPLayerPro](https://play.google.com/store/apps/details?id=com.kazufukurou.hikiplayer.pro) pbr
+* [87](https://github.com/tgwizard/sls/issues/87)		[Pandora](https://play.google.com/store/apps/details?id=com.pandora.android.atv) pbr
 * [77](https://github.com/tgwizard/sls/issues/77) 	   	[DroidSound](https://play.google.com/store/apps/details?id=com.ssb.droidsound)
 			[DroidSound-E](https://play.google.com/store/apps/details?id=com.droidmjt.droidsounde)
-* [74](https://github.com/tgwizard/sls/issues/74)		  	[TTPod](https://play.google.com/store/apps/details?id=com.sds.android.ttpod)	
 * [72](https://github.com/tgwizard/sls/issues/72)			MIUI
 * [63](https://github.com/tgwizard/sls/issues/63)			[Cloudskipper](https://play.google.com/store/apps/details?id=cloudtv.cloudskipper&hl=en)
-* [59](https://github.com/tgwizard/sls/issues/59)			[Jetaudio](https://play.google.com/store/apps/details?id=com.jetappfactory.jetaudio)
-			[JetaudioPlus](https://play.google.com/store/apps/details?id=com.jetappfactory.jetaudioplus)
 * [55](https://github.com/tgwizard/sls/issues/55)			[Songza](https://play.google.com/store/apps/details?id=com.ad60.songza) pbr
-* [53](https://github.com/tgwizard/sls/issues/53)		[Plex](https://play.google.com/store/apps/details?id=com.plexapp.android)
-* [51](https://github.com/tgwizard/sls/issues/51)			[Slacker Radio](https://play.google.com/store/apps/details?id=com.slacker.radio)
-* [23](https://github.com/tgwizard/sls/issues/23)			[Andless](http://code.google.com/p/andless/)
-* [21](https://github.com/tgwizard/sls/issues/21)			[Queek](https://play.google.com/store/apps/details?id=org.sais.queekhd)
-* [20](https://github.com/tgwizard/sls/issues/20)			[Rhapsody](https://play.google.com/store/apps/details?id=com.rhapsody)
+* [53](https://github.com/tgwizard/sls/issues/53)		[Plex](https://play.google.com/store/apps/details?id=com.plexapp.android) pbr
+* [51](https://github.com/tgwizard/sls/issues/51)			[Slacker Radio](https://play.google.com/store/apps/details?id=com.slacker.radio) pbr
+* [23](https://github.com/tgwizard/sls/issues/23)			[Andless](http://code.google.com/p/andless/) pbr
+* [21](https://github.com/tgwizard/sls/issues/21)			[Queek](https://play.google.com/store/apps/details?id=org.sais.queekhd) pbr
+* [20](https://github.com/tgwizard/sls/issues/20)			[Rhapsody](https://play.google.com/store/apps/details?id=com.rhapsody) pbr
 * [15](https://github.com/tgwizard/sls/issues/68)			[Tunein](https://play.google.com/store/apps/details?id=tunein.player) pbr
 			[TuneinPro](https://play.google.com/store/apps/details?id=radiotime.player)
 * [2](https://github.com/tgwizard/sls/issues/2)		[DS audio](https://play.google.com/store/apps/details?id=com.synology.DSaudio) pbr
@@ -52,17 +52,20 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 
 * [209](https://github.com/tgwizard/sls/issues/209)
 * [202](https://github.com/tgwizard/sls/issues/202)
-* [179](https://github.com/tgwizard/sls/issues/179)
 * [173](https://github.com/tgwizard/sls/issues/173)
 * [165](https://github.com/tgwizard/sls/issues/165)
-* [158](https://github.com/tgwizard/sls/issues/158)
-* [145](https://github.com/tgwizard/sls/issues/145)
 * [91](https://github.com/tgwizard/sls/issues/91)
 * [79](https://github.com/tgwizard/sls/issues/79)
 * [78](https://github.com/tgwizard/sls/issues/78)
 * [72](https://github.com/tqwizard/sls/issues/72)
-* [69](https://github.com/tgwizard/sls/issues/69)
 
+
+###BUG GROUP 1 (Similar Bugs)
+
+* [169](https://github.com/tgwizard/sls/issues/169)
+* [93](https://github.com/tgwizard/sls/issues/93)
+* [80](https://github.com/tgwizard/sls/issues/80)
+* [69](https://github.com/tgwizard/sls/issues/69)
 
 ##FEATURES
 
@@ -80,19 +83,13 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 
 * [12](https://github.com/tgwizard/sls/issues/12)
 * [49](https://github.com/tgwizard/sls/issues/49)
-* [80](https://github.com/tgwizard/sls/issues/80)
-* [93](https://github.com/tgwizard/sls/issues/93)
-* [121](https://github.com/tgwizard/sls/issues/121)
 * [129](https://github.com/tgwizard/sls/issues/129)
+* [155](https://github.com/tgwizard/sls/issues/155) [149](https://github.com/tgwizard/sls/pull/149) 
 * [164](https://github.com/tgwizard/sls/issues/164)
-* [169](https://github.com/tgwizard/sls/issues/169)
-* [177](https://github.com/tgwizard/sls/issues/177)
 
 
 ##Closable
 
-* [8](https://github.com/tgwizard/sls/issues/8)
-* [155](https://github.com/tgwizard/sls/issues/155) [149](https://github.com/tgwizard/sls/pull/149)  
 
 
 
@@ -101,12 +98,12 @@ Email me [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gm
 
 ##APPS
 
+* [MixRadio](https://play.google.com/store/apps/details?id=com.mixradio.droid)
 * [Milk Music](https://play.google.com/store/apps/details?id=com.samsung.mdl.radio)
 * [Pixel Player](https://play.google.com/store/apps/details?id=it.ncaferra.pixelplayerfree)
-* [CloudPlayer by doubleTwist](https://play.google.com/store/apps/details?id=com.doubleTwist.cloudPlayer)
 * [XiiaLive - Internet Radio](https://play.google.com/store/apps/details?id=com.android.DroidLiveLite)
 * [Asus Music](https://play.google.com/store/apps/details?id=com.asus.music)
-* [Phonograph](https://play.google.com/store/apps/details?id=com.kabouzeid.gramophone)
+* [Microsoft Groove](https://play.google.com/store/apps/details?id=com.microsoft.xboxmusic)
 
 * [Google Music](https://play.google.com/store/apps/details?id=com.google.android.music)
 * [PowerAmpTrial](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer)
@@ -179,7 +176,5 @@ Does not detect Android Music Player Since Lollipop, stopped working. Would love
 #Personal
 
 * Update list of supported music players in Google Play
-* Add information about enabling scrobbling for certain music players in GooglePLay and README.md Rocket, Vanilla, PowerAmp, Noise FM, etc
-* example: some application require changing a setting to scrobble properly.
 
 [HumbleBeeBumbleBee](https://github.com/HumbleBeeBumbleBee) email me at [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gmail.com)

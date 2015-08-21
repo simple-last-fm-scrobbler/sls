@@ -3,6 +3,8 @@ Simple Last.fm Scrobbler
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/tgwizard/sls)
 
+[![Google+](http://ibin.co/2BnMUC5fKA2e)](https://plus.google.com/communities/104841597680405981934)
+
 **This project is unfortunately in a bit of a limbo. The app works, and is available on Google Play, but I don't have the time to maintain it on my own.**
 
 **If anyone wants to take part in developing this app further, I'm looking for contributors. Please email me, or just fork and code away.**
@@ -38,11 +40,11 @@ Download
 You can find the latest version of Simple Last.fm Scrobbler in the
 [Google Play Store](https://play.google.com/store/apps/details?id=com.adam.aslfms) or here on [F-Droid](https://f-droid.org/repository/browse/?fdid=com.adam.aslfms)
 
+[Release Downloads](https://github.com/tgwizard/sls/releases)
+
 [Downloads deprecated](https://github.com/blog/1302-goodbye-uploads)
 
 [Old Versions](https://github.com/tgwizard/sls/downloads)
-
-[Beta Testing Versions]() <-- Does anybody have an agreeable place for hosting? (ex. Some users dislike google drive) Please suggest on Gitter or open an issue.
 
 Features
 ========
@@ -72,6 +74,7 @@ Supported websites (to scrobble to)
 Apps
 ----
 
+WARNING! Some android devices have special battery settings that will disable SLS scrobbling entirely or just when SLS is closed. [Example](http://developer.sonymobile.com/2013/04/03/how-sonys-battery-stamina-mode-works/)
 Please note that some of the following applications require changing their default settings to enable scrobbling.
 
  * Default Android Music Player
@@ -117,6 +120,8 @@ Please note that some of the following applications require changing their defau
  * [MortPlayer](http://www.sto-helit.de/) ([Google Play](https://play.google.com/store/apps/details?id=de.stohelit.folderplayer))
  * [Rocket Player](http://www.jrtstudio.com/Music-Player-For-Android) ([Google Play](https://play.google.com/store/apps/details?id=com.jrtstudio.AnotherMusicPlayer))
  * BlackPlayer ([Google Play](https://play.google.com/store/apps/details?id=com.kodarkooperativet.blackplayerfree))
+ * [Jetaudio](https://www.facebook.com/jetappfactory) ([Google Play](https://play.google.com/store/apps/details?id=com.jetappfactory.jetaudio)) 
+ * [AIMP](http://aimp.ru/) ([Google Play](https://play.google.com/store/apps/details?id=com.aimp.player))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
