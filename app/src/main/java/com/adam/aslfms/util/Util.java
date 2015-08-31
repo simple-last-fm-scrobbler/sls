@@ -77,38 +77,46 @@ public class Util {
 		}
 	}
 
-	public static enum NetworkStatus {
+	/**
+	 * Network status.
+	 */
+	public enum NetworkStatus {
 		OK, UNFIT, DISCONNECTED
 	}
 
 	public static NetworkStatus checkForOkNetwork(Context ctx) {
 		AppSettings settings = new AppSettings(ctx);
-		PowerOptions pow = checkPower(ctx);
+		PowerOptions powerOptions = checkPower(ctx);
 
-		NetworkOptions no = settings.getNetworkOptions(pow);
-		boolean roaming = settings.getSubmitOnRoaming(pow);
+		NetworkOptions networkOptions = settings.getNetworkOptions(powerOptions);
+		boolean roaming = settings.getSubmitOnRoaming(powerOptions);
 
-		ConnectivityManager cMgr = (ConnectivityManager) ctx
+		ConnectivityManager connectivityManager = (ConnectivityManager) ctx
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo netInfo = cMgr.getActiveNetworkInfo();
+		NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
 
-		if (netInfo == null)
+		if (netInfo == null || !netInfo.isConnected()) {
 			return NetworkStatus.DISCONNECTED;
-		if (!netInfo.isConnected())
-			return NetworkStatus.DISCONNECTED;
-		if (netInfo.isRoaming() && !roaming)
+		}
+
+		if (netInfo.isRoaming() && !roaming) {
 			return NetworkStatus.UNFIT;
+		}
 
 		int netType = netInfo.getType();
 		int netSubType = netInfo.getSubtype();
 
-		// Log.d(TAG, "netType: " + netType);
-		// Log.d(TAG, "netSubType: " + netSubType);
+		 Log.d(TAG, "netType: " + netType);
+		 Log.d(TAG, "netSubType: " + netSubType);
 
-		if (no.isNetworkTypeForbidden(netType))
+		if (networkOptions.isNetworkTypeForbidden(netType)) {
+			Log.d(TAG, "Network type forbidden");
 			return NetworkStatus.UNFIT;
-		if (no.isNetworkSubTypeForbidden(netType, netSubType))
+		}
+		if (networkOptions.isNetworkSubTypeForbidden(netType, netSubType)) {
+			Log.d(TAG, "Network sub type forbidden");
 			return NetworkStatus.UNFIT;
+		}
 
 		return NetworkStatus.OK;
 	}
