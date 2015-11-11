@@ -102,7 +102,7 @@
     <string name="no_supported_mapis_title">Aucun lecteur détecté</string>
     <string name="find_supported_mapis_one_title">1 lecteur de musique détecté</string>
     <string name="find_supported_mapis_many_title">%1 lecteurs de musique détectés</string>
-    <string name="find_supported_mapis_summary">Jouez de la musique dans un lecteur de musique supporté etil apparaîtra ici</string>
+    <string name="find_supported_mapis_summary">Jouez de la musique dans un lecteur de musique supporté et il apparaîtra ici</string>
     <string name="unknown_mapi">Application inconnue (pre SLS v1.2.3)</string>  
     <!-- END mapis strings -->
     
