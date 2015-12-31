@@ -43,7 +43,7 @@ import com.adam.aslfms.util.Util;
 public abstract class BuiltInMusicAppReceiver extends
 	AbstractPlayStatusReceiver {
 
-	private static final String TAG = "SLSBuiltInMusicAppReceiver";
+	private static final String TAG = "BuiltInMusicAppReceiver";
 
 	static final int NO_AUDIO_ID = -1;
 

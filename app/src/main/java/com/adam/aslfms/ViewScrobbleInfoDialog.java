@@ -105,7 +105,6 @@ public class ViewScrobbleInfoDialog {
 			list.add(sb.toString());
 		}
 
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(mCtx, R.layout.scrobble_info_row, R.id.text, list);
-		return adapter;
+		return new ArrayAdapter<String>(mCtx, R.layout.scrobble_info_row, R.id.text, list);
 	}
 }

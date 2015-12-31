@@ -19,10 +19,6 @@
 
 package com.adam.aslfms;
 
-import android.app.TabActivity;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -32,13 +28,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TabHost;
 
 import com.adam.aslfms.service.NetApp;
-import com.adam.aslfms.util.AppSettings;
-import com.adam.aslfms.util.ScrobblesDatabase;
-import com.adam.aslfms.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;

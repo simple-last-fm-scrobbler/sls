@@ -212,7 +212,7 @@ public class Handshaker extends NetRunnable {
 		// ------------------------------------------------------
 		// -----------------------------------------------------------------------
 
-		String time = new Long(Util.currentTimeSecsUTC()).toString();
+		String time = Long.toString(Util.currentTimeSecsUTC());
 
 		String authToken = MD5.getHashString(pwdMd5 + time);
 
@@ -230,11 +230,7 @@ public class Handshaker extends NetRunnable {
 			if (lines.length == 4 && lines[0].equals("OK")) {
 				// handshake succeeded
 				Log.i(TAG, "Handshake succeeded!: " + getNetApp().getName());
-
-				HandshakeResult hi = new HandshakeResult(lines[1], lines[2],
-						lines[3]);
-
-				return hi;
+				return new HandshakeResult(lines[1], lines[2], lines[3]);
 			} else if (lines.length == 1) {
 				if (lines[0].startsWith("BANNED")) {
 					Log.e(TAG, "Handshake fails: client banned: "

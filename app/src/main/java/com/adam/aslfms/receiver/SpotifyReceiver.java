@@ -60,7 +60,7 @@ public class SpotifyReceiver extends AbstractPlayStatusReceiver {
 			if (playing) {
 				setState(Track.State.RESUME);
 				Log.d(TAG, "Setting state to RESUME");
-			} else if (!playing) {
+			} else {
 				setState(Track.State.PAUSE);
 				Log.d(TAG, "Setting state to PAUSE");
 			}
