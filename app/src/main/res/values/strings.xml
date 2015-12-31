@@ -15,8 +15,8 @@
     
     <!-- START about strings -->
     <string name="by">by</string>
-    <string name="issues">Issues:</string>
-    <string name="website">Website:</string>
+    <string name="issues">Issues: %s</string>
+    <string name="website">Website: %s</string>
     <string name="by_adam">by Adam Renberg</string>
     <string name="license">Released under GNU General Public License v3.0</string>
     <string name="about_text">A lightweight scrobbler that submits information to Last.fm (and/or Libre.fm) on what music you play on your android phone. Last.fm then lets you view listening statistics and recommends new music you might like.</string>

@@ -96,11 +96,9 @@ public class AboutDialog {
 		musicApps.setText(mCtx.getString(R.string.supported_apps, mCtx.getString(R.string.supported_musicapps)));
 
 		// website
-		website.setText(mCtx.getString(R.string.website) + " "
-			+ mCtx.getString(R.string.website_url));
+		website.setText(mCtx.getString(R.string.website, mCtx.getString(R.string.website_url)));
 
 		// email
-		issues.setText(mCtx.getString(R.string.issues) + " "
-			+ mCtx.getString(R.string.issues_url));
+		issues.setText(mCtx.getString(R.string.issues, mCtx.getString(R.string.issues_url)));
 	}
 }
