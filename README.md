@@ -217,16 +217,13 @@ If you want to help out and start immediately, please see HumbleBeeBumbleBee's [
 Credits
 =======
 
-All of the code is open source, released under GPLv3.
-My wish is to release it under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0), but it still contains thirdy-party code licensed under GPL.
+All of the code is open source, released under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
 
- * Almost all of the code is written by me, so: Copyright 2009-2012 Adam Renberg.
- * A small MD5 utilities class seems to be written by many people,
-but it is released under GPLv2, and I got it from [ostermiller.org](http://ostermiller.org/utils/MD5.html).
+ * Almost all of the code is written by me, so: Copyright 2009-2015 Adam Renberg.
  * The Last.fm logo is copyright of Last.fm, taken from their [media kit](http://www.last.fm/resources).
  * The Libre.fm logo is probably copyright of Libre.fm, used in good faith. (Because of their name and stated mission, I assume it is okay).
 
-I use copyright here only in the sense of proper attribution. Do whatever you want with the code (as long as the licenses are followed). There is a pending switch to Apache License 2.0 for a less viral license. GPLv3 is the current license.
+I use copyright here only in the sense of proper attribution. Do whatever you want with the code (as long as the licenses are followed).
 
 Contributors
 ------------
