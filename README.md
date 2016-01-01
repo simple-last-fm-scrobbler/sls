@@ -229,8 +229,9 @@ Contributors
 ------------
 
  * Adam Renberg, [github.com/tgwizard](https://github.com/tgwizard), main author
+ * Argoday, [github.com/argoday](https://github.com/argoday), code fixes, support for Music2Dance2 
+ * inverse [github.com/inverse](https://github.com/inverse), core contributor
  * HumbleBeeBumbleBee, [github.com/HumbleBeeBumbleBee](https://github.com/HumbleBeeBumbleBee), core contributor
- * Argoday, [github.com/argoday](https://github.com/argoday), code fixes, support for Music2Dance2
  * Sean O'Neil, [github.com/SeanPONeil](https://github.com/SeanPONeil), android 4.0
  * Andrew Thomson, support for MIUI Music Player
  * Mark Gillespie, support for Sony/Sony Ericsson/Xperia phones
@@ -244,9 +245,12 @@ Contributors
  * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), old icon
  * pierreduchemin [github.com/pierreduchemin](https://github.com/pierreduchemin), French translation
  * moshpirit [github.com/moshpirit](https://github.com/moshpirit), Spanish translation 
- * inverse [github.com/inverse](https://github.com/inverse), bug fixes, maintenance
  * bryansills [github.com/bryansills](https://github.com/bryansills), Eclipse to Android Studio, new icon, Material Design
  * herrherrmann [github.com/herrherrmann](https://github.com/herrherrmann), German translation
+ * Alia5 [github.com/Alia5](https://github.com/Alia5), better Enabled apps handle
+ * MendelGusmao [github.com/MendelGusmao](https://github.com/MendelGusmao), Brazil Portuguese Translation
+
+A complete list of [contributors](https://github.com/tgwizard/sls/graphs/contributors)
  
 Test device contributors
 ------------------

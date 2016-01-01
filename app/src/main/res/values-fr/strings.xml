@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- START original strings -->
@@ -18,7 +18,7 @@
     <string name="issues">Suivi de problèmes : %s</string>
     <string name="website">Site web : %s</string>
     <string name="by_adam">par Adam Renberg</string>
-    <string name="license">Sous Licence publique générale GNU v3.0</string>
+    <string name="license">Sous License Apache v2.0</string>
     <string name="about_text">Un scrobbler léger qui envoie des informations à Last.fm (et/ou Libre.fm) sur la musique lue sur votre appareil android. Last.fm vous permet ensuite de voir vos statistiques et vous recommende de nouveaux artistes que vous pourriez aimer.</string>
     <string name="everything_disabled">Scrobbling/écoute en cours désactivés.</string>
     <string name="file_error">Erreur de lecture/écriture sur un fichier</string>

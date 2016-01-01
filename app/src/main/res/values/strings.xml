@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- START original strings -->
@@ -18,7 +18,7 @@
     <string name="issues">Issues: %s</string>
     <string name="website">Website: %s</string>
     <string name="by_adam">by Adam Renberg</string>
-    <string name="license">Released under GNU General Public License v3.0</string>
+    <string name="license">Released under Apache License v2.0</string>
     <string name="about_text">A lightweight scrobbler that submits information to Last.fm (and/or Libre.fm) on what music you play on your android phone. Last.fm then lets you view listening statistics and recommends new music you might like.</string>
     <string name="everything_disabled">Scrobbling/now playing is disabled.</string>
     <string name="file_error">File error!</string>
