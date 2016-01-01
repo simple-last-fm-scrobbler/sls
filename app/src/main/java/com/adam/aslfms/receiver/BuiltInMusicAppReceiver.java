@@ -22,6 +22,7 @@ package com.adam.aslfms.receiver;
 
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -95,8 +96,23 @@ public abstract class BuiltInMusicAppReceiver extends
 	}
 
 	MusicAPI getMusicAPI(Context ctx, Bundle bundle) {
-		CharSequence bundleAppName = bundle.getCharSequence("player");
-		CharSequence bundleAppPackage = bundle.getCharSequence("package");
+		CharSequence bundleAppName;
+		CharSequence bundleAppPackage;
+
+		bundleAppPackage = bundle.getCharSequence("scrobbling_source");
+		if (bundleAppPackage != null)
+		{
+			PackageManager packageManager = ctx.getPackageManager();
+			try {
+				bundleAppName = packageManager.getApplicationLabel(packageManager.getApplicationInfo(bundleAppPackage.toString(), PackageManager.GET_META_DATA));
+			} catch (PackageManager.NameNotFoundException e) {
+				bundleAppName = bundle.getCharSequence("player");
+				bundleAppPackage = bundle.getCharSequence("package");
+			}
+		} else {
+			bundleAppName = bundle.getCharSequence("player");
+			bundleAppPackage = bundle.getCharSequence("package");
+		}
 
 		MusicAPI musicAPI;
 		if ((bundleAppName != null) && (bundleAppPackage != null)) {
