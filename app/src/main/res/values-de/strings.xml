@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- START original strings -->
@@ -18,7 +18,7 @@
     <string name="issues">Probleme: %s</string>
     <string name="website">Webseite: %s</string>
     <string name="by_adam">von Adam Renberg</string>
-    <string name="license">Unter der GNU General Public License v3.0</string>
+    <string name="license">Unter der Apache License v2.0</string>
     <string name="about_text">Ein einfacher Scrobbler, der Musikstatistiken deiner Musik-Apps an Last.fm (und/oder Libre.fm) übertragt. Last.fm zeigt dir deine Statistiken schließlich an und empfiehlt dir neue Musik, die dir gefallen könnte.</string>
     <string name="everything_disabled">Scrobbeln/\'Hört gerade\' ist ausgeschaltet.</string>
     <string name="file_error">Dateifehler!</string>

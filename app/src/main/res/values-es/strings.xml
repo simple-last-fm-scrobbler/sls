@@ -18,7 +18,7 @@
     <string name="issues">Incidencias: %s</string>
     <string name="website">Página web: %s</string>
     <string name="by_adam">por Adam Renberg</string>
-    <string name="license">Liberado bajo Licencia Pública General de GNU, v3.0</string>
+    <string name="license">Liberado bajo Licencia Apache 2.0</string>
     <string name="about_text">Un ligero cliente para hacer Scrobbling que envía información a Last.fm (y/o a Libre.fm) sobre qué música reproduces en tu móvil con Android. Last.fm te permite entonces ver estadísticas de lo escuchado y recomendarle nueva música que puede gustarle.</string>
     <string name="everything_disabled">Scrobbling/Escuchando ahora desactivado.</string>
     <string name="file_error">¡Error del archivo!</string>
