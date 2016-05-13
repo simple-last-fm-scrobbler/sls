@@ -1,23 +1,23 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * 
+ *
  *     https://github.com/tgwizard/sls
- * 
+ *
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *     
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 
 package com.adam.aslfms.service;
 
@@ -45,9 +45,9 @@ import com.adam.aslfms.util.AuthStatus.TemporaryFailureException;
 import com.adam.aslfms.util.enums.SubmissionType;
 
 /**
- * 
+ *
  * @author tgwizard
- * 
+ *
  */
 public class Scrobbler extends AbstractSubmitter {
 
@@ -69,26 +69,23 @@ public class Scrobbler extends AbstractSubmitter {
 		boolean ret;
 		try {
 			Log.d(TAG, "Scrobbling: " + getNetApp().getName());
-			Track[] tracks = mDb.fetchTracksArray(getNetApp(),
-					MAX_SCROBBLE_LIMIT);
+			Track[] tracks = mDb.fetchTracksArray(getNetApp(), MAX_SCROBBLE_LIMIT);
 
 			if (tracks.length == 0) {
-				Log.d(TAG, "Retrieved 0 tracks from db, no scrobbling: "
-						+ getNetApp().getName());
+				Log.d(TAG, "Retrieved 0 tracks from db, no scrobbling: " + getNetApp().getName());
 				return true;
 			}
-			Log.d(TAG, "Retrieved " + tracks.length + " tracks from db: "
-					+ getNetApp().getName());
+			Log.d(TAG, "Retrieved " + tracks.length + " tracks from db: " + getNetApp().getName());
 
-			for (int i = 0; i < tracks.length; i++) {
-				Log.d(TAG, getNetApp().getName() + ": " + tracks[i].toString());
+			for (Track track : tracks) {
+				Log.d(TAG, getNetApp().getName() + ": " + track.toString());
 			}
 
 			scrobbleCommit(hInfo, tracks); // throws if unsuccessful
 
 			// delete scrobbles (not tracks) from db (not array)
-			for (int i = 0; i < tracks.length; i++) {
-				mDb.deleteScrobble(getNetApp(), tracks[i].getRowId());
+			for (Track track : tracks) {
+				mDb.deleteScrobble(getNetApp(), track.getRowId());
 			}
 
 			// clean up tracks if no one else wants to scrobble them
@@ -138,7 +135,7 @@ public class Scrobbler extends AbstractSubmitter {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return a {@link ScrobbleResult} struct with some info
 	 * @throws BadSessionException
 	 * @throws TemporaryFailureException
@@ -176,19 +173,14 @@ public class Scrobbler extends AbstractSubmitter {
 			if (response.startsWith("OK")) {
 				Log.i(TAG, "Scrobble success: " + getNetApp().getName());
 			} else if (response.startsWith("BADSESSION")) {
-				throw new BadSessionException(
-						"Scrobble failed because of badsession");
+				throw new BadSessionException("Scrobble failed because of badsession");
 			} else if (response.startsWith("FAILED")) {
 				String reason = lines[0].substring(7);
-				throw new TemporaryFailureException("Scrobble failed: "
-						+ reason);
+				throw new TemporaryFailureException("Scrobble failed: " + reason);
 			} else {
-				throw new TemporaryFailureException("Scrobble failed weirdly: "
-						+ response);
+				throw new TemporaryFailureException("Scrobble failed weirdly: " + response);
 			}
 
-		} catch (ClientProtocolException e) {
-			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
 		} catch (IOException e) {
 			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
 		} finally {

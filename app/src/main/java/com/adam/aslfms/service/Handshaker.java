@@ -182,15 +182,16 @@ public class Handshaker extends NetRunnable {
 	 */
 	public HandshakeResult handshake() throws BadAuthException,
 			TemporaryFailureException, ClientBannedException {
-		Log.d(TAG, "Handshaking: " + getNetApp().getName());
 
-		String username = settings.getUsername(getNetApp());
-		String pwdMd5 = settings.getPwdMd5(getNetApp());
+		NetApp netApp = getNetApp();
+
+		Log.d(TAG, "Handshaking: " + netApp.getName());
+
+		String username = settings.getUsername(netApp);
+		String pwdMd5 = settings.getPwdMd5(netApp);
 
 		if (username.length() == 0) {
-			Log
-					.d(TAG, "Invalid (empty) username for: "
-							+ getNetApp().getName());
+			Log.d(TAG, "Invalid (empty) username for: " + getNetApp().getName());
 			throw new BadAuthException(getContext().getString(
 					R.string.auth_bad_auth));
 		}
@@ -218,7 +219,7 @@ public class Handshaker extends NetRunnable {
 
 		String authToken = MD5.getHashString(pwdMd5 + time);
 
-		String uri = getNetApp().getHandshakeUrl() + "&p=1.2.1&c=" + clientid
+		String uri = netApp.getHandshakeUrl() + "&p=1.2.1&c=" + clientid
 				+ "&v=" + clientver + "&u=" + enc(username) + "&t=" + time
 				+ "&a=" + authToken;
 
@@ -231,39 +232,31 @@ public class Handshaker extends NetRunnable {
 			String[] lines = response.split("\n");
 			if (lines.length == 4 && lines[0].equals("OK")) {
 				// handshake succeeded
-				Log.i(TAG, "Handshake succeeded!: " + getNetApp().getName());
+				Log.i(TAG, "Handshake succeeded!: " + netApp.getName());
 				return new HandshakeResult(lines[1], lines[2], lines[3]);
 			} else if (lines.length == 1) {
 				if (lines[0].startsWith("BANNED")) {
-					Log.e(TAG, "Handshake fails: client banned: "
-							+ getNetApp().getName());
+					Log.e(TAG, "Handshake fails: client banned: " + netApp.getName());
 					throw new ClientBannedException(getContext().getString(
 							R.string.auth_client_banned));
 				} else if (lines[0].startsWith("BADAUTH")) {
-					Log.i(TAG, "Handshake fails: bad auth: "
-							+ getNetApp().getName());
+					Log.i(TAG, "Handshake fails: bad auth: " + netApp.getName());
 					throw new BadAuthException(getContext().getString(
 							R.string.auth_bad_auth));
 				} else if (lines[0].startsWith("BADTIME")) {
-					Log.e(TAG, "Handshake fails: bad time: "
-							+ getNetApp().getName());
+					Log.e(TAG, "Handshake fails: bad time: " + netApp.getName());
 					throw new TemporaryFailureException(getContext().getString(
 							R.string.auth_timing_error));
 				} else if (lines[0].startsWith("FAILED")) {
 					String reason = lines[0].substring(7);
-					Log.e(TAG, "Handshake fails: FAILED " + reason + ": "
-							+ getNetApp().getName());
+					Log.e(TAG, "Handshake fails: FAILED " + reason + ": " + netApp.getName());
 					throw new TemporaryFailureException(getContext().getString(
 							R.string.auth_server_error).replace("%1", reason));
 				}
 			} else {
-				throw new TemporaryFailureException(
-						"Weird response from handskake-req: " + response + ": "
-								+ getNetApp().getName());
+				throw new TemporaryFailureException("Weird response from handskake-req: " + response + ": " + netApp.getName());
 			}
 
-		} catch (ClientProtocolException e) {
-			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
 		} catch (IOException e) {
 			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
 		} finally {
