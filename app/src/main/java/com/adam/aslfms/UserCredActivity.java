@@ -132,12 +132,7 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
 
 	private void update() {
 		mEditCreds.setSummary(Util.getStatusSummary(this, settings, mNetApp));
-
-		boolean hasCreds = settings.getAuthStatus(mNetApp) != AuthStatus.AUTHSTATUS_NOAUTH
-				|| settings.getUsername(mNetApp).length() != 0
-				|| settings.getPassword(mNetApp).length() != 0
-				|| settings.getPwdMd5(mNetApp).length() != 0;
-
+		boolean hasCreds = settings.hasCreds(mNetApp);
 		mClearCreds.setEnabled(hasCreds);
 	}
 
