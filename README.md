@@ -37,8 +37,8 @@ Contact emails:
  
 Download
 ========
-You can find the latest version of Simple Last.fm Scrobbler in the
-[Google Play Store](https://play.google.com/store/apps/details?id=com.adam.aslfms) or here on [F-Droid](https://f-droid.org/repository/browse/?fdid=com.adam.aslfms)
+[![Google Play Store](https://ibin.co/2hN6gwDRsRut.png)](https://play.google.com/store/apps/details?id=com.adam.aslfms)
+[![F-Droid](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Get_it_on_F-Droid.svg/320px-Get_it_on_F-Droid.svg.png)](https://f-droid.org/repository/browse/?fdid=com.adam.aslfms)
 
 [Release Downloads](https://github.com/tgwizard/sls/releases)
 
