@@ -19,10 +19,9 @@ import android.os.Bundle;
 import android.util.Log;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
-import java.util.*;
 
 /**
- * A BroadcastReceiver for intents sent by the Spotify Music Player.
+ * A BroadcastReceiver for intents sent by the Huawei Music Player.
  *
  * @see AbstractPlayStatusReceiver
  *
