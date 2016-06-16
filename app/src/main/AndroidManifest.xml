@@ -298,6 +298,17 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name="com.adam.aslfms.receiver.HuaweiReceiver"
+            android:exported="true"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="com.android.mediacenter.playstatechanged" />
+                <action android:name="com.android.mediacenter.playbackcomplete" />
+                <action android:name="com.android.mediacenter.metachanged" />
+            </intent-filter>
+        </receiver>
+
         <!-- - will probably interfere badly with Winamp <receiver android:name="com.adam.aslfms.receiver.LastFmAPIReceiver" 
             android:exported="true" android:enabled="true"> <intent-filter> <action android:name="fm.last.android.metachanged" 
             /> <action android:name="fm.last.android.playbackpaused" /> <action android:name="fm.last.android.playbackcomplete" 
