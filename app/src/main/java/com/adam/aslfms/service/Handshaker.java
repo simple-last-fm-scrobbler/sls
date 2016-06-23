@@ -21,15 +21,14 @@
 
 package com.adam.aslfms.service;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.net.URLEncoder;
-
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
 import android.content.Intent;
@@ -223,12 +222,33 @@ public class Handshaker extends NetRunnable {
 				+ "&v=" + clientver + "&u=" + enc(username) + "&t=" + time
 				+ "&a=" + authToken;
 
-		DefaultHttpClient http = new DefaultHttpClient();
-		HttpGet request = new HttpGet(uri);
+		URL url = null;
+		HttpURLConnection conn = null;
+		try {
+			url = new URL(uri);
+			// Log.d(TAG,url.toString());
+		} catch (MalformedURLException e) {
+			Log.d(TAG, "The URL is not valid.");
+			Log.d(TAG, e.getMessage());
+            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+		}
+		try {
+			conn = (HttpURLConnection) url.openConnection();
+		} catch (NullPointerException | IOException e){
+			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+		}
 
 		try {
-			ResponseHandler<String> handler = new BasicResponseHandler();
-			String response = http.execute(request, handler);
+			conn.setRequestProperty("Accept-Charset","UTF-8");
+
+			BufferedReader r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			StringBuilder rsponse = new StringBuilder();
+			String line;
+			while ((line = r.readLine()) != null) {
+				rsponse.append(line).append('\n');
+			}
+			String response = rsponse.toString();
+        // some redundancy here ?
 			String[] lines = response.split("\n");
 			if (lines.length == 4 && lines[0].equals("OK")) {
 				// handshake succeeded
@@ -260,7 +280,7 @@ public class Handshaker extends NetRunnable {
 		} catch (IOException e) {
 			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
 		} finally {
-			http.getConnectionManager().shutdown();
+			conn.disconnect();
 		}
 		return null;
 	}

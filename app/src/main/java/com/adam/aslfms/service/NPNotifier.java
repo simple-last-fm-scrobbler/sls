@@ -21,17 +21,15 @@
 
 package com.adam.aslfms.service;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.util.LinkedList;
-import java.util.List;
-
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import android.content.Context;
 import android.util.Log;
@@ -121,42 +119,83 @@ public class NPNotifier extends AbstractSubmitter {
 		Log.d(TAG, "Notifying now playing: " + getNetApp().getName());
 
 		Log.d(TAG, getNetApp().getName() + ": " + track.toString());
+		URL url = null;
+		HttpURLConnection conn = null;
 
-		DefaultHttpClient http = new DefaultHttpClient();
-		HttpPost request = new HttpPost(hInfo.nowPlayingUri);
-
-		List<BasicNameValuePair> data = new LinkedList<BasicNameValuePair>();
-
-		data.add(new BasicNameValuePair("s", hInfo.sessionId));
-		data.add(new BasicNameValuePair("a", track.getArtist()));
-		data.add(new BasicNameValuePair("b", track.getAlbum()));
-		data.add(new BasicNameValuePair("t", track.getTrack()));
-		data.add(new BasicNameValuePair("l", Integer.toString(track
-				.getDuration())));
-		data.add(new BasicNameValuePair("n", track.getTrackNr()));
-		data.add(new BasicNameValuePair("m", track.getMbid()));
+// handle Exception
+		try {
+			url = new URL(hInfo.nowPlayingUri);
+			// Log.d(TAG,url.toString());
+		} catch (MalformedURLException e) {
+			Log.d(TAG, "The URL is not valid.");
+			Log.d(TAG, e.getMessage());
+            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+		}
 
 		try {
-			request.setEntity(new UrlEncodedFormEntity(data, "UTF-8"));
-			ResponseHandler<String> handler = new BasicResponseHandler();
-			String response = http.execute(request, handler);
+			Map<String, Object> params = new LinkedHashMap<>();
+			params.put("s", hInfo.sessionId);
+			params.put("a", track.getArtist());
+			params.put("b", track.getAlbum());
+			params.put("t", track.getTrack());
+			params.put("i", Long.toString(track
+					.getWhen()));
+			params.put("o", track.getSource());
+			params.put("l", Integer.toString(track
+					.getDuration()));
+			params.put("n", track.getTrackNr());
+			params.put("m", track.getMbid());
+			params.put("r", track.getRating());
+
+			StringBuilder postData = new StringBuilder();
+			for (Map.Entry<String, Object> param : params.entrySet()) {
+				if (postData.length() != 0) postData.append('&');
+				postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+				postData.append('=');
+				postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+			}
+			byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+
+			try {
+				conn = (HttpURLConnection) url.openConnection();
+			} catch (NullPointerException e){
+				throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+			}
+			// Log.d(TAG,conn.toString());
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+			conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+			conn.setDoOutput(true);
+			conn.getOutputStream().write(postDataBytes);
+			Log.i(TAG,params.toString());
+
+			BufferedReader r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			StringBuilder rsponse = new StringBuilder();
+			String line;
+			while ((line = r.readLine()) != null) {
+				rsponse.append(line).append('\n');
+			}
+			String response = rsponse.toString();
+			Log.d(TAG, response);
+			String[] lines = response.split("\n");
 			if (response.startsWith("OK")) {
-				Log.i(TAG, "Nowplaying success: " + getNetApp().getName());
+				Log.i(TAG, "Scrobble success: " + getNetApp().getName());
 			} else if (response.startsWith("BADSESSION")) {
-				throw new BadSessionException(
-						"Nowplaying failed because of badsession");
+				throw new BadSessionException("Scrobble failed because of badsession");
+			} else if (response.startsWith("FAILED")) {
+				String reason = lines[0].substring(7);
+				throw new TemporaryFailureException("Scrobble failed: " + reason);
 			} else {
-				throw new TemporaryFailureException(
-						"NowPlaying failed weirdly: " + response);
+				throw new TemporaryFailureException("Scrobble failed weirdly: " + response);
 			}
 
-		} catch (ClientProtocolException e) {
-			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
 		} catch (IOException e) {
 			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-		} finally {
-			http.getConnectionManager().shutdown();
+		}
+		try {
+			conn.disconnect();
+		} catch (NullPointerException e){
+			throw new TemporaryFailureException(TAG + ": " + e.getMessage());
 		}
 	}
-
 }
