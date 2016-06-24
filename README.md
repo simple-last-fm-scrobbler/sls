@@ -63,6 +63,10 @@ Supported languages
  * Spanish
  * French
  * German
+ * Brazilian Portuguese
+ * Polish
+ 
+ * Head to [Transifex](https://www.transifex.com/sls/sls) if you want to be a translator
 
 
 Supported websites (to scrobble to)
@@ -249,6 +253,7 @@ Contributors
  * herrherrmann [github.com/herrherrmann](https://github.com/herrherrmann), German translation
  * Alia5 [github.com/Alia5](https://github.com/Alia5), better Enabled apps handle
  * MendelGusmao [github.com/MendelGusmao](https://github.com/MendelGusmao), Brazil Portuguese Translation
+ * Grzes58 [github.com/Grzes58](https://github.com/Grzes58), Polish
 
 A complete list of [contributors](https://github.com/tgwizard/sls/graphs/contributors)
  
