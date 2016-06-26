@@ -112,6 +112,7 @@
   <string name="ao_battery_title">Na bateria</string>
   <string name="ao_plugged_title">No carregador</string>
   <string name="options_summary">Inclui configurações de economia de bateria</string>
+  <string name="advanced_options_notify_title">Notificações de Telefone</string>
   <string name="advanced_options_custom_category_title">Opções personalizadas de scrobbling</string>
   <string name="advanced_options_when_title">Quando fazer o scrobble</string>
   <string name="advanced_options_also_on_complete_title">Ao término da lista de reprodução</string>

@@ -43,20 +43,20 @@ import com.adam.aslfms.util.AuthStatus.UnknownResponseException;
 import com.adam.aslfms.util.enums.SubmissionType;
 
 /**
- *
  * @author tgwizard
- *
  */
 public class NPNotifier extends AbstractSubmitter {
 
     private static final String TAG = "NPNotifier";
 
     private final Track mTrack;
+    private final Context mCtx;
+
 
     public NPNotifier(NetApp napp, Context ctx, Networker net, Track track) {
         super(napp, ctx, net);
-
         mTrack = track;
+        mCtx = ctx;
     }
 
     @Override
@@ -105,14 +105,10 @@ public class NPNotifier extends AbstractSubmitter {
      * Connects to Last.fm servers and requests a Now Playing notification of
      * <code>track</code>. If an error occurs, exceptions are thrown.
      *
-     * @param track
-     *            the track to send as notification
-     * @throws BadSessionException
-     *             means that a new handshake is needed
+     * @param track the track to send as notification
+     * @throws BadSessionException       means that a new handshake is needed
      * @throws TemporaryFailureException
-     * @throws UnknownResponseException
-     *             {@link UnknownResponseException}
-     *
+     * @throws UnknownResponseException  {@link UnknownResponseException}
      */
     public void notifyNowPlaying(Track track, HandshakeResult hInfo)
             throws BadSessionException, TemporaryFailureException {
@@ -179,14 +175,14 @@ public class NPNotifier extends AbstractSubmitter {
             Log.d(TAG, response);
             String[] lines = response.split("\n");
             if (response.startsWith("OK")) {
-                Log.i(TAG, "Scrobble success: " + getNetApp().getName());
+                Log.i(TAG, "Now playing success: " + getNetApp().getName());
             } else if (response.startsWith("BADSESSION")) {
-                throw new BadSessionException("Scrobble failed because of badsession");
+                throw new BadSessionException("Now Playing failed because of badsession");
             } else if (response.startsWith("FAILED")) {
                 String reason = lines[0].substring(7);
-                throw new TemporaryFailureException("Scrobble failed: " + reason);
+                throw new TemporaryFailureException("Now Playing failed: " + reason);
             } else {
-                throw new TemporaryFailureException("Scrobble failed weirdly: " + response);
+                throw new TemporaryFailureException("Now Playing failed weirdly: " + response);
             }
 
         } catch (IOException e) {

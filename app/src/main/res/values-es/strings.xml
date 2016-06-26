@@ -118,6 +118,7 @@
     <string name="ao_battery_title">Sólo batería</string>
     <string name="ao_plugged_title">Enchufado</string>
     <string name="options_summary">Incluyendo opciones para el ahorro de batería</string>
+    <string name="advanced_options_notify_title">Notificaciones de Teléfono</string>
     <string name="advanced_options_custom_category_title">Opciones personalizadas para scrobblear</string>
     <string name="advanced_options_when_title">Cuándo scrobblear</string>
     <string name="advanced_options_also_on_complete_title">También al finalizar la lista de reproducción</string>

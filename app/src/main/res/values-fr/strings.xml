@@ -118,6 +118,7 @@
     <string name="ao_battery_title">Sur batterie</string>
     <string name="ao_plugged_title">Sur secteur</string>
     <string name="options_summary">Options et gestion de l\'alimentation</string>
+    <string name="advanced_options_notify_title">Notifications Téléphoniques</string>
     <string name="advanced_options_custom_category_title">Options de scrobbling personnalisées</string>
     <string name="advanced_options_when_title">Quand scrobbler ?</string>
     <string name="advanced_options_also_on_complete_title">À la fin d\'une piste</string>

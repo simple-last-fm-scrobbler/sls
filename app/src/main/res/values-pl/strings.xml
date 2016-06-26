@@ -118,6 +118,7 @@
     <string name="ao_battery_title">Podczas używania baterii</string>
     <string name="ao_plugged_title">Podczas używania z podłączoną ładowarką</string>
     <string name="options_summary">Zawiera ustawienia oszczędzania baterii</string>
+    <string name="advanced_options_notify_title">Powiadomienia Telefon</string>
     <string name="advanced_options_custom_category_title">Modyfikowane ustawienia scrobblowania</string>
     <string name="advanced_options_when_title">Kiedy scrobblować</string>
     <string name="advanced_options_also_on_complete_title">Również po zakończeniu playlisty</string>
