@@ -3,6 +3,7 @@
   * Add Portuguese Brazil translations (thanks to MendelGusmao)
   * Add Huawei support
   * Add Polish translation (thanks to Grzes58)
+  * Add Phone Notification in power settings
 
 - 1.4.9 (2015-08-09)
   * Add French translation (thanks to pierreduchemin)
