@@ -32,9 +32,7 @@ import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.adam.aslfms.R;
-import com.adam.aslfms.StatusActivity;
-import com.adam.aslfms.ViewScrobbleCacheActivity;
-import com.adam.aslfms.ViewScrobbleInfoDialog;
+import com.adam.aslfms.SettingsActivity;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.InternalTrackTransmitter;
 import com.adam.aslfms.util.ScrobblesDatabase;
@@ -70,7 +68,6 @@ public class ScrobblingService extends Service {
     private Track mCurrentTrack = null;
 
     Context mCtx = this;
-    ;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -184,13 +181,10 @@ public class ScrobblingService extends Service {
             mCurrentTrack.updateTimePlayed();
             tryNotifyNP(mCurrentTrack);
 
-            Class chooseActivity = ViewScrobbleCacheActivity.class;
-            if (Util.checkForOkNetwork(mCtx) == Util.NetworkStatus.OK) {
-                chooseActivity = StatusActivity.class;
-            }
-            // TODO: make notifications optional means, Give notifications it's own service
+            // TODO: maybe give notifications it's own service
             PowerOptions pow = Util.checkPower(mCtx);
             if (settings.isNotifyEnabled(pow)) {
+                Class chooseActivity = SettingsActivity.class;
                 try {
                     NotificationCompat.Builder builder =
                             new NotificationCompat.Builder(mCtx)
