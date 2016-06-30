@@ -31,6 +31,9 @@ import android.util.Log;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
+import java.lang.Math;
+import java.math.BigDecimal;
+
 /**
  * A BroadcastReceiver for intents sent by music apps such as Android Music and
  * Hero Music. Specialized classes inherit from this class to deal with the
@@ -197,6 +200,7 @@ public abstract class BuiltInMusicAppReceiver extends
 			b.setAlbum(album);
 
 			int duration = (int) (cur.getLong(cur.getColumnIndex(MediaStore.Audio.AudioColumns.DURATION)) / 1000);
+			Log.e(TAG, Integer.toString(duration));
 			if (duration != 0) {
 				b.setDuration(duration);
 			}
@@ -218,10 +222,27 @@ public abstract class BuiltInMusicAppReceiver extends
 		CharSequence ar = bundle.getCharSequence("artist");
 		CharSequence al = bundle.getCharSequence("album");
 		CharSequence tr = bundle.getCharSequence("track");
+
+		Object tmp = bundle.get("duration");
+		if (tmp instanceof Long) {
+			try {
+				long du = bundle.getLong("duration");
+				b.setDuration(new BigDecimal(du).intValueExact() / 1000);
+			} catch (Exception e){
+				Log.d(TAG,"duration: "+e);
+			}
+		} else {
+			try {
+				int du = bundle.getInt("duration");
+				b.setDuration(du);
+			} catch (Exception e) {
+				Log.d(TAG, "duration: " + e);
+			}
+		}
+
 		if (ar == null || al == null || tr == null) {
 			throw new IllegalArgumentException("null track values");
 		}
-
 		b.setArtist(ar.toString());
 		b.setAlbum(al.toString());
 		b.setTrack(tr.toString());
