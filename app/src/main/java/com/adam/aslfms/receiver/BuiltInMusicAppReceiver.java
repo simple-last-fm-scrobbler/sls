@@ -93,6 +93,18 @@ public abstract class BuiltInMusicAppReceiver extends
 		} else {
 			setState(Track.State.RESUME);
 		}
+		try {
+			Boolean isPlay = bundle.getBoolean("playing");
+			Log.e(TAG, action);
+					if (action.equals("com.android.music.playbackcomplete")){
+						setState(Track.State.COMPLETE);
+					} else if (!isPlay){
+						setState(Track.State.PAUSE);
+					}
+		} catch (Exception e){
+			Log.e(TAG, "'playing': " + e);
+		}
+
 
 		// throws on bad data
 		setTrack(b.build());
@@ -222,21 +234,29 @@ public abstract class BuiltInMusicAppReceiver extends
 		CharSequence ar = bundle.getCharSequence("artist");
 		CharSequence al = bundle.getCharSequence("album");
 		CharSequence tr = bundle.getCharSequence("track");
-
-		Object tmp = bundle.get("duration");
-		if (tmp instanceof Long) {
-			try {
-				long du = bundle.getLong("duration");
-				b.setDuration(new BigDecimal(du).intValueExact() / 1000);
-			} catch (Exception e){
-				Log.d(TAG,"duration: "+e);
-			}
-		} else {
-			try {
-				int du = bundle.getInt("duration");
-				b.setDuration(du);
-			} catch (Exception e) {
-				Log.d(TAG, "duration: " + e);
+		Object tmp = null;
+		try {
+			tmp = bundle.get("duration");
+		} catch (IllegalArgumentException e){
+			Log.e(TAG,"duration error: "+e);
+		}
+		if (tmp != null) {
+			if (tmp instanceof Long) {
+				try {
+					long du = bundle.getLong("duration") / 1000;
+					b.setDuration(new BigDecimal(du).intValueExact());
+					Log.e(TAG, "Long: " + Long.toString(du) + " int: " + Integer.toString(new BigDecimal(du).intValueExact()));
+				} catch (Exception e) {
+					Log.d(TAG, "duration: " + e);
+				}
+			} else {
+				try {
+					int du = bundle.getInt("duration") / 1000;
+					b.setDuration(du);
+					Log.e(TAG, "Integer: " + Integer.toString(du));
+				} catch (Exception e) {
+					Log.d(TAG, "duration: " + e);
+				}
 			}
 		}
 

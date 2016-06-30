@@ -52,8 +52,12 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 	private int getIntFromBundle(Bundle bundle, String key, boolean throwOnFailure)
 			throws IllegalArgumentException {
 		long value = -1;
-		Object obj = bundle.get(key);
-		
+		Object obj;
+		try {
+			obj = bundle.get(key);
+		} catch (IllegalArgumentException e){
+			throw new IllegalArgumentException(e);
+		}
 		if (obj instanceof Long)
 			value = (Long) obj;
 		else if (obj instanceof Integer)
