@@ -27,7 +27,7 @@ If you need inspiration on stuff to do, you might want to have a look at the lis
 
 If you want to help out and start immediately, please see [issues (bugs label)](https://github.com/tgwizard/sls/issues?q=is%3Aopen+is%3Aissue+label%3Abugs).
 
-If you are using SLS and have a problem, try [TroubleShooting](https://github.com/tgwizard/sls/blob/master/TroubleShooting.md)
+##If you are using SLS and have a problem, try [TroubleShooting](https://github.com/tgwizard/sls/blob/master/TroubleShooting.md)
 
 Contact emails: 
 
