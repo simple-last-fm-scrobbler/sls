@@ -62,7 +62,7 @@ public class StatusActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
+//TODO: Make menu options work again
 		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now).setIcon(
                 android.R.drawable.ic_menu_upload);
 		menu.add(0, MENU_RESET_STATS_ID, 0, R.string.reset_stats).setIcon(

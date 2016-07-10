@@ -144,7 +144,7 @@ public class Scrobbler extends AbstractSubmitter {
 // handle Exception
         try {
             url = new URL(hInfo.scrobbleUri);
-            // Log.d(TAG,url.toString());
+            Log.e(TAG,url.toString());
         } catch (MalformedURLException e) {
             Log.d(TAG, "The URL is not valid.");
             Log.d(TAG, e.getMessage());
@@ -168,6 +168,13 @@ public class Scrobbler extends AbstractSubmitter {
                 params.put("n" + is, track.getTrackNr());
                 params.put("m" + is, track.getMbid());
                 params.put("r" + is, track.getRating());
+                try {
+                if (url.toString().contains("audioscrobbler")&&track.getRating().equals("L")) {
+
+                    Log.e(TAG,"Launching heart service. "+settings.getPassword(NetApp.LASTFM)+" "+settings.getUsername(NetApp.LASTFM));
+                }} catch (Exception e) {
+                    Log.e(TAG,"Exc: "+e);
+                }
             }
             StringBuilder postData = new StringBuilder();
             for (Map.Entry<String, Object> param : params.entrySet()) {

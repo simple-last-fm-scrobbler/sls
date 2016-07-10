@@ -286,6 +286,34 @@ public class ScrobblesDatabase {
 		return track;
 	}
 
+	public void loveRecentTrack(){
+		String sql = "select * from scrobbles order by rowid desc limit 1";
+		Cursor c = mDb.rawQuery(sql,null);
+
+		if (c.getCount() == 0)
+			return;
+
+		c.moveToFirst();
+		long trackId = c.getLong(c.getColumnIndex("_id"));
+		ContentValues values = new ContentValues();
+		values.put("rating", "L");
+		mDb.update("scrobbles", values, "_id="+trackId, null);
+		c.close();
+	}
+
+	public Track fetchRecentTrack() {
+		String sql = "select * from scrobbles order by rowid desc limit 1";
+		Cursor c = mDb.rawQuery(sql, null);
+
+		if (c.getCount() == 0)
+			return null;
+
+		c.moveToFirst();
+		Track track = readTrack(c);
+		c.close();
+		return track;
+	}
+
 	public NetApp[] fetchNetAppsForScrobble(int trackId) {
 		String sql = "select netappid from scrobbles_netapp where trackid = "
 				+ trackId;

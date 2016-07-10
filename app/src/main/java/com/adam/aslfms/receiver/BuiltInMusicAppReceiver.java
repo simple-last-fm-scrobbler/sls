@@ -31,7 +31,6 @@ import android.util.Log;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
-import java.lang.Math;
 import java.math.BigDecimal;
 
 /**
@@ -90,21 +89,23 @@ public abstract class BuiltInMusicAppReceiver extends
 
 		if (isStopAction(action)) {
 			setState(Track.State.PLAYLIST_FINISHED);
+		} else if (action.equals("com.android.music.playbackcomplete")){
+			setState(Track.State.COMPLETE);
 		} else {
-			setState(Track.State.RESUME);
+				setState(Track.State.RESUME);
 		}
-		try {
-			Boolean isPlay = bundle.getBoolean("playing");
-			Log.e(TAG, action);
-					if (action.equals("com.android.music.playbackcomplete")){
-						setState(Track.State.COMPLETE);
-					} else if (!isPlay){
-						setState(Track.State.PAUSE);
-					}
-		} catch (Exception e){
-			Log.e(TAG, "'playing': " + e);
+		if(bundle.containsKey("playing")){
+			boolean playing = bundle.getBoolean("playing");
+			if (!playing) {
+				// if not playing, there is no guarantee the bundle will contain any
+				// track info
+				setTrack(Track.SAME_AS_CURRENT);
+				setState(Track.State.PAUSE);
+			} else {
+				setTrack(Track.SAME_AS_CURRENT);
+				setState(Track.State.RESUME);
+			}
 		}
-
 
 		// throws on bad data
 		setTrack(b.build());
@@ -234,37 +235,38 @@ public abstract class BuiltInMusicAppReceiver extends
 		CharSequence ar = bundle.getCharSequence("artist");
 		CharSequence al = bundle.getCharSequence("album");
 		CharSequence tr = bundle.getCharSequence("track");
-		Object tmp = null;
-		try {
-			tmp = bundle.get("duration");
-		} catch (IllegalArgumentException e){
-			Log.e(TAG,"duration error: "+e);
-		}
-		if (tmp != null) {
-			if (tmp instanceof Long) {
-				try {
-					long du = bundle.getLong("duration") / 1000;
-					b.setDuration(new BigDecimal(du).intValueExact());
-					Log.e(TAG, "Long: " + Long.toString(du) + " int: " + Integer.toString(new BigDecimal(du).intValueExact()));
-				} catch (Exception e) {
-					Log.d(TAG, "duration: " + e);
-				}
-			} else {
-				try {
-					int du = bundle.getInt("duration") / 1000;
-					b.setDuration(du);
-					Log.e(TAG, "Integer: " + Integer.toString(du));
-				} catch (Exception e) {
-					Log.d(TAG, "duration: " + e);
+
+		if(bundle.containsKey("duration")){
+			Object tmp = bundle.get("duration");
+			if (tmp != null) {
+				if (tmp instanceof Long) {
+					try {
+						long du = bundle.getLong("duration") / 1000;
+						b.setDuration(new BigDecimal(du).intValueExact());
+						Log.e(TAG, "Long: " + Long.toString(du) + " int: " + Integer.toString(new BigDecimal(du).intValueExact()));
+					} catch (Exception e) {
+						Log.d(TAG, "duration: " + e);
+					}
+				} else {
+					try {
+						int du = bundle.getInt("duration") / 1000;
+						b.setDuration(du);
+						Log.e(TAG, "Integer: " + Integer.toString(du));
+					} catch (Exception e) {
+						Log.d(TAG, "duration: " + e);
+					}
 				}
 			}
 		}
 
-		if (ar == null || al == null || tr == null) {
+		//if (ar == null || al == null || tr == null) {
+		if (ar == null || tr == null) {
 			throw new IllegalArgumentException("null track values");
 		}
+		if (al != null){
+			b.setAlbum(al.toString()); // album is not required to scrobble.
+		}
 		b.setArtist(ar.toString());
-		b.setAlbum(al.toString());
 		b.setTrack(tr.toString());
 	}
 }

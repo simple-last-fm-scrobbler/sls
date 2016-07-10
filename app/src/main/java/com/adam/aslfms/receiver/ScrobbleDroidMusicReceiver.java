@@ -69,15 +69,24 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 		 * sendBroadcast(i);
 		 */
 
-		boolean playing = bundle.getBoolean("playing", false);
-
-		if (!playing) {
-			// if not playing, there is no guarantee the bundle will contain any
-			// track info
+		if(bundle.containsKey("playing")){
+			boolean playing = bundle.getBoolean("playing");
+			if (!playing) {
+				// if not playing, there is no guarantee the bundle will contain any
+				// track info
+				setTrack(Track.SAME_AS_CURRENT);
+				setState(Track.State.PAUSE);
+				return;
+			} else {
+				setTrack(Track.SAME_AS_CURRENT);
+				setState(Track.State.RESUME);
+			}
+		} else {
 			setTrack(Track.SAME_AS_CURRENT);
 			setState(Track.State.UNKNOWN_NONPLAYING);
 			return;
 		}
+
 
 		String source = bundle.getString("source");
 		if (source == null || source.length() > 1) {

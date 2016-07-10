@@ -50,13 +50,11 @@ public class NPNotifier extends AbstractSubmitter {
     private static final String TAG = "NPNotifier";
 
     private final Track mTrack;
-    private final Context mCtx;
 
 
     public NPNotifier(NetApp napp, Context ctx, Networker net, Track track) {
         super(napp, ctx, net);
         mTrack = track;
-        mCtx = ctx;
     }
 
     @Override

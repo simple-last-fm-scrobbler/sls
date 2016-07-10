@@ -53,8 +53,10 @@ import com.adam.aslfms.util.enums.PowerOptions;
  * @author tgwizard
  *
  */
+
 public class Util {
     private static final String TAG = "Util";
+
 
     /**
      * Returns whether the phone is running on battery or if it is connected to
@@ -209,6 +211,31 @@ public class Util {
         } else {
             Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
                     Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public static void heartIfPossible(Context ctx){
+
+        try{
+            Intent service = new Intent(ctx, ScrobblingService.class);
+            service.setAction(ScrobblingService.ACTION_HEART);
+            ctx.startService(service);
+        } catch (Exception e){
+            Toast.makeText(ctx, ctx.getString(R.string.no_heart_track),
+                    Toast.LENGTH_LONG).show();
+            Log.e(TAG,"CAN'T HEART TRACK"+e);
+        }
+    }
+
+    public static void copyIfPossible(Context ctx){
+        try{
+            Intent service = new Intent(ctx, ScrobblingService.class);
+            service.setAction(ScrobblingService.ACTION_COPY);
+            ctx.startService(service);
+        } catch (Exception e){
+            Toast.makeText(ctx, ctx.getString(R.string.no_copy_track),
+                    Toast.LENGTH_LONG).show();
+            Log.e(TAG,"CAN'T COPY TRACK"+e);
         }
     }
 

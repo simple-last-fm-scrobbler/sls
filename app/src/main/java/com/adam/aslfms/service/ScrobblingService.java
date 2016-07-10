@@ -30,6 +30,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.adam.aslfms.R;
 import com.adam.aslfms.SettingsActivity;
@@ -52,6 +53,8 @@ public class ScrobblingService extends Service {
     public static final String ACTION_CLEARCREDS = "com.adam.aslfms.service.clearcreds";
     public static final String ACTION_JUSTSCROBBLE = "com.adam.aslfms.service.justscrobble";
     public static final String ACTION_PLAYSTATECHANGED = "com.adam.aslfms.service.playstatechanged";
+    public static final String ACTION_HEART = "com.adam.aslfms.service.heart";
+    public static final String ACTION_COPY = "com.adam.aslfms.service.copy";
 
     public static final String BROADCAST_ONAUTHCHANGED = "com.adam.aslfms.service.bcast.onauth";
     public static final String BROADCAST_ONSTATUSCHANGED = "com.adam.aslfms.service.bcast.onstatus";
@@ -124,8 +127,10 @@ public class ScrobblingService extends Service {
                 Log.e(TAG, "launchHandshaker got null napp");
         } else if (action.equals(ACTION_JUSTSCROBBLE)) {
             if (extras.getBoolean("scrobbleall", false)) {
+                Log.e(TAG,"Scrobble All TRUE");
                 mNetManager.launchAllScrobblers();
             } else {
+                Log.e(TAG,"Scrobble All False");
                 String snapp = extras.getString("netapp");
                 if (snapp != null) {
                     mNetManager.launchScrobbler(NetApp.valueOf(snapp));
@@ -148,6 +153,63 @@ public class ScrobblingService extends Service {
 
             onPlayStateChanged(track, state);
 
+        } else if (action.equals(ACTION_HEART)) {
+            if (mCurrentTrack != null && mCurrentTrack.hasBeenQueued()) {
+                try {
+                    mDb.loveRecentTrack();
+                    Log.e(TAG, mDb.fetchRecentTrack().toString());
+                } catch (Exception e){
+                    Log.e(TAG, Integer.toString(mCurrentTrack.getRowId())+": "+e);
+                }
+                Log.d(TAG, "Love Track Rating!");
+            } else if (mCurrentTrack != null) {
+                mCurrentTrack.setRating();
+                Log.d(TAG, "Love Track Rating!");
+            } else {
+                Toast.makeText(this, this.getString(R.string.no_current_track),
+                        Toast.LENGTH_SHORT).show();
+            }
+        } else if (action.equals(ACTION_COPY)){
+            if (mCurrentTrack != null && mCurrentTrack.hasBeenQueued()) {
+                try {
+                    Log.e(TAG, mDb.fetchRecentTrack().toString());
+                    Track tempTrack = mDb.fetchRecentTrack();
+                    int sdk = android.os.Build.VERSION.SDK_INT;
+                    if(sdk < android.os.Build.VERSION_CODES.HONEYCOMB) {
+                        android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        clipboard.setText(tempTrack.getTrack()+" by "+tempTrack.getArtist()+", "+tempTrack.getAlbum());
+                    } else {
+                        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track",tempTrack.getTrack()+" by "+tempTrack.getArtist()+", "+tempTrack.getAlbum());
+                        clipboard.setPrimaryClip(clip);
+                    }
+                    Log.d(TAG, "Copy Track!");
+                } catch (Exception e){
+                    Toast.makeText(this, this.getString(R.string.no_copy_track),
+                            Toast.LENGTH_LONG).show();
+                    Log.e(TAG,"CAN'T COPY TRACK"+e);
+                }
+            } else if (mCurrentTrack != null) {
+                try {
+                    int sdk = android.os.Build.VERSION.SDK_INT;
+                    if(sdk < android.os.Build.VERSION_CODES.HONEYCOMB) {
+                        android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        clipboard.setText(mCurrentTrack.getTrack()+" by "+mCurrentTrack.getArtist()+", "+mCurrentTrack.getAlbum());
+                    } else {
+                        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track",mCurrentTrack.getTrack()+" by "+mCurrentTrack.getArtist()+", "+mCurrentTrack.getAlbum());
+                        clipboard.setPrimaryClip(clip);
+                    }
+                    Log.d(TAG, "Copy Track!");
+                } catch (Exception e){
+                    Toast.makeText(this, this.getString(R.string.no_copy_track),
+                            Toast.LENGTH_LONG).show();
+                    Log.e(TAG,"CAN'T COPY TRACK"+e);
+                }
+            } else {
+                Toast.makeText(this, this.getString(R.string.no_current_track),
+                        Toast.LENGTH_SHORT).show();
+            }
         } else {
             Log.e(TAG, "Weird action in onStart: " + action);
         }
@@ -301,14 +363,16 @@ public class ScrobblingService extends Service {
             return;
         }
 
+        double sp = settings.getScrobblePoint() / (double) 100;
+        sp -= 0.01; // to be safe
+        long mintime = (long) (sp * 1000 * track.getDuration());
+        Log.e(TAG,"mintime:" +Long.toString(mintime));
+
         if (track.hasBeenQueued()) {
             Log.d(TAG, "Trying to queue a track that already has been queued");
             // Log.d(TAG, track.toString());
             return;
         }
-        double sp = settings.getScrobblePoint() / (double) 100;
-        sp -= 0.01; // to be safe
-        long mintime = (long) (sp * 1000 * track.getDuration());
         if (track.hasUnknownDuration() || mintime < MIN_LISTENING_TIME) {
             mintime = MIN_LISTENING_TIME;
         } else if (mintime > UPPER_SCROBBLE_MIN_LIMIT) {

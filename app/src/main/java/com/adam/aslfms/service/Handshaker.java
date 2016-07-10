@@ -116,7 +116,7 @@ public class Handshaker extends NetRunnable {
             getNetworker().resetSleeper();
 
             // we don't need/want it anymore, settings.getPwdMd5() is enough
-            settings.setPassword(getNetApp(), "");
+            //settings.setPassword(getNetApp(), "");
 
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_OK);
 

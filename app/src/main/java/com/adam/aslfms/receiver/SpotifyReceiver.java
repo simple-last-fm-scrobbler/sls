@@ -41,9 +41,6 @@ public class SpotifyReceiver extends AbstractPlayStatusReceiver {
 
 	static final class BroadcastTypes {
 		static final String APP_PACKAGE = "com.spotify.music";
-		static final String PLAYBACK_STATE_CHANGED = APP_PACKAGE
-				+ ".playbackstatechanged";
-		static final String METADATA_CHANGED = APP_PACKAGE + ".metadatachanged";
 	}
 
 	@Override
@@ -52,10 +49,29 @@ public class SpotifyReceiver extends AbstractPlayStatusReceiver {
 		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx, APP_NAME,
 				BroadcastTypes.APP_PACKAGE, null, false);
 		setMusicAPI(musicAPI);
+		if(bundle.containsKey("track")) {
+			Track.Builder b = new Track.Builder();
+			b.setMusicAPI(musicAPI);
+			b.setWhen(Util.currentTimeSecsUTC());
 
-		if (action.equals(BroadcastTypes.PLAYBACK_STATE_CHANGED)) {
+			b.setArtist(bundle.getString("artist"));
+			b.setAlbum(bundle.getString("album"));
+			b.setTrack(bundle.getString("track"));
+			long duration = bundle.getLong("duration");
+			Log.e(TAG, Long.toString(duration));
+			if (duration != 0) {
+				b.setDuration((int) (long) duration / 1000);
+			}
+			Log.d(TAG,
+					bundle.getString("artist") + " - "
+							+ bundle.getString("track") + " ("
+							+ bundle.getInt("length", 0) + ")");
+			setTrack(b.build());
 
-			boolean playing = bundle.getBoolean("playing", false);
+			setState(Track.State.START);
+		}
+		if(bundle.containsKey("playing")) {
+			boolean playing = bundle.getBoolean("playing");
 
 			if (playing) {
 				setState(Track.State.RESUME);
@@ -64,25 +80,6 @@ public class SpotifyReceiver extends AbstractPlayStatusReceiver {
 				setState(Track.State.PAUSE);
 				Log.d(TAG, "Setting state to PAUSE");
 			}
-		} else if (action.equals(BroadcastTypes.METADATA_CHANGED)) {
-			
-			setState(Track.State.START);
-			Track.Builder b = new Track.Builder();
-			b.setMusicAPI(musicAPI);
-			b.setWhen(Util.currentTimeSecsUTC());
-
-			b.setArtist(bundle.getString("artist"));
-			b.setAlbum(bundle.getString("album"));
-			b.setTrack(bundle.getString("track"));
-			int duration = bundle.getInt("length", 0);
-			if (duration != 0) {
-				b.setDuration(duration / 1000);
-			}
-			Log.d(TAG,
-					bundle.getString("artist") + " - "
-							+ bundle.getString("track") + " ("
-							+ bundle.getInt("length", 0) + ")");
-			setTrack(b.build());
 		}
 	}
 }
