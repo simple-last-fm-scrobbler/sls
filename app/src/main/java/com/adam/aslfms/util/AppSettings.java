@@ -51,6 +51,7 @@ public class AppSettings {
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_PWDMD5 = "pwdMd5";
+    private static final String KEY_SESSION = "sessionKey";
 
     private static final String KEY_NOTIFY_ENABLE = "enable_notify";
     private static final String KEY_SCROBBLING_ENABLE = "enable_scrobbling";
@@ -85,6 +86,7 @@ public class AppSettings {
         setUsername(napp, "");
         setPassword(napp, "");
         setPwdMd5(napp, "");
+        setSessionKey(napp, "");
         setAuthStatus(napp, AuthStatus.AUTHSTATUS_NOAUTH);
     }
 
@@ -92,7 +94,8 @@ public class AppSettings {
         return getAuthStatus(napp) != AuthStatus.AUTHSTATUS_NOAUTH
                 || getUsername(napp).length() != 0
                 || getPassword(napp).length() != 0
-                || getPwdMd5(napp).length() != 0;
+                || getPwdMd5(napp).length() != 0
+                || getSessionKey(napp).length() != 0;
     }
 
     public boolean hasAnyCreds() {
@@ -139,6 +142,16 @@ public class AppSettings {
      */
     public String getPassword(NetApp napp) {
         return prefs.getString(napp.getSettingsPrefix() + KEY_PASSWORD, "");
+    }
+
+    public void setSessionKey(NetApp napp, String s){
+        Editor e = prefs.edit();
+        e.putString(napp.getSettingsPrefix() + KEY_SESSION, s);
+        e.commit();
+    }
+
+    public String getSessionKey(NetApp napp){
+        return prefs.getString(napp.getSettingsPrefix() + KEY_SESSION, "");
     }
 
     /**

@@ -108,7 +108,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             if (ContextCompat.checkSelfPermission(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
                 if (ActivityCompat.shouldShowRequestPermissionRationale(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    Toast.makeText(SettingsActivity.this, "Permission REQUIRED to work properly", Toast.LENGTH_LONG).show();
+                    Toast.makeText(SettingsActivity.this, R.string.permission_required, Toast.LENGTH_LONG).show();
                 }
                 ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
             }

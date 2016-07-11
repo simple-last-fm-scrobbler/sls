@@ -116,8 +116,21 @@ public abstract class BuiltInMusicAppReceiver extends
 		CharSequence bundleAppPackage;
 
 		bundleAppPackage = bundle.getCharSequence("scrobbling_source");
+		try {
+			if (bundle.containsKey("app")) {
+				bundleAppPackage = bundle.getCharSequence("app");
+			}
+			if (bundle.containsKey("app-package")) {
+				bundleAppPackage = bundle.getCharSequence("app-package");
+			}
+		} catch (Exception e){
+			Log.d(TAG,"Improper package source: "+e);
+		}
 		if (bundleAppPackage != null)
 		{
+			if (bundleAppPackage.toString().contains("com.kabouzeid.gramophone")){
+				bundleAppPackage = "com.kabouzeid.gramophone";
+			}
 			PackageManager packageManager = ctx.getPackageManager();
 			try {
 				bundleAppName = packageManager.getApplicationLabel(packageManager.getApplicationInfo(bundleAppPackage.toString(), PackageManager.GET_META_DATA));
@@ -164,7 +177,9 @@ public abstract class BuiltInMusicAppReceiver extends
 				id = (Long) idBundle;
 			else if (idBundle instanceof Integer)
 				id = (Integer) idBundle;
-			else if (idBundle instanceof String) {
+			else if (idBundle instanceof String && ((String) idBundle).contains(".")){
+				id = Long.valueOf(((String) idBundle).replace(".","")).longValue();
+			} else if (idBundle instanceof String) {
 				id = Long.valueOf((String) idBundle).longValue();
 			} else {
 				Log.w(TAG,

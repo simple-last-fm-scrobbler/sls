@@ -26,6 +26,8 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
@@ -156,10 +158,14 @@ public class ScrobblingService extends Service {
         } else if (action.equals(ACTION_HEART)) {
             if (mCurrentTrack != null && mCurrentTrack.hasBeenQueued()) {
                 try {
-                    mDb.loveRecentTrack();
-                    Log.e(TAG, mDb.fetchRecentTrack().toString());
+                    if (mDb.fetchRecentTrack()==null) {
+                        Toast.makeText(this, this.getString(R.string.no_heart_track),
+                                Toast.LENGTH_LONG).show();
+                    } else {
+                        mDb.loveRecentTrack();
+                    }
                 } catch (Exception e){
-                    Log.e(TAG, Integer.toString(mCurrentTrack.getRowId())+": "+e);
+                    Log.e(TAG,"CAN'T COPY TRACK"+e);
                 }
                 Log.d(TAG, "Love Track Rating!");
             } else if (mCurrentTrack != null) {
@@ -174,8 +180,8 @@ public class ScrobblingService extends Service {
                 try {
                     Log.e(TAG, mDb.fetchRecentTrack().toString());
                     Track tempTrack = mDb.fetchRecentTrack();
-                    int sdk = android.os.Build.VERSION.SDK_INT;
-                    if(sdk < android.os.Build.VERSION_CODES.HONEYCOMB) {
+                    int sdk = Build.VERSION.SDK_INT;
+                    if(sdk < Build.VERSION_CODES.HONEYCOMB) {
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                         clipboard.setText(tempTrack.getTrack()+" by "+tempTrack.getArtist()+", "+tempTrack.getAlbum());
                     } else {
@@ -191,8 +197,8 @@ public class ScrobblingService extends Service {
                 }
             } else if (mCurrentTrack != null) {
                 try {
-                    int sdk = android.os.Build.VERSION.SDK_INT;
-                    if(sdk < android.os.Build.VERSION_CODES.HONEYCOMB) {
+                    int sdk = Build.VERSION.SDK_INT;
+                    if(sdk < Build.VERSION_CODES.HONEYCOMB) {
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                         clipboard.setText(mCurrentTrack.getTrack()+" by "+mCurrentTrack.getArtist()+", "+mCurrentTrack.getAlbum());
                     } else {
@@ -250,13 +256,17 @@ public class ScrobblingService extends Service {
                 try {
                     NotificationCompat.Builder builder =
                             new NotificationCompat.Builder(mCtx)
-                                    .setSmallIcon(R.mipmap.ic_launcher)
+                                    .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                                            R.mipmap.ic_launcher))
                                     .setContentTitle(track.getTrack())
                                     .setContentText(" by " + track.getArtist());
-                    int NOTIFICATION_ID = 12345;
-                    // show StatusActivity or ViewScrobbleCacheActivity for (clickable) heart track feature?
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        builder.setSmallIcon(android.R.color.transparent);
+                    } else {
+                        builder.setSmallIcon(R.mipmap.ic_launcher);
+                    }
+                    int NOTIFICATION_ID = 14619;
                     Intent targetIntent = new Intent(mCtx, chooseActivity);
-                    targetIntent.putExtra("viewall", true);
                     PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     builder.setContentIntent(contentIntent);
                     NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -366,7 +376,7 @@ public class ScrobblingService extends Service {
         double sp = settings.getScrobblePoint() / (double) 100;
         sp -= 0.01; // to be safe
         long mintime = (long) (sp * 1000 * track.getDuration());
-        Log.e(TAG,"mintime:" +Long.toString(mintime));
+        //Log.e(TAG,"mintime:" +Long.toString(mintime));
 
         if (track.hasBeenQueued()) {
             Log.d(TAG, "Trying to queue a track that already has been queued");

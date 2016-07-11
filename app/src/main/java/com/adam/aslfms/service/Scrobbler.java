@@ -51,6 +51,7 @@ public class Scrobbler extends AbstractSubmitter {
 
     // private final Context mCtx;
     private final ScrobblesDatabase mDb;
+    Context mCtx;
 
     public static final int MAX_SCROBBLE_LIMIT = 50;
 
@@ -58,6 +59,7 @@ public class Scrobbler extends AbstractSubmitter {
                      ScrobblesDatabase db) {
         super(napp, ctx, net);
         this.mDb = db;
+        this.mCtx = ctx;
     }
 
     @Override
@@ -144,7 +146,7 @@ public class Scrobbler extends AbstractSubmitter {
 // handle Exception
         try {
             url = new URL(hInfo.scrobbleUri);
-            Log.e(TAG,url.toString());
+            Log.d(TAG,url.toString());
         } catch (MalformedURLException e) {
             Log.d(TAG, "The URL is not valid.");
             Log.d(TAG, e.getMessage());
@@ -169,9 +171,9 @@ public class Scrobbler extends AbstractSubmitter {
                 params.put("m" + is, track.getMbid());
                 params.put("r" + is, track.getRating());
                 try {
+                    NetworkerManager mNetManager = new NetworkerManager(mCtx,mDb);
                 if (url.toString().contains("audioscrobbler")&&track.getRating().equals("L")) {
-
-                    Log.e(TAG,"Launching heart service. "+settings.getPassword(NetApp.LASTFM)+" "+settings.getUsername(NetApp.LASTFM));
+                    mNetManager.launchHeartTrack(track);
                 }} catch (Exception e) {
                     Log.e(TAG,"Exc: "+e);
                 }
