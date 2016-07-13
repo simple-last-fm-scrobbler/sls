@@ -67,13 +67,12 @@ public class Heart extends NetRunnable {
         String sig2 = MD5.getHashString(sign2);
 
         String heartResult = "";
-        //Log.d(TAG, "sk: "+settings.getSessionKey(NetApp.LASTFM));
 
         InputStream os;
         try {
             os = postHeartTrack(hearTrack, settings.getAPIkey(), sig2, settings.getSessionKey(NetApp.LASTFM));
             BufferedReader in = new BufferedReader(new InputStreamReader(os));
-            String inputLine;
+            String inputLine = "";
             while ((inputLine = in.readLine()) != null) {
                 heartResult += inputLine;
             }
@@ -128,13 +127,8 @@ public class Heart extends NetRunnable {
         conn.connect();
 
         Log.d(TAG, "Response code: " + conn.getResponseCode());
-        InputStream error = conn.getErrorStream();
-        InputStream streamOut;
-        if (error == null) {
-            streamOut = conn.getInputStream();
-        } else {
-            streamOut = error;
-        }
+
+        InputStream streamOut = conn.getInputStream();
         conn.disconnect();
         return streamOut;
     }

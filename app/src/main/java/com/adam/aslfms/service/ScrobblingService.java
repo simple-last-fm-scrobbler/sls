@@ -26,6 +26,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
@@ -163,11 +164,11 @@ public class ScrobblingService extends Service {
                                 Toast.LENGTH_LONG).show();
                     } else {
                         mDb.loveRecentTrack();
+                        Log.d(TAG, "Love Track Rating!");
                     }
                 } catch (Exception e){
                     Log.e(TAG,"CAN'T COPY TRACK"+e);
                 }
-                Log.d(TAG, "Love Track Rating!");
             } else if (mCurrentTrack != null) {
                 mCurrentTrack.setRating();
                 Log.d(TAG, "Love Track Rating!");
@@ -259,7 +260,7 @@ public class ScrobblingService extends Service {
                                     .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
                                             R.mipmap.ic_launcher))
                                     .setContentTitle(track.getTrack())
-                                    .setSmallIcon(R.mipmap.ic_launcher)
+                                    .setSmallIcon(R.mipmap.ic_notify)
                                     .setContentText(" by " + track.getArtist());
                     int NOTIFICATION_ID = 14619;
                     Intent targetIntent = new Intent(mCtx, chooseActivity);
