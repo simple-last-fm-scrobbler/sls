@@ -1,16 +1,16 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * <p>
+ * <p/>
  * https://github.com/tgwizard/sls
- * <p>
+ * <p/>
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * <p>
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,12 +23,20 @@ package com.adam.aslfms.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import android.content.Context;
 import android.content.Intent;
@@ -44,6 +52,9 @@ import com.adam.aslfms.util.AuthStatus.ClientBannedException;
 import com.adam.aslfms.util.AuthStatus.TemporaryFailureException;
 import com.adam.aslfms.util.AuthStatus.UnknownResponseException;
 import com.adam.aslfms.util.Util.NetworkStatus;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
 
 /**
  *
@@ -116,18 +127,17 @@ public class Handshaker extends NetRunnable {
             getNetworker().resetSleeper();
 
             // TODO: Add API 2.0 to handshake OR create separate code
-            if(getNetApp()==NetApp.LASTFM) {
+            // limited to Heart Feature
+            // make this optional in case user has Libre.fm
+            if (getNetApp() == NetApp.LASTFM) {
                 if (settings.getSessionKey(NetApp.LASTFM).equals("")) {
-                    Log.e(TAG,"Last.fm: sessionKey is blank. ");
-                    final String testAPI = "ee08433b0c51f9978bc97bca7ed9620a";
-                    final String testSharedSecret = "f2483a76d484ef82bc518f6b2dc7ca4e";
+                    Log.e(TAG, "Last.fm: getting session key. ");
 
-                    // settings.setSessionKey(NetApp.LASTFM, "");
+                    authenticateNew();
                 }
             }
             // we don't need/want it anymore, settings.getPwdMd5() is enough
-            // TODO:
-            // settings.setPassword(getNetApp(), "");
+            settings.setPassword(getNetApp(), "");
             //
 
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_OK);
@@ -295,6 +305,127 @@ public class Handshaker extends NetRunnable {
             conn.disconnect();
         }
         return null;
+    }
+
+    private void authenticateNew()
+            throws TemporaryFailureException, BadAuthException, ClientBannedException {
+
+        if (settings.getPassword(NetApp.LASTFM).length() == 0) {
+            Log.d(TAG, "Invalid (empty) username for: " + getNetApp().getName());
+            throw new BadAuthException(getContext().getString(
+                    R.string.auth_bad_auth));
+        }
+
+        String sign = "api_key" + settings.getAPIkey() + "methodauth.getMobileSessionpassword" + settings.getPassword(NetApp.LASTFM) + "username" + settings.getUsername(NetApp.LASTFM).toLowerCase() + settings.getSecret();
+        String signature = MD5.getHashString(sign);
+
+        URL url = null;
+        HttpsURLConnection conn = null;
+
+        try {
+            url = new URL("https://ws.audioscrobbler.com/2.0/");
+            // Log.d(TAG,url.toString());
+        } catch (MalformedURLException e) {
+            Log.d(TAG, "The URL is not valid.");
+            Log.d(TAG, e.getMessage());
+            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+        }
+
+        try {
+            //Log.d(TAG, url.toString());
+            conn = (HttpsURLConnection) url.openConnection();
+        } catch (NullPointerException | IOException e) {
+            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+        }
+        // Create the SSL connection
+        SSLContext sc;
+        try {
+            sc = SSLContext.getInstance("TLS");
+            sc.init(null, null, new java.security.SecureRandom());
+        } catch (NoSuchAlgorithmException | KeyManagementException e) {
+            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+        }
+        conn.setSSLSocketFactory(sc.getSocketFactory());
+
+        // set Timeout and method
+        conn.setReadTimeout(7000);
+        conn.setConnectTimeout(7000);
+        try {
+            conn.setRequestMethod("POST");
+        } catch (ProtocolException e) {
+            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+        }
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+        conn.setDoInput(true);
+
+        // Add any data you wish to post here
+        Map<String, Object> params = new LinkedHashMap<>();
+        params.put("method", "auth.getMobileSession");
+        params.put("username", settings.getUsername(NetApp.LASTFM).toLowerCase());
+        params.put("password", settings.getPassword(NetApp.LASTFM));
+        params.put("api_key", settings.getAPIkey());
+        params.put("api_sig", signature);
+
+        StringBuilder postData = new StringBuilder();
+        byte[] postDataBytes;
+        try {
+            for (Map.Entry<String, Object> param : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+            }
+            postDataBytes = postData.toString().getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+        }
+        conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+        String result = "";
+        String errorResult = "";
+        try {
+            conn.getOutputStream().write(postDataBytes);
+
+            conn.connect();
+
+            Log.d(TAG, "Response code: " + conn.getResponseCode());
+            try {
+                BufferedReader errorIn = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                String inputLine;
+                while ((inputLine = errorIn.readLine()) != null) {
+                    errorResult += inputLine;
+                }
+            } catch (NullPointerException e){
+                Log.e(TAG,"No error stream on new auth!");
+            }
+            BufferedReader in;
+            try {
+                in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    result += inputLine;
+                }
+            } catch (NullPointerException e){
+                throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+            }
+
+        } catch (IOException e) {
+            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+        }
+        Log.d(TAG, "Session Result: " + result);
+        if (result.contains("status=\"ok\"")) {
+            final Pattern pattern = Pattern.compile("<key>(.*?)</key>");
+            final Matcher matcher = pattern.matcher(result);
+            if (matcher.find()) {
+                settings.setSessionKey(NetApp.LASTFM, matcher.group(1));
+                //Log.d(TAG, matcher.group(1));
+            } else {
+                throw new TemporaryFailureException("Weird response from handskake-req: " + errorResult + ": Last.fm");
+            }
+        } else {
+            throw new TemporaryFailureException("Weird response from handskake-req: " + errorResult + ": Last.fm");
+        }
+        conn.disconnect();
     }
 
     private static String enc(String s) {

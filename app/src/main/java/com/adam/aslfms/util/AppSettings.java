@@ -154,6 +154,14 @@ public class AppSettings {
         return prefs.getString(napp.getSettingsPrefix() + KEY_SESSION, "");
     }
 
+    public String getAPIkey(){
+        return "ee08433b0c51f9978bc97bca7ed9620a";
+    }
+
+    public String getSecret(){
+        return "f2483a76d484ef82bc518f6b2dc7ca4e";
+    }
+
     /**
      * Saves an MD5 hash of the password for a user account at the
      * {@link NetApp} {@code napp}. This is stored in the settings file until it
