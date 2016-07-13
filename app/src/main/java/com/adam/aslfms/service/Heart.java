@@ -23,9 +23,7 @@ package com.adam.aslfms.service;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.adam.aslfms.R;
 import com.adam.aslfms.UserCredActivity;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.MD5;
@@ -113,6 +111,7 @@ public class Heart extends NetRunnable {
                         settings.setSessionKey(NetApp.LASTFM, matcher.group(1));
                         //Log.d(TAG, matcher.group(1));
                         settings.setPassword(NetApp.LASTFM, "");
+                        settings.setPassword(NetApp.LIBREFM, "");  // temporary authenticateNew will be added to networking.
                     } else {
                         Log.e(TAG, "Session KEY not FOUND!!");
                     }
@@ -135,6 +134,7 @@ public class Heart extends NetRunnable {
 
                 if (heartResult.contains("status=\"ok\"")) {
                     settings.setPassword(NetApp.LASTFM, "");
+                    settings.setPassword(NetApp.LIBREFM, "");  // temporary authenticateNew will be added to networking.
                 }
             } catch (Exception e) {
                 //Log.e(TAG, "postHeartTrack "+e);

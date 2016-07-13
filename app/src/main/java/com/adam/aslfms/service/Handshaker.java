@@ -115,8 +115,20 @@ public class Handshaker extends NetRunnable {
             // no more sleeping, handshake succeeded
             getNetworker().resetSleeper();
 
+            // TODO: Add API 2.0 to handshake OR create separate code
+            if(getNetApp()==NetApp.LASTFM) {
+                if (settings.getSessionKey(NetApp.LASTFM).equals("")) {
+                    Log.e(TAG,"Last.fm: sessionKey is blank. ");
+                    final String testAPI = "ee08433b0c51f9978bc97bca7ed9620a";
+                    final String testSharedSecret = "f2483a76d484ef82bc518f6b2dc7ca4e";
+
+                    // settings.setSessionKey(NetApp.LASTFM, "");
+                }
+            }
             // we don't need/want it anymore, settings.getPwdMd5() is enough
-            //settings.setPassword(getNetApp(), "");
+            // TODO:
+            // settings.setPassword(getNetApp(), "");
+            //
 
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_OK);
 

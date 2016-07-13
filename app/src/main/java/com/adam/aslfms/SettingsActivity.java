@@ -39,6 +39,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
@@ -114,6 +115,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
         } catch (Exception e) {
             Log.e(TAG, "Version exception, READ_EXTERNAL_STORAGE. "+e);
+        }
+        //Credentials Check
+        if ((settings.getPassword(NetApp.LASTFM).equals("") && settings.getUsername(NetApp.LASTFM).equals(""))
+                && (settings.getPassword(NetApp.LIBREFM).equals("") && settings.getUsername(NetApp.LIBREFM).equals("")) ){
+            Toast.makeText(this, this.getString(R.string.creds_required),
+                    Toast.LENGTH_LONG).show();
         }
     }
 

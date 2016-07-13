@@ -62,6 +62,8 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 			value = (Long) obj;
 		else if (obj instanceof Integer)
 			value = (Integer) obj;
+		else if (obj instanceof Double)
+			value = ((Double) obj).intValue();
 		else if (obj instanceof String)
 			value = Long.valueOf((String) obj).longValue();
 		else if (throwOnFailure)

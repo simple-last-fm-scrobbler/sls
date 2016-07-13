@@ -17,6 +17,7 @@
     <string name="by">by</string>
     <string name="issues">Issues: %s</string>
     <string name="website">Website: %s</string>
+    <string name="troubShoot">Trouble Shoot: %s</string>
     <string name="by_adam">by Adam Renberg</string>
     <string name="license">Released under Apache License v2.0</string>
     <string name="about_text">A lightweight scrobbler that submits information to Last.fm (and/or Libre.fm) on what music you play on your android phone. Last.fm then lets you view listening statistics and recommends new music you might like.</string>
@@ -107,9 +108,10 @@
     <string name="no_current_track">No Current Song Available</string>
     <!-- END copy strings -->
 
-    <!-- START permissions strings -->
+    <!-- START permissions and warnings strings -->
     <string name="permission_required">Permission REQUIRED to work properly</string>
-    <!-- END permissions strings -->
+    <string name="creds_required">Credentials REQUIRED to work properly</string>
+    <!-- END permissions and warnings strings -->
 
     <!-- START mapis strings -->
     <string name="incompatability_short">Warning: %1$s is installed and may cause double scrobbling.</string>

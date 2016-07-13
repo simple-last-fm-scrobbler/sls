@@ -90,7 +90,6 @@ Please note that some of the following applications require changing their defau
  * [SmartVanilla Music](https://github.com/gordon01/vanilla) ([Google Play](https://play.google.com/store/apps/details?id=su.thinkdifferent.vanilla))
  * [bTunes](http://www.btunesmusicplayer.com/default.html) ([Google Play](https://play.google.com/store/apps/details?id=com.bmayers.bTunesRelease), and [more](http://www.facebook.com/pages/bTunes/362875048125?v=wall))
  * [WIMP](http://wimp.no/)
- * [Zimly](http://zim.ly/)
  * [Just Playlists](http://jp.folsoms.info)
  * [PowerAMP](http://powerampapp.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer))
  * [myTouch 4G](http://mytouch.t-mobile.com/)

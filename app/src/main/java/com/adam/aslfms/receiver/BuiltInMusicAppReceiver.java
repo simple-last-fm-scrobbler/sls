@@ -113,9 +113,8 @@ public abstract class BuiltInMusicAppReceiver extends
 
 	MusicAPI getMusicAPI(Context ctx, Bundle bundle) {
 		CharSequence bundleAppName;
-		CharSequence bundleAppPackage;
+		CharSequence bundleAppPackage = null;
 
-		bundleAppPackage = bundle.getCharSequence("scrobbling_source");
 		try {
 			if (bundle.containsKey("app")) {
 				bundleAppPackage = bundle.getCharSequence("app");
@@ -123,7 +122,13 @@ public abstract class BuiltInMusicAppReceiver extends
 			if (bundle.containsKey("app-package")) {
 				bundleAppPackage = bundle.getCharSequence("app-package");
 			}
-		} catch (Exception e){
+			if (bundle.containsKey("scrobbling_source")){
+				bundleAppPackage = bundle.getCharSequence("scrobbling_source");
+			}
+			if (bundle.containsKey("package") && !bundle.containsKey("player")){
+				bundleAppPackage = bundle.getCharSequence("package");
+			}
+			} catch (Exception e){
 			Log.d(TAG,"Improper package source: "+e);
 		}
 		if (bundleAppPackage != null)
@@ -142,6 +147,7 @@ public abstract class BuiltInMusicAppReceiver extends
 			bundleAppName = bundle.getCharSequence("player");
 			bundleAppPackage = bundle.getCharSequence("package");
 		}
+		Log.d(TAG,"Package: "+bundleAppPackage+" : "+bundleAppName);
 
 		MusicAPI musicAPI;
 		if ((bundleAppName != null) && (bundleAppPackage != null)) {
@@ -266,9 +272,9 @@ public abstract class BuiltInMusicAppReceiver extends
 					try {
 						int du = bundle.getInt("duration") / 1000;
 						b.setDuration(du);
-						Log.e(TAG, "Integer: " + Integer.toString(du));
+						Log.d(TAG, "Integer: " + Integer.toString(du));
 					} catch (Exception e) {
-						Log.d(TAG, "duration: " + e);
+						Log.e(TAG, "duration: " + e);
 					}
 				}
 			}

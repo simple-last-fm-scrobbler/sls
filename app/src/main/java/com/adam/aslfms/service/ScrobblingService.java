@@ -259,12 +259,8 @@ public class ScrobblingService extends Service {
                                     .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
                                             R.mipmap.ic_launcher))
                                     .setContentTitle(track.getTrack())
+                                    .setSmallIcon(R.mipmap.ic_launcher)
                                     .setContentText(" by " + track.getArtist());
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        builder.setSmallIcon(android.R.color.transparent);
-                    } else {
-                        builder.setSmallIcon(R.mipmap.ic_launcher);
-                    }
                     int NOTIFICATION_ID = 14619;
                     Intent targetIntent = new Intent(mCtx, chooseActivity);
                     PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
