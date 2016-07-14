@@ -157,24 +157,29 @@ public class ScrobblingService extends Service {
             onPlayStateChanged(track, state);
 
         } else if (action.equals(ACTION_HEART)) {
-            if (mCurrentTrack != null && mCurrentTrack.hasBeenQueued()) {
-                try {
-                    if (mDb.fetchRecentTrack()==null) {
-                        Toast.makeText(this, this.getString(R.string.no_heart_track),
-                                Toast.LENGTH_LONG).show();
-                    } else {
-                        mDb.loveRecentTrack();
-                        Log.d(TAG, "Love Track Rating!");
+            if (!settings.getUsername(NetApp.LASTFM).equals("")) {
+                if (mCurrentTrack != null && mCurrentTrack.hasBeenQueued()) {
+                    try {
+                        if (mDb.fetchRecentTrack() == null) {
+                            Toast.makeText(this, this.getString(R.string.no_heart_track),
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            mDb.loveRecentTrack();
+                            Log.d(TAG, "Love Track Rating!");
+                        }
+                    } catch (Exception e) {
+                        Log.e(TAG, "CAN'T COPY TRACK" + e);
                     }
-                } catch (Exception e){
-                    Log.e(TAG,"CAN'T COPY TRACK"+e);
+                } else if (mCurrentTrack != null) {
+                    mCurrentTrack.setRating();
+                    Log.d(TAG, "Love Track Rating!");
+                } else {
+                    Toast.makeText(this, this.getString(R.string.no_current_track),
+                            Toast.LENGTH_SHORT).show();
                 }
-            } else if (mCurrentTrack != null) {
-                mCurrentTrack.setRating();
-                Log.d(TAG, "Love Track Rating!");
             } else {
-                Toast.makeText(this, this.getString(R.string.no_current_track),
-                        Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, this.getString(R.string.no_lastFm),
+                        Toast.LENGTH_LONG).show();
             }
         } else if (action.equals(ACTION_COPY)){
             if (mCurrentTrack != null && mCurrentTrack.hasBeenQueued()) {

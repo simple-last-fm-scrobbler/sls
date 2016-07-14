@@ -37,6 +37,11 @@ import com.adam.aslfms.util.enums.PowerOptions;
 import com.adam.aslfms.util.enums.SortField;
 import com.adam.aslfms.util.enums.SubmissionType;
 
+import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
+
 /**
  * @author tgwizard
  */
@@ -155,12 +160,14 @@ public class AppSettings {
     }
 
     public String getAPIkey(){
-        return "ee08433b0c51f9978bc97bca7ed9620a";
+        return "EoyDuAbyW8RGZ8exvi+J205QfXC8qy3eoEhgqrjbU9krAbk7zsobQQ==";
     }
 
     public String getSecret(){
-        return "f2483a76d484ef82bc518f6b2dc7ca4e";
+        return "u5w3f1fzTIEshjiQdLJ8jqzSEtLIeCkwItIWFVien1srAbk7zsobQQ==";
     }
+
+    public String getSecret2() { return MD5.getHashString("unComplicatedHash345623@%^#@^$0"); }
 
     /**
      * Saves an MD5 hash of the password for a user account at the
@@ -524,5 +531,44 @@ public class AppSettings {
 
     public boolean getWidgetAlsoDisableNP() {
         return prefs.getBoolean(KEY_WIDGET_ALSO_DISABLE_NP, false);
+    }
+
+
+    public SecretKey getSecKey(){
+        try {
+            DESKeySpec keySpec = new DESKeySpec(getSecret2().getBytes("UTF8"));
+            SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
+            SecretKey key = keyFactory.generateSecret(keySpec);
+            return key;
+        } catch (Exception e){
+            return null;
+        }
+    }
+
+    public String cnvK(String inStr) {
+        try {
+            byte[] cleartext = inStr.getBytes("UTF8");
+            Cipher cipher = Cipher.getInstance("DES"); // cipher is not thread safe
+            cipher.init(Cipher.ENCRYPT_MODE, getSecKey());
+            String encryptedPwd = myBase64.encodeToString(cipher.doFinal(cleartext), myBase64.DEFAULT);
+            return encryptedPwd;
+        } catch (Exception e) {
+            e.getStackTrace();
+            return "";
+        }
+    }
+
+    public String rcnvK(String inStr){
+        try {
+            byte[] encrypedPwdBytes = myBase64.decode(inStr, myBase64.DEFAULT);
+            Cipher cipher = Cipher.getInstance("DES"); // cipher is not thread safe
+            cipher.init(Cipher.DECRYPT_MODE, getSecKey());
+            byte[] plainTextPwdBytes = (cipher.doFinal(encrypedPwdBytes));
+            String outPut = new String(plainTextPwdBytes);;
+            return outPut;
+        } catch (Exception e){
+            e.getStackTrace();
+            return "";
+        }
     }
 }

@@ -62,15 +62,15 @@ public class Heart extends NetRunnable {
 
 // can't heart track
 
-        String sign2 = "api_key" + settings.getAPIkey() + "artist" + hearTrack.getArtist() + "methodtrack.lovesk" + settings.getSessionKey(NetApp.LASTFM) + "track" + hearTrack.getTrack() + settings.getSecret();
+        String sigText = "api_key" + settings.rcnvK(settings.getAPIkey()) + "artist" + hearTrack.getArtist() + "methodtrack.lovesk" + settings.getSessionKey(NetApp.LASTFM) + "track" + hearTrack.getTrack() + settings.rcnvK(settings.getSecret());
 
-        String sig2 = MD5.getHashString(sign2);
+        String signature = MD5.getHashString(sigText);
 
         String heartResult = "";
 
         InputStream os;
         try {
-            os = postHeartTrack(hearTrack, settings.getAPIkey(), sig2, settings.getSessionKey(NetApp.LASTFM));
+            os = postHeartTrack(hearTrack, settings.rcnvK(settings.getAPIkey()), signature, settings.getSessionKey(NetApp.LASTFM));
             BufferedReader in = new BufferedReader(new InputStreamReader(os));
             String inputLine = "";
             while ((inputLine = in.readLine()) != null) {
@@ -132,6 +132,5 @@ public class Heart extends NetRunnable {
         conn.disconnect();
         return streamOut;
     }
-
 
 }

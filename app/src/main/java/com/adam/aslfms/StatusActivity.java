@@ -21,6 +21,7 @@
 
 package com.adam.aslfms;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -29,9 +30,14 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.adam.aslfms.service.NetApp;
+import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.ScrobblesDatabase;
+import com.adam.aslfms.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +48,20 @@ public class StatusActivity extends AppCompatActivity {
 	private static final int MENU_VIEW_CACHE_ID = 1;
 	private static final int MENU_RESET_STATS_ID = 2;
 
+    private AppSettings settings;
+
+    private ScrobblesDatabase mDb;
+
+    private static final String TAG = "StatusActivity";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.status_activity);
+
+        settings = new AppSettings(this);
+
+        mDb = new ScrobblesDatabase(this);
 
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
 		setSupportActionBar(toolbar);
@@ -72,6 +88,30 @@ public class StatusActivity extends AppCompatActivity {
 
 		return super.onCreateOptionsMenu(menu);
 	}
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case MENU_SCROBBLE_NOW_ID:
+                int numInCache = mDb.queryNumberOfTracks();
+                Util.scrobbleAllIfPossible(this, numInCache);
+                Log.e(TAG,"Scrobble attempt.");
+                return true;
+            case MENU_RESET_STATS_ID:
+                for (NetApp napp : NetApp.values()){
+                    settings.clearSubmissionStats(napp);
+                }
+                return true;
+            case MENU_VIEW_CACHE_ID:
+                Intent i = new Intent(this, ViewScrobbleCacheActivity.class);
+                i.putExtra("viewall", true);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private void setupViewPager(ViewPager viewPager) {
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());

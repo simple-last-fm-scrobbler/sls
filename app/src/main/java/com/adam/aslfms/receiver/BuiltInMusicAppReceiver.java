@@ -254,7 +254,6 @@ public abstract class BuiltInMusicAppReceiver extends
 		Log.d(TAG, "Will read data from intent");
 
 		CharSequence ar = bundle.getCharSequence("artist");
-		CharSequence al = bundle.getCharSequence("album");
 		CharSequence tr = bundle.getCharSequence("track");
 
 		if(bundle.containsKey("duration")){
@@ -284,8 +283,15 @@ public abstract class BuiltInMusicAppReceiver extends
 		if (ar == null || tr == null) {
 			throw new IllegalArgumentException("null track values");
 		}
-		if (al != null){
-			b.setAlbum(al.toString()); // album is not required to scrobble.
+		if (bundle.containsKey("album")) {
+			CharSequence al = bundle.getCharSequence("album");
+			if (al == null || "Unknown album".equals(al.toString()) || "Unknown".equals(al.toString())) {
+				b.setAlbum(""); // album is not required to scrobble.
+			} else {
+				b.setAlbum(al.toString());
+			}
+		} else {
+			b.setAlbum("");
 		}
 		b.setArtist(ar.toString());
 		b.setTrack(tr.toString());
