@@ -1,8 +1,6 @@
 - 1.5.0 (2016-1-1)
   * Bug fixes and more (thanks to inverse)
   * Add translations (thanks to MendelGusmao)
-  * Add Huawei support
-  * Add Polish translation (thanks to Grzes58)
 
 - 1.4.9 (2015-08-09)
   * Add French translation (thanks to pierreduchemin)
