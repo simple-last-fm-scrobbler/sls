@@ -25,9 +25,7 @@ More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/he
 
 If you need inspiration on stuff to do, you might want to have a look at the list of issues.
 
-If you want to help out and start immediately, please see [issues (bugs label)](https://github.com/tgwizard/sls/issues?q=is%3Aopen+is%3Aissue+label%3Abugs).
-
-If you are using SLS and have a problem, try [TroubleShooting](https://github.com/tgwizard/sls/blob/master/TroubleShooting.md)
+If you want to help out and start immediately, please see HumbleBeeBumbleBee's [Issue Summary](https://github.com/tgwizard/sls/blob/master/IssueSummary.md)
 
 Contact emails: 
 
@@ -116,7 +114,7 @@ Please note that some of the following applications require changing their defau
  * [Amazon Music](http://www.amazon.com/gp/feature.html?ie=UTF8&docId=1000454841) ([Google Play](https://play.google.com/store/apps/details?id=com.amazon.mp3), [Amazon Appstore](http://www.amazon.com/gp/product/B004FRX0MY))
  * [Radio Noise FM](http://noisefm.ru) ([Google Play](https://play.google.com/store/apps/details?id=ru.modi.dubsteponline), [Amazon Appstore](http://www.amazon.com/gp/product/B00GAXBGM2))
  * [8tracks](https://8tracks.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.e8tracks), [Amazon Appstore](http://www.amazon.com/8tracks/dp/B007JWJIJG/)) **(b)**
- * [VLC](https://www.videolan.org/vlc/download-android.html) ([VLC](https://www.videolan.org/vlc/download-android.html), [Google Play](https://play.google.com/store/apps/details?id=org.videolan.vlc), [F-Droid](https://f-droid.org/repository/browse/?fdid=org.videolan.vlc)) **(b)** VLC does not Work at the moment.
+ * [VLC](https://www.videolan.org/vlc/download-android.html) ([VLC](https://www.videolan.org/vlc/download-android.html), [Google Play](https://play.google.com/store/apps/details?id=org.videolan.vlc), [F-Droid](https://f-droid.org/repository/browse/?fdid=org.videolan.vlc)) **(b)**
  * [Spotify](https://spotify.com) ([Google Play](https://play.google.com/store/apps/details?id=com.spotify.music))
  * [n7player](http://n7player.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.n7mobile.nplayer))
  * [MortPlayer](http://www.sto-helit.de/) ([Google Play](https://play.google.com/store/apps/details?id=de.stohelit.folderplayer))
@@ -124,9 +122,6 @@ Please note that some of the following applications require changing their defau
  * BlackPlayer ([Google Play](https://play.google.com/store/apps/details?id=com.kodarkooperativet.blackplayerfree))
  * [Jetaudio](https://www.facebook.com/jetappfactory) ([Google Play](https://play.google.com/store/apps/details?id=com.jetappfactory.jetaudio)) 
  * [AIMP](http://aimp.ru/) ([Google Play](https://play.google.com/store/apps/details?id=com.aimp.player))
- * Huawei Music Player
- * [Timber](https://play.google.com/store/apps/details?id=naman14.timber)
- * [FooBar2000](https://play.google.com/store/apps/details?id=com.foobar2000.foobar2000)
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
@@ -182,7 +177,6 @@ Reported working:
  * Samsung Galaxy S3
  * Samsung Galaxy S4
  * Samsung Galaxy S5
- * Samsung Galaxy S7
  * Samsung Galaxy Spica (doesn't work with the built-in 2.1 music app)
  * Sony Ericsson Xperia X10 Mini Pro
  * Sony Ericsson Xperia X8
@@ -218,7 +212,7 @@ Developers
 If you want to enable your app to scrobble music through SLS, see
 [Developer's API](https://github.com/tgwizard/sls/blob/master/Developer%27s%20API.md).
 
-If you want to help out and start immediately take a look at the [issues (bugs label)](https://github.com/tgwizard/sls/issues?q=is%3Aopen+is%3Aissue+label%3Abugs)
+If you want to help out and start immediately, please see HumbleBeeBumbleBee's [Issue Summary](https://github.com/tgwizard/sls/blob/master/IssueSummary.md)
 
 Credits
 =======
@@ -255,7 +249,6 @@ Contributors
  * herrherrmann [github.com/herrherrmann](https://github.com/herrherrmann), German translation
  * Alia5 [github.com/Alia5](https://github.com/Alia5), better Enabled apps handle
  * MendelGusmao [github.com/MendelGusmao](https://github.com/MendelGusmao), Brazil Portuguese Translation
- * Add Polish translation (thanks to Grzes58)
 
 A complete list of [contributors](https://github.com/tgwizard/sls/graphs/contributors)
  
