@@ -45,7 +45,7 @@ import com.adam.aslfms.util.enums.SubmissionType;
 /**
  * @author tgwizard
  */
-public class NPNotifier extends AbstractSubmitter {
+public class    NPNotifier extends AbstractSubmitter {
 
     private static final String TAG = "NPNotifier";
 
@@ -113,20 +113,13 @@ public class NPNotifier extends AbstractSubmitter {
         Log.d(TAG, "Notifying now playing: " + getNetApp().getName());
 
         Log.d(TAG, getNetApp().getName() + ": " + track.toString());
-        URL url = null;
+        URL url;
         HttpURLConnection conn = null;
 
 // handle Exception
         try {
             url = new URL(hInfo.nowPlayingUri);
             // Log.d(TAG,url.toString());
-        } catch (MalformedURLException e) {
-            Log.d(TAG, "The URL is not valid.");
-            Log.d(TAG, e.getMessage());
-            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-        }
-
-        try {
             Map<String, Object> params = new LinkedHashMap<>();
             params.put("s", hInfo.sessionId);
             params.put("a", track.getArtist());
@@ -150,11 +143,7 @@ public class NPNotifier extends AbstractSubmitter {
             }
             byte[] postDataBytes = postData.toString().getBytes("UTF-8");
 
-            try {
-                conn = (HttpURLConnection) url.openConnection();
-            } catch (NullPointerException e) {
-                throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-            }
+            conn = (HttpURLConnection) url.openConnection();
             // Log.d(TAG,conn.toString());
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -163,15 +152,24 @@ public class NPNotifier extends AbstractSubmitter {
             conn.getOutputStream().write(postDataBytes);
             Log.i(TAG, params.toString());
 
-            BufferedReader r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            int resCode = conn.getResponseCode();
+            Log.d(TAG, "Response code: " + resCode);
+            BufferedReader r;
+            if (resCode==200) {
+                r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            } else {
+                r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            }
             StringBuilder rsponse = new StringBuilder();
             String line;
             while ((line = r.readLine()) != null) {
                 rsponse.append(line).append('\n');
             }
             String response = rsponse.toString();
-            Log.d(TAG, response);
+            // some redundancy here ?
             String[] lines = response.split("\n");
+            Log.d(TAG, "Session Result: " + lines.length + " : " + response);
+
             if (response.startsWith("OK")) {
                 Log.i(TAG, "Now playing success: " + getNetApp().getName());
             } else if (response.startsWith("BADSESSION")) {
@@ -183,13 +181,12 @@ public class NPNotifier extends AbstractSubmitter {
                 throw new TemporaryFailureException("Now Playing failed weirdly: " + response);
             }
 
-        } catch (IOException e) {
+        } catch (IOException | NullPointerException e) {
             throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-        }
-        try {
-            conn.disconnect();
-        } catch (NullPointerException e) {
-            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+        } finally {
+            if (conn!=null){
+                conn.disconnect();
+            }
         }
     }
 }

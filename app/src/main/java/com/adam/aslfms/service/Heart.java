@@ -1,16 +1,16 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * <p>
+ * <p/>
  * https://github.com/tgwizard/sls
- * <p>
+ * <p/>
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * <p>
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -68,29 +68,32 @@ public class Heart extends NetRunnable {
 
         String heartResult = "";
 
-        InputStream os;
+        BufferedReader in;
         try {
-            os = postHeartTrack(hearTrack, settings.rcnvK(settings.getAPIkey()), signature, settings.getSessionKey(NetApp.LASTFM));
-            BufferedReader in = new BufferedReader(new InputStreamReader(os));
+            in = postHeartTrack(hearTrack, settings.rcnvK(settings.getAPIkey()), signature, settings.getSessionKey(NetApp.LASTFM));
+
             String inputLine = "";
             while ((inputLine = in.readLine()) != null) {
                 heartResult += inputLine;
             }
-            Log.d(TAG, "Post result: " + heartResult);
+            Log.d(TAG, "Heart result: " + heartResult);
 
             if (heartResult.contains("status=\"ok\"")) {
-                Log.d(TAG,"Successful heart track.");
-            } else {
+                Log.d(TAG, "Successful heart track.");
+            } else if (heartResult.contains("code=\"4\"") || heartResult.contains("code=\"9\"")) {
                 // store hearTrack in database or allow failure.
+                settings.setSessionKey(NetApp.LASTFM, "");
+            } else {
+                Log.d(TAG, "Failed heart track.");
             }
         } catch (Exception e) {
-            Log.e(TAG, "Heart track fail "+e);
+            Log.e(TAG, "Heart track fail " + e);
             e.printStackTrace();
         }
     }
 
-    private InputStream postHeartTrack(Track track, String testAPI, String signature, String
-            sessionKey) throws IOException {
+    private BufferedReader postHeartTrack(Track track, String testAPI, String signature, String
+            sessionKey) throws IOException, NullPointerException {
         URL url = new URL("http://ws.audioscrobbler.com/2.0/");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 
@@ -126,11 +129,17 @@ public class Heart extends NetRunnable {
 
         conn.connect();
 
-        Log.d(TAG, "Response code: " + conn.getResponseCode());
+        int resCode = conn.getResponseCode();
+        Log.d(TAG, "Response code: " + resCode);
 
-        InputStream streamOut = conn.getInputStream();
+        BufferedReader outputStream;
+        if (resCode==200) {
+            outputStream = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        } else {
+            outputStream = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+        }
         conn.disconnect();
-        return streamOut;
+        return outputStream;
     }
 
 }

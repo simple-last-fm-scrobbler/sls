@@ -23,12 +23,9 @@ package com.adam.aslfms.service;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
@@ -41,8 +38,11 @@ import java.util.regex.Pattern;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.adam.aslfms.AboutDialog;
 import com.adam.aslfms.R;
+import com.adam.aslfms.SettingsActivity;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.MD5;
 import com.adam.aslfms.util.AuthStatus;
@@ -57,9 +57,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 
 /**
- *
  * @author tgwizard 2009
- *
  */
 public class Handshaker extends NetRunnable {
 
@@ -73,11 +71,14 @@ public class Handshaker extends NetRunnable {
 
     private final HandshakeAction hsAction;
 
+    private final Context mCtx;
+
     public Handshaker(NetApp napp, Context ctx, Networker net,
                       HandshakeAction hsAction) {
         super(napp, ctx, net);
         this.hsAction = hsAction;
         this.settings = new AppSettings(ctx);
+        this.mCtx = ctx;
     }
 
     @Override
@@ -159,6 +160,8 @@ public class Handshaker extends NetRunnable {
             }
             // badauth means we cant do any scrobbling/notifying, so clear them
             // the scrobbles already prepared will be sent at a later time
+            e.getStackTrace();
+            Util.myNotify(mCtx,SettingsActivity.class,getNetApp().getName(),mCtx.getString(R.string.network_error));
             getNetworker().unlaunchScrobblingAndNPNotifying();
         } catch (TemporaryFailureException e) {
             e.printStackTrace();
@@ -177,13 +180,16 @@ public class Handshaker extends NetRunnable {
                 getNetworker().launchSleeper();
                 getNetworker().launchHandshaker(hsAction);
             }
-
+            Util.myNotify(mCtx,SettingsActivity.class,getNetApp().getName(),mCtx.getString(R.string.network_error));
+            e.getStackTrace();
         } catch (ClientBannedException e) {
             Log.e(TAG, "This version of the client has been banned!!" + ": "
                     + getNetApp().getName());
             Log.e(TAG, e.getMessage());
-            // TODO: what??
+            // TODO: what??  notify user & open about dialog
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_CLIENTBANNED);
+            Util.myNotify(mCtx,SettingsActivity.class,getNetApp().getName(),mCtx.getString(R.string.network_error));
+            new AboutDialog(mCtx).show();
             e.getStackTrace();
         }
     }
@@ -194,15 +200,12 @@ public class Handshaker extends NetRunnable {
      * error occurs, exceptions are thrown.
      *
      * @return the result of a successful handshake, {@link HandshakeResult}
-     * @throws BadAuthException
-     *             means that the username/password provided by the user was
-     *             wrong, or that the user requested his/her credentials to be
-     *             cleared.
+     * @throws BadAuthException          means that the username/password provided by the user was
+     *                                   wrong, or that the user requested his/her credentials to be
+     *                                   cleared.
      * @throws TemporaryFailureException
-     * @throws UnknownResponseException
-     *             {@link UnknownResponseException}
-     * @throws ClientBannedException
-     *             this version of the client has been banned
+     * @throws UnknownResponseException  {@link UnknownResponseException}
+     * @throws ClientBannedException     this version of the client has been banned
      */
     public HandshakeResult handshake() throws BadAuthException,
             TemporaryFailureException, ClientBannedException {
@@ -215,7 +218,7 @@ public class Handshaker extends NetRunnable {
         String pwdMd5 = settings.getPwdMd5(netApp);
 
         if (username.length() == 0) {
-            Log.d(TAG, "Invalid (empty) username for: " + getNetApp().getName() +" : "+ settings.getUsername(netApp));
+            Log.d(TAG, "Invalid (empty) username for: " + getNetApp().getName() + " : " + settings.getUsername(netApp));
             throw new BadAuthException(getContext().getString(
                     R.string.auth_bad_auth));
         }
@@ -247,26 +250,22 @@ public class Handshaker extends NetRunnable {
                 + "&v=" + clientver + "&u=" + enc(username) + "&t=" + time
                 + "&a=" + authToken;
 
-        URL url = null;
+        URL url;
         HttpURLConnection conn = null;
         try {
             url = new URL(uri);
             // Log.d(TAG,url.toString());
-        } catch (MalformedURLException e) {
-            Log.d(TAG, "The URL is not valid.");
-            Log.d(TAG, e.getMessage());
-            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-        }
-        try {
+
             conn = (HttpURLConnection) url.openConnection();
-        } catch (NullPointerException | IOException e) {
-            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-        }
 
-        try {
             conn.setRequestProperty("Accept-Charset", "UTF-8");
-
-            BufferedReader r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            int resCode = conn.getResponseCode();
+            BufferedReader r;
+            if (resCode==200) {
+                r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            } else {
+                r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            }
             StringBuilder rsponse = new StringBuilder();
             String line;
             while ((line = r.readLine()) != null) {
@@ -275,6 +274,8 @@ public class Handshaker extends NetRunnable {
             String response = rsponse.toString();
             // some redundancy here ?
             String[] lines = response.split("\n");
+
+            Log.d(TAG, "Session Result: " + lines.length + " : " + lines[0].contains("status=\"ok\"") + ":" + response);
             if (lines.length == 4 && lines[0].equals("OK")) {
                 // handshake succeeded
                 Log.i(TAG, "Handshake succeeded!: " + netApp.getName());
@@ -302,10 +303,12 @@ public class Handshaker extends NetRunnable {
                 throw new TemporaryFailureException("Weird response from handskake-req: " + response + ": " + netApp.getName());
             }
 
-        } catch (IOException e) {
+        } catch (NullPointerException | IOException e) {
             throw new TemporaryFailureException(TAG + ": " + e.getMessage());
         } finally {
-            conn.disconnect();
+            if (conn!=null) {
+                conn.disconnect();
+            }
         }
         return null;
     }
@@ -316,6 +319,7 @@ public class Handshaker extends NetRunnable {
         if (settings.getPassword(NetApp.LASTFM).length() == 0
                 || settings.getUsername(NetApp.LASTFM).length() == 0) {
             Log.d(TAG, "Invalid (empty) credentials for: " + NetApp.LASTFM);
+            settings.setSessionKey(NetApp.LASTFM, "");
             throw new BadAuthException(getContext().getString(
                     R.string.auth_bad_auth));
         }
@@ -323,61 +327,42 @@ public class Handshaker extends NetRunnable {
         String sign = "api_key" + settings.rcnvK(settings.getAPIkey())
                 + "methodauth.getMobileSessionpassword" + settings.getPassword(NetApp.LASTFM)
                 + "username" + settings.getUsername(NetApp.LASTFM).toLowerCase()
-                + settings.rcnvK(settings.getSecret())  ;
+                + settings.rcnvK(settings.getSecret());
         String signature = MD5.getHashString(sign);
 
-        URL url = null;
+        URL url;
         HttpsURLConnection conn = null;
 
         try {
             url = new URL("https://ws.audioscrobbler.com/2.0/");
             // Log.d(TAG,url.toString());
-        } catch (MalformedURLException e) {
-            Log.d(TAG, "The URL is not valid.");
-            Log.d(TAG, e.getMessage());
-            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-        }
 
-        try {
             //Log.d(TAG, url.toString());
             conn = (HttpsURLConnection) url.openConnection();
-        } catch (NullPointerException | IOException e) {
-            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-        }
-        // Create the SSL connection
-        SSLContext sc;
-        try {
-            sc = SSLContext.getInstance("TLS");
+            // Create the SSL connection
+            SSLContext sc = SSLContext.getInstance("TLS");
             sc.init(null, null, new java.security.SecureRandom());
-        } catch (NoSuchAlgorithmException | KeyManagementException e) {
-            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-        }
-        conn.setSSLSocketFactory(sc.getSocketFactory());
+            conn.setSSLSocketFactory(sc.getSocketFactory());
 
-        // set Timeout and method
-        conn.setReadTimeout(7000);
-        conn.setConnectTimeout(7000);
-        try {
+            // set Timeout and method
+            conn.setReadTimeout(7000);
+            conn.setConnectTimeout(7000);
             conn.setRequestMethod("POST");
-        } catch (ProtocolException e) {
-            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-        }
-        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-        conn.setDoInput(true);
-        conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
 
-        // Add any data you wish to post here
-        Map<String, Object> params = new LinkedHashMap<>();
-        params.put("method", "auth.getMobileSession");
-        params.put("username", settings.getUsername(NetApp.LASTFM).toLowerCase());
-        params.put("password", settings.getPassword(NetApp.LASTFM));
-        params.put("api_key", settings.rcnvK(settings.getAPIkey()));
-        params.put("api_sig", signature);
+            // Add any data you wish to post here
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("method", "auth.getMobileSession");
+            params.put("username", settings.getUsername(NetApp.LASTFM).toLowerCase());
+            params.put("password", settings.getPassword(NetApp.LASTFM));
+            params.put("api_key", settings.rcnvK(settings.getAPIkey()));
+            params.put("api_sig", signature);
 
-        StringBuilder postData = new StringBuilder();
-        byte[] postDataBytes;
-        try {
+            StringBuilder postData = new StringBuilder();
+            byte[] postDataBytes;
             for (Map.Entry<String, Object> param : params.entrySet()) {
                 if (postData.length() != 0) postData.append('&');
                 postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
@@ -385,70 +370,65 @@ public class Handshaker extends NetRunnable {
                 postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
             }
             postDataBytes = postData.toString().getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-        }
-        conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-        String result = "";
-        String errorResult = "";
+            conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
 
-        try {
             conn.getOutputStream().write(postDataBytes);
             conn.connect();
-
-            Log.d(TAG, "Response code: " + conn.getResponseCode());
-            BufferedReader in;
-            try {
-                in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                String inputLine;
-                while ((inputLine = in.readLine()) != null) {
-                    result += inputLine;
-                }
-            } catch (NullPointerException e) {
-                throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+            int resCode = conn.getResponseCode();
+            Log.d(TAG, "Response code: " + resCode);
+            BufferedReader r;
+            if (resCode==200) {
+                r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            } else {
+                r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
             }
-            //Log.d(TAG, "Session Result: " + result);
-            if (result.contains("status=\"ok\"")) {
+            StringBuilder rsponse = new StringBuilder();
+            String line;
+            while ((line = r.readLine()) != null) {
+                rsponse.append(line).append('\n');
+            }
+            String response = rsponse.toString();
+            // some redundancy here ?
+            String[] lines = response.split("\n");
+
+           Log.d(TAG, "Session Result: " + lines.length + " : " + lines[1].contains("status=\"ok\"") + ":" + lines[1]);
+            if (lines.length == 8 && lines[1].contains("status=\"ok\"")) {
                 final Pattern pattern = Pattern.compile("<key>(.*?)</key>");
-                final Matcher matcher = pattern.matcher(result);
+                final Matcher matcher = pattern.matcher(response);
                 if (matcher.find()) {
                     settings.setSessionKey(NetApp.LASTFM, matcher.group(1));
-                   // Log.d(TAG, matcher.group(1));
+                    // Log.d(TAG, matcher.group(1));
+                    Log.i(TAG, "Authentication success Last.fm");
                 } else {
-                    throw new TemporaryFailureException("Weird response from handskake-req: " + errorResult + ": Last.fm");
+                    settings.setSessionKey(NetApp.LASTFM,"");
+                    throw new TemporaryFailureException("Weird response from handskake-req: " + response + ": Last.fm");
                 }
             } else {
-                try {
-                    BufferedReader errorIn = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-                    String inputLine;
-                    while ((inputLine = errorIn.readLine()) != null) {
-                        errorResult += inputLine;
-                    }
-                } catch (NullPointerException e) {
-                    Log.e(TAG, "No error stream on new auth!");
-                }
-                Log.e(TAG, "error is: " + errorResult);
-                if (errorResult != "") {
-                    if (errorResult.contains("code=\"26\"")) {
-                        Log.e(TAG, "Handshake fails: client banned: " + NetApp.LASTFM);
-                        throw new ClientBannedException(getContext().getString(
-                                R.string.auth_client_banned));
-                    } else if (errorResult.contains("code=\"4\"")) {
-                        Log.i(TAG, "Handshake fails: bad auth: " + NetApp.LASTFM);
-                        throw new BadAuthException(getContext().getString(
-                                R.string.auth_bad_auth));
-                    } else {
-                        String reason = errorResult;
-                        Log.e(TAG, "Handshake fails: FAILED " + reason + ": " + NetApp.LASTFM);
-                        throw new TemporaryFailureException(getContext().getString(
-                                R.string.auth_server_error).replace("%1", reason));
-                    }
+                if (lines[1].contains("code=\"26\"") || lines[1].contains("code=\"10\"")) {
+                    Log.e(TAG, "Handshake fails: client banned: " + NetApp.LASTFM);
+                    settings.setSessionKey(NetApp.LASTFM, "");
+                    throw new ClientBannedException(getContext().getString(
+                            R.string.auth_client_banned));
+                } else if (lines[1].contains("code=\"4\"") || lines[1].contains("code=\"9\"")) {
+                    Log.i(TAG, "Handshake fails: bad auth: " + NetApp.LASTFM);
+                    settings.setSessionKey(NetApp.LASTFM, "");
+                    throw new BadAuthException(getContext().getString(
+                            R.string.auth_bad_auth));
+                } else {
+                    String reason = lines[1].substring(7);
+                    Log.e(TAG, "Handshake fails: FAILED " + reason + ": " + NetApp.LASTFM);
+                    settings.setSessionKey(NetApp.LASTFM,"");
+                    throw new TemporaryFailureException(getContext().getString(
+                            R.string.auth_server_error).replace("%1", reason));
                 }
             }
-        } catch (IOException e) {
+        } catch (NullPointerException | IOException | NoSuchAlgorithmException | KeyManagementException e) {
+            settings.setSessionKey(NetApp.LASTFM,"");
             throw new TemporaryFailureException(TAG + ": " + e.getMessage());
         } finally {
-            conn.disconnect();
+            if (conn!=null) {
+                conn.disconnect();
+            }
         }
     }
 
@@ -474,7 +454,6 @@ public class Handshaker extends NetRunnable {
      * handshake is valid.
      *
      * @author tgwizard
-     *
      */
     public static class HandshakeResult {
         /**
@@ -497,12 +476,9 @@ public class Handshaker extends NetRunnable {
          * get the information needed to instantiate this class, and therefore
          * the constructor is private.
          *
-         * @param sessionId
-         *            {@link HandshakeResult#sessionId sessionId}
-         * @param nowPlayingUri
-         *            {@link HandshakeResult#nowPlayingUri nowPlayingUri}
-         * @param scrobbleUri
-         *            {@link HandshakeResult#scrobbleUri scrobbleUri}
+         * @param sessionId     {@link HandshakeResult#sessionId sessionId}
+         * @param nowPlayingUri {@link HandshakeResult#nowPlayingUri nowPlayingUri}
+         * @param scrobbleUri   {@link HandshakeResult#scrobbleUri scrobbleUri}
          */
         private HandshakeResult(String sessionId, String nowPlayingUri,
                                 String scrobbleUri) {

@@ -25,6 +25,8 @@ import java.util.Calendar;
 import java.util.TimeZone;
 
 import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -35,8 +37,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.support.v4.app.NotificationCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -419,6 +423,26 @@ public class Util {
             return pkgInfo.versionCode;
         } catch (NameNotFoundException e) {
             return 0;
+        }
+    }
+
+    public static void myNotify(Context mCtx, Class chooseActivity, String title, String content) {
+        try {
+            NotificationCompat.Builder builder =
+                    new NotificationCompat.Builder(mCtx)
+                            .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                                    R.mipmap.ic_launcher))
+                            .setContentTitle(title)
+                            .setSmallIcon(R.mipmap.ic_notify)
+                            .setContentText(content);
+            int NOTIFICATION_ID = 14619;
+            Intent targetIntent = new Intent(mCtx, chooseActivity);
+            PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(contentIntent);
+            NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
+            nManager.notify(NOTIFICATION_ID, builder.build());
+        } catch (Exception e) {
+            Log.d(TAG, "Phone Notification failed. " + e);
         }
     }
 }

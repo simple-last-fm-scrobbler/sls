@@ -32,6 +32,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.adam.aslfms.service.NetApp;
@@ -50,8 +51,6 @@ public class StatusActivity extends AppCompatActivity {
 
     private AppSettings settings;
 
-    private ScrobblesDatabase mDb;
-
     private static final String TAG = "StatusActivity";
 
 	@Override
@@ -61,11 +60,11 @@ public class StatusActivity extends AppCompatActivity {
 
         settings = new AppSettings(this);
 
-        mDb = new ScrobblesDatabase(this);
-
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setElevation(0);
+		//Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		//setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // manifest android:theme="@style/Theme.AppCompat.NoActionBar"
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         if (viewPager != null) {
@@ -78,32 +77,30 @@ public class StatusActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-//TODO: Make menu options work again
-		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now).setIcon(
-                android.R.drawable.ic_menu_upload);
-		menu.add(0, MENU_RESET_STATS_ID, 0, R.string.reset_stats).setIcon(
-                android.R.drawable.ic_menu_close_clear_cancel);
-		menu.add(0, MENU_VIEW_CACHE_ID, 0, R.string.view_sc).setIcon(
-                android.R.drawable.ic_menu_view);
-
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.status, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId()) {
-            case MENU_SCROBBLE_NOW_ID:
+        switch (item.getItemId()) { //TODO: Make scrobble now work again (use giant scrobble in SettingsActivity for now)
+            /**case MENU_SCROBBLE_NOW_ID:
                 int numInCache = mDb.queryNumberOfTracks();
                 Util.scrobbleAllIfPossible(this, numInCache);
                 Log.e(TAG,"Scrobble attempt.");
-                return true;
-            case MENU_RESET_STATS_ID:
+                return true;*/
+            case R.id.MENU_RESET_STATS_ID:
                 for (NetApp napp : NetApp.values()){
                     settings.clearSubmissionStats(napp);
+                    StatusFragment fragment = (StatusFragment) getSupportFragmentManager().findFragmentByTag("StatusFragment");
+                    if (fragment != null){
+                        fragment.fillData();
+                    }
                 }
                 return true;
-            case MENU_VIEW_CACHE_ID:
+            case R.id.MENU_VIEW_CACHE_ID:
                 Intent i = new Intent(this, ViewScrobbleCacheActivity.class);
                 i.putExtra("viewall", true);
                 startActivity(i);

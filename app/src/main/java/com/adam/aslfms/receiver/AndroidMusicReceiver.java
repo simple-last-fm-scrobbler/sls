@@ -39,7 +39,7 @@ public class AndroidMusicReceiver extends BuiltInMusicAppReceiver {
 	public static final String ACTION_ANDROID_METACHANGED = "com.android.music.metachanged";
 
 	public static final String PACKAGE_NAME = "com.android.music";
-	public static final String NAME = "Android Music Player";
+	public static final String NAME = "\"Android Music Player\" Apps";
 
 	static final String GOOGLE_MUSIC_PACKAGE = "com.google.android.music";
 

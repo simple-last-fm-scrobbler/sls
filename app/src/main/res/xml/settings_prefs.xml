@@ -47,16 +47,17 @@
             android:targetPackage="com.adam.aslfms" />
     </Preference>
 
-    <PreferenceCategory android:title="@string/heart_title" />
+    <PreferenceCategory android:title="@string/heart_and_copy" />
     <Preference
+        android:title="@string/heart_title"
         android:icon="@mipmap/ic_status_wail_love_track"
         android:key="my_heart_button"
-        android:title="@string/heart_current_track" />
+        android:summary="@string/heart_current_track" />
 
-    <PreferenceCategory android:title="@string/copy_title" />
     <Preference
+        android:title="@string/copy_title"
         android:icon="@mipmap/ic_menu_copy_holo_dark"
         android:key="my_copy_button"
-        android:title="@string/copy_current_track" />
+        android:summary="@string/copy_current_track" />
 
 </PreferenceScreen>

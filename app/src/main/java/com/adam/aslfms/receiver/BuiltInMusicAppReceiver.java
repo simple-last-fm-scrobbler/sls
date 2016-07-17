@@ -128,7 +128,13 @@ public abstract class BuiltInMusicAppReceiver extends
 			if (bundle.containsKey("package") && !bundle.containsKey("player")){
 				bundleAppPackage = bundle.getCharSequence("package");
 			}
-			} catch (Exception e){
+			if (bundle.containsKey("com.maxmpz.audioplayer.source")){
+				bundleAppPackage = bundle.getCharSequence("com.maxmpz.audioplayer.source");
+			}
+			if (bundle.containsKey("gonemad.gmmp")){
+				bundleAppPackage = "gonemad.gmmp";
+			}
+		} catch (Exception e){
 			Log.d(TAG,"Improper package source: "+e);
 		}
 		if (bundleAppPackage != null)
@@ -147,7 +153,6 @@ public abstract class BuiltInMusicAppReceiver extends
 			bundleAppName = bundle.getCharSequence("player");
 			bundleAppPackage = bundle.getCharSequence("package");
 		}
-		Log.d(TAG,"Package: "+bundleAppPackage+" : "+bundleAppName);
 
 		MusicAPI musicAPI;
 		if ((bundleAppName != null) && (bundleAppPackage != null)) {
@@ -256,21 +261,30 @@ public abstract class BuiltInMusicAppReceiver extends
 		CharSequence ar = bundle.getCharSequence("artist");
 		CharSequence tr = bundle.getCharSequence("track");
 
+		// duration is needs as Integer in seconds.
+
 		if(bundle.containsKey("duration")){
 			Object tmp = bundle.get("duration");
 			if (tmp != null) {
 				if (tmp instanceof Long) {
 					try {
-						long du = bundle.getLong("duration") / 1000;
-						b.setDuration(new BigDecimal(du).intValueExact());
-						Log.e(TAG, "Long: " + Long.toString(du) + " int: " + Integer.toString(new BigDecimal(du).intValueExact()));
+						long du = bundle.getLong("duration");
+						if (du < 30000){
+							b.setDuration(new BigDecimal(bundle.getLong("duration")).intValueExact());
+						} else {
+							b.setDuration(new BigDecimal(du).intValueExact() / 1000);
+						}
 					} catch (Exception e) {
 						Log.d(TAG, "duration: " + e);
 					}
-				} else {
+				} else if (tmp instanceof Integer){
 					try {
-						int du = bundle.getInt("duration") / 1000;
-						b.setDuration(du);
+						int du = bundle.getInt("duration");
+						if (du < 30000){
+							b.setDuration(bundle.getInt("duration"));
+						} else {
+							b.setDuration(du / 1000);
+						}
 						Log.d(TAG, "Integer: " + Integer.toString(du));
 					} catch (Exception e) {
 						Log.e(TAG, "duration: " + e);

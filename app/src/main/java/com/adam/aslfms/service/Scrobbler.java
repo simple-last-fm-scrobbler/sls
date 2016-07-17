@@ -140,20 +140,14 @@ public class Scrobbler extends AbstractSubmitter {
     public void scrobbleCommit(HandshakeResult hInfo, Track[] tracks)
             throws BadSessionException, TemporaryFailureException {
 
-        URL url = null;
+        URL url;
         HttpURLConnection conn = null;
 
 // handle Exception
         try {
             url = new URL(hInfo.scrobbleUri);
             Log.d(TAG,url.toString());
-        } catch (MalformedURLException e) {
-            Log.d(TAG, "The URL is not valid.");
-            Log.d(TAG, e.getMessage());
-            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-        }
 
-        try {
             Map<String, Object> params = new LinkedHashMap<>();
             params.put("s", hInfo.sessionId);
             for (int i = 0; i < tracks.length; i++) {
@@ -170,12 +164,9 @@ public class Scrobbler extends AbstractSubmitter {
                 params.put("n" + is, track.getTrackNr());
                 params.put("m" + is, track.getMbid());
                 params.put("r" + is, track.getRating());
-                try {
                     NetworkerManager mNetManager = new NetworkerManager(mCtx,mDb);
                 if (url.toString().contains("audioscrobbler")&&track.getRating().equals("L")) {
                     mNetManager.launchHeartTrack(track);
-                }} catch (Exception e) {
-                    Log.e(TAG,"Exc: "+e);
                 }
             }
             StringBuilder postData = new StringBuilder();
@@ -187,11 +178,7 @@ public class Scrobbler extends AbstractSubmitter {
             }
             byte[] postDataBytes = postData.toString().getBytes("UTF-8");
 
-            try {
-                conn = (HttpURLConnection) url.openConnection();
-            } catch (NullPointerException e) {
-                throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-            }
+            conn = (HttpURLConnection) url.openConnection();
             // Log.d(TAG,conn.toString());
             conn.setRequestMethod("POST");
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
@@ -199,16 +186,23 @@ public class Scrobbler extends AbstractSubmitter {
             conn.setDoOutput(true);
             conn.getOutputStream().write(postDataBytes);
             Log.i(TAG, params.toString());
-
-            BufferedReader r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            int resCode = conn.getResponseCode();
+            Log.d(TAG, "Response code: " + resCode);
+            BufferedReader r;
+            if (resCode==200) {
+                r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            } else {
+                r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            }
             StringBuilder rsponse = new StringBuilder();
             String line;
             while ((line = r.readLine()) != null) {
                 rsponse.append(line).append('\n');
             }
             String response = rsponse.toString();
-            Log.d(TAG, response);
+            // some redundancy here ?
             String[] lines = response.split("\n");
+            Log.d(TAG, "Session Result: " + lines.length + " : " + response);
             if (response.startsWith("OK")) {
                 Log.i(TAG, "Scrobble success: " + getNetApp().getName());
             } else if (response.startsWith("BADSESSION")) {
@@ -222,11 +216,10 @@ public class Scrobbler extends AbstractSubmitter {
 
         } catch (IOException e) {
             throw new TemporaryFailureException(TAG + ": " + e.getMessage());
-        }
-        try {
-            conn.disconnect();
-        } catch (NullPointerException e) {
-            throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+        } finally {
+            if (conn!=null) {
+                conn.disconnect();
+            }
         }
     }
 }

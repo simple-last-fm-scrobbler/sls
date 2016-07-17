@@ -4,20 +4,20 @@ TroubleShooting (SLS = simple last.fm scrobbler)
 
 Solutions To Common problems.
 -----------------------------
-
-0. Check if you have other scrobbling apps open. (this can sometimes be the problem)
-1. Check your phone's time is automatic.
-2. Check battery/power settings on phone, add SLS to protected/whitelist (power save disabled for SLS).
-3. Check SLS options. (power settings)
-4. Check SLS options. (enabled apps.)
-5. Check your music app's settings.
-6. Disable some of SLS' enabled apps if there are clashes. (examples are PowerAmp and ScrobbleDroid)
-7. Try a different music player that scrobbles if possible.
-8. If you don't want to uninstall or clear the cache, create an issue on the GitHub. https://github.com/tgwizard/sls/issues
+1. Clear credentials and log in again.
+2. Check if you have other scrobbling apps open. (this can sometimes be the problem)
+3. Check your phone's time is automatic.
+4. Check battery/power settings on phone, add SLS to protected/whitelist (power save disabled for SLS).
+5. Check SLS options. (power settings)
+6. Check SLS options. (enabled apps.)
+7. Check your music app's settings.
+8. Disable some of SLS' enabled apps if there are clashes. Some music players broadcast while closed (PowerAmp & DoubleTwist & DoubleTwist CloudPlayer). Some music players have mixed broadcasts. ("Anroid Music Player" and it's own broadcast)
+9. Try a different music player that scrobbles if possible.
+10. If you don't want to uninstall or clear the cache, create an issue on the GitHub. https://github.com/tgwizard/sls/issues
 
 Note: You may lose your scrobbles if you do any of the following.
 
-1. If you can reinstall the app try that.
+1. If you can, reinstall the app.
 2. Clear the data also if reinstall does not work.
 3. Create and issue on the GitHub. https://github.com/tgwizard/sls/issues
 
@@ -51,18 +51,27 @@ Know Issue: Compatibility vs. Structure
 ---------------------------------------
 
 ##Two major conflicting issues.
+
 SLS provides support for a variety of applications.
+SLS tries to provide support for a person to have many apps downloaded to scrobble from.
 
 OR
 
 SLS provides support for single track repeat and more structured scrobbling.
 
-##Reasons for conflicting issues.
+
+##Reasons for conflict issues
+
 Some of these applications don't share track duration (well).
 
 AND
 
 Some of these applications don't tell SLS when the track is paused or completed, so SLS cannot find out when the track officially started or finished.
+
+AND
+
+Some of these applications have mixed broadcasts for SLS, Android Music Player, and Scrobble Droid.
+
 
 Developer's Job
 ---------------

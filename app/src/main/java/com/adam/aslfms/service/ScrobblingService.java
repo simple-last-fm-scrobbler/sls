@@ -26,7 +26,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
@@ -256,26 +255,9 @@ public class ScrobblingService extends Service {
             tryNotifyNP(mCurrentTrack);
 
             // TODO: maybe give notifications it's own service
-            PowerOptions pow = Util.checkPower(mCtx);
-            if (settings.isNotifyEnabled(pow)) {
+            if (settings.isNotifyEnabled(Util.checkPower(mCtx))) {
                 Class chooseActivity = SettingsActivity.class;
-                try {
-                    NotificationCompat.Builder builder =
-                            new NotificationCompat.Builder(mCtx)
-                                    .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
-                                            R.mipmap.ic_launcher))
-                                    .setContentTitle(track.getTrack())
-                                    .setSmallIcon(R.mipmap.ic_notify)
-                                    .setContentText(" by " + track.getArtist());
-                    int NOTIFICATION_ID = 14619;
-                    Intent targetIntent = new Intent(mCtx, chooseActivity);
-                    PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    builder.setContentIntent(contentIntent);
-                    NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
-                    nManager.notify(NOTIFICATION_ID, builder.build());
-                } catch (Exception e) {
-                    Log.d(TAG, "Now Playing Phone Notification failed. " + e);
-                }
+                Util.myNotify(mCtx,chooseActivity,track.getArtist(),track.getTrack() + " : " + track.getMusicAPI().readAPIname());
             }
         } else if (state == Track.State.PAUSE) { // pause
             // TODO: test this state
@@ -422,7 +404,7 @@ public class ScrobblingService extends Service {
                     // tell interested parties
                     Intent i = new Intent(
                             ScrobblingService.BROADCAST_ONSTATUSCHANGED);
-                    i.putExtra("netapp", napp.getIntentExtraValue());
+                    i.putExtra("netapp", napp.toString());
                     sendBroadcast(i);
                 }
             }

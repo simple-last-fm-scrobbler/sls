@@ -10,15 +10,17 @@ public class SEMCMusicReceiver extends BuiltInMusicAppReceiver {
 
 	private static final String TAG = "SEMCMusicReceiver";
 
-	static final String APP_PACKAGE = "com.sonyericsson.music";
+		static final String APP_PACKAGE = "com.sonyericsson.music";
 	static final String ACTION_SEMC_STOP_LEGACY = "com.sonyericsson.music.playbackcontrol.ACTION_PLAYBACK_PAUSE";
 	static final String ACTION_SEMC_STOP = "com.sonyericsson.music.playbackcontrol.ACTION_PAUSED";
 	static final String ACTION_SEMC_METACHANGED = "com.sonyericsson.music.metachanged";
 
+
 	public SEMCMusicReceiver() {
 		super(ACTION_SEMC_STOP, APP_PACKAGE, "Sony Ericsson Music Player");
 	}
-	
+
+	/**
 	@Override
 	/**
 	 * Checks that the action received is either the one used in the
@@ -27,14 +29,17 @@ public class SEMCMusicReceiver extends BuiltInMusicAppReceiver {
 	 * 
 	 * @param action	the received action
 	 * @return			true when the received action is a stop action, false otherwise
-	 */
+	 *
 	protected boolean isStopAction(String action) {
-		return action.equals(ACTION_SEMC_STOP) || action.equals(ACTION_SEMC_STOP_LEGACY);
-	}
+		return ;
+	}*/
 
 	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle) throws IllegalArgumentException {
 		super.parseIntent(ctx, action, bundle);
+		if(action.equals(ACTION_SEMC_STOP) || action.equals(ACTION_SEMC_STOP_LEGACY)){ // Should stop double scrobbles.
+			setState(Track.State.PAUSE);
+		}
 	}
 
 	@Override

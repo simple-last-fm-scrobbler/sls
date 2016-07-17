@@ -21,6 +21,7 @@
 package com.adam.aslfms.receiver;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.adam.aslfms.util.Track;
@@ -76,11 +77,23 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
 			throws IllegalArgumentException {
 
-		// music api stuff
-		// app-name, required
-		String appname = bundle.getString("app-name");
-		// app-package, required
-		String apppkg = bundle.getString("app-package");
+		CharSequence pkgTest = null;
+		String appname;
+		String apppkg;
+		PackageManager packageManager = ctx.getPackageManager();
+		if (bundle.containsKey("gonemad.gmmp")){
+			pkgTest = "gonemad.gmmp";
+		}
+		try {
+			appname = packageManager.getApplicationLabel(packageManager.getApplicationInfo(pkgTest.toString(), PackageManager.GET_META_DATA)).toString();
+			apppkg = pkgTest.toString();
+		} catch (PackageManager.NameNotFoundException | NullPointerException e) {
+			// music api stuff
+			// app-name, required
+			appname = bundle.getString("app-name");
+			// app-package, required
+			apppkg = bundle.getString("app-package");
+		}
 
 		// throws on bad appname / apppkg
 		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx, appname, apppkg, null,

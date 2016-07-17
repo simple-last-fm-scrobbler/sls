@@ -193,6 +193,14 @@ public class MusicAPI {
 				+ ", name=" + name + ", pkg=" + pkg + "]";
 	}
 
+	public String readAPIname(){
+		return name;
+	}
+
+	public String readAPIpkg(){
+		return pkg;
+	}
+
 	/**
 	 * Takes some parameters describing an API / music app and (1) saves it to a
 	 * database and (2) returns it as a {@code MusicAPI} object.
@@ -297,6 +305,7 @@ public class MusicAPI {
 			Log.d(TAG, mapi.toString());
 		}
 		DatabaseHelper.closeDatabase();
+		Log.d(TAG,name+":"+pkg);
 		return mapi;
 	}
 
