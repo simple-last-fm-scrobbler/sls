@@ -134,6 +134,9 @@ public abstract class BuiltInMusicAppReceiver extends
 			if (bundle.containsKey("gonemad.gmmp")){
 				bundleAppPackage = "gonemad.gmmp";
 			}
+			if (bundle.containsKey("com.mixzing.basic.mediaSource")){
+				bundleAppPackage = "com.mixzing.basic";
+			}
 		} catch (Exception e){
 			Log.d(TAG,"Improper package source: "+e);
 		}

@@ -29,7 +29,6 @@ import com.adam.aslfms.util.Track;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 
@@ -62,27 +61,24 @@ public class Heart extends NetRunnable {
 
 // can't heart track
 
-        String sigText = "api_key" + settings.rcnvK(settings.getAPIkey()) + "artist" + hearTrack.getArtist() + "methodtrack.lovesk" + settings.getSessionKey(NetApp.LASTFM) + "track" + hearTrack.getTrack() + settings.rcnvK(settings.getSecret());
+        String sigText = "api_key"
+                + settings.rcnvK(settings.getAPIkey())
+                + "artist" + hearTrack.getArtist()
+                + "methodtrack.lovesk"
+                + settings.getSessionKey(NetApp.LASTFM)
+                + "track" + hearTrack.getTrack()
+                + settings.rcnvK(settings.getSecret());
 
         String signature = MD5.getHashString(sigText);
 
-        String heartResult = "";
-
-        BufferedReader in;
         try {
-            in = postHeartTrack(hearTrack, settings.rcnvK(settings.getAPIkey()), signature, settings.getSessionKey(NetApp.LASTFM));
-
-            String inputLine = "";
-            while ((inputLine = in.readLine()) != null) {
-                heartResult += inputLine;
-            }
-            Log.d(TAG, "Heart result: " + heartResult);
+            String heartResult = postHeartTrack(hearTrack, settings.rcnvK(settings.getAPIkey()), signature, settings.getSessionKey(NetApp.LASTFM));
 
             if (heartResult.contains("status=\"ok\"")) {
                 Log.d(TAG, "Successful heart track.");
-            } else if (heartResult.contains("code=\"4\"") || heartResult.contains("code=\"9\"")) {
+            } else if (heartResult.contains("code=\"9\"")) {
                 // store hearTrack in database or allow failure.
-                settings.setSessionKey(NetApp.LASTFM, "");
+                // settings.setSessionKey(NetApp.LASTFM, "");
             } else {
                 Log.d(TAG, "Failed heart track.");
             }
@@ -92,7 +88,7 @@ public class Heart extends NetRunnable {
         }
     }
 
-    private BufferedReader postHeartTrack(Track track, String testAPI, String signature, String
+    private String postHeartTrack(Track track, String testAPI, String signature, String
             sessionKey) throws IOException, NullPointerException {
         URL url = new URL("http://ws.audioscrobbler.com/2.0/");
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -139,7 +135,13 @@ public class Heart extends NetRunnable {
             outputStream = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
         }
         conn.disconnect();
-        return outputStream;
+        String heartResult = "";
+        String inputLine = "";
+        while ((inputLine = outputStream.readLine()) != null) {
+            heartResult += inputLine;
+        }
+        Log.d(TAG, "Heart result: " + heartResult);
+        return heartResult; //close()
     }
 
 }

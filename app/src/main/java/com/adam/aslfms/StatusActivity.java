@@ -94,10 +94,11 @@ public class StatusActivity extends AppCompatActivity {
             case R.id.MENU_RESET_STATS_ID:
                 for (NetApp napp : NetApp.values()){
                     settings.clearSubmissionStats(napp);
-                    StatusFragment fragment = (StatusFragment) getSupportFragmentManager().findFragmentByTag("StatusFragment");
+                    // TODO: refill data on clearStats
+                    /**StatusFragment fragment = (StatusFragment) getSupportFragmentManager().findFragmentByTag("StatusFragment");
                     if (fragment != null){
                         fragment.fillData();
-                    }
+                    }*/
                 }
                 return true;
             case R.id.MENU_VIEW_CACHE_ID:

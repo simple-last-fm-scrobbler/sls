@@ -112,7 +112,6 @@
     <!-- START permissions and warnings strings -->
     <string name="permission_required">Permission REQUIRED to work properly</string>
     <string name="creds_required">Credentials REQUIRED to work properly</string>
-    <string name="network_error"> connection broken. Try re-login.</string>
     <!-- END permissions and warnings strings -->
 
     <!-- START mapis strings -->

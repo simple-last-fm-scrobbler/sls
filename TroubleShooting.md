@@ -39,12 +39,13 @@ Losing Scrobbles?
 4. or something is wrong with Last.fm / Libre.fm
 
 ##Possible ignored message codes:
-0. None (the request passed all filters).
-1. Filtered artist.
-2. Filtered track.
-3. Timestamp too far in the past.
-4. Timestamp too far in the future.
-5. Max daily scrobbles exceeded.
+
+1. None (the request passed all filters).
+2. Filtered artist.
+3. Filtered track.
+4. Timestamp too far in the past.
+5. Timestamp too far in the future.
+6. Max daily scrobbles exceeded.
 
 
 Know Issue: Compatibility vs. Structure
@@ -52,8 +53,11 @@ Know Issue: Compatibility vs. Structure
 
 ##Two major conflicting issues.
 
+SLS tries to provide support for a person to have many apps downloaded and scrobble from without broadcast clashes.
+
+### Conflict
+
 SLS provides support for a variety of applications.
-SLS tries to provide support for a person to have many apps downloaded to scrobble from.
 
 OR
 
@@ -75,6 +79,7 @@ Some of these applications have mixed broadcasts for SLS, Android Music Player, 
 
 Developer's Job
 ---------------
+
 I am manually going through all the applications to see which ones don't work with a more compatible and structured scrobbling service.
 
 The current Queue method works for now.

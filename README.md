@@ -27,11 +27,13 @@ If you need inspiration on stuff to do, you might want to have a look at the lis
 
 If you want to help out and start immediately, please see HumbleBeeBumbleBee's [Issue Summary](https://github.com/tgwizard/sls/blob/master/IssueSummary.md)
 
-Contact emails: 
+Contact emails: Try the first two email address first.
 
-[simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)  <- Lead Developer
+[sls-app@googlegroups.com](mailto:sls-app@googlegroups.com) <- Please use this email. 
 
 [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gmail.com)  <- Support & Maintenance
+
+[simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)  <- Lead Developer
 
 (if uncertain please email us both)
  

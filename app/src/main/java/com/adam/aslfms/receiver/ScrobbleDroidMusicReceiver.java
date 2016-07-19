@@ -26,9 +26,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
+
+import java.util.Iterator;
+import java.util.Set;
 
 /**
  * A BroadcastReceiver for the <a
@@ -49,9 +53,24 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 
 	public static final String SCROBBLE_DROID_MUSIC_STATUS = "net.jjc1138.android.scrobbler.action.MUSIC_STATUS";
 
+	public static void dumpIntent(Bundle bundle){
+		if (bundle != null) {
+			Set<String> keys = bundle.keySet();
+			Iterator<String> it = keys.iterator();
+			Log.e(TAG,"Dumping Intent start");
+			while (it.hasNext()) {
+				String key = it.next();
+				Log.e(TAG,"[" + key + "=" + bundle.get(key)+"]");
+			}
+			Log.e(TAG,"Dumping Intent end");
+		}
+	}
+
 	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
 			throws IllegalArgumentException {
+
+		dumpIntent(bundle);
 
 		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx,
 				"\"Scrobble Droid Apps\"", MusicAPI.NOT_AN_APPLICATION_PACKAGE
