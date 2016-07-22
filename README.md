@@ -28,7 +28,7 @@ More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/he
 -----------------
 
 
-Contact emails: Try the first two email address first.
+Contact emails: Try the first email address first.
 
 [sls-app@googlegroups.com](mailto:sls-app@googlegroups.com) <- Please use this email. 
 
@@ -36,7 +36,7 @@ Contact emails: Try the first two email address first.
 
 [simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)  <- Lead Developer
 
-(if uncertain please email us both)
+(if uncertain please email all of them)
  
 Download
 ========
