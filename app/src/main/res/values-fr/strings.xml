@@ -96,11 +96,11 @@
 
     <!-- START heart strings -->
     <string name="heart_and_copy">Options de Chanson</string>
-    <string name="heart_title">J'Adore</string>
-    <string name="heart_current_track">L'adore chanson actuelle à last.fm</string>
+    <string name="heart_title">J\'Adore</string>
+    <string name="heart_current_track">L\'adore chanson actuelle à last.fm</string>
     <string name="no_heart_track">Adore cette chanson a échoué</string>
     <string name="loved_track">Adoré Chanson</string>
-    <string name="no_lastFm">Entrer vos informations d'identification last.fm</string>
+    <string name="no_lastFm">Entrer vos informations d\'identification last.fm</string>
     <!-- END heart strings -->
 
     <!-- START copy strings -->
