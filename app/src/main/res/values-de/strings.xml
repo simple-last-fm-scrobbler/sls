@@ -17,6 +17,7 @@
     <string name="by">von</string>
     <string name="issues">Probleme: %s</string>
     <string name="website">Webseite: %s</string>
+    <string name="troubShoot">Fehlerbehebung: %s</string>
     <string name="by_adam">von Adam Renberg</string>
     <string name="license">Unter der Apache License v2.0</string>
     <string name="about_text">Ein einfacher Scrobbler, der Musikstatistiken deiner Musik-Apps an Last.fm (und/oder Libre.fm) übertragt. Last.fm zeigt dir deine Statistiken schließlich an und empfiehlt dir neue Musik, die dir gefallen könnte.</string>
@@ -91,6 +92,27 @@
     <string name="confirm_clear_creds">Bist du sicher, dass du deine Benutzerdaten für %1 löschen möchtest? Damit gehen auch unübertragene Scrobbles verloren.</string>
     <string name="confirm_clear_all_creds">Bist du sicher, dass du all deine Benutzerdaten für alle Profile löschen möchtest? Damit gehen auch unübertragene Scrobbles verloren.</string>
     <!-- END creds strings -->
+
+    <!-- START heart strings -->
+    <string name="heart_and_copy">Song-Optionen</string>
+    <string name="heart_title">Liebe</string>
+    <string name="heart_current_track">Liebe Aktueller Track bei last.fm</string>
+    <string name="no_heart_track">Lieben Song fehlgeschlagen</string>
+    <string name="loved_track">Liebte Song</string>
+    <string name="no_lastFm">Bitte geben Sie Ihre Zugangsdaten <last class="fm"></last></string>
+    <!-- END heart strings -->
+
+    <!-- START copy strings -->
+    <string name="copy_title">Kopie</string>
+    <string name="copy_current_track">Kopieren Sie den aktuellen Track Zwischenablage</string>
+    <string name="no_copy_track">Song kopieren fehlgeschlagen</string>
+    <string name="no_current_track">Nein aktuellen Song erhältlich</string>
+    <!-- END copy strings -->
+
+    <!-- START permissions and warnings strings -->
+    <string name="permission_required">Berechtigung erforderlich richtig zu arbeiten</string>
+    <string name="creds_required">Anmeldedaten erforderlich um richtig zu arbeiten</string>
+    <!-- END permissions and warnings strings -->
     
     <!-- START mapis strings -->
     <string name="incompatability_short">Warnung: %1$s ist installiert und könnte zu doppelten Scrobbles führen.</string>

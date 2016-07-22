@@ -17,6 +17,7 @@
     <string name="by">przez</string>
     <string name="issues">Zgłaszanie problemów: %s</string>
     <string name="website">Strona tytułowa: %s</string>
+    <string name="troubShoot">Rozwiązywanie: %s</string>
     <string name="by_adam">autorstwa Adama Renberga</string>
     <string name="license">Wydano na podstawie Apache License v2.0</string>
     <string name="about_text">Lekki scrobbler wysyłający informację do serwisu Last.fm (i/lub Libre.fm) na temat tego jakiej muzyki słuchasz na swoim smartfonie. Last.fm pozwoli wyświetlić Ci statystyki słuchanych utworów oraz przedstawi rekomendacje muzyki, którą być może polubisz.</string>
@@ -91,6 +92,27 @@
     <string name="confirm_clear_creds">Jesteś pewien, że chcesz wyczyścić uwierzytelnienia użytkownika dla for %1? Ta operacja spowoduje również usunięcie niewysłanych scrobbli.</string>
     <string name="confirm_clear_all_creds">Jesteś pewien, że chcesz wyczyścić uwierzytelnienia użytkownika dla wszystkich zalogowanych kont? Ta operacja spowoduje również usunięcie niewysłanych scrobbli.</string>
     <!-- END creds strings -->
+
+    <!-- START heart strings -->
+    <string name="heart_and_copy">Opcje utworu</string>
+    <string name="heart_title">Zamiłowanie</string>
+    <string name="heart_current_track">Miłość bieżący piosenka w Last.fm</string>
+    <string name="no_heart_track">miłość, piosenka zawiodły</string>
+    <string name="loved_track">Umiłował piosenka</string>
+    <string name="no_lastFm">Wpisz Last.fm poświadczeń</string>
+    <!-- END heart strings -->
+
+    <!-- START copy strings -->
+    <string name="copy_title">Kopiuj</string>
+    <string name="copy_current_track">skopiować bieżący piosenka do schowka</string>
+    <string name="no_copy_track">Piosenka kopiowanie nie powiodło</string>
+    <string name="no_current_track">Nie Aktualna Dostępne piosenki</string>
+    <!-- END copy strings -->
+
+    <!-- START permissions and warnings strings -->
+    <string name="permission_required">Wymaganego pozwolenia, aby działać poprawnie</string>
+    <string name="creds_required">Poświadczenia wymagane do poprawnej pracy</string>
+    <!-- END permissions and warnings strings -->
 
     <!-- START mapis strings -->
     <string name="incompatability_short">Ostrzeżenie: %1$s jest zainstalowany i może powodować zdublowanie scrobbli.</string>
