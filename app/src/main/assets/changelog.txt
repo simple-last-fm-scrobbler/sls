@@ -18,6 +18,7 @@
   * Add German translation (thanks to herrherrmann)
   * Add new Material Design (thanks to bryansills)
   * Bug fixes and support (thanks to inverse)
+  * Add Russian translation (thanks to bajituka)
 
 - 1.4.8 (2014-08-16)
   * Add new high-resolution icon (thanks to Tha Phlash)

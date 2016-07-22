@@ -9,6 +9,10 @@ public class MIUIMusicReceiver extends BuiltInMusicAppReceiver {
 	static final String ACTION_MIUI_STOP = "com.miui.player.playbackcomplete";
 	static final String ACTION_MIUI_METACHANGED = "com.miui.player.metachanged";
 
+	static final String ACTION_MIUI_SERVICE_METACHANGED = "com.miui.player.service.metachanged";
+	static final String ACTION_MIUI_SERVICE_PLAYSTATECHANGED = "com.miui.player.service.playstatechanged";
+
+
 	public MIUIMusicReceiver() {
 		super(ACTION_MIUI_STOP, APP_PACKAGE, "MIUI Music Player");
 	}

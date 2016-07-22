@@ -158,6 +158,8 @@
                 <action android:name="com.miui.player.metachanged" />
                 <action android:name="com.miui.player.playstatechanged" />
                 <action android:name="com.miui.player.playbackcomplete" />
+                <action android:name="com.miui.player.service.metachanged" />
+                <action android:name="com.miui.player.service.playstatechanged" />
             </intent-filter>
         </receiver>
         <receiver

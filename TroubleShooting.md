@@ -4,6 +4,7 @@ TroubleShooting (SLS = simple last.fm scrobbler)
 
 Solutions To Common problems.
 -----------------------------
+
 1. Clear credentials and log in again.
 2. Check if you have other scrobbling apps open. (this can sometimes be the problem)
 3. Check your phone's time is automatic.
