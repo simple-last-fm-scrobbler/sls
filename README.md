@@ -23,9 +23,10 @@ one week in the [Beta Testing Versions link](https://github.com/tgwizard/sls/blo
 
 More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/help/faq?category=Scrobbling#201).
 
-If you need inspiration on stuff to do, you might want to have a look at the list of issues.
 
-If you want to help out and start immediately, please see HumbleBeeBumbleBee's [Issue Summary](https://github.com/tgwizard/sls/blob/master/IssueSummary.md)
+[Trouble Shooting](https://github.com/tgwizard/sls/blob/master/TroubleShooting.md)
+-----------------
+
 
 Contact emails: Try the first two email address first.
 
@@ -255,6 +256,7 @@ Contributors
  * Alia5 [github.com/Alia5](https://github.com/Alia5), better Enabled apps handle
  * MendelGusmao [github.com/MendelGusmao](https://github.com/MendelGusmao), Brazil Portuguese Translation
  * Grzes58 [github.com/Grzes58](https://github.com/Grzes58), Polish
+ * bajituka [github.com/bajituka](https://github.com/bajituka), Russian 
 
 A complete list of [contributors](https://github.com/tgwizard/sls/graphs/contributors)
  

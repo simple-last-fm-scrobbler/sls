@@ -49,6 +49,10 @@ Losing Scrobbles?
 6. Max daily scrobbles exceeded.
 
 
+[Compatible Applications List](https://github.com/tgwizard/sls/blob/master/Compatibility.md)
+--------------------------------------------------------------------------------------------
+
+
 Know Issue: Compatibility vs. Structure
 ---------------------------------------
 
