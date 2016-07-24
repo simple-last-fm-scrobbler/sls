@@ -235,6 +235,7 @@ public class Scrobbler extends AbstractSubmitter {
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
                 conn.setDoOutput(true);
+                conn.setDoInput(true);
                 conn.getOutputStream().write(postDataBytes);
                 Log.i(TAG, params.toString());
                 int resCode = conn.getResponseCode();
@@ -255,7 +256,7 @@ public class Scrobbler extends AbstractSubmitter {
                 // some redundancy here ?
                 String[] lines = response.split("\n");
 
-                Log.d(TAG, "Scrobble Result: " + lines.length + " : " + response.contains("status=\"ok\"") + " : " + lines[1]);
+              //  Log.d(TAG, "Scrobble Result: " + lines.length + " : " + response.contains("status=\"ok\"") + " : " + lines[1]);
                 if (response.contains("status=\"ok\"")) {
                     Log.i(TAG, "Scrobbling success: " + getNetApp().getName());
                 } else {
@@ -323,6 +324,7 @@ public class Scrobbler extends AbstractSubmitter {
                 conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
                 conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
                 conn.setDoOutput(true);
+                conn.setDoInput(true);
                 conn.getOutputStream().write(postDataBytes);
                 Log.i(TAG, params.toString());
                 int resCode = conn.getResponseCode();
@@ -342,7 +344,7 @@ public class Scrobbler extends AbstractSubmitter {
                 String response = rsponse.toString();
                 // some redundancy here ?
                 String[] lines = response.split("\n");
-                Log.d(TAG, "Scrobbler Result: " + lines.length + " : " + response);
+                //Log.d(TAG, "Scrobbler Result: " + lines.length + " : " + response);
                 if (response.startsWith("OK")) {
                     Log.i(TAG, "Scrobbler success: " + getNetApp().getName());
                 } else if (response.startsWith("BADSESSION")) {

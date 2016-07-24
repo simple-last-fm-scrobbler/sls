@@ -1,16 +1,16 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * <p>
+ * <p/>
  * https://github.com/tgwizard/sls
- * <p>
+ * <p/>
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * <p>
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -299,8 +299,8 @@ public class Handshaker extends NetRunnable {
                 // some redundancy here ?
                 String[] lines = response.split("\n");
 
-                Log.d(TAG, "Session Result: " + lines.length + " : " + lines[1].contains("status=\"ok\"") + ":" + lines[1]);
-                if (lines.length == 8 && lines[1].contains("status=\"ok\"")) {
+                //Log.d(TAG, "Session Result: " + lines.length + " : " + lines[1].contains("status=\"ok\"") + ":" + lines[1]);
+                if (response.contains("status=\"ok\"")) {
                     final Pattern pattern = Pattern.compile("<key>(.*?)</key>");
                     final Matcher matcher = pattern.matcher(response);
                     if (matcher.find()) {
@@ -406,32 +406,30 @@ public class Handshaker extends NetRunnable {
                 // some redundancy here ?
                 String[] lines = response.split("\n");
 
-                //Log.d(TAG, "Session Result: " + lines.length + " : " + lines[0].contains("status=\"ok\"") + ":" + response);
-                Log.d(TAG, "Session Result: " + lines.length + " : " + lines[0].contains("OK"));
-                if (lines.length == 4 && lines[0].equals("OK")) {
+                //Log.d(TAG, "Session Result: " + lines.length + " : " + lines[0].contains("OK") + ":" + response);
+                //Log.d(TAG, "Session Result: " + lines.length + " : " + lines[0].contains("OK"));
+                if (lines[0].startsWith("OK")) {
                     // handshake succeeded
                     Log.i(TAG, "Handshake succeeded!: " + netApp.getName());
                     //Log.e(TAG, lines[1] + lines[2] + lines[3]);
                     return new HandshakeResult(lines[1], lines[2], lines[3]);
-                } else if (lines.length == 1) {
-                    if (lines[0].startsWith("BANNED")) {
-                        Log.e(TAG, "Handshake fails: client banned: " + netApp.getName());
-                        throw new ClientBannedException(getContext().getString(
-                                R.string.auth_client_banned));
-                    } else if (lines[0].startsWith("BADAUTH")) {
-                        Log.i(TAG, "Handshake fails: bad auth: " + netApp.getName());
-                        throw new BadAuthException(getContext().getString(
-                                R.string.auth_bad_auth));
-                    } else if (lines[0].startsWith("BADTIME")) {
-                        Log.e(TAG, "Handshake fails: bad time: " + netApp.getName());
-                        throw new TemporaryFailureException(getContext().getString(
-                                R.string.auth_timing_error));
-                    } else if (lines[0].startsWith("FAILED")) {
-                        String reason = lines[0].substring(7);
-                        Log.e(TAG, "Handshake fails: FAILED " + reason + ": " + netApp.getName());
-                        throw new TemporaryFailureException(getContext().getString(
-                                R.string.auth_server_error).replace("%1", reason));
-                    }
+                } else if (lines[0].startsWith("BANNED")) {
+                    Log.e(TAG, "Handshake fails: client banned: " + netApp.getName());
+                    throw new ClientBannedException(getContext().getString(
+                            R.string.auth_client_banned));
+                } else if (lines[0].startsWith("BADAUTH")) {
+                    Log.i(TAG, "Handshake fails: bad auth: " + netApp.getName());
+                    throw new BadAuthException(getContext().getString(
+                            R.string.auth_bad_auth));
+                } else if (lines[0].startsWith("BADTIME")) {
+                    Log.e(TAG, "Handshake fails: bad time: " + netApp.getName());
+                    throw new TemporaryFailureException(getContext().getString(
+                            R.string.auth_timing_error));
+                } else if (lines[0].startsWith("FAILED")) {
+                    String reason = lines[0].substring(7);
+                    Log.e(TAG, "Handshake fails: FAILED " + reason + ": " + netApp.getName());
+                    throw new TemporaryFailureException(getContext().getString(
+                            R.string.auth_server_error).replace("%1", reason));
                 } else {
                     throw new TemporaryFailureException("Weird response from handskake-req: " + response + ": " + netApp.getName());
                 }
@@ -443,8 +441,8 @@ public class Handshaker extends NetRunnable {
                     conn.disconnect();
                 }
             }
-            return null;
         }
+
         return null;
     }
 
