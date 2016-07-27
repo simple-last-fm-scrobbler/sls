@@ -103,6 +103,10 @@ public class Util {
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
 
+        if(netInfo != null){
+            Log.d(TAG, "conn: "+netInfo.isConnected()+" : "+netInfo.toString());
+        }
+
         if (netInfo == null || !netInfo.isConnected()) {
             return NetworkStatus.DISCONNECTED;
         }

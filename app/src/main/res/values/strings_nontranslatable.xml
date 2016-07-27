@@ -5,7 +5,7 @@
     <string name="website_url" translatable="false">https://github.com/tgwizard/sls</string>
     <string name="issues_url" translatable="false">https://github.com/tgwizard/sls/issues</string>
 	<string name="trouble_shoot" translatable="false">https://github.com/tgwizard/sls/blob/master/TroubleShooting.md</string>
-    <string name="supported_musicapps" translatable="false">Spotify, Google Music, Deezer, Rhapsody,
+    <string name="supported_musicapps" translatable="false">Spotify, Google Music, Deezer, Rhapsody/Napster,
 		Rdio, My Cloud Player, SoundCloud, 8tracks, InfiniTracks, Squeezer, Amazon Music, Huawei,
 		n7player, BuMP, PowerAMP, Black Player, AIMP, Timber (Beta), Vanilla Music, SmartVanilla Music,
 		Shuttle Music Player, Rocket Player, JRTStudio Android Music Player, PlayerPro, Jetaudio,
