@@ -85,7 +85,7 @@ public class NPNotifier extends AbstractSubmitter {
         } catch (BadSessionException e) {
             Log.i(TAG, "BadSession: " + e.getMessage() + ": "
                     + getNetApp().getName());
-            settings.setSessionKey(NetApp.LASTFM, "");
+            settings.setSessionKey(getNetApp(), "");
             getNetworker().launchHandshaker();
             relaunchThis();
             notifySubmissionStatusFailure(getContext().getString(
@@ -288,7 +288,7 @@ public class NPNotifier extends AbstractSubmitter {
                 conn.setDoOutput(true);
                 conn.setDoInput(true);
                 conn.getOutputStream().write(postDataBytes);
-                Log.i(TAG, params.toString());
+                //Log.i(TAG, params.toString());
 
                 int resCode = conn.getResponseCode();
                 Log.d(TAG, "Response code: " + resCode);

@@ -53,7 +53,7 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 
 	public static final String SCROBBLE_DROID_MUSIC_STATUS = "net.jjc1138.android.scrobbler.action.MUSIC_STATUS";
 
-	public static void dumpIntent(Bundle bundle){
+	/**public static void dumpIntent(Bundle bundle){
 		if (bundle != null) {
 			Set<String> keys = bundle.keySet();
 			Iterator<String> it = keys.iterator();
@@ -64,13 +64,13 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 			}
 			Log.e(TAG,"Dumping Intent end");
 		}
-	}
+	}*/
 
 	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
 			throws IllegalArgumentException {
 
-		dumpIntent(bundle);
+		//dumpIntent(bundle);
 
 		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx,
 				"\"Scrobble Droid Apps\"", MusicAPI.NOT_AN_APPLICATION_PACKAGE

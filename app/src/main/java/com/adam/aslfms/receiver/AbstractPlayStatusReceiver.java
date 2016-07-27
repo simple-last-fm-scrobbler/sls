@@ -53,7 +53,7 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 	private MusicAPI mMusicAPI = null;
 	private Intent mService = null;
 	private Track mTrack = null;
-
+/**
 	public static void dumpIntent(Bundle bundle){
 		if (bundle != null) {
 			Set<String> keys = bundle.keySet();
@@ -65,14 +65,14 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 			}
 			Log.e(TAG,"Dumping Intent end");
 		}
-	}
+	}*/
 
 	@Override
 	public final void onReceive(Context context, Intent intent) {
 		String action = intent.getAction();
 		Bundle bundle = intent.getExtras();
 
-		dumpIntent(bundle);
+		//dumpIntent(bundle);
 
 		Log.e(TAG, "Action received was: " + action);
 

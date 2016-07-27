@@ -113,7 +113,7 @@ public class Scrobbler extends AbstractSubmitter {
         } catch (BadSessionException e) {
             Log.i(TAG, "BadSession: " + e.getMessage() + ": "
                     + getNetApp().getName());
-            settings.setSessionKey(NetApp.LASTFM, "");
+            settings.setSessionKey(getNetApp(), "");
             getNetworker().launchHandshaker();
             relaunchThis();
             notifySubmissionStatusFailure(getContext().getString(
@@ -174,112 +174,116 @@ public class Scrobbler extends AbstractSubmitter {
         HttpURLConnection conn = null;
 
 // handle Exception
-        if (getNetApp() == NetApp.LASTFM && !settings.getSessionKey(getNetApp()).equals("")) {         // start of API 2.0 usage.
-            try {
+        if (getNetApp() == NetApp.LASTFM) {         // start of API 2.0 usage.
+            if (settings.getSessionKey(getNetApp()).equals("")) {
+                // do something here. (should not occur, but just in case)
+            } else {
+                try {
 
-                url = new URL("http://ws.audioscrobbler.com/2.0/");
+                    url = new URL("http://ws.audioscrobbler.com/2.0/");
 
-                Map<String, Object> params = new TreeMap<>();
-                String sign = "";
-                params.put("method", "track.scrobble");
-                params.put("api_key", settings.rcnvK(settings.getAPIkey()));
-                params.put("sk", settings.getSessionKey(NetApp.LASTFM));
-                for (int i = 0; i < tracks.length; i++) {
-                    Track track = tracks[i];
-                    String is = "[" + i + "]";
+                    Map<String, Object> params = new TreeMap<>();
+                    String sign = "";
+                    params.put("method", "track.scrobble");
+                    params.put("api_key", settings.rcnvK(settings.getAPIkey()));
+                    params.put("sk", settings.getSessionKey(NetApp.LASTFM));
+                    for (int i = 0; i < tracks.length; i++) {
+                        Track track = tracks[i];
+                        String is = "[" + i + "]";
 
-                    if (track.getAlbum() != null) {
-                        params.put("album" + is, track.getAlbum());
+                        if (track.getAlbum() != null) {
+                            params.put("album" + is, track.getAlbum());
+                        }
+                        params.put("artist" + is, track.getArtist());
+                        if (track.getSource().equals("R") || track.getSource().equals("E")) {
+                            params.put("chosenByUser" + is, 0);
+                        }
+                        if (track.getDuration() != -1) {
+                            params.put("duration" + is, Integer.toString(track.getDuration()));
+                        }
+                        if (track.getMbid() != null) {
+                            params.put("mbid" + is, track.getMbid());
+                        }
+                        params.put("timestamp" + is, track.getWhen());
+                        params.put("track" + is, track.getTrack());
+                        if (track.getTrackNr() != null) {
+                            params.put("trackNumber" + is, track.getTrackNr());
+                        }
+
+
+                        if (track.getRating().equals("L")) {
+                            NetworkerManager mNetManager = new NetworkerManager(mCtx, mDb);
+                            mNetManager.launchHeartTrack(track);
+                        }
                     }
-                    params.put("artist" + is, track.getArtist());
-                    if (track.getSource().equals("R") || track.getSource().equals("E")) {
-                        params.put("chosenByUser" + is, 0);
+                    for (Map.Entry<String, Object> param : params.entrySet()) {
+                        sign += param.getKey() + String.valueOf(param.getValue());
                     }
-                    if (track.getDuration()!= -1) {
-                        params.put("duration" + is, Integer.toString(track.getDuration()));
+                    String signature = MD5.getHashString(sign + settings.rcnvK(settings.getSecret()));
+                    params.put("api_sig", signature);
+
+
+                    StringBuilder postData = new StringBuilder();
+                    for (Map.Entry<String, Object> param : params.entrySet()) {
+                        if (postData.length() != 0) postData.append('&');
+                        postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                        postData.append('=');
+                        postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
                     }
-                    if (track.getMbid() != null) {
-                        params.put("mbid" + is, track.getMbid());
-                    }
-                    params.put("timestamp" + is, track.getWhen());
-                    params.put("track" + is, track.getTrack());
-                    if (track.getTrackNr() != null) {
-                        params.put("trackNumber" + is, track.getTrackNr());
-                    }
+                    byte[] postDataBytes = postData.toString().getBytes("UTF-8");
 
-
-                    if (track.getRating().equals("L")) {
-                        NetworkerManager mNetManager = new NetworkerManager(mCtx, mDb);
-                        mNetManager.launchHeartTrack(track);
-                    }
-                }
-                for (Map.Entry<String, Object> param : params.entrySet()) {
-                    sign += param.getKey() + String.valueOf(param.getValue());
-                }
-                String signature = MD5.getHashString(sign + settings.rcnvK(settings.getSecret()));
-                params.put("api_sig", signature);
-
-
-                StringBuilder postData = new StringBuilder();
-                for (Map.Entry<String, Object> param : params.entrySet()) {
-                    if (postData.length() != 0) postData.append('&');
-                    postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-                    postData.append('=');
-                    postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-                }
-                byte[] postDataBytes = postData.toString().getBytes("UTF-8");
-
-                conn = (HttpURLConnection) url.openConnection();
-                // Log.d(TAG,conn.toString());
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-                conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-                conn.setDoOutput(true);
-                conn.setDoInput(true);
-                conn.getOutputStream().write(postDataBytes);
-                Log.i(TAG, params.toString());
-                int resCode = conn.getResponseCode();
-                Log.d(TAG, "Response code: " + resCode);
-                BufferedReader r;
-                if (resCode == 200) {
-                    r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                } else {
-                    r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-                }
-                StringBuilder rsponse = new StringBuilder();
-                String line;
-                while ((line = r.readLine()) != null) {
-                    rsponse.append(line).append('\n');
-                }
-                r.close();
-                String response = rsponse.toString();
-                // some redundancy here ?
-                String[] lines = response.split("\n");
-
-              //  Log.d(TAG, "Scrobble Result: " + lines.length + " : " + response.contains("status=\"ok\"") + " : " + lines[1]);
-                if (response.contains("status=\"ok\"")) {
-                    Log.i(TAG, "Scrobbling success: " + getNetApp().getName());
-                } else {
-                    if (response.contains("code=\"26\"") || response.contains("code=\"10\"")) {
-                        Log.e(TAG, "Scobble failed: client banned: " + NetApp.LASTFM);
-                        settings.setSessionKey(NetApp.LASTFM, "");
-                        throw new AuthStatus.ClientBannedException("Now Playing failed because of client banned");
-                    } else if (response.contains("code=\"4\"") || response.contains("code=\"9\"")) {
-                        Log.i(TAG, "Scrobble failed: bad auth: " + NetApp.LASTFM);
-                        settings.setSessionKey(NetApp.LASTFM, "");
-                        throw new BadSessionException("Now Playing failed because of badsession");
+                    conn = (HttpURLConnection) url.openConnection();
+                    // Log.d(TAG,conn.toString());
+                    conn.setRequestMethod("POST");
+                    conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                    conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+                    conn.setDoOutput(true);
+                    conn.setDoInput(true);
+                    conn.getOutputStream().write(postDataBytes);
+                    //Log.i(TAG, params.toString());
+                    int resCode = conn.getResponseCode();
+                    Log.d(TAG, "Response code: " + resCode);
+                    BufferedReader r;
+                    if (resCode == 200) {
+                        r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     } else {
-                        String reason = lines[2].substring(7);
-                        Log.e(TAG, "Scrobble fails: FAILED " + reason + ": " + NetApp.LASTFM);
-                        //settings.setSessionKey(NetApp.LASTFM, "");
-                        throw new TemporaryFailureException("Now playing failed because of " + response);
+                        r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
                     }
-                }
-            } catch (IOException e) {
-                throw new TemporaryFailureException("Scrobble failed weirdly: " + e.getMessage());
-            } finally {
-                if (conn != null) {
-                    conn.disconnect();
+                    StringBuilder rsponse = new StringBuilder();
+                    String line;
+                    while ((line = r.readLine()) != null) {
+                        rsponse.append(line).append('\n');
+                    }
+                    r.close();
+                    String response = rsponse.toString();
+                    // some redundancy here ?
+                    String[] lines = response.split("\n");
+
+                    //  Log.d(TAG, "Scrobble Result: " + lines.length + " : " + response.contains("status=\"ok\"") + " : " + lines[1]);
+                    if (response.contains("status=\"ok\"")) {
+                        Log.i(TAG, "Scrobbling success: " + getNetApp().getName());
+                    } else {
+                        if (response.contains("code=\"26\"") || response.contains("code=\"10\"")) {
+                            Log.e(TAG, "Scobble failed: client banned: " + NetApp.LASTFM);
+                            settings.setSessionKey(NetApp.LASTFM, "");
+                            throw new AuthStatus.ClientBannedException("Now Playing failed because of client banned");
+                        } else if (response.contains("code=\"4\"") || response.contains("code=\"9\"")) {
+                            Log.i(TAG, "Scrobble failed: bad auth: " + NetApp.LASTFM);
+                            settings.setSessionKey(NetApp.LASTFM, "");
+                            throw new BadSessionException("Now Playing failed because of badsession");
+                        } else {
+                            String reason = lines[2].substring(7);
+                            Log.e(TAG, "Scrobble fails: FAILED " + reason + ": " + NetApp.LASTFM);
+                            //settings.setSessionKey(NetApp.LASTFM, "");
+                            throw new TemporaryFailureException("Now playing failed because of " + response);
+                        }
+                    }
+                } catch (IOException e) {
+                    throw new TemporaryFailureException("Scrobble failed weirdly: " + e.getMessage());
+                } finally {
+                    if (conn != null) {
+                        conn.disconnect();
+                    }
                 }
             }
 
@@ -326,7 +330,7 @@ public class Scrobbler extends AbstractSubmitter {
                 conn.setDoOutput(true);
                 conn.setDoInput(true);
                 conn.getOutputStream().write(postDataBytes);
-                Log.i(TAG, params.toString());
+                //Log.i(TAG, params.toString());
                 int resCode = conn.getResponseCode();
                 Log.d(TAG, "Response code: " + resCode);
                 BufferedReader r;

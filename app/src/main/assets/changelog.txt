@@ -8,6 +8,7 @@
   * Add Love track feature
   * Network notifications
   * Last.fm API 2.0
+  * Add Czech (thanks to Michal Absolin)
 
 - 1.4.9 (2015-08-09)
   * Add French translation (thanks to pierreduchemin)
