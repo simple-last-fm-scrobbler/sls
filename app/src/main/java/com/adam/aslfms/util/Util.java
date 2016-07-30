@@ -93,6 +93,7 @@ public class Util {
     }
 
     public static NetworkStatus checkForOkNetwork(Context ctx) {
+
         AppSettings settings = new AppSettings(ctx);
         PowerOptions powerOptions = checkPower(ctx);
 
@@ -103,13 +104,11 @@ public class Util {
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
 
-        if(netInfo != null){
-            Log.d(TAG, "conn: "+netInfo.isConnected()+" : "+netInfo.toString());
-        }
-
-        if (netInfo == null || !netInfo.isConnected()) {
+        if (netInfo == null || !(netInfo.isConnected() || ConnectivityChangeReceiver.isConnect)) {
             return NetworkStatus.DISCONNECTED;
         }
+
+        Log.e(TAG, "conn: "+netInfo.isConnected()+" : "+netInfo.toString());
 
         if (netInfo.isRoaming() && !roaming) {
             return NetworkStatus.UNFIT;

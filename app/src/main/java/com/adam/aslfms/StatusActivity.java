@@ -100,6 +100,8 @@ public class StatusActivity extends AppCompatActivity {
                         fragment.fillData();
                     }*/
                 }
+                this.finish();
+                startActivity(getIntent());
                 return true;
             case R.id.MENU_VIEW_CACHE_ID:
                 Intent i = new Intent(this, ViewScrobbleCacheActivity.class);

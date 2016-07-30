@@ -177,7 +177,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         if (pref == mScrobbleAllNow) {
             int numInCache = mDb.queryNumberOfTracks();
             Util.scrobbleAllIfPossible(this, numInCache);
-            Log.e(TAG,"Scrobble attempt.");
             return true;
         } else if (pref == mViewScrobbleCache) {
             Intent i = new Intent(this, ViewScrobbleCacheActivity.class);

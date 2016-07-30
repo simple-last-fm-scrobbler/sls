@@ -22,15 +22,13 @@ package com.adam.aslfms.util;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
-import com.adam.aslfms.service.NetApp;
-import com.adam.aslfms.service.Networker;
-import com.adam.aslfms.service.NetworkerManager;
-import com.adam.aslfms.util.enums.AdvancedOptionsWhen;
+import com.adam.aslfms.util.enums.NetworkOptions;
 import com.adam.aslfms.util.enums.PowerOptions;
 
 import java.util.Iterator;
@@ -47,7 +45,9 @@ public class ConnectivityChangeReceiver extends BroadcastReceiver {
 
     static String TAG = "CCR";
 
-   /** public static void dumpIntent(Bundle bundle) {
+    public static boolean isConnect;
+
+    public static void dumpIntent(Bundle bundle) {
         if (bundle != null) {
             Set<String> keys = bundle.keySet();
             Iterator<String> it = keys.iterator();
@@ -58,34 +58,60 @@ public class ConnectivityChangeReceiver extends BroadcastReceiver {
             }
             Log.e(TAG, "Dumping Intent end");
         }
-    }*/
-
+    }
 
     @Override
     public void onReceive(final Context context, final Intent intent) {
 
-       // Log.d(TAG, "ACTION: " + intent.getAction());
-       // dumpIntent(intent.getExtras());
+        Log.e(TAG, "ACTION: " + intent.getAction());
+        //dumpIntent(intent.getExtras());
+        ConnectivityManager cm = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
 
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
 
-        if (intent.getAction().equals(WifiManager.NETWORK_STATE_CHANGED_ACTION)) {
-            final NetworkInfo networkInfo = intent.getParcelableExtra(WifiManager.EXTRA_NETWORK_INFO);
+        AppSettings settings = new AppSettings(context);
+        PowerOptions pow = Util.checkPower(context);
+        if (activeNetwork != null) {
+            isConnect = activeNetwork.isConnected();
 
-            if (networkInfo.isConnected()) {
-                ScrobblesDatabase db = new ScrobblesDatabase(context);
-                final int numInCache = db.queryNumberOfTracks();
-                PowerOptions pow = Util.checkPower(context);
-                AppSettings settings = new AppSettings(context);
-                AdvancedOptionsWhen aow = settings.getAdvancedOptionsWhen(pow);
-
-                NetworkerManager mNetManager = new NetworkerManager(context, db);
-
-                for (NetApp napp : NetApp.values()) {
-                    if (numInCache >= aow.getTracksToWaitFor()) {
-                        mNetManager.launchScrobbler(napp);
-                    }
-                }
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                // connected to wifi
+                Toast.makeText(context, activeNetwork.getTypeName() + isConnect, Toast.LENGTH_SHORT).show();
+            } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                // connected to the mobile provider's data plan
+                Toast.makeText(context, activeNetwork.getTypeName() + isConnect, Toast.LENGTH_SHORT).show();
             }
+
+
+            boolean roaming = settings.getSubmitOnRoaming(pow);
+
+            if (!roaming && activeNetwork.isRoaming()) { // check for roaming disabled
+                return;
+            }
+            // check for unacceptable network
+            NetworkOptions networkOptions = settings.getNetworkOptions(pow);
+
+            int netType = activeNetwork.getType();
+            int netSubType = activeNetwork.getSubtype();
+
+            Log.d(TAG, "netType: " + netType);
+            Log.d(TAG, "netSubType: " + netSubType);
+
+            if (networkOptions.isNetworkTypeForbidden(netType)) {
+                Log.d(TAG, "Network type forbidden");
+                return;
+            }
+            if (networkOptions.isNetworkSubTypeForbidden(netType, netSubType)) {
+                Log.d(TAG, "Network sub type forbidden");
+                return;
+            }
+
+        } else {
+            isConnect = false;
+            Toast.makeText(context, " all " + isConnect, Toast.LENGTH_SHORT).show();
+            return;
         }
+
     }
 }

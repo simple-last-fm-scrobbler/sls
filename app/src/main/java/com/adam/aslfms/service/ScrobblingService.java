@@ -125,7 +125,7 @@ public class ScrobblingService extends Service {
                 Log.e(TAG, "launchHandshaker got null napp");
         } else if (action.equals(ACTION_JUSTSCROBBLE)) {
             if (extras.getBoolean("scrobbleall", false)) {
-                Log.e(TAG,"Scrobble All TRUE");
+                Log.d(TAG,"Scrobble All TRUE");
                 mNetManager.launchAllScrobblers();
             } else {
                 Log.e(TAG,"Scrobble All False");
