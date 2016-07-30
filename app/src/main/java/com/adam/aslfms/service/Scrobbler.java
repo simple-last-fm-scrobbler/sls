@@ -134,7 +134,7 @@ public class Scrobbler extends AbstractSubmitter {
             // TODO: what??  notify user
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_CLIENTBANNED);
             Util.myNotify(mCtx, SettingsActivity.class, getNetApp().getName(),
-                    mCtx.getString(R.string.auth_client_banned));
+                    mCtx.getString(R.string.auth_client_banned), 39201);
             e.getStackTrace();
             ret = true;
         }

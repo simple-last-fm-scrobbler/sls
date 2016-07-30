@@ -9,6 +9,7 @@
   * Network notifications
   * Last.fm API 2.0
   * Add Czech (thanks to Michal Absolin)
+  * Add Russian translation (thanks to bajituka)
 
 - 1.4.9 (2015-08-09)
   * Add French translation (thanks to pierreduchemin)
@@ -18,8 +19,7 @@
   * Add new icon (thanks to bryansills)
   * Add German translation (thanks to herrherrmann)
   * Add new Material Design (thanks to bryansills)
-  * Bug fixes and support (thanks to inverse)
-  * Add Russian translation (thanks to bajituka)
+  * Bug fixes and support (thanks to inverse)  
 
 - 1.4.8 (2014-08-16)
   * Add new high-resolution icon (thanks to Tha Phlash)

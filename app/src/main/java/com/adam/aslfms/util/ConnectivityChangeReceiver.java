@@ -46,7 +46,7 @@ public class ConnectivityChangeReceiver extends BroadcastReceiver {
     static String TAG = "CCR";
 
     public static boolean isConnect;
-
+/**
     public static void dumpIntent(Bundle bundle) {
         if (bundle != null) {
             Set<String> keys = bundle.keySet();
@@ -59,7 +59,7 @@ public class ConnectivityChangeReceiver extends BroadcastReceiver {
             Log.e(TAG, "Dumping Intent end");
         }
     }
-
+*/
     @Override
     public void onReceive(final Context context, final Intent intent) {
 
@@ -74,7 +74,7 @@ public class ConnectivityChangeReceiver extends BroadcastReceiver {
         PowerOptions pow = Util.checkPower(context);
         if (activeNetwork != null) {
             isConnect = activeNetwork.isConnected();
-
+/**
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
                 // connected to wifi
                 Toast.makeText(context, activeNetwork.getTypeName() + isConnect, Toast.LENGTH_SHORT).show();
@@ -82,7 +82,7 @@ public class ConnectivityChangeReceiver extends BroadcastReceiver {
                 // connected to the mobile provider's data plan
                 Toast.makeText(context, activeNetwork.getTypeName() + isConnect, Toast.LENGTH_SHORT).show();
             }
-
+*/
 
             boolean roaming = settings.getSubmitOnRoaming(pow);
 
@@ -109,7 +109,7 @@ public class ConnectivityChangeReceiver extends BroadcastReceiver {
 
         } else {
             isConnect = false;
-            Toast.makeText(context, " all " + isConnect, Toast.LENGTH_SHORT).show();
+           // Toast.makeText(context, " all " + isConnect, Toast.LENGTH_SHORT).show();
             return;
         }
 

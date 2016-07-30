@@ -21,12 +21,16 @@
 
 package com.adam.aslfms.service;
 
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -91,7 +95,30 @@ public class ScrobblingService extends Service {
     @Override
     public int onStartCommand(Intent i, int flags, int startId) {
         handleCommand(i, startId);
-        return Service.START_NOT_STICKY;
+
+        NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
+        String ar = "";
+        String tr = "";
+        String api = "";
+        if (mCurrentTrack != null){
+            ar = mCurrentTrack.getArtist();
+            tr = mCurrentTrack.getTrack();
+            api = mCurrentTrack.getMusicAPI().readAPIname();
+        }
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(mCtx)
+                        .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                                R.mipmap.ic_launcher))
+                        .setContentTitle(ar)
+                        .setSmallIcon(R.mipmap.ic_notify)
+                        .setContentText(tr + " : " + api);
+        Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        builder.setContentIntent(contentIntent);
+
+
+        this.startForeground(14619, builder.build());
+        return Service.START_STICKY;
     }
 
     //Note this function is deprecated starting at API level 5
@@ -251,10 +278,11 @@ public class ScrobblingService extends Service {
             tryNotifyNP(mCurrentTrack);
 
             // TODO: maybe give notifications it's own service
+            /**
             if (settings.isNotifyEnabled(Util.checkPower(mCtx))) {
                 Class chooseActivity = SettingsActivity.class;
-                Util.myNotify(mCtx,chooseActivity,track.getArtist(),track.getTrack() + " : " + track.getMusicAPI().readAPIname());
-            }
+                Util.myNotify(mCtx,chooseActivity,track.getArtist(),track.getTrack() + " : " + track.getMusicAPI().readAPIname(), 14619);
+            }*/
         } else if (state == Track.State.PAUSE) { // pause
             // TODO: test this state
             if (mCurrentTrack == null) {

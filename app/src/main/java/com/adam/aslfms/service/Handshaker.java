@@ -107,7 +107,7 @@ public class Handshaker extends NetRunnable {
                 else {
                     notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_RETRYLATER);
                     Util.myNotify(mCtx, SettingsActivity.class, getNetApp().getName(),
-                            mCtx.getString(R.string.auth_network_error_retrying));
+                            mCtx.getString(R.string.auth_network_error_retrying), 39201);
                 }
             }
 
@@ -153,7 +153,7 @@ public class Handshaker extends NetRunnable {
             // the scrobbles already prepared will be sent at a later time
             e.getStackTrace();
             Util.myNotify(mCtx, SettingsActivity.class, getNetApp().getName(),
-                    mCtx.getString(R.string.auth_bad_auth));
+                    mCtx.getString(R.string.auth_bad_auth), 39201);
 
             getNetworker().unlaunchScrobblingAndNPNotifying();
         } catch (TemporaryFailureException e) {
@@ -174,7 +174,7 @@ public class Handshaker extends NetRunnable {
                 getNetworker().launchHandshaker(hsAction);
             }
             Util.myNotify(mCtx, SettingsActivity.class, getNetApp().getName(),
-                    mCtx.getString(R.string.auth_network_error_retrying));
+                    mCtx.getString(R.string.auth_network_error_retrying), 39201);
             e.getStackTrace();
         } catch (ClientBannedException e) {
             Log.e(TAG, "This version of the client has been banned!!" + ": "
@@ -183,7 +183,7 @@ public class Handshaker extends NetRunnable {
             // TODO: what??  notify user
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_CLIENTBANNED);
             Util.myNotify(mCtx, SettingsActivity.class, getNetApp().getName(),
-                    mCtx.getString(R.string.auth_client_banned));
+                    mCtx.getString(R.string.auth_client_banned), 39201);
             e.getStackTrace();
         }
     }

@@ -429,7 +429,7 @@ public class Util {
         }
     }
 
-    public static void myNotify(Context mCtx, Class chooseActivity, String title, String content) {
+    public static void myNotify(Context mCtx, Class chooseActivity, String title, String content, int notID) {
         try {
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(mCtx)
@@ -438,12 +438,11 @@ public class Util {
                             .setContentTitle(title)
                             .setSmallIcon(R.mipmap.ic_notify)
                             .setContentText(content);
-            int NOTIFICATION_ID = 14619;
             Intent targetIntent = new Intent(mCtx, chooseActivity);
             PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             builder.setContentIntent(contentIntent);
             NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
-            nManager.notify(NOTIFICATION_ID, builder.build());
+            nManager.notify(notID, builder.build());
         } catch (Exception e) {
             Log.d(TAG, "Phone Notification failed. " + e);
         }
