@@ -5,3 +5,6 @@
 build
 *.iml
 app/*.apk
+app/app-debug.zip
+app/app-release.zip
+tx.py35.x64.exe

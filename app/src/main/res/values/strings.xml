@@ -12,11 +12,12 @@
     <string name="also_disable_np_title">Also disable now-playing</string>
     <string name="also_disable_np_summary">[Hmpf]</string>
     <!-- END original strings -->
-    
+
     <!-- START about strings -->
     <string name="by">by</string>
     <string name="issues">Issues: %s</string>
     <string name="website">Website: %s</string>
+    <string name="troubShoot">Trouble Shoot: %s</string>
     <string name="by_adam">by Adam Renberg</string>
     <string name="license">Released under Apache License v2.0</string>
     <string name="about_text">A lightweight scrobbler that submits information to Last.fm (and/or Libre.fm) on what music you play on your android phone. Last.fm then lets you view listening statistics and recommends new music you might like.</string>
@@ -60,8 +61,8 @@
     <string name="sc_sort_album_desc">Album, descending</string>
     <string name="sc_sort_track_asc">Track name, ascending</string>
     <string name="sc_sort_track_desc">Track name, descending</string>
-    <!-- END cache strings -->  
-    
+    <!-- END cache strings -->
+
     <!-- START creds strings -->
     <string name="user_credentials_title">User credentials</string>
     <string name="user_credentials_summary">Set username and password for your %1 account</string>
@@ -91,7 +92,28 @@
     <string name="confirm_clear_creds">Are you sure you want to clear your user credentials for %1? This will also remove any unsubmitted scrobbles.</string>
     <string name="confirm_clear_all_creds">Are you sure you want to clear your user credentials for all logged in accounts? This will also remove any unsubmitted scrobbles.</string>
     <!-- END creds strings -->
-    
+
+    <!-- START heart strings -->
+    <string name="heart_and_copy">Song Options</string>
+    <string name="heart_title">Love</string>
+    <string name="heart_current_track">Love Current Track at last.fm</string>
+    <string name="no_heart_track">Heart Track Failed</string>
+    <string name="loved_track">Loved Track</string>
+    <string name="no_lastFm">Please enter your last.fm credentials</string>
+    <!-- END heart strings -->
+
+    <!-- START copy strings -->
+    <string name="copy_title">Copy</string>
+    <string name="copy_current_track">Copy Current Track to Clip Board</string>
+    <string name="no_copy_track">Copy Track Failed</string>
+    <string name="no_current_track">No Current Song Available</string>
+    <!-- END copy strings -->
+
+    <!-- START permissions and warnings strings -->
+    <string name="permission_required">Permission REQUIRED to work properly</string>
+    <string name="creds_required">Credentials REQUIRED to work properly</string>
+    <!-- END permissions and warnings strings -->
+
     <!-- START mapis strings -->
     <string name="incompatability_short">Warning: %1$s is installed and may cause double scrobbling.</string>
     <string name="incompatability_long">Warning: %1$s is installed and may cause incompatibilities with scrobbling. Disable scrobbling from this app, or uninstall %1$s.</string>
@@ -105,7 +127,7 @@
     <string name="find_supported_mapis_summary">Play music in a supported app and it will appear here</string>
     <string name="unknown_mapi">Unknown app (pre SLS v1.2.3)</string>
     <!-- END mapis strings -->
-    
+
     <!-- START options strings -->
     <string name="options_title">Options</string>
     <string name="advanced_options_title">Advanced options</string>
@@ -118,6 +140,7 @@
     <string name="ao_battery_title">On battery</string>
     <string name="ao_plugged_title">Plugged in</string>
     <string name="options_summary">Including battery conserving settings</string>
+    <string name="advanced_options_notify_title">Phone Notifications</string>
     <string name="advanced_options_custom_category_title">Custom scrobbling options</string>
     <string name="advanced_options_when_title">When to scrobble</string>
     <string name="advanced_options_also_on_complete_title">Also on playlist finish</string>
@@ -143,7 +166,7 @@
     <string name="advanced_options_net_roaming_summary_off">Won\'t submit data when roaming</string>
     <string name="advanced_options_net_roaming_summary_on">Will submit data when roaming</string>
     <!-- END options strings -->
-    
+
     <!-- START status strings -->
     <string name="status">Status</string>
     <string name="scrobble_status_title">Scrobble status</string>
@@ -164,5 +187,5 @@
     <string name="confirm_stats_reset">Are you sure you want to reset your submission statistics for %1? This operation cannot be undone.</string>
     <string name="profile_page">Profile page</string>
     <!-- END status strings -->
-    
+
 </resources>

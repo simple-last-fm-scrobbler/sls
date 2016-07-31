@@ -21,6 +21,7 @@
 package com.adam.aslfms.receiver;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 
 import com.adam.aslfms.util.Track;
@@ -52,12 +53,18 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 	private int getIntFromBundle(Bundle bundle, String key, boolean throwOnFailure)
 			throws IllegalArgumentException {
 		long value = -1;
-		Object obj = bundle.get(key);
-		
+		Object obj;
+		try {
+			obj = bundle.get(key);
+		} catch (IllegalArgumentException e){
+			throw new IllegalArgumentException(e);
+		}
 		if (obj instanceof Long)
 			value = (Long) obj;
 		else if (obj instanceof Integer)
 			value = (Integer) obj;
+		else if (obj instanceof Double)
+			value = ((Double) obj).intValue();
 		else if (obj instanceof String)
 			value = Long.valueOf((String) obj).longValue();
 		else if (throwOnFailure)
@@ -70,11 +77,23 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
 			throws IllegalArgumentException {
 
-		// music api stuff
-		// app-name, required
-		String appname = bundle.getString("app-name");
-		// app-package, required
-		String apppkg = bundle.getString("app-package");
+		CharSequence pkgTest = null;
+		String appname;
+		String apppkg;
+		PackageManager packageManager = ctx.getPackageManager();
+		if (bundle.containsKey("gonemad.gmmp")){
+			pkgTest = "gonemad.gmmp";
+		}
+		try {
+			appname = packageManager.getApplicationLabel(packageManager.getApplicationInfo(pkgTest.toString(), PackageManager.GET_META_DATA)).toString();
+			apppkg = pkgTest.toString();
+		} catch (PackageManager.NameNotFoundException | NullPointerException e) {
+			// music api stuff
+			// app-name, required
+			appname = bundle.getString("app-name");
+			// app-package, required
+			apppkg = bundle.getString("app-package");
+		}
 
 		// throws on bad appname / apppkg
 		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx, appname, apppkg, null,
@@ -101,7 +120,16 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
 		// artist name, required
 		b.setArtist(bundle.getString("artist"));
 		// album name, optional (recommended)
-		b.setAlbum(bundle.getString("album"));
+		if (bundle.containsKey("album")) {
+			CharSequence al = bundle.getCharSequence("album");
+			if (al == null || "Unknown album".equals(al.toString()) || "Unknown".equals(al.toString())) {
+				b.setAlbum(""); // album is not required to scrobble.
+			} else {
+				b.setAlbum(al.toString());
+			}
+		} else {
+			b.setAlbum("");
+		}
 		// track name, required
 		b.setTrack(bundle.getString("track"));
 

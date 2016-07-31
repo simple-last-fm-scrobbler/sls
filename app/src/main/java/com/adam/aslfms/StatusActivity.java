@@ -21,6 +21,7 @@
 
 package com.adam.aslfms;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -29,9 +30,15 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.adam.aslfms.service.NetApp;
+import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.ScrobblesDatabase;
+import com.adam.aslfms.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,14 +49,22 @@ public class StatusActivity extends AppCompatActivity {
 	private static final int MENU_VIEW_CACHE_ID = 1;
 	private static final int MENU_RESET_STATS_ID = 2;
 
+    private AppSettings settings;
+
+    private static final String TAG = "StatusActivity";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.status_activity);
 
-		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        settings = new AppSettings(this);
+
+        //getSupportActionBar().setElevation(0);
+		//Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		//setSupportActionBar(toolbar);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // manifest android:theme="@style/Theme.AppCompat.NoActionBar"
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         if (viewPager != null) {
@@ -62,16 +77,41 @@ public class StatusActivity extends AppCompatActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
-		menu.add(0, MENU_SCROBBLE_NOW_ID, 0, R.string.scrobble_now).setIcon(
-                android.R.drawable.ic_menu_upload);
-		menu.add(0, MENU_RESET_STATS_ID, 0, R.string.reset_stats).setIcon(
-                android.R.drawable.ic_menu_close_clear_cancel);
-		menu.add(0, MENU_VIEW_CACHE_ID, 0, R.string.view_sc).setIcon(
-                android.R.drawable.ic_menu_view);
-
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.status, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) { //TODO: Make scrobble now work again (use giant scrobble in SettingsActivity for now)
+            /**case MENU_SCROBBLE_NOW_ID:
+                int numInCache = mDb.queryNumberOfTracks();
+                Util.scrobbleAllIfPossible(this, numInCache);
+                Log.e(TAG,"Scrobble attempt.");
+                return true;*/
+            case R.id.MENU_RESET_STATS_ID:
+                for (NetApp napp : NetApp.values()){
+                    settings.clearSubmissionStats(napp);
+                    // TODO: refill data on clearStats
+                    /**StatusFragment fragment = (StatusFragment) getSupportFragmentManager().findFragmentByTag("StatusFragment");
+                    if (fragment != null){
+                        fragment.fillData();
+                    }*/
+                }
+                this.finish();
+                startActivity(getIntent());
+                return true;
+            case R.id.MENU_VIEW_CACHE_ID:
+                Intent i = new Intent(this, ViewScrobbleCacheActivity.class);
+                i.putExtra("viewall", true);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
     private void setupViewPager(ViewPager viewPager) {
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());

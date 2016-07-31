@@ -120,6 +120,19 @@ public class Networker {
 		mExecutor.execute(n);
 	}
 
+	public void launchHeartTrack(Track track) {
+		Iterator<Runnable> i = mExecutor.getQueue().iterator();
+		while (i.hasNext()) {
+			Runnable r = i.next();
+			if (r.getClass() == Heart.class) {
+				i.remove();
+			}
+		}
+
+		Heart n = new Heart(mNetApp, mCtx, this, track, settings);
+		mExecutor.execute(n);
+	}
+
 	public void launchSleeper() {
 		mExecutor.execute(mSleeper);
 	}

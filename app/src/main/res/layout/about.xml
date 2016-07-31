@@ -100,5 +100,17 @@
 			android:layout_marginRight="20dip"
 			android:layout_marginTop="4dip"
 			android:layout_marginBottom="12dip" />
+		<TextView
+			android:id="@+id/tShoot"
+			android:autoLink="web"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:textStyle="bold"
+			android:textSize="14sp"
+			android:textColor="@color/status_highlight"
+			android:layout_marginLeft="20dip"
+			android:layout_marginRight="20dip"
+			android:layout_marginTop="4dip"
+			android:layout_marginBottom="12dip" />
 	</LinearLayout>
 </ScrollView>
