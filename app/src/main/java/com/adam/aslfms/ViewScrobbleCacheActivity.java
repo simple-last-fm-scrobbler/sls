@@ -31,6 +31,7 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -76,15 +77,18 @@ public class ViewScrobbleCacheActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            ActionBar actionBar = getSupportActionBar();
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
         }
 
         settings = new AppSettings(this);
 
         Bundle extras = getIntent().getExtras();
 
-        String name = "??????";
-        if (extras.getBoolean("viewall") == true) {
+        String name;
+        if (extras.getBoolean("viewall")) {
             Log.d(TAG, "Will view cache for all netapps");
             mNetApp = null;
             name = getString(R.string.all_websites);

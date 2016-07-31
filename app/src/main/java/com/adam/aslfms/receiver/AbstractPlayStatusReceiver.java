@@ -31,9 +31,6 @@ import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.InternalTrackTransmitter;
 import com.adam.aslfms.util.Track;
 
-import java.util.Iterator;
-import java.util.Set;
-
 /**
  * Base class for play status receivers.
  * 

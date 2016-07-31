@@ -38,7 +38,7 @@ public enum AdvancedOptions {
     private final boolean roaming;
     private final int nameRID;
 
-    private AdvancedOptions(String settingsVal, boolean enableNotify, boolean enableScrobbling, boolean enableNp, AdvancedOptionsWhen when,
+    AdvancedOptions(String settingsVal, boolean enableNotify, boolean enableScrobbling, boolean enableNp, AdvancedOptionsWhen when,
                             boolean alsoOnComplete, NetworkOptions networkOptions, boolean roaming, int nameRID) {
         this.settingsVal = settingsVal;
         this.enableNotify = enableNotify;

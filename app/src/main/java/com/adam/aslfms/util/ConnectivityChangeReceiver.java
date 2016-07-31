@@ -24,15 +24,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.adam.aslfms.util.enums.NetworkOptions;
 import com.adam.aslfms.util.enums.PowerOptions;
-
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  * Receiver for listening to connectivity changes. Currently attempts to

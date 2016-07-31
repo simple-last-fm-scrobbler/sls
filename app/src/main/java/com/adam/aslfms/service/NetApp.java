@@ -39,8 +39,8 @@ public enum NetApp {
     private final String signUpUrl;
     private final String profileUrl;
 
-    private NetApp(int val, String name, String handshakeUrl,
-                   String settingsPrefix, String signUpUrl, String profileUrl) {
+    NetApp(int val, String name, String handshakeUrl,
+           String settingsPrefix, String signUpUrl, String profileUrl) {
         this.val = val;
         this.name = name;
         this.handshakeUrl = handshakeUrl;

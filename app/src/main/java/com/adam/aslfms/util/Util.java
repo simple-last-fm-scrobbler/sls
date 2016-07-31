@@ -73,16 +73,21 @@ public class Util {
      * @return an enum indicating what the power source is
      */
     public static PowerOptions checkPower(Context ctx) {
-        // check if plugged into AC
-        IntentFilter battFilter = new IntentFilter(
-                Intent.ACTION_BATTERY_CHANGED);
+
+        IntentFilter battFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
         Intent intent = ctx.registerReceiver(null, battFilter);
-        int plugged = intent.getIntExtra("plugged", -1);
-        if (plugged == 0) { // == 0 means on battery
-            return PowerOptions.BATTERY;
-        } else {
-            return PowerOptions.PLUGGED_IN;
+
+        if (intent != null) {
+            int plugged = intent.getIntExtra("plugged", -1);
+            if (plugged == 0) { // == 0 means on battery
+                return PowerOptions.BATTERY;
+            } else {
+                return PowerOptions.PLUGGED_IN;
+            }
         }
+
+        Log.d(TAG, "Failed to get intent, assuming battery");
+        return PowerOptions.BATTERY;
     }
 
     /**
