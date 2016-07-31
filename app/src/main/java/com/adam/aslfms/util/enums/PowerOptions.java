@@ -14,7 +14,7 @@ public enum PowerOptions {
 	private final String settingsPath;
 	private final AdvancedOptions[] applicableOptions;
 
-	private PowerOptions(String settingsPath, AdvancedOptions[] applicableOptions) {
+	PowerOptions(String settingsPath, AdvancedOptions[] applicableOptions) {
 		this.settingsPath = settingsPath;
 		this.applicableOptions = applicableOptions;
 	}

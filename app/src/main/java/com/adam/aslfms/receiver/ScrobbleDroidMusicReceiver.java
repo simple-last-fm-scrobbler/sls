@@ -26,13 +26,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
-
-import java.util.Iterator;
-import java.util.Set;
 
 /**
  * A BroadcastReceiver for the <a
@@ -106,11 +102,6 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 			return;
 		}
 
-
-		String source = bundle.getString("source");
-		if (source == null || source.length() > 1) {
-			source = "P";
-		}
 		int msid = bundle.getInt("id", -1);
 
 		Track.Builder b = new Track.Builder();

@@ -15,7 +15,7 @@ public enum SortOrder {
 
 	private final String sql;
 
-	private SortOrder(String sql) {
+	SortOrder(String sql) {
 		this.sql = sql;
 	}
 

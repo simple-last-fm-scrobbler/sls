@@ -136,7 +136,7 @@ public class Heart extends NetRunnable {
         }
         conn.disconnect();
         String heartResult = "";
-        String inputLine = "";
+        String inputLine;
         while ((inputLine = outputStream.readLine()) != null) {
             heartResult += inputLine;
         }

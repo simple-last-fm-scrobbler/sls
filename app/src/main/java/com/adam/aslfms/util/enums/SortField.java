@@ -29,7 +29,7 @@ public enum SortField {
 	private final SortOrder sortOrder;
 	private final int nameRID;
 
-	private SortField(String field, com.adam.aslfms.util.enums.SortOrder sortOrder, int nameRID) {
+	SortField(String field, com.adam.aslfms.util.enums.SortOrder sortOrder, int nameRID) {
 		this.field = field;
 		this.sortOrder = sortOrder;
 		this.nameRID = nameRID;
