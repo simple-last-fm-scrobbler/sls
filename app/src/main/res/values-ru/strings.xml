@@ -91,6 +91,27 @@
     <string name="confirm_clear_creds">Вы уверены, что хотите удалить данные учетной записи для %1? Данное действие также приведет к удалению из кэша всех неотправленных композиций.</string>
     <string name="confirm_clear_all_creds">Вы уверены, что хотите удалить данные всех учетных записей? Данное действие также приведет к удалению из кэша всех неотправленных композиций.</string>
     <!-- END creds strings -->
+	
+	<!-- START heart strings -->
+    <string name="heart_and_copy">Варианты песни</string>
+    <string name="heart_title">Люблю</string>
+    <string name="heart_current_track">Любовь Текущий трек на last.fm</string>
+    <string name="no_heart_track">Неудача песня о любви</string>
+    <string name="loved_track">любил песни</string>
+    <string name="no_lastFm">Пожалуйста, введите свои учетные данные last.fm</string>
+    <!-- END heart strings -->
+
+    <!-- START copy strings -->
+    <string name="copy_title">копия</string>
+    <string name="copy_current_track">Скопировать текущую песню в буфер обмена</string>
+    <string name="no_copy_track">Копировать песню не удалось</string>
+    <string name="no_current_track">Нет Текущая песня доступна</string>
+    <!-- END copy strings -->
+
+    <!-- START permissions and warnings strings -->
+    <string name="permission_required">Необходимо разрешение работать должным образом</string>
+    <string name="creds_required">Учетные данные, необходимые для правильной работы</string>
+    <!-- END permissions and warnings strings -->
     
     <!-- START mapis strings -->
     <string name="incompatability_short">Внимание! %1$s установлено и может привести к двойному скробблингу.</string>

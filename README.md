@@ -43,7 +43,7 @@ Download
 [![Google Play Store](https://ibin.co/2hN6gwDRsRut.png)](https://play.google.com/store/apps/details?id=com.adam.aslfms)
 [![F-Droid](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Get_it_on_F-Droid.svg/320px-Get_it_on_F-Droid.svg.png)](https://f-droid.org/repository/browse/?fdid=com.adam.aslfms)
 
-[Release Downloads](https://github.com/tgwizard/sls/releases)
+[(Beta) Release Downloads](https://github.com/tgwizard/sls/releases)
 
 [Downloads deprecated](https://github.com/blog/1302-goodbye-uploads)
 
@@ -68,7 +68,9 @@ Supported languages
  * German
  * Brazilian Portuguese
  * Polish
- 
+ * Russian
+
+
  * Head to [Transifex](https://www.transifex.com/sls/sls) if you want to be a translator
 
 
@@ -183,6 +185,7 @@ Reported working:
  * Samsung Galaxy S3
  * Samsung Galaxy S4
  * Samsung Galaxy S5
+ * Samsung Galaxy S7
  * Samsung Galaxy Spica (doesn't work with the built-in 2.1 music app)
  * Sony Ericsson Xperia X10 Mini Pro
  * Sony Ericsson Xperia X8
