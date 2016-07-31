@@ -106,6 +106,7 @@ public class ConnectivityChangeReceiver extends BroadcastReceiver {
                 Log.d(TAG, "Network sub type forbidden");
                 return;
             }
+            // FIXME: scrobble all on connect OR rely on Util.checkForOkNetwork()
 
         } else {
             isConnect = false;

@@ -166,6 +166,7 @@ public class Handshaker extends NetRunnable {
 
             if (Util.checkForOkNetwork(getContext()) != NetworkStatus.OK) {
                 // no more sleeping, network down
+                Log.e(TAG,"Network status: "+Util.checkForOkNetwork(getContext()));
                 getNetworker().resetSleeper();
                 getNetworker().launchNetworkWaiter();
                 getNetworker().launchHandshaker(hsAction);

@@ -3,7 +3,7 @@
   * Add Portuguese Brazil translations (thanks to MendelGusmao)
   * Add Huawei support
   * Add Polish translation (thanks to Grzes58)
-  * Add Phone Notification in power settings
+  * Add Phone Notification to ensure scrobbles
   * Add Deezer Support
   * Add Love track feature
   * Network notifications

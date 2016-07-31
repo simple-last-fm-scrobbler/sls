@@ -103,12 +103,16 @@ public class Util {
         ConnectivityManager connectivityManager = (ConnectivityManager) ctx
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
+        if(netInfo == null){
+            Log.e(TAG,"netInfo == null");
+        }
+        if (netInfo != null) {
+            Log.e(TAG, "conn: " + netInfo.isConnected() + " : " + netInfo.toString());
+        }
 
         if (netInfo == null || !(netInfo.isConnected() || ConnectivityChangeReceiver.isConnect)) {
             return NetworkStatus.DISCONNECTED;
         }
-
-        Log.e(TAG, "conn: "+netInfo.isConnected()+" : "+netInfo.toString());
 
         if (netInfo.isRoaming() && !roaming) {
             return NetworkStatus.UNFIT;

@@ -48,7 +48,7 @@ public class NetworkWaiter extends NetRunnable {
         ifs.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         ifs.addAction(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED);
         getContext().registerReceiver(mConnReceiver, ifs);
-
+        Log.e(TAG,"connectivity_action");
         synchronized (this) {
             mWait = Util.checkForOkNetwork(getContext()) != NetworkStatus.OK;
             while (mWait) {
