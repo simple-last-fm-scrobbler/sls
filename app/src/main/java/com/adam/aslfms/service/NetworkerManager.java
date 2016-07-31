@@ -83,4 +83,9 @@ public class NetworkerManager {
 		}
 	}
 
+	public void launchHeartTrack(Track track){
+		NetApp napp = NetApp.LASTFM;
+		mSupportedNetApps.get(napp).launchHeartTrack(track);
+	}
+
 }

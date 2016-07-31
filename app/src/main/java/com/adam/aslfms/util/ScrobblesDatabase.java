@@ -1,23 +1,23 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * 
+ *
  *     https://github.com/tgwizard/sls
- * 
+ *
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- *     
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 
 package com.adam.aslfms.util;
 
@@ -34,7 +34,7 @@ import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.util.enums.SortField;
 
 /**
- * 
+ *
  * @author tgwizard
  * @since 0.9
  */
@@ -86,9 +86,9 @@ public class ScrobblesDatabase {
 				db = null;
 			}
 		}
-	    
+
 		private static DatabaseConnection databaseConnection = new DatabaseConnection();
-		
+
 		public static SQLiteDatabase getDatabase(Context _context) {
 			synchronized (databaseConnection) {
 				if (databaseConnection.db == null) {
@@ -114,7 +114,7 @@ public class ScrobblesDatabase {
 				}
 			}
 	    }
-	    
+
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			Log.d(TAG, "create sql scrobbles: " + DATABASE_CREATE_SCROBBLES);
@@ -139,7 +139,7 @@ public class ScrobblesDatabase {
 	}
 
 	/**
-	 * 
+	 *
 	 * @throws SQLException
 	 *             if the database could be neither opened or created
 	 */
@@ -154,7 +154,7 @@ public class ScrobblesDatabase {
 	/**
 	 * Return the new rowId for that scrobble, otherwise return a -1 to indicate
 	 * failure.
-	 * 
+	 *
 	 * @return rowId or -1 if failed
 	 */
 	public long insertTrack(Track track) {
@@ -174,7 +174,7 @@ public class ScrobblesDatabase {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param napp
 	 *            the NetApp which we'll wanna scrobble to
 	 * @param trackid
@@ -199,7 +199,7 @@ public class ScrobblesDatabase {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param napp
 	 * @return the number of rows affected
 	 */
@@ -286,6 +286,34 @@ public class ScrobblesDatabase {
 		return track;
 	}
 
+	public void loveRecentTrack(){
+		String sql = "select * from scrobbles order by rowid desc limit 1";
+		Cursor c = mDb.rawQuery(sql,null);
+
+		if (c.getCount() == 0)
+			return;
+
+		c.moveToFirst();
+		long trackId = c.getLong(c.getColumnIndex("_id"));
+		ContentValues values = new ContentValues();
+		values.put("rating", "L");
+		mDb.update("scrobbles", values, "_id="+trackId, null);
+		c.close();
+	}
+
+	public Track fetchRecentTrack() {
+		String sql = "select * from scrobbles order by rowid desc limit 1";
+		Cursor c = mDb.rawQuery(sql, null);
+
+		if (c.getCount() == 0)
+			return null;
+
+		c.moveToFirst();
+		Track track = readTrack(c);
+		c.close();
+		return track;
+	}
+
 	public NetApp[] fetchNetAppsForScrobble(int trackId) {
 		String sql = "select netappid from scrobbles_netapp where trackid = "
 				+ trackId;
@@ -305,8 +333,10 @@ public class ScrobblesDatabase {
 	}
 
 	public int queryNumberOfTracks() {
-		Cursor c;
-		c = mDb.rawQuery("select count(_id) from scrobbles", null);
+        if(mDb == null || !mDb.isOpen()) {
+			open();
+		}
+		Cursor c = mDb.rawQuery("select count(_id) from scrobbles", null);
 		int count = c.getCount();
 		if (count != 0) {
 			c.moveToFirst();

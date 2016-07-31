@@ -37,7 +37,7 @@ public class WinampMusicReceiver extends BuiltInMusicAppReceiver {
 	public static final String ACTION_WINAMP_PAUSERESUME = "com.nullsoft.winamp.playstatechanged";
 	// doesn't seem to work
 	public static final String ACTION_WINAMP_STOP = "com.nullsoft.winamp.playbackcomplete";
-	
+
 	public WinampMusicReceiver() {
 		super(ACTION_WINAMP_STOP, "com.nullsoft.winamp", "Winamp");
 	}
