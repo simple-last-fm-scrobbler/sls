@@ -1,16 +1,16 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * <p>
+ * <p/>
  * https://github.com/tgwizard/sls
- * <p>
+ * <p/>
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * <p>
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -87,11 +87,11 @@ public class ScrobblingService extends Service {
         mNetManager = new NetworkerManager(this, mDb);
 
         int sdk = Build.VERSION.SDK_INT;
-        if(sdk == Build.VERSION_CODES.GINGERBREAD || sdk == Build.VERSION_CODES.GINGERBREAD_MR1) {
+        if (sdk == Build.VERSION_CODES.GINGERBREAD || sdk == Build.VERSION_CODES.GINGERBREAD_MR1) {
             String ar = "";
             String tr = "";
             String api = "";
-            if (mCurrentTrack != null){
+            if (mCurrentTrack != null) {
                 ar = mCurrentTrack.getArtist();
                 tr = mCurrentTrack.getTrack();
                 api = mCurrentTrack.getMusicAPI().readAPIname();
@@ -128,7 +128,7 @@ public class ScrobblingService extends Service {
         String ar = "";
         String tr = "";
         String api = "";
-        if (mCurrentTrack != null){
+        if (mCurrentTrack != null) {
             ar = mCurrentTrack.getArtist();
             tr = mCurrentTrack.getTrack();
             api = mCurrentTrack.getMusicAPI().readAPIname();
@@ -166,7 +166,7 @@ public class ScrobblingService extends Service {
         }
         String action = i.getAction();
         Bundle extras = i.getExtras();
-            if (action.equals(ACTION_CLEARCREDS)) {
+        if (action.equals(ACTION_CLEARCREDS)) {
             if (extras.getBoolean("clearall", false)) {
                 mNetManager.launchClearAllCreds();
             } else {
@@ -184,10 +184,10 @@ public class ScrobblingService extends Service {
                 Log.e(TAG, "launchHandshaker got null napp");
         } else if (action.equals(ACTION_JUSTSCROBBLE)) {
             if (extras.getBoolean("scrobbleall", false)) {
-                Log.d(TAG,"Scrobble All TRUE");
+                Log.d(TAG, "Scrobble All TRUE");
                 mNetManager.launchAllScrobblers();
             } else {
-                Log.e(TAG,"Scrobble All False");
+                Log.e(TAG, "Scrobble All False");
                 String snapp = extras.getString("netapp");
                 if (snapp != null) {
                     mNetManager.launchScrobbler(NetApp.valueOf(snapp));
@@ -235,42 +235,42 @@ public class ScrobblingService extends Service {
                 Toast.makeText(this, this.getString(R.string.no_lastFm),
                         Toast.LENGTH_LONG).show();
             }
-        } else if (action.equals(ACTION_COPY)){
+        } else if (action.equals(ACTION_COPY)) {
             if (mCurrentTrack != null && mCurrentTrack.hasBeenQueued()) {
                 try {
                     Log.e(TAG, mDb.fetchRecentTrack().toString());
                     Track tempTrack = mDb.fetchRecentTrack();
                     int sdk = Build.VERSION.SDK_INT;
-                    if(sdk < Build.VERSION_CODES.HONEYCOMB) {
+                    if (sdk < Build.VERSION_CODES.HONEYCOMB) {
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setText(tempTrack.getTrack()+" by "+tempTrack.getArtist()+", "+tempTrack.getAlbum());
+                        clipboard.setText(tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum());
                     } else {
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track",tempTrack.getTrack()+" by "+tempTrack.getArtist()+", "+tempTrack.getAlbum());
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum());
                         clipboard.setPrimaryClip(clip);
                     }
                     Log.d(TAG, "Copy Track!");
-                } catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(this, this.getString(R.string.no_copy_track),
                             Toast.LENGTH_LONG).show();
-                    Log.e(TAG,"CAN'T COPY TRACK"+e);
+                    Log.e(TAG, "CAN'T COPY TRACK" + e);
                 }
             } else if (mCurrentTrack != null) {
                 try {
                     int sdk = Build.VERSION.SDK_INT;
-                    if(sdk < Build.VERSION_CODES.HONEYCOMB) {
+                    if (sdk < Build.VERSION_CODES.HONEYCOMB) {
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setText(mCurrentTrack.getTrack()+" by "+mCurrentTrack.getArtist()+", "+mCurrentTrack.getAlbum());
+                        clipboard.setText(mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum());
                     } else {
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track",mCurrentTrack.getTrack()+" by "+mCurrentTrack.getArtist()+", "+mCurrentTrack.getAlbum());
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum());
                         clipboard.setPrimaryClip(clip);
                     }
                     Log.d(TAG, "Copy Track!");
-                } catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(this, this.getString(R.string.no_copy_track),
                             Toast.LENGTH_LONG).show();
-                    Log.e(TAG,"CAN'T COPY TRACK"+e);
+                    Log.e(TAG, "CAN'T COPY TRACK" + e);
                 }
             } else {
                 Toast.makeText(this, this.getString(R.string.no_current_track),
@@ -311,10 +311,10 @@ public class ScrobblingService extends Service {
 
             // TODO: maybe give notifications it's own service
             /**
-            if (settings.isNotifyEnabled(Util.checkPower(mCtx))) {
-                Class chooseActivity = SettingsActivity.class;
-                Util.myNotify(mCtx,chooseActivity,track.getArtist(),track.getTrack() + " : " + track.getMusicAPI().readAPIname(), 14619);
-            }*/
+             if (settings.isNotifyEnabled(Util.checkPower(mCtx))) {
+             Class chooseActivity = SettingsActivity.class;
+             Util.myNotify(mCtx,chooseActivity,track.getArtist(),track.getTrack() + " : " + track.getMusicAPI().readAPIname(), 14619);
+             }*/
         } else if (state == Track.State.PAUSE) { // pause
             // TODO: test this state
             if (mCurrentTrack == null) {
