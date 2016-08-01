@@ -70,7 +70,8 @@
         <activity
             android:name=".StatusActivity"
             android:parentActivityName=".SettingsActivity">
-            <!--android:theme="@style/Theme.AppCompat.NoActionBar">-->
+
+            <!-- android:theme="@style/Theme.AppCompat.NoActionBar"> -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SettingsActivity" />
@@ -83,7 +84,7 @@
                 android:value=".SettingsActivity" />
         </activity>
 
-        <!-- the service -->
+        <!-- the services -->
         <service
             android:name=".service.ScrobblingService"
             android:enabled="true"
@@ -97,6 +98,11 @@
                 <action android:name="com.adam.aslfms.service.copy" />
             </intent-filter>
         </service>
+
+        <service
+            android:name=".service.ForegroundHide"
+            android:enabled="true"
+            android:exported="true"></service>
 
         <!-- the receivers -->
         <receiver
@@ -288,17 +294,16 @@
         </receiver>
 
         <!--
-             - will probably interfere badly with Winamp <receiver android:name="com.adam.aslfms.receiver.LastFmAPIReceiver" 
-            android:exported="true" android:enabled="true"> <intent-filter> <action android:name="fm.last.android.metachanged" 
-            /> <action android:name="fm.last.android.playbackpaused" /> <action android:name="fm.last.android.playbackcomplete" 
+             - will probably interfere badly with Winamp <receiver android:name="com.adam.aslfms.receiver.LastFmAPIReceiver"
+            android:exported="true" android:enabled="true"> <intent-filter> <action android:name="fm.last.android.metachanged"
+            /> <action android:name="fm.last.android.playbackpaused" /> <action android:name="fm.last.android.playbackcomplete"
             /> </intent-filter> </receiver>
         -->
 
-        <receiver
-            android:name="com.adam.aslfms.util.ConnectivityChangeReceiver">
+        <receiver android:name=".util.ConnectivityChangeReceiver">
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
-                <action android:name="android.net.wifi.STATE_CHANGE"/>
+                <action android:name="android.net.wifi.STATE_CHANGE" />
             </intent-filter>
         </receiver>
 

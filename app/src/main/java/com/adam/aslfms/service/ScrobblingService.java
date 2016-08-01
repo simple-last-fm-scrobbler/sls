@@ -85,6 +85,35 @@ public class ScrobblingService extends Service {
         mDb = new ScrobblesDatabase(this);
         mDb.open();
         mNetManager = new NetworkerManager(this, mDb);
+
+        int sdk = Build.VERSION.SDK_INT;
+        if(sdk == Build.VERSION_CODES.GINGERBREAD || sdk == Build.VERSION_CODES.GINGERBREAD_MR1) {
+            String ar = "";
+            String tr = "";
+            String api = "";
+            if (mCurrentTrack != null){
+                ar = mCurrentTrack.getArtist();
+                tr = mCurrentTrack.getTrack();
+                api = mCurrentTrack.getMusicAPI().readAPIname();
+            }
+            NotificationCompat.Builder builder =
+                    new NotificationCompat.Builder(mCtx)
+                            .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                                    R.mipmap.ic_launcher))
+                            .setContentTitle(ar)
+                            .setSmallIcon(R.mipmap.ic_notify)
+                            .setContentText(tr + " : " + api);
+            Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
+            PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            builder.setContentIntent(contentIntent);
+
+            this.startForeground(14619, builder.build());
+
+            if (!settings.isNotifyEnabled(Util.checkPower(mCtx))) {
+                Intent iNoti = new Intent(mCtx, ForegroundHide.class);
+                this.startService(iNoti);
+            }
+        }
     }
 
     @Override
@@ -96,7 +125,6 @@ public class ScrobblingService extends Service {
     public int onStartCommand(Intent i, int flags, int startId) {
         handleCommand(i, startId);
 
-        NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
         String ar = "";
         String tr = "";
         String api = "";
@@ -116,8 +144,12 @@ public class ScrobblingService extends Service {
         PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentIntent(contentIntent);
 
-
         this.startForeground(14619, builder.build());
+
+        if (!settings.isNotifyEnabled(Util.checkPower(mCtx))) {
+            Intent iNoti = new Intent(mCtx, ForegroundHide.class);
+            startService(iNoti);
+        }
         return Service.START_STICKY;
     }
 
@@ -134,7 +166,7 @@ public class ScrobblingService extends Service {
         }
         String action = i.getAction();
         Bundle extras = i.getExtras();
-        if (action.equals(ACTION_CLEARCREDS)) {
+            if (action.equals(ACTION_CLEARCREDS)) {
             if (extras.getBoolean("clearall", false)) {
                 mNetManager.launchClearAllCreds();
             } else {
