@@ -87,6 +87,8 @@ public class Track {
 	long mWhenToCountTimeFrom; // in milliseconds
 	boolean mQueued;
 
+	//long mStartTime; // in milliseconds
+
 	/**
 	 * A class for constructing new tracks, using the Builder pattern. The only
 	 * way to create tracks, which then become "immutable".
@@ -180,6 +182,8 @@ public class Track {
 		mQueued = false;
 		mTimePlayed = 0;
 		mWhenToCountTimeFrom = UNKNOWN_COUNT_POINT;
+
+		//mStartTime = Util.currentTimeSecsUTC();
 	}
 
 	void validate() throws IllegalArgumentException {
@@ -270,6 +274,7 @@ public class Track {
 		return mWhen;
 	}
 
+
 	/**
 	 * Returns the database id for this track, or -1 if not loaded from the
 	 * database.
@@ -291,6 +296,11 @@ public class Track {
 	public void setQueued() {
 		mQueued = true;
 	}
+
+	/**
+	 * Temporary fix for heart track feature.
+	 */
+	public void setRating() { mRating = "L"; }
 
 	/**
 	 * Returns whether this track has been queued for scrobbling.
@@ -322,6 +332,7 @@ public class Track {
 	 * 
 	 * @param currentTime
 	 */
+
 	public void updateTimePlayed() {
 		long currentTime = SystemClock.elapsedRealtime();
 		if (mWhenToCountTimeFrom != UNKNOWN_COUNT_POINT) {
@@ -354,6 +365,7 @@ public class Track {
 				+ mTrack + ", mTracknr=" + mTracknr + ", mUnknownDuration="
 				+ mUnknownDuration + ", mWhen=" + mWhen
 				+ ", mWhenToCountTimeFrom=" + mWhenToCountTimeFrom + "]";
+				//+ ", mStartTime=" + mStartTime + "]";
 	}
 
 	@Override
@@ -371,6 +383,9 @@ public class Track {
 	/**
 	 * Only checks artist, album and track strings (+ {@link MusicApp}), which
 	 * means that tracks sent to ScrobblingService can be properly compared.
+	 *
+	 * Temporary fix for apps with multiple broadcasts. (usually Android Music Player and SLS API.
+	 * SLS Receiver & Builtin Music Player.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -381,21 +396,23 @@ public class Track {
 		if (getClass() != obj.getClass())
 			return false;
 		Track other = (Track) obj;
-		if (mAlbum == null) {
+/**		if (mAlbum == null) {
 			if (other.mAlbum != null)
 				return false;
 		} else if (!mAlbum.equals(other.mAlbum))
 			return false;
+ */
 		if (mArtist == null) {
 			if (other.mArtist != null)
 				return false;
 		} else if (!mArtist.equals(other.mArtist))
 			return false;
-		if (mMusicAPI == null) {
+/**		if (mMusicAPI == null) {
 			if (other.mMusicAPI != null)
 				return false;
 		} else if (!mMusicAPI.equals(other.mMusicAPI))
 			return false;
+*/
 		if (mTrack == null) {
 			if (other.mTrack != null)
 				return false;

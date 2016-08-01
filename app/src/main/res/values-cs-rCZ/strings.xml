@@ -1,0 +1,180 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<resources>
+  <!--START original strings-->
+  <string name="close">Zavřít</string>
+  <string name="remove">Odstranit</string>
+  <string name="reset">Resetovat</string>
+  <string name="clear_creds">Vyčistit</string>
+  <string name="are_you_sure">Jste si jist?</string>
+  <string name="warning">Varování</string>
+  <string name="will_submit_stuff">Vaše poslechové informace budou poslány na tuto stránku</string>
+  <string name="also_disable_np_title">Také zakázat nyní hraje</string>
+  <string name="also_disable_np_summary">[Hmpf]</string>
+  <!--END original strings-->
+  <!--START about strings-->
+  <string name="by">podle</string>
+  <string name="issues">Problémy: %s</string>
+  <string name="website">Webové stránky: %s</string>
+  <string name="troubShoot">Poradce při potížích: %s</string>
+  <string name="by_adam">vytvořil Adam Renberg</string>
+  <string name="license">Uvolněno pod licencí Apache v2.0</string>
+  <string name="about_text">Lehký Scrobbler který posílá informace na Last.fm (nebo Libre.fm), podle toho jakou hudbu posloucháte na vašem Android zařízení. Last.fm pak umožňuje zobrazit statistiky poslechu a doporučí novou hudbu která by vás mohly zaujmout.</string>
+  <string name="everything_disabled">Scrobbling/nyní hraje zakázáno.</string>
+  <string name="file_error">Chyba souboru!</string>
+  <string name="thats_new">To co je nové</string>
+  <string name="about">O aplikaci</string>
+  <string name="whats_new">Co je nového</string>
+  <string name="supported_netapps">Podporované webové stránky: %1</string>
+  <string name="supported_apps">Podporované aplikace: %s a více...</string>
+  <!--END about strings-->
+  <!--START cache strings-->
+  <string name="scrobbles_cache_nonum">Scrobblů v lokální cache:</string>
+  <string name="scrobbles_cache">Scrobblů v lokální cache: %1</string>
+  <string name="db_error">Chyba databáze</string>
+  <string name="scrobble_now">Scrobblovat nyní</string>
+  <string name="reset_stats">Resetovat statistiky</string>
+  <string name="scrobble_cache_title">Scrobblovat cache</string>
+  <string name="confirm_delete_sc">Jste si jist, že nechcete scrobblovat tuto stopu na %1? Tuto operaci nelze vrátit zpět.</string>
+  <string name="confirm_delete_sc_from_all">Jste si jist, že nechcete scrobblovat tuto stopu? Tuto operaci nelze vrátit zpět.</string>
+  <string name="confirm_delete_all_sc">Jste si jist, že chcete vyčistit všechny skladby v chache pro %1? Tuto operaci nelze vrátit zpět.</string>
+  <string name="confirm_delete_all_sc_from_all">Jste si jist, že chcete vyčistit všechny skladby v chache? Tuto operaci nelze vrátit zpět.</string>
+  <string name="no_scrobbles_in_cache">V cache nejsou žádné scrobbly</string>
+  <string name="view_sc">Zobrazit scobble chache</string>
+  <string name="view_sc_details">Zobrazit detaily</string>
+  <string name="delete_sc">Odstranit z cache</string>
+  <string name="clear_cache">Vyčistit chache</string>
+  <string name="track_info">Informace o skladbě</string>
+  <string name="view_sc_title_for">Scrobblovat cache pro %1</string>
+  <string name="view_sc_for_all_summary">Zobrazit a upravit list neodeslaných scrobblů</string>
+  <string name="all_websites">všechny webové stránky</string>
+  <string name="sc_sorted_by">Řazeno podle: %1</string>
+  <string name="sc_sort_title">Pořadí</string>
+  <string name="sc_sortorder_change">Změnit pořadí</string>
+  <string name="sc_sort_when_asc">Podle času, vzestupně</string>
+  <string name="sc_sort_when_desc">Podle času, sestupně</string>
+  <string name="sc_sort_artist_asc">Podle umělce, vzestupně</string>
+  <string name="sc_sort_artist_desc">Podle umělce, sestupně</string>
+  <string name="sc_sort_album_asc">Podle albumu, vzestupně</string>
+  <string name="sc_sort_album_desc">Podle albumu, sestupně</string>
+  <string name="sc_sort_track_asc">Podle názvu skladby, vzestupně</string>
+  <string name="sc_sort_track_desc">Podle názvu skladby, sestupně</string>
+  <!--END cache strings-->
+  <!--START creds strings-->
+  <string name="user_credentials_title">Přihlašovací údaje</string>
+  <string name="user_credentials_summary">Nastavit přihlašovací jméno a heslo pro váš %1 účet</string>
+  <string name="user_credentials_summary_no_napp">Nastavit přihlašovací jméno a heslo pro váš účet</string>
+  <string name="user_credentials_enter_ok">Ověřit</string>
+  <string name="user_credentials_enter_cancel">Storno</string>
+  <string name="user_credentials_clear_title">Vymazat údaje</string>
+  <string name="user_credentials_clear_summary">Smazat přihlašovací jméno a ověřovací klíč</string>
+  <string name="supported_netapps_category_title">Podporované webové stránky</string>
+  <string name="username">Přihlašovací jméno</string>
+  <string name="password">Heslo</string>
+  <string name="auth_client_banned">Tato verze aplikace již není podporována, prosím aktualizujte aplikaci</string>
+  <string name="auth_bad_auth">Špatné přihlašovací jméno/heslo</string>
+  <string name="auth_server_error">Chyba serveru: %1, opakuji...</string>
+  <string name="auth_timing_error">Chyba na straně klienta, opakuji...</string>
+  <string name="auth_network_error_retrying">Chyba sítě, opakuji...</string>
+  <string name="auth_network_unfit">Není povoleno posílat data na mobilní síti, změnte to prosím v nastavení</string>
+  <string name="auth_updating">Ověřování...</string>
+  <string name="auth_internal_error">Vnitřní chyba...</string>
+  <string name="auth_just_error">Chyba, opakuji...</string>
+  <string name="logged_in_just">Přihlášen jako:</string>
+  <string name="logged_in_as">Přihlášen jako: %1</string>
+  <string name="log_in_to">Přihlásit se do</string>
+  <string name="not_logged_in">Nepřihlášen v</string>
+  <string name="create_user_title">Zaregistrovat se</string>
+  <string name="create_user_summary">Zaregistrovat se na %1</string>
+  <string name="confirm_clear_creds">Jste si jist, že chcete vymazat vaše přihlašovací údaje pro %1? Tato operace odstraní všechny neodeslané scrobbly.</string>
+  <string name="confirm_clear_all_creds">Jste si jist, že chcete vymazat vaše přihlašovací údaje pro všechny účty? Tato operace odstraní všechny neodeslané scrobbly.</string>
+  <!--END creds strings-->
+  <!--START heart strings-->
+  <string name="heart_and_copy">Nastavení skladby</string>
+  <string name="heart_title">Líbí se</string>
+  <string name="heart_current_track">Dát líbí se momentální skladbě na last.fm</string>
+  <string name="no_heart_track">Líbí se selhalo</string>
+  <string name="loved_track">Tato skladba se vám líbí</string>
+  <string name="no_lastFm">Prosím zadejte vaše přihlašovací údaje do last.fm</string>
+  <!--END heart strings-->
+  <!--START copy strings-->
+  <string name="copy_title">Kopírovat</string>
+  <string name="copy_current_track">Kopírovat momentální skladbu do schránky</string>
+  <string name="no_copy_track">Kopírování skladby selhalo</string>
+  <string name="no_current_track">Žádná skladba nenalezena</string>
+  <!--END copy strings-->
+  <!--START permissions and warnings strings-->
+  <string name="permission_required">Vyžadováno pověření</string>
+  <string name="creds_required">Vyžadovány některé údaje</string>
+  <!--END permissions and warnings strings-->
+  <!--START mapis strings-->
+  <string name="incompatability_short">Varování: %1$s je nainstalován a může způsobovat dvojité scrobbly.</string>
+  <string name="incompatability_long">Varování: %1$s je nainstalován a může být nekompatibilní se scrobblingem. Zakažte prosím scrobblování z této aplikace nebo ji odinstalujte %1$s.</string>
+  <string name="show_supported_apps_list_summary">Povolit/zakázat scrobblování z aplikací</string>
+  <string name="supported_apps_category_title">Povolené aplikace</string>
+  <string name="app_disabled">Nelze scrobblovat z této aplikace</string>
+  <string name="not_installed">Aplikace není nainstalována</string>
+  <string name="no_supported_mapis_title">Žádné hudební aplikace nedetekovány</string>
+  <string name="find_supported_mapis_one_title">1 hudební aplikace detekována</string>
+  <string name="find_supported_mapis_many_title">%1 hudební aplikace detekována</string>
+  <string name="find_supported_mapis_summary">Pusťte hudbu v podoporované aplikaci a zobrazí se zde</string>
+  <string name="unknown_mapi">Neznámá aplikace (před SLS v1.2.3)</string>
+  <!--END mapis strings-->
+  <!--START options strings-->
+  <string name="options_title">Nastavení</string>
+  <string name="advanced_options_title">Pokročilé nastavení</string>
+  <string name="scrobbling">Scrobblovat</string>
+  <string name="scrobbling_enable">Odeslat poslechové informace poté co si poslechnete skladbu</string>
+  <string name="nowplaying">Upozornit na nyní hrající</string>
+  <string name="nowplaying_enable">Odesílat jakou skladbu právě posloucháte </string>
+  <string name="scrobble_point_title">Scrobblovací bod</string>
+  <string name="scrobble_point_summary">Scrobblovat cache po %1% přehrání</string>
+  <string name="ao_battery_title">Na baterii</string>
+  <string name="ao_plugged_title">Na nabiječce</string>
+  <string name="options_summary">Obsahuje také nastavení pro úsporu baterie</string>
+  <string name="advanced_options_notify_title">Notifikace</string>
+  <string name="advanced_options_custom_category_title">Vlastní scrobblovací nastavení</string>
+  <string name="advanced_options_when_title">Kdy scrobblovat</string>
+  <string name="advanced_options_also_on_complete_title">Také po dokončení playlistu</string>
+  <string name="advanced_options_also_on_complete_summary">Také scrobblovat když dokončite poslouchání playlistu</string>
+  <string name="advanced_options_also_on_plugged_title">Také na nabiječce</string>
+  <string name="advanced_options_also_on_plugged_summary">Také scrobblovat když je mobil v napájení</string>
+  <string name="should_disable_np">Můžete také zakázat nyní hrající upozornění pro šetření baterie</string>
+  <string name="advanced_options_type_standard_name">Klasický</string>
+  <string name="advanced_options_type_battery_name">Úspora baterie</string>
+  <string name="advanced_options_type_same_as_battery_name">Stejné jak pro baterii</string>
+  <string name="advanced_options_type_custom_name">Vlastní</string>
+  <string name="advanced_options_when_1_name">Po každé skladbě</string>
+  <string name="advanced_options_when_5_name">Po pěti skladbách</string>
+  <string name="advanced_options_when_10_name">Po deseti skladbách</string>
+  <string name="advanced_options_when_25_name">Po 25ti skladbách</string>
+  <string name="advanced_options_when_never_name">Ručně</string>
+  <string name="advanced_options_net_title">Síť</string>
+  <string name="advanced_options_net_summary">Posílat data na: %1</string>
+  <string name="advanced_options_net_any_name">Jakákoliv síť</string>
+  <string name="advanced_options_net_3gup_name">3G nebo Wi-Fi</string>
+  <string name="advanced_options_net_wifi_name">Jen Wi-Fi</string>
+  <string name="advanced_options_net_roaming_title">Roaming</string>
+  <string name="advanced_options_net_roaming_summary_off">Neposílat scrobbly když je aktivní roaming</string>
+  <string name="advanced_options_net_roaming_summary_on">Posílat scrobbly když je aktivní roaming</string>
+  <!--END options strings-->
+  <!--START status strings-->
+  <string name="status">Stav</string>
+  <string name="scrobble_status_title">Scrobblovací stav</string>
+  <string name="other_category_title">Ostatní</string>
+  <string name="status_show_title">Stav</string>
+  <string name="status_show_summary">Zobrazit statistiky a celkový stav</string>
+  <string name="status_title">Informace o stavu</string>
+  <string name="scrobbling_disabled">Scrobbling je zakázán</string>
+  <string name="scrobble_last_at">Poslední scrobble odeslán:</string>
+  <string name="scrobble_last_fail_at">Poslední pokus o odeslání selhal:</string>
+  <string name="nowplaying_disabled">Nyní hrající upozornění je zakázáno</string>
+  <string name="nowplaying_last_at">Poslední nyní hrající upozornění odesláno:</string>
+  <string name="nowplaying_last_fail_at">Poslední pokus o odeslání selhal:</string>
+  <string name="stats_scrobbles">Celkově scrobblováno:</string>
+  <string name="never">Nikdy</string>
+  <string name="stats_nps">Celkově nyní hrajících upozornění:</string>
+  <string name="it_was">Bylo to:</string>
+  <string name="confirm_stats_reset">Jste si jist, že chcete resetovat všechny vaše scrobblovací statistiky pro %1? Tuto operaci nelze vrátit zpět.</string>
+  <string name="profile_page">Profilová stránka</string>
+  <!--END status strings-->
+</resources>

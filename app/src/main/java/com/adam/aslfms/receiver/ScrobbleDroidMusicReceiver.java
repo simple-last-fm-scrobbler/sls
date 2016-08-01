@@ -49,9 +49,24 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 
 	public static final String SCROBBLE_DROID_MUSIC_STATUS = "net.jjc1138.android.scrobbler.action.MUSIC_STATUS";
 
+	/**public static void dumpIntent(Bundle bundle){
+		if (bundle != null) {
+			Set<String> keys = bundle.keySet();
+			Iterator<String> it = keys.iterator();
+			Log.e(TAG,"Dumping Intent start");
+			while (it.hasNext()) {
+				String key = it.next();
+				Log.e(TAG,"[" + key + "=" + bundle.get(key)+"]");
+			}
+			Log.e(TAG,"Dumping Intent end");
+		}
+	}*/
+
 	@Override
 	protected void parseIntent(Context ctx, String action, Bundle bundle)
 			throws IllegalArgumentException {
+
+		//dumpIntent(bundle);
 
 		MusicAPI musicAPI = MusicAPI.fromReceiver(ctx,
 				"\"Scrobble Droid Apps\"", MusicAPI.NOT_AN_APPLICATION_PACKAGE
@@ -69,20 +84,24 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
 		 * sendBroadcast(i);
 		 */
 
-		boolean playing = bundle.getBoolean("playing", false);
-
-		if (!playing) {
-			// if not playing, there is no guarantee the bundle will contain any
-			// track info
+		if(bundle.containsKey("playing")){
+			boolean playing = bundle.getBoolean("playing");
+			if (!playing) {
+				// if not playing, there is no guarantee the bundle will contain any
+				// track info
+				setTrack(Track.SAME_AS_CURRENT);
+				setState(Track.State.PAUSE);
+				return;
+			} else {
+				setTrack(Track.SAME_AS_CURRENT);
+				setState(Track.State.RESUME);
+			}
+		} else {
 			setTrack(Track.SAME_AS_CURRENT);
 			setState(Track.State.UNKNOWN_NONPLAYING);
 			return;
 		}
 
-		String source = bundle.getString("source");
-		if (source == null || source.length() > 1) {
-			source = "P";
-		}
 		int msid = bundle.getInt("id", -1);
 
 		Track.Builder b = new Track.Builder();

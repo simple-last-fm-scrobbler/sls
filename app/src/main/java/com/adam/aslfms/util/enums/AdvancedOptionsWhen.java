@@ -27,7 +27,7 @@ public enum AdvancedOptionsWhen {
 	private final int tracksToWaitFor;
 	private final int nameRID;
 
-	private AdvancedOptionsWhen(String settingsVal, int tracksToWaitFor, int nameRID) {
+	AdvancedOptionsWhen(String settingsVal, int tracksToWaitFor, int nameRID) {
 		this.settingsVal = settingsVal;
 		this.tracksToWaitFor = tracksToWaitFor;
 		this.nameRID = nameRID;

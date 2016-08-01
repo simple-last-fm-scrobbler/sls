@@ -28,8 +28,8 @@ public enum NetworkOptions {
 	private final int[] forbiddenMobileNetworkSubTypes;
 	private final int nameRID;
 
-	private NetworkOptions(String settingsVal, int[] forbiddenNetworkTypes, int[] forbiddenMobileNetworkSubTypes,
-			int nameRID) {
+	NetworkOptions(String settingsVal, int[] forbiddenNetworkTypes, int[] forbiddenMobileNetworkSubTypes,
+				   int nameRID) {
 		this.settingsVal = settingsVal;
 		this.forbiddenNetworkTypes = forbiddenNetworkTypes;
 		this.forbiddenMobileNetworkSubTypes = forbiddenMobileNetworkSubTypes;

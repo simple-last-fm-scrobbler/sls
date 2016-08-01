@@ -62,7 +62,7 @@ public abstract class AbstractSubmitter extends NetRunnable {
 			return;
 		} else {
 			int rCount = 0;
-			boolean retry = false;
+			boolean retry;
 			do {
 				retry = !doRun(hInfo);
 				rCount++;

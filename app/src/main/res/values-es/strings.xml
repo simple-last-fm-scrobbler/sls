@@ -17,6 +17,7 @@
     <string name="by">por</string>
     <string name="issues">Incidencias: %s</string>
     <string name="website">Página web: %s</string>
+    <string name="troubShoot">Solucionar Problemas: %s</string>
     <string name="by_adam">por Adam Renberg</string>
     <string name="license">Liberado bajo Licencia Apache 2.0</string>
     <string name="about_text">Un ligero cliente para hacer Scrobbling que envía información a Last.fm (y/o a Libre.fm) sobre qué música reproduces en tu móvil con Android. Last.fm te permite entonces ver estadísticas de lo escuchado y recomendarle nueva música que puede gustarle.</string>
@@ -91,6 +92,27 @@
     <string name="confirm_clear_creds">¿Está seguro de que desea limpiar sus credenciales de %1? Esto eliminará también sus scrobbles sin enviar.</string>
     <string name="confirm_clear_all_creds">¿Está seguro de que desea limpiar sus credenciales de todas las cuentas incluidas? Esto también eliminará cualquier scrobble sin enviar.</string>    
     <!-- END creds strings -->
+
+    <!-- START heart strings -->
+    <string name="heart_and_copy">Opciones de Canciones</string>
+    <string name="heart_title">Amado</string>
+    <string name="heart_current_track">Canción de amor en last.fm</string>
+    <string name="no_heart_track">Amado Canción Falló</string>
+    <string name="loved_track">Amado Canción</string>
+    <string name="no_lastFm">Por favor, introduzca sus credenciales de last.fm</string>
+    <!-- END heart strings -->
+
+    <!-- START copy strings -->
+    <string name="copy_title">Dupdo</string>
+    <string name="copy_current_track">Copia actual de la canción al portapapeles</string>
+    <string name="no_copy_track">Copia Canción Falló</string>
+    <string name="no_current_track">No Song actual Disponible</string>
+    <!-- END copy strings -->
+
+    <!-- START permissions and warnings strings -->
+    <string name="permission_required">Permission REQUIRED to work properly</string>
+    <string name="creds_required">Credentials REQUIRED to work properly</string>
+    <!-- END permissions and warnings strings -->
     
     <!-- START mapis strings -->
     <string name="incompatability_short">Atención: %1$s está instalada y puede causar doble scrobbleo.</string>
@@ -118,6 +140,7 @@
     <string name="ao_battery_title">Sólo batería</string>
     <string name="ao_plugged_title">Enchufado</string>
     <string name="options_summary">Incluyendo opciones para el ahorro de batería</string>
+    <string name="advanced_options_notify_title">Notificaciones de Teléfono</string>
     <string name="advanced_options_custom_category_title">Opciones personalizadas para scrobblear</string>
     <string name="advanced_options_when_title">Cuándo scrobblear</string>
     <string name="advanced_options_also_on_complete_title">También al finalizar la lista de reproducción</string>

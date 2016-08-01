@@ -23,24 +23,27 @@ one week in the [Beta Testing Versions link](https://github.com/tgwizard/sls/blo
 
 More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/help/faq?category=Scrobbling#201).
 
-If you need inspiration on stuff to do, you might want to have a look at the list of issues.
 
-If you want to help out and start immediately, please see HumbleBeeBumbleBee's [Issue Summary](https://github.com/tgwizard/sls/blob/master/IssueSummary.md)
+[Trouble Shooting](https://github.com/tgwizard/sls/blob/master/TroubleShooting.md)
+-----------------
 
-Contact emails: 
 
-[simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)  <- Lead Developer
+Contact emails: Try the first email address first.
+
+[sls-app@googlegroups.com](mailto:sls-app@googlegroups.com) <- Please use this email. 
 
 [HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gmail.com)  <- Support & Maintenance
 
-(if uncertain please email us both)
+[simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)  <- Lead Developer
+
+(if uncertain please email all of them)
  
 Download
 ========
 [![Google Play Store](https://ibin.co/2hN6gwDRsRut.png)](https://play.google.com/store/apps/details?id=com.adam.aslfms)
 [![F-Droid](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Get_it_on_F-Droid.svg/320px-Get_it_on_F-Droid.svg.png)](https://f-droid.org/repository/browse/?fdid=com.adam.aslfms)
 
-[Release Downloads](https://github.com/tgwizard/sls/releases)
+[(Beta) Release Downloads](https://github.com/tgwizard/sls/releases)
 
 [Downloads deprecated](https://github.com/blog/1302-goodbye-uploads)
 
@@ -63,6 +66,12 @@ Supported languages
  * Spanish
  * French
  * German
+ * Brazilian Portuguese
+ * Polish
+ * Russian
+
+
+ * Head to [Transifex](https://www.transifex.com/sls/sls) if you want to be a translator
 
 
 Supported websites (to scrobble to)
@@ -86,7 +95,6 @@ Please note that some of the following applications require changing their defau
  * [SmartVanilla Music](https://github.com/gordon01/vanilla) ([Google Play](https://play.google.com/store/apps/details?id=su.thinkdifferent.vanilla))
  * [bTunes](http://www.btunesmusicplayer.com/default.html) ([Google Play](https://play.google.com/store/apps/details?id=com.bmayers.bTunesRelease), and [more](http://www.facebook.com/pages/bTunes/362875048125?v=wall))
  * [WIMP](http://wimp.no/)
- * [Zimly](http://zim.ly/)
  * [Just Playlists](http://jp.folsoms.info)
  * [PowerAMP](http://powerampapp.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer))
  * [myTouch 4G](http://mytouch.t-mobile.com/)
@@ -177,6 +185,7 @@ Reported working:
  * Samsung Galaxy S3
  * Samsung Galaxy S4
  * Samsung Galaxy S5
+ * Samsung Galaxy S7
  * Samsung Galaxy Spica (doesn't work with the built-in 2.1 music app)
  * Sony Ericsson Xperia X10 Mini Pro
  * Sony Ericsson Xperia X8
@@ -249,6 +258,8 @@ Contributors
  * herrherrmann [github.com/herrherrmann](https://github.com/herrherrmann), German translation
  * Alia5 [github.com/Alia5](https://github.com/Alia5), better Enabled apps handle
  * MendelGusmao [github.com/MendelGusmao](https://github.com/MendelGusmao), Brazil Portuguese Translation
+ * Grzes58 [github.com/Grzes58](https://github.com/Grzes58), Polish
+ * bajituka [github.com/bajituka](https://github.com/bajituka), Russian 
 
 A complete list of [contributors](https://github.com/tgwizard/sls/graphs/contributors)
  

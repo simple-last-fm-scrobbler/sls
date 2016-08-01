@@ -31,6 +31,8 @@ import android.util.Log;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
+import java.math.BigDecimal;
+
 /**
  * A BroadcastReceiver for intents sent by music apps such as Android Music and
  * Hero Music. Specialized classes inherit from this class to deal with the
@@ -87,8 +89,22 @@ public abstract class BuiltInMusicAppReceiver extends
 
 		if (isStopAction(action)) {
 			setState(Track.State.PLAYLIST_FINISHED);
+		} else if (action.equals("com.android.music.playbackcomplete")){
+			setState(Track.State.COMPLETE);
 		} else {
-			setState(Track.State.RESUME);
+				setState(Track.State.RESUME);
+		}
+		if(bundle.containsKey("playing")){
+			boolean playing = bundle.getBoolean("playing");
+			if (!playing) {
+				// if not playing, there is no guarantee the bundle will contain any
+				// track info
+				setTrack(Track.SAME_AS_CURRENT);
+				setState(Track.State.PAUSE);
+			} else {
+				setTrack(Track.SAME_AS_CURRENT);
+				setState(Track.State.RESUME);
+			}
 		}
 
 		// throws on bad data
@@ -97,11 +113,38 @@ public abstract class BuiltInMusicAppReceiver extends
 
 	MusicAPI getMusicAPI(Context ctx, Bundle bundle) {
 		CharSequence bundleAppName;
-		CharSequence bundleAppPackage;
+		CharSequence bundleAppPackage = null;
 
-		bundleAppPackage = bundle.getCharSequence("scrobbling_source");
+		try {
+			if (bundle.containsKey("app")) {
+				bundleAppPackage = bundle.getCharSequence("app");
+			}
+			if (bundle.containsKey("app-package")) {
+				bundleAppPackage = bundle.getCharSequence("app-package");
+			}
+			if (bundle.containsKey("scrobbling_source")){
+				bundleAppPackage = bundle.getCharSequence("scrobbling_source");
+			}
+			if (bundle.containsKey("package") && !bundle.containsKey("player")){
+				bundleAppPackage = bundle.getCharSequence("package");
+			}
+			if (bundle.containsKey("com.maxmpz.audioplayer.source")){
+				bundleAppPackage = bundle.getCharSequence("com.maxmpz.audioplayer.source");
+			}
+			if (bundle.containsKey("gonemad.gmmp")){
+				bundleAppPackage = "gonemad.gmmp";
+			}
+			if (bundle.containsKey("com.mixzing.basic.mediaSource")){
+				bundleAppPackage = "com.mixzing.basic";
+			}
+		} catch (Exception e){
+			Log.d(TAG,"Improper package source: "+e);
+		}
 		if (bundleAppPackage != null)
 		{
+			if (bundleAppPackage.toString().contains("com.kabouzeid.gramophone")){
+				bundleAppPackage = "com.kabouzeid.gramophone";
+			}
 			PackageManager packageManager = ctx.getPackageManager();
 			try {
 				bundleAppName = packageManager.getApplicationLabel(packageManager.getApplicationInfo(bundleAppPackage.toString(), PackageManager.GET_META_DATA));
@@ -148,7 +191,9 @@ public abstract class BuiltInMusicAppReceiver extends
 				id = (Long) idBundle;
 			else if (idBundle instanceof Integer)
 				id = (Integer) idBundle;
-			else if (idBundle instanceof String) {
+			else if (idBundle instanceof String && ((String) idBundle).contains(".")){
+				id = Long.valueOf(((String) idBundle).replace(".","")).longValue();
+			} else if (idBundle instanceof String) {
 				id = Long.valueOf((String) idBundle).longValue();
 			} else {
 				Log.w(TAG,
@@ -197,6 +242,7 @@ public abstract class BuiltInMusicAppReceiver extends
 			b.setAlbum(album);
 
 			int duration = (int) (cur.getLong(cur.getColumnIndex(MediaStore.Audio.AudioColumns.DURATION)) / 1000);
+			Log.e(TAG, Integer.toString(duration));
 			if (duration != 0) {
 				b.setDuration(duration);
 			}
@@ -216,14 +262,55 @@ public abstract class BuiltInMusicAppReceiver extends
 		Log.d(TAG, "Will read data from intent");
 
 		CharSequence ar = bundle.getCharSequence("artist");
-		CharSequence al = bundle.getCharSequence("album");
 		CharSequence tr = bundle.getCharSequence("track");
-		if (ar == null || al == null || tr == null) {
-			throw new IllegalArgumentException("null track values");
+
+		// duration is needs as Integer in seconds.
+
+		if(bundle.containsKey("duration")){
+			Object tmp = bundle.get("duration");
+			if (tmp != null) {
+				if (tmp instanceof Long) {
+					try {
+						long du = bundle.getLong("duration");
+						if (du < 30000){
+							b.setDuration(new BigDecimal(bundle.getLong("duration")).intValueExact());
+						} else {
+							b.setDuration(new BigDecimal(du).intValueExact() / 1000);
+						}
+					} catch (Exception e) {
+						Log.d(TAG, "duration: " + e);
+					}
+				} else if (tmp instanceof Integer){
+					try {
+						int du = bundle.getInt("duration");
+						if (du < 30000){
+							b.setDuration(bundle.getInt("duration"));
+						} else {
+							b.setDuration(du / 1000);
+						}
+						Log.d(TAG, "Integer: " + Integer.toString(du));
+					} catch (Exception e) {
+						Log.e(TAG, "duration: " + e);
+					}
+				}
+			}
 		}
 
+		//if (ar == null || al == null || tr == null) {
+		if (ar == null || tr == null) {
+			throw new IllegalArgumentException("null track values");
+		}
+		if (bundle.containsKey("album")) {
+			CharSequence al = bundle.getCharSequence("album");
+			if (al == null || "Unknown album".equals(al.toString()) || "Unknown".equals(al.toString())) {
+				b.setAlbum(""); // album is not required to scrobble.
+			} else {
+				b.setAlbum(al.toString());
+			}
+		} else {
+			b.setAlbum("");
+		}
 		b.setArtist(ar.toString());
-		b.setAlbum(al.toString());
 		b.setTrack(tr.toString());
 	}
 }

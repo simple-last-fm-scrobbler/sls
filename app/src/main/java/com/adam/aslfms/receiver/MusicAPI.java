@@ -193,6 +193,14 @@ public class MusicAPI {
 				+ ", name=" + name + ", pkg=" + pkg + "]";
 	}
 
+	public String readAPIname(){
+		return name;
+	}
+
+	public String readAPIpkg(){
+		return pkg;
+	}
+
 	/**
 	 * Takes some parameters describing an API / music app and (1) saves it to a
 	 * database and (2) returns it as a {@code MusicAPI} object.
@@ -230,7 +238,7 @@ public class MusicAPI {
 		String sql = "select * from music_api where pkg = '" + pkg + "'";
 		Cursor c = db.rawQuery(sql, null);
 
-		MusicAPI mapi = null;
+		MusicAPI mapi;
 		c.moveToFirst();
 		if (!c.isAfterLast()) {
 			// already in db
@@ -297,6 +305,7 @@ public class MusicAPI {
 			Log.d(TAG, mapi.toString());
 		}
 		DatabaseHelper.closeDatabase();
+		Log.d(TAG,name+":"+pkg);
 		return mapi;
 	}
 
@@ -317,7 +326,7 @@ public class MusicAPI {
 		String sql = "select * from music_api where _id = " + id;
 		Cursor c = db.rawQuery(sql, null);
 
-		MusicAPI mapi = null;
+		MusicAPI mapi;
 		c.moveToFirst();
 		if (!c.isAfterLast()) {
 			mapi = readMusicAPI(c);
@@ -385,15 +394,16 @@ public class MusicAPI {
 		}
 
 		private static class DatabaseConnection {
-			public Long connection_count = Long.valueOf(0);
-			public SQLiteDatabase db = null;
-			DatabaseConnection(){
-				connection_count = Long.valueOf(0);
+			public Long connection_count;
+			public SQLiteDatabase db;
+
+			DatabaseConnection() {
+				connection_count = 0L;
 				db = null;
 			}
 		}
-	    
-		private static DatabaseConnection databaseConnection = new DatabaseConnection();
+
+		private static final DatabaseConnection databaseConnection = new DatabaseConnection();
 
 		public static SQLiteDatabase getDatabase(Context _context) {
 			synchronized (databaseConnection) {
@@ -401,10 +411,10 @@ public class MusicAPI {
 					DatabaseHelper dbh = new DatabaseHelper(
 							_context.getApplicationContext());
 					databaseConnection.db = dbh.getWritableDatabase();
-					if (databaseConnection.db.isOpen() == false) {
-						Log.e(TAG, "Could not open MusicAPI database");
+					if (!databaseConnection.db.isOpen()) {
 						databaseConnection.db = null;
-						return null;
+						Log.e(TAG, "Unable to open the MusicAPI database");
+						throw new RuntimeException("Failed to open the MusicAPI database");
 					}
 				}
 				++databaseConnection.connection_count;

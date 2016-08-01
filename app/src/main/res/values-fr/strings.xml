@@ -17,6 +17,7 @@
     <string name="by">par</string>
     <string name="issues">Suivi de problèmes : %s</string>
     <string name="website">Site web : %s</string>
+    <string name="troubShoot">Résolution des problèmes : %s</string>
     <string name="by_adam">par Adam Renberg</string>
     <string name="license">Sous License Apache v2.0</string>
     <string name="about_text">Un scrobbler léger qui envoie des informations à Last.fm (et/ou Libre.fm) sur la musique lue sur votre appareil android. Last.fm vous permet ensuite de voir vos statistiques et vous recommende de nouveaux artistes que vous pourriez aimer.</string>
@@ -91,6 +92,28 @@
     <string name="confirm_clear_creds">Voulez vous vraiment effacer vos identifiants pour %1 ? Cela effacera aussi tous les scrobbles non envoyés.</string>
     <string name="confirm_clear_all_creds">Voulez vous vraiment effacer vos identifiants pour tous les comptes enregistrés ? Cela effacera aussi tous les scrobbles non envoyés.</string>   
     <!-- END creds strings -->
+
+
+    <!-- START heart strings -->
+    <string name="heart_and_copy">Options de chanson</string>
+    <string name="heart_title">J\'adore</string>
+    <string name="heart_current_track">Adorer la chanson actuelle sur last.fm</string>
+    <string name="no_heart_track">Adorer cette chanson a échoué</string>
+    <string name="loved_track">Chanson adorée</string>
+    <string name="no_lastFm">Entrez vos informations d\'identification last.fm</string>
+    <!-- END heart strings -->
+
+    <!-- START copy strings -->
+    <string name="copy_title">Copie</string>
+    <string name="copy_current_track">Copier la chanson en cours dans le presse-papiers</string>
+    <string name="no_copy_track">Échec de la copie de la chanson</string>
+    <string name="no_current_track">Aucune chanson actuelle disponible</string>
+    <!-- END copy strings -->
+
+    <!-- START permissions and warnings strings -->
+    <string name="permission_required">Autorisation nécessaire pour fonctionner correctement</string>
+    <string name="creds_required">Vérification des identifiants nécessaire pour fonctionner correctement</string>
+    <!-- END permissions and warnings strings -->
     
     <!-- START mapis strings -->
     <string name="incompatability_short">Attention : %1$s est installé et peut provoquer un double scrobbling.</string>
@@ -114,19 +137,20 @@
     <string name="nowplaying">Diffusion d\'écoute en temps réel</string>
     <string name="nowplaying_enable">Publier le nom de la chanson en cours d\'écoute</string>
     <string name="scrobble_point_title">Limite de scrobble</string>
-    <string name="scrobble_point_summary">Scrobbler le cache quand %1% en a été lu</string>
+    <string name="scrobble_point_summary">Scrobbler dans le cache quand %1% de la piste a été lu</string>
     <string name="ao_battery_title">Sur batterie</string>
     <string name="ao_plugged_title">Sur secteur</string>
     <string name="options_summary">Options et gestion de l\'alimentation</string>
+    <string name="advanced_options_notify_title">Notification</string>
     <string name="advanced_options_custom_category_title">Options de scrobbling personnalisées</string>
     <string name="advanced_options_when_title">Quand scrobbler ?</string>
     <string name="advanced_options_also_on_complete_title">À la fin d\'une piste</string>
     <string name="advanced_options_also_on_complete_summary">Scrobbler quand la lecture s\'arrête</string>
     <string name="advanced_options_also_on_plugged_title">Au branchement</string>
     <string name="advanced_options_also_on_plugged_summary">Scrobbler quand l\'appareil est branché</string>
-    <string name="should_disable_np">Vous devriez aussi désactiver la diffusion d\'écoute en temps réel pour préserver la batterie</string>
+    <string name="should_disable_np">Vous devriez aussi désactiver la diffusion d\'écoute en temps réel pour économiser la batterie</string>
     <string name="advanced_options_type_standard_name">Standard</string>
-    <string name="advanced_options_type_battery_name">Conserver la batterie</string>
+    <string name="advanced_options_type_battery_name">Économiser la batterie</string>
     <string name="advanced_options_type_same_as_battery_name">Pareil que sur batterie</string>
     <string name="advanced_options_type_custom_name">Personnalisé</string>
     <string name="advanced_options_when_1_name">Après chaque piste</string>
@@ -141,7 +165,7 @@
     <string name="advanced_options_net_wifi_name">Wifi seulement</string>
     <string name="advanced_options_net_roaming_title">Itinérance</string>
     <string name="advanced_options_net_roaming_summary_off">N\'enverra pas les données en itinérance</string>
-    <string name="advanced_options_net_roaming_summary_on">Enverra pas les données en itinérance</string>   
+    <string name="advanced_options_net_roaming_summary_on">Enverra les données en itinérance</string>   
     <!-- END options strings -->
     
     <!-- START status strings -->
