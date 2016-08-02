@@ -100,6 +100,7 @@
     <string name="no_heart_track">miłość, piosenka zawiodły</string>
     <string name="loved_track">Umiłował piosenka</string>
     <string name="no_lastFm">Wpisz Last.fm poświadczeń</string>
+    <string name="song_is_ready">Pieśń gotowy.</string>
     <!-- END heart strings -->
 
     <!-- START copy strings -->

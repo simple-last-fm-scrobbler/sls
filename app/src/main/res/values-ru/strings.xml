@@ -99,6 +99,7 @@
     <string name="no_heart_track">Не удалось добавить композицию в список любимых</string>
     <string name="loved_track">Любимые композиции</string>
     <string name="no_lastFm">Введите данные учетной записи last.fm</string>
+    <string name="song_is_ready">Песня готова</string>
     <!-- END heart strings -->
 
     <!-- START copy strings -->

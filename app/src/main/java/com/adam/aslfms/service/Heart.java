@@ -22,7 +22,10 @@ package com.adam.aslfms.service;
 
 import android.content.Context;
 import android.util.Log;
+import android.os.Handler;
+import android.widget.Toast;
 
+import com.adam.aslfms.R;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.MD5;
 import com.adam.aslfms.util.Track;
@@ -75,6 +78,14 @@ public class Heart extends NetRunnable {
             String heartResult = postHeartTrack(hearTrack, settings.rcnvK(settings.getAPIkey()), signature, settings.getSessionKey(NetApp.LASTFM));
 
             if (heartResult.contains("status=\"ok\"")) {
+
+                Handler h = new Handler(mCtx.getMainLooper());
+                h.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(mCtx, mCtx.getString(R.string.loved_track),Toast.LENGTH_SHORT).show();
+                    }
+                });
                 Log.d(TAG, "Successful heart track.");
             } else if (heartResult.contains("code=\"9\"")) {
                 // store hearTrack in database or allow failure.
@@ -143,5 +154,4 @@ public class Heart extends NetRunnable {
         Log.d(TAG, "Heart result: " + heartResult);
         return heartResult; //close()
     }
-
 }

@@ -101,6 +101,7 @@
     <string name="no_heart_track">Adorer cette chanson a échoué</string>
     <string name="loved_track">Chanson adorée</string>
     <string name="no_lastFm">Entrez vos informations d\'identification last.fm</string>
+    <string name="song_is_ready">Chanson est préparé</string>
     <!-- END heart strings -->
 
     <!-- START copy strings -->

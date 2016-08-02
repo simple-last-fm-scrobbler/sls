@@ -95,6 +95,7 @@
   <string name="no_heart_track">Líbí se selhalo</string>
   <string name="loved_track">Tato skladba se vám líbí</string>
   <string name="no_lastFm">Prosím zadejte vaše přihlašovací údaje do last.fm</string>
+  <string name="song_is_ready">Píseň připraven</string>
   <!--END heart strings-->
   <!--START copy strings-->
   <string name="copy_title">Kopírovat</string>

@@ -100,6 +100,7 @@
     <string name="no_heart_track">Amado Canción Falló</string>
     <string name="loved_track">Amado Canción</string>
     <string name="no_lastFm">Por favor, introduzca sus credenciales de last.fm</string>
+    <string name="song_is_ready">Song anu disusun</string>
     <!-- END heart strings -->
 
     <!-- START copy strings -->

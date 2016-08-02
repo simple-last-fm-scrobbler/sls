@@ -100,6 +100,7 @@
     <string name="no_heart_track">Heart Track Failed</string>
     <string name="loved_track">Loved Track</string>
     <string name="no_lastFm">Please enter your last.fm credentials</string>
+    <string name="song_is_ready">Song Ready</string>
     <!-- END heart strings -->
 
     <!-- START copy strings -->

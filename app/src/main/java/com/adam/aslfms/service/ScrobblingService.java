@@ -219,6 +219,7 @@ public class ScrobblingService extends Service {
                                     Toast.LENGTH_LONG).show();
                         } else {
                             mDb.loveRecentTrack();
+                            Toast.makeText(this, this.getString(R.string.song_is_ready), Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "Love Track Rating!");
                         }
                     } catch (Exception e) {
@@ -226,6 +227,7 @@ public class ScrobblingService extends Service {
                     }
                 } else if (mCurrentTrack != null) {
                     mCurrentTrack.setRating();
+                    Toast.makeText(this, this.getString(R.string.song_is_ready), Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "Love Track Rating!");
                 } else {
                     Toast.makeText(this, this.getString(R.string.no_current_track),
