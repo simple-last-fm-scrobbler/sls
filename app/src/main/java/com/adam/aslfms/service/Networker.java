@@ -21,11 +21,6 @@
 
 package com.adam.aslfms.service;
 
-import java.util.Iterator;
-import java.util.concurrent.PriorityBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
-
 import android.content.Context;
 
 import com.adam.aslfms.service.Handshaker.HandshakeAction;
@@ -33,6 +28,11 @@ import com.adam.aslfms.service.Handshaker.HandshakeResult;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
+
+import java.util.Iterator;
+import java.util.concurrent.PriorityBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class Networker {
 	@SuppressWarnings("unused")

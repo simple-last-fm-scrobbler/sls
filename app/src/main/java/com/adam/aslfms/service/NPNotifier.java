@@ -21,16 +21,6 @@
 
 package com.adam.aslfms.service;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLEncoder;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.TreeMap;
-
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -40,13 +30,23 @@ import com.adam.aslfms.SettingsActivity;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.AuthStatus;
-import com.adam.aslfms.util.MD5;
-import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.AuthStatus.BadSessionException;
 import com.adam.aslfms.util.AuthStatus.TemporaryFailureException;
 import com.adam.aslfms.util.AuthStatus.UnknownResponseException;
+import com.adam.aslfms.util.MD5;
+import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.enums.SubmissionType;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author tgwizard

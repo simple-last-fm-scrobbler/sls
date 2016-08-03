@@ -21,7 +21,6 @@
 
 package com.adam.aslfms.service;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -88,6 +87,8 @@ public class ScrobblingService extends Service {
 
         int sdk = Build.VERSION.SDK_INT;
         if (sdk == Build.VERSION_CODES.GINGERBREAD || sdk == Build.VERSION_CODES.GINGERBREAD_MR1) {
+            mCtx.sendBroadcast(new Intent(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED));
+
             String ar = "";
             String tr = "";
             String api = "";
@@ -124,6 +125,8 @@ public class ScrobblingService extends Service {
     @Override
     public int onStartCommand(Intent i, int flags, int startId) {
         handleCommand(i, startId);
+
+        mCtx.sendBroadcast(new Intent(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED));
 
         String ar = "";
         String tr = "";
@@ -183,7 +186,6 @@ public class ScrobblingService extends Service {
             else
                 Log.e(TAG, "launchHandshaker got null napp");
         } else if (action.equals(ACTION_JUSTSCROBBLE)) {
-            mCtx.sendBroadcast(new Intent(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED));
             if (extras.getBoolean("scrobbleall", false)) {
                 Log.d(TAG, "Scrobble All TRUE");
                 mNetManager.launchAllScrobblers();

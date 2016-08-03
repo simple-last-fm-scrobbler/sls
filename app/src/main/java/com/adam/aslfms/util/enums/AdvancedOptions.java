@@ -3,13 +3,13 @@
  */
 package com.adam.aslfms.util.enums;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Context;
 import android.util.Log;
 
 import com.adam.aslfms.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public enum AdvancedOptions {
     // the values below for SAME will be ignored

@@ -20,11 +20,11 @@
 
 package com.adam.aslfms.receiver;
 
-import com.adam.aslfms.util.Track;
-import com.adam.aslfms.util.Util;
-
 import android.content.Context;
 import android.os.Bundle;
+
+import com.adam.aslfms.util.Track;
+import com.adam.aslfms.util.Util;
 
 /**
  * A BroadcastReceiver for the Last.fm Android API. More info at <a

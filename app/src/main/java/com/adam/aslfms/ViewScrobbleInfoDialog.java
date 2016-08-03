@@ -21,9 +21,6 @@
 
 package com.adam.aslfms;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,6 +33,9 @@ import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ViewScrobbleInfoDialog {
 	@SuppressWarnings("unused")

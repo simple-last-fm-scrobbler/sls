@@ -21,6 +21,22 @@
 
 package com.adam.aslfms.service;
 
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+
+import com.adam.aslfms.R;
+import com.adam.aslfms.SettingsActivity;
+import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.AuthStatus;
+import com.adam.aslfms.util.AuthStatus.BadAuthException;
+import com.adam.aslfms.util.AuthStatus.ClientBannedException;
+import com.adam.aslfms.util.AuthStatus.TemporaryFailureException;
+import com.adam.aslfms.util.AuthStatus.UnknownResponseException;
+import com.adam.aslfms.util.MD5;
+import com.adam.aslfms.util.Util;
+import com.adam.aslfms.util.Util.NetworkStatus;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -34,22 +50,6 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import android.content.Context;
-import android.content.Intent;
-import android.util.Log;
-
-import com.adam.aslfms.R;
-import com.adam.aslfms.SettingsActivity;
-import com.adam.aslfms.util.AppSettings;
-import com.adam.aslfms.util.MD5;
-import com.adam.aslfms.util.AuthStatus;
-import com.adam.aslfms.util.Util;
-import com.adam.aslfms.util.AuthStatus.BadAuthException;
-import com.adam.aslfms.util.AuthStatus.ClientBannedException;
-import com.adam.aslfms.util.AuthStatus.TemporaryFailureException;
-import com.adam.aslfms.util.AuthStatus.UnknownResponseException;
-import com.adam.aslfms.util.Util.NetworkStatus;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;

@@ -21,14 +21,14 @@
 
 package com.adam.aslfms.service;
 
-import java.util.EnumMap;
-import java.util.Map;
-
 import android.content.Context;
 
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 public class NetworkerManager {
 

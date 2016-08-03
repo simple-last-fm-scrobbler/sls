@@ -3,15 +3,15 @@
  */
 package com.adam.aslfms.util.enums;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.adam.aslfms.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public enum NetworkOptions {
 	ANY(

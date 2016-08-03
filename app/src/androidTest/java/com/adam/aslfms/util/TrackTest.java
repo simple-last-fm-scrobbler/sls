@@ -21,11 +21,23 @@
 
 package com.adam.aslfms.util;
 
-import com.adam.aslfms.util.Track.Builder;
-
 import android.test.AndroidTestCase;
 
-import static com.adam.aslfms.util.TrackTestUtils.*;
+import com.adam.aslfms.util.Track.Builder;
+
+import static com.adam.aslfms.util.TrackTestUtils.TEST_ALBUM;
+import static com.adam.aslfms.util.TrackTestUtils.TEST_ARTIST;
+import static com.adam.aslfms.util.TrackTestUtils.TEST_DURATION;
+import static com.adam.aslfms.util.TrackTestUtils.TEST_MBID;
+import static com.adam.aslfms.util.TrackTestUtils.TEST_MUSIC_API;
+import static com.adam.aslfms.util.TrackTestUtils.TEST_ROWID;
+import static com.adam.aslfms.util.TrackTestUtils.TEST_SOURCE;
+import static com.adam.aslfms.util.TrackTestUtils.TEST_TRACK;
+import static com.adam.aslfms.util.TrackTestUtils.TEST_TRACK_NR;
+import static com.adam.aslfms.util.TrackTestUtils.TEST_WHEN;
+import static com.adam.aslfms.util.TrackTestUtils.buildFullTrack;
+import static com.adam.aslfms.util.TrackTestUtils.buildSimpleTrack;
+import static com.adam.aslfms.util.TrackTestUtils.buildTrack;
 
 public class TrackTest extends AndroidTestCase {
 

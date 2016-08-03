@@ -20,9 +20,6 @@
 
 package com.adam.aslfms.util;
 
-import com.adam.aslfms.util.InternalTrackTransmitter;
-import com.adam.aslfms.util.Track;
-
 import android.test.AndroidTestCase;
 
 public class InternalTrackTransmitterTest extends AndroidTestCase {

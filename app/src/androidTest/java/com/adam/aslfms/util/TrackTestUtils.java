@@ -23,8 +23,6 @@ package com.adam.aslfms.util;
 import com.adam.aslfms.receiver.MusicAPI;
 import com.adam.aslfms.receiver.MusicAPITestUtils;
 
-import com.adam.aslfms.util.Track;
-
 public class TrackTestUtils {
 
 	public static final MusicAPI TEST_MUSIC_API = MusicAPITestUtils.getDummyMusicAPI();

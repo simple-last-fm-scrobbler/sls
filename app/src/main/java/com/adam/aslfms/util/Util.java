@@ -21,17 +21,14 @@
 
 package com.adam.aslfms.util;
 
-import java.util.Calendar;
-import java.util.TimeZone;
-
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnClickListener;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -50,6 +47,9 @@ import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.enums.NetworkOptions;
 import com.adam.aslfms.util.enums.PowerOptions;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * This class is way too bloated. FIXME

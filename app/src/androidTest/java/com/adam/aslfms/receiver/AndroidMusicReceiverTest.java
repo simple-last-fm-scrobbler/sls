@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Intent;
 
 import com.adam.aslfms.util.Track;
-import com.adam.aslfms.util.TrackTestUtils;
 import com.adam.aslfms.util.Track.State;
+import com.adam.aslfms.util.TrackTestUtils;
 
 public class AndroidMusicReceiverTest extends BuiltInMusicAppReceiverTest {
 
