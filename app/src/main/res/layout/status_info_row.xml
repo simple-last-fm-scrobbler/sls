@@ -11,7 +11,8 @@
 		android:layout_height="wrap_content"
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		android:textColor="?android:attr/textColorSecondary"
-		android:layout_alignParentLeft="true" />
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"/>
 	<TextView
 		android:id="@+id/value"
 		android:layout_width="fill_parent"
@@ -19,5 +20,6 @@
 		android:textAppearance="?android:attr/textAppearanceSmall"
 		android:textColor="?android:attr/textColorPrimary"
 		android:layout_below="@+id/key"
-		android:layout_alignParentLeft="true" />
+		android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true"/>
 </RelativeLayout>

@@ -74,7 +74,7 @@ public class RdioMusicReceiver extends AbstractPlayStatusReceiver {
 		int duration = -1;
 		Object obj = bundle.get("duration");
 		if (obj instanceof Integer)
-			duration = (int) ((Integer) obj);
+			duration = ((Integer) obj);
 		if (obj instanceof Double)
 			duration = (int) ((double)((Double) obj));
 		if (duration != -1) {

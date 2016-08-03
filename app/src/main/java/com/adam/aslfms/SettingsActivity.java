@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.SQLException;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -105,16 +106,18 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
 
         //PERMISSION CHECK
-        try {
-            if (ContextCompat.checkSelfPermission(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            try {
+                if (ContextCompat.checkSelfPermission(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
 
-                if (ActivityCompat.shouldShowRequestPermissionRationale(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    Toast.makeText(SettingsActivity.this, R.string.permission_required, Toast.LENGTH_LONG).show();
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        Toast.makeText(SettingsActivity.this, R.string.permission_required, Toast.LENGTH_LONG).show();
+                    }
+                    ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
                 }
-                ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
+            } catch (Exception e) {
+                Log.e(TAG, "Version exception, READ_EXTERNAL_STORAGE. " + e);
             }
-        } catch (Exception e) {
-            Log.e(TAG, "Version exception, READ_EXTERNAL_STORAGE. "+e);
         }
         //Credentials Check
         if ((settings.getPassword(NetApp.LASTFM).equals("") && settings.getUsername(NetApp.LASTFM).equals(""))

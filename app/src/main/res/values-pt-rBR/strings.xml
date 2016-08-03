@@ -13,9 +13,9 @@
   <!--END original strings-->
   <!--START about strings-->
   <string name="by">por</string>
-  <string name="issues">Problemas</string>
-  <string name="website">Serviço:</string>
-    <string name="troubShoot">Trouble Shoot: %s</string>
+  <string name="issues">Problemas: %s</string>
+  <string name="website">Serviço: %s</string>
+  <string name="troubShoot">Trouble Shoot: %s</string>
   <string name="by_adam">por Adam Renberg</string>
   <string name="license">Lançado sob Apache License v2.0</string>
   <string name="about_text">Um scrobbler leve que envia informações ao Last.fm (e/ou ao Libre.fm) sobre as músicas que você ouve no seu Android. O Last.fm então permite que você obtenha estatísticas e recomendações de músicas que você pode curtir.</string>
