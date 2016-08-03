@@ -216,7 +216,6 @@ public class AppSettings {
     }
 
     public boolean isAuthenticated(NetApp napp) {
-        Log.e(TAG,"Authenicated: "+napp.getName()+": "+(getAuthStatus(napp)));
         return getAuthStatus(napp) == AuthStatus.AUTHSTATUS_OK;
     }
 

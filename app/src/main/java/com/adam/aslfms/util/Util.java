@@ -112,7 +112,7 @@ public class Util {
             Log.e(TAG,"netInfo == null");
         }
         if (netInfo != null) {
-            Log.e(TAG, "conn: " + netInfo.isConnected() + " : " + netInfo.toString());
+            Log.d(TAG, "conn: " + netInfo.isConnected() + " : " + netInfo.toString());
         }
 
         if (netInfo == null || !(netInfo.isConnected() || ConnectivityChangeReceiver.isConnect)) {

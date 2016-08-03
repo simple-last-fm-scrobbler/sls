@@ -183,6 +183,7 @@ public class ScrobblingService extends Service {
             else
                 Log.e(TAG, "launchHandshaker got null napp");
         } else if (action.equals(ACTION_JUSTSCROBBLE)) {
+            mCtx.sendBroadcast(new Intent(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED));
             if (extras.getBoolean("scrobbleall", false)) {
                 Log.d(TAG, "Scrobble All TRUE");
                 mNetManager.launchAllScrobblers();
