@@ -86,6 +86,8 @@ public class NPNotifier extends AbstractSubmitter {
             relaunchThis();
             notifySubmissionStatusFailure(getContext().getString(
                     R.string.auth_just_error));
+            Util.myNotify(mCtx, SettingsActivity.class, getNetApp().getName(),
+                    mCtx.getString(R.string.auth_bad_auth), 39201);
             ret = true;
         } catch (TemporaryFailureException e) {
             Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
@@ -225,7 +227,7 @@ public class NPNotifier extends AbstractSubmitter {
                         Log.e(TAG, "Now Playing failed: client banned: " + NetApp.LASTFM);
                         settings.setSessionKey(NetApp.LASTFM, "");
                         throw new AuthStatus.ClientBannedException("Now Playing failed because of client banned");
-                    } else if (response.contains("code=\"4\"") || response.contains("code=\"9\"")) {
+                    } else if (response.contains("code=\"9\"")) {
                         Log.i(TAG, "Now Playing failed: bad auth: " + NetApp.LASTFM);
                         settings.setSessionKey(NetApp.LASTFM, "");
                         throw new BadSessionException("Now Playing failed because of badsession");

@@ -323,7 +323,7 @@ public class Handshaker extends NetRunnable {
                         settings.setSessionKey(NetApp.LASTFM, "");
                         throw new ClientBannedException(getContext().getString(
                                 R.string.auth_client_banned));
-                    } else if (response.contains("code=\"4\"") || response.contains("code=\"9\"")) {
+                    } else if (response.contains("code=\"9\"")) {
                         Log.i(TAG, "Handshake fails: bad auth: " + NetApp.LASTFM);
                         settings.setSessionKey(NetApp.LASTFM, "");
                         throw new BadAuthException(getContext().getString(
