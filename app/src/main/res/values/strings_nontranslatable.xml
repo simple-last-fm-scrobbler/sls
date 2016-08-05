@@ -5,15 +5,16 @@
     <string name="website_url" translatable="false">https://github.com/tgwizard/sls</string>
     <string name="issues_url" translatable="false">https://github.com/tgwizard/sls/issues</string>
 	<string name="trouble_shoot" translatable="false">https://github.com/tgwizard/sls/blob/master/TroubleShooting.md</string>
-    <string name="supported_musicapps" translatable="false">Spotify, Google Music, Deezer, Rhapsody/Napster,
-		Rdio, My Cloud Player, SoundCloud, 8tracks, InfiniTracks, Squeezer, Amazon Music, Huawei,
-		n7player, BuMP, PowerAMP, Black Player, AIMP, Timber (Beta), Vanilla Music, SmartVanilla Music,
-		Shuttle Music Player, Rocket Player, JRTStudio Android Music Player, PlayerPro, Jetaudio,
-		jukefox, foobar2000, DeaDBeeF, GoneMAD Music Player, Folder Player, Neutron Music Player,
-		Music Pump XBMC Remote (Beta), Music Folder Player, Meridian Player, MixZing,
-		Archos Music Player, Radio Noise FM, Now Playing, SoundSeeder, MortPlayer, bTunes, WIMP,
-		Just Playlists, RockOn, Apollo, Android Music Player, HTC Hero/Sense Music Player,
-		MIUI Music Player, ServeStream, Default Sony Ericsson/Xperia Music Player, myTouch 4G,
-		LG Music Player, DAAP Media Player,
+    <string name="supported_musicapps" translatable="false">Spotify, Google Music, Deezer, 
+		Rhapsody/Napster, Rdio, My Cloud Player, SoundCloud, 8tracks, 
+		InfiniTracks, Squeezer, Amazon Music, Huawei, n7player, BuMP, PowerAMP, Black Player, AIMP, 
+		Timber (Beta), Vanilla Music, SmartVanilla Music, Shuttle Music Player, Rocket Player, 
+		JRTStudio Android Music Player, PlayerPro, Jetaudio, jukefox, foobar2000, DeaDBeeF, 
+		GoneMAD Music Player, Folder Player, Neutron Music Player, Music Pump XBMC Remote (Beta), 
+		Music Folder Player, Meridian Player, MixZing, Archos Music Player, Radio Noise FM, 
+		Now Playing, SoundSeeder, MortPlayer, bTunes, WIMP, Just Playlists, RockOn, Apollo, 
+		Android Music Player, HTC Hero/Sense Music Player, MIUI Music Player, ServeStream, 
+		Default Sony Ericsson/Xperia Music Player, myTouch 4G, LG Music Player, 
+		DAAP Media Player, xenoAmp, Marine, MediaMonkey, Pulsar, 
     </string>
 </resources>

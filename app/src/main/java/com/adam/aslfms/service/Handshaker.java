@@ -230,6 +230,7 @@ public class Handshaker extends NetRunnable {
             try {
                 url = new URL("https://ws.audioscrobbler.com/2.0/");
                 if (!settings.getSessionKey(getNetApp()).equals("")) {
+                    Log.i(TAG, "Handshake succeded!: " + netApp.getName() + ": Already has valid session key.");
                     return new HandshakeResult(settings.getSessionKey(getNetApp()), url.toString(), url.toString());
                 }
 

@@ -32,7 +32,7 @@ public class Sleeper extends NetRunnable {
 	private static final long START_TIME = 60 * 1000; // 1 min
 	private static final long MAX_TIME = 120 * 60 * 1000; // 120 min
 
-	private long mSleepTime;
+	public static long mSleepTime;
 
 	public Sleeper(NetApp napp, Context ctx, Networker net) {
 		super(napp, ctx, net);
@@ -48,7 +48,7 @@ public class Sleeper extends NetRunnable {
 
 	private void incSleepTime() {
 		synchronized (this) {
-			mSleepTime += 2;
+			mSleepTime += 60 * 1000;
 			if (mSleepTime > MAX_TIME) {
 				mSleepTime = MAX_TIME;
 			}

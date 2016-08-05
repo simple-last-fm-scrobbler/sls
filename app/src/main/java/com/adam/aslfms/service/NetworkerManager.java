@@ -58,6 +58,12 @@ public class NetworkerManager {
 		mSupportedNetApps.get(napp).launchHandshaker();
 	}
 
+	public void launchHandshakers() {
+		for (NetApp napp : NetApp.values()) {
+			launchHandshaker(napp);
+		}
+	}
+
 	public void launchClearAllCreds() {
 		for (Networker nw : mSupportedNetApps.values())
 			nw.launchClearCreds();

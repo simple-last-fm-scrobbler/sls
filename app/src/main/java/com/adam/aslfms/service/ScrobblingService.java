@@ -183,10 +183,14 @@ public class ScrobblingService extends Service {
             String snapp = extras.getString("netapp");
             if (snapp != null)
                 mNetManager.launchAuthenticator(NetApp.valueOf(snapp));
-            else
+            else {
                 Log.e(TAG, "launchHandshaker got null napp");
+                mNetManager.launchHandshakers();
+            }
         } else if (action.equals(ACTION_JUSTSCROBBLE)) {
+            Sleeper.mSleepTime = 500;
             mCtx.sendBroadcast(new Intent(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED));
+            mNetManager.launchHandshakers();
             if (extras.getBoolean("scrobbleall", false)) {
                 Log.d(TAG, "Scrobble All TRUE");
                 mNetManager.launchAllScrobblers();

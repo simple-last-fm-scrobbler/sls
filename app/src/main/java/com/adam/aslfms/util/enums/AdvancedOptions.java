@@ -14,10 +14,10 @@ import java.util.Map;
 public enum AdvancedOptions {
     // the values below for SAME will be ignored
     SAME_AS_BATTERY(
-            "ao_same_as_battery", false, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, false,
+            "ao_same_as_battery", false, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
             R.string.advanced_options_type_same_as_battery_name),
     STANDARD(
-            "ao_standard", false, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, false,
+            "ao_standard", false, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
             R.string.advanced_options_type_standard_name),
     // not available for plugged in
     BATTERY_SAVING(
@@ -25,7 +25,7 @@ public enum AdvancedOptions {
             R.string.advanced_options_type_battery_name),
     // the values below for CUSTOM will be ignored
     CUSTOM(
-            "ao_custom", false, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, false,
+            "ao_custom", false, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
             R.string.advanced_options_type_custom_name);
 
     private final String settingsVal;

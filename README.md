@@ -68,9 +68,10 @@ Supported languages
  * Brazilian Portuguese
  * Polish
  * Russian
+ * Czech
 
 
- * Head to [Transifex](https://www.transifex.com/sls/sls) if you want to be a translator
+Head to [Transifex](https://www.transifex.com/sls/sls) if you want to be a translator
 
 
 Supported websites (to scrobble to)

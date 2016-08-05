@@ -29,9 +29,7 @@ import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.PowerManager;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.adam.aslfms.SettingsActivity;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.Util.NetworkStatus;

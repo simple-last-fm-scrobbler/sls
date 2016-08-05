@@ -68,7 +68,7 @@ public class ConnectivityChangeReceiver extends BroadcastReceiver {
         AppSettings settings = new AppSettings(context);
         PowerOptions pow = Util.checkPower(context);
         if (activeNetwork != null) {
-            isConnect = activeNetwork.isConnected();
+
 /**
             if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
                 // connected to wifi
@@ -102,6 +102,7 @@ public class ConnectivityChangeReceiver extends BroadcastReceiver {
                 return;
             }
             // FIXME: scrobble all on connect OR rely on Util.checkForOkNetwork()
+            isConnect = activeNetwork.isConnected();
 
         } else {
             isConnect = false;
