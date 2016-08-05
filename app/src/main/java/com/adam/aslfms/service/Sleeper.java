@@ -30,7 +30,7 @@ public class Sleeper extends NetRunnable {
 
 	// TODO: correct value
 	private static final long START_TIME = 60 * 1000; // 1 min
-	private static final long MAX_TIME = 120 * 60 * 1000; // 120 min
+	private static final long MAX_TIME = 20 * 60 * 1000; // 20 min
 
 	public static long mSleepTime;
 
