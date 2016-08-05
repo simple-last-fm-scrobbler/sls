@@ -174,8 +174,8 @@ public class Handshaker extends NetRunnable {
                 getNetworker().launchSleeper();
                 getNetworker().launchHandshaker(hsAction);
             }
-            Util.myNotify(mCtx, SettingsActivity.class, getNetApp().getName(),
-                    mCtx.getString(R.string.auth_network_error_retrying), 39201);
+           // Util.myNotify(mCtx, SettingsActivity.class, getNetApp().getName(),
+             //       mCtx.getString(R.string.auth_network_error_retrying), 39201);
             e.getStackTrace();
         } catch (ClientBannedException e) {
             Log.e(TAG, "This version of the client has been banned!!" + ": "

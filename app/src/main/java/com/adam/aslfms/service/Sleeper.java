@@ -48,7 +48,7 @@ public class Sleeper extends NetRunnable {
 
 	private void incSleepTime() {
 		synchronized (this) {
-			mSleepTime *= 1.2;
+			mSleepTime += 2;
 			if (mSleepTime > MAX_TIME) {
 				mSleepTime = MAX_TIME;
 			}
