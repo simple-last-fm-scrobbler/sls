@@ -30,9 +30,9 @@ public class Sleeper extends NetRunnable {
 
 	// TODO: correct value
 	private static final long START_TIME = 60 * 1000; // 1 min
-	private static final long MAX_TIME = 20 * 60 * 1000; // 20 min
+	private static final long MAX_TIME = 10 * 60 * 1000; // 10 min 1,2,3...10 5*11 55min
 
-	public static long mSleepTime;
+	private long mSleepTime;
 
 	public Sleeper(NetApp napp, Context ctx, Networker net) {
 		super(napp, ctx, net);
@@ -48,7 +48,7 @@ public class Sleeper extends NetRunnable {
 
 	private void incSleepTime() {
 		synchronized (this) {
-			mSleepTime += 60 * 1000;
+			mSleepTime += 60 * 1000;  // TODO set 60 * 1000
 			if (mSleepTime > MAX_TIME) {
 				mSleepTime = MAX_TIME;
 			}

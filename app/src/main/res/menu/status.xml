@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <!--<item
+    <item
         android:id="@+id/MENU_SCROBBLE_NOW_ID"
         android:icon="@android:drawable/ic_menu_upload"
-        android:title="@string/scrobble_now" />-->
+        android:title="@string/scrobble_now" />
     <item
         android:id="@+id/MENU_RESET_STATS_ID"
         android:icon="@android:drawable/ic_menu_close_clear_cancel"

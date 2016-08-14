@@ -96,7 +96,7 @@
     <!-- START heart strings -->
     <string name="heart_and_copy">Опции композиции</string>
     <string name="heart_title">Нравится</string>
-    <string name="heart_current_track">Добавить текущую композицию в список любимых на last.fm</string>
+    <string name="heart_current_track">Добавить текущую композицию в список любимых на Last.fm (Libre.fm)</string>
     <string name="no_heart_track">Не удалось добавить композицию в список любимых</string>
     <string name="loved_track">Любимые композиции</string>
     <string name="no_lastFm">Введите данные учетной записи last.fm</string>
@@ -113,6 +113,7 @@
     <!-- START permissions and warnings strings -->
     <string name="permission_required">Необходимо дать приложению разрешения для нормальной работы</string>
     <string name="creds_required">Необходимы данные учетной записи для нормальной работы</string>
+    <string name="limited_network">Ограниченная Cеть</string>
     <!-- END permissions and warnings strings -->
     
     <!-- START mapis strings -->

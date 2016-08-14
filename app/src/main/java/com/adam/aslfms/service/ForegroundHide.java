@@ -25,6 +25,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
@@ -33,7 +34,7 @@ import com.adam.aslfms.SettingsActivity;
 
 public class ForegroundHide extends Service {
 
-    Context ctx = this;
+    Context mCtx = this;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -45,17 +46,19 @@ public class ForegroundHide extends Service {
         //Bundle extras = i.getExtras();
 
 
+        Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(ctx)
-                        .setLargeIcon(BitmapFactory.decodeResource(ctx.getResources(),
-                                R.mipmap.ic_launcher))
+                new NotificationCompat.Builder(mCtx)
                         .setContentTitle("")
                         .setSmallIcon(R.mipmap.ic_notify)
-                        .setContentText("");
-        Intent targetIntent = new Intent(ctx, SettingsActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
+                        .setContentText("")
+                        .setContentIntent(contentIntent);
 
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2){
+            builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                    R.mipmap.ic_launcher));
+        }
 
         this.startForeground(14619, builder.build());
 

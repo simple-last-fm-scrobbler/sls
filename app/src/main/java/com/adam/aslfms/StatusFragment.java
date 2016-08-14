@@ -182,6 +182,12 @@ public class StatusFragment extends Fragment {
                 mNetApp, SubmissionType.NP)));
         list.add(npstats);
 
+        // total scrobbles
+        Pair tsStats = new Pair();
+        tsStats.setKey(mNetApp.getName());
+        tsStats.setValue(settings.getTotalScrobbles(mNetApp));
+        list.add(tsStats);
+
         ArrayAdapter<Pair> adapter = new MyArrayAdapter(getActivity(),
                 R.layout.status_info_row, R.id.key, list);
 

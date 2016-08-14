@@ -91,7 +91,7 @@
   <!--START heart strings-->
   <string name="heart_and_copy">Nastavení skladby</string>
   <string name="heart_title">Líbí se</string>
-  <string name="heart_current_track">Dát líbí se momentální skladbě na last.fm</string>
+  <string name="heart_current_track">Dát líbí se momentální skladbě na Last.fm (Libre.fm)</string>
   <string name="no_heart_track">Líbí se selhalo</string>
   <string name="loved_track">Tato skladba se vám líbí</string>
   <string name="no_lastFm">Prosím zadejte vaše přihlašovací údaje do last.fm</string>
@@ -106,6 +106,7 @@
   <!--START permissions and warnings strings-->
   <string name="permission_required">Vyžadováno pověření</string>
   <string name="creds_required">Vyžadovány některé údaje</string>
+  <string name="limited_network">Omezená Síť</string>
   <!--END permissions and warnings strings-->
   <!--START mapis strings-->
   <string name="incompatability_short">Varování: %1$s je nainstalován a může způsobovat dvojité scrobbly.</string>

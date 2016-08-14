@@ -357,12 +357,13 @@ public class Track {
 
 	@Override
 	public String toString() {
-		return "Track [mAlbum=" + mAlbum + ", mArtist=" + mArtist
+		return "Track [mTrack="
+				+ mTrack  + ", mArtist=" + mArtist + ", mAlbum=" + mAlbum
 				+ ", mDuration=" + mDuration + ", mMbId=" + mMbId
 				+ ", mMusicAPI=" + mMusicAPI + ", mQueued=" + mQueued
 				+ ", mRating=" + mRating + ", mRowId=" + mRowId + ", mSource="
-				+ mSource + ", mTimePlayed=" + mTimePlayed + ", mTrack="
-				+ mTrack + ", mTracknr=" + mTracknr + ", mUnknownDuration="
+				+ mSource + ", mTimePlayed=" + mTimePlayed
+				+ ", mTracknr=" + mTracknr + ", mUnknownDuration="
 				+ mUnknownDuration + ", mWhen=" + mWhen
 				+ ", mWhenToCountTimeFrom=" + mWhenToCountTimeFrom + "]";
 				//+ ", mStartTime=" + mStartTime + "]";

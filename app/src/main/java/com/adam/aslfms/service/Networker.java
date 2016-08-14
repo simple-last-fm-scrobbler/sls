@@ -133,6 +133,19 @@ public class Networker {
 		mExecutor.execute(n);
 	}
 
+	public void launchUserInfo() {
+		Iterator<Runnable> i = mExecutor.getQueue().iterator();
+		while (i.hasNext()) {
+			Runnable r = i.next();
+			if (r.getClass() == UserInfo.class) {
+				i.remove();
+			}
+		}
+
+		UserInfo n = new UserInfo(mNetApp, mCtx, this, settings);
+		mExecutor.execute(n);
+	}
+
 	public void launchSleeper() {
 		mExecutor.execute(mSleeper);
 	}

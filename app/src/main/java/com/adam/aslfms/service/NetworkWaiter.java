@@ -56,7 +56,7 @@ public class NetworkWaiter extends NetRunnable {
             ifs.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
         }
         getContext().registerReceiver(mConnReceiver, ifs);
-        Log.e(TAG,"connectivity_action");
+        Log.d(TAG,"connectivity_action");
         synchronized (this) {
             mWait = Util.checkForOkNetwork(getContext()) != NetworkStatus.OK;
             while (mWait) {

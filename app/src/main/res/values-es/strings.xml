@@ -99,7 +99,7 @@
     <string name="heart_current_track">Canción de amor en last.fm</string>
     <string name="no_heart_track">Amado Canción Falló</string>
     <string name="loved_track">Amado Canción</string>
-    <string name="no_lastFm">Por favor, introduzca sus credenciales de last.fm</string>
+    <string name="no_lastFm">Por favor, introduzca sus credenciales de Last.fm (Libre.fm)</string>
     <string name="song_is_ready">Song anu disusun</string>
     <!-- END heart strings -->
 
@@ -113,6 +113,7 @@
     <!-- START permissions and warnings strings -->
     <string name="permission_required">Permission REQUIRED to work properly</string>
     <string name="creds_required">Credentials REQUIRED to work properly</string>
+    <string name="limited_network">Red Limitada</string>
     <!-- END permissions and warnings strings -->
     
     <!-- START mapis strings -->

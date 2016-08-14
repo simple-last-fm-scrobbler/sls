@@ -87,7 +87,6 @@ public class ScrobblingService extends Service {
 
         int sdk = Build.VERSION.SDK_INT;
         if (sdk == Build.VERSION_CODES.GINGERBREAD || sdk == Build.VERSION_CODES.GINGERBREAD_MR1) {
-            mCtx.sendBroadcast(new Intent(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED));
 
             String ar = "";
             String tr = "";
@@ -97,16 +96,20 @@ public class ScrobblingService extends Service {
                 tr = mCurrentTrack.getTrack();
                 api = mCurrentTrack.getMusicAPI().readAPIname();
             }
-            NotificationCompat.Builder builder =
-                    new NotificationCompat.Builder(mCtx)
-                            .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
-                                    R.mipmap.ic_launcher))
-                            .setContentTitle(ar)
-                            .setSmallIcon(R.mipmap.ic_notify)
-                            .setContentText(tr + " : " + api);
+
             Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
             PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            builder.setContentIntent(contentIntent);
+            NotificationCompat.Builder builder =
+                    new NotificationCompat.Builder(mCtx)
+                            .setContentTitle(ar)
+                            .setSmallIcon(R.mipmap.ic_notify)
+                            .setContentText(tr + " : " + api)
+                            .setContentIntent(contentIntent);
+
+            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2){
+                builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                        R.mipmap.ic_launcher));
+            }
 
             this.startForeground(14619, builder.build());
 
@@ -126,8 +129,6 @@ public class ScrobblingService extends Service {
     public int onStartCommand(Intent i, int flags, int startId) {
         handleCommand(i, startId);
 
-        mCtx.sendBroadcast(new Intent(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED));
-
         String ar = "";
         String tr = "";
         String api = "";
@@ -135,17 +136,22 @@ public class ScrobblingService extends Service {
             ar = mCurrentTrack.getArtist();
             tr = mCurrentTrack.getTrack();
             api = mCurrentTrack.getMusicAPI().readAPIname();
+
         }
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(mCtx)
-                        .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
-                                R.mipmap.ic_launcher))
-                        .setContentTitle(ar)
-                        .setSmallIcon(R.mipmap.ic_notify)
-                        .setContentText(tr + " : " + api);
+
         Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
         PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
+        NotificationCompat.Builder builder =
+                new NotificationCompat.Builder(mCtx)
+                        .setContentTitle(ar)
+                        .setSmallIcon(R.mipmap.ic_notify)
+                        .setContentText(tr + " : " + api)
+                        .setContentIntent(contentIntent);
+
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2){
+            builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                    R.mipmap.ic_launcher));
+        }
 
         this.startForeground(14619, builder.build());
 
@@ -188,9 +194,6 @@ public class ScrobblingService extends Service {
                 mNetManager.launchHandshakers();
             }
         } else if (action.equals(ACTION_JUSTSCROBBLE)) {
-            Sleeper.mSleepTime = 500;
-            mCtx.sendBroadcast(new Intent(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED));
-            mNetManager.launchHandshakers();
             if (extras.getBoolean("scrobbleall", false)) {
                 Log.d(TAG, "Scrobble All TRUE");
                 mNetManager.launchAllScrobblers();
@@ -320,6 +323,7 @@ public class ScrobblingService extends Service {
             tryNotifyNP(mCurrentTrack);
 
             // TODO: maybe give notifications it's own service
+            // TODO: work around for permanent notification
             /**
              if (settings.isNotifyEnabled(Util.checkPower(mCtx))) {
              Class chooseActivity = SettingsActivity.class;
