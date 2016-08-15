@@ -1,16 +1,16 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * <p/>
+ * <p>
  * https://github.com/tgwizard/sls
- * <p/>
+ * <p>
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * <p/>
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,6 @@
 package com.adam.aslfms.service;
 
 import android.content.Context;
-import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.Toast;
@@ -80,16 +79,16 @@ public class Heart extends NetRunnable {
 
         try {
             String response = postHeartTrack(hearTrack, settings.rcnvK(settings.getAPIkey()), signature, settings.getSessionKey(getNetApp()));
-        // TODO: ascertain if string is Json
+            // TODO: ascertain if string is Json
             if (response.equals("okSuccess")) {
                 Handler h = new Handler(mCtx.getMainLooper());
                 h.post(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(mCtx, mCtx.getString(R.string.loved_track)+" "+getNetApp().getName(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mCtx, mCtx.getString(R.string.loved_track) + " " + getNetApp().getName(), Toast.LENGTH_SHORT).show();
                     }
                 });
-                Log.d(TAG, "Successful heart track: "+getNetApp().getName());
+                Log.d(TAG, "Successful heart track: " + getNetApp().getName());
             } else {
                 JSONObject jObject = new JSONObject(response);
                 if (jObject.has("error")) {
@@ -110,68 +109,78 @@ public class Heart extends NetRunnable {
     }
 
     private String postHeartTrack(Track track, String testAPI, String signature, String
-            sessionKey) throws IOException, NullPointerException {
+            sessionKey) {
         URL url;
-        if (getNetApp() == NetApp.LASTFM){
-            url = new URL("https://ws.audioscrobbler.com/2.0/");
-        } else {
-            url = new URL("https://libre.fm/2.0/");
-        }
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        HttpURLConnection conn = null;
 
-        // set Timeout and method
-        conn.setReadTimeout(7000);
-        conn.setConnectTimeout(7000);
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        try {
 
-        conn.setDoInput(true);
-        conn.setDoOutput(true);
-
-        Map<String, Object> params = new LinkedHashMap<>();
-        params.put("method", "track.love");
-        params.put("track", track.getTrack());
-        params.put("artist", track.getArtist());
-        params.put("api_key", testAPI);
-        params.put("api_sig", signature);
-        params.put("sk", sessionKey);
-        params.put("format","json");
-
-        StringBuilder postData = new StringBuilder();
-        for (Map.Entry<String, Object> param : params.entrySet()) {
-            if (postData.length() != 0) postData.append('&');
-            postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-            postData.append('=');
-            postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-        }
-        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
-        conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-
-        //Log.d(TAG,"Love track post: "+postData.toString());
-
-        conn.getOutputStream().write(postDataBytes);
-        //Log.i(TAG, params.toString());
-
-        conn.connect();
-
-        int resCode = conn.getResponseCode();
-        Log.d(TAG, "Response code: " + resCode);
-        BufferedReader r;
-        String out;
-        if (resCode == 200) {
-             out = "okSuccess";
-        } else {
-            r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
-            while ((line = r.readLine()) != null) {
-                stringBuilder.append(line).append('\n');
+            if (getNetApp() == NetApp.LASTFM) {
+                url = new URL("https://ws.audioscrobbler.com/2.0/");
+            } else {
+                url = new URL("https://libre.fm/2.0/");
             }
-            String response = stringBuilder.toString();
-            out = response;
-        }
+            conn = (HttpURLConnection) url.openConnection();
 
-        conn.disconnect();
-        return out;
+
+            // set Timeout and method
+            conn.setReadTimeout(7000);
+            conn.setConnectTimeout(7000);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("method", "track.love");
+            params.put("track", track.getTrack());
+            params.put("artist", track.getArtist());
+            params.put("api_key", testAPI);
+            params.put("api_sig", signature);
+            params.put("sk", sessionKey);
+            params.put("format", "json");
+
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String, Object> param : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+            }
+            byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+            conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+
+            //Log.d(TAG,"Love track post: "+postData.toString());
+
+            conn.getOutputStream().write(postDataBytes);
+            //Log.i(TAG, params.toString());
+
+            conn.connect();
+
+            int resCode = conn.getResponseCode();
+            Log.d(TAG, "Response code: " + resCode);
+            BufferedReader r;
+            String out;
+            if (resCode == 200) {
+                out = "okSuccess";
+            } else {
+                r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = r.readLine()) != null) {
+                    stringBuilder.append(line).append('\n');
+                }
+                out = stringBuilder.toString();
+            }
+            return out;
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+        } finally {
+            if (conn != null) {
+                conn.disconnect();
+            }
+        }
+        return "";
     }
 }

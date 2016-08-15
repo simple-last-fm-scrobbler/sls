@@ -99,11 +99,10 @@
                 <action android:name="com.adam.aslfms.service.copy" />
             </intent-filter>
         </service>
-
         <service
             android:name=".service.ForegroundHide"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true" />
 
         <!-- the receivers -->
         <receiver

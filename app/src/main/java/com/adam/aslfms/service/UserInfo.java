@@ -97,62 +97,71 @@ public class UserInfo extends NetRunnable {
 
     private String getAllTimeScrobbles() throws IOException, NullPointerException {
         URL url;
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && getNetApp() == NetApp.LIBREFM) {
-            url = new URL("http://libre.fm/2.0/");
-        } else if (getNetApp() == NetApp.LASTFM) {
-            url = new URL("https://ws.audioscrobbler.com/2.0/");
-        } else {
-            url = new URL("https://libre.fm/2.0/");
+        HttpURLConnection conn = null;
+        try {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && getNetApp() == NetApp.LIBREFM) {
+                url = new URL("http://libre.fm/2.0/");
+            } else if (getNetApp() == NetApp.LASTFM) {
+                url = new URL("https://ws.audioscrobbler.com/2.0/");
+            } else {
+                url = new URL("https://libre.fm/2.0/");
+            }
+            conn = (HttpURLConnection) url.openConnection();
+
+            // set Timeout and method
+            conn.setReadTimeout(7000);
+            conn.setConnectTimeout(7000);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+            conn.setDoInput(true);
+            conn.setDoOutput(true);
+
+            Map<String, Object> params = new LinkedHashMap<>();
+            params.put("method", "user.getInfo");
+            params.put("user", settings.getUsername(getNetApp()));
+            params.put("api_key", settings.rcnvK(settings.getAPIkey()));
+            params.put("format", "json");
+
+            StringBuilder postData = new StringBuilder();
+            for (Map.Entry<String, Object> param : params.entrySet()) {
+                if (postData.length() != 0) postData.append('&');
+                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                postData.append('=');
+                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+            }
+            byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+            conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+
+            conn.getOutputStream().write(postDataBytes);
+            //Log.i(TAG, params.toString());
+
+            conn.connect();
+
+            int resCode = conn.getResponseCode();
+            Log.d(TAG, "Response code: " + this.getNetApp().getName() + ": " + resCode);
+            BufferedReader r;
+            if (resCode == 200) {
+                r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            } else {
+                r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+            }
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while ((line = r.readLine()) != null) {
+                stringBuilder.append(line).append('\n');
+            }
+            String response = stringBuilder.toString();
+            Log.d(TAG, response);
+            return response;
+        } catch (IOException | NullPointerException e){
+            e.printStackTrace();
+        } finally {
+            if (conn != null){
+                conn.disconnect();
+            }
         }
-        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-        // set Timeout and method
-        conn.setReadTimeout(7000);
-        conn.setConnectTimeout(7000);
-        conn.setRequestMethod("POST");
-        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-        conn.setDoInput(true);
-        conn.setDoOutput(true);
-
-        Map<String, Object> params = new LinkedHashMap<>();
-        params.put("method", "user.getInfo");
-        params.put("user", settings.getUsername(getNetApp()));
-        params.put("api_key", settings.rcnvK(settings.getAPIkey()));
-        params.put("format","json");
-
-        StringBuilder postData = new StringBuilder();
-        for (Map.Entry<String, Object> param : params.entrySet()) {
-            if (postData.length() != 0) postData.append('&');
-            postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-            postData.append('=');
-            postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-        }
-        byte[] postDataBytes = postData.toString().getBytes("UTF-8");
-        conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
-
-        conn.getOutputStream().write(postDataBytes);
-        //Log.i(TAG, params.toString());
-
-        conn.connect();
-
-        int resCode = conn.getResponseCode();
-        Log.d(TAG, "Response code: " + this.getNetApp().getName() + ": " + resCode);
-        BufferedReader r;
-        if (resCode == 200) {
-            r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-        } else {
-            r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-        }
-        StringBuilder stringBuilder = new StringBuilder();
-        String line;
-        while ((line = r.readLine()) != null) {
-            stringBuilder.append(line).append('\n');
-        }
-        String response = stringBuilder.toString();
-        Log.d(TAG, response);
-        conn.disconnect();
-        return response;
+        return "";
     }
 }
 
