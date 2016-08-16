@@ -87,35 +87,30 @@ public class ScrobblingService extends Service {
 
         int sdk = Build.VERSION.SDK_INT;
         if (sdk == Build.VERSION_CODES.GINGERBREAD || sdk == Build.VERSION_CODES.GINGERBREAD_MR1) {
-
-            String ar = "";
-            String tr = "";
-            String api = "";
             if (mCurrentTrack != null) {
-                ar = mCurrentTrack.getArtist();
-                tr = mCurrentTrack.getTrack();
-                api = mCurrentTrack.getMusicAPI().readAPIname();
-            }
+                String ar = mCurrentTrack.getArtist();
+                String tr = mCurrentTrack.getTrack();
+                String api = mCurrentTrack.getMusicAPI().readAPIname();
 
-            Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
-            PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            NotificationCompat.Builder builder =
-                    new NotificationCompat.Builder(mCtx)
-                            .setContentTitle(ar)
-                            .setSmallIcon(R.mipmap.ic_notify)
-                            .setContentText(tr + " : " + api)
-                            .setContentIntent(contentIntent);
+                Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
+                PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                NotificationCompat.Builder builder =
+                        new NotificationCompat.Builder(mCtx)
+                                .setContentTitle(tr)
+                                .setSmallIcon(R.mipmap.ic_notify)
+                                .setContentText(ar + " :" + api)
+                                .setContentIntent(contentIntent);
 
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
-                builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
-                        R.mipmap.ic_launcher));
-            }
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
+                    builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                            R.mipmap.ic_launcher));
+                }
 
-            this.startForeground(14619, builder.build());
-
-            if (!settings.isNotifyEnabled(Util.checkPower(mCtx))) {
-                Intent iNoti = new Intent(mCtx, ForegroundHide.class);
-                this.startService(iNoti);
+                this.startForeground(14619, builder.build());
+                if (!settings.isNotifyEnabled(Util.checkPower(mCtx))) {
+                    Intent iNoti = new Intent(mCtx, ForegroundHide.class);
+                    this.startService(iNoti);
+                }
             }
         }
     }
@@ -129,35 +124,45 @@ public class ScrobblingService extends Service {
     public int onStartCommand(Intent i, int flags, int startId) {
         handleCommand(i, startId);
 
-        String ar = "";
-        String tr = "";
-        String api = "";
-        if (mCurrentTrack != null) {
-            ar = mCurrentTrack.getArtist();
-            tr = mCurrentTrack.getTrack();
-            api = mCurrentTrack.getMusicAPI().readAPIname();
-
+        String action = i.getAction();
+        Track.State myState = null;
+        if (action.equals(ACTION_PLAYSTATECHANGED)) {
+            Bundle extras = i.getExtras();
+            if (extras != null) {
+                myState = Track.State.valueOf(extras.getString("state"));
+            }
         }
+        if (mCurrentTrack == null) {
+            if (myState != null) {
+                if (myState != Track.State.PAUSE && myState != Track.State.RESUME && myState != Track.State.START) {
+                    this.stopForeground(true);
+                }
+            }
+        } else {
+            String ar = mCurrentTrack.getArtist();
+            String tr = mCurrentTrack.getTrack();
+            String api = mCurrentTrack.getMusicAPI().readAPIname();
 
-        Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(mCtx)
-                        .setContentTitle(ar)
-                        .setSmallIcon(R.mipmap.ic_notify)
-                        .setContentText(tr + " : " + api)
-                        .setContentIntent(contentIntent);
+            Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
+            PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationCompat.Builder builder =
+                    new NotificationCompat.Builder(mCtx)
+                            .setContentTitle(tr)
+                            .setSmallIcon(R.mipmap.ic_notify)
+                            .setContentText(ar + " :" + api)
+                            .setContentIntent(contentIntent);
 
-        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
-            builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
-                    R.mipmap.ic_launcher));
-        }
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
+                builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                        R.mipmap.ic_launcher));
+            }
 
-        this.startForeground(14619, builder.build());
+            this.startForeground(14619, builder.build());
 
-        if (!settings.isNotifyEnabled(Util.checkPower(mCtx))) {
-            Intent iNoti = new Intent(mCtx, ForegroundHide.class);
-            startService(iNoti);
+            if (!settings.isNotifyEnabled(Util.checkPower(mCtx))) {
+                Intent iNoti = new Intent(mCtx, ForegroundHide.class);
+                startService(iNoti);
+            }
         }
         return Service.START_STICKY;
     }
