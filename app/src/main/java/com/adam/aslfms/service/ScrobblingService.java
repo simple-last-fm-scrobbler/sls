@@ -124,21 +124,7 @@ public class ScrobblingService extends Service {
     public int onStartCommand(Intent i, int flags, int startId) {
         handleCommand(i, startId);
 
-        String action = i.getAction();
-        Track.State myState = null;
-        if (action.equals(ACTION_PLAYSTATECHANGED)) {
-            Bundle extras = i.getExtras();
-            if (extras != null) {
-                myState = Track.State.valueOf(extras.getString("state"));
-            }
-        }
-        if (mCurrentTrack == null) {
-            if (myState != null) {
-                if (myState != Track.State.PAUSE && myState != Track.State.RESUME && myState != Track.State.START) {
-                    this.stopForeground(true);
-                }
-            }
-        } else {
+        if (mCurrentTrack != null) {
             String ar = mCurrentTrack.getArtist();
             String tr = mCurrentTrack.getTrack();
             String api = mCurrentTrack.getMusicAPI().readAPIname();
