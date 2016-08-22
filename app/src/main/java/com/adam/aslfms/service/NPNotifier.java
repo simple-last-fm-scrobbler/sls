@@ -211,7 +211,9 @@ public class NPNotifier extends AbstractSubmitter {
                 int resCode = conn.getResponseCode();
                 Log.d(TAG, "Response code: " + resCode);
                 BufferedReader r;
-                if (resCode == 200) {
+                if (resCode == -1){
+                    throw new AuthStatus.UnknownResponseException("Empty response");
+                } else if (resCode == 200) {
                     r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 } else {
                     r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
@@ -307,7 +309,9 @@ public class NPNotifier extends AbstractSubmitter {
                 int resCode = conn.getResponseCode();
                 Log.d(TAG, "Response code: " + resCode);
                 BufferedReader r;
-                if (resCode == 200) {
+                if (resCode == -1){
+                    throw new AuthStatus.UnknownResponseException("Empty response");
+                } else if (resCode == 200) {
                     r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 } else {
                     r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));

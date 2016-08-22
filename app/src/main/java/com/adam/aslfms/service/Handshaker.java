@@ -299,7 +299,9 @@ public class Handshaker extends NetRunnable {
                 int resCode = conn.getResponseCode();
                 Log.d(TAG, "Response code Libre.fm: " + resCode);
                 final BufferedReader r;
-                if (resCode == 200) {
+                if (resCode == -1) {
+                    throw new UnknownResponseException("Empty response");
+                } else if (resCode == 200) {
                     r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 } else {
                     r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
@@ -454,7 +456,9 @@ public class Handshaker extends NetRunnable {
                 int resCode = conn.getResponseCode();
                 Log.d(TAG, "Response code " + netAppName + ": " + resCode);
                 BufferedReader r;
-                if (resCode == 200) {
+                if (resCode == -1) {
+                    throw new UnknownResponseException("Empty response");
+                } else if (resCode == 200) {
                     r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 } else {
                     r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));

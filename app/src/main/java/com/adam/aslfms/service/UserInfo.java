@@ -141,7 +141,9 @@ public class UserInfo extends NetRunnable {
             int resCode = conn.getResponseCode();
             Log.d(TAG, "Response code: " + this.getNetApp().getName() + ": " + resCode);
             BufferedReader r;
-            if (resCode == 200) {
+            if (resCode == -1){
+                return "";
+            } else if (resCode == 200) {
                 r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             } else {
                 r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));

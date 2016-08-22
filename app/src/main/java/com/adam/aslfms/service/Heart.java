@@ -1,16 +1,16 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * <p>
+ * <p/>
  * https://github.com/tgwizard/sls
- * <p>
+ * <p/>
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * <p>
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -162,7 +162,9 @@ public class Heart extends NetRunnable {
             Log.d(TAG, "Response code: " + resCode);
             BufferedReader r;
             String out;
-            if (resCode == 200) {
+            if (resCode == -1) {
+                return "";
+            } else if (resCode == 200) {
                 out = "okSuccess";
             } else {
                 r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));

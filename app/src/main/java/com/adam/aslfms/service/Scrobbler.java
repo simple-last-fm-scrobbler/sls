@@ -36,6 +36,7 @@ import com.adam.aslfms.util.MD5;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
+import com.adam.aslfms.util.enums.PowerOptions;
 import com.adam.aslfms.util.enums.SubmissionType;
 
 import org.json.JSONException;
@@ -358,7 +359,9 @@ public class Scrobbler extends AbstractSubmitter {
                 int resCode = conn.getResponseCode();
                 Log.d(TAG, "Response code: " + resCode);
                 BufferedReader r;
-                if (resCode == 200) {
+                if (resCode == -1){
+                    throw new AuthStatus.UnknownResponseException("Empty response");
+                } else if (resCode == 200) {
                     r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                 } else {
                     r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
@@ -376,7 +379,10 @@ public class Scrobbler extends AbstractSubmitter {
                 JSONObject jObject = new JSONObject(response);
                 if (jObject.has("scrobbles")) {
                     int scrobsIgnored = jObject.getJSONObject("scrobbles").getJSONObject("@attr").getInt("ignored");
-                    mNetManager.launchGetUserInfo(getNetApp());
+                    PowerOptions pow = Util.checkPower(mCtx);
+                    if (settings.isNowPlayingEnabled(pow)) {
+                        mNetManager.launchGetUserInfo(getNetApp());
+                    }
                     Log.i(TAG, "Scrobble success: " + netAppName + ": Ignored Count: " + Integer.toString(scrobsIgnored));
                 } else if (jObject.has("error")) {
                     int code = jObject.getInt("error");
