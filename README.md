@@ -1,31 +1,16 @@
-Simple Last.fm Scrobbler
-========================
+# Simple Last.fm Scrobbler 
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/tgwizard/sls)
-
+[![License](http://img.shields.io/:license-apache-blue.svg?style=round)](LICENSE.md)
 [![Google+](http://ibin.co/2BnMUC5fKA2e)](https://plus.google.com/communities/104841597680405981934)
 
-**This project is unfortunately in a bit of a limbo. The app works, and is available on Google Play, but I don't have the time to maintain it on my own.**
+Simple Last.fm Scrobbler (SLS) is a simple app that scrobbles music listened to on an Android phone. Scrobbling means submitting listening information to Last.fm (and optionally/additionally Libre.fm) when you play a track, and you can then get music recommendations and view you listening history and statistics at Last.fm.
 
-**If anyone wants to take part in developing this app further, I'm looking for contributors. Please email me, or just fork and code away.**
-
-**Pull requests are very welcome!**
-
-
-Simple Last.fm Scrobbler (SLS) is a simple app that scrobbles music listened
-to on an Android phone. Scrobbling means submitting listening information to
-Last.fm (and optionally/additionally Libre.fm) when you play a track, and you
-can then get music recommendations and view you listening history and statistics
-at Last.fm.
-
-Before the release of a new version of SLS, it will be available here to test for
-one week in the [Beta Testing Versions link](https://github.com/tgwizard/sls/blob/master/README.md#download).
+Before the release of a new version of SLS, it will be available here to test for one week in the [Beta Testing Versions link](README.md#download).
 
 More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/help/faq?category=Scrobbling#201).
 
-
-[Trouble Shooting](https://github.com/tgwizard/sls/blob/master/TroubleShooting.md)
-
+[Trouble Shooting](TroubleShooting.md)
 
 Contact emails: Try the first email address first.
 
@@ -37,8 +22,8 @@ Contact emails: Try the first email address first.
 
 (if uncertain please email all of them)
  
-Download
-========
+## Download
+
 [![Google Play Store](https://ibin.co/2hN6gwDRsRut.png)](https://play.google.com/store/apps/details?id=com.adam.aslfms)
 [![F-Droid](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Get_it_on_F-Droid.svg/320px-Get_it_on_F-Droid.svg.png)](https://f-droid.org/repository/browse/?fdid=com.adam.aslfms)
 
@@ -48,8 +33,7 @@ Download
 
 [Old Versions](https://github.com/tgwizard/sls/downloads)
 
-Features
-========
+## Features
 
  * Scrobbling
  * Now playing notifications
@@ -58,8 +42,7 @@ Features
  * Editing scrobble cache
  * More
 
-Supported languages
------------------------------------
+### Supported languages
 
  * English
  * Spanish
@@ -70,20 +53,17 @@ Supported languages
  * Russian
  * Czech
 
-
 Head to [Transifex](https://www.transifex.com/sls/sls) if you want to be a translator
 
-
-Supported websites (to scrobble to)
------------------------------------
+### Supported scrobble services
 
  * [Last.fm](http://last.fm)
  * [Libre.fm](http:///libre.fm)
 
-Apps
-----
+### Apps
 
 WARNING! Some android devices have special battery settings that will disable SLS scrobbling entirely or just when SLS is closed. [Example](http://developer.sonymobile.com/2013/04/03/how-sonys-battery-stamina-mode-works/)
+
 Please note that some of the following applications require changing their default settings to enable scrobbling.
 
  * Default Android Music Player
@@ -130,6 +110,7 @@ Please note that some of the following applications require changing their defau
  * BlackPlayer ([Google Play](https://play.google.com/store/apps/details?id=com.kodarkooperativet.blackplayerfree))
  * [Jetaudio](https://www.facebook.com/jetappfactory) ([Google Play](https://play.google.com/store/apps/details?id=com.jetappfactory.jetaudio)) 
  * [AIMP](http://aimp.ru/) ([Google Play](https://play.google.com/store/apps/details?id=com.aimp.player))
+ * [Pulsar](http://rhmsoft.com/?p=318) ([Google Play](https://play.google.com/store/apps/details?id=com.rhmsoft.pulsar))
  * More to come...
 
 **(a)** Uses the [Scrobble Droid API](http://code.google.com/p/scrobbledroid/wiki/DeveloperAPI) - identifies under "Enabled apps" as "Scrobble Droid Apps".
@@ -137,26 +118,21 @@ Please note that some of the following applications require changing their defau
 **(b)** It presents itself to SLS as the Android Music Player. This means that it won't show up under "Enabled apps" under its real name, but under Android Music Player.
 
 
-Known compatible devices
-------------------------
+### Known compatible devices
 
 **Note.** SLS should work on any device that can install it, and that can run one of the music apps above.
 
-## Tested by me:
-
- * Google Nexus One
- * HTC Magic
- * HTC Desire
- * Google Galaxy Nexus
-
-Reported working:
+#### Reported working:
 
  * Acer Liquid A1
  * Amazon Kindle Fire HDX
  * Archos 5 Internet Tablet
+ * Google Galaxy Nexus
  * Google Nexus 7
  * Google Nexus 5
  * Google Nexus 4
+ * Google Nexus One
+ * HTC Desire
  * HTC Desire HD
  * HTC Desire S
  * HTC Desire Z
@@ -168,6 +144,7 @@ Reported working:
  * HTC Hero
  * HTC Incredible S
  * HTC Legend
+ * HTC Magic
  * HTC One (M8)
  * HTC Tattoo
  * HTC Wildfire
@@ -177,7 +154,9 @@ Reported working:
  * Motorola Defy (MB525)
  * Motorola Droid
  * Motorola Droid 3
+ * Motorola G2 (2014)
  * Motorola Milestone
+ * One Plus One
  * Samsung Galaxy Ace (probably doesn't work with builtin player)
  * Samsung Galaxy Core
  * Samsung Galaxy S2
@@ -193,40 +172,30 @@ Reported working:
  * Sony Xperia SP
  * Sony Xperia U
 
-Issues:
+#### Issues:
 
  * HTC EVO 4G LTE doesn't seem to work
  * Motorola CLIQ/DEXT doesn't seem to work
+ 
+### Changes
 
+For a complete list of changes, see [the changelog](app/src/main/assets/changelog.txt).
 
+## Bugs, Contributions, Thoughts...
 
-Changes
-=======
+First, read the [FAQ](FAQ.md) to see if you can find any help with your issue.
 
-For a complete list of changes, see [the changelog](https://github.com/tgwizard/sls/blob/master/app/src/main/assets/changelog.txt).
+If you can't find it there, you can always open an issue or pull request here on GitHub, or you can email me: [simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)
 
+## Developers
 
-Bugs, Contributions, Thoughts...
-========================================================
+If you want to enable your app to scrobble music through SLS, see [Developer's API](Developer%27s%20API.md).
 
-First, read the [FAQ](https://github.com/tgwizard/sls/blob/master/FAQ.md)
-to see if you can find any help with your issue.
+If you want to help out and start immediately, please see HumbleBeeBumbleBee's [Issue Summary](IssueSummary.md)
 
-If you can't find it there, you can always open an issue or pull request here on GitHub,
-or you can email me: [simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)
+## Credits
 
-
-Developers
-==========
-If you want to enable your app to scrobble music through SLS, see
-[Developer's API](https://github.com/tgwizard/sls/blob/master/Developer%27s%20API.md).
-
-If you want to help out and start immediately, please see HumbleBeeBumbleBee's [Issue Summary](https://github.com/tgwizard/sls/blob/master/IssueSummary.md)
-
-Credits
-=======
-
-All of the code is open source, released under [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+All of the code is open source, released under [Apache License 2.0](LICENSE.md).
 
  * Almost all of the code is written by me, so: Copyright 2009-2015 Adam Renberg.
  * The Last.fm logo is copyright of Last.fm, taken from their [media kit](http://www.last.fm/resources).
@@ -234,9 +203,7 @@ All of the code is open source, released under [Apache License 2.0](http://www.a
 
 I use copyright here only in the sense of proper attribution. Do whatever you want with the code (as long as the licenses are followed).
 
-Contributors
-------------
-
+### Contributors
  * Adam Renberg, [github.com/tgwizard](https://github.com/tgwizard), main author
  * Argoday, [github.com/argoday](https://github.com/argoday), code fixes, support for Music2Dance2 
  * inverse [github.com/inverse](https://github.com/inverse), core contributor
@@ -263,8 +230,8 @@ Contributors
 
 A complete list of [contributors](https://github.com/tgwizard/sls/graphs/contributors)
  
-Test device contributors
-------------------
+### Test device contributors
+
  * Dmitry Paskal, [github.com/paskal](https://github.com/paskal)
  * Iļja Gubins, [https://github.com/the-lay](https://github.com/the-lay)
 
