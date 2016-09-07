@@ -85,7 +85,7 @@
     <string name="auth_just_error">Error, reintentando…</string>
     <string name="logged_in_just">Registrado como:</string>
     <string name="logged_in_as">Registrado como: %1</string>
-    <string name="log_in_to">Ingresar en</string>
+    <string name="log_in_to">Iniciar sesión en</string>
     <string name="not_logged_in">No ha iniciado sesión</string>
     <string name="create_user_title">Registrarse</string>
     <string name="create_user_summary">Registre una cuenta nueva en %1</string>
