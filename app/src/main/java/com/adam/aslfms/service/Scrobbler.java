@@ -288,13 +288,7 @@ public class Scrobbler extends AbstractSubmitter {
             NetworkerManager mNetManager = new NetworkerManager(mCtx, mDb);
 
             try {
-                if (netApp == NetApp.LASTFM) {
-                    url = new URL("https://ws.audioscrobbler.com/2.0/");
-                } else if (netApp == NetApp.LIBREFM) {
-                    url = new URL("https://libre.fm/2.0/");
-                } else {    // for custom GNU FM server
-                    url = new URL("");
-                }
+                url = new URL(getNetApp().getWebserviceUrl(settings));
 
                 Map<String, Object> params = new TreeMap<>();
                 String sign = "";

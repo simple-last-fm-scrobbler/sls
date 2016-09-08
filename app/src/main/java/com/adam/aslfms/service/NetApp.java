@@ -27,10 +27,14 @@ import com.adam.aslfms.util.AppSettings;
 public enum NetApp {
     LASTFM(
             0x01, "Last.fm", "http://post.audioscrobbler.com/?hs=true", "",
-            "https://www.last.fm/join", "https://www.last.fm/user/%1"), //
+            "https://www.last.fm/join", "https://www.last.fm/user/%1",
+            "https://ws.audioscrobbler.com/2.0/"), //
     LIBREFM(
             0x02, "Libre.fm", "http://turtle.libre.fm/?hs=true", "librefm",
-            "https://libre.fm/", "https://libre.fm/user/%1");
+            "https://libre.fm/", "https://libre.fm/user/%1", "https://libre.fm/2.0"),
+    CUSTOM(
+            0x03, "Gnu-fm server", "[[GNUKEBOX_URL]]/?hs=true", "custom",
+            "[[NIXTAPE_URL]]", "[[NIXTAPE_URL]]/user/%1", "[[NIXTAPE_URL]]/2.0/");
 
     private final int val;
     private final String name;
@@ -38,15 +42,17 @@ public enum NetApp {
     private final String settingsPrefix;
     private final String signUpUrl;
     private final String profileUrl;
+    private final String webserviceUrl;
 
     NetApp(int val, String name, String handshakeUrl,
-           String settingsPrefix, String signUpUrl, String profileUrl) {
+           String settingsPrefix, String signUpUrl, String profileUrl, String webserviceUrl) {
         this.val = val;
         this.name = name;
         this.handshakeUrl = handshakeUrl;
         this.settingsPrefix = settingsPrefix;
         this.signUpUrl = signUpUrl;
         this.profileUrl = profileUrl;
+        this.webserviceUrl = webserviceUrl;
     }
 
     public String getIntentExtraValue() {
@@ -61,8 +67,8 @@ public enum NetApp {
         return this.name;
     }
 
-    public String getHandshakeUrl() {
-        return this.handshakeUrl;
+    public String getHandshakeUrl(AppSettings settings) {
+        return replacePlaceholders( settings, this.handshakeUrl );
     }
 
     public String getSettingsPrefix() {
@@ -70,11 +76,19 @@ public enum NetApp {
     }
 
     public String getProfileUrl(AppSettings settings) {
-        return profileUrl.replaceAll("%1", settings.getUsername(this));
+        return replacePlaceholders(
+                settings, profileUrl.replaceAll("%1", settings.getUsername(this))
+        );
     }
 
-    public String getSignUpUrl() {
-        return signUpUrl;
+    public String getSignUpUrl(AppSettings settings) {
+        return replacePlaceholders(
+                settings, signUpUrl
+        );
+    }
+
+    public String getWebserviceUrl(AppSettings settings) {
+        return replacePlaceholders(settings, webserviceUrl);
     }
 
     private static SparseArray<NetApp> mValNetAppMap;
@@ -96,4 +110,11 @@ public enum NetApp {
         return napp;
     }
 
+    private String replacePlaceholders(AppSettings settings, String value) {
+        if (settingsPrefix.equals("custom")) {
+            value = value.replace("[[GNUKEBOX_URL]]", settings.getGnukeboxUrl(this));
+            value = value.replace("[[NIXTAPE_URL]]", settings.getNixtapeUrl(this));
+        }
+        return value;
+    }
 }

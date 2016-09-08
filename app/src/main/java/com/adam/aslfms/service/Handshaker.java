@@ -276,7 +276,7 @@ public class Handshaker extends NetRunnable {
 
             String authToken = MD5.getHashString(pwdMd5 + time);
 
-            String uri = netApp.getHandshakeUrl() + "&p=1.2.1&c=" + clientid
+            String uri = netApp.getHandshakeUrl(settings) + "&p=1.2.1&c=" + clientid
                     + "&v=" + clientver + "&u=" + enc(username) + "&t=" + time
                     + "&a=" + authToken;
 
@@ -355,13 +355,7 @@ public class Handshaker extends NetRunnable {
             URL url;
             HttpsURLConnection conn = null;
             try {
-                if (netApp == NetApp.LASTFM) {
-                    url = new URL("https://ws.audioscrobbler.com/2.0/");
-                } else if (netApp == NetApp.LIBREFM) {
-                    url = new URL("https://libre.fm/2.0/");
-                } else {    // for custom GNU FM server
-                    url = new URL("");
-                }
+                url = new URL(getNetApp().getWebserviceUrl(settings));
 
                 if (!settings.getSessionKey(netApp).equals("")) {
                     Log.i(TAG, "Handshake succeded!: " + netAppName + ": Already has valid session key.");
