@@ -1,10 +1,10 @@
 package com.adam.aslfms.receiver;
 
-import com.adam.aslfms.util.Track;
-
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.adam.aslfms.util.Track;
 
 public class SEMCMusicReceiver extends BuiltInMusicAppReceiver {
 

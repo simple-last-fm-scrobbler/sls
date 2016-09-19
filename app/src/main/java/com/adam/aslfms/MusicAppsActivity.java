@@ -21,8 +21,6 @@
 
 package com.adam.aslfms;
 
-import java.util.HashMap;
-
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -35,6 +33,8 @@ import android.view.MenuItem;
 import com.adam.aslfms.receiver.MusicAPI;
 import com.adam.aslfms.util.Util;
 import com.example.android.supportv7.app.AppCompatPreferenceActivity;
+
+import java.util.HashMap;
 
 public class MusicAppsActivity extends AppCompatPreferenceActivity {
 	@SuppressWarnings("unused")

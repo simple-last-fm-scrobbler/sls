@@ -21,14 +21,14 @@
 
 package com.adam.aslfms.service;
 
-import java.util.EnumMap;
-import java.util.Map;
-
 import android.content.Context;
 
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
+
+import java.util.EnumMap;
+import java.util.Map;
 
 public class NetworkerManager {
 
@@ -58,6 +58,12 @@ public class NetworkerManager {
 		mSupportedNetApps.get(napp).launchHandshaker();
 	}
 
+	public void launchHandshakers() {
+		for (NetApp napp : NetApp.values()) {
+			launchHandshaker(napp);
+		}
+	}
+
 	public void launchClearAllCreds() {
 		for (Networker nw : mSupportedNetApps.values())
 			nw.launchClearCreds();
@@ -83,9 +89,12 @@ public class NetworkerManager {
 		}
 	}
 
-	public void launchHeartTrack(Track track){
-		NetApp napp = NetApp.LASTFM;
+	public void launchHeartTrack(Track track, NetApp napp){
 		mSupportedNetApps.get(napp).launchHeartTrack(track);
+	}
+
+	public void launchGetUserInfo(NetApp napp){
+		mSupportedNetApps.get(napp).launchUserInfo();
 	}
 
 }

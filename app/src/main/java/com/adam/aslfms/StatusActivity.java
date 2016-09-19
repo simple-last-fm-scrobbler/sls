@@ -22,6 +22,7 @@
 package com.adam.aslfms;
 
 import android.content.Intent;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -29,12 +30,15 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.ScrobblesDatabase;
+import com.adam.aslfms.util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +50,7 @@ public class StatusActivity extends AppCompatActivity {
 	private static final int MENU_RESET_STATS_ID = 2;
 
     private AppSettings settings;
+    private ScrobblesDatabase mDb;
 
     private static final String TAG = "StatusActivity";
 
@@ -55,6 +60,16 @@ public class StatusActivity extends AppCompatActivity {
 		setContentView(R.layout.status_activity);
 
         settings = new AppSettings(this);
+
+        mDb = new ScrobblesDatabase(this);
+
+        try {
+            mDb.open();
+        } catch (SQLException e) {
+            Log.e(TAG, "Cannot open database!");
+            Log.e(TAG, e.getMessage());
+            mDb = null;
+        }
 
         //getSupportActionBar().setElevation(0);
 		//Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -71,6 +86,12 @@ public class StatusActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
 	}
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mDb.close();
+    }
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -81,12 +102,11 @@ public class StatusActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId()) { //TODO: Make scrobble now work again (use giant scrobble in SettingsActivity for now)
-            /**case MENU_SCROBBLE_NOW_ID:
+        switch (item.getItemId()) {
+            case MENU_SCROBBLE_NOW_ID:
                 int numInCache = mDb.queryNumberOfTracks();
                 Util.scrobbleAllIfPossible(this, numInCache);
-                Log.e(TAG,"Scrobble attempt.");
-                return true;*/
+                return true;
             case R.id.MENU_RESET_STATS_ID:
                 for (NetApp napp : NetApp.values()){
                     settings.clearSubmissionStats(napp);

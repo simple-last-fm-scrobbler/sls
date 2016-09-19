@@ -26,6 +26,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.ConnectivityManager;
+import android.os.Build;
+import android.os.PowerManager;
 import android.util.Log;
 
 import com.adam.aslfms.util.AppSettings;
@@ -47,8 +49,14 @@ public class NetworkWaiter extends NetRunnable {
         IntentFilter ifs = new IntentFilter();
         ifs.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
         ifs.addAction(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            ifs.addAction(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED);
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            ifs.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
+        }
         getContext().registerReceiver(mConnReceiver, ifs);
-        Log.e(TAG,"connectivity_action");
+        Log.d(TAG,"connectivity_action");
         synchronized (this) {
             mWait = Util.checkForOkNetwork(getContext()) != NetworkStatus.OK;
             while (mWait) {
@@ -74,13 +82,21 @@ public class NetworkWaiter extends NetRunnable {
         @Override
         public void onReceive(Context context, Intent intent) {
             synchronized (NetworkWaiter.this) {
-                Log.d(TAG, "received broadcast: " + intent.getAction());
+                Log.d(TAG, "received broadcast: " + intent.getAction()); // check for extras
                 if (Util.checkForOkNetwork(getContext()) == NetworkStatus.OK) {
                     NetworkWaiter.this.mWait = false;
                     NetworkWaiter.this.notifyAll();
+                   /** PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        boolean isIdle = pm.isDeviceIdleMode();
+                        Log.e(TAG, "Idle Mode: " + isIdle);
+                    }
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                        boolean isPowerSave = pm.isPowerSaveMode();
+                        Log.e(TAG, "Power Save Mode: " + isPowerSave);
+                    }*/
                 }
             }
         }
     };
-
 }

@@ -242,7 +242,7 @@ public abstract class BuiltInMusicAppReceiver extends
 			b.setAlbum(album);
 
 			int duration = (int) (cur.getLong(cur.getColumnIndex(MediaStore.Audio.AudioColumns.DURATION)) / 1000);
-			Log.e(TAG, Integer.toString(duration));
+
 			if (duration != 0) {
 				b.setDuration(duration);
 			}

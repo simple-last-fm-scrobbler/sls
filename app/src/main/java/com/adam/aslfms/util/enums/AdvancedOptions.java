@@ -3,29 +3,29 @@
  */
 package com.adam.aslfms.util.enums;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import android.content.Context;
 import android.util.Log;
 
 import com.adam.aslfms.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public enum AdvancedOptions {
     // the values below for SAME will be ignored
     SAME_AS_BATTERY(
-            "ao_same_as_battery", false, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, false,
+            "ao_same_as_battery", true, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
             R.string.advanced_options_type_same_as_battery_name),
     STANDARD(
-            "ao_standard", false, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, false,
+            "ao_standard", true, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
             R.string.advanced_options_type_standard_name),
     // not available for plugged in
     BATTERY_SAVING(
-            "ao_battery", false, true, false, AdvancedOptionsWhen.AFTER_10, true, NetworkOptions.ANY, false,
+            "ao_battery", true, true, false, AdvancedOptionsWhen.AFTER_10, true, NetworkOptions.ANY, false,
             R.string.advanced_options_type_battery_name),
     // the values below for CUSTOM will be ignored
     CUSTOM(
-            "ao_custom", false, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, false,
+            "ao_custom", true, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
             R.string.advanced_options_type_custom_name);
 
     private final String settingsVal;

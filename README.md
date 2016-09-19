@@ -25,7 +25,6 @@ More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/he
 
 
 [Trouble Shooting](https://github.com/tgwizard/sls/blob/master/TroubleShooting.md)
------------------
 
 
 Contact emails: Try the first email address first.
@@ -69,9 +68,10 @@ Supported languages
  * Brazilian Portuguese
  * Polish
  * Russian
+ * Czech
 
 
- * Head to [Transifex](https://www.transifex.com/sls/sls) if you want to be a translator
+Head to [Transifex](https://www.transifex.com/sls/sls) if you want to be a translator
 
 
 Supported websites (to scrobble to)

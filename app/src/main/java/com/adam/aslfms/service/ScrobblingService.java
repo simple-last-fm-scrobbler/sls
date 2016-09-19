@@ -1,16 +1,16 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * <p>
+ * <p/>
  * https://github.com/tgwizard/sls
- * <p>
+ * <p/>
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * <p>
+ * <p/>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
+ * <p/>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ * <p/>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,7 +21,6 @@
 
 package com.adam.aslfms.service;
 
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -85,6 +84,35 @@ public class ScrobblingService extends Service {
         mDb = new ScrobblesDatabase(this);
         mDb.open();
         mNetManager = new NetworkerManager(this, mDb);
+
+        int sdk = Build.VERSION.SDK_INT;
+        if (sdk == Build.VERSION_CODES.GINGERBREAD || sdk == Build.VERSION_CODES.GINGERBREAD_MR1) {
+            if (mCurrentTrack != null) {
+                String ar = mCurrentTrack.getArtist();
+                String tr = mCurrentTrack.getTrack();
+                String api = mCurrentTrack.getMusicAPI().readAPIname();
+
+                Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
+                PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                NotificationCompat.Builder builder =
+                        new NotificationCompat.Builder(mCtx)
+                                .setContentTitle(tr)
+                                .setSmallIcon(R.mipmap.ic_notify)
+                                .setContentText(ar + " :" + api)
+                                .setContentIntent(contentIntent);
+
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
+                    builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                            R.mipmap.ic_launcher));
+                }
+
+                this.startForeground(14619, builder.build());
+                if (!settings.isNotifyEnabled(Util.checkPower(mCtx))) {
+                    Intent iNoti = new Intent(mCtx, ForegroundHide.class);
+                    this.startService(iNoti);
+                }
+            }
+        }
     }
 
     @Override
@@ -96,28 +124,32 @@ public class ScrobblingService extends Service {
     public int onStartCommand(Intent i, int flags, int startId) {
         handleCommand(i, startId);
 
-        NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
-        String ar = "";
-        String tr = "";
-        String api = "";
-        if (mCurrentTrack != null){
-            ar = mCurrentTrack.getArtist();
-            tr = mCurrentTrack.getTrack();
-            api = mCurrentTrack.getMusicAPI().readAPIname();
+        if (mCurrentTrack != null) {
+            String ar = mCurrentTrack.getArtist();
+            String tr = mCurrentTrack.getTrack();
+            String api = mCurrentTrack.getMusicAPI().readAPIname();
+
+            Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
+            PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            NotificationCompat.Builder builder =
+                    new NotificationCompat.Builder(mCtx)
+                            .setContentTitle(tr)
+                            .setSmallIcon(R.mipmap.ic_notify)
+                            .setContentText(ar + " :" + api)
+                            .setContentIntent(contentIntent);
+
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
+                builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                        R.mipmap.ic_launcher));
+            }
+
+            this.startForeground(14619, builder.build());
+
+            if (!settings.isNotifyEnabled(Util.checkPower(mCtx))) {
+                Intent iNoti = new Intent(mCtx, ForegroundHide.class);
+                startService(iNoti);
+            }
         }
-        NotificationCompat.Builder builder =
-                new NotificationCompat.Builder(mCtx)
-                        .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
-                                R.mipmap.ic_launcher))
-                        .setContentTitle(ar)
-                        .setSmallIcon(R.mipmap.ic_notify)
-                        .setContentText(tr + " : " + api);
-        Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
-        PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-        builder.setContentIntent(contentIntent);
-
-
-        this.startForeground(14619, builder.build());
         return Service.START_STICKY;
     }
 
@@ -148,14 +180,16 @@ public class ScrobblingService extends Service {
             String snapp = extras.getString("netapp");
             if (snapp != null)
                 mNetManager.launchAuthenticator(NetApp.valueOf(snapp));
-            else
+            else {
                 Log.e(TAG, "launchHandshaker got null napp");
+                mNetManager.launchHandshakers();
+            }
         } else if (action.equals(ACTION_JUSTSCROBBLE)) {
             if (extras.getBoolean("scrobbleall", false)) {
-                Log.d(TAG,"Scrobble All TRUE");
+                Log.d(TAG, "Scrobble All TRUE");
                 mNetManager.launchAllScrobblers();
             } else {
-                Log.e(TAG,"Scrobble All False");
+                Log.e(TAG, "Scrobble All False");
                 String snapp = extras.getString("netapp");
                 if (snapp != null) {
                     mNetManager.launchScrobbler(NetApp.valueOf(snapp));
@@ -187,6 +221,7 @@ public class ScrobblingService extends Service {
                                     Toast.LENGTH_LONG).show();
                         } else {
                             mDb.loveRecentTrack();
+                            Toast.makeText(this, this.getString(R.string.song_is_ready), Toast.LENGTH_SHORT).show();
                             Log.d(TAG, "Love Track Rating!");
                         }
                     } catch (Exception e) {
@@ -194,6 +229,7 @@ public class ScrobblingService extends Service {
                     }
                 } else if (mCurrentTrack != null) {
                     mCurrentTrack.setRating();
+                    Toast.makeText(this, this.getString(R.string.song_is_ready), Toast.LENGTH_SHORT).show();
                     Log.d(TAG, "Love Track Rating!");
                 } else {
                     Toast.makeText(this, this.getString(R.string.no_current_track),
@@ -203,42 +239,42 @@ public class ScrobblingService extends Service {
                 Toast.makeText(this, this.getString(R.string.no_lastFm),
                         Toast.LENGTH_LONG).show();
             }
-        } else if (action.equals(ACTION_COPY)){
+        } else if (action.equals(ACTION_COPY)) {
             if (mCurrentTrack != null && mCurrentTrack.hasBeenQueued()) {
                 try {
                     Log.e(TAG, mDb.fetchRecentTrack().toString());
                     Track tempTrack = mDb.fetchRecentTrack();
                     int sdk = Build.VERSION.SDK_INT;
-                    if(sdk < Build.VERSION_CODES.HONEYCOMB) {
+                    if (sdk < Build.VERSION_CODES.HONEYCOMB) {
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setText(tempTrack.getTrack()+" by "+tempTrack.getArtist()+", "+tempTrack.getAlbum());
+                        clipboard.setText(tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum());
                     } else {
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track",tempTrack.getTrack()+" by "+tempTrack.getArtist()+", "+tempTrack.getAlbum());
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum());
                         clipboard.setPrimaryClip(clip);
                     }
                     Log.d(TAG, "Copy Track!");
-                } catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(this, this.getString(R.string.no_copy_track),
                             Toast.LENGTH_LONG).show();
-                    Log.e(TAG,"CAN'T COPY TRACK"+e);
+                    Log.e(TAG, "CAN'T COPY TRACK" + e);
                 }
             } else if (mCurrentTrack != null) {
                 try {
                     int sdk = Build.VERSION.SDK_INT;
-                    if(sdk < Build.VERSION_CODES.HONEYCOMB) {
+                    if (sdk < Build.VERSION_CODES.HONEYCOMB) {
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setText(mCurrentTrack.getTrack()+" by "+mCurrentTrack.getArtist()+", "+mCurrentTrack.getAlbum());
+                        clipboard.setText(mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum());
                     } else {
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track",mCurrentTrack.getTrack()+" by "+mCurrentTrack.getArtist()+", "+mCurrentTrack.getAlbum());
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum());
                         clipboard.setPrimaryClip(clip);
                     }
                     Log.d(TAG, "Copy Track!");
-                } catch (Exception e){
+                } catch (Exception e) {
                     Toast.makeText(this, this.getString(R.string.no_copy_track),
                             Toast.LENGTH_LONG).show();
-                    Log.e(TAG,"CAN'T COPY TRACK"+e);
+                    Log.e(TAG, "CAN'T COPY TRACK" + e);
                 }
             } else {
                 Toast.makeText(this, this.getString(R.string.no_current_track),
@@ -278,11 +314,12 @@ public class ScrobblingService extends Service {
             tryNotifyNP(mCurrentTrack);
 
             // TODO: maybe give notifications it's own service
+            // TODO: work around for permanent notification
             /**
-            if (settings.isNotifyEnabled(Util.checkPower(mCtx))) {
-                Class chooseActivity = SettingsActivity.class;
-                Util.myNotify(mCtx,chooseActivity,track.getArtist(),track.getTrack() + " : " + track.getMusicAPI().readAPIname(), 14619);
-            }*/
+             if (settings.isNotifyEnabled(Util.checkPower(mCtx))) {
+             Class chooseActivity = SettingsActivity.class;
+             Util.myNotify(mCtx,chooseActivity,track.getArtist(),track.getTrack() + " : " + track.getMusicAPI().readAPIname(), 14619);
+             }*/
         } else if (state == Track.State.PAUSE) { // pause
             // TODO: test this state
             if (mCurrentTrack == null) {

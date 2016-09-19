@@ -29,6 +29,8 @@ import java.util.List;
 
 /**
  * Created by bryan on 6/6/15.
+ * @author Bryan
+ * @since 1.4.9
  */
 public class StatusFragment extends Fragment {
 
@@ -179,6 +181,12 @@ public class StatusFragment extends Fragment {
         npstats.setValue(Integer.toString(settings.getNumberOfSubmissions(
                 mNetApp, SubmissionType.NP)));
         list.add(npstats);
+
+        // total scrobbles
+        Pair tsStats = new Pair();
+        tsStats.setKey(mNetApp.getName());
+        tsStats.setValue(settings.getTotalScrobbles(mNetApp));
+        list.add(tsStats);
 
         ArrayAdapter<Pair> adapter = new MyArrayAdapter(getActivity(),
                 R.layout.status_info_row, R.id.key, list);

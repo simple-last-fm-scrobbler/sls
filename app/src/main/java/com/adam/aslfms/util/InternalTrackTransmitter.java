@@ -21,10 +21,10 @@
 
 package com.adam.aslfms.util;
 
-import java.util.LinkedList;
-
 import com.adam.aslfms.receiver.AbstractPlayStatusReceiver;
 import com.adam.aslfms.service.ScrobblingService;
+
+import java.util.LinkedList;
 
 /**
  * Internal class that transmits tracks from the scrobbling API listeners to the

@@ -1,16 +1,16 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * <p/>
+ * <p>
  * https://github.com/tgwizard/sls
- * <p/>
+ * <p>
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * <p/>
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p/>
+ * <p>
  * http://www.apache.org/licenses/LICENSE-2.0
- * <p/>
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -28,9 +28,11 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.SQLException;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
@@ -54,7 +56,6 @@ import com.example.android.supportv7.app.AppCompatPreferenceActivity;
  * credentials.
  *
  * @author tgwizard
- *
  */
 public class SettingsActivity extends AppCompatPreferenceActivity {
     private static final String TAG = "SettingsActivity";
@@ -74,9 +75,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private Preference mCopyCurrentTrack;
 
     int REQUEST_READ_STORAGE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
 
         addPreferencesFromResource(R.xml.settings_prefs);
 
@@ -97,50 +101,22 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         mViewScrobbleCache = findPreference(KEY_VIEW_SCROBBLE_CACHE);
         mCopyCurrentTrack = findPreference(KEY_COPY_CURRENT_TRACK);
 
+        checkNetwork();
+        permsCheck();
+        credsCheck();
 
         int v = Util.getAppVersionCode(this, getPackageName());
         if (settings.getWhatsNewViewedVersion() < v) {
             new WhatsNewDialog(this).show();
+
+            // TODO: remove in next version
+            Toast.makeText(this, getString(R.string.auth_bad_auth) + " Last.fm", Toast.LENGTH_LONG).show();
+            Snackbar.make(getListView(), getString(R.string.auth_bad_auth) + " Last.fm", Snackbar.LENGTH_LONG).show();
+            for (NetApp napp : NetApp.values()){
+                settings.clearCreds(napp);
+            }
+
             settings.setWhatsNewViewedVersion(v);
-        }
-
-        //PERMISSION CHECK
-        try {
-            if (ContextCompat.checkSelfPermission(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-                if (ActivityCompat.shouldShowRequestPermissionRationale(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                    Toast.makeText(SettingsActivity.this, R.string.permission_required, Toast.LENGTH_LONG).show();
-                }
-                ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Version exception, READ_EXTERNAL_STORAGE. "+e);
-        }
-        //Credentials Check
-        if ((settings.getPassword(NetApp.LASTFM).equals("") && settings.getUsername(NetApp.LASTFM).equals(""))
-                && (settings.getPassword(NetApp.LIBREFM).equals("") && settings.getUsername(NetApp.LIBREFM).equals("")) ){
-            Toast.makeText(this, this.getString(R.string.creds_required),
-                    Toast.LENGTH_LONG).show();
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        try{
-            if (requestCode == REQUEST_READ_STORAGE){
-
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //PERMISSION GRANTED
-                } else {
-                    //PERMISSION DENIED permission denied
-                    Toast.makeText(SettingsActivity.this, "Application will not work properly", Toast.LENGTH_LONG).show();
-                }
-            } else {
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "READ_EXTERNAL_STORAGE. "+e);
         }
     }
 
@@ -153,18 +129,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        //Credentials Check
-        if ((settings.getPassword(NetApp.LASTFM).equals("") && settings.getUsername(NetApp.LASTFM).equals(""))
-                && (settings.getPassword(NetApp.LIBREFM).equals("") && settings.getUsername(NetApp.LIBREFM).equals("")) ){
-            Toast.makeText(this, this.getString(R.string.creds_required),
-                    Toast.LENGTH_LONG).show();
-        }
+        credsCheck();
         unregisterReceiver(onStatusChange);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+
+        checkNetwork();
+
         IntentFilter ifs = new IntentFilter();
         ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
         registerReceiver(onStatusChange, ifs);
@@ -175,6 +149,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
                                          Preference pref) {
         if (pref == mScrobbleAllNow) {
+
+            checkNetwork();
+
+
             int numInCache = mDb.queryNumberOfTracks();
             Util.scrobbleAllIfPossible(this, numInCache);
             return true;
@@ -186,7 +164,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         } else if (pref == mHeartCurrentTrack) {
             Util.heartIfPossible(this);
             return true;
-        } else if (pref == mCopyCurrentTrack){
+        } else if (pref == mCopyCurrentTrack) {
             Util.copyIfPossible(this);
             return true;
         }
@@ -230,4 +208,59 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             SettingsActivity.this.update();
         }
     };
+
+    private void checkNetwork(){
+        this.sendBroadcast(new Intent(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED));
+        if (Util.checkForOkNetwork(this) != Util.NetworkStatus.OK){
+            Snackbar.make(getListView(), getString(R.string.limited_network), Snackbar.LENGTH_SHORT).show();
+        }
+    }
+
+    private void credsCheck(){
+        //Credentials Check
+        if (settings.getUsername(NetApp.LASTFM).equals("")
+            && settings.getUsername(NetApp.LIBREFM).equals("")
+            && settings.getPassword(NetApp.LASTFM).equals("")
+            && settings.getPassword(NetApp.LIBREFM).equals("") ) {
+            Toast.makeText(this, this.getString(R.string.creds_required),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void permsCheck(){
+        //PERMISSION CHECK
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            try {
+                if (ContextCompat.checkSelfPermission(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+
+                    if (ActivityCompat.shouldShowRequestPermissionRationale(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                        Toast.makeText(SettingsActivity.this, getString(R.string.permission_required), Toast.LENGTH_LONG).show();
+                    }
+                    ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
+                }
+            } catch (Exception e) {
+                Log.e(TAG, "Version exception, READ_EXTERNAL_STORAGE. " + e);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        try {
+            if (requestCode == REQUEST_READ_STORAGE) {
+
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    //PERMISSION GRANTED
+                } else {
+                    //PERMISSION DENIED permission denied
+                    Toast.makeText(SettingsActivity.this, "App will not function correctly.", Toast.LENGTH_LONG).show(); //TODO string
+                }
+            } else {
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "READ_EXTERNAL_STORAGE. " + e);
+        }
+    }
 }

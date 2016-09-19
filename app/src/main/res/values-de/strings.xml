@@ -96,10 +96,11 @@
     <!-- START heart strings -->
     <string name="heart_and_copy">Song-Optionen</string>
     <string name="heart_title">Liebe</string>
-    <string name="heart_current_track">Liebe Aktueller Track bei last.fm</string>
+    <string name="heart_current_track">Liebe Aktueller Track bei Last.fm (Libre.fm)</string>
     <string name="no_heart_track">Lieben Song fehlgeschlagen</string>
     <string name="loved_track">Liebte Song</string>
-    <string name="no_lastFm">Bitte geben Sie Ihre Zugangsdaten <last class="fm"></last></string>
+    <string name="no_lastFm">Bitte geben sie last.fm zugangsdaten</string>
+    <string name="song_is_ready">Lied ist bereit</string>
     <!-- END heart strings -->
 
     <!-- START copy strings -->
@@ -112,6 +113,7 @@
     <!-- START permissions and warnings strings -->
     <string name="permission_required">Berechtigung erforderlich richtig zu arbeiten</string>
     <string name="creds_required">Anmeldedaten erforderlich um richtig zu arbeiten</string>
+    <string name="limited_network">Begrenzte Netzwerk</string>
     <!-- END permissions and warnings strings -->
     
     <!-- START mapis strings -->

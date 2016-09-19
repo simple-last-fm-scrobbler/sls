@@ -97,10 +97,11 @@
     <!-- START heart strings -->
     <string name="heart_and_copy">Options de chanson</string>
     <string name="heart_title">J\'adore</string>
-    <string name="heart_current_track">Adorer la chanson actuelle sur last.fm</string>
+    <string name="heart_current_track">Adorer la chanson actuelle sur Last.fm (Libre.fm)</string>
     <string name="no_heart_track">Adorer cette chanson a échoué</string>
     <string name="loved_track">Chanson adorée</string>
     <string name="no_lastFm">Entrez vos informations d\'identification last.fm</string>
+    <string name="song_is_ready">Chanson est préparé</string>
     <!-- END heart strings -->
 
     <!-- START copy strings -->
@@ -113,6 +114,7 @@
     <!-- START permissions and warnings strings -->
     <string name="permission_required">Autorisation nécessaire pour fonctionner correctement</string>
     <string name="creds_required">Vérification des identifiants nécessaire pour fonctionner correctement</string>
+    <string name="limited_network">Réseau Limitées</string>
     <!-- END permissions and warnings strings -->
     
     <!-- START mapis strings -->

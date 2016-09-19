@@ -5,5 +5,7 @@
 	android:layout_height="wrap_content">
 	<TextView
 	   android:id="@+id/widget_text"
-		android:text="Hejsan" />
+		android:text="Hejsan"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content" />
 </LinearLayout>

@@ -13,9 +13,9 @@
   <!--END original strings-->
   <!--START about strings-->
   <string name="by">por</string>
-  <string name="issues">Problemas</string>
-  <string name="website">Serviço:</string>
-    <string name="troubShoot">Trouble Shoot: %s</string>
+  <string name="issues">Problemas: %s</string>
+  <string name="website">Serviço: %s</string>
+  <string name="troubShoot">Trouble Shoot: %s</string>
   <string name="by_adam">por Adam Renberg</string>
   <string name="license">Lançado sob Apache License v2.0</string>
   <string name="about_text">Um scrobbler leve que envia informações ao Last.fm (e/ou ao Libre.fm) sobre as músicas que você ouve no seu Android. O Last.fm então permite que você obtenha estatísticas e recomendações de músicas que você pode curtir.</string>
@@ -90,24 +90,26 @@
   <!--END creds strings-->
 
   <!-- START heart strings -->
-  <string name="heart_and_copy">Song Options</string>
-  <string name="heart_title">Love</string>
-  <string name="heart_current_track">Love Current Track at last.fm</string>
-  <string name="no_heart_track">Heart Track Failed</string>
-  <string name="loved_track">Loved Track</string>
-  <string name="no_lastFm">Please enter your last.fm credentials</string>
+  <string name="heart_and_copy">Opções de música.</string>
+  <string name="heart_title">Ame</string>
+  <string name="heart_current_track">Amo música atual na Last.fm (Libre.fm)</string>
+  <string name="no_heart_track">Amor canção, fracasado</string>
+  <string name="loved_track">Música amado</string>
+  <string name="no_lastFm">Por favor insira suas credenciais last.fm</string>
+  <string name="song_is_ready">Música é preparado</string>
   <!-- END heart strings -->
 
   <!-- START copy strings -->
-  <string name="copy_title">Copy</string>
-  <string name="copy_current_track">Copy Current Track to Clip Board</string>
-  <string name="no_copy_track">Copy Track Failed</string>
-  <string name="no_current_track">No Current Song Available</string>
+  <string name="copy_title">Cópia</string>
+  <string name="copy_current_track">Copiar música atual a área de transferência</string>
+  <string name="no_copy_track">Canção cópia falhou</string>
+  <string name="no_current_track">Nenhuma canção disponível atualmente</string>
   <!-- END copy strings -->
 
   <!-- START permissions and warnings strings -->
-  <string name="permission_required">Permission REQUIRED to work properly</string>
-  <string name="creds_required">Credentials REQUIRED to work properly</string>
+  <string name="permission_required">Permissão necessária para funcionar corretamente</string>
+  <string name="creds_required">Credenciais necessárias para funcionar corretamente</string>
+  <string name="limited_network">Limitada Rede</string>
   <!-- END permissions and warnings strings -->
 
   <!--START mapis strings-->

@@ -198,6 +198,25 @@ public class ScrobblesDatabase {
 				new String[] { "" + napp.getValue(), "" + trackId });
 	}
 
+	public void setAlbum(String album, int trackId){
+		ContentValues values = new ContentValues();
+		values.put("album", album);
+		mDb.update("scrobbles", values, "_id="+trackId, null);
+	}
+
+	public void setArtist(String artist, int trackId){
+		ContentValues values = new ContentValues();
+		values.put("artist", artist);
+		mDb.update("scrobbles", values, "_id="+trackId, null);
+	}
+
+	public void setTrack(String track, int trackId){
+		ContentValues values = new ContentValues();
+		values.put("track", track);
+		mDb.update("scrobbles", values, "_id="+trackId, null);
+		Log.e(TAG,"HERE");
+	}
+
 	/**
 	 *
 	 * @param napp the NetApp instance

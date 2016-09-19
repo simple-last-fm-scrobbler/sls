@@ -17,6 +17,7 @@
     <string name="by">Автор:</string>
     <string name="issues">Баги и предложения: %s</string>
     <string name="website">Веб-сайт: %s</string>
+    <string name="troubShoot">Устранение проблем: %s</string>
     <string name="by_adam">Автор: Adam Renberg</string>
     <string name="license">Выпущено по лицензии Apache License v2.0</string>
     <string name="about_text">Легкий скробблер, отправляющий данные на Last.fm (и/или Libre.fm) о композициях, проигрываемых на Вашем Android-телефоне. На основании этих данных Last.fm формирует статистику прослушивания и рекомендует похожую музыку.</string>
@@ -95,10 +96,11 @@
     <!-- START heart strings -->
     <string name="heart_and_copy">Опции композиции</string>
     <string name="heart_title">Нравится</string>
-    <string name="heart_current_track">Добавить текущую композицию в список любимых на last.fm</string>
+    <string name="heart_current_track">Добавить текущую композицию в список любимых на Last.fm (Libre.fm)</string>
     <string name="no_heart_track">Не удалось добавить композицию в список любимых</string>
     <string name="loved_track">Любимые композиции</string>
     <string name="no_lastFm">Введите данные учетной записи last.fm</string>
+    <string name="song_is_ready">Песня готова</string>
     <!-- END heart strings -->
 
     <!-- START copy strings -->
@@ -111,6 +113,7 @@
     <!-- START permissions and warnings strings -->
     <string name="permission_required">Необходимо дать приложению разрешения для нормальной работы</string>
     <string name="creds_required">Необходимы данные учетной записи для нормальной работы</string>
+    <string name="limited_network">Ограниченная Cеть</string>
     <!-- END permissions and warnings strings -->
     
     <!-- START mapis strings -->
@@ -184,6 +187,7 @@
     <string name="it_was">Было:</string>
     <string name="confirm_stats_reset">Вы уверены, что хотите сбросить свою статистику для %1? Данное действие имеет необратимый характер.</string>
     <string name="profile_page">Страница с профилем</string>
+    <string name="advanced_options_notify_title">Телефон Уведомления</string>
     <!-- END status strings -->
     
 </resources>

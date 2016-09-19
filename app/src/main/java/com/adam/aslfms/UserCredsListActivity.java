@@ -21,14 +21,12 @@
 
 package com.adam.aslfms;
 
-import java.util.HashMap;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnClickListener;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -42,6 +40,8 @@ import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.Util;
 import com.example.android.supportv7.app.AppCompatPreferenceActivity;
+
+import java.util.HashMap;
 
 public class UserCredsListActivity extends AppCompatPreferenceActivity {
 	@SuppressWarnings("unused")

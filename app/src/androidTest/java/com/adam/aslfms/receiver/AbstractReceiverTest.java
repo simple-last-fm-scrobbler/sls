@@ -20,10 +20,6 @@
 
 package com.adam.aslfms.receiver;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.ContentResolver;
@@ -38,6 +34,10 @@ import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.AuthStatus;
 import com.adam.aslfms.util.InternalTrackTransmitter;
 import com.adam.aslfms.util.Track;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public abstract class AbstractReceiverTest extends AndroidTestCase {
 

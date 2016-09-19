@@ -21,17 +21,14 @@
 
 package com.adam.aslfms.util;
 
-import java.util.Calendar;
-import java.util.TimeZone;
-
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnClickListener;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -40,16 +37,21 @@ import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.support.v4.app.NotificationCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.adam.aslfms.R;
+import com.adam.aslfms.SettingsActivity;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.enums.NetworkOptions;
 import com.adam.aslfms.util.enums.PowerOptions;
+
+import java.util.Calendar;
+import java.util.TimeZone;
 
 /**
  * This class is way too bloated. FIXME
@@ -109,13 +111,13 @@ public class Util {
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
         if(netInfo == null){
-            Log.e(TAG,"netInfo == null");
+            Log.d(TAG,"netInfo == null");
         }
         if (netInfo != null) {
-            Log.e(TAG, "conn: " + netInfo.isConnected() + " : " + netInfo.toString());
+            Log.d(TAG, "conn: " + netInfo.isConnected() + " : " + netInfo.toString());
         }
 
-        if (netInfo == null || !(netInfo.isConnected() || ConnectivityChangeReceiver.isConnect)) {
+        if (netInfo == null || !netInfo.isConnected()) {
             return NetworkStatus.DISCONNECTED;
         }
 
@@ -438,19 +440,21 @@ public class Util {
         }
     }
 
-    public static void myNotify(Context mCtx, Class chooseActivity, String title, String content, int notID) {
+    public static void myNotify(Context mCtx, String title, String content, int notID) {
         try {
+            Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
+            PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(mCtx)
-                            .setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
-                                    R.mipmap.ic_launcher))
                             .setContentTitle(title)
                             .setSmallIcon(R.mipmap.ic_notify)
-                            .setContentText(content);
-            Intent targetIntent = new Intent(mCtx, chooseActivity);
-            PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            builder.setContentIntent(contentIntent);
+                            .setContentText(content)
+                            .setContentIntent(contentIntent);
             NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
+            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2){
+                builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                        R.mipmap.ic_launcher));
+            }
             nManager.notify(notID, builder.build());
         } catch (Exception e) {
             Log.d(TAG, "Phone Notification failed. " + e);

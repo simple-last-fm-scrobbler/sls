@@ -57,6 +57,7 @@ public class AppSettings {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_PWDMD5 = "pwdMd5";
     private static final String KEY_SESSION = "sessionKey";
+    private static final String KEY_SCROBBLES = "totalScrobbles";
 
     private static final String KEY_NOTIFY_ENABLE = "enable_notify";
     private static final String KEY_SCROBBLING_ENABLE = "enable_scrobbling";
@@ -149,14 +150,34 @@ public class AppSettings {
         return prefs.getString(napp.getSettingsPrefix() + KEY_PASSWORD, "");
     }
 
+    /** Saves sessionKey in plain text
+     *
+     * @param napp
+     * @param s
+     */
     public void setSessionKey(NetApp napp, String s){
         Editor e = prefs.edit();
         e.putString(napp.getSettingsPrefix() + KEY_SESSION, s);
         e.commit();
     }
 
+    /** Returns sessionKey in plain text
+     *
+     * @param napp
+     * @return
+     */
     public String getSessionKey(NetApp napp){
         return prefs.getString(napp.getSettingsPrefix() + KEY_SESSION, "");
+    }
+
+    public void setTotalScrobbles(NetApp napp, String s){
+        Editor e = prefs.edit();
+        e.putString(napp.getSettingsPrefix() + KEY_SCROBBLES, s);
+        e.commit();
+    }
+
+    public String getTotalScrobbles(NetApp napp){
+        return prefs.getString(napp.getSettingsPrefix() + KEY_SCROBBLES, "");
     }
 
     public String getAPIkey(){
@@ -216,7 +237,6 @@ public class AppSettings {
     }
 
     public boolean isAuthenticated(NetApp napp) {
-        Log.e(TAG,"Authenicated: "+napp.getName()+": "+(getAuthStatus(napp)));
         return getAuthStatus(napp) == AuthStatus.AUTHSTATUS_OK;
     }
 
@@ -565,7 +585,7 @@ public class AppSettings {
             Cipher cipher = Cipher.getInstance("DES"); // cipher is not thread safe
             cipher.init(Cipher.DECRYPT_MODE, getSecKey());
             byte[] plainTextPwdBytes = (cipher.doFinal(encrypedPwdBytes));
-            String outPut = new String(plainTextPwdBytes);;
+            String outPut = new String(plainTextPwdBytes);
             return outPut;
         } catch (Exception e){
             e.getStackTrace();

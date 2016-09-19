@@ -5,11 +5,12 @@
   * Add Polish translation (thanks to Grzes58)
   * Add Phone Notification to ensure scrobbles
   * Add Deezer Support
-  * Add Love track feature
+  * Add Love track and copy feature
   * Network notifications
   * Last.fm API 2.0
   * Add Czech (thanks to Michal Absolin)
   * Add Russian translation (thanks to bajituka)
+  * Edit Scrobble Cache
 
 - 1.4.9 (2015-08-09)
   * Add French translation (thanks to pierreduchemin)

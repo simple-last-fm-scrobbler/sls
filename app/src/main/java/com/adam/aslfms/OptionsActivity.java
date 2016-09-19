@@ -26,9 +26,9 @@ import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -151,7 +151,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         private PreferenceCategory category;
 
         private ListPreference chooser;
-   //     private CheckBoxPreference notify;
+        private CheckBoxPreference notify;
         private CheckBoxPreference scrobble;
         private CheckBoxPreference np;
         private ListPreference when;
@@ -161,7 +161,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
 
         public void create() {
             createChooserPreference();
-            //createNotifyPreference();
+            createNotifyPreference();
             createScrobbleEnablePreference();
             createNPEnablePreference();
             createWhenPreference();
@@ -171,10 +171,10 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         }
 
         public boolean onClick(Preference pref) {
-           /** if (pref == notify) {
+            if (pref == notify) {
                 settings.setNotifyEnabled(power, notify.isChecked());
                 return true;
-            } else*/ if (pref == scrobble) {
+            } else if (pref == scrobble) {
                 settings.setScrobblingEnabled(power, scrobble.isChecked());
                 return true;
             } else if (pref == np) {
@@ -198,7 +198,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             chooser.setSummary(ao.getName(OptionsActivity.this));
             chooser.setValue(ao.toString());
 
-//            notify.setChecked(settings.isNotifyEnabled(power));
+            notify.setChecked(settings.isNotifyEnabled(power));
             scrobble.setChecked(settings.isScrobblingEnabled(power));
             np.setChecked(settings.isNowPlayingEnabled(power));
 
@@ -218,7 +218,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         }
 
         private void setScrobblingOptionsRestEnabled(AdvancedOptions ao) {
-//            notify.setEnabled(ao == AdvancedOptions.CUSTOM);
+            notify.setEnabled(ao == AdvancedOptions.CUSTOM);
             scrobble.setEnabled(ao == AdvancedOptions.CUSTOM);
             np.setEnabled(ao == AdvancedOptions.CUSTOM);
             when.setEnabled(ao == AdvancedOptions.CUSTOM);
@@ -247,13 +247,13 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
 
             chooser.setOnPreferenceChangeListener(mOnListPrefChange);
         }
-/**
+
         private void createNotifyPreference() {
             notify = new CheckBoxPreference(OptionsActivity.this);
             category.addPreference(notify);
             notify.setTitle(R.string.advanced_options_notify_title);
         }
-*/
+
         private void createScrobbleEnablePreference() {
             scrobble = new CheckBoxPreference(OptionsActivity.this);
             category.addPreference(scrobble);
