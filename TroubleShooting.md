@@ -11,7 +11,7 @@ Solutions To Common problems.
 4. Check battery/power settings on phone, add SLS to protected/whitelist (power save disabled for SLS).
 5. Check SLS options. (power settings)
 6. Check SLS options. (enabled apps.)
-7. Check your music app's settings.
+7. Check your music app's settings. (e.g. in Spotify, whether broadcasting to other apps is on)
 8. Disable some of SLS' enabled apps if there are clashes. Some music players broadcast while closed (PowerAmp & DoubleTwist & DoubleTwist CloudPlayer). Some music players have mixed broadcasts. ("Anroid Music Player" and it's own broadcast)
 9. Try a different music player that scrobbles if possible.
 10. If you don't want to uninstall or clear the cache, create an issue on the GitHub. https://github.com/tgwizard/sls/issues
