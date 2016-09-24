@@ -108,14 +108,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         int v = Util.getAppVersionCode(this, getPackageName());
         if (settings.getWhatsNewViewedVersion() < v) {
             new WhatsNewDialog(this).show();
-
-            // TODO: remove in next version
-            Toast.makeText(this, getString(R.string.auth_bad_auth) + " Last.fm", Toast.LENGTH_LONG).show();
-            Snackbar.make(getListView(), getString(R.string.auth_bad_auth) + " Last.fm", Snackbar.LENGTH_LONG).show();
-            for (NetApp napp : NetApp.values()){
-                settings.clearCreds(napp);
-            }
-
             settings.setWhatsNewViewedVersion(v);
         }
     }
@@ -218,13 +210,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private void credsCheck(){
         //Credentials Check
-        if (settings.getUsername(NetApp.LASTFM).equals("")
-            && settings.getUsername(NetApp.LIBREFM).equals("")
-            && settings.getPassword(NetApp.LASTFM).equals("")
-            && settings.getPassword(NetApp.LIBREFM).equals("") ) {
-            Toast.makeText(this, this.getString(R.string.creds_required),
-                    Toast.LENGTH_LONG).show();
+        for (NetApp napp : NetApp.values()) {
+            if (!settings.getUsername(napp).equals("")) {
+                return;
+            }
         }
+        Toast.makeText(this, this.getString(R.string.creds_required),
+                    Toast.LENGTH_LONG).show();
     }
 
     private void permsCheck(){
