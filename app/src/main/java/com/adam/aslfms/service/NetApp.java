@@ -31,7 +31,7 @@ public enum NetApp {
             "https://ws.audioscrobbler.com/2.0/"), //
     LIBREFM(
             0x02, "Libre.fm", "http://turtle.libre.fm/?hs=true", "librefm",
-            "https://libre.fm/", "https://libre.fm/user/%1", "https://libre.fm/2.0"),
+            "https://libre.fm/", "https://libre.fm/user/%1", "https://libre.fm/2.0/"),
     CUSTOM(
             0x03, "Gnu-fm server", "[[GNUKEBOX_URL]]/?hs=true", "custom",
             "[[NIXTAPE_URL]]", "[[NIXTAPE_URL]]/user/%1", "[[NIXTAPE_URL]]/2.0/");
