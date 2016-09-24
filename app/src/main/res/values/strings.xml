@@ -188,8 +188,6 @@
     <string name="it_was">It was:</string>
     <string name="confirm_stats_reset">Are you sure you want to reset your submission statistics for %1? This operation cannot be undone.</string>
     <string name="profile_page">Profile page</string>
-    <string name="nixtapeUrl">Nixtape URL</string>
-    <string name="gnukeboxUrl">Gnukebox URL</string>
     <!-- END status strings -->
 
 </resources>

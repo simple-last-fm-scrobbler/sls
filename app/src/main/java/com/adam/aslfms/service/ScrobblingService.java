@@ -87,6 +87,47 @@ public class ScrobblingService extends Service {
 
         int sdk = Build.VERSION.SDK_INT;
         if (sdk == Build.VERSION_CODES.GINGERBREAD || sdk == Build.VERSION_CODES.GINGERBREAD_MR1) {
+            if (settings.isOnGoingEnabled(Util.checkPower(mCtx))) {
+                if (mCurrentTrack != null) {
+                    String ar = mCurrentTrack.getArtist();
+                    String tr = mCurrentTrack.getTrack();
+                    String api = mCurrentTrack.getMusicAPI().readAPIname();
+
+                    Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
+                    PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    NotificationCompat.Builder builder =
+                            new NotificationCompat.Builder(mCtx)
+                                    .setContentTitle(tr)
+                                    .setSmallIcon(R.mipmap.ic_notify)
+                                    .setContentText(ar + " :" + api)
+                                    .setContentIntent(contentIntent);
+
+                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
+                        builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                                R.mipmap.ic_launcher));
+                    }
+
+                    this.startForeground(14619, builder.build());
+                    if (!settings.isNotifyEnabled(Util.checkPower(mCtx))) {
+                        Intent iNoti = new Intent(mCtx, ForegroundHide.class);
+                        this.startService(iNoti);
+                    }
+                }
+            } else {
+                this.stopForeground(true); // TODO: test if this conflicts/stops scrobbles
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        mDb.close();
+    }
+
+    @Override
+    public int onStartCommand(Intent i, int flags, int startId) {
+        handleCommand(i, startId);
+        if (settings.isOnGoingEnabled(Util.checkPower(mCtx))) {
             if (mCurrentTrack != null) {
                 String ar = mCurrentTrack.getArtist();
                 String tr = mCurrentTrack.getTrack();
@@ -107,48 +148,14 @@ public class ScrobblingService extends Service {
                 }
 
                 this.startForeground(14619, builder.build());
+
                 if (!settings.isNotifyEnabled(Util.checkPower(mCtx))) {
                     Intent iNoti = new Intent(mCtx, ForegroundHide.class);
-                    this.startService(iNoti);
+                    startService(iNoti);
                 }
             }
-        }
-    }
-
-    @Override
-    public void onDestroy() {
-        mDb.close();
-    }
-
-    @Override
-    public int onStartCommand(Intent i, int flags, int startId) {
-        handleCommand(i, startId);
-
-        if (mCurrentTrack != null) {
-            String ar = mCurrentTrack.getArtist();
-            String tr = mCurrentTrack.getTrack();
-            String api = mCurrentTrack.getMusicAPI().readAPIname();
-
-            Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
-            PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            NotificationCompat.Builder builder =
-                    new NotificationCompat.Builder(mCtx)
-                            .setContentTitle(tr)
-                            .setSmallIcon(R.mipmap.ic_notify)
-                            .setContentText(ar + " :" + api)
-                            .setContentIntent(contentIntent);
-
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
-                builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
-                        R.mipmap.ic_launcher));
-            }
-
-            this.startForeground(14619, builder.build());
-
-            if (!settings.isNotifyEnabled(Util.checkPower(mCtx))) {
-                Intent iNoti = new Intent(mCtx, ForegroundHide.class);
-                startService(iNoti);
-            }
+        } else {
+            this.stopForeground(true); // TODO: test if this conflicts/stops scrobbles
         }
         return Service.START_STICKY;
     }

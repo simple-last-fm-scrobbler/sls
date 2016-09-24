@@ -1,6 +1,7 @@
 - 1.5.1 (2016-09-24)
   * Better request timeout
   * GNU-fm alternate (thanks to ejegg)
+  * Better control of OnGoing Service
 
 - 1.5.0 (2016-1-1)
   * Bug fixes and more (thanks to inverse)

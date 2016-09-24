@@ -151,6 +151,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         private PreferenceCategory category;
 
         private ListPreference chooser;
+        private CheckBoxPreference ongoing;
         private CheckBoxPreference notify;
         private CheckBoxPreference scrobble;
         private CheckBoxPreference np;
@@ -161,6 +162,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
 
         public void create() {
             createChooserPreference();
+            createOnGoingPreference();
             createNotifyPreference();
             createScrobbleEnablePreference();
             createNPEnablePreference();
@@ -171,7 +173,9 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         }
 
         public boolean onClick(Preference pref) {
-            if (pref == notify) {
+            if (pref == ongoing){
+                settings.setOnGoingEnabled(power, ongoing.isChecked());
+            } else if (pref == notify) {
                 settings.setNotifyEnabled(power, notify.isChecked());
                 return true;
             } else if (pref == scrobble) {
@@ -198,6 +202,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             chooser.setSummary(ao.getName(OptionsActivity.this));
             chooser.setValue(ao.toString());
 
+            ongoing.setChecked(settings.isOnGoingEnabled(power));
             notify.setChecked(settings.isNotifyEnabled(power));
             scrobble.setChecked(settings.isScrobblingEnabled(power));
             np.setChecked(settings.isNowPlayingEnabled(power));
@@ -218,6 +223,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         }
 
         private void setScrobblingOptionsRestEnabled(AdvancedOptions ao) {
+            ongoing.setEnabled(ao == AdvancedOptions.CUSTOM);
             notify.setEnabled(ao == AdvancedOptions.CUSTOM);
             scrobble.setEnabled(ao == AdvancedOptions.CUSTOM);
             np.setEnabled(ao == AdvancedOptions.CUSTOM);
@@ -246,6 +252,12 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             chooser.setEntryValues(vals);
 
             chooser.setOnPreferenceChangeListener(mOnListPrefChange);
+        }
+
+        private void createOnGoingPreference() {
+            ongoing = new CheckBoxPreference(OptionsActivity.this);
+            category.addPreference(ongoing);
+            ongoing.setTitle(R.string.ongoing);
         }
 
         private void createNotifyPreference() {

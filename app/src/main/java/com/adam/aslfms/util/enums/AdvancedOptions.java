@@ -14,21 +14,22 @@ import java.util.Map;
 public enum AdvancedOptions {
     // the values below for SAME will be ignored
     SAME_AS_BATTERY(
-            "ao_same_as_battery", true, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
+            "ao_same_as_battery", false, false, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
             R.string.advanced_options_type_same_as_battery_name),
     STANDARD(
-            "ao_standard", true, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
+            "ao_standard", false, false, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
             R.string.advanced_options_type_standard_name),
     // not available for plugged in
     BATTERY_SAVING(
-            "ao_battery", true, true, false, AdvancedOptionsWhen.AFTER_10, true, NetworkOptions.ANY, false,
+            "ao_battery", false, false, true, false, AdvancedOptionsWhen.AFTER_10, true, NetworkOptions.ANY, false,
             R.string.advanced_options_type_battery_name),
     // the values below for CUSTOM will be ignored
     CUSTOM(
-            "ao_custom", true, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
+            "ao_custom", false, false, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
             R.string.advanced_options_type_custom_name);
 
     private final String settingsVal;
+    private final boolean enableOnGoing;
     private final boolean enableNotify;
     private final boolean enableScrobbling;
     private final boolean enableNp;
@@ -38,9 +39,10 @@ public enum AdvancedOptions {
     private final boolean roaming;
     private final int nameRID;
 
-    AdvancedOptions(String settingsVal, boolean enableNotify, boolean enableScrobbling, boolean enableNp, AdvancedOptionsWhen when,
+    AdvancedOptions(String settingsVal, boolean enableOnGoing, boolean enableNotify, boolean enableScrobbling, boolean enableNp, AdvancedOptionsWhen when,
                             boolean alsoOnComplete, NetworkOptions networkOptions, boolean roaming, int nameRID) {
         this.settingsVal = settingsVal;
+        this.enableOnGoing = enableOnGoing;
         this.enableNotify = enableNotify;
         this.enableScrobbling = enableScrobbling;
         this.enableNp = enableNp;
@@ -58,9 +60,9 @@ public enum AdvancedOptions {
         return settingsVal;
     }
 
-    public boolean isNotifyEnabled() {
-        return enableNotify;
-    }
+    public boolean isOnGoingEnabled() { return enableOnGoing; }
+
+    public boolean isNotifyEnabled() { return enableNotify; }
 
     public boolean isScrobblingEnabled() {
         return enableScrobbling;
