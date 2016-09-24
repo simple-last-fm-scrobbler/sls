@@ -114,7 +114,7 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
 			return true;
 		} else if (pref == mCreateUser) {
 			Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(mNetApp
-					.getSignUpUrl()));
+					.getSignUpUrl(settings)));
 			startActivity(browser);
 			return true;
 		}

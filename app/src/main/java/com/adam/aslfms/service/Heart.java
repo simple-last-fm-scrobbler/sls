@@ -114,12 +114,7 @@ public class Heart extends NetRunnable {
         HttpURLConnection conn = null;
 
         try {
-
-            if (getNetApp() == NetApp.LASTFM) {
-                url = new URL("https://ws.audioscrobbler.com/2.0/");
-            } else {
-                url = new URL("https://libre.fm/2.0/");
-            }
+            url = new URL(getNetApp().getWebserviceUrl(settings));
             conn = (HttpURLConnection) url.openConnection();
 
 

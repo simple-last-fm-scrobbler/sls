@@ -101,10 +101,8 @@ public class UserInfo extends NetRunnable {
         try {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && getNetApp() == NetApp.LIBREFM) {
                 url = new URL("http://libre.fm/2.0/");
-            } else if (getNetApp() == NetApp.LASTFM) {
-                url = new URL("https://ws.audioscrobbler.com/2.0/");
             } else {
-                url = new URL("https://libre.fm/2.0/");
+                url = new URL(getNetApp().getWebserviceUrl(settings));
             }
             conn = (HttpURLConnection) url.openConnection();
 
