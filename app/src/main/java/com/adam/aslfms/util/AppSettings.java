@@ -55,6 +55,8 @@ public class AppSettings {
 
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
+    private static final String KEY_NIXTAPE_URL = "nixtape_url";
+    private static final String KEY_GNUKEBOX_URL = "gnukebox_url";
     private static final String KEY_PWDMD5 = "pwdMd5";
     private static final String KEY_SESSION = "sessionKey";
     private static final String KEY_SCROBBLES = "totalScrobbles";
@@ -119,6 +121,26 @@ public class AppSettings {
 
     public String getUsername(NetApp napp) {
         return prefs.getString(napp.getSettingsPrefix() + KEY_USERNAME, "");
+    }
+
+    public String getNixtapeUrl(NetApp napp) {
+        return prefs.getString(napp.getSettingsPrefix() + KEY_NIXTAPE_URL, "");
+    }
+
+    public void setNixtapeUrl(NetApp napp, String s) {
+        Editor e = prefs.edit();
+        e.putString(napp.getSettingsPrefix() + KEY_NIXTAPE_URL, s);
+        e.commit();
+    }
+
+    public String getGnukeboxUrl(NetApp napp) {
+        return prefs.getString(napp.getSettingsPrefix() + KEY_GNUKEBOX_URL, "");
+    }
+
+    public void setGnukeboxUrl(NetApp napp, String s) {
+        Editor e = prefs.edit();
+        e.putString(napp.getSettingsPrefix() + KEY_GNUKEBOX_URL, s);
+        e.commit();
     }
 
     /**

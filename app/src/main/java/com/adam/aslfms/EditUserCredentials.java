@@ -46,6 +46,8 @@ public class EditUserCredentials extends DialogPreference {
 
 	private EditText mUsername;
 	private EditText mPassword;
+	private EditText mNixtapeUrl;
+	private EditText mGnukeboxUrl;
 
 	private AppSettings settings;
 	private NetApp mNetApp;
@@ -87,6 +89,14 @@ public class EditUserCredentials extends DialogPreference {
 		mUsername.setText(settings.getUsername(mNetApp));
 		mPassword.setText(settings.getPassword(mNetApp));
 
+		if (mNetApp == NetApp.CUSTOM) {
+			mNixtapeUrl = (EditText) view.findViewById(R.id.nixtapeUrl);
+			mGnukeboxUrl = (EditText) view.findViewById(R.id.gnukeboxUrl);
+			mNixtapeUrl.setText(settings.getNixtapeUrl(mNetApp));
+			mGnukeboxUrl.setText(settings.getGnukeboxUrl(mNetApp));
+
+			view.findViewById(R.id.customSettings).setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
@@ -109,6 +119,12 @@ public class EditUserCredentials extends DialogPreference {
 			settings.setPassword(mNetApp, password);
 			settings.setPwdMd5(mNetApp, MD5.getHashString(password));
 
+			if (mNetApp == NetApp.CUSTOM) {
+				String nixtapeUrl = mNixtapeUrl.getText().toString().trim();
+				settings.setNixtapeUrl(mNetApp, nixtapeUrl);
+				String gnukeboxUrl = mGnukeboxUrl.getText().toString().trim();
+				settings.setGnukeboxUrl(mNetApp, gnukeboxUrl);
+			}
 			getContext().startService(service);
 		}
 	}

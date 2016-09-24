@@ -187,7 +187,7 @@
     <string name="it_was">Было:</string>
     <string name="confirm_stats_reset">Вы уверены, что хотите сбросить свою статистику для %1? Данное действие имеет необратимый характер.</string>
     <string name="profile_page">Страница с профилем</string>
-    <string name="advanced_options_notify_title">Телефон Уведомления</string>
+    <string name="advanced_options_notify_title">Уведомления на телефон</string>
     <!-- END status strings -->
     
 </resources>
