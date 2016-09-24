@@ -341,11 +341,12 @@ public class Handshaker extends NetRunnable {
                     throw new TemporaryFailureException(getContext().getString(
                             R.string.auth_server_error).replace("%1", reason));
                 } else {
-                    throw new TemporaryFailureException("Weird response from handskake-req: " + response + ": " + netApp.getName());
+                    throw new UnknownResponseException("Invalid Response");
                 }
 
             } catch (NullPointerException | IOException e) {
-                throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+                e.printStackTrace();
+                throw new UnknownResponseException("Invalid Response");
             } finally {
                 if (conn != null) {
                     conn.disconnect();
@@ -512,8 +513,7 @@ public class Handshaker extends NetRunnable {
             } catch (NullPointerException | IOException | JSONException | NoSuchAlgorithmException | KeyManagementException e) {
                 settings.setSessionKey(netApp, "");
                 e.printStackTrace();
-                throw new TemporaryFailureException(getContext().getString(
-                        R.string.auth_server_error));
+                throw new UnknownResponseException("Invalid Response");
             } finally {
                 if (conn != null) {
                     conn.disconnect();

@@ -30,7 +30,7 @@ public class Sleeper extends NetRunnable {
 
 	// TODO: correct value
 	private static final long START_TIME = 60 * 1000; // 1 min
-	private static final long MAX_TIME = 10 * 60 * 1000; // 10 min 1,2,3...10 5*11 55min
+	private static final long MAX_TIME = 32 * 60 * 1000; // 32 min. every half hour seems ok.
 
 	private long mSleepTime;
 
@@ -48,7 +48,7 @@ public class Sleeper extends NetRunnable {
 
 	private void incSleepTime() {
 		synchronized (this) {
-			mSleepTime += 60 * 1000;  // TODO set 60 * 1000
+			mSleepTime *= 2;
 			if (mSleepTime > MAX_TIME) {
 				mSleepTime = MAX_TIME;
 			}

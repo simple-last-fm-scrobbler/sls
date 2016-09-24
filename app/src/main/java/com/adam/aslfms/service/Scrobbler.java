@@ -271,11 +271,12 @@ public class Scrobbler extends AbstractSubmitter {
                     String reason = lines[0].substring(7);
                     throw new TemporaryFailureException("Scrobble failed: " + reason);
                 } else {
-                    throw new TemporaryFailureException("Scrobble failed weirdly: " + response);
+                    throw new AuthStatus.UnknownResponseException("Invalid Response");
                 }
 
             } catch (IOException e) {
-                throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+                e.printStackTrace();
+                throw new AuthStatus.UnknownResponseException("Invalid Response");
             } finally {
                 if (conn != null) {
                     conn.disconnect();
@@ -400,9 +401,12 @@ public class Scrobbler extends AbstractSubmitter {
 
                         throw new TemporaryFailureException("Now playing failed because of " + response);
                     }
+                } else {
+                    throw new AuthStatus.UnknownResponseException("Invalid Response");
                 }
             } catch (IOException | JSONException e) {
-                throw new TemporaryFailureException("Scrobble failed weirdly: " + e.getMessage());
+                e.printStackTrace();
+                throw new AuthStatus.UnknownResponseException("JSON ERROR");
             } finally {
                 if (conn != null) {
                     conn.disconnect();

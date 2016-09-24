@@ -237,11 +237,12 @@ public class NPNotifier extends AbstractSubmitter {
                     String reason = lines[0].substring(7);
                     throw new TemporaryFailureException("Now Playing failed: " + reason);
                 } else {
-                    throw new TemporaryFailureException("Now Playing failed weirdly: " + response);
+                    throw new AuthStatus.UnknownResponseException("Invalid Response");
                 }
 
             } catch (IOException | NullPointerException e) {
-                throw new TemporaryFailureException(TAG + ": " + e.getMessage());
+                e.printStackTrace();
+                throw new AuthStatus.UnknownResponseException("Invalid Response");
             } finally {
                 if (conn != null) {
                     conn.disconnect();
@@ -344,9 +345,12 @@ public class NPNotifier extends AbstractSubmitter {
                         //settings.setSessionKey(netApp, "");
                         throw new TemporaryFailureException("Now playing failed because of " + response);
                     }
+                } else {
+                    throw new AuthStatus.UnknownResponseException("Invalid Response");
                 }
             } catch (IOException | JSONException e) {
-                throw new TemporaryFailureException("Now Playing failed weirdly: " + e.getMessage());
+                e.printStackTrace();
+                throw new AuthStatus.UnknownResponseException("JSON ERROR");
             } finally {
                 if (conn != null) {
                     conn.disconnect();
