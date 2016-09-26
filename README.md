@@ -88,7 +88,6 @@ Please note that some of the following applications require changing their defau
  * [ServeStream](http://sourceforge.net/projects/servestream/) ([Google Play](https://play.google.com/store/apps/details?id=net.sourceforge.servestream))
  * Default Sony Ericsson/Xperia Music Player
  * [Neutron Music Player](http://neutronmp.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.neutroncode.mp))
- * [Music2Dance2](http://www.argoday.com/wiki/Music2Dance2) ([Google Play](https://play.google.com/store/apps/developer?id=Argoday))
  * [Rdio](http://www.rdio.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.rdio.android.ui))
  * [DeaDBeeF](http://deadbeef.sourceforge.net/) ([Google Play](https://play.google.com/store/apps/details?id=org.deadbeef.android)) **(a)**
  * [Music Pump XBMC Remote (Beta)](http://forum.xbmc.org/showthread.php?tid=131303) ([Google Play](https://play.google.com/store/apps/details?id=ch.berard.xbmcremotebeta))
@@ -205,7 +204,7 @@ I use copyright here only in the sense of proper attribution. Do whatever you wa
 
 ### Contributors
  * Adam Renberg, [github.com/tgwizard](https://github.com/tgwizard), main author
- * Argoday, [github.com/argoday](https://github.com/argoday), code fixes, support for Music2Dance2 
+ * Argoday, [github.com/argoday](https://github.com/argoday), code fixes
  * inverse [github.com/inverse](https://github.com/inverse), core contributor
  * HumbleBeeBumbleBee, [github.com/HumbleBeeBumbleBee](https://github.com/HumbleBeeBumbleBee), core contributor
  * Sean O'Neil, [github.com/SeanPONeil](https://github.com/SeanPONeil), android 4.0
