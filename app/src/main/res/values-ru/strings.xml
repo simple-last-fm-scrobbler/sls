@@ -125,7 +125,7 @@
     <string name="not_installed">Это приложение не установлено</string>
     <string name="no_supported_mapis_title">Музыкальных приложений не обнаружено</string>
     <string name="find_supported_mapis_one_title">Обнаружено 1 приложение</string>
-    <string name="find_supported_mapis_many_title">Обнаружено %1 приложений</string>
+    <string name="find_supported_mapis_many_title">Обнаружено приложений: %1</string>
     <string name="find_supported_mapis_summary">Начните слушать музыку в поддерживаемом приложении, и оно появится здесь</string>
     <string name="unknown_mapi">Неизвестное приложение (pre SLS v1.2.3)</string>
     <!-- END mapis strings -->
