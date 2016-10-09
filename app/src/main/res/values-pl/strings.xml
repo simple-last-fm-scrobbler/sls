@@ -16,11 +16,11 @@
     <!-- START about strings -->
     <string name="by">przez</string>
     <string name="issues">Zgłaszanie problemów: %s</string>
-    <string name="website">Strona tytułowa: %s</string>
-    <string name="troubShoot">Rozwiązywanie: %s</string>
+    <string name="website">Strona projektu: %s</string>
+    <string name="troubShoot">Rozwiązywanie problemów: %s</string>
     <string name="by_adam">autorstwa Adama Renberga</string>
     <string name="license">Wydano na podstawie Apache License v2.0</string>
-    <string name="about_text">Lekki scrobbler wysyłający informację do serwisu Last.fm (i/lub Libre.fm) na temat tego jakiej muzyki słuchasz na swoim smartfonie. Last.fm pozwoli wyświetlić Ci statystyki słuchanych utworów oraz przedstawi rekomendacje muzyki, którą być może polubisz.</string>
+    <string name="about_text">Lekki scrobbler wysyłający informację do serwisu Last.fm (i/lub Libre.fm) na temat tego jakiej muzyki słuchasz na swoim urządzeniu z systemem Android. Last.fm pozwala Ci śledzić statystyki słuchanych utworów oraz rekomenduje muzykę, którą być może polubisz.</string>
     <string name="everything_disabled">Scrobblowanie/odtwarzanie jest wyłączone.</string>
     <string name="file_error">Błąd pliku!</string>
     <string name="thats_new">Oto, co nowego</string>
@@ -64,9 +64,9 @@
     <!-- END cache strings -->
 
     <!-- START creds strings -->
-    <string name="user_credentials_title">Ustawienia danych użytkownika</string>
-    <string name="user_credentials_summary">Ustaw nazwę oraz hasło dla swojego konta w serwisie %1 </string>
-    <string name="user_credentials_summary_no_napp">Ustaw nazwę oraz hasło dla swojego konta</string>
+    <string name="user_credentials_title">Dane użytkownika</string>
+    <string name="user_credentials_summary">Ustaw nazwę oraz hasło do swojego konta w serwisie %1 </string>
+    <string name="user_credentials_summary_no_napp">Ustaw nazwę oraz hasło do swojego konta</string>
     <string name="user_credentials_enter_ok">Zaloguj</string>
     <string name="user_credentials_enter_cancel">Powrót</string>
     <string name="user_credentials_clear_title">Wyczyść dane użytkownika</string>
@@ -87,33 +87,33 @@
     <string name="logged_in_as">Zalogowany jako: %1</string>
     <string name="log_in_to">Zaloguj do serwisu</string>
     <string name="not_logged_in">Nie zalogowany w</string>
-    <string name="create_user_title">Zaloguj się</string>
-    <string name="create_user_summary">Zaloguj się na konto %1</string>
+    <string name="create_user_title">Utwórz konto</string>
+    <string name="create_user_summary">Dołącz do %1</string>
     <string name="confirm_clear_creds">Jesteś pewien, że chcesz wyczyścić uwierzytelnienia użytkownika dla for %1? Ta operacja spowoduje również usunięcie niewysłanych scrobbli.</string>
     <string name="confirm_clear_all_creds">Jesteś pewien, że chcesz wyczyścić uwierzytelnienia użytkownika dla wszystkich zalogowanych kont? Ta operacja spowoduje również usunięcie niewysłanych scrobbli.</string>
     <!-- END creds strings -->
 
     <!-- START heart strings -->
-    <string name="heart_and_copy">Opcje utworu</string>
-    <string name="heart_title">Zamiłowanie</string>
-    <string name="heart_current_track">Miłość bieżący piosenka w Last.fm (Libre.fm)</string>
-    <string name="no_heart_track">miłość, piosenka zawiodły</string>
-    <string name="loved_track">Umiłował piosenka</string>
-    <string name="no_lastFm">Wpisz Last.fm poświadczeń</string>
-    <string name="song_is_ready">Pieśń gotowy.</string>
+    <string name="heart_and_copy">Opcje utworów</string>
+    <string name="heart_title">Ulubione utwory</string>
+    <string name="heart_current_track">Dodaj bieżący utwór do ulubionych w Last.fm (Libre.fm)</string>
+    <string name="no_heart_track">Niepowodzenie</string>
+    <string name="loved_track">Ulubiony utwór</string>
+    <string name="no_lastFm">Zaloguj się do Last.fm</string>
+    <string name="song_is_ready">Utwór dodany</string>
     <!-- END heart strings -->
 
     <!-- START copy strings -->
     <string name="copy_title">Kopiuj</string>
-    <string name="copy_current_track">skopiować bieżący piosenka do schowka</string>
-    <string name="no_copy_track">Piosenka kopiowanie nie powiodło</string>
-    <string name="no_current_track">Nie Aktualna Dostępne piosenki</string>
+    <string name="copy_current_track">Kopiuj bieżący utwór do schowka</string>
+    <string name="no_copy_track">Niepowodzenie</string>
+    <string name="no_current_track">Brak bieżącego utworu</string>
     <!-- END copy strings -->
 
     <!-- START permissions and warnings strings -->
     <string name="permission_required">Wymaganego pozwolenia, aby działać poprawnie</string>
     <string name="creds_required">Poświadczenia wymagane do poprawnej pracy</string>
-    <string name="limited_network">Ograniczonej Sieci.</string>
+    <string name="limited_network">Ograniczenia sieci</string>
     <!-- END permissions and warnings strings -->
 
     <!-- START mapis strings -->
@@ -126,7 +126,7 @@
     <string name="no_supported_mapis_title">Nie wykryto aplikacji odtwarzających muzykę</string>
     <string name="find_supported_mapis_one_title">Została wykryta 1 aplikacja odtwarzająca muzykę</string>
     <string name="find_supported_mapis_many_title">Zostały wykryte %1 aplikacje odtwarzające muzykę</string>
-    <string name="find_supported_mapis_summary">Odtwórz muzykę w wspieranej aplikacji a wtedy tutaj się pojawi</string>
+    <string name="find_supported_mapis_summary">Odtwórz muzykę we wspieranej aplikacji a wtedy tutaj się pojawi</string>
     <string name="unknown_mapi">Nieznana aplikacja (pre SLS v1.2.3)</string>
     <!-- END mapis strings -->
 
@@ -139,8 +139,8 @@
     <string name="nowplaying_enable">Udostępniaj informację o aktualnie słuchanym utworze</string>
     <string name="scrobble_point_title">Punkt scrobblowania</string>
     <string name="scrobble_point_summary">Scrobble zostaną dodane do bazy danych po wysłuchaniu %1% utworu</string>
-    <string name="ao_battery_title">Podczas używania baterii</string>
-    <string name="ao_plugged_title">Podczas używania z podłączoną ładowarką</string>
+    <string name="ao_battery_title">Praca na baterii</string>
+    <string name="ao_plugged_title">Praca z podłączoną ładowarką</string>
     <string name="options_summary">Zawiera ustawienia oszczędzania baterii</string>
     <string name="advanced_options_notify_title">Powiadomienia Telefon</string>
     <string name="advanced_options_custom_category_title">Modyfikowane ustawienia scrobblowania</string>
@@ -152,8 +152,8 @@
     <string name="should_disable_np">Powinieneś również wyłączyć udostępnianie informacji o aktualnie słuchanym utworze, aby zaoszczędzić baterię.</string>
     <string name="advanced_options_type_standard_name">Standardowe</string>
     <string name="advanced_options_type_battery_name">Oszczędzanie baterii</string>
-    <string name="advanced_options_type_same_as_battery_name">Takie same jak dla oszczędzania baterii</string>
-    <string name="advanced_options_type_custom_name">Modyfikowane</string>
+    <string name="advanced_options_type_same_as_battery_name">Takie same jak na baterii</string>
+    <string name="advanced_options_type_custom_name">Użytkownika</string>
     <string name="advanced_options_when_1_name">Po każdym uwtorze</string>
     <string name="advanced_options_when_5_name">Po pięciu utworach</string>
     <string name="advanced_options_when_10_name">Po dziesięciu utworach</string>
@@ -176,12 +176,12 @@
     <string name="status_show_title">Status</string>
     <string name="status_show_summary">Pokaż statystyki i cały status</string>
     <string name="status_title">Informacje o statusie</string>
-    <string name="scrobbling_disabled">Scrobblowanie jest wyłąćzone</string>
+    <string name="scrobbling_disabled">Scrobblowanie jest wyłączone</string>
     <string name="scrobble_last_at">Ostatnio udostępnione informacje o scrobblach:</string>
-    <string name="scrobble_last_fail_at">Ostatnio nieudane udostępnienie informacji o scrobblach:</string>
+    <string name="scrobble_last_fail_at">Ostatnie nieudane udostępnienie informacji o scrobblach:</string>
     <string name="nowplaying_disabled">Udostępnianie informacji o aktualnie słuchanym utworze są wyłączone</string>
     <string name="nowplaying_last_at">Ostatnio udostępniona informacja o aktualnie słuchanym utworze:</string>
-    <string name="nowplaying_last_fail_at">Ostatnio nieudane udostępnienie informacji o scrobblach:</string>
+    <string name="nowplaying_last_fail_at">Ostatnie nieudane udostępnienie informacji o scrobblach:</string>
     <string name="stats_scrobbles">Liczba wszystkich zascrobblowanych utworów:</string>
     <string name="never">Nigdy</string>
     <string name="stats_nps">Liczba wszystkich informacji o aktualnie granym utworze:</string>
