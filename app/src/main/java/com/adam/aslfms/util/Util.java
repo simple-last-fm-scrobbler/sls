@@ -57,7 +57,6 @@ import java.util.TimeZone;
  * This class is way too bloated. FIXME
  *
  * @author tgwizard
- *
  */
 
 public class Util {
@@ -68,11 +67,9 @@ public class Util {
      * Returns whether the phone is running on battery or if it is connected to
      * a charger.
      *
-     * @see PowerOptions
-     *
-     * @param ctx
-     *            context to get access to battery-checking methods
+     * @param ctx context to get access to battery-checking methods
      * @return an enum indicating what the power source is
+     * @see PowerOptions
      */
     public static PowerOptions checkPower(Context ctx) {
 
@@ -110,8 +107,8 @@ public class Util {
         ConnectivityManager connectivityManager = (ConnectivityManager) ctx
                 .getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = connectivityManager.getActiveNetworkInfo();
-        if(netInfo == null){
-            Log.d(TAG,"netInfo == null");
+        if (netInfo == null) {
+            Log.d(TAG, "netInfo == null");
         }
         if (netInfo != null) {
             Log.d(TAG, "conn: " + netInfo.isConnected() + " : " + netInfo.toString());
@@ -167,10 +164,8 @@ public class Util {
      * Converts time from a long to a string in a format set by the user in the
      * phone's settings.
      *
-     * @param ctx
-     *            context to get access to the conversion methods
-     * @param secs
-     *            time since 1970, UTC, in seconds
+     * @param ctx  context to get access to the conversion methods
+     * @param secs time since 1970, UTC, in seconds
      * @return the time since 1970, UTC, as a string (e.g. 2009-10-23 12:25)
      */
     public static String timeFromUTCSecs(Context ctx, long secs) {
@@ -232,28 +227,28 @@ public class Util {
         }
     }
 
-    public static void heartIfPossible(Context ctx){
+    public static void heartIfPossible(Context ctx) {
 
-        try{
+        try {
             Intent service = new Intent(ctx, ScrobblingService.class);
             service.setAction(ScrobblingService.ACTION_HEART);
             ctx.startService(service);
-        } catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(ctx, ctx.getString(R.string.no_heart_track),
                     Toast.LENGTH_LONG).show();
-            Log.e(TAG,"CAN'T HEART TRACK"+e);
+            Log.e(TAG, "CAN'T HEART TRACK" + e);
         }
     }
 
-    public static void copyIfPossible(Context ctx){
-        try{
+    public static void copyIfPossible(Context ctx) {
+        try {
             Intent service = new Intent(ctx, ScrobblingService.class);
             service.setAction(ScrobblingService.ACTION_COPY);
             ctx.startService(service);
-        } catch (Exception e){
+        } catch (Exception e) {
             Toast.makeText(ctx, ctx.getString(R.string.no_copy_track),
                     Toast.LENGTH_LONG).show();
-            Log.e(TAG,"CAN'T COPY TRACK"+e);
+            Log.e(TAG, "CAN'T COPY TRACK" + e);
         }
     }
 
@@ -451,7 +446,7 @@ public class Util {
                             .setContentText(content)
                             .setContentIntent(contentIntent);
             NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
-            if(Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2){
+            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
                 builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
                         R.mipmap.ic_launcher));
             }

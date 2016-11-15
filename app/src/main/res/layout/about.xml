@@ -1,116 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:orientation="vertical">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-	<LinearLayout
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:orientation="vertical">
-		<TextView
-			android:id="@+id/app_name"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:textStyle="bold"
-			android:textSize="16sp"
-			android:textColor="@color/status_highlight"
-			android:layout_marginLeft="20dip"
-			android:layout_marginRight="20dip"
-			android:layout_marginTop="12dip"
-			android:layout_marginBottom="4dip" />
-		<TextView
-			android:id="@+id/author"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:textStyle="bold"
-			android:textSize="14sp"
-			android:textColor="@color/status_highlight"
-			android:layout_marginLeft="20dip"
-			android:layout_marginRight="20dip"
-			android:layout_marginTop="4dip"
-			android:layout_marginBottom="4dip" />
-		<TextView
-			android:id="@+id/license"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:textStyle="bold"
-			android:textSize="14sp"
-			android:layout_marginLeft="20dip"
-			android:layout_marginRight="20dip"
-			android:layout_marginTop="4dip"
-			android:layout_marginBottom="8dip" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-		<TextView
-			android:id="@+id/what_is_this"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:textStyle="bold"
-			android:textSize="14sp"
-			android:layout_marginLeft="20dip"
-			android:layout_marginRight="20dip"
-			android:layout_marginTop="8dip"
-			android:layout_marginBottom="8dip" />
+        <TextView
+            android:id="@+id/app_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="12dip"
+            android:textColor="@color/status_highlight"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
-		<TextView
-			android:id="@+id/supported_netapps"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:textStyle="bold"
-			android:textSize="14sp"
-			android:textColor="@color/status_highlight"
-			android:layout_marginLeft="20dip"
-			android:layout_marginRight="20dip"
-			android:layout_marginTop="12dip"
-			android:layout_marginBottom="4dip" />
-		<TextView
-			android:id="@+id/supported_musicapps"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:textStyle="bold"
-			android:textSize="14sp"
-			android:textColor="@color/status_highlight"
-			android:layout_marginLeft="20dip"
-			android:layout_marginRight="20dip"
-			android:layout_marginTop="4dip"
-			android:layout_marginBottom="8dip" />
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="4dip"
+            android:textColor="@color/status_highlight"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-		<TextView
-			android:id="@+id/website"
-			android:autoLink="web"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:textStyle="bold"
-			android:textSize="14sp"
-			android:textColor="@color/status_highlight"
-			android:layout_marginLeft="20dip"
-			android:layout_marginRight="20dip"
-			android:layout_marginTop="8dip"
-			android:layout_marginBottom="4dip" />
-		<TextView
-			android:id="@+id/issues"
-			android:autoLink="web"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:textStyle="bold"
-			android:textSize="14sp"
-			android:textColor="@color/status_highlight"
-			android:layout_marginLeft="20dip"
-			android:layout_marginRight="20dip"
-			android:layout_marginTop="4dip"
-			android:layout_marginBottom="12dip" />
-		<TextView
-			android:id="@+id/tShoot"
-			android:autoLink="web"
-			android:layout_height="wrap_content"
-			android:layout_width="wrap_content"
-			android:textStyle="bold"
-			android:textSize="14sp"
-			android:textColor="@color/status_highlight"
-			android:layout_marginLeft="20dip"
-			android:layout_marginRight="20dip"
-			android:layout_marginTop="4dip"
-			android:layout_marginBottom="12dip" />
-	</LinearLayout>
+        <TextView
+            android:id="@+id/license"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="4dip"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/what_is_this"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="8dip"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/supported_netapps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="12dip"
+            android:textColor="@color/status_highlight"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/supported_musicapps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="4dip"
+            android:textColor="@color/status_highlight"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/website"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="8dip"
+            android:autoLink="web"
+            android:textColor="@color/status_highlight"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/issues"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="4dip"
+            android:autoLink="web"
+            android:textColor="@color/status_highlight"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tShoot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginRight="20dip"
+            android:layout_marginTop="4dip"
+            android:autoLink="web"
+            android:textColor="@color/status_highlight"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 </ScrollView>

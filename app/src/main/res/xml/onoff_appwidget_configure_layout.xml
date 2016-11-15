@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android">
-	<CheckBoxPreference
-		android:key="also_disable_np"
-		android:title="@string/also_disable_np_title"
-		android:summaryOff="@string/also_disable_np_summary"
-		android:persistent="false"
-		android:enabled="true" />
-	<Preference
-		android:key="ok"
-		android:title="@android:string/ok"
-		android:summaryOff=""
-		android:enabled="true" />
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <CheckBoxPreference
+        android:enabled="true"
+        android:key="also_disable_np"
+        android:persistent="false"
+        android:summaryOff="@string/also_disable_np_summary"
+        android:title="@string/also_disable_np_title" />
+    <Preference
+        android:enabled="true"
+        android:key="ok"
+        android:summaryOff=""
+        android:title="@android:string/ok" />
 
 </PreferenceScreen>

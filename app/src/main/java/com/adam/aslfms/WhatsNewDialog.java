@@ -1,23 +1,23 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * 
- *     https://github.com/tgwizard/sls
- * 
+ * <p>
+ * https://github.com/tgwizard/sls
+ * <p>
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * 
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0
- *     
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 
 package com.adam.aslfms;
 
@@ -34,44 +34,44 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 public class WhatsNewDialog {
-	private static final String TAG = "WhatsNewDialog";
-	private final Context mCtx;
+    private static final String TAG = "WhatsNewDialog";
+    private final Context mCtx;
 
-	public WhatsNewDialog(Context ctx) {
-		super();
-		this.mCtx = ctx;
-	}
+    public WhatsNewDialog(Context ctx) {
+        super();
+        this.mCtx = ctx;
+    }
 
-	public void show() {
-		final LayoutInflater factory = LayoutInflater.from(mCtx);
+    public void show() {
+        final LayoutInflater factory = LayoutInflater.from(mCtx);
 
-		View dialogView = factory.inflate(R.layout.whats_new, null);
+        View dialogView = factory.inflate(R.layout.whats_new, null);
 
-		innerUpdate(dialogView);
+        innerUpdate(dialogView);
 
-		AlertDialog.Builder adBuilder = new AlertDialog.Builder(mCtx).setTitle(
+        AlertDialog.Builder adBuilder = new AlertDialog.Builder(mCtx).setTitle(
                 R.string.whats_new).setIcon(android.R.drawable.ic_dialog_info)
-				.setView(dialogView).setNegativeButton(R.string.close, null);
+                .setView(dialogView).setNegativeButton(R.string.close, null);
 
-		adBuilder.show();
-	}
+        adBuilder.show();
+    }
 
-	private void innerUpdate(View dialogView) {
-		TextView tv = (TextView) dialogView.findViewById(R.id.changelog);
+    private void innerUpdate(View dialogView) {
+        TextView tv = (TextView) dialogView.findViewById(R.id.changelog);
 
-		String text = "";
-		try {
-			InputStream is = mCtx.getAssets().open("changelog.txt");
-			BufferedReader buffy = new BufferedReader(new InputStreamReader(is));
-			String s;
-			while ((s = buffy.readLine()) != null)
-				text += s + "\n";
-		} catch (IOException e) {
-			Log.e(TAG, "Couldn't read changelog file!");
-			Log.e(TAG, e.getMessage());
-			text = mCtx.getString(R.string.file_error);
-		}
+        String text = "";
+        try {
+            InputStream is = mCtx.getAssets().open("changelog.txt");
+            BufferedReader buffy = new BufferedReader(new InputStreamReader(is));
+            String s;
+            while ((s = buffy.readLine()) != null)
+                text += s + "\n";
+        } catch (IOException e) {
+            Log.e(TAG, "Couldn't read changelog file!");
+            Log.e(TAG, e.getMessage());
+            text = mCtx.getString(R.string.file_error);
+        }
 
-		tv.setText(text);
-	}
+        tv.setText(text);
+    }
 }

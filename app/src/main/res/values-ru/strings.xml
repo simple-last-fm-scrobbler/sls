@@ -12,7 +12,7 @@
     <string name="also_disable_np_title">Также отключает уведомления о проигрываемых композициях</string>
     <string name="also_disable_np_summary">[Hmpf]</string>
     <!-- END original strings -->
-    
+
     <!-- START about strings -->
     <string name="by">Автор:</string>
     <string name="issues">Баги и предложения: %s</string>
@@ -61,8 +61,8 @@
     <string name="sc_sort_album_desc">Альбом, по убыванию</string>
     <string name="sc_sort_track_asc">Композиция, по возрастанию</string>
     <string name="sc_sort_track_desc">Композиция, по убыванию</string>
-    <!-- END cache strings -->  
-    
+    <!-- END cache strings -->
+
     <!-- START creds strings -->
     <string name="user_credentials_title">Учетная запись</string>
     <string name="user_credentials_summary">Сохранение данных учетной записи на %1</string>
@@ -92,7 +92,7 @@
     <string name="confirm_clear_creds">Вы уверены, что хотите удалить данные учетной записи для %1? Данное действие также приведет к удалению из кэша всех неотправленных композиций.</string>
     <string name="confirm_clear_all_creds">Вы уверены, что хотите удалить данные всех учетных записей? Данное действие также приведет к удалению из кэша всех неотправленных композиций.</string>
     <!-- END creds strings -->
-	
+
     <!-- START heart strings -->
     <string name="heart_and_copy">Опции композиции</string>
     <string name="heart_title">Нравится</string>
@@ -115,7 +115,7 @@
     <string name="creds_required">Необходимы данные учетной записи для нормальной работы</string>
     <string name="limited_network">Ограниченная Cеть</string>
     <!-- END permissions and warnings strings -->
-    
+
     <!-- START mapis strings -->
     <string name="incompatability_short">Внимание! %1$s установлено и может привести к двойному скробблингу.</string>
     <string name="incompatability_long">Внимание! %1$s установлено и может привести к двойному скробблингу. Отключите скробблинг в этом приложении или удалите %1$s.</string>
@@ -129,7 +129,7 @@
     <string name="find_supported_mapis_summary">Начните слушать музыку в поддерживаемом приложении, и оно появится здесь</string>
     <string name="unknown_mapi">Неизвестное приложение (pre SLS v1.2.3)</string>
     <!-- END mapis strings -->
-    
+
     <!-- START options strings -->
     <string name="options_title">Настройки</string>
     <string name="advanced_options_title">Дополнительные настройки</string>
@@ -167,7 +167,7 @@
     <string name="advanced_options_net_roaming_summary_off">Запрет на передачу данных в роуминге</string>
     <string name="advanced_options_net_roaming_summary_on">Передача данных в роуминге</string>
     <!-- END options strings -->
-    
+
     <!-- START status strings -->
     <string name="status">Статус</string>
     <string name="scrobble_status_title">Статус скробблинга</string>
@@ -189,5 +189,5 @@
     <string name="profile_page">Страница с профилем</string>
     <string name="advanced_options_notify_title">Уведомления на телефон</string>
     <!-- END status strings -->
-    
+
 </resources>

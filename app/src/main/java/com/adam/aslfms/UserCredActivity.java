@@ -1,23 +1,23 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * 
- *     https://github.com/tgwizard/sls
- * 
+ * <p>
+ * https://github.com/tgwizard/sls
+ * <p>
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * 
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0
- *     
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 
 package com.adam.aslfms;
 
@@ -45,138 +45,137 @@ import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
 public class UserCredActivity extends AppCompatPreferenceActivity {
 
-	private static final String TAG = "UserCredActivity";
+    private static final String TAG = "UserCredActivity";
 
-	// keys to preferences
-	private static final String KEY_USER_CREDS_HEADER = "user_creds_header";
-	private static final String KEY_EDIT_USER_CREDENTIALS = "edit_user_credentials";
-	private static final String KEY_CLEAR_USER_CREDENTIALS = "clear_user_credentials";
-	private static final String KEY_CREATE_USER = "create_user";
+    // keys to preferences
+    private static final String KEY_USER_CREDS_HEADER = "user_creds_header";
+    private static final String KEY_EDIT_USER_CREDENTIALS = "edit_user_credentials";
+    private static final String KEY_CLEAR_USER_CREDENTIALS = "clear_user_credentials";
+    private static final String KEY_CREATE_USER = "create_user";
 
-	private NetApp mNetApp;
+    private NetApp mNetApp;
 
-	private AppSettings settings;
+    private AppSettings settings;
 
-	private PreferenceCategory mHeader;
-	private EditUserCredentials mEditCreds;
-	private Preference mClearCreds;
-	private Preference mCreateUser;
+    private PreferenceCategory mHeader;
+    private EditUserCredentials mEditCreds;
+    private Preference mClearCreds;
+    private Preference mCreateUser;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.user_cred_prefs);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        addPreferencesFromResource(R.xml.user_cred_prefs);
 
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		}
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
-		String snapp = getIntent().getExtras().getString("netapp");
-		if (snapp == null) {
-			Log.e(TAG, "Got null snetapp");
-			finish();
-		}
-		mNetApp = NetApp.valueOf(snapp);
+        String snapp = getIntent().getExtras().getString("netapp");
+        if (snapp == null) {
+            Log.e(TAG, "Got null snetapp");
+            finish();
+        }
+        mNetApp = NetApp.valueOf(snapp);
 
-		settings = new AppSettings(this);
+        settings = new AppSettings(this);
 
-		mHeader = (PreferenceCategory) findPreference(KEY_USER_CREDS_HEADER);
-		mHeader.setTitle(mNetApp.getName());
-		mEditCreds = (EditUserCredentials) findPreference(KEY_EDIT_USER_CREDENTIALS);
-		mEditCreds.setNetApp(mNetApp);
-		mClearCreds = findPreference(KEY_CLEAR_USER_CREDENTIALS);
-		mCreateUser = findPreference(KEY_CREATE_USER);
-		mCreateUser.setSummary(getString(R.string.create_user_summary).replace(
-				"%1", mNetApp.getName()));
-	}
+        mHeader = (PreferenceCategory) findPreference(KEY_USER_CREDS_HEADER);
+        mHeader.setTitle(mNetApp.getName());
+        mEditCreds = (EditUserCredentials) findPreference(KEY_EDIT_USER_CREDENTIALS);
+        mEditCreds.setNetApp(mNetApp);
+        mClearCreds = findPreference(KEY_CLEAR_USER_CREDENTIALS);
+        mCreateUser = findPreference(KEY_CREATE_USER);
+        mCreateUser.setSummary(getString(R.string.create_user_summary).replace(
+                "%1", mNetApp.getName()));
+    }
 
-	@Override
-	public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
-			Preference pref) {
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
+                                         Preference pref) {
 
-		if (pref == mClearCreds) {
-			if (settings.isAuthenticated(mNetApp)) {
-				Util.confirmDialog(this,
-						getString(R.string.confirm_clear_creds).replaceAll(
-								"%1", mNetApp.getName()), R.string.clear_creds,
-						android.R.string.cancel, new OnClickListener() {
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								sendClearCreds();
-							}
-						});
-			} else {
-				sendClearCreds();
-			}
+        if (pref == mClearCreds) {
+            if (settings.isAuthenticated(mNetApp)) {
+                Util.confirmDialog(this,
+                        getString(R.string.confirm_clear_creds).replaceAll(
+                                "%1", mNetApp.getName()), R.string.clear_creds,
+                        android.R.string.cancel, new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                sendClearCreds();
+                            }
+                        });
+            } else {
+                sendClearCreds();
+            }
 
-			update();
-			return true;
-		} else if (pref == mCreateUser) {
-			Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(mNetApp
-					.getSignUpUrl(settings)));
-			try {
-				startActivity(browser);
-			} catch (Exception e){
-				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://git.gnu.io/gnu/gnu-fm/blob/master/gnufm_install.txt")));
-			}
-			return true;
-		}
+            update();
+            return true;
+        } else if (pref == mCreateUser) {
+            Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(mNetApp
+                    .getSignUpUrl(settings)));
+            try {
+                startActivity(browser);
+            } catch (Exception e) {
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://git.gnu.io/gnu/gnu-fm/blob/master/gnufm_install.txt")));
+            }
+            return true;
+        }
 
-		return super.onPreferenceTreeClick(prefScreen, pref);
-	}
+        return super.onPreferenceTreeClick(prefScreen, pref);
+    }
 
-	private void sendClearCreds() {
+    private void sendClearCreds() {
         Intent service = new Intent(this, ScrobblingService.class);
         service.setAction(ScrobblingService.ACTION_CLEARCREDS);
-		service.putExtra("netapp", mNetApp.getIntentExtraValue());
-		startService(service);
-	}
+        service.putExtra("netapp", mNetApp.getIntentExtraValue());
+        startService(service);
+    }
 
-	private void update() {
-		mEditCreds.setSummary(Util.getStatusSummary(this, settings, mNetApp));
-		boolean hasCreds = settings.hasCreds(mNetApp);
-		mClearCreds.setEnabled(hasCreds);
-	}
+    private void update() {
+        mEditCreds.setSummary(Util.getStatusSummary(this, settings, mNetApp));
+        boolean hasCreds = settings.hasCreds(mNetApp);
+        mClearCreds.setEnabled(hasCreds);
+    }
 
-	@Override
-	protected void onPause() {
-		super.onPause();
+    @Override
+    protected void onPause() {
+        super.onPause();
 
-		unregisterReceiver(onAuthChange);
-	}
+        unregisterReceiver(onAuthChange);
+    }
 
-	@Override
-	protected void onResume() {
-		super.onResume();
+    @Override
+    protected void onResume() {
+        super.onResume();
 
-		IntentFilter ifs = new IntentFilter();
-		ifs.addAction(ScrobblingService.BROADCAST_ONAUTHCHANGED);
-		registerReceiver(onAuthChange, ifs);
+        IntentFilter ifs = new IntentFilter();
+        ifs.addAction(ScrobblingService.BROADCAST_ONAUTHCHANGED);
+        registerReceiver(onAuthChange, ifs);
 
-		update();
-	}
+        update();
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-			// Respond to the action bar's Up/Home button
-			case android.R.id.home:
-				NavUtils.navigateUpFromSameTask(this);
-				return true;
-		}
-		return super.onOptionsItemSelected(item);
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
-	private BroadcastReceiver onAuthChange = new BroadcastReceiver() {
+    private BroadcastReceiver onAuthChange = new BroadcastReceiver() {
 
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			Bundle b = intent.getExtras();
-			if (mNetApp == NetApp.valueOf(b.getString("netapp"))) {
-				UserCredActivity.this.update();
-			}
-		}
-	};
-
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Bundle b = intent.getExtras();
+            if (mNetApp == NetApp.valueOf(b.getString("netapp"))) {
+                UserCredActivity.this.update();
+            }
+        }
+    };
 }

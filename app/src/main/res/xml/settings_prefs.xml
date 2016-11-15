@@ -49,15 +49,15 @@
 
     <PreferenceCategory android:title="@string/heart_and_copy" />
     <Preference
-        android:title="@string/heart_title"
         android:icon="@mipmap/ic_status_wail_love_track"
         android:key="my_heart_button"
-        android:summary="@string/heart_current_track" />
+        android:summary="@string/heart_current_track"
+        android:title="@string/heart_title" />
 
     <Preference
-        android:title="@string/copy_title"
         android:icon="@mipmap/ic_menu_copy_holo_dark"
         android:key="my_copy_button"
-        android:summary="@string/copy_current_track" />
+        android:summary="@string/copy_current_track"
+        android:title="@string/copy_title" />
 
 </PreferenceScreen>

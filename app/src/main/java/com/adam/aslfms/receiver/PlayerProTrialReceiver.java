@@ -3,9 +3,8 @@ package com.adam.aslfms.receiver;
 /**
  * A BroadcastReceiver for intents sent by the trial version of Player Pro.
  *
- * @see BuiltInMusicAppReceiver
- *
  * @author metanota <metanota@gmail.com>
+ * @see BuiltInMusicAppReceiver
  * @since 1.4.7
  */
 public class PlayerProTrialReceiver extends BuiltInMusicAppReceiver {

@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent"
-	android:layout_height="match_parent"
-	android:orientation="vertical">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-	<ListView
-		android:id="@+id/cache_list"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent" />
+    <ListView
+        android:id="@+id/cache_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
-	<TextView
-		android:id="@+id/empty_list"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:text="@string/no_scrobbles_in_cache"
-		android:textAppearance="?android:attr/textAppearanceMedium"
-		android:textColor="?android:attr/textColorPrimary"
-        android:visibility="gone"
-		android:gravity="center"
-		android:textStyle="bold"
-		android:layout_margin="4dip" />
+    <TextView
+        android:id="@+id/empty_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="4dip"
+        android:gravity="center"
+        android:text="@string/no_scrobbles_in_cache"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold"
+        android:visibility="gone" />
 
 </LinearLayout>

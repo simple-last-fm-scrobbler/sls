@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content"
-	android:paddingLeft="8dip"
-	android:paddingTop="8dip"
-	android:paddingRight="8dip"
-	android:paddingBottom="8dip"
-	android:orientation="vertical"
-	android:gravity="center_vertical"
-	android:background="@android:drawable/menuitem_background">
-	<TextView
-		android:id="@+id/sort_title"
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-		android:maxLines="1"
-		android:textStyle="bold"
-		android:textAppearance="?android:attr/textAppearanceSmall"
-		android:textColor="?android:attr/textColorPrimary"
-		android:longClickable="false"
-		android:gravity="center_horizontal" />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:drawable/menuitem_background"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:paddingBottom="8dip"
+    android:paddingLeft="8dip"
+    android:paddingRight="8dip"
+    android:paddingTop="8dip">
+
+    <TextView
+        android:id="@+id/sort_title"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:longClickable="false"
+        android:maxLines="1"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textStyle="bold" />
 </LinearLayout>

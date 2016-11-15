@@ -44,13 +44,13 @@ public class MyHandshakeCompletedListener implements HandshakeCompletedListener 
 
         try {
             peerName = session.getPeerPrincipal().getName();
-            Log.d(TAG,"peerName: "+peerName);
+            Log.d(TAG, "peerName: " + peerName);
         } catch (SSLPeerUnverifiedException e) {
             e.printStackTrace();
         }
-        Log.d(TAG,"session: "+session);
-        Log.d(TAG,"protocol: "+protocol);
-        Log.d(TAG,"cipherSuite: "+cipherSuite);
+        Log.d(TAG, "session: " + session);
+        Log.d(TAG, "protocol: " + protocol);
+        Log.d(TAG, "cipherSuite: " + cipherSuite);
 
     }
 }

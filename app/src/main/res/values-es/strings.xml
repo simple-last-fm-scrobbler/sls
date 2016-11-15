@@ -10,9 +10,9 @@
     <string name="warning">Atención</string>
     <string name="will_submit_stuff">Enviará información a la página web</string>
     <string name="also_disable_np_title">También deshabilita el Escuchando ahora</string>
-    <string name="also_disable_np_summary">[Hmpf]</string>  
+    <string name="also_disable_np_summary">[Hmpf]</string>
     <!-- END original strings -->
-    
+
     <!-- START about strings -->
     <string name="by">por</string>
     <string name="issues">Incidencias: %s</string>
@@ -27,7 +27,7 @@
     <string name="about">Acerca de</string>
     <string name="whats_new">Novedades</string>
     <string name="supported_netapps">Sitios web soportados: %1</string>
-    <string name="supported_apps">Aplicaciones soportadas: %s y más…</string>   
+    <string name="supported_apps">Aplicaciones soportadas: %s y más…</string>
     <!-- END about strings -->
 
     <!-- START cache strings -->
@@ -60,9 +60,9 @@
     <string name="sc_sort_album_asc">Álbum, ascendente</string>
     <string name="sc_sort_album_desc">Álbum, descendente</string>
     <string name="sc_sort_track_asc">Nombre de la pista, ascendente</string>
-    <string name="sc_sort_track_desc">Nombre de la pista, descendente</string> 
-    <!-- END cache strings -->  
-    
+    <string name="sc_sort_track_desc">Nombre de la pista, descendente</string>
+    <!-- END cache strings -->
+
     <!-- START creds strings -->
     <string name="user_credentials_title">Credenciales de usuario</string>
     <string name="user_credentials_summary">Introduce tu nombre de usuario y contraseña de tu cuenta en %1</string>
@@ -90,7 +90,7 @@
     <string name="create_user_title">Registrarse</string>
     <string name="create_user_summary">Registre una cuenta nueva en %1</string>
     <string name="confirm_clear_creds">¿Está seguro de que desea limpiar sus credenciales de %1? Esto eliminará también sus scrobbles sin enviar.</string>
-    <string name="confirm_clear_all_creds">¿Está seguro de que desea limpiar sus credenciales de todas las cuentas incluidas? Esto también eliminará cualquier scrobble sin enviar.</string>    
+    <string name="confirm_clear_all_creds">¿Está seguro de que desea limpiar sus credenciales de todas las cuentas incluidas? Esto también eliminará cualquier scrobble sin enviar.</string>
     <!-- END creds strings -->
 
     <!-- START heart strings -->
@@ -112,10 +112,10 @@
 
     <!-- START permissions and warnings strings -->
     <string name="permission_required">Permiso REQUERIDO para funcionar correctamente</string>
-        <string name="creds_required">Credenciales REQUERIDAS para funcionar correctamente</string>
+    <string name="creds_required">Credenciales REQUERIDAS para funcionar correctamente</string>
     <string name="limited_network">Red limitada</string>
     <!-- END permissions and warnings strings -->
-    
+
     <!-- START mapis strings -->
     <string name="incompatability_short">Atención: %1$s está instalada y puede causar doble scrobbleo.</string>
     <string name="incompatability_long">Atención: %1$s está instalada y puede producir incompatibilidades al scrobblear. Desactive el scrobbleo desde esta aplicación o desinstale %1$s.</string>
@@ -129,7 +129,7 @@
     <string name="find_supported_mapis_summary">Cuando reproduzcas música en una aplicación soportada, esta aparecerá aquí</string>
     <string name="unknown_mapi">Aplicación desconocida (pre SLS v1.2.3)</string>
     <!-- END mapis strings -->
-    
+
     <!-- START options strings -->
     <string name="options_title">Opciones</string>
     <string name="advanced_options_title">Opciones avanzadas</string>
@@ -166,9 +166,9 @@
     <string name="advanced_options_net_wifi_name">Sólo WiFi</string>
     <string name="advanced_options_net_roaming_title">Itinerancia de datos</string>
     <string name="advanced_options_net_roaming_summary_off">No enviará información bajo itinerancia</string>
-    <string name="advanced_options_net_roaming_summary_on">Enviará información bajo itinerancia</string>    
+    <string name="advanced_options_net_roaming_summary_on">Enviará información bajo itinerancia</string>
     <!-- END options strings -->
-    
+
     <!-- START status strings -->
     <string name="status">Estado</string>
     <string name="scrobble_status_title">Estado del scrobbleo</string>
@@ -189,5 +189,5 @@
     <string name="confirm_stats_reset">¿Está seguro de que quiere limpiar sus estadísticas de envío de %1? Esta operación no se puede deshacer.</string>
     <string name="profile_page">Página del perfil:</string>
     <!-- END status strings -->
-    
+
 </resources>

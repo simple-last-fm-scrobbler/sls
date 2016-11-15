@@ -212,14 +212,14 @@ public class Handshaker extends NetRunnable {
      * @throws TemporaryFailureException
      * @throws UnknownResponseException  {@link UnknownResponseException}
      * @throws ClientBannedException     this version of the client has been banned
-     *
-     * Current IP address / handshake URL
-     *
-     *  64.30.224.206       ws.audioscrobbler.com/2.0/
-     *  104.27.149.89       libre.fm/2.0/
-     *
-     *  204.74.99.100       audioscrobbler.post.com
-     *  213.138.110.193     turtle.libre.fm
+     *                                   <p>
+     *                                   Current IP address / handshake URL
+     *                                   <p>
+     *                                   64.30.224.206       ws.audioscrobbler.com/2.0/
+     *                                   104.27.149.89       libre.fm/2.0/
+     *                                   <p>
+     *                                   204.74.99.100       audioscrobbler.post.com
+     *                                   213.138.110.193     turtle.libre.fm
      */
 
     public HandshakeResult handshake() throws BadAuthException,
@@ -387,7 +387,7 @@ public class Handshaker extends NetRunnable {
                 conn = (HttpsURLConnection) url.openConnection();
                 conn.setSSLSocketFactory(customSockets);
                 /**
-                String[] strArr = customSockets.getDefaultCipherSuites();
+                 String[] strArr = customSockets.getDefaultCipherSuites();
                  for (String str : strArr) {
                  Log.e(TAG, str);
                  }

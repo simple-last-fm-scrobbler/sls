@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-	xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<com.adam.aslfms.SeekBarPreference
-		android:key="scrobble_pointer"
-		android:title="@string/scrobble_point_title"
-		android:summary="@string/scrobble_point_summary" />
+    <com.adam.aslfms.SeekBarPreference
+        android:key="scrobble_pointer"
+        android:summary="@string/scrobble_point_summary"
+        android:title="@string/scrobble_point_title" />
 
-	<PreferenceCategory
-		android:key="ao_battery"
-		android:title="@string/ao_battery_title" />
+    <PreferenceCategory
+        android:key="ao_battery"
+        android:title="@string/ao_battery_title" />
 
-	<PreferenceCategory
-		android:key="ao_plugged"
-		android:title="@string/ao_plugged_title" />
+    <PreferenceCategory
+        android:key="ao_plugged"
+        android:title="@string/ao_plugged_title" />
 
 </PreferenceScreen>

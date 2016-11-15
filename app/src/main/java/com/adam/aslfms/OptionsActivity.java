@@ -173,7 +173,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         }
 
         public boolean onClick(Preference pref) {
-            if (pref == ongoing){
+            if (pref == ongoing) {
                 settings.setOnGoingEnabled(power, ongoing.isChecked());
             } else if (pref == notify) {
                 settings.setNotifyEnabled(power, notify.isChecked());

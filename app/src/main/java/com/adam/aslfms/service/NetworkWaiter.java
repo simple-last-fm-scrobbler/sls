@@ -52,11 +52,11 @@ public class NetworkWaiter extends NetRunnable {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             ifs.addAction(PowerManager.ACTION_DEVICE_IDLE_MODE_CHANGED);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             ifs.addAction(PowerManager.ACTION_POWER_SAVE_MODE_CHANGED);
         }
         getContext().registerReceiver(mConnReceiver, ifs);
-        Log.d(TAG,"connectivity_action");
+        Log.d(TAG, "connectivity_action");
         synchronized (this) {
             mWait = Util.checkForOkNetwork(getContext()) != NetworkStatus.OK;
             while (mWait) {
@@ -86,15 +86,15 @@ public class NetworkWaiter extends NetRunnable {
                 if (Util.checkForOkNetwork(getContext()) == NetworkStatus.OK) {
                     NetworkWaiter.this.mWait = false;
                     NetworkWaiter.this.notifyAll();
-                   /** PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        boolean isIdle = pm.isDeviceIdleMode();
-                        Log.e(TAG, "Idle Mode: " + isIdle);
-                    }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
-                        boolean isPowerSave = pm.isPowerSaveMode();
-                        Log.e(TAG, "Power Save Mode: " + isPowerSave);
-                    }*/
+                    /** PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                     boolean isIdle = pm.isDeviceIdleMode();
+                     Log.e(TAG, "Idle Mode: " + isIdle);
+                     }
+                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+                     boolean isPowerSave = pm.isPowerSaveMode();
+                     Log.e(TAG, "Power Save Mode: " + isPowerSave);
+                     }*/
                 }
             }
         }

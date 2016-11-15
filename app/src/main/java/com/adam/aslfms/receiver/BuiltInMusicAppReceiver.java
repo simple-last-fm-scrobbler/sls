@@ -204,9 +204,7 @@ public abstract class BuiltInMusicAppReceiver extends
 	}
 
 	boolean shouldFetchFromMediaStore(Context ctx, long audioid) {
-		if (audioid > 0)
-			return true;
-		return false;
+		return audioid > 0;
 	}
 
 	void readTrackFromMediaStore(Context ctx, Track.Builder b, long audioid) {

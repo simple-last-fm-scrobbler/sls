@@ -55,7 +55,7 @@ public class ForegroundHide extends Service {
                         .setContentText("")
                         .setContentIntent(contentIntent);
 
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2){
+        if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
             builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
                     R.mipmap.ic_launcher));
         }

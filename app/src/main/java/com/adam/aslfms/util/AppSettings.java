@@ -173,45 +173,49 @@ public class AppSettings {
         return prefs.getString(napp.getSettingsPrefix() + KEY_PASSWORD, "");
     }
 
-    /** Saves sessionKey in plain text
+    /**
+     * Saves sessionKey in plain text
      *
      * @param napp
      * @param s
      */
-    public void setSessionKey(NetApp napp, String s){
+    public void setSessionKey(NetApp napp, String s) {
         Editor e = prefs.edit();
         e.putString(napp.getSettingsPrefix() + KEY_SESSION, s);
         e.commit();
     }
 
-    /** Returns sessionKey in plain text
+    /**
+     * Returns sessionKey in plain text
      *
      * @param napp
      * @return
      */
-    public String getSessionKey(NetApp napp){
+    public String getSessionKey(NetApp napp) {
         return prefs.getString(napp.getSettingsPrefix() + KEY_SESSION, "");
     }
 
-    public void setTotalScrobbles(NetApp napp, String s){
+    public void setTotalScrobbles(NetApp napp, String s) {
         Editor e = prefs.edit();
         e.putString(napp.getSettingsPrefix() + KEY_SCROBBLES, s);
         e.commit();
     }
 
-    public String getTotalScrobbles(NetApp napp){
+    public String getTotalScrobbles(NetApp napp) {
         return prefs.getString(napp.getSettingsPrefix() + KEY_SCROBBLES, "");
     }
 
-    public String getAPIkey(){
+    public String getAPIkey() {
         return "EoyDuAbyW8RGZ8exvi+J205QfXC8qy3eoEhgqrjbU9krAbk7zsobQQ==";
     }
 
-    public String getSecret(){
+    public String getSecret() {
         return "u5w3f1fzTIEshjiQdLJ8jqzSEtLIeCkwItIWFVien1srAbk7zsobQQ==";
     }
 
-    public String getSecret2() { return MD5.getHashString("unComplicatedHash345623@%^#@^$0"); }
+    public String getSecret2() {
+        return MD5.getHashString("unComplicatedHash345623@%^#@^$0");
+    }
 
     /**
      * Saves an MD5 hash of the password for a user account at the
@@ -595,13 +599,13 @@ public class AppSettings {
     }
 
 
-    public SecretKey getSecKey(){
+    public SecretKey getSecKey() {
         try {
             DESKeySpec keySpec = new DESKeySpec(getSecret2().getBytes("UTF8"));
             SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("DES");
             SecretKey key = keyFactory.generateSecret(keySpec);
             return key;
-        } catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
@@ -619,7 +623,7 @@ public class AppSettings {
         }
     }
 
-    public String rcnvK(String inStr){
+    public String rcnvK(String inStr) {
         try {
             byte[] encrypedPwdBytes = myBase64.decode(inStr, myBase64.DEFAULT);
             Cipher cipher = Cipher.getInstance("DES"); // cipher is not thread safe
@@ -627,7 +631,7 @@ public class AppSettings {
             byte[] plainTextPwdBytes = (cipher.doFinal(encrypedPwdBytes));
             String outPut = new String(plainTextPwdBytes);
             return outPut;
-        } catch (Exception e){
+        } catch (Exception e) {
             e.getStackTrace();
             return "";
         }

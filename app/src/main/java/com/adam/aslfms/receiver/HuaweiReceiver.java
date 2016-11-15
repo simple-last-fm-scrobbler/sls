@@ -2,9 +2,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -42,6 +42,7 @@ public class HuaweiReceiver extends AbstractPlayStatusReceiver {
         static final String PLAYSTATE_CHANGED = APP_PACKAGE + ".playstatechanged";
         static final String ACTION_STOP = APP_PACKAGE + ".playbackcomplete";
     }
+
     static private Track track = null;
 
     @Override
@@ -73,7 +74,7 @@ public class HuaweiReceiver extends AbstractPlayStatusReceiver {
 
             long duration = bundle.getLong(BroadcastTypes.APP_PACKAGE + "duration", 0);
             if (duration > 0) {
-                b.setDuration((int)(duration / 1000));
+                b.setDuration((int) (duration / 1000));
             }
 
             track = b.build();

@@ -40,7 +40,7 @@ public enum AdvancedOptions {
     private final int nameRID;
 
     AdvancedOptions(String settingsVal, boolean enableOnGoing, boolean enableNotify, boolean enableScrobbling, boolean enableNp, AdvancedOptionsWhen when,
-                            boolean alsoOnComplete, NetworkOptions networkOptions, boolean roaming, int nameRID) {
+                    boolean alsoOnComplete, NetworkOptions networkOptions, boolean roaming, int nameRID) {
         this.settingsVal = settingsVal;
         this.enableOnGoing = enableOnGoing;
         this.enableNotify = enableNotify;
@@ -60,9 +60,13 @@ public enum AdvancedOptions {
         return settingsVal;
     }
 
-    public boolean isOnGoingEnabled() { return enableOnGoing; }
+    public boolean isOnGoingEnabled() {
+        return enableOnGoing;
+    }
 
-    public boolean isNotifyEnabled() { return enableNotify; }
+    public boolean isNotifyEnabled() {
+        return enableNotify;
+    }
 
     public boolean isScrobblingEnabled() {
         return enableScrobbling;

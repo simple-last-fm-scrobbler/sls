@@ -29,6 +29,7 @@ import java.util.List;
 
 /**
  * Created by bryan on 6/6/15.
+ *
  * @author Bryan
  * @since 1.4.9
  */
@@ -237,7 +238,7 @@ public class StatusFragment extends Fragment {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if(intent.getExtras() != null) {
+            if (intent.getExtras() != null) {
                 String snapp = intent.getStringExtra("netapp");
                 if (snapp == null) {
                     Log.e(TAG, "Got null snetapp from broadcast");

@@ -1,23 +1,23 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * 
- *     https://github.com/tgwizard/sls
- * 
+ * <p>
+ * https://github.com/tgwizard/sls
+ * <p>
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * 
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0
- *     
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 
 package com.adam.aslfms;
 
@@ -45,19 +45,19 @@ import java.util.List;
 
 public class StatusActivity extends AppCompatActivity {
 
-	private static final int MENU_SCROBBLE_NOW_ID = 0;
-	private static final int MENU_VIEW_CACHE_ID = 1;
-	private static final int MENU_RESET_STATS_ID = 2;
+    private static final int MENU_SCROBBLE_NOW_ID = 0;
+    private static final int MENU_VIEW_CACHE_ID = 1;
+    private static final int MENU_RESET_STATS_ID = 2;
 
     private AppSettings settings;
     private ScrobblesDatabase mDb;
 
     private static final String TAG = "StatusActivity";
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.status_activity);
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.status_activity);
 
         settings = new AppSettings(this);
 
@@ -72,8 +72,8 @@ public class StatusActivity extends AppCompatActivity {
         }
 
         //getSupportActionBar().setElevation(0);
-		//Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-		//setSupportActionBar(toolbar);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         // manifest android:theme="@style/Theme.AppCompat.NoActionBar"
 
@@ -84,7 +84,7 @@ public class StatusActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
-	}
+    }
 
     @Override
     protected void onDestroy() {
@@ -92,12 +92,12 @@ public class StatusActivity extends AppCompatActivity {
         mDb.close();
     }
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.status, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -108,13 +108,13 @@ public class StatusActivity extends AppCompatActivity {
                 Util.scrobbleAllIfPossible(this, numInCache);
                 return true;
             case R.id.MENU_RESET_STATS_ID:
-                for (NetApp napp : NetApp.values()){
+                for (NetApp napp : NetApp.values()) {
                     settings.clearSubmissionStats(napp);
                     // TODO: refill data on clearStats
                     /**StatusFragment fragment = (StatusFragment) getSupportFragmentManager().findFragmentByTag("StatusFragment");
-                    if (fragment != null){
-                        fragment.fillData();
-                    }*/
+                     if (fragment != null){
+                     fragment.fillData();
+                     }*/
                 }
                 this.finish();
                 startActivity(getIntent());

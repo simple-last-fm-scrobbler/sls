@@ -12,7 +12,7 @@
     <string name="also_disable_np_title">\'Hört gerade\' auch ausschalten</string>
     <string name="also_disable_np_summary">[Hmpf]</string>
     <!-- END original strings -->
-    
+
     <!-- START about strings -->
     <string name="by">von</string>
     <string name="issues">Probleme: %s</string>
@@ -61,8 +61,8 @@
     <string name="sc_sort_album_desc">Album, absteigend</string>
     <string name="sc_sort_track_asc">Songtitel, aufsteigend</string>
     <string name="sc_sort_track_desc">Songtitel, absteigend</string>
-    <!-- END cache strings -->  
-    
+    <!-- END cache strings -->
+
     <!-- START creds strings -->
     <string name="user_credentials_title">Benutzerdaten</string>
     <string name="user_credentials_summary">Benutzername und Passwort für %1</string>
@@ -115,7 +115,7 @@
     <string name="creds_required">Anmeldedaten erforderlich um richtig zu arbeiten</string>
     <string name="limited_network">Begrenzte Netzwerk</string>
     <!-- END permissions and warnings strings -->
-    
+
     <!-- START mapis strings -->
     <string name="incompatability_short">Warnung: %1$s ist installiert und könnte zu doppelten Scrobbles führen.</string>
     <string name="incompatability_long">Warnung: %1$s ist installiert und könnte zu Scrobble-Inkompatibilitäten führen. Schalte Scrobbeln in dieser App aus oder deinstalliere %1$s.</string>
@@ -129,7 +129,7 @@
     <string name="find_supported_mapis_summary">Spiele Musik in einer unterstützten App ab und diese wird hier erscheinen</string>
     <string name="unknown_mapi">Unbekannte App (pre SLS v1.2.3)</string>
     <!-- END mapis strings -->
-    
+
     <!-- START options strings -->
     <string name="options_title">Einstellungen</string>
     <string name="advanced_options_title">Erweiterte Einstellungen</string>
@@ -168,7 +168,7 @@
     <string name="advanced_options_net_roaming_summary_off">Übertrage keine Daten im Roaming-Modus</string>
     <string name="advanced_options_net_roaming_summary_on">Übertrage Daten im Roaming-Modus</string>
     <!-- END options strings -->
-    
+
     <!-- START status strings -->
     <string name="status">Status</string>
     <string name="scrobble_status_title">Scrobble-Status</string>
@@ -188,6 +188,6 @@
     <string name="it_was">Es war:</string>
     <string name="confirm_stats_reset">Bist du sicher, dass du deine Statistiken für %1 zurücksetzen möchtest? Dies kann nicht rückgängig gemacht werden.</string>
     <string name="profile_page">Profilseite</string>
-    <!-- END status strings -->   
-    
+    <!-- END status strings -->
+
 </resources>

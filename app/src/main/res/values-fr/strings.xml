@@ -12,7 +12,7 @@
     <string name="also_disable_np_title">Également désactiver l\'affichage du titre en cours de lecture</string>
     <string name="also_disable_np_summary">[Hmpf]</string>
     <!-- END original strings -->
-    
+
     <!-- START about strings -->
     <string name="by">par</string>
     <string name="issues">Suivi de problèmes : %s</string>
@@ -60,9 +60,9 @@
     <string name="sc_sort_album_asc">Album, ascendent</string>
     <string name="sc_sort_album_desc">Album, descendent</string>
     <string name="sc_sort_track_asc">Piste, ascendent</string>
-    <string name="sc_sort_track_desc">Piste, descendent</string>    
-    <!-- END cache strings -->  
-    
+    <string name="sc_sort_track_desc">Piste, descendent</string>
+    <!-- END cache strings -->
+
     <!-- START creds strings -->
     <string name="user_credentials_title">Identifiants de l\'utilisateur</string>
     <string name="user_credentials_summary">Nom d\'utilisateur et mot de passe de votre compte %1</string>
@@ -90,7 +90,7 @@
     <string name="create_user_title">Créer un compte</string>
     <string name="create_user_summary">Créer un compte sur %1</string>
     <string name="confirm_clear_creds">Voulez vous vraiment effacer vos identifiants pour %1 ? Cela effacera aussi tous les scrobbles non envoyés.</string>
-    <string name="confirm_clear_all_creds">Voulez vous vraiment effacer vos identifiants pour tous les comptes enregistrés ? Cela effacera aussi tous les scrobbles non envoyés.</string>   
+    <string name="confirm_clear_all_creds">Voulez vous vraiment effacer vos identifiants pour tous les comptes enregistrés ? Cela effacera aussi tous les scrobbles non envoyés.</string>
     <!-- END creds strings -->
 
 
@@ -116,7 +116,7 @@
     <string name="creds_required">Vérification des identifiants nécessaire pour fonctionner correctement</string>
     <string name="limited_network">Réseau Limitées</string>
     <!-- END permissions and warnings strings -->
-    
+
     <!-- START mapis strings -->
     <string name="incompatability_short">Attention : %1$s est installé et peut provoquer un double scrobbling.</string>
     <string name="incompatability_long">Attention : %1$s est installé et peut provoquer des incompatibilités avec le scrobbling. Désactivez le scrobbling de cette apllication, ou désinstallez %1$s.</string>
@@ -128,9 +128,9 @@
     <string name="find_supported_mapis_one_title">1 lecteur de musique détecté</string>
     <string name="find_supported_mapis_many_title">%1 lecteurs de musique détectés</string>
     <string name="find_supported_mapis_summary">Jouez de la musique dans un lecteur de musique supporté et il apparaîtra ici</string>
-    <string name="unknown_mapi">Application inconnue (pre SLS v1.2.3)</string>  
+    <string name="unknown_mapi">Application inconnue (pre SLS v1.2.3)</string>
     <!-- END mapis strings -->
-    
+
     <!-- START options strings -->
     <string name="options_title">Options</string>
     <string name="advanced_options_title">Options avancées</string>
@@ -167,9 +167,9 @@
     <string name="advanced_options_net_wifi_name">Wifi seulement</string>
     <string name="advanced_options_net_roaming_title">Itinérance</string>
     <string name="advanced_options_net_roaming_summary_off">N\'enverra pas les données en itinérance</string>
-    <string name="advanced_options_net_roaming_summary_on">Enverra les données en itinérance</string>   
+    <string name="advanced_options_net_roaming_summary_on">Enverra les données en itinérance</string>
     <!-- END options strings -->
-    
+
     <!-- START status strings -->
     <string name="status">Status</string>
     <string name="scrobble_status_title">Statut du scrobble</string>
@@ -190,5 +190,5 @@
     <string name="confirm_stats_reset">Êtes vous sûr de vouloir remettre à zéro les statistiques de %1 ? Cette operation ne peux pas être annulée.</string>
     <string name="profile_page">Page de profil</string>
     <!-- END status strings -->
-    
+
 </resources>

@@ -1,23 +1,23 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * 
- *     https://github.com/tgwizard/sls
- * 
+ * <p>
+ * https://github.com/tgwizard/sls
+ * <p>
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * 
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0
- *     
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
+
 
 package com.adam.aslfms.util;
 
@@ -35,390 +35,394 @@ import com.adam.aslfms.receiver.MusicAPI;
  * {@link #updateTimePlayed(long)} and {@link #setQueued()}.
  * <p>
  * The tracks are saved in a database using the {@link ScrobblesDatabase}.
- * 
+ *
  * @author tgwizard
  * @since 0.9
  */
 public class Track {
 
-	// TODO: move me
-	public enum State {
-		START, RESUME, PAUSE, COMPLETE, PLAYLIST_FINISHED, UNKNOWN_NONPLAYING
-	};
+    // TODO: move me
+    public enum State {
+        START, RESUME, PAUSE, COMPLETE, PLAYLIST_FINISHED, UNKNOWN_NONPLAYING
+    }
 
-	/**
-	 * We have to use this, as signals sent to Scrobble Droid can be void of any
-	 * track information if it's "playing" boolean is set to false
-	 */
-	public static final Track SAME_AS_CURRENT;
+    ;
 
-	static {
-		SAME_AS_CURRENT = new Track();
-		SAME_AS_CURRENT.mArtist = "SAME_AS_CURRENT";
-		SAME_AS_CURRENT.mAlbum = "SAME_AS_CURRENT";
-		SAME_AS_CURRENT.mTrack = "SAME_AS_CURRENT";
-	}
+    /**
+     * We have to use this, as signals sent to Scrobble Droid can be void of any
+     * track information if it's "playing" boolean is set to false
+     */
+    public static final Track SAME_AS_CURRENT;
 
-	/**
-	 * The duration to use when a track's duration is unknown. E.g., the android
-	 * music player doesn't broadcast duration information, so this constant is
-	 * used instead.
-	 */
-	public static final int DEFAULT_TRACK_LENGTH = 180;
-	public static final long UNKNOWN_COUNT_POINT = -1;
+    static {
+        SAME_AS_CURRENT = new Track();
+        SAME_AS_CURRENT.mArtist = "SAME_AS_CURRENT";
+        SAME_AS_CURRENT.mAlbum = "SAME_AS_CURRENT";
+        SAME_AS_CURRENT.mTrack = "SAME_AS_CURRENT";
+    }
 
-	MusicAPI mMusicAPI;
-	String mArtist;
-	String mAlbum;
-	String mTrack;
-	int mDuration;
-	boolean mUnknownDuration;
-	String mTracknr;
-	String mMbId;
-	String mSource;
+    /**
+     * The duration to use when a track's duration is unknown. E.g., the android
+     * music player doesn't broadcast duration information, so this constant is
+     * used instead.
+     */
+    public static final int DEFAULT_TRACK_LENGTH = 180;
+    public static final long UNKNOWN_COUNT_POINT = -1;
 
-	String mRating;
+    MusicAPI mMusicAPI;
+    String mArtist;
+    String mAlbum;
+    String mTrack;
+    int mDuration;
+    boolean mUnknownDuration;
+    String mTracknr;
+    String mMbId;
+    String mSource;
 
-	long mWhen;
-	int mRowId;
+    String mRating;
 
-	// non-track-data stuff
-	long mTimePlayed; // in milliseconds
-	long mWhenToCountTimeFrom; // in milliseconds
-	boolean mQueued;
+    long mWhen;
+    int mRowId;
 
-	//long mStartTime; // in milliseconds
+    // non-track-data stuff
+    long mTimePlayed; // in milliseconds
+    long mWhenToCountTimeFrom; // in milliseconds
+    boolean mQueued;
 
-	/**
-	 * A class for constructing new tracks, using the Builder pattern. The only
-	 * way to create tracks, which then become "immutable".
-	 * 
-	 * @see #build()
-	 * 
-	 * @author tgwizard
-	 * @since 1.2
-	 */
-	public static class Builder {
-		Track _track;
+    //long mStartTime; // in milliseconds
 
-		public Builder() {
-			_track = new Track();
-		}
+    /**
+     * A class for constructing new tracks, using the Builder pattern. The only
+     * way to create tracks, which then become "immutable".
+     *
+     * @see #build()
+     *
+     * @author tgwizard
+     * @since 1.2
+     */
+    public static class Builder {
+        Track _track;
 
-		public void setMusicAPI(MusicAPI musicAPI) {
-			_track.mMusicAPI = musicAPI;
-		}
+        public Builder() {
+            _track = new Track();
+        }
 
-		public void setArtist(String artist) {
-			_track.mArtist = artist;
-		}
+        public void setMusicAPI(MusicAPI musicAPI) {
+            _track.mMusicAPI = musicAPI;
+        }
 
-		public void setAlbum(String album) {
-			_track.mAlbum = album == null ? "" : album;
-		}
+        public void setArtist(String artist) {
+            _track.mArtist = artist;
+        }
 
-		public void setTrack(String track) {
-			_track.mTrack = track;
-		}
+        public void setAlbum(String album) {
+            _track.mAlbum = album == null ? "" : album;
+        }
 
-		public void setDuration(int duration) {
-			_track.mDuration = duration;
-			_track.mUnknownDuration = false;
-		}
+        public void setTrack(String track) {
+            _track.mTrack = track;
+        }
 
-		public void setTrackNr(String tracknr) {
-			_track.mTracknr = tracknr == null ? "" : tracknr;
-		}
+        public void setDuration(int duration) {
+            _track.mDuration = duration;
+            _track.mUnknownDuration = false;
+        }
 
-		public void setMbid(String mbid) {
-			_track.mMbId = mbid == null ? "" : mbid;
-		}
+        public void setTrackNr(String tracknr) {
+            _track.mTracknr = tracknr == null ? "" : tracknr;
+        }
 
-		public void setSource(String source) {
-			_track.mSource = source;
-		}
+        public void setMbid(String mbid) {
+            _track.mMbId = mbid == null ? "" : mbid;
+        }
 
-		public void setRating(String rating) {
-			_track.mRating = rating;
-		}
+        public void setSource(String source) {
+            _track.mSource = source;
+        }
 
-		public void setWhen(long when) {
-			_track.mWhen = when;
-		}
+        public void setRating(String rating) {
+            _track.mRating = rating;
+        }
 
-		public void setRowId(int rowId) {
-			_track.mRowId = rowId;
-		}
+        public void setWhen(long when) {
+            _track.mWhen = when;
+        }
 
-		/**
-		 * Validates and creates a track with the values set using the setters
-		 * for this class.
-		 * 
-		 * @return the new, validated, track
-		 * @throws IllegalArgumentException
-		 *             if any of the fields for the track-to-be are invalid
-		 */
-		public Track build() throws IllegalArgumentException {
-			_track.validate();
-			return _track;
-		}
-	}
+        public void setRowId(int rowId) {
+            _track.mRowId = rowId;
+        }
 
-	Track() {
-		mMusicAPI = null;
-		mArtist = null;
-		mAlbum = "";
-		mTrack = null;
-		mDuration = DEFAULT_TRACK_LENGTH;
-		mUnknownDuration = true;
-		mTracknr = "";
-		mMbId = "";
-		mSource = "P";
-		mWhen = -1;
-		mRowId = -1;
-		mRating = "";
+        /**
+         * Validates and creates a track with the values set using the setters
+         * for this class.
+         *
+         * @return the new, validated, track
+         * @throws IllegalArgumentException
+         *             if any of the fields for the track-to-be are invalid
+         */
+        public Track build() throws IllegalArgumentException {
+            _track.validate();
+            return _track;
+        }
+    }
 
-		// non-track-data stuff
-		mQueued = false;
-		mTimePlayed = 0;
-		mWhenToCountTimeFrom = UNKNOWN_COUNT_POINT;
+    Track() {
+        mMusicAPI = null;
+        mArtist = null;
+        mAlbum = "";
+        mTrack = null;
+        mDuration = DEFAULT_TRACK_LENGTH;
+        mUnknownDuration = true;
+        mTracknr = "";
+        mMbId = "";
+        mSource = "P";
+        mWhen = -1;
+        mRowId = -1;
+        mRating = "";
 
-		//mStartTime = Util.currentTimeSecsUTC();
-	}
+        // non-track-data stuff
+        mQueued = false;
+        mTimePlayed = 0;
+        mWhenToCountTimeFrom = UNKNOWN_COUNT_POINT;
 
-	void validate() throws IllegalArgumentException {
-		if (mMusicAPI == null)
-			throw new IllegalArgumentException("music api is null");
+        //mStartTime = Util.currentTimeSecsUTC();
+    }
 
-		if (mArtist == null || mArtist.length() == 0)
-			throw new IllegalArgumentException("artist is null or empty");
+    void validate() throws IllegalArgumentException {
+        if (mMusicAPI == null)
+            throw new IllegalArgumentException("music api is null");
 
-		if (mAlbum == null)
-			throw new IllegalArgumentException("album is null");
+        if (mArtist == null || mArtist.length() == 0)
+            throw new IllegalArgumentException("artist is null or empty");
 
-		if (mTrack == null || mTrack.length() == 0)
-			throw new IllegalArgumentException("track is null or empty");
+        if (mAlbum == null)
+            throw new IllegalArgumentException("album is null");
 
-		if (mDuration < 0)
-			throw new IllegalArgumentException("negative duration: "
-					+ mDuration);
+        if (mTrack == null || mTrack.length() == 0)
+            throw new IllegalArgumentException("track is null or empty");
 
-		if (mTracknr == null)
-			throw new IllegalArgumentException("tracknr is null");
+        if (mDuration < 0)
+            throw new IllegalArgumentException("negative duration: "
+                    + mDuration);
 
-		if (mMbId == null) {
-			throw new IllegalArgumentException("mbid is null");
-		}
+        if (mTracknr == null)
+            throw new IllegalArgumentException("tracknr is null");
 
-		if (mSource == null
-				|| !(mSource.equals("P") || mSource.equals("R")
-						|| mSource.equals("U") || mSource.equals("E"))) {
-			throw new IllegalArgumentException("source is invalid: " + mSource);
-		}
+        if (mMbId == null) {
+            throw new IllegalArgumentException("mbid is null");
+        }
 
-		if (mRating == null || !(mRating.equals("") || mRating.equals("L")))
-			throw new IllegalArgumentException("rating is invalid: " + mRating);
+        if (mSource == null
+                || !(mSource.equals("P") || mSource.equals("R")
+                || mSource.equals("U") || mSource.equals("E"))) {
+            throw new IllegalArgumentException("source is invalid: " + mSource);
+        }
 
-		if (mWhen < 0) {
-			throw new IllegalArgumentException("when is negative");
-		}
-	}
+        if (mRating == null || !(mRating.equals("") || mRating.equals("L")))
+            throw new IllegalArgumentException("rating is invalid: " + mRating);
 
-	public MusicAPI getMusicAPI() {
-		return mMusicAPI;
-	}
+        if (mWhen < 0) {
+            throw new IllegalArgumentException("when is negative");
+        }
+    }
 
-	public String getArtist() {
-		return mArtist;
-	}
+    public MusicAPI getMusicAPI() {
+        return mMusicAPI;
+    }
 
-	public String getAlbum() {
-		return mAlbum;
-	}
+    public String getArtist() {
+        return mArtist;
+    }
 
-	public String getTrack() {
-		return mTrack;
-	}
+    public String getAlbum() {
+        return mAlbum;
+    }
 
-	public int getDuration() {
-		return mDuration;
-	}
+    public String getTrack() {
+        return mTrack;
+    }
 
-	/**
-	 * Returns whether the duration of this track is unknown (i.e. set to
-	 * {@link #DEFAULT_TRACK_LENGTH} or known.
-	 * 
-	 * @return true if the duration is unknown, false otherwise
-	 */
-	public boolean hasUnknownDuration() {
-		return mUnknownDuration;
-	}
+    public int getDuration() {
+        return mDuration;
+    }
 
-	public String getTrackNr() {
-		return mTracknr;
-	}
+    /**
+     * Returns whether the duration of this track is unknown (i.e. set to
+     * {@link #DEFAULT_TRACK_LENGTH} or known.
+     *
+     * @return true if the duration is unknown, false otherwise
+     */
+    public boolean hasUnknownDuration() {
+        return mUnknownDuration;
+    }
 
-	public String getSource() {
-		return mSource;
-	}
+    public String getTrackNr() {
+        return mTracknr;
+    }
 
-	public String getMbid() {
-		return mMbId;
-	}
+    public String getSource() {
+        return mSource;
+    }
 
-	public String getRating() {
-		return mRating;
-	}
+    public String getMbid() {
+        return mMbId;
+    }
 
-	public long getWhen() {
-		return mWhen;
-	}
+    public String getRating() {
+        return mRating;
+    }
+
+    public long getWhen() {
+        return mWhen;
+    }
 
 
-	/**
-	 * Returns the database id for this track, or -1 if not loaded from the
-	 * database.
-	 * 
-	 * @see ScrobblesDatabase
-	 * 
-	 * @return the database id, or -1 if not loaded from the database
-	 */
-	public int getRowId() {
-		return mRowId;
-	}
+    /**
+     * Returns the database id for this track, or -1 if not loaded from the
+     * database.
+     *
+     * @see ScrobblesDatabase
+     *
+     * @return the database id, or -1 if not loaded from the database
+     */
+    public int getRowId() {
+        return mRowId;
+    }
 
-	/**
-	 * Specifies that this track has been queued for scrobbling (i.e. added to
-	 * the scrobble cache database table, see {@link ScrobblesDatabase}).
-	 * 
-	 * @see #hasBeenQueued()
-	 */
-	public void setQueued() {
-		mQueued = true;
-	}
+    /**
+     * Specifies that this track has been queued for scrobbling (i.e. added to
+     * the scrobble cache database table, see {@link ScrobblesDatabase}).
+     *
+     * @see #hasBeenQueued()
+     */
+    public void setQueued() {
+        mQueued = true;
+    }
 
-	/**
-	 * Temporary fix for heart track feature.
-	 */
-	public void setRating() { mRating = "L"; }
+    /**
+     * Temporary fix for heart track feature.
+     */
+    public void setRating() {
+        mRating = "L";
+    }
 
-	/**
-	 * Returns whether this track has been queued for scrobbling.
-	 * 
-	 * @see #setQueued()
-	 * 
-	 * @return true if this track has been queued for scrobbling, false
-	 *         otherwise
-	 */
-	public boolean hasBeenQueued() {
-		return mQueued;
-	}
+    /**
+     * Returns whether this track has been queued for scrobbling.
+     *
+     * @see #setQueued()
+     *
+     * @return true if this track has been queued for scrobbling, false
+     *         otherwise
+     */
+    public boolean hasBeenQueued() {
+        return mQueued;
+    }
 
-	/**
-	 * Returns the duration for which this track has been played, in
-	 * milliseconds.
-	 * 
-	 * @see #updateTimePlayed(long)
-	 * 
-	 * @return the duration for which this track has been played, in
-	 *         milliseconds
-	 */
-	public long getTimePlayed() {
-		return mTimePlayed;
-	}
+    /**
+     * Returns the duration for which this track has been played, in
+     * milliseconds.
+     *
+     * @see #updateTimePlayed(long)
+     *
+     * @return the duration for which this track has been played, in
+     *         milliseconds
+     */
+    public long getTimePlayed() {
+        return mTimePlayed;
+    }
 
-	/**
-	 * TODO:
-	 * 
-	 * @param currentTime
-	 */
+    /**
+     * TODO:
+     *
+     * @param currentTime
+     */
 
-	public void updateTimePlayed() {
-		long currentTime = SystemClock.elapsedRealtime();
-		if (mWhenToCountTimeFrom != UNKNOWN_COUNT_POINT) {
-			// only if we have a valid point to count from
-			incTimePlayed(currentTime - mWhenToCountTimeFrom);
-		}
-		mWhenToCountTimeFrom = currentTime;
-	}
-	
-	public void stopCountingTime() {
-		mWhenToCountTimeFrom = UNKNOWN_COUNT_POINT;
-	}
+    public void updateTimePlayed() {
+        long currentTime = SystemClock.elapsedRealtime();
+        if (mWhenToCountTimeFrom != UNKNOWN_COUNT_POINT) {
+            // only if we have a valid point to count from
+            incTimePlayed(currentTime - mWhenToCountTimeFrom);
+        }
+        mWhenToCountTimeFrom = currentTime;
+    }
 
-	void incTimePlayed(long tp) {
-		if (tp < 0) {
-			// this might happen if the user has changed the system clock
-			throw new IllegalArgumentException("time-played increase was negative: " + tp);
-		} else {
-			mTimePlayed += tp;
-		}
-	}
+    public void stopCountingTime() {
+        mWhenToCountTimeFrom = UNKNOWN_COUNT_POINT;
+    }
 
-	@Override
-	public String toString() {
-		return "Track [mTrack="
-				+ mTrack  + ", mArtist=" + mArtist + ", mAlbum=" + mAlbum
-				+ ", mDuration=" + mDuration + ", mMbId=" + mMbId
-				+ ", mMusicAPI=" + mMusicAPI + ", mQueued=" + mQueued
-				+ ", mRating=" + mRating + ", mRowId=" + mRowId + ", mSource="
-				+ mSource + ", mTimePlayed=" + mTimePlayed
-				+ ", mTracknr=" + mTracknr + ", mUnknownDuration="
-				+ mUnknownDuration + ", mWhen=" + mWhen
-				+ ", mWhenToCountTimeFrom=" + mWhenToCountTimeFrom + "]";
-				//+ ", mStartTime=" + mStartTime + "]";
-	}
+    void incTimePlayed(long tp) {
+        if (tp < 0) {
+            // this might happen if the user has changed the system clock
+            throw new IllegalArgumentException("time-played increase was negative: " + tp);
+        } else {
+            mTimePlayed += tp;
+        }
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((mAlbum == null) ? 0 : mAlbum.hashCode());
-		result = prime * result + ((mArtist == null) ? 0 : mArtist.hashCode());
-		result = prime * result
-				+ ((mMusicAPI == null) ? 0 : mMusicAPI.hashCode());
-		result = prime * result + ((mTrack == null) ? 0 : mTrack.hashCode());
-		return result;
-	}
+    @Override
+    public String toString() {
+        return "Track [mTrack="
+                + mTrack + ", mArtist=" + mArtist + ", mAlbum=" + mAlbum
+                + ", mDuration=" + mDuration + ", mMbId=" + mMbId
+                + ", mMusicAPI=" + mMusicAPI + ", mQueued=" + mQueued
+                + ", mRating=" + mRating + ", mRowId=" + mRowId + ", mSource="
+                + mSource + ", mTimePlayed=" + mTimePlayed
+                + ", mTracknr=" + mTracknr + ", mUnknownDuration="
+                + mUnknownDuration + ", mWhen=" + mWhen
+                + ", mWhenToCountTimeFrom=" + mWhenToCountTimeFrom + "]";
+        //+ ", mStartTime=" + mStartTime + "]";
+    }
 
-	/**
-	 * Only checks artist, album and track strings (+ {@link MusicApp}), which
-	 * means that tracks sent to ScrobblingService can be properly compared.
-	 *
-	 * Temporary fix for apps with multiple broadcasts. (usually Android Music Player and SLS API.
-	 * SLS Receiver & Builtin Music Player.
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Track other = (Track) obj;
-/**		if (mAlbum == null) {
-			if (other.mAlbum != null)
-				return false;
-		} else if (!mAlbum.equals(other.mAlbum))
-			return false;
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((mAlbum == null) ? 0 : mAlbum.hashCode());
+        result = prime * result + ((mArtist == null) ? 0 : mArtist.hashCode());
+        result = prime * result
+                + ((mMusicAPI == null) ? 0 : mMusicAPI.hashCode());
+        result = prime * result + ((mTrack == null) ? 0 : mTrack.hashCode());
+        return result;
+    }
+
+    /**
+     * Only checks artist, album and track strings (+ {@link MusicApp}), which
+     * means that tracks sent to ScrobblingService can be properly compared.
+     *
+     * Temporary fix for apps with multiple broadcasts. (usually Android Music Player and SLS API.
+     * SLS Receiver & Builtin Music Player.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Track other = (Track) obj;
+/**        if (mAlbum == null) {
+ if (other.mAlbum != null)
+ return false;
+ } else if (!mAlbum.equals(other.mAlbum))
+ return false;
  */
-		if (mArtist == null) {
-			if (other.mArtist != null)
-				return false;
-		} else if (!mArtist.equals(other.mArtist))
-			return false;
-/**		if (mMusicAPI == null) {
-			if (other.mMusicAPI != null)
-				return false;
-		} else if (!mMusicAPI.equals(other.mMusicAPI))
-			return false;
-*/
-		if (mTrack == null) {
-			if (other.mTrack != null)
-				return false;
-		} else if (!mTrack.equals(other.mTrack))
-			return false;
-		return true;
-	}
+        if (mArtist == null) {
+            if (other.mArtist != null)
+                return false;
+        } else if (!mArtist.equals(other.mArtist))
+            return false;
+/**        if (mMusicAPI == null) {
+ if (other.mMusicAPI != null)
+ return false;
+ } else if (!mMusicAPI.equals(other.mMusicAPI))
+ return false;
+ */
+        if (mTrack == null) {
+            if (other.mTrack != null)
+                return false;
+        } else if (!mTrack.equals(other.mTrack))
+            return false;
+        return true;
+    }
 }

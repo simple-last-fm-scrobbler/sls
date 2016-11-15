@@ -2,9 +2,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0
- *     
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -44,32 +44,26 @@ public class AmazonMP3Receiver extends AbstractPlayStatusReceiver {
     protected void parseIntent(Context ctx, String action, Bundle bundle) {
 
         MusicAPI musicAPI = MusicAPI.fromReceiver(
-            ctx, APP_NAME, APP_PACKAGE, null, false);
+                ctx, APP_NAME, APP_PACKAGE, null, false);
         setMusicAPI(musicAPI);
 
-        if (action.equals(ACTION_AMZN_PLAYSTATE))
-        {
+        if (action.equals(ACTION_AMZN_PLAYSTATE)) {
             setTrack(track);
             int state = bundle.getInt("com.amazon.mp3.playstate");
             if (state == 0) {
                 setState(Track.State.COMPLETE);
-                Log.d(TAG,"Setting state to COMPLETE");
-            }
-            else if (state == 1) {
+                Log.d(TAG, "Setting state to COMPLETE");
+            } else if (state == 1) {
                 setState(Track.State.PAUSE);
-                Log.d(TAG,"Setting state to PAUSE");
-            }
-            else if (state == 2) {
+                Log.d(TAG, "Setting state to PAUSE");
+            } else if (state == 2) {
                 setState(Track.State.START);
-                Log.d(TAG,"Setting state to START");
-            }
-            else if (state == 3) {
+                Log.d(TAG, "Setting state to START");
+            } else if (state == 3) {
                 setState(Track.State.RESUME);
-                Log.d(TAG,"Setting state to RESUME");
+                Log.d(TAG, "Setting state to RESUME");
             }
-        }
-        else if (action.equals(ACTION_AMZN_METACHANGED))
-        {
+        } else if (action.equals(ACTION_AMZN_METACHANGED)) {
             Track.Builder b = new Track.Builder();
             b.setMusicAPI(musicAPI);
             b.setWhen(Util.currentTimeSecsUTC());

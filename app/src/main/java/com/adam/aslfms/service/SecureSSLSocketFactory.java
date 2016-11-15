@@ -30,6 +30,7 @@ import javax.net.ssl.SSLSocketFactory;
 
 /**
  * Created by Debugs on 8/13/2016.
+ *
  * @author
  */
 public class SecureSSLSocketFactory extends SSLSocketFactory {

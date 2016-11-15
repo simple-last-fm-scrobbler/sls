@@ -69,7 +69,7 @@ public class UserInfo extends NetRunnable {
             JSONObject jObject = new JSONObject(response);
             if (jObject.has("user")) {
                 settings.setTotalScrobbles(netApp, jObject.getJSONObject("user").getString("playcount"));
-                Log.i(TAG, "Get user info success: " + netAppName );
+                Log.i(TAG, "Get user info success: " + netAppName);
             } else if (jObject.has("error")) {
                 int code = jObject.getInt("error");
                 if (code == 26 || code == 10) {
@@ -139,7 +139,7 @@ public class UserInfo extends NetRunnable {
             int resCode = conn.getResponseCode();
             Log.d(TAG, "Response code: " + this.getNetApp().getName() + ": " + resCode);
             BufferedReader r;
-            if (resCode == -1){
+            if (resCode == -1) {
                 return "";
             } else if (resCode == 200) {
                 r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -154,10 +154,10 @@ public class UserInfo extends NetRunnable {
             String response = stringBuilder.toString();
             Log.d(TAG, response);
             return response;
-        } catch (IOException | NullPointerException e){
+        } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         } finally {
-            if (conn != null){
+            if (conn != null) {
                 conn.disconnect();
             }
         }

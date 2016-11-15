@@ -81,7 +81,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onCreate(savedInstanceState);
 
 
-
         addPreferencesFromResource(R.xml.settings_prefs);
 
         settings = new AppSettings(this);
@@ -201,14 +200,14 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
     };
 
-    private void checkNetwork(){
+    private void checkNetwork() {
         this.sendBroadcast(new Intent(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED));
-        if (Util.checkForOkNetwork(this) != Util.NetworkStatus.OK){
+        if (Util.checkForOkNetwork(this) != Util.NetworkStatus.OK) {
             Snackbar.make(getListView(), getString(R.string.limited_network), Snackbar.LENGTH_SHORT).show();
         }
     }
 
-    private void credsCheck(){
+    private void credsCheck() {
         //Credentials Check
         for (NetApp napp : NetApp.values()) {
             if (!settings.getUsername(napp).equals("")) {
@@ -216,10 +215,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             }
         }
         Toast.makeText(this, this.getString(R.string.creds_required),
-                    Toast.LENGTH_LONG).show();
+                Toast.LENGTH_LONG).show();
     }
 
-    private void permsCheck(){
+    private void permsCheck() {
         //PERMISSION CHECK
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             try {
