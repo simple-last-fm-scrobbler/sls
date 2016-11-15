@@ -1,16 +1,16 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
- * 
- *     http://code.google.com/p/a-simple-lastfm-scrobbler/
- * 
+ * <p>
+ * http://code.google.com/p/a-simple-lastfm-scrobbler/
+ * <p>
  * Copyright 2011 Simple Last.fm Scrobbler Team
- * 
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
- *     http://www.apache.org/licenses/LICENSE-2.0
- *     
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -41,174 +41,174 @@ import java.util.List;
 
 public abstract class AbstractReceiverTest extends AndroidTestCase {
 
-	static class StartServiceMockContext extends IsolatedContext {
-		List<Intent> startedServices;
+    static class StartServiceMockContext extends IsolatedContext {
+        List<Intent> startedServices;
 
-		public StartServiceMockContext(ContentResolver resolver, Context targetContext) {
-			super(resolver, targetContext);
-			startedServices = new LinkedList<Intent>();
-		}
+        public StartServiceMockContext(ContentResolver resolver, Context targetContext) {
+            super(resolver, targetContext);
+            startedServices = new LinkedList<Intent>();
+        }
 
-		@Override
-		public ComponentName startService(Intent service) {
-			startedServices.add(service);
-			return null;
-		}
+        @Override
+        public ComponentName startService(Intent service) {
+            startedServices.add(service);
+            return null;
+        }
 
-		public List<Intent> getStartedServices() {
-			return startedServices;
-		}
-	}
+        public List<Intent> getStartedServices() {
+            return startedServices;
+        }
+    }
 
-	static class Scrobble {
-		Track track;
-		Intent intent;
+    static class Scrobble {
+        Track track;
+        Intent intent;
 
-		public Scrobble(Track track, Intent intent) {
-			super();
-			this.track = track;
-			this.intent = intent;
-		}
+        public Scrobble(Track track, Intent intent) {
+            super();
+            this.track = track;
+            this.intent = intent;
+        }
 
-	}
+    }
 
-	static final NetApp FAKE_NETAPP = NetApp.LASTFM;
+    static final NetApp FAKE_NETAPP = NetApp.LASTFM;
 
-	StartServiceMockContext ctx;
-	BroadcastReceiver receiver;
-	AppSettings settings;
+    StartServiceMockContext ctx;
+    BroadcastReceiver receiver;
+    AppSettings settings;
 
-	@Override
-	protected void setUp() throws Exception {
-		super.setUp();
-		ctx = new StartServiceMockContext(new MockContentResolver(), getContext());
-		settings = new AppSettings(ctx);
-		fakeAuthenticate();
-		receiver = createReceiver();
-	}
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        ctx = new StartServiceMockContext(new MockContentResolver(), getContext());
+        settings = new AppSettings(ctx);
+        fakeAuthenticate();
+        receiver = createReceiver();
+    }
 
-	void fakeAuthenticate() {
-		// any netapp will do
-		settings.setAuthStatus(FAKE_NETAPP, AuthStatus.AUTHSTATUS_OK);
-	}
+    void fakeAuthenticate() {
+        // any netapp will do
+        settings.setAuthStatus(FAKE_NETAPP, AuthStatus.AUTHSTATUS_OK);
+    }
 
-	void fakeUnauthenticate() {
-		settings.setAuthStatus(FAKE_NETAPP, AuthStatus.AUTHSTATUS_NOAUTH);
-	}
+    void fakeUnauthenticate() {
+        settings.setAuthStatus(FAKE_NETAPP, AuthStatus.AUTHSTATUS_NOAUTH);
+    }
 
-	@Override
-	protected void tearDown() throws Exception {
-		super.tearDown();
-		MusicAPITestUtils.deleteDatabase(ctx);
-		ctx = null;
-		receiver = null;
-	}
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        MusicAPITestUtils.deleteDatabase(ctx);
+        ctx = null;
+        receiver = null;
+    }
 
-	abstract BroadcastReceiver createReceiver();
+    abstract BroadcastReceiver createReceiver();
 
-	abstract Scrobble assembleScrobbleIntent(Track.State state);
-
-	/*
-	 * Fixture tests
-	 */
-
-	public void testReceiveStart_notAuthenticated() {
-		fakeUnauthenticate();
-		Scrobble scrobble = assembleScrobbleIntent(Track.State.START);
-		sendScrobbleIntent(scrobble.intent);
-		assertServiceIntentDoesntExist();
-	}
-
-	public void testReceiveStart_valid() {
-		Scrobble scrobble = assembleScrobbleIntent(Track.State.START);
-		sendAndExpectEqualsExtended(scrobble.intent, scrobble.track, Track.State.START, Track.State.RESUME);
-	}
-	
-	public void testReceiveResume_valid() {
-		Scrobble scrobble = assembleScrobbleIntent(Track.State.RESUME);
-		sendAndExpectEqualsExtended(scrobble.intent, scrobble.track, Track.State.START, Track.State.RESUME);
-	}
+    abstract Scrobble assembleScrobbleIntent(Track.State state);
 
 	/*
-	 * Helper methods
+     * Fixture tests
 	 */
-	Track sendAndExpectEquals(Intent scrobbleIntent, Track expectedTrack, Track.State... acceptableStates) {
-		Track actualTrack = sendScrobbleIntent(scrobbleIntent);
-		assertServiceIntentStatus(acceptableStates);
-		assertTrackEquals(expectedTrack, actualTrack);
-		return actualTrack;
-	}
 
-	Track sendAndExpectEqualsExtended(Intent scrobbleIntent, Track expectedTrack, Track.State... acceptableStates) {
-		Track actualTrack = sendAndExpectEquals(scrobbleIntent, expectedTrack, acceptableStates);
-		assertTrackEqualsExtended(expectedTrack, actualTrack);
-		return actualTrack;
-	}
+    public void testReceiveStart_notAuthenticated() {
+        fakeUnauthenticate();
+        Scrobble scrobble = assembleScrobbleIntent(Track.State.START);
+        sendScrobbleIntent(scrobble.intent);
+        assertServiceIntentDoesntExist();
+    }
 
-	Track sendScrobbleIntent(Intent scrobbleIntent) {
-		receiver.onReceive(ctx, scrobbleIntent);
-		return InternalTrackTransmitter.popTrack();
-	}
+    public void testReceiveStart_valid() {
+        Scrobble scrobble = assembleScrobbleIntent(Track.State.START);
+        sendAndExpectEqualsExtended(scrobble.intent, scrobble.track, Track.State.START, Track.State.RESUME);
+    }
 
-	void assertTrackEquals(Track expectedTrack, Track actualTrack) {
-		assertEquals(expectedTrack, actualTrack);
-	}
+    public void testReceiveResume_valid() {
+        Scrobble scrobble = assembleScrobbleIntent(Track.State.RESUME);
+        sendAndExpectEqualsExtended(scrobble.intent, scrobble.track, Track.State.START, Track.State.RESUME);
+    }
 
-	void assertTrackEqualsExtended(Track expectedTrack, Track actualTrack) {
-		if (expectedTrack != null) {
-			assertEquals(expectedTrack.getDuration(), actualTrack.getDuration());
-			assertEquals(expectedTrack.getMbid(), actualTrack.getMbid());
-			assertEquals(expectedTrack.getRating(), actualTrack.getRating());
-			assertEquals(expectedTrack.getSource(), actualTrack.getSource());
-			assertEquals(expectedTrack.getTrackNr(), actualTrack.getTrackNr());
-		}
-	}
+    /*
+     * Helper methods
+     */
+    Track sendAndExpectEquals(Intent scrobbleIntent, Track expectedTrack, Track.State... acceptableStates) {
+        Track actualTrack = sendScrobbleIntent(scrobbleIntent);
+        assertServiceIntentStatus(acceptableStates);
+        assertTrackEquals(expectedTrack, actualTrack);
+        return actualTrack;
+    }
 
-	void assertServiceIntentStatus(Track.State... acceptableStates) {
-		assertServiceIntentExists();
+    Track sendAndExpectEqualsExtended(Intent scrobbleIntent, Track expectedTrack, Track.State... acceptableStates) {
+        Track actualTrack = sendAndExpectEquals(scrobbleIntent, expectedTrack, acceptableStates);
+        assertTrackEqualsExtended(expectedTrack, actualTrack);
+        return actualTrack;
+    }
 
-		Track.State state = getStateOrNull();
+    Track sendScrobbleIntent(Intent scrobbleIntent) {
+        receiver.onReceive(ctx, scrobbleIntent);
+        return InternalTrackTransmitter.popTrack();
+    }
 
-		if (state != null && acceptableStates.length == 0) {
-			fail("Expected no state, received: " + state);
-		} else if (state == null && acceptableStates.length > 0) {
-			fail("Expected state: " + Arrays.toString(acceptableStates) + ", received no state");
-		}
+    void assertTrackEquals(Track expectedTrack, Track actualTrack) {
+        assertEquals(expectedTrack, actualTrack);
+    }
 
-		boolean found = false;
-		for (Track.State acceptableState : acceptableStates) {
-			if (acceptableState.equals(state)) {
-				found = true;
-			}
-		}
+    void assertTrackEqualsExtended(Track expectedTrack, Track actualTrack) {
+        if (expectedTrack != null) {
+            assertEquals(expectedTrack.getDuration(), actualTrack.getDuration());
+            assertEquals(expectedTrack.getMbid(), actualTrack.getMbid());
+            assertEquals(expectedTrack.getRating(), actualTrack.getRating());
+            assertEquals(expectedTrack.getSource(), actualTrack.getSource());
+            assertEquals(expectedTrack.getTrackNr(), actualTrack.getTrackNr());
+        }
+    }
 
-		if (!found) {
-			fail("Expected state: " + Arrays.toString(acceptableStates) + ", got: " + state);
-		}
-	}
+    void assertServiceIntentStatus(Track.State... acceptableStates) {
+        assertServiceIntentExists();
 
-	Track.State getStateOrNull() {
-		Intent serviceIntent = ctx.getStartedServices().get(0);
-		if (serviceIntent.hasExtra("state")) {
-			return Track.State.valueOf(serviceIntent.getStringExtra("state"));
-		}
-		return null;
-	}
+        Track.State state = getStateOrNull();
 
-	void assertServiceIntentExists() {
-		assertServiceIntentExistence(true);
-	}
+        if (state != null && acceptableStates.length == 0) {
+            fail("Expected no state, received: " + state);
+        } else if (state == null && acceptableStates.length > 0) {
+            fail("Expected state: " + Arrays.toString(acceptableStates) + ", received no state");
+        }
 
-	void assertServiceIntentDoesntExist() {
-		assertServiceIntentExistence(false);
-	}
+        boolean found = false;
+        for (Track.State acceptableState : acceptableStates) {
+            if (acceptableState.equals(state)) {
+                found = true;
+            }
+        }
 
-	void assertServiceIntentExistence(boolean exists) {
-		if (exists && ctx.getStartedServices().isEmpty()) {
-			fail("Expected service intent, not sent");
-		} else if (!exists && !ctx.getStartedServices().isEmpty()) {
-			fail("Expected NO service intent, one sent anyway");
-		}
-	}
+        if (!found) {
+            fail("Expected state: " + Arrays.toString(acceptableStates) + ", got: " + state);
+        }
+    }
+
+    Track.State getStateOrNull() {
+        Intent serviceIntent = ctx.getStartedServices().get(0);
+        if (serviceIntent.hasExtra("state")) {
+            return Track.State.valueOf(serviceIntent.getStringExtra("state"));
+        }
+        return null;
+    }
+
+    void assertServiceIntentExists() {
+        assertServiceIntentExistence(true);
+    }
+
+    void assertServiceIntentDoesntExist() {
+        assertServiceIntentExistence(false);
+    }
+
+    void assertServiceIntentExistence(boolean exists) {
+        if (exists && ctx.getStartedServices().isEmpty()) {
+            fail("Expected service intent, not sent");
+        } else if (!exists && !ctx.getStartedServices().isEmpty()) {
+            fail("Expected NO service intent, one sent anyway");
+        }
+    }
 
 }
