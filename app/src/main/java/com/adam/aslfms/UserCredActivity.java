@@ -115,7 +115,11 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
 		} else if (pref == mCreateUser) {
 			Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(mNetApp
 					.getSignUpUrl(settings)));
-			startActivity(browser);
+			try {
+				startActivity(browser);
+			} catch (Exception e){
+				startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://git.gnu.io/gnu/gnu-fm/blob/master/gnufm_install.txt")));
+			}
 			return true;
 		}
 

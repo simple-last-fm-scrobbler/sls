@@ -4,17 +4,18 @@ TroubleShooting (SLS = simple last.fm scrobbler)
 
 Solutions To Common problems.
 -----------------------------
-
+ 
 1. Clear credentials and log in again.
 2. Check if you have other scrobbling apps open. (this can sometimes be the problem)
 3. Check your phone's time is automatic.
-4. Check battery/power settings on phone, add SLS to protected/whitelist (power save disabled for SLS).
-5. Check SLS options. (power settings)
-6. Check SLS options. (enabled apps.)
-7. Check your music app's settings. (e.g. in Spotify, whether broadcasting to other apps is on)
-8. Disable some of SLS' enabled apps if there are clashes. Some music players broadcast while closed (PowerAmp & DoubleTwist & DoubleTwist CloudPlayer). Some music players have mixed broadcasts. ("Anroid Music Player" and it's own broadcast)
-9. Try a different music player that scrobbles if possible.
-10. If you don't want to uninstall or clear the cache, create an issue on the GitHub. https://github.com/tgwizard/sls/issues
+4. Try enable "OnGoing" (and phone notifications) in Options.
+5. Check battery/power settings on phone, add SLS to protected/whitelist (power save disabled for SLS).
+6. Check SLS options. (power settings)
+7. Check SLS options. (enabled apps.)
+8. Check your music app's settings. (e.g. in Spotify, whether broadcasting to other apps is on)
+9. Disable some of SLS' enabled apps if there are clashes. Some music players broadcast while closed (PowerAmp & DoubleTwist & DoubleTwist CloudPlayer). Some music players have mixed broadcasts. ("Anroid Music Player" and it's own broadcast)
+10. Try a different music player that scrobbles if possible.
+11. If you don't want to uninstall or clear the cache, create an issue on the GitHub. https://github.com/tgwizard/sls/issues
 
 Note: You may lose your scrobbles if you do any of the following.
 
