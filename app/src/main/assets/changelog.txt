@@ -1,6 +1,7 @@
 - 1.5.2 (2016-11-15)
   * GNU-fm is for home built servers
   * Libre.fm solo Love Track
+  * Polish fix (thanks to ksz16)
 
 - 1.5.1 (2016-09-24)
   * Better request timeout

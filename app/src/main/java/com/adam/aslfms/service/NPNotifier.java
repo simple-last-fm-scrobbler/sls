@@ -250,14 +250,7 @@ public class NPNotifier extends AbstractSubmitter {
             }
         } else {
             try {
-
-                if (netApp == NetApp.LASTFM) {
-                    url = new URL("https://ws.audioscrobbler.com/2.0/");
-                } else if (netApp == NetApp.LIBREFM) {
-                    url = new URL("https://libre.fm/2.0/");
-                } else {    // for custom GNU FM server
-                    url = new URL("");
-                }
+                url = new URL(getNetApp().getWebserviceUrl(settings));
 
                 Map<String, Object> params = new TreeMap<>();
                 if (track.getAlbum() != null) {
