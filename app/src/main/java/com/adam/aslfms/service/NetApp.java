@@ -26,18 +26,22 @@ import com.adam.aslfms.util.AppSettings;
 
 public enum NetApp {
     LASTFM(
-            0x01, "Last.fm", "http://post.audioscrobbler.com/?hs=true", "",
+            0x01, "Last fm", "http://post.audioscrobbler.com/?hs=true", "",
             "https://www.last.fm/join", "https://www.last.fm/user/%1",
             "https://ws.audioscrobbler.com/2.0/"), //
     LIBREFM(
-            0x02, "Libre.fm", "http://turtle.libre.fm/?hs=true", "librefm",
+            0x02, "Libre fm", "http://turtle.libre.fm/?hs=true", "librefm",
             "https://libre.fm/", "https://libre.fm/user/%1", "https://libre.fm/2.0/"),
     LISTENBRAINZ(
-            0x03, "ListenBrainz", "GNUKEBOX_URL", "listenbrainz",
+            0x03, "Listen Brainz", "LISTENBRAINZ_URL", "listenbrainz",
             "https://listenbrainz.org/login/", "https://listenbrainz.org/user/%1", "https://api.listenbrainz.org/1/"),
     CUSTOM(
-            0x04, "Gnu-fm server", "[[GNUKEBOX_URL]]/?hs=true", "custom",
-            "[[NIXTAPE_URL]]", "[[NIXTAPE_URL]]/user/%1", "[[NIXTAPE_URL]]/2.0/");
+            0x04, "GNU-fm server", "[[GNUKEBOX_URL]]/?hs=true", "custom",
+            "[[NIXTAPE_URL]]", "[[NIXTAPE_URL]]/user/%1", "[[NIXTAPE_URL]]/2.0/"),
+    CUSTOM2(
+            0x05, "L-Brnz Server", "LISTENBRAINZ_URL_CUSTOM", "listenbrainzCustom",
+            "[[LISTENBRAINZ_URL]]/login/", "[[LISTENBRAINZ_URL]]/user/%1", "[[LISTENBRAINZ_API_URL]]/1/"
+    );
 
     private final int val;
     private final String name;
@@ -117,6 +121,10 @@ public enum NetApp {
         if (settingsPrefix.equals("custom")) {
             value = value.replace("[[GNUKEBOX_URL]]", settings.getGnukeboxUrl(this));
             value = value.replace("[[NIXTAPE_URL]]", settings.getNixtapeUrl(this));
+        }
+        if (settingsPrefix.equals("custom2")) {
+            value = value.replace("[[LISTENBRAINZ_URL]]", settings.getListenBrainzUrl(this));
+            value = value.replace("[[LISTENBRAINZ_API_URL]]", settings.getListenBrainzApiUrl(this));
         }
         return value;
     }

@@ -38,7 +38,6 @@ import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.enums.PowerOptions;
 import com.adam.aslfms.util.enums.SubmissionType;
-import com.adam.aslfms.util.myBase64;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -207,7 +206,7 @@ public class Scrobbler extends AbstractSubmitter {
         NetworkerManager mNetManager = new NetworkerManager(mCtx, mDb);
         PowerOptions pow = Util.checkPower(mCtx);
 
-        if (netApp == NetApp.LISTENBRAINZ) {
+        if (netApp == NetApp.LISTENBRAINZ || netApp == NetApp.CUSTOM2) {
             URL url;
             HttpsURLConnection conn = null;
             try {

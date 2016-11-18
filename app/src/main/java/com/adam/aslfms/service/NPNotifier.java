@@ -36,7 +36,6 @@ import com.adam.aslfms.util.AuthStatus.UnknownResponseException;
 import com.adam.aslfms.util.MD5;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
-import com.adam.aslfms.util.enums.PowerOptions;
 import com.adam.aslfms.util.enums.SubmissionType;
 
 import org.json.JSONArray;
@@ -170,7 +169,7 @@ public class NPNotifier extends AbstractSubmitter {
 
 
 // handle Exception
-        if (netApp == NetApp.LISTENBRAINZ) {
+        if (netApp == NetApp.LISTENBRAINZ || netApp == NetApp.CUSTOM2) {
             URL url;
             HttpsURLConnection conn = null;
 
@@ -217,12 +216,12 @@ public class NPNotifier extends AbstractSubmitter {
                 trackMetaData.put("artist_name", track.getArtist());
                 trackMetaData.put("track_name", track.getTrack());
 
-                trackInfo.put("track_metadata",trackMetaData);
+                trackInfo.put("track_metadata", trackMetaData);
 
                 JSONArray payArray = new JSONArray();
                 payArray.put(trackInfo);
 
-                baseObj.put("payload",payArray);
+                baseObj.put("payload", payArray);
 
                 // set Timeout and method
                 conn.setReadTimeout(7000);
@@ -238,7 +237,7 @@ public class NPNotifier extends AbstractSubmitter {
                 conn.setDoOutput(true);
 
                 DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
-                Log.d(TAG,baseObj.toString());
+                Log.d(TAG, baseObj.toString());
                 outStream.writeBytes(baseObj.toString());
                 outStream.flush();
                 outStream.close();

@@ -118,7 +118,11 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
             try {
                 startActivity(browser);
             } catch (Exception e) {
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://git.gnu.io/gnu/gnu-fm/blob/master/gnufm_install.txt")));
+                if (mNetApp == NetApp.CUSTOM) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://git.gnu.io/gnu/gnu-fm/blob/master/gnufm_install.txt")));
+                } else {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/metabrainz/listenbrainz-server/blob/master/README.md")));
+                }
             }
             return true;
         }

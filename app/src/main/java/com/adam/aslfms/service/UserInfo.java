@@ -103,7 +103,7 @@ public class UserInfo extends NetRunnable {
     }
 
     private String getAllTimeScrobbles() throws IOException, NullPointerException {
-        if (getNetApp() == NetApp.LISTENBRAINZ) {
+        if (getNetApp() == NetApp.LISTENBRAINZ || getNetApp() == NetApp.CUSTOM2) {
             URL url;
             HttpsURLConnection conn = null;
             try {
@@ -152,7 +152,7 @@ public class UserInfo extends NetRunnable {
                     stringBuilder.append(line);
                 }
                 String response = stringBuilder.toString();
-               // Log.d(TAG, response);
+                // Log.d(TAG, response);
                 return response;
             } catch (Exception e) {
                 Log.e(TAG, "Get user info fail " + e);

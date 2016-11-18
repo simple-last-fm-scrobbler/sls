@@ -237,6 +237,12 @@ public class Handshaker extends NetRunnable {
 
         String username = settings.getUsername(netApp);
 
+        if (username.length() == 0) {
+            Log.d(TAG, "Invalid (empty) credentials for: " + netAppName);
+            settings.setSessionKey(netApp, "");
+            throw new BadAuthException(getContext().getString(
+                    R.string.auth_bad_auth));
+        }
         if (netApp == NetApp.LISTENBRAINZ) {
             try {
                 URL url = new URL(getNetApp().getWebserviceUrl(settings));
@@ -252,15 +258,7 @@ public class Handshaker extends NetRunnable {
                 e.printStackTrace();
                 throw new UnknownResponseException("Invalid Response");
             }
-        }
-
-        if (username.length() == 0) {
-            Log.d(TAG, "Invalid (empty) credentials for: " + netAppName);
-            settings.setSessionKey(netApp, "");
-            throw new BadAuthException(getContext().getString(
-                    R.string.auth_bad_auth));
-        }
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && netApp == NetApp.LIBREFM) {
+        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && netApp == NetApp.LIBREFM) {
 
             String pwdMd5 = settings.getPwdMd5(netApp);
 

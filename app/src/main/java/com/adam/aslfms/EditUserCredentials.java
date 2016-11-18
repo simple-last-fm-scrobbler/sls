@@ -36,9 +36,7 @@ import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.MD5;
 
 /**
- *
  * @author tgwizard
- *
  */
 public class EditUserCredentials extends DialogPreference {
 
@@ -49,6 +47,8 @@ public class EditUserCredentials extends DialogPreference {
     private EditText mNixtapeUrl;
     private EditText mGnukeboxUrl;
     private EditText mListenBrainzToken;
+    private EditText mListenBrainzURL;
+    private EditText mListenBrainzApiURL;
 
     private AppSettings settings;
     private NetApp mNetApp;
@@ -67,11 +67,18 @@ public class EditUserCredentials extends DialogPreference {
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
-        if (mNetApp == NetApp.LISTENBRAINZ) {
+        if (mNetApp == NetApp.LISTENBRAINZ || mNetApp == NetApp.CUSTOM2) {
             mUsername = (EditText) view.findViewById(R.id.username);
             mListenBrainzToken = (EditText) view.findViewById(R.id.listenBrainzToken);
             view.findViewById(R.id.listenBrainz).setVisibility(View.VISIBLE);
             view.findViewById(R.id.userOnly).setVisibility(View.VISIBLE);
+            if (mNetApp == NetApp.CUSTOM2) {
+                mListenBrainzURL = (EditText) view.findViewById(R.id.listenBrainzURL);
+                mListenBrainzApiURL = (EditText) view.findViewById(R.id.listenBrainzApiURL);
+                mListenBrainzURL.setText(settings.getListenBrainzUrl(mNetApp));
+                mListenBrainzApiURL.setText(settings.getListenBrainzApiUrl(mNetApp));
+                view.findViewById(R.id.customSettings2).setVisibility(View.VISIBLE);
+            }
         } else {
             mUsername = (EditText) view.findViewById(R.id.username);
             mPassword = (EditText) view.findViewById(R.id.password);
@@ -117,11 +124,17 @@ public class EditUserCredentials extends DialogPreference {
             Intent service = new Intent(getContext(), ScrobblingService.class);
             service.setAction(ScrobblingService.ACTION_AUTHENTICATE);
             service.putExtra("netapp", mNetApp.getIntentExtraValue());
-            if (mNetApp == NetApp.LISTENBRAINZ) {
+            if (mNetApp == NetApp.LISTENBRAINZ || mNetApp == NetApp.CUSTOM2) {
                 String token = mListenBrainzToken.getText().toString().replaceAll("[^\\x20-\\x7E]", "").trim();
                 settings.setListenBrainzToken(mNetApp, token);
                 String username = mUsername.getText().toString().trim();
                 settings.setUsername(mNetApp, username);
+                if (mNetApp == NetApp.CUSTOM2) {
+                    String listenBrainzURL = mListenBrainzURL.getText().toString().trim();
+                    settings.setListenBrainzUrl(mNetApp, listenBrainzURL);
+                    String listenBrainzApiURL = mListenBrainzApiURL.getText().toString().trim();
+                    settings.setListenBrainzApiUrl(mNetApp, listenBrainzApiURL);
+                }
             } else {
                 String username = mUsername.getText().toString().trim();
                 settings.setUsername(mNetApp, username);
