@@ -32,8 +32,11 @@ public enum NetApp {
     LIBREFM(
             0x02, "Libre.fm", "http://turtle.libre.fm/?hs=true", "librefm",
             "https://libre.fm/", "https://libre.fm/user/%1", "https://libre.fm/2.0/"),
+    LISTENBRAINZ(
+            0x03, "ListenBrainz", "GNUKEBOX_URL", "listenbrainz",
+            "https://listenbrainz.org/login/", "https://listenbrainz.org/user/%1", "https://api.listenbrainz.org/1/"),
     CUSTOM(
-            0x03, "Gnu-fm server", "[[GNUKEBOX_URL]]/?hs=true", "custom",
+            0x04, "Gnu-fm server", "[[GNUKEBOX_URL]]/?hs=true", "custom",
             "[[NIXTAPE_URL]]", "[[NIXTAPE_URL]]/user/%1", "[[NIXTAPE_URL]]/2.0/");
 
     private final int val;

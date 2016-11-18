@@ -75,7 +75,7 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="auth_client_banned">This version of the app is deprecated, please upgrade</string>
-    <string name="auth_bad_auth">Wrong username/password</string>
+    <string name="auth_bad_auth">Wrong username/password/token</string>
     <string name="auth_server_error">Server error: %1, retrying…</string>
     <string name="auth_timing_error">Client side timing error, retrying…</string>
     <string name="auth_network_error_retrying">Network error, retrying…</string>

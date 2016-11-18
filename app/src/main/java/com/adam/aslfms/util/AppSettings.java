@@ -57,6 +57,7 @@ public class AppSettings {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_NIXTAPE_URL = "nixtape_url";
     private static final String KEY_GNUKEBOX_URL = "gnukebox_url";
+    private static final String KEY_LISTENBRAINZ_TOKEN = "listenBrainz_toekn";
     private static final String KEY_PWDMD5 = "pwdMd5";
     private static final String KEY_SESSION = "sessionKey";
     private static final String KEY_SCROBBLES = "totalScrobbles";
@@ -141,6 +142,16 @@ public class AppSettings {
     public void setGnukeboxUrl(NetApp napp, String s) {
         Editor e = prefs.edit();
         e.putString(napp.getSettingsPrefix() + KEY_GNUKEBOX_URL, s);
+        e.commit();
+    }
+
+    public String getListenBrainzToken(NetApp napp) {
+        return prefs.getString(napp.getSettingsPrefix() + KEY_LISTENBRAINZ_TOKEN, "");
+    }
+
+    public void setListenBrainzToken(NetApp napp, String s) {
+        Editor e = prefs.edit();
+        e.putString(napp.getSettingsPrefix() + KEY_LISTENBRAINZ_TOKEN, s);
         e.commit();
     }
 

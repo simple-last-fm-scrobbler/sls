@@ -45,6 +45,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.security.KeyManagementException;
@@ -236,13 +237,29 @@ public class Handshaker extends NetRunnable {
 
         String username = settings.getUsername(netApp);
 
+        if (netApp == NetApp.LISTENBRAINZ) {
+            try {
+                URL url = new URL(getNetApp().getWebserviceUrl(settings));
+                if (!settings.getListenBrainzToken(netApp).equals("")) {
+                    Log.i(TAG, "Token succeded!: " + netAppName + ": Already has token key.");
+                    return new HandshakeResult(settings.getSessionKey(netApp), url.toString(), url.toString());
+                } else {
+                    Log.e(TAG, "Invalid token!");
+                    throw new BadAuthException(getContext().getString(
+                            R.string.auth_bad_auth));
+                }
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+                throw new UnknownResponseException("Invalid Response");
+            }
+        }
+
         if (username.length() == 0) {
             Log.d(TAG, "Invalid (empty) credentials for: " + netAppName);
             settings.setSessionKey(netApp, "");
             throw new BadAuthException(getContext().getString(
                     R.string.auth_bad_auth));
         }
-
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && netApp == NetApp.LIBREFM) {
 
             String pwdMd5 = settings.getPwdMd5(netApp);

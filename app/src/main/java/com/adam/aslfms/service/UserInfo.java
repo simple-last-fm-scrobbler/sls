@@ -38,6 +38,10 @@ import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
+
 /**
  * Created by Debugs on 7/9/2016.
  *
@@ -67,7 +71,10 @@ public class UserInfo extends NetRunnable {
             String response = getAllTimeScrobbles();
 
             JSONObject jObject = new JSONObject(response);
-            if (jObject.has("user")) {
+            if (jObject.has("payload")) {
+                settings.setTotalScrobbles(getNetApp(), jObject.getJSONObject("payload").getString("count"));
+                Log.i(TAG, "Get user info success: " + netAppName);
+            } else if (jObject.has("user")) {
                 settings.setTotalScrobbles(netApp, jObject.getJSONObject("user").getString("playcount"));
                 Log.i(TAG, "Get user info success: " + netAppName);
             } else if (jObject.has("error")) {
@@ -96,69 +103,130 @@ public class UserInfo extends NetRunnable {
     }
 
     private String getAllTimeScrobbles() throws IOException, NullPointerException {
-        URL url;
-        HttpURLConnection conn = null;
-        try {
-            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && getNetApp() == NetApp.LIBREFM) {
-                url = new URL("http://libre.fm/2.0/");
-            } else {
-                url = new URL(getNetApp().getWebserviceUrl(settings));
+        if (getNetApp() == NetApp.LISTENBRAINZ) {
+            URL url;
+            HttpsURLConnection conn = null;
+            try {
+                url = new URL(getNetApp().getWebserviceUrl(settings) + "user/" + settings.getUsername(getNetApp()) + "/listens");
+
+                SSLContext sslContext = SSLContext.getInstance("TLS");
+                sslContext.init(null, null, new java.security.SecureRandom());
+
+                SSLSocketFactory customSockets = new SecureSSLSocketFactory(sslContext.getSocketFactory(), new MyHandshakeCompletedListener());
+
+                conn = (HttpsURLConnection) url.openConnection();
+                conn.setSSLSocketFactory(customSockets);
+
+                /*String[] strArr = customSockets.getDefaultCipherSuites();
+                for (String str : strArr) {
+                    Log.e(TAG, str);
+                }
+                Log.e(TAG, strArr.length + " ..\n ..\n");
+                Log.e(TAG, "HERE");
+                strArr = customSockets.getSupportedCipherSuites();
+                for (String str : strArr) {
+                    Log.e(TAG, str);
+                }*/
+
+                // set Timeout and method
+                // TODO: Reduce default track count to less than 25
+                // https://listenbrainz.readthedocs.io/en/latest/dev/api.html#webserver.views.api.DEFAULT_ITEMS_PER_GET
+                conn.setReadTimeout(7000);
+                conn.setConnectTimeout(7000);
+                conn.setDoInput(true);
+                conn.connect();
+
+                int resCode = conn.getResponseCode();
+                Log.d(TAG, "Response code: " + this.getNetApp().getName() + ": " + resCode);
+                BufferedReader r;
+                if (resCode == -1) {
+                    return "";
+                } else if (resCode == 200) {
+                    r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                } else {
+                    r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                }
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = r.readLine()) != null) {
+                    stringBuilder.append(line);
+                }
+                String response = stringBuilder.toString();
+               // Log.d(TAG, response);
+                return response;
+            } catch (Exception e) {
+                Log.e(TAG, "Get user info fail " + e);
+                e.printStackTrace();
+            } finally {
+                if (conn != null) {
+                    conn.disconnect();
+                }
             }
-            conn = (HttpURLConnection) url.openConnection();
+        } else {
+            URL url;
+            HttpURLConnection conn = null;
+            try {
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && getNetApp() == NetApp.LIBREFM) {
+                    url = new URL("http://libre.fm/2.0/");
+                } else {
+                    url = new URL(getNetApp().getWebserviceUrl(settings));
+                }
+                conn = (HttpURLConnection) url.openConnection();
 
-            // set Timeout and method
-            conn.setReadTimeout(7000);
-            conn.setConnectTimeout(7000);
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+                // set Timeout and method
+                conn.setReadTimeout(7000);
+                conn.setConnectTimeout(7000);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
-            conn.setDoInput(true);
-            conn.setDoOutput(true);
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
 
-            Map<String, Object> params = new LinkedHashMap<>();
-            params.put("method", "user.getInfo");
-            params.put("user", settings.getUsername(getNetApp()));
-            params.put("api_key", settings.rcnvK(settings.getAPIkey()));
-            params.put("format", "json");
+                Map<String, Object> params = new LinkedHashMap<>();
+                params.put("method", "user.getInfo");
+                params.put("user", settings.getUsername(getNetApp()));
+                params.put("api_key", settings.rcnvK(settings.getAPIkey()));
+                params.put("format", "json");
 
-            StringBuilder postData = new StringBuilder();
-            for (Map.Entry<String, Object> param : params.entrySet()) {
-                if (postData.length() != 0) postData.append('&');
-                postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
-                postData.append('=');
-                postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
-            }
-            byte[] postDataBytes = postData.toString().getBytes("UTF-8");
-            conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+                StringBuilder postData = new StringBuilder();
+                for (Map.Entry<String, Object> param : params.entrySet()) {
+                    if (postData.length() != 0) postData.append('&');
+                    postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                    postData.append('=');
+                    postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+                }
+                byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+                conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
 
-            conn.getOutputStream().write(postDataBytes);
-            //Log.i(TAG, params.toString());
+                conn.getOutputStream().write(postDataBytes);
+                //Log.i(TAG, params.toString());
 
-            conn.connect();
+                conn.connect();
 
-            int resCode = conn.getResponseCode();
-            Log.d(TAG, "Response code: " + this.getNetApp().getName() + ": " + resCode);
-            BufferedReader r;
-            if (resCode == -1) {
-                return "";
-            } else if (resCode == 200) {
-                r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            } else {
-                r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
-            }
-            StringBuilder stringBuilder = new StringBuilder();
-            String line;
-            while ((line = r.readLine()) != null) {
-                stringBuilder.append(line).append('\n');
-            }
-            String response = stringBuilder.toString();
-            Log.d(TAG, response);
-            return response;
-        } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
-        } finally {
-            if (conn != null) {
-                conn.disconnect();
+                int resCode = conn.getResponseCode();
+                Log.d(TAG, "Response code: " + this.getNetApp().getName() + ": " + resCode);
+                BufferedReader r;
+                if (resCode == -1) {
+                    return "";
+                } else if (resCode == 200) {
+                    r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                } else {
+                    r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                }
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = r.readLine()) != null) {
+                    stringBuilder.append(line).append('\n');
+                }
+                String response = stringBuilder.toString();
+                Log.d(TAG, response);
+                return response;
+            } catch (IOException | NullPointerException e) {
+                e.printStackTrace();
+            } finally {
+                if (conn != null) {
+                    conn.disconnect();
+                }
             }
         }
         return "";
