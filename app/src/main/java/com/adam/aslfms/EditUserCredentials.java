@@ -118,7 +118,7 @@ public class EditUserCredentials extends DialogPreference {
             service.setAction(ScrobblingService.ACTION_AUTHENTICATE);
             service.putExtra("netapp", mNetApp.getIntentExtraValue());
             if (mNetApp == NetApp.LISTENBRAINZ) {
-                String token = mListenBrainzToken.getText().toString().trim();
+                String token = mListenBrainzToken.getText().toString().replaceAll("[^\\x20-\\x7E]", "").trim();
                 settings.setListenBrainzToken(mNetApp, token);
                 String username = mUsername.getText().toString().trim();
                 settings.setUsername(mNetApp, username);

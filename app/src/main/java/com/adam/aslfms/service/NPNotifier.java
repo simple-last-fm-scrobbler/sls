@@ -36,6 +36,7 @@ import com.adam.aslfms.util.AuthStatus.UnknownResponseException;
 import com.adam.aslfms.util.MD5;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
+import com.adam.aslfms.util.enums.PowerOptions;
 import com.adam.aslfms.util.enums.SubmissionType;
 
 import org.json.JSONArray;
@@ -260,6 +261,10 @@ public class NPNotifier extends AbstractSubmitter {
                 }
                 String response = stringBuilder.toString();
                 Log.d(TAG, response);
+                if (resCode == 401) {
+                    settings.setListenBrainzToken(netApp, "");
+                    throw new BadSessionException("Now Playing failed because of badsession");
+                }
                 if (response.equals("")) {
                     throw new AuthStatus.UnknownResponseException("Empty response");
                 }

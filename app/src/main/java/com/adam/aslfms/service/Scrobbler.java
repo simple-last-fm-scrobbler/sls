@@ -294,6 +294,10 @@ public class Scrobbler extends AbstractSubmitter {
                 }
                 String response = stringBuilder.toString();
                 Log.d(TAG, response);
+                if (resCode == 401) {
+                    settings.setListenBrainzToken(netApp, "");
+                    throw new BadSessionException("Now Playing failed because of badsession");
+                }
                 if (response.equals("")) {
                     throw new AuthStatus.UnknownResponseException("Empty response");
                 }
