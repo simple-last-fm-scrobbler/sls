@@ -61,7 +61,7 @@ Head to [Transifex](https://www.transifex.com/sls/sls) if you want to be a trans
  * [Libre.fm](http:///libre.fm)
  * [Listen Brainz](https://listenbrainz.org)
  * [Custom GNU-fm/Libre.fm Server](https://git.gnu.io/gnu/gnu-fm/blob/master/gnufm_install.txt)
- * [Custom Listen Brainz Server]()
+ * [Custom Listen Brainz Server](https://github.com/metabrainz/listenbrainz-server/blob/master/README.md)
 
 ### Apps
 
