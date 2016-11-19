@@ -28,6 +28,8 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.NavUtils;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.adam.aslfms.receiver.MusicAPI;
@@ -100,11 +102,21 @@ public class MusicAppsActivity extends AppCompatPreferenceActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.clearapps, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 NavUtils.navigateUpFromSameTask(this);
+                return true;
+            case R.id.MENU_CLEAR_APPS_ID:
+                MusicAPI.clearDatabase(this);
                 return true;
         }
         return super.onOptionsItemSelected(item);

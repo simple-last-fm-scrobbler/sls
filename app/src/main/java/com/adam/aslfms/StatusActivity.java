@@ -133,7 +133,9 @@ public class StatusActivity extends AppCompatActivity {
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
 
         for (NetApp napp : NetApp.values()) {
-            adapter.addFragment(StatusFragment.newInstance(napp.getValue()), napp.getName());
+            if (!settings.getUsername(napp).equals("")) {
+                adapter.addFragment(StatusFragment.newInstance(napp.getValue()), napp.getName());
+            }
         }
         viewPager.setAdapter(adapter);
     }

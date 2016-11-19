@@ -6,6 +6,7 @@
     <string name="issues_url" translatable="false">https://github.com/tgwizard/sls/issues</string>
     <string name="trouble_shoot" translatable="false">https://github.com/tgwizard/sls/blob/master/TroubleShooting.md</string>
     <string name="ongoing" translatable="false">OnGoing</string>
+    <string name="clear_apps" translatable="false">Clear Apps</string> <!-- TODO: Translate -->
     <string name="nixtapeUrl" translatable="false">Nixtape URL</string>
     <string name="gnukeboxUrl" translatable="false">Gnukebox URL</string>
     <string name="listenBrainzURL" translatable="false">Listen Brainz URL</string>
