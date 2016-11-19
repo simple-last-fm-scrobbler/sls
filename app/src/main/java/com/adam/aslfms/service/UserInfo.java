@@ -38,10 +38,6 @@ import java.net.URLEncoder;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-
 /**
  * Created by Debugs on 7/9/2016.
  *
@@ -104,7 +100,8 @@ public class UserInfo extends NetRunnable {
 
     private String getAllTimeScrobbles() throws IOException, NullPointerException {
         if (getNetApp() == NetApp.LISTENBRAINZ || getNetApp() == NetApp.CUSTOM2) {
-            URL url;
+            // TODO: Get total number of tracks in data base (make/wait for, pull request listenbrainz)
+         /*   URL url;
             HttpsURLConnection conn = null;
             try {
                 url = new URL(getNetApp().getWebserviceUrl(settings) + "user/" + settings.getUsername(getNetApp()) + "/listens");
@@ -126,10 +123,9 @@ public class UserInfo extends NetRunnable {
                 strArr = customSockets.getSupportedCipherSuites();
                 for (String str : strArr) {
                     Log.e(TAG, str);
-                }*/
+                }
 
                 // set Timeout and method
-                // TODO: Reduce default track count to less than 25
                 // https://listenbrainz.readthedocs.io/en/latest/dev/api.html#webserver.views.api.DEFAULT_ITEMS_PER_GET
                 conn.setReadTimeout(7000);
                 conn.setConnectTimeout(7000);
@@ -161,7 +157,7 @@ public class UserInfo extends NetRunnable {
                 if (conn != null) {
                     conn.disconnect();
                 }
-            }
+            }*/
         } else {
             URL url;
             HttpURLConnection conn = null;

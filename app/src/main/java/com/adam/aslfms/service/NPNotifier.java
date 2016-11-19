@@ -231,14 +231,14 @@ public class NPNotifier extends AbstractSubmitter {
                 //conn.setUseCaches(false);
 
                 conn.addRequestProperty("Authorization", userPwd);
-                conn.addRequestProperty("Content-Type", "application/json");
+                conn.addRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
 
                 DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
                 Log.d(TAG, baseObj.toString());
-                outStream.writeBytes(baseObj.toString());
+                outStream.write(baseObj.toString().getBytes("UTF-8"));
                 outStream.flush();
                 outStream.close();
 

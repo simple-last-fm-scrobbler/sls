@@ -243,7 +243,7 @@ public class Handshaker extends NetRunnable {
             throw new BadAuthException(getContext().getString(
                     R.string.auth_bad_auth));
         }
-        if (netApp == NetApp.LISTENBRAINZ) {
+        if (netApp == NetApp.LISTENBRAINZ || netApp == NetApp.CUSTOM2) {
             try {
                 URL url = new URL(getNetApp().getWebserviceUrl(settings));
                 if (!settings.getListenBrainzToken(netApp).equals("")) {

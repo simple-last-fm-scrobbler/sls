@@ -249,6 +249,15 @@ public class Scrobbler extends AbstractSubmitter {
                     JSONObject trackMetaData = new JSONObject();
                     trackMetaData.put("artist_name", track.getArtist());
                     trackMetaData.put("track_name", track.getTrack());
+                    if (track.getAlbum() != null && !track.getAlbum().equals("")) {
+                        trackMetaData.put("release_name", track.getAlbum());
+                    }
+                    /*
+                    if (track.getMbid() != null && !track.getMbid().equals("")) {
+                        JSONObject additionalInfo = new JSONObject();
+                        additionalInfo.put("recording_mbid", track.getMbid());
+                        trackMetaData.put("additional_info", additionalInfo);
+                    }*/
 
                     trackInfo.put("track_metadata", trackMetaData);
 
@@ -265,14 +274,14 @@ public class Scrobbler extends AbstractSubmitter {
                 //conn.setUseCaches(false);
 
                 conn.addRequestProperty("Authorization", userPwd);
-                conn.addRequestProperty("Content-Type", "application/json");
+                conn.addRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
                 conn.setDoInput(true);
                 conn.setDoOutput(true);
 
                 DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
-                Log.e(TAG, baseObj.toString());
-                outStream.writeBytes(baseObj.toString());
+                //Log.e(TAG, baseObj.toString());
+                outStream.write(baseObj.toString().getBytes("UTF-8"));
                 outStream.flush();
                 outStream.close();
 
@@ -302,9 +311,9 @@ public class Scrobbler extends AbstractSubmitter {
                 }
                 if (response.startsWith("success")) {
                     Log.i(TAG, "Scrobble success: " + netAppName);
-                    if (settings.isNowPlayingEnabled(pow)) {
+                    /*if (settings.isNowPlayingEnabled(pow)) { // support is coming
                         mNetManager.launchGetUserInfo(getNetApp());
-                    }
+                    }*/
                 } else {
                     throw new AuthStatus.UnknownResponseException("Invalid Response");
                 }

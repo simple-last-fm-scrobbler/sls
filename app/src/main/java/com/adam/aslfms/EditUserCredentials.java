@@ -69,6 +69,7 @@ public class EditUserCredentials extends DialogPreference {
         super.onBindDialogView(view);
         if (mNetApp == NetApp.LISTENBRAINZ || mNetApp == NetApp.CUSTOM2) {
             mUsername = (EditText) view.findViewById(R.id.username);
+            mUsername.setText(settings.getUsername(mNetApp));
             mListenBrainzToken = (EditText) view.findViewById(R.id.listenBrainzToken);
             view.findViewById(R.id.listenBrainz).setVisibility(View.VISIBLE);
             view.findViewById(R.id.userOnly).setVisibility(View.VISIBLE);
