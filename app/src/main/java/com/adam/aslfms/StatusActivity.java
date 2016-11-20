@@ -133,7 +133,7 @@ public class StatusActivity extends AppCompatActivity {
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
 
         for (NetApp napp : NetApp.values()) {
-            if (!settings.getUsername(napp).equals("")) {
+            if (settings.isAuthenticated(napp)) {
                 adapter.addFragment(StatusFragment.newInstance(napp.getValue()), napp.getName());
             }
         }
