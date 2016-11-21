@@ -1,3 +1,9 @@
+- 1.5.3 (2016-11-21)
+  * Listen Brainz support
+  * Clear Unused Apps List Feature
+  * Only Show Logged In Services in Status
+  * Apache 2.0 License
+
 - 1.5.2 (2016-11-15)
   * GNU-fm is for home built servers
   * Libre.fm solo Love Track
