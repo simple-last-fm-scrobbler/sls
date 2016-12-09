@@ -81,7 +81,7 @@ Please note that some of the following applications require changing their defau
  * [Just Playlists](http://jp.folsoms.info)
  * [PowerAMP](http://powerampapp.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.maxmpz.audioplayer))
  * [myTouch 4G](http://mytouch.t-mobile.com/)
- * [Google Music](http://music.google.com/music/) ([Google PLay](https://play.google.com/store/apps/details?id=com.google.android.music))
+ * [Google Music](http://music.google.com/music/) ([Google Play](https://play.google.com/store/apps/details?id=com.google.android.music))
  * [PlayerPro](http://www.aplayerpro.com/) ([Google Play](https://play.google.com/store/apps/details?id=com.tbig.playerpro))
  * [jukefox](http://www.jukefox.org/) ([Google Play](https://play.google.com/store/apps/details?id=ch.ethz.dcg.pancho2)) **(a)**
  * [DAAP Media Player](http://code.google.com/p/daap-client/ ) ([Google Play](https://play.google.com/store/apps/details?id=org.mult.daap))
