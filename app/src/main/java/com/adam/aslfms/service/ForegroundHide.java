@@ -53,6 +53,7 @@ public class ForegroundHide extends Service {
                         .setContentTitle("")
                         .setSmallIcon(R.mipmap.ic_notify)
                         .setContentText("")
+                        .setPriority(NotificationCompat.PRIORITY_MIN)
                         .setContentIntent(contentIntent);
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {

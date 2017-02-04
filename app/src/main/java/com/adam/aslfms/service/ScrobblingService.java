@@ -93,6 +93,13 @@ public class ScrobblingService extends Service {
                     String tr = mCurrentTrack.getTrack();
                     String api = mCurrentTrack.getMusicAPI().readAPIname();
 
+                    // Heart intent
+                    Intent heartIntent = new Intent(mCtx, ScrobblingService.class);
+                    heartIntent.setAction(ScrobblingService.ACTION_HEART);
+                    PendingIntent  heartPendingIntent =  PendingIntent.getService(mCtx, 0, heartIntent, 0);
+                    NotificationCompat.Action heartAction = new NotificationCompat.Action.Builder(R.mipmap.ic_status_wail_love_track, "", heartPendingIntent).build();
+
+
                     Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
                     PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     NotificationCompat.Builder builder =
@@ -100,6 +107,8 @@ public class ScrobblingService extends Service {
                                     .setContentTitle(tr)
                                     .setSmallIcon(R.mipmap.ic_notify)
                                     .setContentText(ar + " :" + api)
+                                    .setPriority(NotificationCompat.PRIORITY_MIN)
+                                    .addAction(heartAction)
                                     .setContentIntent(contentIntent);
 
                     if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
@@ -133,6 +142,12 @@ public class ScrobblingService extends Service {
                 String tr = mCurrentTrack.getTrack();
                 String api = mCurrentTrack.getMusicAPI().readAPIname();
 
+                // Heart intent
+                Intent heartIntent = new Intent(mCtx, ScrobblingService.class);
+                heartIntent.setAction(ScrobblingService.ACTION_HEART);
+                PendingIntent  heartPendingIntent =  PendingIntent.getService(mCtx, 0, heartIntent, 0);
+                NotificationCompat.Action heartAction = new NotificationCompat.Action.Builder(R.mipmap.ic_status_wail_love_track, "", heartPendingIntent).build();
+
                 Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
                 PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 NotificationCompat.Builder builder =
@@ -140,6 +155,8 @@ public class ScrobblingService extends Service {
                                 .setContentTitle(tr)
                                 .setSmallIcon(R.mipmap.ic_notify)
                                 .setContentText(ar + " :" + api)
+                                .setPriority(NotificationCompat.PRIORITY_MIN)
+                                .addAction(heartAction)
                                 .setContentIntent(contentIntent);
 
                 if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
