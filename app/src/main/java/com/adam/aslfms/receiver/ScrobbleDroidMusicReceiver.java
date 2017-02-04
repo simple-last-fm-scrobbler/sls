@@ -102,7 +102,14 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
             return;
         }
 
-        int msid = bundle.getInt("id", -1);
+        Object id = bundle.get("id");
+        Long msid;
+        if (id instanceof Long)
+            msid = (Long) id;
+        else if (id instanceof Integer)
+            msid = (Long) id;
+        else
+            msid = new Long(-1);
 
         Track.Builder b = new Track.Builder();
         b.setMusicAPI(musicAPI);

@@ -24,6 +24,7 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
@@ -186,18 +187,21 @@ public abstract class BuiltInMusicAppReceiver extends
 	long getAudioId(Bundle bundle) {
 		long id = NO_AUDIO_ID;
 		Object idBundle = bundle.get("id");
+		if (app_package == "deezer.android.app" || app_package == "com.spotify.music"){
+			return id;
+		}
 		if (idBundle != null) {
 			if (idBundle instanceof Long)
 				id = (Long) idBundle;
 			else if (idBundle instanceof Integer)
 				id = (Integer) idBundle;
-			else if (idBundle instanceof String && ((String) idBundle).contains(".")){
-				id = Long.valueOf(((String) idBundle).replace(".","")).longValue();
+			else if (idBundle instanceof String && ((String) idBundle).contains(".")) {
+				id = Long.valueOf(((String) idBundle).replace(".", "")).longValue();
 			} else if (idBundle instanceof String) {
 				id = Long.valueOf((String) idBundle).longValue();
-			} else {
+				} else {
 				Log.w(TAG,
-					"Got unsupported idBundle type: " + idBundle.getClass());
+						"Got unsupported idBundle type: " + idBundle.getClass());
 			}
 		}
 		return id;
