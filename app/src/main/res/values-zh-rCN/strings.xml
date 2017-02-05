@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- START original strings -->
+    <string name="close">关闭</string>
+    <string name="remove">移除</string>
+    <string name="reset">重置</string>
+    <string name="clear_creds">清除</string>
+    <string name="are_you_sure">你确定吗</string>
+    <string name="warning">警告</string>
+    <string name="will_submit_stuff">会将听歌信息提交到这个网站</string>
+    <string name="also_disable_np_title">同时禁用“正在播放”</string>
+    <string name="also_disable_np_summary">[Hmpf]</string>
+    <!-- END original strings -->
+
+    <!-- START about strings -->
+    <string name="by">作者</string>
+    <string name="issues">报告问题: %s</string>
+    <string name="website">网站: %s</string>
+    <string name="troubShoot">疑难解答: %s</string>
+    <string name="by_adam">作者 Adam Renberg</string>
+    <string name="license">遵循Apache License v2.0协议发行</string>
+    <string name="about_text">一个轻巧的音乐记录仪(Scrobbler)，会把你正在手机上播放的音乐信息，记录(Scrobble)并提交到 Last.fm (或Libre.fm)。Last.fm就能给你提供音乐播放的统计，以及推荐你可能喜欢的歌曲。</string>
+    <string name="everything_disabled">记录/“正在播放” 已禁用</string>
+    <string name="file_error">文件错误！</string>
+    <string name="thats_new">更新的是</string>
+    <string name="about">关于</string>
+    <string name="whats_new">更新内容：</string>
+    <string name="supported_netapps">支持的网站: %1</string>
+    <string name="supported_apps">支持的软件: %s 以及更多~</string>
+    <!-- END about strings -->
+
+    <!-- START cache strings -->
+    <string name="scrobbles_cache_nonum">本地记录条目:</string>
+    <string name="scrobbles_cache">本地记录条目数: %1</string>
+    <string name="db_error">数据库错误</string>
+    <string name="scrobble_now">立即提交记录</string>
+    <string name="reset_stats">重置统计信息</string>
+    <string name="scrobble_cache_title">记录缓存</string>
+    <string name="confirm_delete_sc">你确定不提交这条记录到 %1 吗? 该操作无法撤销。</string>
+    <string name="confirm_delete_sc_from_all">你确定不提交这条记录吗? 该操作无法撤销。</string>
+    <string name="confirm_delete_all_sc">你确定想要清楚所有 %1 的记录缓存? 该操作无法撤销。</string>
+    <string name="confirm_delete_all_sc_from_all">你确定想要清楚所有的记录缓存? 该操作无法撤销。</string>
+    <string name="no_scrobbles_in_cache">没有已缓存的记录</string>
+    <string name="view_sc">查看记录缓存</string>
+    <string name="view_sc_details">查看详情</string>
+    <string name="delete_sc">从缓存中移除</string>
+    <string name="clear_cache">清空缓存</string>
+    <string name="track_info">音轨信息</string>
+    <string name="view_sc_title_for">%1 的记录缓存</string>
+    <string name="view_sc_for_all_summary">查看和更改未提交的记录</string>
+    <string name="all_websites">所有网站</string>
+    <string name="sc_sorted_by">排序依据: %1</string>
+    <string name="sc_sort_title">排序方式</string>
+    <string name="sc_sortorder_change">更改排序顺序</string>
+    <string name="sc_sort_when_asc">按播放时间(升序)</string>
+    <string name="sc_sort_when_desc">按播放时间(降序)</string>
+    <string name="sc_sort_artist_asc">艺术家(升序)</string>
+    <string name="sc_sort_artist_desc">艺术家(降序)</string>
+    <string name="sc_sort_album_asc">专辑(升序)</string>
+    <string name="sc_sort_album_desc">专辑(降序)</string>
+    <string name="sc_sort_track_asc">音轨名(升序)</string>
+    <string name="sc_sort_track_desc">音轨名(降序)</string>
+    <!-- END cache strings -->
+
+    <!-- START creds strings -->
+    <string name="user_credentials_title">账户信息</string>
+    <string name="user_credentials_summary">为你的 %1 账号设置用户名和密码</string>
+    <string name="user_credentials_summary_no_napp">为你的账号设置用户名和密码</string>
+    <string name="user_credentials_enter_ok">认证</string>
+    <string name="user_credentials_enter_cancel">取消</string>
+    <string name="user_credentials_clear_title">清除账户</string>
+    <string name="user_credentials_clear_summary">清除用户名和密码记录以及会话信息</string>
+    <string name="supported_netapps_category_title">支持的网站</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="auth_client_banned">本版本已经过时，请升级</string>
+    <string name="auth_bad_auth">用户名/密码/凭据错误</string>
+    <string name="auth_server_error">服务器错误: %1，重试中…</string>
+    <string name="auth_timing_error">客户端计时错误，重试重…</string>
+    <string name="auth_network_error_retrying">网络错误，重试中…</string>
+    <string name="auth_network_unfit">向网络提交数据被禁止，请在“选项”界面更改设置</string>
+    <string name="auth_updating">认证中…</string>
+    <string name="auth_internal_error">内部错误</string>
+    <string name="auth_just_error">错误，重试重…</string>
+    <string name="logged_in_just">登录账户:</string>
+    <string name="logged_in_as">登录账户: %1</string>
+    <string name="log_in_to">登陆</string>
+    <string name="not_logged_in">未登录</string>
+    <string name="create_user_title">注册</string>
+    <string name="create_user_summary">在 %1 注册新账户</string>
+    <string name="confirm_clear_creds">你确定要清除你的 %1 账户信息？该操作会同时删除所有没有提交的记录条目。</string>
+    <string name="confirm_clear_all_creds">你确定要清除你的 %1 账户信息？该操作会同时删除所有没有提交的记录条目。</string>
+    <!-- END creds strings -->
+
+    <!-- START heart strings -->
+    <string name="heart_and_copy">歌曲操作</string>
+    <string name="heart_title">收藏</string>
+    <string name="heart_current_track">在Last.fm(Libre.fm)上收藏当前音轨</string>
+    <string name="no_heart_track">收藏音轨失败</string>
+    <string name="loved_track">音轨已收藏</string>
+    <string name="no_lastFm">请登陆last.fm</string>
+    <string name="song_is_ready">歌曲就绪</string>
+    <!-- END heart strings -->
+
+    <!-- START copy strings -->
+    <string name="copy_title">复制</string>
+    <string name="copy_current_track">复制当前音轨信息到剪贴板</string>
+    <string name="no_copy_track">复制音轨失败</string>
+    <string name="no_current_track">没有可复制的音轨</string>
+    <!-- END copy strings -->
+
+    <!-- START permissions and warnings strings -->
+    <string name="permission_required">为正常工作，请为本应用提供所需权限</string>
+    <string name="creds_required">请登陆以提供凭据</string>
+    <string name="limited_network">网络连接受限</string>
+    <!-- END permissions and warnings strings -->
+
+    <!-- START mapis strings -->
+    <string name="incompatability_short">警告: 您也安装了%1$s，这会导致重复记录。</string>
+    <string name="incompatability_long">警告: 您也安装了%1$s，这会导致记录不兼容。请取消其记录(Scrobble)功能或卸载%1$s。</string>
+    <string name="show_supported_apps_list_summary">启用/禁用应用的记录功能</string>
+    <string name="supported_apps_category_title">已启用记录的应用</string>
+    <string name="app_disabled">不要从该应用中记录音乐</string>
+    <string name="not_installed">该应用未安装</string>
+    <string name="no_supported_mapis_title">未检测到音乐应用</string>
+    <string name="find_supported_mapis_one_title">检测到1个音乐应用</string>
+    <string name="find_supported_mapis_many_title">检测到%1个音乐应用</string>
+    <string name="find_supported_mapis_summary">在支持的应用中播放音乐，应用就会在这里显示。</string>
+    <string name="unknown_mapi">未知应用(SLS v1.2.3之前版本)</string>
+    <!-- END mapis strings -->
+
+    <!-- START options strings -->
+    <string name="options_title">选项</string>
+    <string name="advanced_options_title">高级选项</string>
+    <string name="scrobbling">记录</string>
+    <string name="scrobbling_enable">当你在聆听音乐时上传音乐信息</string>
+    <string name="nowplaying">“正在播放”通知</string>
+    <string name="nowplaying_enable">推送你正在收听的音乐信息</string>
+    <string name="scrobble_point_title">记录点</string>
+    <string name="scrobble_point_summary">在音乐播放完%1%后将其添加到记录缓存</string>
+    <string name="ao_battery_title">电池供电时</string>
+    <string name="ao_plugged_title">外部供电时</string>
+    <string name="options_summary">包括省电设定</string>
+    <string name="advanced_options_notify_title">消息栏通知</string>
+    <string name="advanced_options_custom_category_title">自定义记录选项</string>
+    <string name="advanced_options_when_title">提交记录的时刻</string>
+    <string name="advanced_options_also_on_complete_title">播放列表完成时亦记录</string>
+    <string name="advanced_options_also_on_complete_summary">当你听完一个播放列表时也进行记录操作</string>
+    <string name="advanced_options_also_on_plugged_title">当外部供电时亦记录</string>
+    <string name="advanced_options_also_on_plugged_summary">当插上外部电源时也进行记录操作</string>
+    <string name="should_disable_np">你应该同时禁用“正在播放”通知以进一步省电</string>
+    <string name="advanced_options_type_standard_name">标准</string>
+    <string name="advanced_options_type_battery_name">省电</string>
+    <string name="advanced_options_type_same_as_battery_name">与电池供电时相同</string>
+    <string name="advanced_options_type_custom_name">自定义</string>
+    <string name="advanced_options_when_1_name">每个音轨后</string>
+    <string name="advanced_options_when_5_name">每五个音轨后</string>
+    <string name="advanced_options_when_10_name">每十个音轨后</string>
+    <string name="advanced_options_when_25_name">每25个音轨后</string>
+    <string name="advanced_options_when_never_name">当按下立即记录按钮时</string>
+    <string name="advanced_options_net_title">网络</string>
+    <string name="advanced_options_net_summary">当网络为%1时提交记录</string>
+    <string name="advanced_options_net_any_name">任意网络</string>
+    <string name="advanced_options_net_3gup_name">3G和Wifi</string>
+    <string name="advanced_options_net_wifi_name">Wifi</string>
+    <string name="advanced_options_net_roaming_title">漫游</string>
+    <string name="advanced_options_net_roaming_summary_off">当漫游时不提交数据</string>
+    <string name="advanced_options_net_roaming_summary_on">当漫游时提交数据</string>
+    <!-- END options strings -->
+
+    <!-- START status strings -->
+    <string name="status">状态</string>
+    <string name="scrobble_status_title">记录状态</string>
+    <string name="other_category_title">其他</string>
+    <string name="status_show_title">状态</string>
+    <string name="status_show_summary">查看统计信息和状态</string>
+    <string name="status_title">状态信息</string>
+    <string name="scrobbling_disabled">记录已被禁用</string>
+    <string name="scrobble_last_at">上一次提交的记录：</string>
+    <string name="scrobble_last_fail_at">上一次提交失败的记录：</string>
+    <string name="nowplaying_disabled">“正在播放”的通知已被禁用</string>
+    <string name="nowplaying_last_at">上一次提交的“正在播放”通知：</string>
+    <string name="nowplaying_last_fail_at">上一次提交失败的“正在播放”通知：</string>
+    <string name="stats_scrobbles">总计提交的记录数：</string>
+    <string name="never">从不</string>
+    <string name="stats_nps">总计提交的“正在播放”通知数：</string>
+    <string name="it_was">它是：</string>
+    <string name="confirm_stats_reset">你确定你想要重置你的%1提交统计？该操作无法撤销。</string>
+    <string name="profile_page">用户信息页面</string>
+    <!-- END status strings -->
+
+</resources>
