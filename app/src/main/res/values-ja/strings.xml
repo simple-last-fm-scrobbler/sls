@@ -1,0 +1,193 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- START original strings -->
+    <string name="close">閉じる</string>
+    <string name="remove">削除</string>
+    <string name="reset">Reset</string>
+    <string name="clear_creds">Clear</string>
+    <string name="are_you_sure">確認</string>
+    <string name="warning">警告</string>
+    <string name="will_submit_stuff">Will submit listening information to this website</string>
+    <string name="also_disable_np_title">Also disable now-playing</string>
+    <string name="also_disable_np_summary">[Hmpf]</string>
+    <!-- END original strings -->
+
+    <!-- START about strings -->
+    <string name="by">by</string>
+    <string name="issues">Issues: %s</string>
+    <string name="website">ウェブサイト: %s</string>
+    <string name="troubShoot">Trouble Shoot: %s</string>
+    <string name="by_adam">by Adam Renberg</string>
+    <string name="license">Released under Apache License v2.0</string>
+    <string name="about_text">A lightweight scrobbler that submits information to Last.fm (and/or Libre.fm) on what music you play on your android phone. Last.fm then lets you view listening statistics and recommends new music you might like.</string>
+    <string name="everything_disabled">Scrobbling/now playing is disabled.</string>
+    <string name="file_error">ファイルエラー！</string>
+    <string name="thats_new">That which is new</string>
+    <string name="about">About</string>
+    <string name="whats_new">更新情報</string>
+    <string name="supported_netapps">サポート済みのウェブサイト: %1</string>
+    <string name="supported_apps">サポート済みのアプリ: %s and more…</string>
+    <!-- END about strings -->
+
+    <!-- START cache strings -->
+    <string name="scrobbles_cache_nonum">端末にキャッシュ済みのScrobble:</string>
+    <string name="scrobbles_cache">端末にキャッシュ済みのScrobble: %1</string>
+    <string name="db_error">データベースエラー</string>
+    <string name="scrobble_now">Scrobble now</string>
+    <string name="reset_stats">統計をリセット</string>
+    <string name="scrobble_cache_title">キャッシュされたScrobble</string>
+    <string name="confirm_delete_sc">この曲を%1にScrobbleしないでよろしいですか？ この操作は元に戻せません。</string>
+    <string name="confirm_delete_sc_from_all">この曲をScrobbleしないでよろしいですか？ この操作は元に戻せません。</string>
+    <string name="confirm_delete_all_sc">%1のキャッシュされたすべての曲をScrobbleしないでよろしいですか？ この操作は元に戻せません。</string>
+    <string name="confirm_delete_all_sc_from_all">キャッシュされたすべての曲をScrobbleしないでよろしいですか？ この操作は元に戻せません。</string>
+    <string name="no_scrobbles_in_cache">キャッシュされたScrobbleがありません</string>
+    <string name="view_sc">キャッシュされたScrobbleを見る</string>
+    <string name="view_sc_details">詳細を見る</string>
+    <string name="delete_sc">キャッシュから削除</string>
+    <string name="clear_cache">キャッシュクリア</string>
+    <string name="track_info">楽曲情報</string>
+    <string name="view_sc_title_for">%1のScrobbleキャッシュ</string>
+    <string name="view_sc_for_all_summary">投稿されていないScrobbleを閲覧/編集する</string>
+    <string name="all_websites">すべてのウェブサイト</string>
+    <string name="sc_sorted_by">並び順: %1</string>
+    <string name="sc_sort_title">並び順</string>
+    <string name="sc_sortorder_change">並べ替え</string>
+    <string name="sc_sort_when_asc">再生時刻 昇順</string>
+    <string name="sc_sort_when_desc">再生時刻 降順</string>
+    <string name="sc_sort_artist_asc">アーティスト名 昇順</string>
+    <string name="sc_sort_artist_desc">アーティスト名 降順</string>
+    <string name="sc_sort_album_asc">アルバム名 昇順</string>
+    <string name="sc_sort_album_desc">アルバム名 降順</string>
+    <string name="sc_sort_track_asc">曲名 昇順</string>
+    <string name="sc_sort_track_desc">曲名 降順</string>
+    <!-- END cache strings -->
+
+    <!-- START creds strings -->
+    <string name="user_credentials_title">ユーザー認証</string>
+    <string name="user_credentials_summary">%1のユーザー名とパスワードを設定します</string>
+    <string name="user_credentials_summary_no_napp">アカウントのユーザー名とパスワードを設定します</string>
+    <string name="user_credentials_enter_ok">認証する</string>
+    <string name="user_credentials_enter_cancel">キャンセル</string>
+    <string name="user_credentials_clear_title">認証解除</string>
+    <string name="user_credentials_clear_summary">ユーザー名とセッションキーをクリアします</string>
+    <string name="supported_netapps_category_title">サポートしているウェブサイト</string>
+    <string name="username">ユーザー名</string>
+    <string name="password">パスワード</string>
+    <string name="auth_client_banned">このバージョンのアプリは非推奨です。更新してください</string>
+    <string name="auth_bad_auth">ユーザー名/パスワード/トークンが間違っています</string>
+    <string name="auth_server_error">サーバーエラー: %1, retrying…</string>
+    <string name="auth_timing_error">クライアントエラー, retrying…</string>
+    <string name="auth_network_error_retrying">ネットワークエラー, retrying…</string>
+    <string name="auth_network_unfit">このネットワークでデータの送信が許可されていません。設定で変更してください</string>
+    <string name="auth_updating">Authenticating…</string>
+    <string name="auth_internal_error">内部エラー</string>
+    <string name="auth_just_error">エラー, retrying…</string>
+    <string name="logged_in_just">Logged in as:</string>
+    <string name="logged_in_as">Logged in as: %1</string>
+    <string name="log_in_to">Sign in to</string>
+    <string name="not_logged_in">Not logged in</string>
+    <string name="create_user_title">Sign up</string>
+    <string name="create_user_summary">Sign up for an account at %1</string>
+    <string name="confirm_clear_creds">%1の認証を解除してもよろしいですか？ 投稿されていないScrobbleは削除されます。</string>
+    <string name="confirm_clear_all_creds">すべての認証を解除してもよろしいですか？ 投稿されていないScrobbleは削除されます。</string>
+    <!-- END creds strings -->
+
+    <!-- START heart strings -->
+    <string name="heart_and_copy">楽曲オプション</string>
+    <string name="heart_title">Love</string>
+    <string name="heart_current_track">再生中の曲をLast.fm (Libre.fm)でLoveする</string>
+    <string name="no_heart_track">失敗しました</string>
+    <string name="loved_track">Loved Track</string>
+    <string name="no_lastFm">Last.fmの認証を設定してください</string>
+    <string name="song_is_ready">Song Ready</string>
+    <!-- END heart strings -->
+
+    <!-- START copy strings -->
+    <string name="copy_title">コピー</string>
+    <string name="copy_current_track">再生中の曲をクリップボードにコピーする</string>
+    <string name="no_copy_track">コピーに失敗しました</string>
+    <string name="no_current_track">再生中の曲がありません</string>
+    <!-- END copy strings -->
+
+    <!-- START permissions and warnings strings -->
+    <string name="permission_required">正常に動作するにはパーミッション（許可）が必要です</string>
+    <string name="creds_required">正常に動作するにはユーザー認証が必要です</string>
+    <string name="limited_network">ネットワーク制限</string>
+    <!-- END permissions and warnings strings -->
+
+    <!-- START mapis strings -->
+    <string name="incompatability_short">警告: %1$s がインストールされていると2重にScrobbleされるおそれがあります。</string>
+    <string name="incompatability_long">警告: %1$s がインストールされているとScrobbleが両立できません。 このアプリを対象外にするか、 %1$s をアンインストールしてください。</string>
+    <string name="show_supported_apps_list_summary">Scrobble対象にするアプリを選択できます</string>
+    <string name="supported_apps_category_title">Scrobbleできるアプリ</string>
+    <string name="app_disabled">このアプリからScrobbleしない</string>
+    <string name="not_installed">このアプリはインストールされていません</string>
+    <string name="no_supported_mapis_title">ミュージックプレイヤーが検出されませんでした</string>
+    <string name="find_supported_mapis_one_title">1つのミュージックプレイヤーが検出されました</string>
+    <string name="find_supported_mapis_many_title">%1つのミュージックプレイヤーが検出されました</string>
+    <string name="find_supported_mapis_summary">サポート済みのアプリで曲を再生すると、ここに表示されます</string>
+    <string name="unknown_mapi">Unknown app (pre SLS v1.2.3)</string>
+    <!-- END mapis strings -->
+
+    <!-- START options strings -->
+    <string name="options_title">オプション</string>
+    <string name="advanced_options_title">詳細なオプション</string>
+    <string name="scrobbling">Scrobble</string>
+    <string name="scrobbling_enable">曲を再生した時に情報を投稿します</string>
+    <string name="nowplaying">Notify now playing</string>
+    <string name="nowplaying_enable">Broadcast what song you currently are listening to</string>
+    <string name="scrobble_point_title">Scrobble point</string>
+    <string name="scrobble_point_summary">%1%再生後にScrobbleが端末にキャッシュされます</string>
+    <string name="ao_battery_title">バッテリー使用時</string>
+    <string name="ao_plugged_title">充電時</string>    
+    <string name="options_summary">バッテリー節約の設定を含みます</string>
+    <string name="advanced_options_notify_title">端末の通知</string>
+    <string name="advanced_options_custom_category_title">Custom scrobbling options</string>
+    <string name="advanced_options_when_title">Scrobbleするタイミング</string>
+    <string name="advanced_options_also_on_complete_title">Also on playlist finish</string>
+    <string name="advanced_options_also_on_complete_summary">Also scrobble when you\'ve finished listening to a playlist</string>
+    <string name="advanced_options_also_on_plugged_title">Also when plugged in</string>
+    <string name="advanced_options_also_on_plugged_summary">Also scrobble when you\'re plugged in to a power source</string>
+    <string name="should_disable_np">You should also disable now playing notifications to better conserve battery</string>
+    <string name="advanced_options_type_standard_name">標準</string>
+    <string name="advanced_options_type_battery_name">バッテリー節約</string>
+    <string name="advanced_options_type_same_as_battery_name">バッテリー使用時と同様</string>
+    <string name="advanced_options_type_custom_name">カスタム</string>
+    <string name="advanced_options_when_1_name">トラック毎</string>
+    <string name="advanced_options_when_5_name">5トラック後</string>
+    <string name="advanced_options_when_10_name">10トラック後</string>
+    <string name="advanced_options_when_25_name">25トラック後</string>
+    <string name="advanced_options_when_never_name">Scrobble nowを押した時</string>
+    <string name="advanced_options_net_title">ネットワーク</string>
+    <string name="advanced_options_net_summary">Submit data on: %1</string>
+    <string name="advanced_options_net_any_name">すべて</string>
+    <string name="advanced_options_net_3gup_name">3GとWi-Fi</string>
+    <string name="advanced_options_net_wifi_name">Wi-Fiのみ</string>
+    <string name="advanced_options_net_roaming_title">ローミング</string>
+    <string name="advanced_options_net_roaming_summary_off">ローミング中はデータを送信しない</string>
+    <string name="advanced_options_net_roaming_summary_on">ローミング中もデータを送信する</string>
+    <!-- END options strings -->
+
+    <!-- START status strings -->
+    <string name="status">Status</string>
+    <string name="scrobble_status_title">Scrobble status</string>
+    <string name="other_category_title">その他</string>
+    <string name="status_show_title">Status</string>
+    <string name="status_show_summary">統計と全体のステータスを見る</string>
+    <string name="status_title">Status info</string>
+    <string name="scrobbling_disabled">Scrobbling is disabled</string>
+    <string name="scrobble_last_at">最終Scrobble投稿時刻:</string>
+    <string name="scrobble_last_fail_at">最終Scrobble投稿失敗時刻:</string>
+    <string name="nowplaying_disabled">Now playing notifications are disabled</string>
+    <string name="nowplaying_last_at">Last now playing notification submitted at:</string>
+    <string name="nowplaying_last_fail_at">Last scrobble submission failed at:</string>
+    <string name="stats_scrobbles">Total tracks scrobbled:</string>
+    <string name="never">Never</string>
+    <string name="stats_nps">Total now playing notifications:</string>
+    <string name="it_was">It was:</string>
+    <string name="confirm_stats_reset">%1の投稿統計情報をリセットしてもよろしいですか？ この操作は元に戻せません。</string>
+    <string name="profile_page">プロフィールページ</string>
+    <!-- END status strings -->
+
+</resources>
