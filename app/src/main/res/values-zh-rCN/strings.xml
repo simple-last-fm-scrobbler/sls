@@ -155,7 +155,7 @@
     <string name="advanced_options_type_same_as_battery_name">与电池供电时相同</string>
     <string name="advanced_options_type_custom_name">自定义</string>
     <string name="advanced_options_when_1_name">每个音轨后</string>
-    <string name="adv anced_options_when_5_name">每五个音轨后</string>
+    <string name="advanced_options_when_5_name">每五个音轨后</string>
     <string name="advanced_options_when_10_name">每十个音轨后</string>
     <string name="advanced_options_when_25_name">每25个音轨后</string>
     <string name="advanced_options_when_never_name">当按下立即记录按钮时</string>
