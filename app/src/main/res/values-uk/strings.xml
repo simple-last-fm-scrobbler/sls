@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- START original strings -->
+    <string name="close">Закрити</string>
+    <string name="remove">Видалити</string>
+    <string name="reset">Скинути</string>
+    <string name="clear_creds">Очистити</string>
+    <string name="are_you_sure">Ви впевнені?</string>
+    <string name="warning">Застереження</string>
+    <string name="will_submit_stuff">Буде надсилати інформацію про прослуховування композицій на цей сайт</string>
+    <string name="also_disable_np_title">Також вимикає сповіщення про те, що зараз грає</string>
+    <string name="also_disable_np_summary">[Hmpf]</string>
+    <!-- END original strings -->
+
+    <!-- START about strings -->
+    <string name="by">Автор:</string>
+    <string name="issues">Проблеми і питання: %s</string>
+    <string name="website">Веб-сайт: %s</string>
+    <string name="troubShoot">Усунення проблем: %s</string>
+    <string name="by_adam">Автор: Adam Renberg</string>
+    <string name="license">Опублікований за ліцензією Apache License v2.0</string>
+    <string name="about_text">Легкий скроблер, що надає інформацію Last.fm (і/або Libre.fm) про музику, яку Ви слухаєте на Вашому android-смартфоні. Last.fm потім дозволяє переглядати статистику прослуховувань, і рекомендує нову музику, яка може Вам сподобатись.</string>
+    <string name="everything_disabled">Скроблінґ/зараз-грає вимкнений.</string>
+    <string name="file_error">Файлова помилка!</string>
+    <string name="thats_new">Ось що нового</string>
+    <string name="about">Про застосунок</string>
+    <string name="whats_new">Що нового</string>
+    <string name="supported_netapps">Веб-сайти, що підтримуються: %1</string>
+    <string name="supported_apps">Застосунки, що підтримуються: %s і більше…</string>
+    <!-- END about strings -->
+
+    <!-- START cache strings -->
+    <string name="scrobbles_cache_nonum">Прослуханих композицій у локальному кеші:</string>
+    <string name="scrobbles_cache">Прослуханих композицій у локальному кеші: %1</string>
+    <string name="db_error">Помилка бази-даних</string>
+    <string name="scrobble_now">Скроблити (надіслати дані) зараз</string>
+    <string name="reset_stats">Скинути статистику</string>
+    <string name="scrobble_cache_title">Кеш прослуханих композицій</string>
+    <string name="confirm_delete_sc">Ви впевнені, що не хочете скроблити цю композицію на %1? Цю операцію не можна скасувати.</string>
+    <string name="confirm_delete_sc_from_all">Ви впевнені, що не хочете скроблити цю композицію? Цю операцію не можна скасувати.</string>
+    <string name="confirm_delete_all_sc">Ви впевнені, що хочете очистити кеш з усіма композиціями для %1? Цю операцію не можна скасувати.</string>
+    <string name="confirm_delete_all_sc_from_all">Ви впевнені, що хочете очистити кеш з усіма композиціями? Цю операцію не можна скасувати.</string>
+    <string name="no_scrobbles_in_cache">Немає збережених прослуханих композицій</string>
+    <string name="view_sc">Переглянути кеш прослуханих композицій</string>
+    <string name="view_sc_details">Переглянути деталі</string>
+    <string name="delete_sc">Видалити з кешу</string>
+    <string name="clear_cache">Очистити кеш</string>
+    <string name="track_info">Інформація про композицію</string>
+    <string name="view_sc_title_for">Кеш прослуханих композицій для %1</string>
+    <string name="view_sc_for_all_summary">Переглянути і редагувати список ненадісланих прослуханих композицій</string>
+    <string name="all_websites">усі веб-сайти</string>
+    <string name="sc_sorted_by">Сортувати за: %1</string>
+    <string name="sc_sort_title">Порядок сортування</string>
+    <string name="sc_sortorder_change">Змінити порядок сортування</string>
+    <string name="sc_sort_when_asc">Час програвання, за збільшенням</string>
+    <string name="sc_sort_when_desc">Час програвання, за зменшенням</string>
+    <string name="sc_sort_artist_asc">Виконавець, за збільшенням</string>
+    <string name="sc_sort_artist_desc">Виконавець, за зменшенням</string>
+    <string name="sc_sort_album_asc">Альбом, за збільшенням</string>
+    <string name="sc_sort_album_desc">Альбом, за зменшенням</string>
+    <string name="sc_sort_track_asc">Ім\'я композиції, за збільшенням</string>
+    <string name="sc_sort_track_desc">Ім\'я композиції, за зменшенням</string>
+    <!-- END cache strings -->
+
+    <!-- START creds strings -->
+    <string name="user_credentials_title">Дані користувача</string>
+    <string name="user_credentials_summary">Установити лоґін і пароль для Вашого %1 акаунту</string>
+    <string name="user_credentials_summary_no_napp">Установити лоґін і пароль для Вашого акаунту(ів)</string>
+    <string name="user_credentials_enter_ok">Авторизуватися</string>
+    <string name="user_credentials_enter_cancel">Скасувати</string>
+    <string name="user_credentials_clear_title">Очистити дані</string>
+    <string name="user_credentials_clear_summary">Видаляє лоґін і ключ сесії</string>
+    <string name="supported_netapps_category_title">Підтримувані веб-сайти</string>
+    <string name="username">Лоґін</string>
+    <string name="password">Пароль</string>
+    <string name="auth_client_banned">Ця версія застосунку застаріла, будь ласка, оновіть її</string>
+    <string name="auth_bad_auth">Помилковий лоґін/пароль/токен</string>
+    <string name="auth_server_error">Помилка сервера: %1, повторюю…</string>
+    <string name="auth_timing_error">Часова помилка клієнта, повторюю…</string>
+    <string name="auth_network_error_retrying">Мережева помилка, повторюю…</string>
+    <string name="auth_network_unfit">Не дозволено надсилати дані у мережі, змініть налаштування</string>
+    <string name="auth_updating">Автентифікація…</string>
+    <string name="auth_internal_error">Внутрішня помилка</string>
+    <string name="auth_just_error">Помилка, повторюю…</string>
+    <string name="logged_in_just">Увійшов як:</string>
+    <string name="logged_in_as">Увійшов як: %1</string>
+    <string name="log_in_to">Увійти до</string>
+    <string name="not_logged_in">Не авторизований</string>
+    <string name="create_user_title">Реєстрація</string>
+    <string name="create_user_summary">Реєстрація акаунту на %1</string>
+    <string name="confirm_clear_creds">Ви впевнені, що хочете очисти дані облікового запису для %1? Це також видалить будь-які ненадіслані прослухані композиції.</string>
+    <string name="confirm_clear_all_creds">Ви впевнені, що хочете очисти дані усіх облікових записів? Це також видалить будь-які ненадіслані прослухані композиції.</string>
+    <!-- END creds strings -->
+
+    <!-- START heart strings -->
+    <string name="heart_and_copy">Опції пісні</string>
+    <string name="heart_title">Подобається</string>
+    <string name="heart_current_track">Уподобати поточну композицію на Last.fm (Libre.fm)</string>
+    <string name="no_heart_track">Не вдалсось уподобати поточну композицію</string>
+    <string name="loved_track">Уподобані композиції</string>
+    <string name="no_lastFm">Будь ласка, введіть дані облікового запису last.fm</string>
+    <string name="song_is_ready">Пісня готова</string>
+    <!-- END heart strings -->
+
+    <!-- START copy strings -->
+    <string name="copy_title">Копіювати</string>
+    <string name="copy_current_track">Копіювати поточну композицію у буфер обміну</string>
+    <string name="no_copy_track">Не вдалсось скопіювати поточну композицію</string>
+    <string name="no_current_track">Поточна композиція не доступна</string>
+    <!-- END copy strings -->
+
+    <!-- START permissions and warnings strings -->
+    <string name="permission_required">Дозволи НЕОБХІДНІ для справної роботи</string>
+    <string name="creds_required">Дані облікового запису НЕОБХІДНІ для справної роботи</string>
+    <string name="limited_network">Обмежена Мережа</string>
+    <!-- END permissions and warnings strings -->
+
+    <!-- START mapis strings -->
+    <string name="incompatability_short">Застереження: %1$s встановлено і може викликати подвійний скроблінґ.</string>
+    <string name="incompatability_long">Застереження: %1$s встановлено і може викликати несумісність зі скроблінґом. Вимкніть скроблінґ з цього застосунку або видаліть %1$s.</string>
+    <string name="show_supported_apps_list_summary">Увімкнути/вимкнути скроблінґ зі застосунків</string>
+    <string name="supported_apps_category_title">Увімкнені застосунки</string>
+    <string name="app_disabled">Не скроблити музику з цього застосунку</string>
+    <string name="not_installed">Цей застосунок не встановлений</string>
+    <string name="no_supported_mapis_title">Не виявлено музичних застосунків</string>
+    <string name="find_supported_mapis_one_title">1 музичний застосунок виявлено</string>
+    <string name="find_supported_mapis_many_title">%1 музичних застосунків виявлено</string>
+    <string name="find_supported_mapis_summary">Грайте музику у підтримуваному застосунку і він з\'явиться тут</string>
+    <string name="unknown_mapi">Невідомий застосунок (pre SLS v1.2.3)</string>
+    <!-- END mapis strings -->
+
+    <!-- START options strings -->
+    <string name="options_title">Опції</string>
+    <string name="advanced_options_title">Додаткові опції</string>
+    <string name="scrobbling">Скроблінґ</string>
+    <string name="scrobbling_enable">Надсилати інформацію про пісню, коли Ви прослухаєте її</string>
+    <string name="nowplaying">Сповіщати про композицію, що грає</string>
+    <string name="nowplaying_enable">Сповіщати про пісню, яку ви зараз слухаєте</string>
+    <string name="scrobble_point_title">Позиція скроблінґу</string>
+    <string name="scrobble_point_summary">Зберігати в кеш скроблінґ після %1% її програвання</string>
+    <string name="ao_battery_title">На батареї</string>
+    <string name="ao_plugged_title">Підключений</string>
+    <string name="options_summary">У тому числі налаштування збереження заряду батареї</string>
+    <string name="advanced_options_notify_title">Сповіщення телефону</string>
+    <string name="advanced_options_custom_category_title">Власні опції скроблінґу</string>
+    <string name="advanced_options_when_title">Коли почати скроблінґ</string>
+    <string name="advanced_options_also_on_complete_title">Також на завершенні плейлисту</string>
+    <string name="advanced_options_also_on_complete_summary">Також скроблити, коли Ви завершили прослуховування плейлисту</string>
+    <string name="advanced_options_also_on_plugged_title">Також коли підключений</string>
+    <string name="advanced_options_also_on_plugged_summary">Також скроблити, коли підключений до джерела живлення</string>
+    <string name="should_disable_np">Варто також вимкнути сповіщення про композиції, що грають, для кращого збереження батареї</string>
+    <string name="advanced_options_type_standard_name">Стандартні</string>
+    <string name="advanced_options_type_battery_name">Збереження батареї</string>
+    <string name="advanced_options_type_same_as_battery_name">Такі самі, як для батареї</string>
+    <string name="advanced_options_type_custom_name">Власні</string>
+    <string name="advanced_options_when_1_name">Після кожної композиції</string>
+    <string name="advanced_options_when_5_name">Після 5 композицій</string>
+    <string name="advanced_options_when_10_name">Після 10 композицій</string>
+    <string name="advanced_options_when_25_name">Після 25 композицій</string>
+    <string name="advanced_options_when_never_name">Після натискання на кнопку Скроблити зараз</string>
+    <string name="advanced_options_net_title">Мережа</string>
+    <string name="advanced_options_net_summary">Надіслати дані на: %1</string>
+    <string name="advanced_options_net_any_name">Будь-яка мережа</string>
+    <string name="advanced_options_net_3gup_name">3G і Wifi</string>
+    <string name="advanced_options_net_wifi_name">Лише WifI</string>
+    <string name="advanced_options_net_roaming_title">Роумінґ</string>
+    <string name="advanced_options_net_roaming_summary_off">Не надсилати дані у роумінґу</string>
+    <string name="advanced_options_net_roaming_summary_on">Надсилати дані у роумінґу</string>
+    <!-- END options strings -->
+
+    <!-- START status strings -->
+    <string name="status">Статус</string>
+    <string name="scrobble_status_title">Статус скроблінґу</string>
+    <string name="other_category_title">Інше</string>
+    <string name="status_show_title">Статус</string>
+    <string name="status_show_summary">Показати статистику і загальний статус</string>
+    <string name="status_title">Інформація про статус</string>
+    <string name="scrobbling_disabled">Скроблінґ вимкнений</string>
+    <string name="scrobble_last_at">Останній скроблінґ:</string>
+    <string name="scrobble_last_fail_at">Останній невдалий скроблінґ:</string>
+    <string name="nowplaying_disabled">Сповіщення про композиції, що грають, вимкнені</string>
+    <string name="nowplaying_last_at">Останнє сповіщення про композиції, що грають, надіслане:</string>
+    <string name="nowplaying_last_fail_at">Останній невдалий скроблінґ:</string>
+    <string name="stats_scrobbles">Усього прослуханих композицій:</string>
+    <string name="never">Ніколи</string>
+    <string name="stats_nps">Усього сповіщеннь про композиції, що грають:</string>
+    <string name="it_was">Це було:</string>
+    <string name="confirm_stats_reset">Ви впенені, що хочете скинути статистику для %1? Цю операцію не можна скасувати.</string>
+    <string name="profile_page">Сторінка профілю</string>
+    <!-- END status strings -->
+
+</resources>
