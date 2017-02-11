@@ -186,7 +186,7 @@ public abstract class BuiltInMusicAppReceiver extends
 	long getAudioId(Bundle bundle) {
 		long id = NO_AUDIO_ID;
 		Object idBundle = bundle.get("id");
-		if (app_package == "deezer.android.app" || app_package == "com.spotify.music"){
+		if (app_package.equals("deezer.android.app") || app_package.equals("com.spotify.music")){
 			return id;
 		}
 		if (idBundle != null) {
@@ -195,10 +195,10 @@ public abstract class BuiltInMusicAppReceiver extends
 			else if (idBundle instanceof Integer)
 				id = (Integer) idBundle;
 			else if (idBundle instanceof String && ((String) idBundle).contains(".")) {
-				id = Long.valueOf(((String) idBundle).replace(".", "")).longValue();
+				id = Long.valueOf(idBundle.toString().replace(".",""));
 			} else if (idBundle instanceof String) {
-				id = Long.valueOf((String) idBundle).longValue();
-				} else {
+				id = Long.valueOf((String) idBundle);
+			} else {
 				Log.w(TAG,
 						"Got unsupported idBundle type: " + idBundle.getClass());
 			}

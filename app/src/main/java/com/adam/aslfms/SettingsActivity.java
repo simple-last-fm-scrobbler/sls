@@ -214,8 +214,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 return;
             }
         }
-        Toast.makeText(this, this.getString(R.string.creds_required),
-                Toast.LENGTH_LONG).show();
+        Snackbar.make(getListView(), this.getString(R.string.creds_required), Snackbar.LENGTH_LONG).show();
     }
 
     private void permsCheck() {
@@ -223,10 +222,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             try {
                 if (ContextCompat.checkSelfPermission(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE)) {
-                        Toast.makeText(SettingsActivity.this, getString(R.string.permission_required), Toast.LENGTH_LONG).show();
-                    }
                     ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
                 }
             } catch (Exception e) {
