@@ -4,7 +4,7 @@
   * Add Chinese translation (thanks to cmpute)
 
 - 1.5.3 (2016-11-21)
-  * Listen Brainz support (testing)
+  * ListenBrainz support (testing)
   * Clear Unused Apps List Feature
   * Only Show Logged In Services in Status
   * Apache 2.0 License
