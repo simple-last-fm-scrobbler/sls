@@ -2,6 +2,7 @@ package com.adam.aslfms.service;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -14,9 +15,19 @@ import android.widget.RemoteViews;
 
 import com.adam.aslfms.util.AppSettings;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.lang.reflect.Field;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * Created by 4-Eyes on 15/3/2017.
@@ -28,6 +39,8 @@ public class NotificationService extends NotificationListenerService {
 
     private NotificationHandler handler = new NotificationHandler();
     private AppSettings settings;
+
+    private long defaultSongDuration = 3 * 60000; // Three minutes
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -199,6 +212,91 @@ public class NotificationService extends NotificationListenerService {
 
     private class LfmApi {
 
+        private String getTrackInfo(TrackData data) {
+            HttpURLConnection conn = null;
+            try {
+                URL url = new URL(NetApp.LASTFM.getWebserviceUrl(settings));
+
+                conn = (HttpURLConnection) url.openConnection();
+
+                conn.setReadTimeout(7000);
+                conn.setConnectTimeout(7000);
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                Map<String, Object> params = new LinkedHashMap<>();
+                params.put("method", "track.getInfo");
+                params.put("track", data.title);
+                params.put("artist", data.artist);
+                params.put("api_key", settings.rcnvK(settings.getAPIkey()));
+                params.put("format", "json");
+
+                StringBuilder postData = new StringBuilder();
+                for (Map.Entry<String, Object> param : params.entrySet()) {
+                    if (postData.length() != 0) postData.append('&');
+                    postData.append(URLEncoder.encode(param.getKey(), "UTF-8"));
+                    postData.append('=');
+                    postData.append(URLEncoder.encode(String.valueOf(param.getValue()), "UTF-8"));
+                }
+                byte[] postDataBytes = postData.toString().getBytes("UTF-8");
+                conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+
+                conn.getOutputStream().write(postDataBytes);
+                //Log.i(TAG, params.toString());
+
+                conn.connect();
+
+                int resCode = conn.getResponseCode();
+                BufferedReader r;
+                if (resCode == -1) {
+                    return "";
+                } else if (resCode == 200) {
+                    r = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                } else {
+                    r = new BufferedReader(new InputStreamReader(conn.getErrorStream()));
+                }
+                StringBuilder stringBuilder = new StringBuilder();
+                String line;
+                while ((line = r.readLine()) != null) {
+                    stringBuilder.append(line).append('\n');
+                }
+                String response = stringBuilder.toString();
+                return response;
+            } catch (IOException | NullPointerException e) {
+                e.printStackTrace();
+            } finally {
+                if (conn != null) {
+                    conn.disconnect();
+                }
+            }
+            return "";
+        }
+
+        public long getTrackDuration(TrackData data) {
+            String response = getTrackInfo(data);
+
+            try {
+                JSONObject object = new JSONObject(response);
+                if (object.has("error")) {
+                    // TODO maybe do something with this
+                    int code = object.getInt("error");
+                    Log.e("LfmAPI", String.format("Failed to get track duration with error code %s", code));
+                } else {
+                    long duration = object.getJSONObject("track").getLong("duration");
+                    Log.i("LfmAPI", String.format("Successfully got duration for song %s, by %s",
+                            data.title, data.artist));
+                    return duration;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            return defaultSongDuration;
+
+        }
     }
 
     private class AppleMusicBroadcaster {
@@ -206,14 +304,27 @@ public class NotificationService extends NotificationListenerService {
         private String appName = "Apple Music";
         private String packageName = "com.apple.android.music";
 
+        public void broadcast(TrackData data, BroadcastState state, long duration) {
+            Intent broadcastIntent = new Intent("com.adam.aslfms.notify.playstatechanged");
+            broadcastIntent.putExtra("state", state.toString());
+            broadcastIntent.putExtra("app-name", appName);
+            broadcastIntent.putExtra("app-package", packageName);
+            broadcastIntent.putExtra("track", data.title);
+            broadcastIntent.putExtra("artist", data.artist);
+            broadcastIntent.putExtra("album", data.album);
+            broadcastIntent.putExtra("duration", (int)(duration / 1000));
 
+            sendBroadcast(broadcastIntent);
+        }
     }
 
     private class NotificationHandler {
 
         private TrackData currentTrack;
-        private long currentTrackDuration;
-        private long defaultSongDuration = 3 * 60000; // Three minutes
+        private long currentTrackDuration = defaultSongDuration;
+        private AppleMusicBroadcaster broadcaster = new AppleMusicBroadcaster();
+        private LfmApi api = new LfmApi();
+        private AsyncTask<TrackData, Void, Long> trackInfoTask = null;
 
         void push(TrackData data) {
             boolean newTrack = false;
@@ -224,21 +335,55 @@ public class NotificationService extends NotificationListenerService {
                 if (currentTrack.sameTrack(data)) {
                     boolean stateChanged = currentTrack.mergeSame(data);
                     if (stateChanged) {
-                        // TODO add broadcasting
+                        switch (currentTrack.currentState) {
+                            case UNKNOWN:
+                                break;
+                            case PLAYING:
+                                broadcaster.broadcast(data, BroadcastState.RESUME, currentTrackDuration);
+                                break;
+                            case PAUSED:
+                                broadcaster.broadcast(data, BroadcastState.PAUSE, currentTrackDuration);
+                                break;
+                        }
                     }
                 } else {
                     Log.i("AppleNotification", "New track detected");
                     currentTrack.finalisePlayTime();
 
-                    // TODO add broadcasting
+                    broadcaster.broadcast(currentTrack, BroadcastState.COMPLETE, currentTrackDuration);
+
                     currentTrack = data;
                     newTrack = true;
                 }
             }
 
             if (newTrack) {
-                Log.i("AppleNotification", "Loading new data for song " + data.title);
-                // TODO add broadcasting
+                Log.i("AppleNotification", "Loading new data for song " + currentTrack.title);
+
+                if (trackInfoTask != null) {
+                    trackInfoTask.cancel(true);
+                }
+
+                trackInfoTask = new AsyncTask<TrackData, Void, Long>() {
+                    TrackData trackData;
+                    @Override
+                    protected Long doInBackground(TrackData... trackDatas) {
+                        trackData = trackDatas[0];
+                        return api.getTrackDuration(trackData);
+                    }
+
+                    @Override
+                    protected void onCancelled() {
+                        super.onCancelled();
+                        currentTrackDuration = defaultSongDuration;
+                    }
+
+                    @Override
+                    protected void onPostExecute(Long result) {
+                        currentTrackDuration = result;
+                        broadcaster.broadcast(trackData, BroadcastState.START, currentTrackDuration);
+                    }
+                }.execute(currentTrack);
             }
         }
     }

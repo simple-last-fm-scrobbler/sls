@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Apple Music Options">
+        <CheckBoxPreference
+            android:title="Enable Emulator"
+            >
+
+        </CheckBoxPreference>
+    </PreferenceCategory>
+</PreferenceScreen>

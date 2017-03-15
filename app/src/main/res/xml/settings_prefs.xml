@@ -27,6 +27,15 @@
             android:targetPackage="com.adam.aslfms" />
     </PreferenceScreen>
 
+    <PreferenceScreen
+        android:summary="Enable emulated broadcaster for Apple Music"
+        android:title="Apple Music Support">
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetClass="com.adam.aslfms.AppleMusicOptionsActivity"
+            android:targetPackage="com.adam.aslfms" />
+    </PreferenceScreen>
+
 
     <PreferenceCategory android:title="@string/scrobble_cache_title" />
     <Preference
