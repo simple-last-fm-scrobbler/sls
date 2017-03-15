@@ -85,6 +85,11 @@ public class AppSettings {
     // Widget stuff
     private static final String KEY_WIDGET_ALSO_DISABLE_NP = "widget_also_disable_np";
 
+    // Apple Music stuff
+    private static final String KEY_CURRENT_APPLE_TRACK = "apple_music_current_track";
+    private static final String KEY_CURRENT_APPLE_ARTIST = "apple_music_current_artist";
+    private static final String KEY_CURRENT_APPLE_TRACK_DURATION = "apple_music_current_track_duration";
+
     private final Context mCtx;
     private final SharedPreferences prefs;
 
@@ -184,7 +189,7 @@ public class AppSettings {
      *
      * @param napp the {@code NetApp} for which a user account has this password
      * @param s    the password, in plain-text
-     * @see #setPwdMd5(NetApp)
+     * @see #setPwdMd5(NetApp, String)
      */
     public void setPassword(NetApp napp, String s) {
         Editor e = prefs.edit();
@@ -668,5 +673,35 @@ public class AppSettings {
             e.getStackTrace();
             return "";
         }
+    }
+
+    public String getCurrentAppleTrack() {
+        return prefs.getString(KEY_CURRENT_APPLE_TRACK, null);
+    }
+
+    public void setCurrentAppleTrack(String track) {
+        Editor e = prefs.edit();
+        e.putString(KEY_CURRENT_APPLE_TRACK, track);
+        e.commit();
+    }
+
+    public String getCurrentAppleArtist() {
+        return prefs.getString(KEY_CURRENT_APPLE_ARTIST, null);
+    }
+
+    public void setCurrentAppleArtist(String artist) {
+        Editor e = prefs.edit();
+        e.putString(KEY_CURRENT_APPLE_ARTIST, artist);
+        e.commit();
+    }
+
+    public long getCurrentAppleTrackDuration() {
+        return prefs.getLong(KEY_CURRENT_APPLE_TRACK_DURATION, 3 * 60000); // fallback track duration is 3 minutes
+    }
+
+    public void setCurrentAppleTrackDuration(long duration) {
+        Editor e = prefs.edit();
+        e.putLong(KEY_CURRENT_APPLE_TRACK_DURATION, duration);
+        e.commit();
     }
 }

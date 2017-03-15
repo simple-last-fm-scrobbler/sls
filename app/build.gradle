@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "com.adam.aslfms"
         minSdkVersion 7
@@ -25,4 +25,6 @@ dependencies {
     compile 'com.android.support:support-v4:24.1.1'
     compile 'com.android.support:design:24.1.1'
     //compile 'info.guardianproject.netcipher:netcipher:1.2'
+
+//    compile 'com.github.keithyokoma:RemoteViewsReader:1.2.0@aar'
 }
