@@ -28,7 +28,7 @@
     </PreferenceScreen>
 
     <PreferenceScreen
-        android:summary="Enable emulated broadcaster for Apple Music"
+        android:summary="Enable notification listening for Apple Music"
         android:title="Apple Music Support">
         <intent
             android:action="android.intent.action.MAIN"

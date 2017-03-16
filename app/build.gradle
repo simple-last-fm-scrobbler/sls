@@ -25,6 +25,4 @@ dependencies {
     compile 'com.android.support:support-v4:24.1.1'
     compile 'com.android.support:design:24.1.1'
     //compile 'info.guardianproject.netcipher:netcipher:1.2'
-
-//    compile 'com.github.keithyokoma:RemoteViewsReader:1.2.0@aar'
 }

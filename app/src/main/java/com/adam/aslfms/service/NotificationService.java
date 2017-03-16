@@ -125,12 +125,6 @@ public class NotificationService extends NotificationListenerService {
                         default:
                             break;
                     }
-                } else {
-                    // This is for BitmapReflectionAction objects (tag 12)
-                    parcel.readInt();
-                    // TODO work out if you want this or not
-                    Bitmap albumArtwork = Bitmap.CREATOR.createFromParcel(parcel);
-
                 }
             }
         } catch (Exception e) {
@@ -155,10 +149,20 @@ public class NotificationService extends NotificationListenerService {
     }
 
     private enum BroadcastState {
-        START,
-        RESUME,
-        PAUSE,
-        COMPLETE
+        START(0),
+        RESUME(1),
+        PAUSE(2),
+        COMPLETE(3);
+
+        private int value;
+
+        BroadcastState(int i) {
+            value = i;
+        }
+
+        public int getValue() {
+            return value;
+        }
     }
 
     private class TrackData {
@@ -197,16 +201,37 @@ public class NotificationService extends NotificationListenerService {
             return true;
         }
 
-        void finalisePlayTime() {
-            if (currentState.equals(PlayingState.PLAYING)) {
-                playTimes.add(System.currentTimeMillis() - lastStateChangedTime);
+        long totalPlayTime() {
+            long total = 0;
+            for (long playtime : playTimes) {
+                total += playtime;
             }
+            return total;
+        }
+
+        long finalisePlayTime(long currentTrackDuration) {
+            if (currentState.equals(PlayingState.PLAYING)) {
+                long lastPlayTime = System.currentTimeMillis() - lastStateChangedTime;
+                long totalPlayTimes = totalPlayTime();
+                if (totalPlayTimes + lastPlayTime > currentTrackDuration) {
+                    long overlapTime = (totalPlayTimes + lastPlayTime - currentTrackDuration);
+                    playTimes.add(lastPlayTime - overlapTime);
+                    return overlapTime;
+                }
+                playTimes.add(lastPlayTime);
+            }
+            return 0;
         }
 
         boolean sameTrack(TrackData other) {
             return this.title != null && this.artist != null && this.album != null &&
                     other.title != null && other.artist != null && other.album != null &&
                     this.title.equals(other.title) && this.artist.equals(other.artist) && this.album.equals(other.album);
+        }
+
+        public boolean isComplete(long trackDuration) {
+            long playTime = totalPlayTime();
+            return playTime >= (trackDuration - 5000); // Has been played for within 5 seconds of the actual song length.
         }
     }
 
@@ -245,7 +270,6 @@ public class NotificationService extends NotificationListenerService {
                 conn.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
 
                 conn.getOutputStream().write(postDataBytes);
-                //Log.i(TAG, params.toString());
 
                 conn.connect();
 
@@ -263,8 +287,7 @@ public class NotificationService extends NotificationListenerService {
                 while ((line = r.readLine()) != null) {
                     stringBuilder.append(line).append('\n');
                 }
-                String response = stringBuilder.toString();
-                return response;
+                return stringBuilder.toString();
             } catch (IOException | NullPointerException e) {
                 e.printStackTrace();
             } finally {
@@ -275,7 +298,7 @@ public class NotificationService extends NotificationListenerService {
             return "";
         }
 
-        public long getTrackDuration(TrackData data) {
+        long getTrackDuration(TrackData data) {
             String response = getTrackInfo(data);
 
             try {
@@ -304,9 +327,9 @@ public class NotificationService extends NotificationListenerService {
         private String appName = "Apple Music";
         private String packageName = "com.apple.android.music";
 
-        public void broadcast(TrackData data, BroadcastState state, long duration) {
+        void broadcast(TrackData data, BroadcastState state, long duration) {
             Intent broadcastIntent = new Intent("com.adam.aslfms.notify.playstatechanged");
-            broadcastIntent.putExtra("state", state.toString());
+            broadcastIntent.putExtra("state", state.getValue());
             broadcastIntent.putExtra("app-name", appName);
             broadcastIntent.putExtra("app-package", packageName);
             broadcastIntent.putExtra("track", data.title);
@@ -335,22 +358,32 @@ public class NotificationService extends NotificationListenerService {
                 if (currentTrack.sameTrack(data)) {
                     boolean stateChanged = currentTrack.mergeSame(data);
                     if (stateChanged) {
+                        Log.i("AppleNotification", "State has changed to: " + currentTrack.currentState);
                         switch (currentTrack.currentState) {
                             case UNKNOWN:
                                 break;
                             case PLAYING:
+                                Log.i("AppleNotification", "Broadcasting track resumed for track " + currentTrack.title);
                                 broadcaster.broadcast(data, BroadcastState.RESUME, currentTrackDuration);
                                 break;
                             case PAUSED:
+                                Log.i("AppleNotification", "Broadcasting track paused for track " + currentTrack.title);
                                 broadcaster.broadcast(data, BroadcastState.PAUSE, currentTrackDuration);
                                 break;
                         }
                     }
                 } else {
                     Log.i("AppleNotification", "New track detected");
-                    currentTrack.finalisePlayTime();
+                    // Check to see if there is overlap time with the next song
+                    // This is because if you're in the application the notifications don't always appear.
+                    long overlapTime = currentTrack.finalisePlayTime(currentTrackDuration);
+                    data.playTimes.add(overlapTime);
 
-                    broadcaster.broadcast(currentTrack, BroadcastState.COMPLETE, currentTrackDuration);
+                    // This attempts to verify that a track is properly completed
+                    if (data.isComplete(currentTrackDuration)) {
+                        Log.i("AppleNotification", "Broadcasting track complete for track " + currentTrack.title);
+                        broadcaster.broadcast(currentTrack, BroadcastState.COMPLETE, currentTrackDuration);
+                    }
 
                     currentTrack = data;
                     newTrack = true;
@@ -358,8 +391,6 @@ public class NotificationService extends NotificationListenerService {
             }
 
             if (newTrack) {
-                Log.i("AppleNotification", "Loading new data for song " + currentTrack.title);
-
                 if (trackInfoTask != null) {
                     trackInfoTask.cancel(true);
                 }
@@ -369,6 +400,7 @@ public class NotificationService extends NotificationListenerService {
                     @Override
                     protected Long doInBackground(TrackData... trackDatas) {
                         trackData = trackDatas[0];
+                        Log.i("AppleNotification", "Loading new data for song " + trackData.title);
                         return api.getTrackDuration(trackData);
                     }
 
@@ -381,6 +413,7 @@ public class NotificationService extends NotificationListenerService {
                     @Override
                     protected void onPostExecute(Long result) {
                         currentTrackDuration = result;
+                        Log.i("AppleNotification", "Broadcasting song Start for " + trackData.title);
                         broadcaster.broadcast(trackData, BroadcastState.START, currentTrackDuration);
                     }
                 }.execute(currentTrack);
