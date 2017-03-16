@@ -11,7 +11,7 @@ import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 
-import com.adam.aslfms.service.NotificationService;
+import com.adam.aslfms.service.applemusic.NotificationService;
 import com.adam.aslfms.util.AppSettings;
 import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 

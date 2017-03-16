@@ -42,7 +42,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.adam.aslfms.service.NetApp;
-import com.adam.aslfms.service.NotificationService;
+import com.adam.aslfms.service.applemusic.NotificationService;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
