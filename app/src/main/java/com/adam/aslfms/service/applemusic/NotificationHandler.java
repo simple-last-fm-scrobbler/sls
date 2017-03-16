@@ -61,7 +61,7 @@ class NotificationHandler {
 
                 // This attempts to verify that a track is properly completed
                 Log.i("AppleNotification", "Total time was " + currentTrack.totalPlayTime());
-                Log.i("AppleNotification", "Track duration was + " + currentTrackDuration);
+                Log.i("AppleNotification", "Track duration was " + currentTrackDuration);
                 if (currentTrack.isComplete(currentTrackDuration)) {
                     Log.i("AppleNotification", "Broadcasting track complete for track " + currentTrack.getTitle());
                     broadcaster.broadcast(currentTrack, BroadcastState.COMPLETE, currentTrackDuration);

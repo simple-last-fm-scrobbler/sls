@@ -56,7 +56,7 @@ class TrackData {
         if (currentState.equals(PlayingState.PLAYING)) {
             long lastPlayTime = System.currentTimeMillis() - lastStateChangedTime;
             long totalPlayTimes = totalPlayTime();
-            if (totalPlayTimes + lastPlayTime > currentTrackDuration) {
+            if (totalPlayTimes + lastPlayTime > currentTrackDuration + 5000) {
                 long overlapTime = (totalPlayTimes + lastPlayTime - currentTrackDuration);
                 playTimes.add(lastPlayTime - overlapTime);
                 return overlapTime;
