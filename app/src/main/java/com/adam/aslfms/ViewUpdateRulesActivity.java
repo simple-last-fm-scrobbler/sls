@@ -175,7 +175,7 @@ public class ViewUpdateRulesActivity extends AppCompatActivity {
             Log.e(TAG, "Got null update rule with id: " + id);
             return;
         }
-        new ViewUpdateRuleInfoDialog(this, database, updateRulesCursor, rule, newRule).show();
+        new ViewUpdateRuleEditDialog(this, database, updateRulesCursor, rule, newRule).show();
     }
 
     private class UpdateRulesAdapter extends CursorAdapter{
