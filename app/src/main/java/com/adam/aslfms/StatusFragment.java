@@ -62,16 +62,13 @@ public class StatusFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_status, container, false);
 
         mListView = (ListView) rootView.findViewById(R.id.stats_list);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == mProfilePageLinkPosition
-                        && settings.getAuthStatus(mNetApp) == AuthStatus.AUTHSTATUS_OK) {
-                    String url = mNetApp.getProfileUrl(settings);
-                    Log.d(TAG, "Clicked link to profile page, opening: " + url);
-                    Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(browser);
-                }
+        mListView.setOnItemClickListener((parent, view, position, id) -> {
+            if (position == mProfilePageLinkPosition
+                    && settings.getAuthStatus(mNetApp) == AuthStatus.AUTHSTATUS_OK) {
+                String url = mNetApp.getProfileUrl(settings);
+                Log.d(TAG, "Clicked link to profile page, opening: " + url);
+                Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(browser);
             }
         });
 

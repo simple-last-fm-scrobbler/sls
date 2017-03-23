@@ -53,20 +53,20 @@ public class ScrobblesDatabase {
 
     private static final String TABLENAME_SCROBBLES = "scrobbles";
     private static final String TABLENAME_CORRNETAPP = "scrobbles_netapp";
-    private static final String TABLENAME_UPDATE_RULES = "update_rules";
+    private static final String TABLENAME_CORRECTION_RULES = "correction_rules";
     private static final String TABLENAME_RULE_CHANGES = "rule_changes";
-    private static final String TRIGGER_NAME_CHECK_UPDATE_RULES = "check_update_rules";
+    private static final String TRIGGER_NAME_CHECK_CORRECTION_RULES = "check_correction_rules";
 
-    private static final String DATABASE_CREATE_UPDATE_RULES =
-            "create table update_rules (" +
+    private static final String DATABASE_CREATE_CORRECTION_RULES =
+            "create table correction_rules (" +
                     "	_id integer primary key autoincrement," +
                     "	track_to_change text not null," +
                     "	album_to_change text not null," +
                     "	artist_to_change text not null," +
                     "	track_correction text not null," +
                     "	album_correction text not null," +
-                    "	artist_correction text not null," +
-                    "	musicapp integer not null" +
+                    "	artist_correction text not null" + // Remember to add ',' when integrating musicapp support
+//                    "	musicapp integer not null" +
                     ");";
 
     private static final String DATABASE_CREATE_RULE_CHANGES =
@@ -98,20 +98,20 @@ public class ScrobblesDatabase {
             + "foreign key (trackid) references scrobbles_netapp(_id) "
             + "on delete cascade on update cascade)";
 
-    private static final String TRIGGGER_CREATE_CHECK_UPDATE_RULES =
-            "create trigger check_update_rules" +
+    private static final String TRIGGGER_CREATE_CHECK_CORRECTION_RULES =
+            "create trigger check_correction_rules" +
                     "	after insert on scrobbles" +
                     "	for each row" +
-                    "	when (select count(*) from update_rules where new.track = track_to_change and new.album = album_to_change and new.artist = artist_to_change) = 1" +
+                    "	when (select count(*) from correction_rules where new.track = track_to_change and new.album = album_to_change and new.artist = artist_to_change) = 1 " +
                     "begin" +
                     "	insert into rule_changes (track_id, original_track, original_album, original_artist)" +
                     "		select _id track_id, track original_track, album original_album, artist original_artist" +
                     "		from scrobbles" +
                     "		where _id = new._id;" +
                     "	update scrobbles" +
-                    "		set track = (select track_correction from update_rules where new.track = track_to_change and new.album = album_to_change and new.artist = artist_to_change)," +
-                    "		album = (select album_correction from update_rules where new.track = track_to_change and new.album = album_to_change and new.artist = artist_to_change)," +
-                    "		artist = (select artist_correction from update_rules where new.track = track_to_change and new.album = album_to_change and new.artist = artist_to_change) where _id = new._id;" +
+                    "		set track = (select track_correction from correction_rules where new.track = track_to_change and new.album = album_to_change and new.artist = artist_to_change)," +
+                    "		album = (select album_correction from correction_rules where new.track = track_to_change and new.album = album_to_change and new.artist = artist_to_change)," +
+                    "		artist = (select artist_correction from correction_rules where new.track = track_to_change and new.album = album_to_change and new.artist = artist_to_change) where _id = new._id; " +
                     "end;";
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -166,9 +166,9 @@ public class ScrobblesDatabase {
             db.execSQL(DATABASE_CREATE_SCROBBLES);
             db.execSQL(DATABASE_CREATE_CORRNETAPP);
             // Tables and trigger for updating scrobbles based on rules.
-            db.execSQL(DATABASE_CREATE_UPDATE_RULES);
+            db.execSQL(DATABASE_CREATE_CORRECTION_RULES);
             db.execSQL(DATABASE_CREATE_RULE_CHANGES);
-            db.execSQL(TRIGGGER_CREATE_CHECK_UPDATE_RULES);
+            db.execSQL(TRIGGGER_CREATE_CHECK_CORRECTION_RULES);
         }
 
         @Override
@@ -179,9 +179,9 @@ public class ScrobblesDatabase {
             db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_SCROBBLES);
             db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_CORRNETAPP);
             // TODO add migration of old rules if/when necessary
-            db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_UPDATE_RULES);
+            db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_CORRECTION_RULES);
             db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_RULE_CHANGES);
-            db.execSQL("DROP TRIGGER IF EXISTS " + TRIGGER_NAME_CHECK_UPDATE_RULES);
+            db.execSQL("DROP TRIGGER IF EXISTS " + TRIGGER_NAME_CHECK_CORRECTION_RULES);
             onCreate(db);
         }
 
@@ -436,7 +436,7 @@ public class ScrobblesDatabase {
         return count;
     }
 
-    public long insertUpdateRule(UpdateRule rule) {
+    private ContentValues generateCorrectionRuleValues(CorrectionRule rule) {
         ContentValues values = new ContentValues();
         values.put("track_to_change", rule.getTrackToChange());
         values.put("album_to_change", rule.getAlbumToChange());
@@ -444,33 +444,40 @@ public class ScrobblesDatabase {
         values.put("track_correction", rule.getTrackCorrection());
         values.put("album_correction", rule.getAlbumCorrection());
         values.put("artist_correction", rule.getArtistCorrection());
-        values.put("musicapp", rule.getMusicApp().getId());
-
-        return mDb.insert(TABLENAME_UPDATE_RULES, null, values);
+//        values.put("musicapp", rule.getMusicApp().getId());
+        return values;
     }
 
-    public int deleteUpdateRule(int ruleId) {
-        return mDb.delete(TABLENAME_UPDATE_RULES, "_id = ?", new String[]{String.valueOf(ruleId)});
+    public long insertCorrectionRule(CorrectionRule rule) {
+        return mDb.insert(TABLENAME_CORRECTION_RULES, null, generateCorrectionRuleValues(rule));
     }
 
-    public Cursor fetchAllUpdateRulesCursor() {
-        return mDb.query(TABLENAME_UPDATE_RULES, null, null, null, null, null, null, null);
+    public int deleteCorrectionRule(int ruleId) {
+        return mDb.delete(TABLENAME_CORRECTION_RULES, "_id = ?", new String[]{String.valueOf(ruleId)});
     }
 
-    public int deleteAllUpdateRules() {
-        return mDb.delete(TABLENAME_UPDATE_RULES, null, null);
+    public Cursor fetchAllCorrectionRulesCursor() {
+        return mDb.query(TABLENAME_CORRECTION_RULES, null, null, null, null, null, null, null);
     }
 
-    public UpdateRule fetchUpdateRule(int id) {
-        Cursor c = mDb.query(TABLENAME_UPDATE_RULES, null, "_id = ?", new String[]{String.valueOf(id)}, null, null, null);
+    public int deleteAllCorrectionRules() {
+        return mDb.delete(TABLENAME_CORRECTION_RULES, null, null);
+    }
+
+    public int updateCorrectionRule(CorrectionRule rule) {
+        return mDb.update(TABLENAME_CORRECTION_RULES, generateCorrectionRuleValues(rule), "_id = ?", new String[]{String.valueOf(rule.getId())});
+    }
+
+    public CorrectionRule fetchCorrectioneRule(int id) {
+        Cursor c = mDb.query(TABLENAME_CORRECTION_RULES, null, "_id = ?", new String[]{String.valueOf(id)}, null, null, null);
 
         if (c.getCount() == 0)
             return null;
 
         c.moveToFirst();
-        UpdateRule rule = new UpdateRule();
+        CorrectionRule rule = new CorrectionRule();
         rule.setId(c.getInt(c.getColumnIndex("_id")));
-        rule.setMusicApp(MusicAPI.fromDatabase(mCtx, c.getLong(c.getColumnIndex("musicapp"))));
+//        rule.setMusicApp(MusicAPI.fromDatabase(mCtx, c.getLong(c.getColumnIndex("musicapp"))));
         rule.setTrackToChange(c.getString(c.getColumnIndex("track_to_change")));
         rule.setTrackCorrection(c.getString(c.getColumnIndex("track_correction")));
         rule.setAlbumToChange(c.getString(c.getColumnIndex("album_to_change")));

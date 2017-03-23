@@ -7,7 +7,7 @@ import com.adam.aslfms.receiver.MusicAPI;
  *
  */
 
-public class UpdateRule {
+public class CorrectionRule {
 
     private int id;
     private String trackToChange;

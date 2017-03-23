@@ -99,13 +99,7 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
                 Util.confirmDialog(this,
                         getString(R.string.confirm_clear_creds).replaceAll(
                                 "%1", mNetApp.getName()), R.string.clear_creds,
-                        android.R.string.cancel, new OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                sendClearCreds();
-                            }
-                        });
+                        android.R.string.cancel, (dialog, which) -> sendClearCreds());
             } else {
                 sendClearCreds();
             }

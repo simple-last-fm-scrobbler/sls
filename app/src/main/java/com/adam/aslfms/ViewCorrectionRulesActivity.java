@@ -1,7 +1,6 @@
 package com.adam.aslfms;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
@@ -23,7 +21,7 @@ import android.widget.TextView;
 
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
-import com.adam.aslfms.util.UpdateRule;
+import com.adam.aslfms.util.CorrectionRule;
 import com.adam.aslfms.util.Util;
 
 /**
@@ -31,8 +29,8 @@ import com.adam.aslfms.util.Util;
  *
  */
 
-public class ViewUpdateRulesActivity extends AppCompatActivity {
-    private static final String TAG = "ViewUpdateRulesActivity";
+public class ViewCorrectionRulesActivity extends AppCompatActivity {
+    private static final String TAG = "ViewCorrectionRulesActivity";
 
     private AppSettings settings;
 
@@ -56,17 +54,12 @@ public class ViewUpdateRulesActivity extends AppCompatActivity {
         settings = new AppSettings(this);
 
         setTitle("Rules for fixing scrobbles");
-        setContentView(R.layout.update_rules_list);
+        setContentView(R.layout.correction_rules_list);
 
         rulesListView = (ListView) findViewById(R.id.rules_list);
         rulesListView.setEmptyView(findViewById(R.id.empty_rules_list));
 
-        rulesListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                viewRuleDetails(id);
-            }
-        });
+        rulesListView.setOnItemClickListener((parent, view, position, id) -> viewRuleDetails(id));
 
         database = new ScrobblesDatabase(this);
         database.open();
@@ -97,7 +90,7 @@ public class ViewUpdateRulesActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.view_update_rules, menu);
+        inflater.inflate(R.menu.view_correction_rules, menu);
         return true;
     }
 
@@ -109,13 +102,10 @@ public class ViewUpdateRulesActivity extends AppCompatActivity {
                         "Are you sure you want to delete all rules?",
                         R.string.remove,
                         android.R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                database.deleteAllUpdateRules();
-                                if (updateRulesCursor != null)
-                                    updateRulesCursor.requery();
-                            }
+                        (dialog, which) -> {
+                            database.deleteAllCorrectionRules();
+                            if (updateRulesCursor != null)
+                                updateRulesCursor.requery();
                         });
                 return true;
             case R.id.menu_add_rule:
@@ -132,7 +122,7 @@ public class ViewUpdateRulesActivity extends AppCompatActivity {
             return;
 
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.view_update_rules_context, menu);
+        inflater.inflate(R.menu.view_correction_rules_context, menu);
     }
 
     @Override
@@ -147,13 +137,10 @@ public class ViewUpdateRulesActivity extends AppCompatActivity {
                         "Are you sure you want to delete this rule?",
                         R.string.remove,
                         android.R.string.cancel,
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                database.deleteUpdateRule((int) info.id);
-                                if (updateRulesCursor != null)
-                                    updateRulesCursor.requery();
-                            }
+                        (dialog, which) -> {
+                            database.deleteCorrectionRule((int) info.id);
+                            if (updateRulesCursor != null)
+                                updateRulesCursor.requery();
                         });
                 return true;
         }
@@ -161,7 +148,7 @@ public class ViewUpdateRulesActivity extends AppCompatActivity {
     }
 
     private void fillData() {
-        updateRulesCursor = database.fetchAllUpdateRulesCursor();
+        updateRulesCursor = database.fetchAllCorrectionRulesCursor();
         startManagingCursor(updateRulesCursor);
         CursorAdapter adapter = new UpdateRulesAdapter(this, updateRulesCursor);
         rulesListView.setAdapter(adapter);
@@ -170,12 +157,12 @@ public class ViewUpdateRulesActivity extends AppCompatActivity {
 
     private void viewRuleDetails(long id) {
         boolean newRule = id == -1;
-        UpdateRule rule = newRule ? new UpdateRule() : database.fetchUpdateRule((int)id);
+        CorrectionRule rule = newRule ? new CorrectionRule() : database.fetchCorrectioneRule((int)id);
         if (rule == null) {
             Log.e(TAG, "Got null update rule with id: " + id);
             return;
         }
-        new ViewUpdateRuleEditDialog(this, database, updateRulesCursor, rule, newRule).show();
+        new ViewCorrectionRuleEditDialog(this, database, updateRulesCursor, rule, newRule).show();
     }
 
     private class UpdateRulesAdapter extends CursorAdapter{
@@ -186,27 +173,27 @@ public class ViewUpdateRulesActivity extends AppCompatActivity {
 
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
-            return LayoutInflater.from(context).inflate(R.layout.update_rules_row, parent, false);
+            return LayoutInflater.from(context).inflate(R.layout.correction_rules_row, parent, false);
         }
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
-            TextView trackToChangeView = (TextView) findViewById(R.id.track_to_change);
+            TextView trackToChangeView = (TextView) view.findViewById(R.id.track_to_change);
             trackToChangeView.setText(cursor.getString(cursor.getColumnIndex("track_to_change")));
 
-            TextView trackCorrectionView = (TextView) findViewById(R.id.track_correction);
+            TextView trackCorrectionView = (TextView) view.findViewById(R.id.track_correction);
             trackCorrectionView.setText(cursor.getString(cursor.getColumnIndex("track_correction")));
 
-            TextView albumToChangeView = (TextView) findViewById(R.id.album_to_change);
+            TextView albumToChangeView = (TextView) view.findViewById(R.id.album_to_change);
             albumToChangeView.setText(cursor.getString(cursor.getColumnIndex("album_to_change")));
 
-            TextView albumCorrection = (TextView) findViewById(R.id.album_correction);
+            TextView albumCorrection = (TextView) view.findViewById(R.id.album_correction);
             albumCorrection.setText(cursor.getString(cursor.getColumnIndex("album_correction")));
 
-            TextView artistToChangeView = (TextView) findViewById(R.id.artist_to_change);
+            TextView artistToChangeView = (TextView) view.findViewById(R.id.artist_to_change);
             artistToChangeView.setText(cursor.getString(cursor.getColumnIndex("artist_to_change")));
 
-            TextView artistCorrection = (TextView) findViewById(R.id.artist_correction);
+            TextView artistCorrection = (TextView) view.findViewById(R.id.artist_correction);
             artistCorrection.setText(cursor.getString(cursor.getColumnIndex("artist_correction")));
         }
     }

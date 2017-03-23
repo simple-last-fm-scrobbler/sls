@@ -108,14 +108,11 @@ public class ViewScrobbleCacheActivity extends AppCompatActivity {
         mListView = (ListView) findViewById(R.id.cache_list);
         mListView.setEmptyView(findViewById(R.id.empty_list));
 
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (id == -1) {
-                    viewChangeSortOrder();
-                } else {
-                    viewSCDetails((int) id);
-                }
+        mListView.setOnItemClickListener((parent, view, position, id) -> {
+            if (id == -1) {
+                viewChangeSortOrder();
+            } else {
+                viewSCDetails((int) id);
             }
         });
 
@@ -259,15 +256,12 @@ public class ViewScrobbleCacheActivity extends AppCompatActivity {
         AlertDialog.Builder adBuilder = new AlertDialog.Builder(this).setTitle(
                 R.string.sc_sort_title).setSingleChoiceItems(
                 SortField.toCharSequenceArray(this), selected,
-                new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        SortField sf = SortField.values()[which];
-                        settings.setCacheSortField(sf);
-                        refillData();
-                        mScrobblesCursor.requery();
-                        dialog.dismiss();
-                    }
+                (dialog, which) -> {
+                    SortField sf = SortField.values()[which];
+                    settings.setCacheSortField(sf);
+                    refillData();
+                    mScrobblesCursor.requery();
+                    dialog.dismiss();
                 });
 
         adBuilder.show();

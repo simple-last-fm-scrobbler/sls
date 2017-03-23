@@ -29,44 +29,44 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/edit_artist_to_change"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" >
         <EditText
+            android:id="@+id/edit_artist_to_change"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Artist to change" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/edit_artist_correction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" >
         <EditText
+            android:id="@+id/edit_artist_correction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Artist correction" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/edit_album_to_change"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" >
         <EditText
+            android:id="@+id/edit_album_to_change"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Album to change" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/edit_album_correction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1" >
         <EditText
+            android:id="@+id/edit_album_correction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Album correction" />

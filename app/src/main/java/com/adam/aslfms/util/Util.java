@@ -257,19 +257,16 @@ public class Util {
                                                final int id) {
         Util.confirmDialog(ctx, ctx.getString(R.string.confirm_delete_sc)
                         .replaceAll("%1", napp.getName()), R.string.remove,
-                android.R.string.cancel, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                android.R.string.cancel, (dialog, which) -> {
 
-                        Log.d(TAG, "Will remove scrobble from cache: "
-                                + napp.getName() + ", " + id);
-                        db.deleteScrobble(napp, id);
-                        db.cleanUpTracks();
-                        // need to refill data, otherwise the screen won't
-                        // update
-                        if (cursor != null)
-                            cursor.requery();
-                    }
+                    Log.d(TAG, "Will remove scrobble from cache: "
+                            + napp.getName() + ", " + id);
+                    db.deleteScrobble(napp, id);
+                    db.cleanUpTracks();
+                    // need to refill data, otherwise the screen won't
+                    // update
+                    if (cursor != null)
+                        cursor.requery();
                 });
     }
 
@@ -277,20 +274,17 @@ public class Util {
                                                    final ScrobblesDatabase db, final Cursor cursor, final int id) {
         Util.confirmDialog(ctx, ctx
                         .getString(R.string.confirm_delete_sc_from_all),
-                R.string.remove, android.R.string.cancel, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                R.string.remove, android.R.string.cancel, (dialog, which) -> {
 
-                        Log.d(TAG, "Will remove scrobble from all caches: "
-                                + id);
-                        for (NetApp napp : NetApp.values())
-                            db.deleteScrobble(napp, id);
-                        db.cleanUpTracks();
-                        // need to refill data, otherwise the screen won't
-                        // update
-                        if (cursor != null)
-                            cursor.requery();
-                    }
+                    Log.d(TAG, "Will remove scrobble from all caches: "
+                            + id);
+                    for (NetApp napp : NetApp.values())
+                        db.deleteScrobble(napp, id);
+                    db.cleanUpTracks();
+                    // need to refill data, otherwise the screen won't
+                    // update
+                    if (cursor != null)
+                        cursor.requery();
                 });
     }
 
@@ -301,18 +295,15 @@ public class Util {
             Util.confirmDialog(ctx, ctx.getString(
                     R.string.confirm_delete_all_sc).replaceAll("%1",
                     napp.getName()), R.string.clear_cache, android.R.string.cancel,
-                    new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Log.d(TAG, "Will remove all scrobbles from cache: "
-                                    + napp.getName());
-                            db.deleteAllScrobbles(napp);
-                            db.cleanUpTracks();
-                            // need to refill data, otherwise the screen won't
-                            // update
-                            if (cursor != null)
-                                cursor.requery();
-                        }
+                    (dialog, which) -> {
+                        Log.d(TAG, "Will remove all scrobbles from cache: "
+                                + napp.getName());
+                        db.deleteAllScrobbles(napp);
+                        db.cleanUpTracks();
+                        // need to refill data, otherwise the screen won't
+                        // update
+                        if (cursor != null)
+                            cursor.requery();
                     });
         } else {
             Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
@@ -327,20 +318,17 @@ public class Util {
             Util.confirmDialog(ctx, ctx
                             .getString(R.string.confirm_delete_all_sc_from_all),
                     R.string.clear_cache, android.R.string.cancel,
-                    new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Log
-                                    .d(TAG,
-                                            "Will remove all scrobbles from cache for all netapps");
-                            for (NetApp napp : NetApp.values())
-                                db.deleteAllScrobbles(napp);
-                            db.cleanUpTracks();
-                            // need to refill data, otherwise the screen won't
-                            // update
-                            if (cursor != null)
-                                cursor.requery();
-                        }
+                    (dialog, which) -> {
+                        Log
+                                .d(TAG,
+                                        "Will remove all scrobbles from cache for all netapps");
+                        for (NetApp napp : NetApp.values())
+                            db.deleteAllScrobbles(napp);
+                        db.cleanUpTracks();
+                        // need to refill data, otherwise the screen won't
+                        // update
+                        if (cursor != null)
+                            cursor.requery();
                     });
         } else {
             Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
