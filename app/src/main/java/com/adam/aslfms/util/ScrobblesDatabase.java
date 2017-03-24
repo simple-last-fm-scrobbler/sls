@@ -95,7 +95,7 @@ public class ScrobblesDatabase {
             + "netappid integer not null, "
             + "trackid integer not null, "
             + "primary key (netappid, trackid), "
-            + "foreign key (trackid) references scrobbles_netapp(_id) "
+            + "foreign key (trackid) references scrobbles(_id) "
             + "on delete cascade on update cascade)";
 
     private static final String TRIGGGER_CREATE_CHECK_CORRECTION_RULES =
