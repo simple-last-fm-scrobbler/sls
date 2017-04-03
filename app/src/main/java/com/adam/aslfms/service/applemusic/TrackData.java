@@ -17,6 +17,7 @@ class TrackData {
     private PlayingState currentState = PlayingState.UNKNOWN;
     private ArrayList<Long> playTimes = new ArrayList<>();
     private long lastStateChangedTime;
+    private boolean isRepeat = false;
 
     void setContentType(String contentType) {
         switch (contentType) {
@@ -132,5 +133,13 @@ class TrackData {
             default:
                 return "";
         }
+    }
+
+    public boolean isRepeat() {
+        return isRepeat;
+    }
+
+    public void setRepeat(boolean repeat) {
+        isRepeat = repeat;
     }
 }

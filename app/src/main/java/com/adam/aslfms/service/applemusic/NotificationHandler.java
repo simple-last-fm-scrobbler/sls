@@ -22,6 +22,9 @@ class NotificationHandler {
     private AppleMusicBroadcaster broadcaster;
     private LfmApi api;
     private AsyncTask<TrackData, Void, Long> trackInfoTask = null;
+
+    private static final long TRACK_TIMER_INTERVAL = 30000; // 30 seconds
+    private static final long TRACK_TIMER_REPEAT_CUTOFF = 75; // How many times to call the timer before killing it
     private Timer trackTimer;
 
     NotificationHandler(Context context, AppSettings settings) {
@@ -64,12 +67,17 @@ class NotificationHandler {
                 Log.i("AppleNotification", "Overlap time was " + overlapTime );
                 data.addPlayTime(overlapTime);
 
-                // This attempts to verify that a track is properly completed
-                Log.i("AppleNotification", "Total time was " + currentTrack.recordedTotalPlayTime());
-                Log.i("AppleNotification", "Track duration was " + currentTrackDuration);
-                if (currentTrack.isComplete(currentTrackDuration)) {
-                    Log.i("AppleNotification", "Broadcasting track complete for track " + currentTrack.getTitle());
-                    broadcaster.broadcast(currentTrack, BroadcastState.COMPLETE, currentTrackDuration);
+                long recordedPlayTime = currentTrack.recordedTotalPlayTime();
+                if (currentTrack.isRepeat() && !data.isRepeat() && recordedPlayTime < currentTrackDuration / 2) {
+                    data.addPlayTime(recordedPlayTime);
+                } else {
+                    // This attempts to verify that a track is properly completed
+                    Log.i("AppleNotification", "Total time was " + recordedPlayTime);
+                    Log.i("AppleNotification", "Track duration was " + currentTrackDuration);
+                    if (currentTrack.isComplete(currentTrackDuration)) {
+                        Log.i("AppleNotification", "Broadcasting track complete for track " + currentTrack.getTitle());
+                        broadcaster.broadcast(currentTrack, BroadcastState.COMPLETE, currentTrackDuration);
+                    }
                 }
 
                 currentTrack = data;
@@ -110,8 +118,14 @@ class NotificationHandler {
                     trackTimer = new Timer();
                     trackTimer.schedule(new TimerTask() {
                         boolean isFinished = false;
+                        int count = 0;
                         @Override
                         public void run() {
+                            // Kill this timer if it
+                            if (++count >= TRACK_TIMER_REPEAT_CUTOFF) {
+                                trackTimer.cancel();
+                                trackTimer.purge();
+                            }
                             long currPlayTime = currentTrack.currentTotalPlayTime();
                             Log.i("AppleNotification", String.format("Checking for potential repeated song. Current Play Time: %s, Current Track Duration: %s", currPlayTime, result));
                             if (currPlayTime > result && !isFinished) {
@@ -122,11 +136,12 @@ class NotificationHandler {
                                 repeatTrack.setAlbum(currentTrack.getAlbum());
                                 repeatTrack.setTitle(currentTrack.getTitle());
                                 repeatTrack.setContentType(currentTrack.getContentType());
+                                repeatTrack.setRepeat(true);
                                 push(repeatTrack);
                                 isFinished = true;
                             }
                         }
-                    }, result, 30000);
+                    }, result - currentTrack.currentTotalPlayTime(), TRACK_TIMER_INTERVAL);
                 }
             }.execute(currentTrack);
         }
