@@ -6,6 +6,10 @@ import android.util.Log;
 
 import com.adam.aslfms.util.AppSettings;
 
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * Created by 4-Eyes on 16/3/2017.
  * This handles notifications which are parsed to it. Determining when to merge notifications and
@@ -18,6 +22,7 @@ class NotificationHandler {
     private AppleMusicBroadcaster broadcaster;
     private LfmApi api;
     private AsyncTask<TrackData, Void, Long> trackInfoTask = null;
+    private Timer trackTimer;
 
     NotificationHandler(Context context, AppSettings settings) {
         broadcaster = new AppleMusicBroadcaster(context);
@@ -34,7 +39,7 @@ class NotificationHandler {
             currentTrack = data;
             newTrack = true;
         } else {
-            if (currentTrack.sameTrack(data)) {
+            if (currentTrack.sameTrack(data) && currentTrack.currentTotalPlayTime() < currentTrackDuration) {
                 boolean stateChanged = currentTrack.mergeSame(data);
                 if (stateChanged) {
                     Log.i("AppleNotification", "State has changed to: " + currentTrack.getCurrentState());
@@ -60,7 +65,7 @@ class NotificationHandler {
                 data.addPlayTime(overlapTime);
 
                 // This attempts to verify that a track is properly completed
-                Log.i("AppleNotification", "Total time was " + currentTrack.totalPlayTime());
+                Log.i("AppleNotification", "Total time was " + currentTrack.recordedTotalPlayTime());
                 Log.i("AppleNotification", "Track duration was " + currentTrackDuration);
                 if (currentTrack.isComplete(currentTrackDuration)) {
                     Log.i("AppleNotification", "Broadcasting track complete for track " + currentTrack.getTitle());
@@ -93,10 +98,35 @@ class NotificationHandler {
                 }
 
                 @Override
-                protected void onPostExecute(Long result) {
+                protected void onPostExecute(final Long result) {
                     currentTrackDuration = result;
                     Log.i("AppleNotification", "Broadcasting song Start for " + trackData.getTitle());
                     broadcaster.broadcast(trackData, BroadcastState.START, currentTrackDuration);
+
+                    // Start timer
+                    if (trackTimer != null) {
+                        trackTimer.cancel();
+                    }
+                    trackTimer = new Timer();
+                    trackTimer.schedule(new TimerTask() {
+                        boolean isFinished = false;
+                        @Override
+                        public void run() {
+                            long currPlayTime = currentTrack.currentTotalPlayTime();
+                            Log.i("AppleNotification", String.format("Checking for potential repeated song. Current Play Time: %s, Current Track Duration: %s", currPlayTime, result));
+                            if (currPlayTime > result && !isFinished) {
+                                Log.i("AppleNotification", "Sending repeat track");
+                                TrackData repeatTrack = new TrackData();
+                                repeatTrack.setStartTime(new Date(System.currentTimeMillis()));
+                                repeatTrack.setArtist(currentTrack.getArtist());
+                                repeatTrack.setAlbum(currentTrack.getAlbum());
+                                repeatTrack.setTitle(currentTrack.getTitle());
+                                repeatTrack.setContentType(currentTrack.getContentType());
+                                push(repeatTrack);
+                                isFinished = true;
+                            }
+                        }
+                    }, result, 30000);
                 }
             }.execute(currentTrack);
         }

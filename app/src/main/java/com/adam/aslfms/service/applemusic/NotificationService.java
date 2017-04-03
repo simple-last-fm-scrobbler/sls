@@ -27,7 +27,7 @@ public class NotificationService extends NotificationListenerService {
 
     private NotificationHandler handler;
 
-    static long DEFAULT_SONG_LENGTH = 3 * 60000; // Three minutes
+    static long DEFAULT_SONG_LENGTH = 4 * 60000; // Four minutes
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {

@@ -103,7 +103,7 @@ class LfmApi {
                 long duration = object.getJSONObject("track").getLong("duration");
                 Log.i("LfmAPI", String.format("Successfully got duration for song %s, by %s",
                         data.getTitle(), data.getArtist()));
-                return duration;
+                return duration == 0 ? NotificationService.DEFAULT_SONG_LENGTH : duration;
             }
         } catch (Exception e) {
             e.printStackTrace();

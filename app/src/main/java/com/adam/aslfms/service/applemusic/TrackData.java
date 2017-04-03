@@ -44,7 +44,7 @@ class TrackData {
         return true;
     }
 
-    long totalPlayTime() {
+    long recordedTotalPlayTime() {
         long total = 0;
         for (long playtime : playTimes) {
             total += playtime;
@@ -52,12 +52,21 @@ class TrackData {
         return total;
     }
 
+    long currentTotalPlayTime() {
+        long recordedTime = this.recordedTotalPlayTime();
+        if (currentState.equals(PlayingState.PLAYING)) {
+            recordedTime += System.currentTimeMillis() - lastStateChangedTime;
+        }
+        return recordedTime;
+    }
+
     long finalisePlayTime(long currentTrackDuration) {
         if (currentState.equals(PlayingState.PLAYING)) {
             long lastPlayTime = System.currentTimeMillis() - lastStateChangedTime;
-            long totalPlayTimes = totalPlayTime();
-            if (totalPlayTimes + lastPlayTime > currentTrackDuration + 5000) {
-                long overlapTime = (totalPlayTimes + lastPlayTime - currentTrackDuration);
+            long totalPlayTimes = recordedTotalPlayTime();
+            long overlapTime = (totalPlayTimes + lastPlayTime - currentTrackDuration);
+            if (totalPlayTimes + lastPlayTime > currentTrackDuration + 5000 &&
+                    overlapTime < currentTrackDuration) { // check overlap time is not ridiculous
                 playTimes.add(lastPlayTime - overlapTime);
                 return overlapTime;
             }
@@ -73,7 +82,7 @@ class TrackData {
     }
 
     boolean isComplete(long trackDuration) {
-        long playTime = totalPlayTime();
+        long playTime = recordedTotalPlayTime();
         return playTime >= (trackDuration - 5000); // Has been played for within 5 seconds of the actual song length.
     }
 
@@ -111,5 +120,17 @@ class TrackData {
 
     void addPlayTime(long playtime) {
         playTimes.add(playtime);
+    }
+
+    String getContentType() {
+        switch (this.currentState) {
+            case PLAYING:
+                return "Pause";
+            case PAUSED:
+                return "Play";
+            case UNKNOWN:
+            default:
+                return "";
+        }
     }
 }
