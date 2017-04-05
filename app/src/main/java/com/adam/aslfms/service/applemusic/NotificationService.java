@@ -1,6 +1,8 @@
 package com.adam.aslfms.service.applemusic;
 
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -26,6 +28,8 @@ import java.util.Date;
 public class NotificationService extends NotificationListenerService {
 
     private NotificationHandler handler;
+    private PackageInfo applePackageInfo;
+    private static final String APPLE_PACKAGE_NAME = "com.apple.android.music";
 
     static long DEFAULT_SONG_LENGTH = 4 * 60000; // Four minutes
 
@@ -40,6 +44,12 @@ public class NotificationService extends NotificationListenerService {
         AppSettings settings = new AppSettings(this);
         handler = new NotificationHandler(this, settings);
         Log.i("AppleNotification", "Notification listener created");
+        try {
+            applePackageInfo = getPackageManager().getPackageInfo(APPLE_PACKAGE_NAME, 0);
+            Log.i("AppleNotification", "Package version is: " + applePackageInfo.versionCode);
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.i("AppleNotification", "Apple Music package not installed");
+        }
     }
 
     @Override
@@ -47,7 +57,7 @@ public class NotificationService extends NotificationListenerService {
         super.onNotificationPosted(notification);
 
         // Filter out all notifications that do not come from Apple Music
-        if (!notification.getPackageName().equals("com.apple.android.music")) return;
+        if (!notification.getPackageName().equals(APPLE_PACKAGE_NAME)) return;
 
         // Attempt to retrieve the
         RemoteViews views = notification.getNotification().bigContentView;
@@ -87,7 +97,13 @@ public class NotificationService extends NotificationListenerService {
                                     data.setTitle(text);
                                     break;
                                 case 1:
-                                    data.setAlbum(text);
+                                    if (applePackageInfo.versionCode < 431) {
+                                        data.setAlbum(text);
+                                    } else {
+                                        String[] dataList = text.split(" — ");
+                                        data.setArtist(dataList[0]);
+                                        data.setAlbum(dataList[1]);
+                                    }
                                     break;
                                 case 2:
                                     data.setArtist(text);

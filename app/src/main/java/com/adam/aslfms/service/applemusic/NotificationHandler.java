@@ -23,8 +23,8 @@ class NotificationHandler {
     private LfmApi api;
     private AsyncTask<TrackData, Void, Long> trackInfoTask = null;
 
-    private static final long TRACK_TIMER_INTERVAL = 30000; // 30 seconds
-    private static final long TRACK_TIMER_REPEAT_CUTOFF = 75; // How many times to call the timer before killing it
+    private static final long TRACK_TIMER_INTERVAL = 45000; // 30 seconds
+    private static final long TRACK_TIMER_REPEAT_CUTOFF = 10; // How many times to call the timer before killing it
     private Timer trackTimer;
 
     NotificationHandler(Context context, AppSettings settings) {
