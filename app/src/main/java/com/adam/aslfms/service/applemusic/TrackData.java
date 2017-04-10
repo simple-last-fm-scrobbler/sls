@@ -77,8 +77,7 @@ class TrackData {
     }
 
     boolean sameTrack(TrackData other) {
-        return this.title != null && this.artist != null && this.album != null &&
-                other.title != null && other.artist != null && other.album != null &&
+        return other != null & this.title != null && this.artist != null && this.album != null &&
                 this.title.equals(other.title) && this.artist.equals(other.artist) && this.album.equals(other.album);
     }
 
