@@ -22,7 +22,8 @@ import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
 public class AppleMusicOptionsActivity extends AppCompatPreferenceActivity {
 
-    CheckBoxPreference cbp;
+    CheckBoxPreference notificationListeningCbp;
+    CheckBoxPreference repeatesCbp;
     AppSettings settings;
 
     @Override
@@ -33,10 +34,11 @@ public class AppleMusicOptionsActivity extends AppCompatPreferenceActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        cbp = (CheckBoxPreference) findPreference("apple_notification_listening");
+        notificationListeningCbp = (CheckBoxPreference) findPreference("apple_notification_listening");
+        repeatesCbp = (CheckBoxPreference) findPreference("apple_enable_repeat");
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
-            cbp.setEnabled(false);
-            cbp.setSummary("Unfortunately your current version of android does not support this feature");
+            notificationListeningCbp.setEnabled(false);
+            notificationListeningCbp.setSummary("Unfortunately your current version of android does not support this feature");
         }
         settings = new AppSettings(this);
     }
@@ -44,8 +46,16 @@ public class AppleMusicOptionsActivity extends AppCompatPreferenceActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        cbp.setOnPreferenceClickListener(handleClick);
-        cbp.setChecked(settings.getAppleListenerEnabled());
+        notificationListeningCbp.setOnPreferenceClickListener(handleClick);
+        notificationListeningCbp.setChecked(settings.getAppleListenerEnabled());
+        repeatesCbp.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                settings.setAppleRepeatEnabled(notificationListeningCbp.isEnabled());
+                return true;
+            }
+        });
+        repeatesCbp.setChecked(settings.getAppleRepeatEnabled());
     }
 
     @Override
@@ -60,9 +70,9 @@ public class AppleMusicOptionsActivity extends AppCompatPreferenceActivity {
     Preference.OnPreferenceClickListener handleClick = new Preference.OnPreferenceClickListener() {
         @Override
         public boolean onPreferenceClick(Preference preference) {
-            if (!cbp.isEnabled()) return true;
+            if (!notificationListeningCbp.isEnabled()) return true;
             final Intent intent = new Intent(AppleMusicOptionsActivity.this, NotificationService.class);
-            if (cbp.isChecked()) {
+            if (notificationListeningCbp.isChecked()) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(AppleMusicOptionsActivity.this);
                 builder.setMessage("Enabling this feature will mean Simple Last.fm Scrobbler will be able to listen to your notifications. Are you sure you want to proceed?")
                 .setTitle("Are you sure?")
@@ -70,7 +80,7 @@ public class AppleMusicOptionsActivity extends AppCompatPreferenceActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         settings.setAppleListenerEnabled(true);
-                        cbp.setChecked(true);
+                        notificationListeningCbp.setChecked(true);
                         // Start notification service
                         startService(intent);
                         // Redirect to settings for enabling notification listening
@@ -84,7 +94,7 @@ public class AppleMusicOptionsActivity extends AppCompatPreferenceActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         // Disable checkbox user cancelled action.
-                        cbp.setChecked(false);
+                        notificationListeningCbp.setChecked(false);
                     }
                 });
 

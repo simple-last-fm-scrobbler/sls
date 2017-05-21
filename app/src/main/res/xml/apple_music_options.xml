@@ -10,4 +10,9 @@
 
         </CheckBoxPreference>
     </PreferenceCategory>
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="apple_enable_repeat"
+        android:summary="This enables a feature for detecting when a track is repeated. However, this can result in tracks being scrobbled incorrectly due to notifications from Apple Music disappearing."
+        android:title="Enable repeating of tracks" />
 </PreferenceScreen>

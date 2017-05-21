@@ -17,18 +17,20 @@ import java.util.TimerTask;
  */
 class NotificationHandler {
 
+    private final AppSettings settings;
     private TrackData currentTrack;
     private long currentTrackDuration = NotificationService.DEFAULT_SONG_LENGTH;
     private AppleMusicBroadcaster broadcaster;
     private LfmApi api;
     private AsyncTask<TrackData, Void, Long> trackInfoTask = null;
 
-    private static final long TRACK_TIMER_INTERVAL = 45000; // 30 seconds
+    private static final long TRACK_TIMER_INTERVAL = 45000; // 45 seconds
     private static final long TRACK_TIMER_REPEAT_CUTOFF = 10; // How many times to call the timer before killing it
     private Timer trackTimer;
 
     NotificationHandler(Context context, AppSettings settings) {
         broadcaster = new AppleMusicBroadcaster(context);
+        this.settings = settings;
         api = new LfmApi(settings);
     }
 
@@ -111,6 +113,9 @@ class NotificationHandler {
                     Log.i("AppleNotification", "Broadcasting song Start for " + trackData.getTitle());
                     broadcaster.broadcast(trackData, BroadcastState.START, currentTrackDuration);
 
+                    if (!settings.getAppleRepeatEnabled()) {
+                        return;
+                    }
                     // Start timer
                     if (trackTimer != null) {
                         trackTimer.cancel();
@@ -121,7 +126,7 @@ class NotificationHandler {
                         int count = 0;
                         @Override
                         public void run() {
-                            // Kill this timer if it
+                            // Kill this timer if it has repeated too many times
                             if (++count >= TRACK_TIMER_REPEAT_CUTOFF) {
                                 trackTimer.cancel();
                                 trackTimer.purge();
