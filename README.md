@@ -1,10 +1,10 @@
-# Simple Last.fm Scrobbler (and Libre.fm and Listen Brainz and Custom Personal Servers)
+# Simple Last.fm Scrobbler (and Libre.fm and ListenBrainz and Custom Personal Servers)
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/tgwizard/sls)
 [![License](http://img.shields.io/:license-apache-blue.svg?style=round)](LICENSE.md)
 [![Google+](http://ibin.co/2BnMUC5fKA2e)](https://plus.google.com/communities/104841597680405981934)
 
-Simple Last.fm Scrobbler (SLS) is a simple app that scrobbles music listened to on an Android phone. Scrobbling means submitting listening information to Last.fm (and optionally/additionally Libre.fm and Listen Brainz) when you play a track, and you can then get music recommendations and view you listening history and statistics at Last.fm.
+Simple Last.fm Scrobbler (SLS) is a simple app that scrobbles music listened to on an Android phone. Scrobbling means submitting listening information to Last.fm (and optionally/additionally Libre.fm and ListenBrainz) when you play a track, and you can then get music recommendations and view you listening history and statistics at Last.fm.
 
 Before the release of a new version of SLS, it will be available here to test for one week in the [Beta Testing Versions link](README.md#download).
 
@@ -59,9 +59,9 @@ Head to [Transifex](https://www.transifex.com/sls/sls) if you want to be a trans
 
  * [Last.fm](http://last.fm)
  * [Libre.fm](http:///libre.fm)
- * [Listen Brainz](https://listenbrainz.org)
+ * [ListenBrainz](https://listenbrainz.org)
  * [Custom GNU-fm/Libre.fm Server](https://git.gnu.io/gnu/gnu-fm/blob/master/gnufm_install.txt)
- * [Custom Listen Brainz Server](https://github.com/metabrainz/listenbrainz-server/blob/master/README.md)
+ * [Custom ListenBrainz Server](https://github.com/metabrainz/listenbrainz-server/blob/master/README.md)
 
 ### Apps
 

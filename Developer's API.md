@@ -35,7 +35,7 @@ The possible fields for the intent (to be put in its extras bundle) are:
     | track        | String | Yes      | The track name                                                      |
     | duration     | int    | Yes      | The duration of the track (in seconds)                              |
     | track-number | int    | No       | Track number on album                                               |
-    | mbid         | String | No       | A Track-ID from <http://musicbrainz.org/doc/TrackID>                |
+    | mbid         | String | No       | A MusicBrainz Recording ID <https://musicbrainz.org/doc/MBID>       |
     | source       | String | No       | How the user listens to the music, see table below (default is 'P') |
 
 Table of source values:
