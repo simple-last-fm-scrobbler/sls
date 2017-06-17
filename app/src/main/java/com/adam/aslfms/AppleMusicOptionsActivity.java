@@ -23,7 +23,7 @@ import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 public class AppleMusicOptionsActivity extends AppCompatPreferenceActivity {
 
     CheckBoxPreference notificationListeningCbp;
-    CheckBoxPreference repeatesCbp;
+    CheckBoxPreference repeatsCbp;
     AppSettings settings;
 
     @Override
@@ -35,7 +35,7 @@ public class AppleMusicOptionsActivity extends AppCompatPreferenceActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         notificationListeningCbp = (CheckBoxPreference) findPreference("apple_notification_listening");
-        repeatesCbp = (CheckBoxPreference) findPreference("apple_enable_repeat");
+        repeatsCbp = (CheckBoxPreference) findPreference("apple_enable_repeat");
         if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.LOLLIPOP_MR1) {
             notificationListeningCbp.setEnabled(false);
             notificationListeningCbp.setSummary("Unfortunately your current version of android does not support this feature");
@@ -48,14 +48,14 @@ public class AppleMusicOptionsActivity extends AppCompatPreferenceActivity {
         super.onResume();
         notificationListeningCbp.setOnPreferenceClickListener(handleClick);
         notificationListeningCbp.setChecked(settings.getAppleListenerEnabled());
-        repeatesCbp.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+        repeatsCbp.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                settings.setAppleRepeatEnabled(notificationListeningCbp.isEnabled());
+                settings.setAppleRepeatEnabled(repeatsCbp.isEnabled());
                 return true;
             }
         });
-        repeatesCbp.setChecked(settings.getAppleRepeatEnabled());
+        repeatsCbp.setChecked(settings.getAppleRepeatEnabled());
     }
 
     @Override
