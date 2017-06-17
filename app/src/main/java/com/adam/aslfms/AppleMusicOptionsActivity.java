@@ -51,7 +51,7 @@ public class AppleMusicOptionsActivity extends AppCompatPreferenceActivity {
         repeatsCbp.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
             public boolean onPreferenceClick(Preference preference) {
-                settings.setAppleRepeatEnabled(repeatsCbp.isEnabled());
+                settings.setAppleRepeatEnabled(repeatsCbp.isChecked());
                 return true;
             }
         });
