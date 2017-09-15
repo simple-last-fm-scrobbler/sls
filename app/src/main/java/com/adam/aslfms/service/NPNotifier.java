@@ -210,8 +210,7 @@ public class NPNotifier extends AbstractSubmitter {
                 JSONObject baseObj = new JSONObject();
                 baseObj.put("listen_type", "playing_now");
                 JSONObject trackInfo = new JSONObject();
-                trackInfo.put("listened_at", Long.toString(track.getWhen()));
-
+                
                 JSONObject trackMetaData = new JSONObject();
                 trackMetaData.put("artist_name", track.getArtist());
                 trackMetaData.put("track_name", track.getTrack());
