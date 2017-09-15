@@ -309,7 +309,7 @@ public class Scrobbler extends AbstractSubmitter {
                 if (response.equals("")) {
                     throw new AuthStatus.UnknownResponseException("Empty response");
                 }
-                if (response.startsWith("success")) {
+                if (resCode == 200 && response.indexOf("ok") > -1) {
                     Log.i(TAG, "Scrobble success: " + netAppName);
                     /*if (settings.isNowPlayingEnabled(pow)) { // support is coming
                         mNetManager.launchGetUserInfo(getNetApp());

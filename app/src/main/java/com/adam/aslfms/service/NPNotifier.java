@@ -266,7 +266,7 @@ public class NPNotifier extends AbstractSubmitter {
                 if (response.equals("")) {
                     throw new AuthStatus.UnknownResponseException("Empty response");
                 }
-                if (response.startsWith("success")) {
+                if (resCode == 200 && response.indexOf("ok") > -1) {
                     Log.i(TAG, "Now Playing success: " + netAppName);
                 } else {
                     throw new AuthStatus.UnknownResponseException("Invalid Response");
