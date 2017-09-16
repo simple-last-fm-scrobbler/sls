@@ -304,16 +304,21 @@ public class Scrobbler extends AbstractSubmitter {
                 Log.d(TAG, response);
                 if (resCode == 401) {
                     settings.setListenBrainzToken(netApp, "");
-                    throw new BadSessionException("Now Playing failed because of badsession");
+                    throw new BadSessionException("Listenbrainz submission failed because of bad token.");
                 }
                 if (response.equals("")) {
                     throw new AuthStatus.UnknownResponseException("Empty response");
                 }
-                if (resCode == 200 && response.indexOf("ok") > -1) {
-                    Log.i(TAG, "Scrobble success: " + netAppName);
-                    /*if (settings.isNowPlayingEnabled(pow)) { // support is coming
-                        mNetManager.launchGetUserInfo(getNetApp());
-                    }*/
+                JSONObject jObject = new JSONObject(response);
+                if (jObject.has("status")) {
+                    Log.i(TAG, "Listen success: " + netAppName);
+                } else if (jObject.has("error")) {
+                    Log.i(TAG, "Listen failed: " + response);
+                    if (resCode != 400) {
+                        // don't throw if code is 400 because it's a badly formatted
+                        // submission and we don't want to cache/try again
+                        throw new AuthStatus.UnknownResponseException("Invalid Response");
+                    }
                 } else {
                     throw new AuthStatus.UnknownResponseException("Invalid Response");
                 }

@@ -261,7 +261,7 @@ public class NPNotifier extends AbstractSubmitter {
                 Log.d(TAG, response);
                 if (resCode == 401) {
                     settings.setListenBrainzToken(netApp, "");
-                    throw new BadSessionException("Now Playing failed because of badsession");
+                    throw new BadSessionException("Now Playing failed because of bad token.");
                 }
                 if (response.equals("")) {
                     throw new AuthStatus.UnknownResponseException("Empty response");
