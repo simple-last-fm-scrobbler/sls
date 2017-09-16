@@ -1,3 +1,9 @@
+- 1.5.5 (2017-9-16)
+  * ListenBrainz fix (thanks to @19379)
+  * Notice: Version 1.5.6 dropping android < 4.0 support
+  * Notice: Version 1.5.6 will be released soon after version 1.5.5
+  * Notice: If you are interested in starting a 'old android' fork please email.
+
 - 1.5.4 (2017-2-4)
   * Bug fixes
   * Add Ukrainian translation (thanks to personaljesusua)
