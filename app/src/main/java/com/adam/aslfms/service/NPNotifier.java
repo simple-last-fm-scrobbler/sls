@@ -210,8 +210,7 @@ public class NPNotifier extends AbstractSubmitter {
                 JSONObject baseObj = new JSONObject();
                 baseObj.put("listen_type", "playing_now");
                 JSONObject trackInfo = new JSONObject();
-                trackInfo.put("listened_at", Long.toString(track.getWhen()));
-
+                
                 JSONObject trackMetaData = new JSONObject();
                 trackMetaData.put("artist_name", track.getArtist());
                 trackMetaData.put("track_name", track.getTrack());
@@ -262,12 +261,12 @@ public class NPNotifier extends AbstractSubmitter {
                 Log.d(TAG, response);
                 if (resCode == 401) {
                     settings.setListenBrainzToken(netApp, "");
-                    throw new BadSessionException("Now Playing failed because of badsession");
+                    throw new BadSessionException("Now Playing failed because of bad token.");
                 }
                 if (response.equals("")) {
                     throw new AuthStatus.UnknownResponseException("Empty response");
                 }
-                if (response.startsWith("success")) {
+                if (resCode == 200 && response.indexOf("ok") > -1) {
                     Log.i(TAG, "Now Playing success: " + netAppName);
                 } else {
                     throw new AuthStatus.UnknownResponseException("Invalid Response");
