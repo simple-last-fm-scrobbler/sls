@@ -304,7 +304,7 @@ public class Scrobbler extends AbstractSubmitter {
                 Log.d(TAG, response);
                 if (resCode == 401) {
                     settings.setListenBrainzToken(netApp, "");
-                    throw new BadSessionException("Listenbrainz submission failed because of bad token.");
+                    throw new BadSessionException("ListenBrainz submission failed because of bad token.");
                 }
                 if (response.equals("")) {
                     throw new AuthStatus.UnknownResponseException("Empty response");
