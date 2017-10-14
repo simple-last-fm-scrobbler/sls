@@ -70,7 +70,7 @@
     <string name="supported_netapps_category_title">Serviços suportados</string>
     <string name="username">Nome de usuário</string>
     <string name="password">Senha</string>
-    <string name="auth_client_banned">Esta versão está ultrapassada. Atualize-a, por favor</string>
+    <string name="auth_client_banned">Esta versão está obsoleta. Atualize-a, por favor</string>
     <string name="auth_bad_auth">Nome de usuário e/ou senha inválidos</string>
     <string name="auth_server_error">Erro no servidor: %1. Tentando novamente...</string>
     <string name="auth_timing_error">Erro de temporização do lado do cliente. Tentando novamente...</string>
