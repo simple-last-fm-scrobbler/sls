@@ -120,7 +120,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        credsCheck();
         unregisterReceiver(onStatusChange);
     }
 
@@ -129,6 +128,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onResume();
 
         checkNetwork();
+        credsCheck();
 
         IntentFilter ifs = new IntentFilter();
         ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
@@ -203,7 +203,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private void checkNetwork() {
         this.sendBroadcast(new Intent(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED));
         if (Util.checkForOkNetwork(this) != Util.NetworkStatus.OK) {
-            Snackbar.make(getListView(), getString(R.string.limited_network), Snackbar.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.limited_network), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -214,7 +214,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 return;
             }
         }
-        Snackbar.make(getListView(), this.getString(R.string.creds_required), Snackbar.LENGTH_LONG).show();
+        Toast.makeText(this, this.getString(R.string.creds_required), Toast.LENGTH_LONG).show();
     }
 
     private void permsCheck() {
