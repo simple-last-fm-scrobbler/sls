@@ -14,7 +14,7 @@
     <!-- END original strings -->
 
     <!-- START about strings -->
-    <string name="by">przez</string>
+    <string name="by">autorstwa</string>
     <string name="issues">Zgłaszanie problemów: %s</string>
     <string name="website">Strona projektu: %s</string>
     <string name="troubShoot">Rozwiązywanie problemów: %s</string>
@@ -50,7 +50,7 @@
     <string name="view_sc_title_for">Pamięć podręczna scrobbli dla %1</string>
     <string name="view_sc_for_all_summary">Wyświetl i edytuj listę niewysłanych scrobbli zapisanych w pamięci podręcznej</string>
     <string name="all_websites">Wszystkie strony internetowe</string>
-    <string name="sc_sorted_by">Zamówione przez: %1</string>
+    <string name="sc_sorted_by">Sortowanie wg: %1</string>
     <string name="sc_sort_title">Sortuj według</string>
     <string name="sc_sortorder_change">Zmień kolejność sortowania</string>
     <string name="sc_sort_when_asc">Czas odtwarzania, rosnąco</string>
@@ -65,13 +65,13 @@
 
     <!-- START creds strings -->
     <string name="user_credentials_title">Dane użytkownika</string>
-    <string name="user_credentials_summary">Ustaw nazwę oraz hasło do swojego konta w serwisie %1 </string>
+    <string name="user_credentials_summary">Podaj nazwę oraz hasło do swojego konta w serwisie %1 </string>
     <string name="user_credentials_summary_no_napp">Ustaw nazwę oraz hasło do swojego konta</string>
     <string name="user_credentials_enter_ok">Zaloguj</string>
     <string name="user_credentials_enter_cancel">Powrót</string>
     <string name="user_credentials_clear_title">Wyczyść dane użytkownika</string>
     <string name="user_credentials_clear_summary">Wyczyść nazwę użytkownika oraz sesję</string>
-    <string name="supported_netapps_category_title">Wspierane strony internetowe</string>
+    <string name="supported_netapps_category_title">Wspierane serwisy</string>
     <string name="username">Nazwa użytkownika</string>
     <string name="password">Hasło</string>
     <string name="auth_client_banned">Niniejsza wersja aplikacji jest przestarzała. Proszę o zaktualizowanie jej.</string>
@@ -86,7 +86,7 @@
     <string name="logged_in_just">Zalogowany jako:</string>
     <string name="logged_in_as">Zalogowany jako: %1</string>
     <string name="log_in_to">Zaloguj do serwisu</string>
-    <string name="not_logged_in">Nie zalogowany w</string>
+    <string name="not_logged_in">Niezalogowany w</string>
     <string name="create_user_title">Utwórz konto</string>
     <string name="create_user_summary">Dołącz do %1</string>
     <string name="confirm_clear_creds">Jesteś pewien, że chcesz wyczyścić uwierzytelnienia użytkownika dla for %1? Ta operacja spowoduje również usunięcie niewysłanych scrobbli.</string>
@@ -111,45 +111,45 @@
     <!-- END copy strings -->
 
     <!-- START permissions and warnings strings -->
-    <string name="permission_required">Wymaganego pozwolenia, aby działać poprawnie</string>
-    <string name="creds_required">Poświadczenia wymagane do poprawnej pracy</string>
+    <string name="permission_required">Uprawnienie WYMAGANE do poprawnej pracy</string>
+    <string name="creds_required">Uwierzytelnienie WYMAGANE do poprawnej pracy</string>
     <string name="limited_network">Ograniczenia sieci</string>
     <!-- END permissions and warnings strings -->
 
     <!-- START mapis strings -->
     <string name="incompatability_short">Ostrzeżenie: %1$s jest zainstalowany i może powodować zdublowanie scrobbli.</string>
     <string name="incompatability_long">Ostrzeżenie: %1$s jest zainstalowany i może powodować niekompatybilność przy scrobblowaniu. Wyłącz scrobblowanie w tej aplikacji lub ją odinstaluj. %1$s.</string>
-    <string name="show_supported_apps_list_summary">Włączone/wyłączone scrobblowanie z applikacji</string>
+    <string name="show_supported_apps_list_summary">Włączanie/wyłączanie scrobblowania z applikacji</string>
     <string name="supported_apps_category_title">Włączone aplikacje</string>
     <string name="app_disabled">Nie scrobbluj muzyki z tej aplikacji</string>
     <string name="not_installed">Ta aplikacja nie jest zainstalowana</string>
     <string name="no_supported_mapis_title">Nie wykryto aplikacji odtwarzających muzykę</string>
     <string name="find_supported_mapis_one_title">Została wykryta 1 aplikacja odtwarzająca muzykę</string>
     <string name="find_supported_mapis_many_title">Zostały wykryte %1 aplikacje odtwarzające muzykę</string>
-    <string name="find_supported_mapis_summary">Odtwórz muzykę we wspieranej aplikacji a wtedy tutaj się pojawi</string>
+    <string name="find_supported_mapis_summary">Odtwórz muzykę we wspieranej aplikacji, a wtedy pojawi się tutaj</string>
     <string name="unknown_mapi">Nieznana aplikacja (pre SLS v1.2.3)</string>
     <!-- END mapis strings -->
 
     <!-- START options strings -->
     <string name="options_title">Opcje</string>
     <string name="advanced_options_title">Opcje zaawansowane</string>
-    <string name="scrobbling">Scrobble</string>
-    <string name="scrobbling_enable">Udostępniaj informacje o odtwarzaniu, gdy słuchasz piosenki</string>
-    <string name="nowplaying">Udostępniaj aktualnie słuchane</string>
+    <string name="scrobbling">Scrobblowanie</string>
+    <string name="scrobbling_enable">Przesyłaj informacje o odtworzonych utworach</string>
+    <string name="nowplaying">Aktualnie odtwarzane</string>
     <string name="nowplaying_enable">Udostępniaj informację o aktualnie słuchanym utworze</string>
     <string name="scrobble_point_title">Punkt scrobblowania</string>
     <string name="scrobble_point_summary">Scrobble zostaną dodane do bazy danych po wysłuchaniu %1% utworu</string>
     <string name="ao_battery_title">Praca na baterii</string>
     <string name="ao_plugged_title">Praca z podłączoną ładowarką</string>
-    <string name="options_summary">Zawiera ustawienia oszczędzania baterii</string>
-    <string name="advanced_options_notify_title">Powiadomienia Telefon</string>
+    <string name="options_summary">Zawierają ustawienia oszczędzania baterii</string>
+    <string name="advanced_options_notify_title">Powiadomienia</string>
     <string name="advanced_options_custom_category_title">Modyfikowane ustawienia scrobblowania</string>
     <string name="advanced_options_when_title">Kiedy scrobblować</string>
     <string name="advanced_options_also_on_complete_title">Również po zakończeniu playlisty</string>
     <string name="advanced_options_also_on_complete_summary">Wyślij scrobble również wtedy, gdy skończysz słuchać playlisty</string>
     <string name="advanced_options_also_on_plugged_title">Również wtedy, gdy podłączona jest ładowarka</string>
     <string name="advanced_options_also_on_plugged_summary">Również wtedy, gdy jesteś podłączony do źródła zasilania</string>
-    <string name="should_disable_np">Powinieneś również wyłączyć udostępnianie informacji o aktualnie słuchanym utworze, aby zaoszczędzić baterię.</string>
+    <string name="should_disable_np">W celu oszczędzania energii powinieneś także wyłączyć powiadomienia o aktualnie odtwarzanym utworze.</string>
     <string name="advanced_options_type_standard_name">Standardowe</string>
     <string name="advanced_options_type_battery_name">Oszczędzanie baterii</string>
     <string name="advanced_options_type_same_as_battery_name">Takie same jak na baterii</string>
@@ -158,15 +158,15 @@
     <string name="advanced_options_when_5_name">Po pięciu utworach</string>
     <string name="advanced_options_when_10_name">Po dziesięciu utworach</string>
     <string name="advanced_options_when_25_name">Po 25 utworach</string>
-    <string name="advanced_options_when_never_name">Gdy naciśniesz przycisk "scorbbluj teraz"</string>
+    <string name="advanced_options_when_never_name">Gdy naciśniesz przycisk Scrobbluj teraz</string>
     <string name="advanced_options_net_title">Sieć</string>
-    <string name="advanced_options_net_summary">Udostępniaj informacje dla: %1</string>
+    <string name="advanced_options_net_summary">Przesyłaj dane przez: %1</string>
     <string name="advanced_options_net_any_name">Jakakolwiek sieć</string>
     <string name="advanced_options_net_3gup_name">3G i Wifi</string>
     <string name="advanced_options_net_wifi_name">Tylko Wifi</string>
     <string name="advanced_options_net_roaming_title">Roaming</string>
-    <string name="advanced_options_net_roaming_summary_off">Nie udostępniaj informacji, gdy jesteś w roamingu</string>
-    <string name="advanced_options_net_roaming_summary_on">Udostępniaj informacje, gdy jesteś w roamingu</string>
+    <string name="advanced_options_net_roaming_summary_off">Nie przesyłaj danych, gdy jesteś w roamingu</string>
+    <string name="advanced_options_net_roaming_summary_on">Przesyłaj dane, gdy jesteś w roamingu</string>
     <!-- END options strings -->
 
     <!-- START status strings -->
@@ -177,14 +177,14 @@
     <string name="status_show_summary">Pokaż statystyki i cały status</string>
     <string name="status_title">Informacje o statusie</string>
     <string name="scrobbling_disabled">Scrobblowanie jest wyłączone</string>
-    <string name="scrobble_last_at">Ostatnio udostępnione informacje o scrobblach:</string>
+    <string name="scrobble_last_at">Ostatni przesłany utwór:</string>
     <string name="scrobble_last_fail_at">Ostatnie nieudane udostępnienie informacji o scrobblach:</string>
-    <string name="nowplaying_disabled">Udostępnianie informacji o aktualnie słuchanym utworze są wyłączone</string>
-    <string name="nowplaying_last_at">Ostatnio udostępniona informacja o aktualnie słuchanym utworze:</string>
-    <string name="nowplaying_last_fail_at">Ostatnie nieudane udostępnienie informacji o scrobblach:</string>
-    <string name="stats_scrobbles">Liczba wszystkich zascrobblowanych utworów:</string>
+    <string name="nowplaying_disabled">Powiadomienia o aktualnie odtwarzanym utworze są wyłączone</string>
+    <string name="nowplaying_last_at">Ostatnie powiadomienie o aktualnie odtwarzanym utworze:</string>
+    <string name="nowplaying_last_fail_at">Ostatnie nieudane udostępnienie informacji o aktualnie odtwarzanym utworze:</string>
+    <string name="stats_scrobbles">Łączna liczba przesłanych utworów:</string>
     <string name="never">Nigdy</string>
-    <string name="stats_nps">Liczba wszystkich informacji o aktualnie granym utworze:</string>
+    <string name="stats_nps">Łączna liczba powiadomień o aktualnie odtwarzanym utworze:</string>
     <string name="it_was">To było:</string>
     <string name="confirm_stats_reset">Jesteś pewien, że chcesz zresetować statystyki o udostępnianiu dla %1? Ta operacja nie będzie mogła zostać cofnięta.</string>
     <string name="profile_page">Strona profilu</string>
