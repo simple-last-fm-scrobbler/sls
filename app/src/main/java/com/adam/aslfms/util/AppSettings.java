@@ -648,7 +648,7 @@ public class AppSettings {
             byte[] cleartext = inStr.getBytes("UTF8");
             Cipher cipher = Cipher.getInstance("DES"); // cipher is not thread safe
             cipher.init(Cipher.ENCRYPT_MODE, getSecKey());
-            String encryptedPwd = myBase64.encodeToString(cipher.doFinal(cleartext), myBase64.DEFAULT);
+            String encryptedPwd = MyBase64.encodeToString(cipher.doFinal(cleartext), MyBase64.DEFAULT);
             return encryptedPwd;
         } catch (Exception e) {
             e.getStackTrace();
@@ -658,7 +658,7 @@ public class AppSettings {
 
     public String rcnvK(String inStr) {
         try {
-            byte[] encrypedPwdBytes = myBase64.decode(inStr, myBase64.DEFAULT);
+            byte[] encrypedPwdBytes = MyBase64.decode(inStr, MyBase64.DEFAULT);
             Cipher cipher = Cipher.getInstance("DES"); // cipher is not thread safe
             cipher.init(Cipher.DECRYPT_MODE, getSecKey());
             byte[] plainTextPwdBytes = (cipher.doFinal(encrypedPwdBytes));
