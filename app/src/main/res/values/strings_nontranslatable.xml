@@ -9,9 +9,9 @@
     <string name="clear_apps" translatable="false">Clear Apps</string> <!-- TODO: Translate -->
     <string name="nixtapeUrl" translatable="false">Nixtape URL</string>
     <string name="gnukeboxUrl" translatable="false">Gnukebox URL</string>
-    <string name="listenBrainzURL" translatable="false">Listen Brainz URL</string>
-    <string name="listenBrainzApiURL" translatable="false">Listen Brainz API URL</string>
-    <string name="listenBrainzToken" translatable="false">Listen Brainz Token</string>
+    <string name="listenBrainzURL" translatable="false">ListenBrainz URL</string>
+    <string name="listenBrainzApiURL" translatable="false">ListenBrainz API URL</string>
+    <string name="listenBrainzToken" translatable="false">ListenBrainz Token</string>
     <string name="supported_musicapps" translatable="false">Spotify, Google Music, Deezer, 
 		Rhapsody/Napster, Rdio, My Cloud Player, SoundCloud, 8tracks, 
 		InfiniTracks, Squeezer, Amazon Music, Huawei, n7player, BuMP, PowerAMP, Black Player, AIMP, 

@@ -21,7 +21,7 @@
     <string name="about_text">Um scrobbler leve que envia informações ao Last.fm (e/ou ao Libre.fm) sobre as músicas que você ouve no seu Android. O Last.fm então permite que você obtenha estatísticas e recomendações de músicas que você pode curtir.</string>
     <string name="everything_disabled">Scrobbling/now playing desabilitado.</string>
     <string name="file_error">Erro no arquivo!</string>
-    <string name="thats_new">O que é novo</string>
+    <string name="thats_new">O que tem de novo</string>
     <string name="about">Sobre</string>
     <string name="whats_new">Novidades</string>
     <string name="supported_netapps">Serviços suportados: %1</string>
@@ -66,7 +66,7 @@
     <string name="user_credentials_enter_ok">Autenticar</string>
     <string name="user_credentials_enter_cancel">Cancelar</string>
     <string name="user_credentials_clear_title">Limpar credenciais</string>
-    <string name="user_credentials_clear_summary">Limpe o nome de usuário e chave de sessão</string>
+    <string name="user_credentials_clear_summary">Limpa o nome de usuário e chave de sessão</string>
     <string name="supported_netapps_category_title">Serviços suportados</string>
     <string name="username">Nome de usuário</string>
     <string name="password">Senha</string>
@@ -91,25 +91,25 @@
 
     <!-- START heart strings -->
     <string name="heart_and_copy">Opções de música.</string>
-    <string name="heart_title">Ame</string>
-    <string name="heart_current_track">Amo música atual na Last.fm (Libre.fm)</string>
-    <string name="no_heart_track">Amor canção, fracasado</string>
-    <string name="loved_track">Música amado</string>
-    <string name="no_lastFm">Por favor insira suas credenciais last.fm</string>
-    <string name="song_is_ready">Música é preparado</string>
+    <string name="heart_title">Curtir</string>
+    <string name="heart_current_track">Adicionar música atual às preferidas no Last.fm (Libre.fm)</string>
+    <string name="no_heart_track">Adição falhou</string>
+    <string name="loved_track">Música curtida</string>
+    <string name="no_lastFm">Por favor insira suas credenciais do Last.fm</string>
+    <string name="song_is_ready">Música pronta</string>
     <!-- END heart strings -->
 
     <!-- START copy strings -->
     <string name="copy_title">Cópia</string>
-    <string name="copy_current_track">Copiar música atual a área de transferência</string>
-    <string name="no_copy_track">Canção cópia falhou</string>
-    <string name="no_current_track">Nenhuma canção disponível atualmente</string>
+    <string name="copy_current_track">Copiar música atual para a área de transferência</string>
+    <string name="no_copy_track">A cópia da música falhou</string>
+    <string name="no_current_track">Nenhuma música disponível atualmente</string>
     <!-- END copy strings -->
 
     <!-- START permissions and warnings strings -->
     <string name="permission_required">Permissão necessária para funcionar corretamente</string>
     <string name="creds_required">Credenciais necessárias para funcionar corretamente</string>
-    <string name="limited_network">Limitada Rede</string>
+    <string name="limited_network">Rede limitada</string>
     <!-- END permissions and warnings strings -->
 
     <!--START mapis strings-->

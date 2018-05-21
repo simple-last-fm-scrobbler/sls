@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 
     <!-- START original strings -->
@@ -20,12 +20,12 @@
     <string name="troubShoot">Fehlerbehebung: %s</string>
     <string name="by_adam">von Adam Renberg</string>
     <string name="license">Unter der Apache License v2.0</string>
-    <string name="about_text">Ein einfacher Scrobbler, der Musikstatistiken deiner Musik-Apps an Last.fm (und/oder Libre.fm) übertragt. Last.fm zeigt dir deine Statistiken schließlich an und empfiehlt dir neue Musik, die dir gefallen könnte.</string>
+    <string name="about_text">Ein einfacher Scrobbler, der Musikstatistiken deiner Musik-Apps an Last.fm (und/oder Libre.fm) übertragt. Last.fm zeigt dir deine Statistiken und empfiehlt dir neue Musik, die dir gefallen könnte.</string>
     <string name="everything_disabled">Scrobbeln/\'Hört gerade\' ist ausgeschaltet.</string>
     <string name="file_error">Dateifehler!</string>
     <string name="thats_new">Neu</string>
     <string name="about">Über</string>
-    <string name="whats_new">Was ist neu</string>
+    <string name="whats_new">Was ist neu?</string>
     <string name="supported_netapps">Unterstützte Webseiten: %1</string>
     <string name="supported_apps">Unterstützte Apps: %s and more…</string>
     <!-- END about strings -->
@@ -96,18 +96,18 @@
     <!-- START heart strings -->
     <string name="heart_and_copy">Song-Optionen</string>
     <string name="heart_title">Liebe</string>
-    <string name="heart_current_track">Liebe Aktueller Track bei Last.fm (Libre.fm)</string>
-    <string name="no_heart_track">Lieben Song fehlgeschlagen</string>
-    <string name="loved_track">Liebte Song</string>
-    <string name="no_lastFm">Bitte geben sie last.fm zugangsdaten</string>
+    <string name="heart_current_track">Liebe den aktuellen Track bei Last.fm (Libre.fm)</string>
+    <string name="no_heart_track">Song Lieben fehlgeschlagen</string>
+    <string name="loved_track">Song geliebt</string>
+    <string name="no_lastFm">Bitte gebe die last.fm Zugangsdaten ein</string>
     <string name="song_is_ready">Lied ist bereit</string>
     <!-- END heart strings -->
 
     <!-- START copy strings -->
     <string name="copy_title">Kopie</string>
-    <string name="copy_current_track">Kopieren Sie den aktuellen Track Zwischenablage</string>
-    <string name="no_copy_track">Song kopieren fehlgeschlagen</string>
-    <string name="no_current_track">Nein aktuellen Song erhältlich</string>
+    <string name="copy_current_track">Kopiere den aktuellen Track in die Zwischenablage</string>
+    <string name="no_copy_track">Kopieren fehlgeschlagen</string>
+    <string name="no_current_track">Keinen aktuellen Song gefunden.</string>
     <!-- END copy strings -->
 
     <!-- START permissions and warnings strings -->
@@ -126,7 +126,7 @@
     <string name="no_supported_mapis_title">Keine Musik-Apps gefunden</string>
     <string name="find_supported_mapis_one_title">Eine Musik-App erkannt</string>
     <string name="find_supported_mapis_many_title">%1 Musik-Apps erkannt</string>
-    <string name="find_supported_mapis_summary">Spiele Musik in einer unterstützten App ab und diese wird hier erscheinen</string>
+    <string name="find_supported_mapis_summary">Spiele Musik in einer unterstützten App ab und sie wird hier erscheinen</string>
     <string name="unknown_mapi">Unbekannte App (pre SLS v1.2.3)</string>
     <!-- END mapis strings -->
 
@@ -142,7 +142,7 @@
     <string name="ao_battery_title">Im Batteriebetrieb</string>
     <string name="ao_plugged_title">Während des Ladevorgangs</string>
     <string name="options_summary">Und Profile, um die Batterie zu schonen</string>
-    <string name="advanced_options_notify_title">Telefon Benachrichtigungen</string>
+    <string name="advanced_options_notify_title">Telefon-Benachrichtigungen</string>
     <string name="advanced_options_custom_category_title">Eigene Scrobble-Einstellungen</string>
     <string name="advanced_options_when_title">Wann gescrobbelt wird</string>
     <string name="advanced_options_also_on_complete_title">Auch bei Playlist-Ende</string>

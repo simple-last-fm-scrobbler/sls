@@ -99,7 +99,8 @@ public class TrackTest extends AndroidTestCase {
         assertFalse(a.equals(b));
         b = buildSimpleTrack();
         b.mAlbum = RANDOM_TEST_STRING;
-        assertFalse(a.equals(b));
+        //Ignore because checking album was removed in bbe3f4f79f230a4b214539064fd04a33db04153f
+        //assertFalse(a.equals(b));
         b = buildSimpleTrack();
         b.mTrack = RANDOM_TEST_STRING;
         assertFalse(a.equals(b));

@@ -31,8 +31,7 @@ public class TrackTestUtils {
     public static final String TEST_TRACK = "The World";
     public static final int TEST_DURATION = 123;
     public static final String TEST_TRACK_NR = "13";
-    // TODO: make it look like a real mbid
-    public static final String TEST_MBID = "asdf8o32479213924";
+    public static final String TEST_MBID = "a1aa722e-06e4-4464-a585-c93471ecb449";
     public static final String TEST_SOURCE = "R";
     public static final String TEST_RATING = "";
     public static final long TEST_WHEN = 12394649;
