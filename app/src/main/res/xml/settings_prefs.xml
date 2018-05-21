@@ -27,6 +27,15 @@
             android:targetPackage="com.adam.aslfms" />
     </PreferenceScreen>
 
+    <Preference
+        android:key="view_correction_rules"
+        android:title="Correction Rules"
+        android:summary="View and edit the list of rules for automatically correcting scrobbles" >
+        <intent
+            android:action="android.intent.action.MAIN"
+            android:targetClass="com.adam.aslfms.ViewCorrectionRulesActivity"
+            android:targetPackage="com.adam.aslfms" />
+    </Preference>
 
     <PreferenceCategory android:title="@string/scrobble_cache_title" />
     <Preference

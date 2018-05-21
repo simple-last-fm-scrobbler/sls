@@ -83,12 +83,7 @@ public class Heart extends NetRunnable {
             // TODO: ascertain if string is Json
             if (response.equals("okSuccess")) {
                 Handler h = new Handler(mCtx.getMainLooper());
-                h.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(mCtx, mCtx.getString(R.string.loved_track) + " " + getNetApp().getName(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                h.post(() -> Toast.makeText(mCtx, mCtx.getString(R.string.loved_track) + " " + getNetApp().getName(), Toast.LENGTH_SHORT).show());
                 Log.d(TAG, "Successful heart track: " + getNetApp().getName());
             } else {
                 JSONObject jObject = new JSONObject(response);

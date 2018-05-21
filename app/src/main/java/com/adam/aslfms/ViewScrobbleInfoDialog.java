@@ -31,10 +31,12 @@ import android.os.Build;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.adam.aslfms.service.NetApp;
+import com.adam.aslfms.util.CorrectionRule;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
@@ -90,7 +92,8 @@ public class ViewScrobbleInfoDialog {
                 sb.append(napp.getName());
                 sb.append(", ");
             }
-            sb.setLength(sb.length() - 2);
+            if (sb.length() > 2)
+                sb.setLength(sb.length() - 2);
             builder.append(sb.toString());
             builder.append("\n");
         }
@@ -108,66 +111,72 @@ public class ViewScrobbleInfoDialog {
         adBuilder.setView(view);
 
         adBuilder.setTitle(
-                R.string.track_info).setIcon(android.R.drawable.ic_dialog_info).setPositiveButton(R.string.remove,
-                new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if (mNetApp == null) {
-                            Util.deleteScrobbleFromAllCaches(mCtx, mDb,
-                                    mParentCursor, mTrack.getRowId());
-                        } else {
-                            Util.deleteScrobbleFromCache(mCtx, mDb, mNetApp,
-                                    mParentCursor, mTrack.getRowId());
-                        }
+                R.string.track_info)
+                .setIcon(android.R.drawable.ic_dialog_info)
+                .setPositiveButton(R.string.remove,
+                        (dialog, which) -> {
+                            if (mNetApp == null) {
+                                Util.deleteScrobbleFromAllCaches(mCtx, mDb,
+                                        mParentCursor, mTrack.getRowId());
+                            } else {
+                                Util.deleteScrobbleFromCache(mCtx, mDb, mNetApp,
+                                        mParentCursor, mTrack.getRowId());
+                            }
 
+                        })
+                .setNegativeButton(R.string.close, (dialogInterface, i) -> {
+                    int rid = mTrack.getRowId();
+                    // if (rid != -1) TODO song gets scrobbled mid typing
+
+                    CheckBox saveAsRule = (CheckBox) view.findViewById(R.id.save_as_rule);
+                    if (saveAsRule.isChecked()) {
+                        CorrectionRule rule = new CorrectionRule();
+                        rule.setTrackToChange(mTrack.getTrack());
+                        rule.setAlbumToChange(mTrack.getAlbum());
+                        rule.setArtistToChange(mTrack.getArtist());
+                        rule.setTrackCorrection(edTrack.getText().toString());
+                        rule.setAlbumCorrection(edAlbum.getText().toString());
+                        rule.setArtistCorrection(edArtist.getText().toString());
+                        mDb.insertCorrectionRule(rule);
                     }
-                }).setNegativeButton(R.string.close, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                int rid = mTrack.getRowId();
-                // if (rid != -1) TODO song gets scrobbled mid typing
-                mDb.setTrack(edTrack.getText().toString(), rid);
-                mDb.setArtist(edArtist.getText().toString(), rid);
-                mDb.setAlbum(edAlbum.getText().toString(), rid);
+                    mDb.setTrack(edTrack.getText().toString(), rid);
+                    mDb.setArtist(edArtist.getText().toString(), rid);
+                    mDb.setAlbum(edAlbum.getText().toString(), rid);
 
-                dialogInterface.cancel();
-                Intent intent = new Intent(mCtx, ViewScrobbleCacheActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                intent.putExtra("viewall", true);
-                mCtx.startActivity(intent);
-            }
+                    dialogInterface.cancel();
+                    Intent intent = new Intent(mCtx, ViewScrobbleCacheActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    intent.putExtra("viewall", true);
+                    mCtx.startActivity(intent);
+                })
+                .setNeutralButton(R.string.copy_title, (dialogInterface, i) -> {
+                    int rid = mTrack.getRowId();
 
-        }).setNeutralButton(R.string.copy_title, new OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                int rid = mTrack.getRowId();
+                    String track = edTrack.getText().toString();
+                    String artist = edArtist.getText().toString();
+                    String album = edAlbum.getText().toString();
 
-                String track = edTrack.getText().toString();
-                String artist = edArtist.getText().toString();
-                String album = edAlbum.getText().toString();
+                    mDb.setTrack(track, rid);
+                    mDb.setArtist(artist, rid);
+                    mDb.setAlbum(album, rid);
 
-                mDb.setTrack(track, rid);
-                mDb.setArtist(artist, rid);
-                mDb.setAlbum(album, rid);
+                    int sdk = Build.VERSION.SDK_INT;
+                    if (sdk < Build.VERSION_CODES.HONEYCOMB) {
+                        android.text.ClipboardManager clipboard = (android.text.ClipboardManager) mCtx.getSystemService(Context.CLIPBOARD_SERVICE);
+                        clipboard.setText(track + " by " + artist + ", " + album);
+                    } else {
+                        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) mCtx.getSystemService(Context.CLIPBOARD_SERVICE);
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", track + " by " + artist + ", " + album);
+                        clipboard.setPrimaryClip(clip);
+                    }
+                    Log.d(TAG, "Copy Track!");
 
-                int sdk = Build.VERSION.SDK_INT;
-                if (sdk < Build.VERSION_CODES.HONEYCOMB) {
-                    android.text.ClipboardManager clipboard = (android.text.ClipboardManager) mCtx.getSystemService(Context.CLIPBOARD_SERVICE);
-                    clipboard.setText(track + " by " + artist + ", " + album);
-                } else {
-                    android.content.ClipboardManager clipboard = (android.content.ClipboardManager) mCtx.getSystemService(Context.CLIPBOARD_SERVICE);
-                    android.content.ClipData clip = android.content.ClipData.newPlainText("Track", track + " by " + artist + ", " + album);
-                    clipboard.setPrimaryClip(clip);
-                }
-                Log.d(TAG, "Copy Track!");
-
-                dialogInterface.cancel();
-                Intent intent = new Intent(mCtx, ViewScrobbleCacheActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-                intent.putExtra("viewall", true);
-                mCtx.startActivity(intent);
-            }
-        });
+                    dialogInterface.cancel();
+                    Intent intent = new Intent(mCtx, ViewScrobbleCacheActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                    intent.putExtra("viewall", true);
+                    mCtx.startActivity(intent);
+                });
 
         adBuilder.show();
     }
