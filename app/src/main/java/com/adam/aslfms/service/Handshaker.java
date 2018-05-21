@@ -498,7 +498,7 @@ public class Handshaker extends NetRunnable {
                     }
                 } else if (jObject.has("error")) {
                     int code = jObject.getInt("error");
-                    if (code == 6) {
+                    if (code == 4 || code == 6) {
                         Log.e(TAG, "Handshake fails: wrong username/password");
                         throw new BadAuthException(getContext().getString(
                                 R.string.auth_bad_auth));
