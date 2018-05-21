@@ -42,6 +42,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.adam.aslfms.service.NetApp;
+import com.adam.aslfms.service.applemusic.NotificationService;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
@@ -108,6 +109,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         if (settings.getWhatsNewViewedVersion() < v) {
             new WhatsNewDialog(this).show();
             settings.setWhatsNewViewedVersion(v);
+        }
+
+        // Start Apple listening service if applicabble
+        if (settings.getAppleListenerEnabled()) {
+            Intent intent = new Intent(this, NotificationService.class);
+            startService(intent);
         }
     }
 

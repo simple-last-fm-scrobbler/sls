@@ -84,14 +84,21 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SettingsActivity" />
         </activity>
-        <activity
-            android:name=".ViewCorrectionRulesActivity"
+      
+        <activity android:name=".AppleMusicOptionsActivity"
             android:parentActivityName=".SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SettingsActivity" />
         </activity>
-
+    
+        <activity android:name=".ViewCorrectionRulesActivity"
+            android:parentActivityName=".SettingsActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SettingsActivity" />
+        </activity>
+      
         <!-- the services -->
         <service
             android:name=".service.ScrobblingService"
@@ -110,6 +117,17 @@
             android:name=".service.ForegroundHide"
             android:enabled="true"
             android:exported="true" />
+        <service
+            android:name=".service.applemusic.NotificationService"
+            android:label="AppleNotificationListener"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:process=":remote"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService"/>
+            </intent-filter>
+        </service>
 
         <!-- the receivers -->
         <receiver

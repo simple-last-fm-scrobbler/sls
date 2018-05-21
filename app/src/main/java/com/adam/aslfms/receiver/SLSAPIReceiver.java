@@ -66,7 +66,7 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
         else if (obj instanceof Double)
             value = ((Double) obj).intValue();
         else if (obj instanceof String)
-            value = Long.valueOf((String) obj).longValue();
+            value = Long.valueOf((String) obj);
         else if (throwOnFailure)
             throw new IllegalArgumentException(key + "not found in intent");
 

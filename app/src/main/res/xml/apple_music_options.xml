@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="Apple Music Options">
+        <CheckBoxPreference
+            android:key="apple_notification_listening"
+            android:title="Enable Notification Listener"
+            android:summary="Turn on listening for Apple Music notifications for scrobbling."
+            >
+
+        </CheckBoxPreference>
+    </PreferenceCategory>
+    <CheckBoxPreference
+        android:defaultValue="false"
+        android:key="apple_enable_repeat"
+        android:summary="This enables a feature for detecting when a track is repeated. However, this can result in tracks being scrobbled incorrectly due to notifications from Apple Music disappearing."
+        android:title="Enable repeating of tracks" />
+</PreferenceScreen>
