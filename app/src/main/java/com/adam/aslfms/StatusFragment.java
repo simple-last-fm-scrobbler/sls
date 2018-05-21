@@ -291,7 +291,7 @@ public class StatusFragment extends Fragment {
             super(context, resource, textViewResourceId, list);
         }
 
-        private static class ViewHolderItem {
+        private class ViewHolderItem {
 			private TextView keyView;
 			private TextView valueView;
 		}

@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 25
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.adam.aslfms"
         minSdkVersion 9
@@ -10,10 +10,6 @@ android {
 
         testApplicationId "com.adam.aslfms.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
-
-        jackOptions {
-            enabled true
-        }
     }
 
     compileOptions {
