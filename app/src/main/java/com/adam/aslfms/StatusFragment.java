@@ -291,17 +291,31 @@ public class StatusFragment extends Fragment {
             super(context, resource, textViewResourceId, list);
         }
 
-        @Override
+        private static class ViewHolderItem {
+			private TextView keyView;
+			private TextView valueView;
+		}
+
+		@Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = LayoutInflater.from(getContext()).inflate(
-                    R.layout.status_info_row, parent, false);
+            ViewHolderItem viewHolderItem;
+			if (convertView == null) {
+				convertView = LayoutInflater.from(getContext()).inflate(
+				        R.layout.status_info_row, parent, false);
+				viewHolderItem = new ViewHolderItem();
+				viewHolderItem.keyView = (TextView) convertView.findViewById(R.id.key);
+				viewHolderItem.valueView = (TextView) convertView.findViewById(R.id.value);
+				convertView.setTag(viewHolderItem);
+			} else {
+				viewHolderItem = (ViewHolderItem) convertView.getTag();
+			}
+			View view = convertView;
+			Pair item = this.getItem(position);
 
-            Pair item = this.getItem(position);
-
-            TextView keyView = (TextView) view.findViewById(R.id.key);
+            TextView keyView = viewHolderItem.keyView;
             keyView.setText(item.getKey());
 
-            TextView valueView = (TextView) view.findViewById(R.id.value);
+            TextView valueView = viewHolderItem.valueView;
             valueView.setText(item.getValue());
 
             return view;
