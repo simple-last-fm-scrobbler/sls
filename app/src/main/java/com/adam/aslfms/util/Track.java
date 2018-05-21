@@ -32,7 +32,7 @@ import com.adam.aslfms.receiver.MusicAPI;
  * A track is immutable in the sense that the descriptive paramters (artist,
  * album, duration, etc.) cannot be changed. But there are methods for keeping
  * track of how long the track has been playing, for instance. See
- * {@link #updateTimePlayed(long)} and {@link #setQueued()}.
+ * {@link #updateTimePlayed()}} and {@link #setQueued()}.
  * <p>
  * The tracks are saved in a database using the {@link ScrobblesDatabase}.
  *
@@ -322,7 +322,7 @@ public class Track {
      * Returns the duration for which this track has been played, in
      * milliseconds.
      *
-     * @see #updateTimePlayed(long)
+     * @see #updateTimePlayed()
      *
      * @return the duration for which this track has been played, in
      *         milliseconds
@@ -334,7 +334,7 @@ public class Track {
     /**
      * TODO:
      *
-     * @param currentTime
+     *
      */
 
     public void updateTimePlayed() {
@@ -386,7 +386,7 @@ public class Track {
     }
 
     /**
-     * Only checks artist, album and track strings (+ {@link MusicApp}), which
+     * Only checks artist, album and track strings (+ {@link MusicAPI}), which
      * means that tracks sent to ScrobblingService can be properly compared.
      *
      * Temporary fix for apps with multiple broadcasts. (usually Android Music Player and SLS API.

@@ -35,5 +35,11 @@
         android:layout_gravity="start"
         android:inputType="text" />
 
+    <android.support.v7.widget.AppCompatCheckBox
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Save as rule"
+        android:id="@+id/save_as_rule"/>
+
     <requestFocus />
 </LinearLayout>

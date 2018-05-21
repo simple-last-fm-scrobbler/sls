@@ -51,10 +51,7 @@ public class AboutDialog {
         AlertDialog.Builder adBuilder = new AlertDialog.Builder(mCtx).setTitle(
                 R.string.about).setIcon(android.R.drawable.ic_dialog_info).setView(
                 dialogView).setNegativeButton(R.string.close,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                    }
+                (dialog, which) -> {
                 });
 
         adBuilder.show();

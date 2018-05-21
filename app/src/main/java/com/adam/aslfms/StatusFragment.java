@@ -62,16 +62,13 @@ public class StatusFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_status, container, false);
 
         mListView = (ListView) rootView.findViewById(R.id.stats_list);
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (position == mProfilePageLinkPosition
-                        && settings.getAuthStatus(mNetApp) == AuthStatus.AUTHSTATUS_OK) {
-                    String url = mNetApp.getProfileUrl(settings);
-                    Log.d(TAG, "Clicked link to profile page, opening: " + url);
-                    Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-                    startActivity(browser);
-                }
+        mListView.setOnItemClickListener((parent, view, position, id) -> {
+            if (position == mProfilePageLinkPosition
+                    && settings.getAuthStatus(mNetApp) == AuthStatus.AUTHSTATUS_OK) {
+                String url = mNetApp.getProfileUrl(settings);
+                Log.d(TAG, "Clicked link to profile page, opening: " + url);
+                Intent browser = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(browser);
             }
         });
 
@@ -294,17 +291,31 @@ public class StatusFragment extends Fragment {
             super(context, resource, textViewResourceId, list);
         }
 
-        @Override
+        private static class ViewHolderItem {
+			private TextView keyView;
+			private TextView valueView;
+		}
+
+		@Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = LayoutInflater.from(getContext()).inflate(
-                    R.layout.status_info_row, parent, false);
+            ViewHolderItem viewHolderItem;
+			if (convertView == null) {
+				convertView = LayoutInflater.from(getContext()).inflate(
+				        R.layout.status_info_row, parent, false);
+				viewHolderItem = new ViewHolderItem();
+				viewHolderItem.keyView = (TextView) convertView.findViewById(R.id.key);
+				viewHolderItem.valueView = (TextView) convertView.findViewById(R.id.value);
+				convertView.setTag(viewHolderItem);
+			} else {
+				viewHolderItem = (ViewHolderItem) convertView.getTag();
+			}
+			View view = convertView;
+			Pair item = this.getItem(position);
 
-            Pair item = this.getItem(position);
-
-            TextView keyView = (TextView) view.findViewById(R.id.key);
+            TextView keyView = viewHolderItem.keyView;
             keyView.setText(item.getKey());
 
-            TextView valueView = (TextView) view.findViewById(R.id.value);
+            TextView valueView = viewHolderItem.valueView;
             valueView.setText(item.getValue());
 
             return view;

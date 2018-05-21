@@ -127,7 +127,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        credsCheck();
         unregisterReceiver(onStatusChange);
     }
 
@@ -136,6 +135,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         super.onResume();
 
         checkNetwork();
+        credsCheck();
 
         IntentFilter ifs = new IntentFilter();
         ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);

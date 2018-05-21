@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp">
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+        <EditText
+            android:id="@+id/edit_track_to_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Track to change" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+        <EditText
+            android:id="@+id/edit_track_correction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Track correction" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+        <EditText
+            android:id="@+id/edit_artist_to_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Artist to change" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+        <EditText
+            android:id="@+id/edit_artist_correction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Artist correction" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+        <EditText
+            android:id="@+id/edit_album_to_change"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Album to change" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+        <EditText
+            android:id="@+id/edit_album_correction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Album correction" />
+    </android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
