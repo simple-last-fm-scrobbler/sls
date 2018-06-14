@@ -17,3 +17,6 @@ For any scrobbling to work, you first have to enter your Last.fm (or Libre.fm) a
 I'm always looking for new apps to support, but almost always it requires some work on their end as well. Be assured though, the list of supported apps will grow. (If you are a developer, see ...).
 
 But if there is no issue for your app here on the github page, email me or create the issue yourself and I'll get right on it (as soon as I get the time...).
+
+## Where do I get the ListenBrainz token?
+The user token for ListenBrainz is shown in your user profile, at https://listenbrainz.org/profile/.
