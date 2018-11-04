@@ -252,12 +252,11 @@ public class Scrobbler extends AbstractSubmitter {
                     if (track.getAlbum() != null && !track.getAlbum().equals("")) {
                         trackMetaData.put("release_name", track.getAlbum());
                     }
-                    /*
                     if (track.getMbid() != null && !track.getMbid().equals("")) {
                         JSONObject additionalInfo = new JSONObject();
                         additionalInfo.put("recording_mbid", track.getMbid());
                         trackMetaData.put("additional_info", additionalInfo);
-                    }*/
+                    }
 
                     trackInfo.put("track_metadata", trackMetaData);
 
