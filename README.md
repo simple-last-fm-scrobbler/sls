@@ -11,7 +11,7 @@
 Simple Last.fm Scrobbler (SLS) is a simple app that scrobbles music listened to on an Android phone. Scrobbling means submitting listening information to Last.fm (and optionally/additionally Libre.fm and ListenBrainz) when you play a track, and you can then get music recommendations and view you listening history and statistics at Last.fm.
 
 Before the release of a new version of SLS, it will be available here to test for one week in [GitHub Releases](https://github.com/tgwizard/sls/releases).
-More info about scrobbling can be found on [![Last.fm's FAQ]()](http://www.last.fm/help/faq?category=Scrobbling#201).
+More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/help/faq?category=Scrobbling#201).
 
 ## Problem or Issue?
 
