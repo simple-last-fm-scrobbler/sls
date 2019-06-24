@@ -1,3 +1,12 @@
+Visit,
+https://github.com/tgwizard/sls
+For more details.
+
+- 1.5.8 (2018-6-24)
+  * Fixes (thanks to G00fY2)
+  * Features (thanks to 4-Eyes)
+  * Bugs & Languages fixes thanks to many
+
 - 1.5.7 (2018-1-8)
   * Fix scrobbles on Android 8 and higher (thanks to G00fY2)
   * Switch to SDK 25 to allow receiving implicit broadcasts

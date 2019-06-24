@@ -237,8 +237,14 @@ public class Scrobbler extends AbstractSubmitter {
                     Log.e(TAG, str);
                 }*/
 
+                // https://listenbrainz.readthedocs.io/en/production/dev/json.html#submission-json
+
                 JSONObject baseObj = new JSONObject();
-                baseObj.put("listen_type", "import");
+                if (tracks.length == 1){
+                    baseObj.put("listen_type", "single");
+                } else {
+                    baseObj.put("listen_type", "import");
+                }
                 JSONArray payArray = new JSONArray();
                 for (int i = 0; i < tracks.length; i++) {
                     Track track = tracks[i];
@@ -247,17 +253,20 @@ public class Scrobbler extends AbstractSubmitter {
                     trackInfo.put("listened_at", Long.toString(track.getWhen()));
 
                     JSONObject trackMetaData = new JSONObject();
-                    trackMetaData.put("artist_name", track.getArtist());
-                    trackMetaData.put("track_name", track.getTrack());
-                    if (track.getAlbum() != null && !track.getAlbum().equals("")) {
-                        trackMetaData.put("release_name", track.getAlbum());
-                    }
-                    /*
+                    JSONObject additionalInfo = new JSONObject();
+
                     if (track.getMbid() != null && !track.getMbid().equals("")) {
-                        JSONObject additionalInfo = new JSONObject();
                         additionalInfo.put("recording_mbid", track.getMbid());
+                    }
+                    if (additionalInfo.length() != 0) {
                         trackMetaData.put("additional_info", additionalInfo);
-                    }*/
+                    }
+
+                    trackMetaData.put("artist_name", URLEncoder.encode(track.getArtist(),"UTF-8"));
+                    trackMetaData.put("track_name", URLEncoder.encode(track.getTrack(),"UTF-8"));
+                    if (track.getAlbum() != null && !track.getAlbum().equals("")) {
+                        trackMetaData.put("release_name", URLEncoder.encode(track.getAlbum(),"UTF-8"));
+                    }
 
                     trackInfo.put("track_metadata", trackMetaData);
 
@@ -280,7 +289,7 @@ public class Scrobbler extends AbstractSubmitter {
                 conn.setDoOutput(true);
 
                 DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
-                //Log.e(TAG, baseObj.toString());
+                Log.e(TAG, baseObj.toString());
                 outStream.write(baseObj.toString().getBytes("UTF-8"));
                 outStream.flush();
                 outStream.close();

@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="Field"
+            android:text="@string/field"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_gravity="start"
@@ -26,7 +26,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:text="Initial Value"
+            android:text="@string/initial_value"
             android:layout_width="75dp"
             android:layout_height="fill_parent"
             android:layout_gravity="start"
@@ -38,7 +38,7 @@
             android:textStyle="bold"/>
 
         <TextView
-            android:text="Changed Value"
+            android:text="@string/changed_value"
             android:layout_width="75dp"
             android:layout_height="fill_parent"
             android:layout_gravity="end"
@@ -56,7 +56,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="Track"
+            android:text="@string/track"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_gravity="start"
@@ -96,7 +96,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="Album"
+            android:text="@string/album"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_gravity="start"
@@ -136,7 +136,7 @@
         android:orientation="horizontal">
 
         <TextView
-            android:text="Artist"
+            android:text="@string/artist"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_gravity="start"

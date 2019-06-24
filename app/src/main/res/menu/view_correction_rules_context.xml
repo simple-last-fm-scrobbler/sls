@@ -2,8 +2,8 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/menu_edit_rule"
-        android:title="Edit rule" />
+        android:title="@string/edit_rule" />
     <item
         android:id="@+id/menu_delete_rule"
-        android:title="Delete rule" />
+        android:title="@string/delete_rule" />
 </menu>

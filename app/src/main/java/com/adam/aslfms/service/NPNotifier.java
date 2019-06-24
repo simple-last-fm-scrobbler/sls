@@ -207,19 +207,17 @@ public class NPNotifier extends AbstractSubmitter {
                 }
                 }*/
 
+                // https://listenbrainz.readthedocs.io/en/production/dev/json.html#submission-json
+
                 JSONObject baseObj = new JSONObject();
                 baseObj.put("listen_type", "playing_now");
-                JSONObject trackInfo = new JSONObject();
-
-                JSONObject trackMetaData = new JSONObject();
-                trackMetaData.put("artist_name", track.getArtist());
-                trackMetaData.put("track_name", track.getTrack());
-
-                trackInfo.put("track_metadata", trackMetaData);
-
                 JSONArray payArray = new JSONArray();
+                JSONObject trackInfo = new JSONObject();
+                JSONObject trackMetaData = new JSONObject();
+                trackMetaData.put("artist_name", URLEncoder.encode(track.getArtist(),"UTF-8"));
+                trackMetaData.put("track_name", URLEncoder.encode(track.getTrack(),"UTF-8"));
+                trackInfo.put("track_metadata", trackMetaData);
                 payArray.put(trackInfo);
-
                 baseObj.put("payload", payArray);
 
                 // set Timeout and method

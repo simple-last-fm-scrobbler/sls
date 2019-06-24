@@ -24,4 +24,25 @@
 		Default Sony Ericsson/Xperia Music Player, myTouch 4G, LG Music Player, 
 		DAAP Media Player, xenoAmp, Marine, MediaMonkey, Pulsar, 
     </string>
+    <!-- START correction rules strings -->
+    <string name="old_track" translatable="false">Track Title</string>
+    <string name="new_track" translatable="false">New Track Title</string>
+    <string name="old_artist" translatable="false">Artist Title</string>
+    <string name="new_artist" translatable="false">New Artist Title</string>
+    <string name="old_album" translatable="false">Album Title</string>
+    <string name="new_album" translatable="false">New Album Title</string>
+    <string name="save_as_rule" translatable="false">Save As Rule</string>
+    <string name="delete_all_rules" translatable="false">Delete All Rules</string>
+    <string name="add_new_rule" translatable="false">Add New Rule</string>
+    <string name="edit_rule" translatable="false">Edit Rule</string>
+    <string name="delete_rule" translatable="false">Delete Rule</string>
+    <string name="field" translatable="false">Field</string>
+    <string name="initial_value" translatable="false">Initial Value</string>
+    <string name="changed_value" translatable="false">Changed Value</string>
+    <string name="track" translatable="false">Track</string>
+    <string name="album" translatable="false">Album</string>
+    <string name="artist" translatable="false">Artist</string>
+    <string name="empty_rules" translatable="false">...</string>
+
+    <!-- END  correction rules strings -->
 </resources>
