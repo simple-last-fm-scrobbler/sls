@@ -271,7 +271,6 @@ public class ScrobblesDatabase {
         ContentValues values = new ContentValues();
         values.put("track", track);
         mDb.update("scrobbles", values, "_id=" + trackId, null);
-        Log.e(TAG, "HERE");
     }
 
     /**

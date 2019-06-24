@@ -15,7 +15,7 @@
         android:layout_height="match_parent"
         android:layout_margin="4dp"
         android:gravity="center"
-        android:text="'The only sensible way to live in this world is without rules.' - The Joker"
+        android:text="@string/empty_rules"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="?android:attr/textColorPrimary"
         android:textStyle="bold"

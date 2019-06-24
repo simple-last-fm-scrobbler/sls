@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.adam.aslfms"
         minSdkVersion 9
@@ -31,8 +30,8 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:appcompat-v7:25.4.0'
-    compile 'com.android.support:support-v4:25.4.0'
-    compile 'com.android.support:design:25.4.0'
+    implementation 'com.android.support:appcompat-v7:25.4.0'
+    implementation 'com.android.support:support-v4:25.4.0'
+    implementation 'com.android.support:design:25.4.0'
     //compile 'info.guardianproject.netcipher:netcipher:1.2'
 }

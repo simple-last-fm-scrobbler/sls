@@ -1,37 +1,79 @@
-# Simple Last.fm Scrobbler (and Libre.fm and ListenBrainz and Custom Personal Servers)
+# Simple Last.fm Scrobbler
+## And Libre.fm and ListenBrainz(.org) and Custom Personal Servers
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/tgwizard/sls)
-[![License](http://img.shields.io/:license-apache-blue.svg?style=round)](LICENSE.md)
-[![Google+](http://ibin.co/2BnMUC5fKA2e)](https://plus.google.com/communities/104841597680405981934)
+[![Gitter](https://img.shields.io/gitter/room/tgwizard/sls.svg?logo=gitter&style=round)](https://gitter.im/tgwizard/sls)
+[![Discord](https://img.shields.io/discord/592703275837685760.svg?logo=discord&style=round)](https://discordapp.com/channels/592703275837685760)
+
+[![License](http://img.shields.io/:license-apache-blue.svg?style=round)](LICENSE.md) [![Pull Requests](https://img.shields.io/github/issues-pr/tgwizard/sls.svg)](https://github.com/tgwizard/sls/pulls)
+
+[![Feature Requests](https://img.shields.io/github/issues/tgwizard/sls/feature%20request.svg)](https://github.com/tgwizard/sls/labels/feature%20request) [![App Support Issues](https://img.shields.io/github/issues/tgwizard/sls/app%20support.svg)](https://github.com/tgwizard/sls/labels/app%20support) [![Bugs Issues](https://img.shields.io/github/issues/tgwizard/sls/bugs.svg)](https://github.com/tgwizard/sls/labels/bugs) [![Issues](https://img.shields.io/github/issues/tgwizard/sls.svg)](https://github.com/tgwizard/sls/issues)
 
 Simple Last.fm Scrobbler (SLS) is a simple app that scrobbles music listened to on an Android phone. Scrobbling means submitting listening information to Last.fm (and optionally/additionally Libre.fm and ListenBrainz) when you play a track, and you can then get music recommendations and view you listening history and statistics at Last.fm.
 
-Before the release of a new version of SLS, it will be available here to test for one week in the [Beta Testing Versions link](README.md#download).
+Before the release of a new version of SLS, it will be available here to test for one week in [GitHub Releases](https://github.com/tgwizard/sls/releases).
+More info about scrobbling can be found on [![Last.fm's FAQ]()](http://www.last.fm/help/faq?category=Scrobbling#201).
 
-More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/help/faq?category=Scrobbling#201).
+## Problem or Issue?
 
-[Trouble Shooting](TroubleShooting.md)
+Please create a [GitHub Account](https://github.com/join) to create a [GitHub Issue](https://github.com/tgwizard/sls/issues) to get help with bugs and problems with the software. For personal contact with developers, please use [Gitter](https://gitter.im/tgwizard/sls) or [Discord](https://discordapp.com/channels/592703275837685760).
 
-Contact emails: Try the first email address first.
+## GitHub Bug/Feature Reporting Format
+1. Please use the core bugs section to add to the conversations about bugs or issues that already exist.
+If the issue seems critical, please make a new issue on GitHub.
 
-[sls-app@googlegroups.com](mailto:sls-app@googlegroups.com) <- Please use this email. 
+2. ##### Preferred Feature Format Example
 
-[HumbleBeeBumbleBeeDebugs@gmail.com](mailto:HumbleBeeBumbleBeeDebugs@gmail.com)  <- Support & Maintenance
+  * Request for Feature: (Super cool awesome scrobble perfection)
+  * Reason: (Life is music)
 
-[simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)  <- Lead Developer
+2. ##### Preferred Issue Format Example
 
-(if uncertain please email all of them)
- 
-## Download
+  * Phone Model: (Samsung S10)
+  * Android Version: (9)
+  * SLS Version: (5.3)
+  * Music App(s) In Use: (ex. YT Music, Spotify)
+  * Detected Music Apps(s): (List what apps SLS detected)
+  * Enabled Options: (List what options you have enabled)
+  * Issue: (Description of What The Issue Is)
+  * Parameters: (ex. When, Where, Why & How The Issue Occurs)
 
-[![Google Play Store](https://ibin.co/2hN6gwDRsRut.png)](https://play.google.com/store/apps/details?id=com.adam.aslfms)
-[![F-Droid](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Get_it_on_F-Droid.svg/320px-Get_it_on_F-Droid.svg.png)](https://f-droid.org/repository/browse/?fdid=com.adam.aslfms)
+3. ## Notices
 
-[(Beta) Release Downloads](https://github.com/tgwizard/sls/releases)
+ * SLS is not being maintained as well as previous years. A temporary alternative may be PanoScrobbler.
+ * SLS is maintained by a few dedicated programmers.
+ * Please be patient, a large renovation of the app framework is being considered and formulated.
 
-[Downloads deprecated](https://github.com/blog/1302-goodbye-uploads)
+## Developers
 
-[Old Versions](https://github.com/tgwizard/sls/downloads)
+ * Contributors are welcome!
+ * Revisions will be requested if the changes are not working.
+ * Please let us know if you have added strings that need translation in Pull Requests.
+ * Please let us know if you have added strings that have not been made into string variables in Pull Requests.
+ * Somebody will make the necessary changes for you if you do not have the time.
+ * Head to [Transifex](https://www.transifex.com/sls/sls) if you want to be a translator.
+ * Create an issue when you are done translating or create a pull request. Whatever you are comfortable with.
+
+## Core Tasks
+
+1. #### Core bugs/issues
+
+ * [Repeat Song For Some Music Apps](https://github.com/tgwizard/sls/issues/324)
+ * Language support is lagging behind for some features that have been added recently.
+
+2. #### Core Bugs/Features
+
+ * [Simpler Love Track](https://github.com/tgwizard/sls/issues/303) [Similar Issue](https://github.com/tgwizard/sls/issues/330)
+ * [Enable/Disable Individual Music App Scrobbles](https://github.com/tgwizard/sls/issues/200) [Similar Issue](https://github.com/tgwizard/sls/issues/367)
+ * [Blocking Podcast Scrobbles](https://github.com/tgwizard/sls/issues/127)
+ * Read Notifications to Scrobble Music Also
+ * Slow overhaul of the app to keep simplicity and allow for dynamic feature addition.
+
+3. #### Core Feature Requests
+
+ * [True Material Design Upgrade](https://github.com/tgwizard/sls/issues/227)
+ * [Better Unit Tests](https://github.com/tgwizard/sls/issues/12)
+ * [Notification Level](https://github.com/tgwizard/sls/issues/346)
+ * Unsecured http:// support for custom servers
 
 ## Features
 
@@ -43,6 +85,7 @@ Contact emails: Try the first email address first.
  * More
 
 ### Supported languages
+* ###### Head to [Transifex](https://www.transifex.com/sls/sls) for exact information.
 
  * English
  * Spanish
@@ -53,8 +96,6 @@ Contact emails: Try the first email address first.
  * Russian
  * Czech
 
-Head to [Transifex](https://www.transifex.com/sls/sls) if you want to be a translator
-
 ### Supported scrobble services
 
  * [Last.fm](http://last.fm)
@@ -62,6 +103,13 @@ Head to [Transifex](https://www.transifex.com/sls/sls) if you want to be a trans
  * [ListenBrainz](https://listenbrainz.org)
  * [Custom GNU-fm/Libre.fm Server](https://git.gnu.io/gnu/gnu-fm/blob/master/gnufm_install.txt)
  * [Custom ListenBrainz Server](https://github.com/metabrainz/listenbrainz-server/blob/master/README.md)
+
+## Download
+
+[![Google Play Store](https://ibin.co/2hN6gwDRsRut.png)](https://play.google.com/store/apps/details?id=com.adam.aslfms)
+[![F-Droid](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Get_it_on_F-Droid.svg/320px-Get_it_on_F-Droid.svg.png)](https://f-droid.org/repository/browse/?fdid=com.adam.aslfms)
+
+#### * [Release & Pre-Release Downloads](https://github.com/tgwizard/sls/releases)
 
 ### Apps
 
@@ -110,7 +158,7 @@ Please note that some of the following applications require changing their defau
  * [MortPlayer](http://www.sto-helit.de/) ([Google Play](https://play.google.com/store/apps/details?id=de.stohelit.folderplayer))
  * [Rocket Player](http://www.jrtstudio.com/Music-Player-For-Android) ([Google Play](https://play.google.com/store/apps/details?id=com.jrtstudio.AnotherMusicPlayer))
  * BlackPlayer ([Google Play](https://play.google.com/store/apps/details?id=com.kodarkooperativet.blackplayerfree))
- * [Jetaudio](https://www.facebook.com/jetappfactory) ([Google Play](https://play.google.com/store/apps/details?id=com.jetappfactory.jetaudio)) 
+ * [Jetaudio](https://www.facebook.com/jetappfactory) ([Google Play](https://play.google.com/store/apps/details?id=com.jetappfactory.jetaudio))
  * [AIMP](http://aimp.ru/) ([Google Play](https://play.google.com/store/apps/details?id=com.aimp.player))
  * [Pulsar](http://rhmsoft.com/?p=318) ([Google Play](https://play.google.com/store/apps/details?id=com.rhmsoft.pulsar))
  * More to come...
@@ -178,7 +226,7 @@ Please note that some of the following applications require changing their defau
 
  * HTC EVO 4G LTE doesn't seem to work
  * Motorola CLIQ/DEXT doesn't seem to work
- 
+
 ### Changes
 
 For a complete list of changes, see [the changelog](app/src/main/assets/changelog.txt).
@@ -188,12 +236,6 @@ For a complete list of changes, see [the changelog](app/src/main/assets/changelo
 First, read the [FAQ](FAQ.md) to see if you can find any help with your issue.
 
 If you can't find it there, you can always open an issue or pull request here on GitHub, or you can email me: [simple.lfm.scrobbler@gmail.com](mailto:simple.lfm.scrobbler@gmail.com)
-
-## Developers
-
-If you want to enable your app to scrobble music through SLS, see [Developer's API](Developer%27s%20API.md).
-
-If you want to help out and start immediately, please see HumbleBeeBumbleBee's [Issue Summary](IssueSummary.md)
 
 ## Credits
 
@@ -206,10 +248,12 @@ All of the code is open source, released under [Apache License 2.0](LICENSE.md).
 I use copyright here only in the sense of proper attribution. Do whatever you want with the code (as long as the licenses are followed).
 
 ### Contributors
+#### A complete and updated list here -> [CONTRIBUTORS LIST](https://github.com/tgwizard/sls/graphs/contributors)
+
  * Adam Renberg, [github.com/tgwizard](https://github.com/tgwizard), main author
  * Argoday, [github.com/argoday](https://github.com/argoday), code fixes
  * inverse [github.com/inverse](https://github.com/inverse), core contributor
- * HumbleBeeBumbleBee, [github.com/HumbleBeeBumbleBee](https://github.com/HumbleBeeBumbleBee), core contributor
+ * Austin H, [github.com/a93-39a](https://github.com/a93-39a), core contributor
  * Sean O'Neil, [github.com/SeanPONeil](https://github.com/SeanPONeil), android 4.0
  * Andrew Thomson, support for MIUI Music Player
  * Mark Gillespie, support for Sony/Sony Ericsson/Xperia phones
@@ -222,16 +266,14 @@ I use copyright here only in the sense of proper attribution. Do whatever you wa
  * Joel Teichroeb, [github.com/klusark](https://github.com/klusark), bug fixes
  * Tha PHLASH, [thaphlash.com](http://www.thaphlash.com/), old icon
  * pierreduchemin [github.com/pierreduchemin](https://github.com/pierreduchemin), French translation
- * moshpirit [github.com/moshpirit](https://github.com/moshpirit), Spanish translation 
+ * moshpirit [github.com/moshpirit](https://github.com/moshpirit), Spanish translation
  * bryansills [github.com/bryansills](https://github.com/bryansills), Eclipse to Android Studio, new icon, Material Design
  * herrherrmann [github.com/herrherrmann](https://github.com/herrherrmann), German translation
  * Alia5 [github.com/Alia5](https://github.com/Alia5), better Enabled apps handle
  * MendelGusmao [github.com/MendelGusmao](https://github.com/MendelGusmao), Brazil Portuguese Translation
  * Grzes58 [github.com/Grzes58](https://github.com/Grzes58), Polish
- * bajituka [github.com/bajituka](https://github.com/bajituka), Russian 
+ * bajituka [github.com/bajituka](https://github.com/bajituka), Russian
 
-A complete list of [contributors](https://github.com/tgwizard/sls/graphs/contributors)
- 
 ### Test device contributors
 
  * Dmitry Paskal, [github.com/paskal](https://github.com/paskal)
