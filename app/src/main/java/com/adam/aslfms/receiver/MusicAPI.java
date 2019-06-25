@@ -196,9 +196,9 @@ public class MusicAPI {
 
     public static void clearDatabase(Context ctx) {
         SQLiteDatabase db = DatabaseHelper.getDatabase(ctx.getApplicationContext());
-        Log.w(TAG, "User has cleared the Database");
-        db.execSQL("DROP TABLE IF EXISTS music_api");
-        db.execSQL(DATABASE_CREATE_MUSIC_API);
+        Log.w(TAG, "User has cleared the Table");
+        db.execSQL("DELETE FROM music_api");
+        DatabaseHelper.closeDatabase();
     }
 
     /**

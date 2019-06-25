@@ -117,6 +117,7 @@ public class MusicAppsActivity extends AppCompatPreferenceActivity {
                 return true;
             case R.id.MENU_CLEAR_APPS_ID:
                 MusicAPI.clearDatabase(this);
+                update();
                 return true;
         }
         return super.onOptionsItemSelected(item);
