@@ -76,6 +76,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private Preference mCopyCurrentTrack;
 
     int REQUEST_READ_STORAGE;
+    int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -232,8 +233,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                     ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
                 }
             } catch (Exception e) {
-                Log.e(TAG, "Version exception, READ_EXTERNAL_STORAGE. " + e);
+                Log.e(TAG, "Exception, READ_EXTERNAL_STORAGE. " + e);
             }
+        }
+
+        try {
+            if (ContextCompat.checkSelfPermission(SettingsActivity.this, Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS}, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Exception, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS. " + e);
         }
     }
 
