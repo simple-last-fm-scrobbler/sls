@@ -62,6 +62,7 @@ If the issue seems critical, please make a new issue on GitHub.
 
  * [Repeat Song For Some Music Apps](https://github.com/tgwizard/sls/issues/324)
  * Language support is lagging behind for some features that have been added recently.
+ * Enforce (maybe hack) the scrobbling rules for each service using error codes correctly by API. (ex last.fm scrobble too new/old)
 
 2. #### Core Bugs/Features
 
