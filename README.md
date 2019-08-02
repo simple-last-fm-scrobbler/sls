@@ -1,5 +1,7 @@
 # Simple Last.fm Scrobbler
-## Including: Libre.fm, ListenBrainz(.org), and Custom Personal Servers
+## Last.fm, Libre.fm, ListenBrainz(.org), and Custom Personal Servers
+
+### ![](art/last.fm.svg) ![](art/libre.fm.png) ![](art/ListenBrainz.org.svg)
 
 [![Gitter](https://img.shields.io/gitter/room/tgwizard/sls.svg?logo=gitter&style=round)](https://gitter.im/tgwizard/sls)
 [![Discord](https://img.shields.io/discord/592703275837685760.svg?logo=discord&style=round)](https://discordapp.com/channels/592703275837685760)
@@ -40,6 +42,19 @@ Before the release of a new version of SLS, it will be available here to test fo
     * **Request for Feature (required)**: (control over scrobbled data)
     * **Reason (required)**: (Scrobble is love, scrobble is life.)
 
+## Download
+
+[![Google Play Store](https://ibin.co/2hN6gwDRsRut.png)](https://play.google.com/store/apps/details?id=com.adam.aslfms)
+[![F-Droid](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Get_it_on_F-Droid.svg/320px-Get_it_on_F-Droid.svg.png)](https://f-droid.org/repository/browse/?fdid=com.adam.aslfms)
+
+#### [Release & Pre-Release Downloads](https://github.com/tgwizard/sls/releases)
+
+## Compatible Apps & Compatible Phones
+### [(To View Compatible Apps and Phones Click Here)](Compatability.md)
+
+#### Known compatible devices
+
+**Note.** SLS should work on any device that can install it, and that can run one of the music apps above.
 
 ## Notices
 
@@ -107,19 +122,6 @@ Before the release of a new version of SLS, it will be available here to test fo
  * [ListenBrainz](https://listenbrainz.org)
  * [Custom GNU-fm/Libre.fm Server](https://git.gnu.io/gnu/gnu-fm/blob/master/gnufm_install.txt)
  * [Custom ListenBrainz Server](https://github.com/metabrainz/listenbrainz-server/blob/master/README.md)
-
-## Download
-
-[![Google Play Store](https://ibin.co/2hN6gwDRsRut.png)](https://play.google.com/store/apps/details?id=com.adam.aslfms)
-[![F-Droid](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Get_it_on_F-Droid.svg/320px-Get_it_on_F-Droid.svg.png)](https://f-droid.org/repository/browse/?fdid=com.adam.aslfms)
-
-#### * [Release & Pre-Release Downloads](https://github.com/tgwizard/sls/releases)
-
-### * [Compatible Apps & Compatible Phones](Compatability.md)
-
-#### Known compatible devices
-
-**Note.** SLS should work on any device that can install it, and that can run one of the music apps above.
 
 ### Changes
 
