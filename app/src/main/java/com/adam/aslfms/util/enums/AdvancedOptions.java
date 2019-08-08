@@ -17,7 +17,7 @@ public enum AdvancedOptions {
             "ao_same_as_battery", true, true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
             R.string.advanced_options_type_same_as_battery_name),
     STANDARD(
-            "ao_standard", false,  true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
+            "ao_standard", true,  true, true, AdvancedOptionsWhen.AFTER_1, true, NetworkOptions.ANY, true,
             R.string.advanced_options_type_standard_name),
     // not available for plugged in
     BATTERY_SAVING(
