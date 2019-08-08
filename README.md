@@ -27,11 +27,11 @@ Before the release of a new version of SLS, it will be available here to test fo
     * **SLS Version (required)**: (1.5.8)
     * **Issue (required)**: (Brief description of your bug or issue)
     * **Parameters (required):**
-      * **What**: {App Crashing, Scrobble Failure, or (your tell us)}
-      * **Where**: {App Screen, Notifications, Hidden or (your tell us)}
-      * **When**: {ex. "I clicked Scrobble Now", "I don't know", or (your tell us)}
-      * **Why**: {ex. "Because I clicked Scrobble Now.", "I don't know.", or (your tell us)}
-      * **How**: {ex. "Automatic", "Manual Button Click", "I don't know.", or (your tell us)}
+      * **What**: {App Crashing, Scrobble Failure, or (you tell us)}
+      * **Where**: {App Screen, Notifications, Hidden or (you tell us)}
+      * **When**: {ex. "I clicked Scrobble Now", "I don't know", or (you tell us)}
+      * **Why**: {ex. "Because I clicked Scrobble Now.", "I don't know.", or (you tell us)}
+      * **How**: {ex. "Automatic", "Manual Button Click", "I don't know.", or (you tell us)}
     * *Android Version (preferred)*: (9)
     * *Music App(s) (preferred)*: (ex. Google Play Music, Spotify)
     * *Detected Music Apps(s) (preferred)*: (List what apps SLS detected)
