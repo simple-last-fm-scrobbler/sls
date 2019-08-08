@@ -430,13 +430,13 @@ public class Util {
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(mCtx)
                             .setContentTitle(title)
-                            .setSmallIcon(R.mipmap.ic_notify)
+                            .setSmallIcon(R.drawable.ic_icon)
                             .setContentText(content)
                             .setContentIntent(contentIntent);
             NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
                 builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
-                        R.mipmap.ic_launcher));
+                        R.drawable.ic_icon));
             }
             nManager.notify(notID, builder.build());
         } catch (Exception e) {

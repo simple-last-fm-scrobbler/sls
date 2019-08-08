@@ -273,22 +273,15 @@ public abstract class BuiltInMusicAppReceiver extends
 				if (tmp instanceof Long) {
 					try {
 						long du = bundle.getLong("duration");
-						if (du < 30000){
-							b.setDuration(new BigDecimal(bundle.getLong("duration")).intValueExact());
-						} else {
-							b.setDuration(new BigDecimal(du).intValueExact() / 1000);
-						}
+						b.setDuration(new BigDecimal(bundle.getLong("duration")).intValueExact());
+						Log.d(TAG, "Integer: " + Long.toString(du));
 					} catch (Exception e) {
-						Log.d(TAG, "duration: " + e);
+						Log.e(TAG, "duration: " + e);
 					}
 				} else if (tmp instanceof Integer){
 					try {
 						int du = bundle.getInt("duration");
-						if (du < 30000){
-							b.setDuration(bundle.getInt("duration"));
-						} else {
-							b.setDuration(du / 1000);
-						}
+						b.setDuration(bundle.getInt("duration"));
 						Log.d(TAG, "Integer: " + Integer.toString(du));
 					} catch (Exception e) {
 						Log.e(TAG, "duration: " + e);

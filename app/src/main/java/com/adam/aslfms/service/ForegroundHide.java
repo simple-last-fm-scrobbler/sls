@@ -51,17 +51,17 @@ public class ForegroundHide extends Service {
         NotificationCompat.Builder builder =
                 new NotificationCompat.Builder(mCtx)
                         .setContentTitle("")
-                        .setSmallIcon(R.mipmap.ic_notify)
+                        .setSmallIcon(R.drawable.ic_icon)
                         .setContentText("")
                         .setPriority(NotificationCompat.PRIORITY_MIN)
                         .setContentIntent(contentIntent);
 
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
             builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
-                    R.mipmap.ic_launcher));
+                    R.drawable.ic_icon));
         }
 
-        this.startForeground(14619, builder.build());
+        this.startForeground(24689, builder.build());
 
         this.stopForeground(true);
         return Service.START_NOT_STICKY;

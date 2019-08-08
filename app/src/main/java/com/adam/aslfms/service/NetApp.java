@@ -22,37 +22,43 @@ package com.adam.aslfms.service;
 
 import android.util.SparseArray;
 
+import com.adam.aslfms.R;
 import com.adam.aslfms.util.AppSettings;
 
 public enum NetApp {
     LASTFM(
-            0x01, "Last fm", "http://post.audioscrobbler.com/?hs=true", "",
+            0x01, "Last fm", "http://post.audioscrobbler.com/?hs=true", R.string.settings_prefix_last_fm,
             "https://www.last.fm/join", "https://www.last.fm/user/%1",
-            "https://ws.audioscrobbler.com/2.0/"), //
+            "https://ws.audioscrobbler.com/2.0/", R.drawable.ic_last_fm), //
     LIBREFM(
-            0x02, "Libre fm", "http://turtle.libre.fm/?hs=true", "librefm",
-            "https://libre.fm/", "https://libre.fm/user/%1", "https://libre.fm/2.0/"),
+            0x02, "Libre fm", "http://turtle.libre.fm/?hs=true", R.string.settings_prefix_libre_fm,
+            "https://libre.fm/", "https://libre.fm/user/%1",
+            "https://libre.fm/2.0/", R.drawable.ic_libre_fm),
     LISTENBRAINZ(
-            0x03, "ListenBrainz", "LISTENBRAINZ_URL", "listenbrainz",
-            "https://listenbrainz.org/login/", "https://listenbrainz.org/user/%1", "https://api.listenbrainz.org/1/"),
+            0x03, "ListenBrainz", "LISTENBRAINZ_URL", R.string.settings_prefix_listenbrainz,
+            "https://listenbrainz.org/login/", "https://listenbrainz.org/user/%1",
+            "https://api.listenbrainz.org/1/", R.drawable.ic_listenbrainz),
     CUSTOM(
-            0x04, "GNU-fm server", "[[GNUKEBOX_URL]]/?hs=true", "custom",
-            "[[NIXTAPE_URL]]", "[[NIXTAPE_URL]]/user/%1", "[[NIXTAPE_URL]]/2.0/"),
+            0x04, "GNU-FM Server", "[[GNUKEBOX_URL]]/?hs=true", R.string.settings_prefix_libre_fm_custom,
+            "[[NIXTAPE_URL]]", "[[NIXTAPE_URL]]/user/%1", "[[NIXTAPE_URL]]/2.0/",
+            R.drawable.ic_libre_fm),
     CUSTOM2(
-            0x05, "L-Brnz Server", "LISTENBRAINZ_URL_CUSTOM", "listenbrainzCustom",
-            "[[LISTENBRAINZ_URL]]/login/", "[[LISTENBRAINZ_URL]]/user/%1", "[[LISTENBRAINZ_API_URL]]/1/"
+            0x05, "ListenBrainz Server", "LISTENBRAINZ_URL_CUSTOM", R.string.settings_prefix_listenbrainz_custom,
+            "[[LISTENBRAINZ_URL]]/login/", "[[LISTENBRAINZ_URL]]/user/%1",
+            "[[LISTENBRAINZ_API_URL]]/1/", R.drawable.ic_listenbrainz
     );
 
     private final int val;
     private final String name;
     private final String handshakeUrl;
-    private final String settingsPrefix;
+    private final int settingsPrefix;
     private final String signUpUrl;
     private final String profileUrl;
     private final String webserviceUrl;
+    private final int iconLocation;
 
     NetApp(int val, String name, String handshakeUrl,
-           String settingsPrefix, String signUpUrl, String profileUrl, String webserviceUrl) {
+           int settingsPrefix, String signUpUrl, String profileUrl, String webserviceUrl, int iconLocation) {
         this.val = val;
         this.name = name;
         this.handshakeUrl = handshakeUrl;
@@ -60,6 +66,7 @@ public enum NetApp {
         this.signUpUrl = signUpUrl;
         this.profileUrl = profileUrl;
         this.webserviceUrl = webserviceUrl;
+        this.iconLocation = iconLocation;
     }
 
     public String getIntentExtraValue() {
@@ -74,11 +81,15 @@ public enum NetApp {
         return this.name;
     }
 
+    public int getIconLocation(){
+        return this.iconLocation;
+    }
+
     public String getHandshakeUrl(AppSettings settings) {
         return replacePlaceholders(settings, this.handshakeUrl);
     }
 
-    public String getSettingsPrefix() {
+    public int getSettingsPrefix() {
         return settingsPrefix;
     }
 
@@ -118,11 +129,11 @@ public enum NetApp {
     }
 
     private String replacePlaceholders(AppSettings settings, String value) {
-        if (settingsPrefix.equals("custom")) {
+        if (settingsPrefix == R.string.settings_prefix_libre_fm_custom) {
             value = value.replace("[[GNUKEBOX_URL]]", settings.getGnukeboxUrl(this));
             value = value.replace("[[NIXTAPE_URL]]", settings.getNixtapeUrl(this));
         }
-        if (settingsPrefix.equals("custom2")) {
+        if (settingsPrefix == R.string.settings_prefix_listenbrainz_custom) {
             value = value.replace("[[LISTENBRAINZ_URL]]", settings.getListenBrainzUrl(this));
             value = value.replace("[[LISTENBRAINZ_API_URL]]", settings.getListenBrainzApiUrl(this));
         }

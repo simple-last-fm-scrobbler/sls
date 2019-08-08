@@ -34,6 +34,7 @@ import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.NavUtils;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
@@ -144,7 +145,6 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
         mClearAllCreds.setEnabled(settings.hasAnyCreds());
 
         clearUserCredsList();
-        loadUserCredsList();
         setUserCredsSummaries();
     }
 
@@ -154,19 +154,9 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
         mUserCredsAppToPrefMap.clear();
     }
 
-    private void loadUserCredsList() {
-        NetApp[] napps = NetApp.values();
-        for (NetApp napp : napps) {
-            Preference pref = new Preference(this, null);
-            mUserCredsPrefToAppMap.put(pref, napp);
-            mUserCredsAppToPrefMap.put(napp, pref);
-            mUserCredsList.addPreference(pref);
-        }
-    }
-
     private void setUserCredsSummaries() {
         for (NetApp napp : NetApp.values()) {
-            Preference pref = mUserCredsAppToPrefMap.get(napp);
+            Preference pref = findPreference(getString(napp.getSettingsPrefix()));
             if (settings.isAuthenticated(napp)) {
                 pref.setTitle(napp.getName());
             } else {
@@ -174,6 +164,8 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
                         + napp.getName());
             }
             pref.setSummary(Util.getStatusSummary(this, settings, napp));
+            mUserCredsPrefToAppMap.put(pref, napp);
+            mUserCredsAppToPrefMap.put(napp, pref);
         }
     }
 

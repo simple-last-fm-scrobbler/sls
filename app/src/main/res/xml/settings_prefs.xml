@@ -67,13 +67,13 @@
 
     <PreferenceCategory android:title="@string/heart_and_copy" />
     <Preference
-        android:icon="@mipmap/ic_status_wail_love_track"
+        android:icon="@drawable/heart"
         android:key="my_heart_button"
         android:summary="@string/heart_current_track"
         android:title="@string/heart_title" />
 
     <Preference
-        android:icon="@mipmap/ic_menu_copy_holo_dark"
+        android:icon="@drawable/content_copy"
         android:key="my_copy_button"
         android:summary="@string/copy_current_track"
         android:title="@string/copy_title" />

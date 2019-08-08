@@ -29,7 +29,7 @@ public enum AdvancedOptions {
             R.string.advanced_options_type_custom_name);
 
     private final String settingsVal;
-    private final boolean enableOnGoing;
+    private final boolean enableActiveApp;
     private final boolean enableNotify;
     private final boolean enableScrobbling;
     private final boolean enableNp;
@@ -39,10 +39,10 @@ public enum AdvancedOptions {
     private final boolean roaming;
     private final int nameRID;
 
-    AdvancedOptions(String settingsVal, boolean enableOnGoing, boolean enableNotify, boolean enableScrobbling, boolean enableNp, AdvancedOptionsWhen when,
+    AdvancedOptions(String settingsVal, boolean enableActiveApp, boolean enableNotify, boolean enableScrobbling, boolean enableNp, AdvancedOptionsWhen when,
                     boolean alsoOnComplete, NetworkOptions networkOptions, boolean roaming, int nameRID) {
         this.settingsVal = settingsVal;
-        this.enableOnGoing = enableOnGoing;
+        this.enableActiveApp = enableActiveApp;
         this.enableNotify = enableNotify;
         this.enableScrobbling = enableScrobbling;
         this.enableNp = enableNp;
@@ -60,8 +60,8 @@ public enum AdvancedOptions {
         return settingsVal;
     }
 
-    public boolean isOnGoingEnabled() {
-        return enableOnGoing;
+    public boolean isActiveAppEnabled() {
+        return enableActiveApp;
     }
 
     public boolean isNotifyEnabled() {

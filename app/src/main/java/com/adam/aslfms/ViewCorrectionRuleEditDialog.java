@@ -14,7 +14,7 @@ import com.adam.aslfms.util.CorrectionRule;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
-import java.util.function.Consumer;
+import java.util.Objects;
 
 /**
  * Created by 4-Eyes on 21/3/2017.
@@ -28,6 +28,17 @@ class ViewCorrectionRuleEditDialog {
     private final Cursor rulesCursor;
     private final CorrectionRule rule;
     private final boolean isNewRule;
+
+    public interface MyConsumer<T> {
+
+        void accept(T t);
+
+        default MyConsumer<T> andThen(MyConsumer<? super T> after) {
+            Objects.requireNonNull(after);
+            return (T t) -> { accept(t); after.accept(t); };
+        }
+
+    }
 
     public ViewCorrectionRuleEditDialog(Context context, ScrobblesDatabase database, Cursor updateRulesCursor, CorrectionRule rule, boolean newRule) {
 
@@ -45,16 +56,16 @@ class ViewCorrectionRuleEditDialog {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.correction_rule_edit, null);
 
-        ArrayList<SimpleEntry<Integer, SimpleEntry<String, Consumer<String>>>> viewValuePairs = new ArrayList<>();
-        viewValuePairs.add(new SimpleEntry<>(R.id.edit_track_to_change, new SimpleEntry<String, Consumer<String>>(rule.getTrackToChange(), rule::setTrackToChange)));
-        viewValuePairs.add(new SimpleEntry<>(R.id.edit_track_correction, new SimpleEntry<String, Consumer<String>>(rule.getTrackCorrection(), rule::setTrackCorrection)));
-        viewValuePairs.add(new SimpleEntry<>(R.id.edit_artist_to_change, new SimpleEntry<String, Consumer<String>>(rule.getArtistToChange(), rule::setArtistToChange)));
-        viewValuePairs.add(new SimpleEntry<>(R.id.edit_artist_correction, new SimpleEntry<String, Consumer<String>>(rule.getArtistCorrection(), rule::setArtistCorrection)));
-        viewValuePairs.add(new SimpleEntry<>(R.id.edit_album_to_change, new SimpleEntry<String, Consumer<String>>(rule.getAlbumToChange(), rule::setAlbumToChange)));
-        viewValuePairs.add(new SimpleEntry<>(R.id.edit_album_correction, new SimpleEntry<String, Consumer<String>>(rule.getAlbumCorrection(), rule::setAlbumCorrection)));
+        ArrayList<SimpleEntry<Integer, SimpleEntry<String, MyConsumer<String>>>> viewValuePairs = new ArrayList<>();
+        viewValuePairs.add(new SimpleEntry<>(R.id.edit_track_to_change, new SimpleEntry<String, MyConsumer<String>>(rule.getTrackToChange(), rule::setTrackToChange)));
+        viewValuePairs.add(new SimpleEntry<>(R.id.edit_track_correction, new SimpleEntry<String, MyConsumer<String>>(rule.getTrackCorrection(), rule::setTrackCorrection)));
+        viewValuePairs.add(new SimpleEntry<>(R.id.edit_artist_to_change, new SimpleEntry<String, MyConsumer<String>>(rule.getArtistToChange(), rule::setArtistToChange)));
+        viewValuePairs.add(new SimpleEntry<>(R.id.edit_artist_correction, new SimpleEntry<String, MyConsumer<String>>(rule.getArtistCorrection(), rule::setArtistCorrection)));
+        viewValuePairs.add(new SimpleEntry<>(R.id.edit_album_to_change, new SimpleEntry<String, MyConsumer<String>>(rule.getAlbumToChange(), rule::setAlbumToChange)));
+        viewValuePairs.add(new SimpleEntry<>(R.id.edit_album_correction, new SimpleEntry<String, MyConsumer<String>>(rule.getAlbumCorrection(), rule::setAlbumCorrection)));
 
         TextView textView;
-        for (SimpleEntry<Integer, SimpleEntry<String, Consumer<String>>> viewValue: viewValuePairs) {
+        for (SimpleEntry<Integer, SimpleEntry<String, MyConsumer<String>>> viewValue: viewValuePairs) {
             textView = (TextView) view.findViewById(viewValue.getKey());
             textView.setText(viewValue.getValue().getKey());
         }
@@ -63,7 +74,7 @@ class ViewCorrectionRuleEditDialog {
                 .setIcon(android.R.drawable.ic_dialog_info)
                 .setPositiveButton("Save", (dialog, which) -> {
                     TextView tv;
-                    for (SimpleEntry<Integer, SimpleEntry<String, Consumer<String>>> viewValue: viewValuePairs) {
+                    for (SimpleEntry<Integer, SimpleEntry<String, MyConsumer<String>>> viewValue: viewValuePairs) {
                         tv = (TextView) view.findViewById(viewValue.getKey());
                         viewValue.getValue().getValue().accept(tv.getText().toString());
                     }

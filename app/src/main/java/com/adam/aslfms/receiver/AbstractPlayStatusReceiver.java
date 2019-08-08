@@ -31,6 +31,9 @@ import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.InternalTrackTransmitter;
 import com.adam.aslfms.util.Track;
 
+import java.util.Iterator;
+import java.util.Set;
+
 /**
  * Base class for play status receivers.
  *
@@ -51,26 +54,26 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
     private Intent mService = null;
     private Track mTrack = null;
 
-    /**
+
      public static void dumpIntent(Bundle bundle){
-     if (bundle != null) {
-     Set<String> keys = bundle.keySet();
-     Iterator<String> it = keys.iterator();
-     Log.e(TAG,"Dumping Intent start");
-     while (it.hasNext()) {
-     String key = it.next();
-     Log.e(TAG,"[" + key + "=" + bundle.get(key)+"]");
+         if (bundle != null) {
+            Set<String> keys = bundle.keySet();
+            Iterator<String> it = keys.iterator();
+            Log.e(TAG,"Dumping Intent start");
+            while (it.hasNext()) {
+               String key = it.next();
+                Log.e(TAG,"[" + key + "=" + bundle.get(key)+"]");
+            }
+            Log.e(TAG,"Dumping Intent end");
+        }
      }
-     Log.e(TAG,"Dumping Intent end");
-     }
-     }*/
 
     @Override
     public final void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
         Bundle bundle = intent.getExtras();
 
-        //dumpIntent(bundle);
+        dumpIntent(bundle);
 
         Log.e(TAG, "Action received was: " + action);
 

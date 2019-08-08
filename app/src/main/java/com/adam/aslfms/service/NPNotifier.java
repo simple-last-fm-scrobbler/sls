@@ -190,6 +190,8 @@ public class NPNotifier extends AbstractSubmitter {
                 conn = (HttpsURLConnection) url.openConnection();
                 conn.setSSLSocketFactory(customSockets);
 
+                // Keep For Cipher Debugging
+
                 /*String[] strArr = customSockets.getDefaultCipherSuites();
                 for (String str : strArr) {
                     Log.e(TAG, str);
