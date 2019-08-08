@@ -78,10 +78,10 @@ public class NotificationBarService extends Service {
                     PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     NotificationCompat.Builder builder =
                             new NotificationCompat.Builder(mCtx)
-                                    .setContentTitle(tr)
+                                    .setContentTitle(tr + " by " + ar )
                                     .setSmallIcon(R.drawable.ic_icon)
                                     .setColor(Color.RED)
-                                    .setContentText(ar + " : " + api)
+                                    .setContentText(al + " : " + api)
                                     .setPriority(NotificationCompat.PRIORITY_MIN)
                                     .addAction(heartAction)
                                     .addAction(copyAction)
@@ -131,10 +131,10 @@ public class NotificationBarService extends Service {
                 PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 NotificationCompat.Builder builder =
                         new NotificationCompat.Builder(mCtx)
-                                .setContentTitle(tr)
+                                .setContentTitle(tr + " by " + ar )
                                 .setSmallIcon(R.drawable.ic_icon)
                                 .setColor(Color.RED)
-                                .setContentText(ar + " : " + api)
+                                .setContentText(al + " : " + api)
                                 .setPriority(NotificationCompat.PRIORITY_MIN)
                                 .addAction(heartAction)
                                 .addAction(copyAction)
