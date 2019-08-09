@@ -96,12 +96,6 @@ public class ScrobblingService extends Service {
         return Service.START_STICKY;
     }
 
-    //Note this function is deprecated starting at API level 5
-    @Override
-    public void onStart(Intent i, int startId) {
-        handleCommand(i, startId);
-    }
-
     private void handleCommand(Intent i, int startId) {
         if (i == null) {
             Log.e(TAG, "got null intent");
@@ -184,9 +178,11 @@ public class ScrobblingService extends Service {
                     Track tempTrack = mDb.fetchRecentTrack();
                     int sdk = Build.VERSION.SDK_INT;
                     if (sdk < Build.VERSION_CODES.HONEYCOMB) {
+                        @SuppressWarnings("deprecation")
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                         clipboard.setText(tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + ", on " + tempTrack.getMusicAPI().getName());
                     } else {
+                        @SuppressWarnings("deprecation")
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                         android.content.ClipData clip = android.content.ClipData.newPlainText("Track", tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + ", on " + tempTrack.getMusicAPI().getName());
                         clipboard.setPrimaryClip(clip);
@@ -201,9 +197,11 @@ public class ScrobblingService extends Service {
                 try {
                     int sdk = Build.VERSION.SDK_INT;
                     if (sdk < Build.VERSION_CODES.HONEYCOMB) {
+                        @SuppressWarnings("deprecation")
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                         clipboard.setText(mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + ", on " + mCurrentTrack.getMusicAPI().getName());
                     } else {
+                        @SuppressWarnings("deprecation")
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                         android.content.ClipData clip = android.content.ClipData.newPlainText("Track", mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + ", on " + mCurrentTrack.getMusicAPI().getName());
                         clipboard.setPrimaryClip(clip);

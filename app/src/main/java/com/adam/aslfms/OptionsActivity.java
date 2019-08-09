@@ -55,6 +55,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
     private PowerSpecificPrefs mPluggedOptions;
 
     @Override
+    @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.options);
@@ -104,6 +105,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
                                          Preference pref) {
 

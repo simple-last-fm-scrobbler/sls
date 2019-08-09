@@ -63,6 +63,7 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
     private Preference mCreateUser;
 
     @Override
+    @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.user_cred_prefs);
@@ -91,6 +92,7 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
                                          Preference pref) {
 

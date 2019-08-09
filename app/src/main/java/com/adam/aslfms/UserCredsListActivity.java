@@ -59,6 +59,7 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
     private Preference mClearAllCreds;
 
     @Override
+    @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -95,6 +96,7 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
                                          Preference pref) {
 
@@ -154,6 +156,7 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
         mUserCredsAppToPrefMap.clear();
     }
 
+    @SuppressWarnings("deprecation")
     private void setUserCredsSummaries() {
         for (NetApp napp : NetApp.values()) {
             Preference pref = findPreference(getString(napp.getSettingsPrefix()));

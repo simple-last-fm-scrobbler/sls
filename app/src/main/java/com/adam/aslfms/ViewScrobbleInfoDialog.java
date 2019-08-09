@@ -162,6 +162,7 @@ public class ViewScrobbleInfoDialog {
 
                     int sdk = Build.VERSION.SDK_INT;
                     if (sdk < Build.VERSION_CODES.HONEYCOMB) {
+                        @SuppressWarnings("deprecation")
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) mCtx.getSystemService(Context.CLIPBOARD_SERVICE);
                         clipboard.setText(track + " by " + artist + ", " + album);
                     } else {

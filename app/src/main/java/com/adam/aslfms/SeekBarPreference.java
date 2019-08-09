@@ -51,14 +51,14 @@ public class SeekBarPreference extends DialogPreference {
         // we "have" to create new views each time
         LinearLayout layout = new LinearLayout(mContext);
         layout.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.FILL_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
         // layout.setMinimumWidth(400);
         layout.setPadding(20, 20, 20, 20);
 
         mSeekBar = new SeekBar(mContext);
         mSeekBar.setLayoutParams(new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT));
 
         mSeekBar.setMax(mStartMax);

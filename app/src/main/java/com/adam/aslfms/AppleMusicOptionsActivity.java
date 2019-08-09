@@ -27,6 +27,7 @@ public class AppleMusicOptionsActivity extends AppCompatPreferenceActivity {
     AppSettings settings;
 
     @Override
+    @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.apple_music_options);
