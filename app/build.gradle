@@ -18,6 +18,8 @@ android {
 
     lintOptions {
         abortOnError false
+        // TODO: fix all lint warnings
+        ignoreWarnings true
     }
 
 
@@ -31,7 +33,7 @@ android {
 
 dependencies {
     implementation 'com.android.support:appcompat-v7:25.4.0'
-    implementation 'com.android.support:support-v4:25.4.0'
+    implementation 'com.android.support:support-compat:25.4.0'
     implementation 'com.android.support:design:25.4.0'
     //compile 'info.guardianproject.netcipher:netcipher:1.2'
 }
