@@ -21,20 +21,16 @@
 
 package com.adam.aslfms.service;
 
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.widget.Toast;
 
 import com.adam.aslfms.R;
-import com.adam.aslfms.SettingsActivity;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.InternalTrackTransmitter;
 import com.adam.aslfms.util.ScrobblesDatabase;
@@ -42,6 +38,8 @@ import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.enums.AdvancedOptionsWhen;
 import com.adam.aslfms.util.enums.PowerOptions;
+
+import com.adam.aslfms.service.NotificationBarService;
 
 /**
  * @author tgwizard
@@ -70,6 +68,7 @@ public class ScrobblingService extends Service {
     private NetworkerManager mNetManager;
 
     private Track mCurrentTrack = null;
+    private Intent mNotificationService = null;
 
     Context mCtx = this;
 
@@ -84,48 +83,6 @@ public class ScrobblingService extends Service {
         mDb = new ScrobblesDatabase(this);
         mDb.open();
         mNetManager = new NetworkerManager(this, mDb);
-
-        int sdk = Build.VERSION.SDK_INT;
-        if (sdk == Build.VERSION_CODES.GINGERBREAD || sdk == Build.VERSION_CODES.GINGERBREAD_MR1) {
-            if (settings.isOnGoingEnabled(Util.checkPower(mCtx))) {
-                if (mCurrentTrack != null) {
-                    String ar = mCurrentTrack.getArtist();
-                    String tr = mCurrentTrack.getTrack();
-                    String api = mCurrentTrack.getMusicAPI().readAPIname();
-
-                    // Heart intent
-                    Intent heartIntent = new Intent(mCtx, ScrobblingService.class);
-                    heartIntent.setAction(ScrobblingService.ACTION_HEART);
-                    PendingIntent  heartPendingIntent =  PendingIntent.getService(mCtx, 0, heartIntent, 0);
-                    NotificationCompat.Action heartAction = new NotificationCompat.Action.Builder(R.mipmap.ic_status_wail_love_track, "", heartPendingIntent).build();
-
-
-                    Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
-                    PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                    NotificationCompat.Builder builder =
-                            new NotificationCompat.Builder(mCtx)
-                                    .setContentTitle(tr)
-                                    .setSmallIcon(R.mipmap.ic_notify)
-                                    .setContentText(ar + " :" + api)
-                                    .setPriority(NotificationCompat.PRIORITY_MIN)
-                                    .addAction(heartAction)
-                                    .setContentIntent(contentIntent);
-
-                    if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
-                        builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
-                                R.mipmap.ic_launcher));
-                    }
-
-                    this.startForeground(14619, builder.build());
-                    if (!settings.isNotifyEnabled(Util.checkPower(mCtx))) {
-                        Intent iNoti = new Intent(mCtx, ForegroundHide.class);
-                        this.startService(iNoti);
-                    }
-                }
-            } else {
-                this.stopForeground(true); // TODO: test if this conflicts/stops scrobbles
-            }
-        }
     }
 
     @Override
@@ -136,51 +93,7 @@ public class ScrobblingService extends Service {
     @Override
     public int onStartCommand(Intent i, int flags, int startId) {
         handleCommand(i, startId);
-        if (settings.isOnGoingEnabled(Util.checkPower(mCtx))) {
-            if (mCurrentTrack != null) {
-                String ar = mCurrentTrack.getArtist();
-                String tr = mCurrentTrack.getTrack();
-                String api = mCurrentTrack.getMusicAPI().readAPIname();
-
-                // Heart intent
-                Intent heartIntent = new Intent(mCtx, ScrobblingService.class);
-                heartIntent.setAction(ScrobblingService.ACTION_HEART);
-                PendingIntent  heartPendingIntent =  PendingIntent.getService(mCtx, 0, heartIntent, 0);
-                NotificationCompat.Action heartAction = new NotificationCompat.Action.Builder(R.mipmap.ic_status_wail_love_track, "", heartPendingIntent).build();
-
-                Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
-                PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                NotificationCompat.Builder builder =
-                        new NotificationCompat.Builder(mCtx)
-                                .setContentTitle(tr)
-                                .setSmallIcon(R.mipmap.ic_notify)
-                                .setContentText(ar + " :" + api)
-                                .setPriority(NotificationCompat.PRIORITY_MIN)
-                                .addAction(heartAction)
-                                .setContentIntent(contentIntent);
-
-                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
-                    builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
-                            R.mipmap.ic_launcher));
-                }
-
-                this.startForeground(14619, builder.build());
-
-                if (!settings.isNotifyEnabled(Util.checkPower(mCtx))) {
-                    Intent iNoti = new Intent(mCtx, ForegroundHide.class);
-                    startService(iNoti);
-                }
-            }
-        } else {
-            this.stopForeground(true); // TODO: test if this conflicts/stops scrobbles
-        }
         return Service.START_STICKY;
-    }
-
-    //Note this function is deprecated starting at API level 5
-    @Override
-    public void onStart(Intent i, int startId) {
-        handleCommand(i, startId);
     }
 
     private void handleCommand(Intent i, int startId) {
@@ -248,7 +161,7 @@ public class ScrobblingService extends Service {
                         Log.d(TAG, "Love Track Rating!");
                     }
                 } catch (Exception e) {
-                    Log.e(TAG, "CAN'T COPY TRACK" + e);
+                    Log.e(TAG, "CAN'T HEART TRACK" + e);
                 }
             } else if (mCurrentTrack != null) {
                 mCurrentTrack.setRating();
@@ -265,11 +178,13 @@ public class ScrobblingService extends Service {
                     Track tempTrack = mDb.fetchRecentTrack();
                     int sdk = Build.VERSION.SDK_INT;
                     if (sdk < Build.VERSION_CODES.HONEYCOMB) {
+                        @SuppressWarnings("deprecation")
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setText(tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum());
+                        clipboard.setText(tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + ", on " + tempTrack.getMusicAPI().getName());
                     } else {
+                        @SuppressWarnings("deprecation")
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum());
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + ", on " + tempTrack.getMusicAPI().getName());
                         clipboard.setPrimaryClip(clip);
                     }
                     Log.d(TAG, "Copy Track!");
@@ -282,11 +197,13 @@ public class ScrobblingService extends Service {
                 try {
                     int sdk = Build.VERSION.SDK_INT;
                     if (sdk < Build.VERSION_CODES.HONEYCOMB) {
+                        @SuppressWarnings("deprecation")
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setText(mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum());
+                        clipboard.setText(mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + ", on " + mCurrentTrack.getMusicAPI().getName());
                     } else {
+                        @SuppressWarnings("deprecation")
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum());
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + ", on " + mCurrentTrack.getMusicAPI().getName());
                         clipboard.setPrimaryClip(clip);
                     }
                     Log.d(TAG, "Copy Track!");
@@ -332,13 +249,14 @@ public class ScrobblingService extends Service {
             mCurrentTrack.updateTimePlayed();
             tryNotifyNP(mCurrentTrack);
 
-            // TODO: maybe give notifications it's own service
-            // TODO: work around for permanent notification
-            /**
-             if (settings.isNotifyEnabled(Util.checkPower(mCtx))) {
-             Class chooseActivity = SettingsActivity.class;
-             Util.myNotify(mCtx,chooseActivity,track.getArtist(),track.getTrack() + " : " + track.getMusicAPI().readAPIname(), 14619);
-             }*/
+            mNotificationService = new Intent(mCtx, NotificationBarService.class);
+            mNotificationService.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_UPDATE);
+            mNotificationService.putExtra("track",mCurrentTrack.getTrack());
+            mNotificationService.putExtra("artist",mCurrentTrack.getArtist());
+            mNotificationService.putExtra("album",mCurrentTrack.getAlbum());
+            mNotificationService.putExtra("app_name",mCurrentTrack.getMusicAPI().getName());
+            mCtx.startService(mNotificationService);
+
         } else if (state == Track.State.PAUSE) { // pause
             // TODO: test this state
             if (mCurrentTrack == null) {

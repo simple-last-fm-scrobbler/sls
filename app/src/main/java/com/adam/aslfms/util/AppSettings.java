@@ -64,8 +64,7 @@ public class AppSettings {
     private static final String KEY_SESSION = "sessionKey";
     private static final String KEY_SCROBBLES = "totalScrobbles";
 
-    private static final String KEY_NOTIFY_ENABLE = "enable_notify";
-    private static final String KEY_ONGOING_ENABLE = "enable_ongoing";
+    private static final String KEY_ACTIVE_APP_ENABLE = "enable_active_app";
     private static final String KEY_SCROBBLING_ENABLE = "enable_scrobbling";
     private static final String KEY_NOWPLAYING_ENABLE = "enable_nowplaying";
 
@@ -408,36 +407,20 @@ public class AppSettings {
         }
     }
 
-    public void setNotifyEnabled(PowerOptions pow, boolean b) {
+    public void setActiveAppEnabled(PowerOptions pow, boolean b) {
         Editor e = prefs.edit();
-        e.putBoolean(KEY_NOTIFY_ENABLE + pow.getSettingsPath(), b);
+        e.putBoolean(KEY_ACTIVE_APP_ENABLE + pow.getSettingsPath(), b);
         e.commit();
     }
 
-    public boolean isNotifyEnabled(PowerOptions pow) {
+    public boolean isActiveAppEnabled(PowerOptions pow) {
         if (pow == PowerOptions.PLUGGED_IN
                 && getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
             pow = PowerOptions.BATTERY;
         }
 
-        return prefs.getBoolean(KEY_NOTIFY_ENABLE + pow.getSettingsPath(),
-                getAdvancedOptions(pow).isNotifyEnabled());
-    }
-
-    public void setOnGoingEnabled(PowerOptions pow, boolean b) {
-        Editor e = prefs.edit();
-        e.putBoolean(KEY_ONGOING_ENABLE + pow.getSettingsPath(), b);
-        e.commit();
-    }
-
-    public boolean isOnGoingEnabled(PowerOptions pow) {
-        if (pow == PowerOptions.PLUGGED_IN
-                && getAdvancedOptions_raw(PowerOptions.PLUGGED_IN) == AdvancedOptions.SAME_AS_BATTERY) {
-            pow = PowerOptions.BATTERY;
-        }
-
-        return prefs.getBoolean(KEY_ONGOING_ENABLE + pow.getSettingsPath(),
-                getAdvancedOptions(pow).isOnGoingEnabled());
+        return prefs.getBoolean(KEY_ACTIVE_APP_ENABLE + pow.getSettingsPath(),
+                getAdvancedOptions(pow).isActiveAppEnabled());
     }
 
     public void setScrobblingEnabled(PowerOptions pow, boolean b) {
@@ -501,8 +484,7 @@ public class AppSettings {
         e.commit();
         if (ao != AdvancedOptions.CUSTOM
                 && ao != AdvancedOptions.SAME_AS_BATTERY) {
-            setOnGoingEnabled(pow, ao.isOnGoingEnabled());
-            setNotifyEnabled(pow, ao.isNotifyEnabled());
+            setActiveAppEnabled(pow, ao.isActiveAppEnabled());
             setScrobblingEnabled(pow, ao.isScrobblingEnabled());
             setNowPlayingEnabled(pow, ao.isNpEnabled());
             setAdvancedOptionsWhen(pow, ao.getWhen());

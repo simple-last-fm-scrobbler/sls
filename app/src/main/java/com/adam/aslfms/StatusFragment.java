@@ -305,7 +305,7 @@ public class StatusFragment extends Fragment {
 				viewHolderItem = new ViewHolderItem();
 				viewHolderItem.keyView = (TextView) convertView.findViewById(R.id.key);
 				viewHolderItem.valueView = (TextView) convertView.findViewById(R.id.value);
-				convertView.setTag(viewHolderItem);
+                convertView.setTag(viewHolderItem);
 			} else {
 				viewHolderItem = (ViewHolderItem) convertView.getTag();
 			}

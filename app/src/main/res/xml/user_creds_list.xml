@@ -1,8 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
         android:key="supported_netapps_list"
         android:title="@string/supported_netapps_category_title" />
+    <Preference
+        android:key="@string/settings_prefix_last_fm"
+        android:icon="@drawable/ic_last_fm"
+        android:visibility="gone"
+        />
+    <Preference
+        android:key="@string/settings_prefix_libre_fm"
+        android:icon="@drawable/ic_libre_fm"
+        android:visibility="gone"
+        />
+    <Preference
+        android:key="@string/settings_prefix_listenbrainz"
+        android:icon="@drawable/ic_listenbrainz"
+        android:visibility="gone"
+        />
+    <Preference
+        android:key="@string/settings_prefix_libre_fm_custom"
+        android:icon="@drawable/ic_libre_fm"
+        android:visibility="gone"
+        />
+    <Preference
+        android:key="@string/settings_prefix_listenbrainz_custom"
+        android:icon="@drawable/ic_listenbrainz"
+        android:visibility="gone"
+        />
     <PreferenceCategory
         android:key="clear_all_creds_category"
         android:title="@string/other_category_title" />

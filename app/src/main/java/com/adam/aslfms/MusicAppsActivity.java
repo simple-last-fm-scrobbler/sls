@@ -54,6 +54,7 @@ public class MusicAppsActivity extends AppCompatPreferenceActivity {
     private String mScrobbleDroidLabel;
 
     @Override
+    @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.music_apps);
@@ -78,6 +79,7 @@ public class MusicAppsActivity extends AppCompatPreferenceActivity {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
                                          Preference pref) {
 

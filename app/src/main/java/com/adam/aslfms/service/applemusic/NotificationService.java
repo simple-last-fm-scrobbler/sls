@@ -43,7 +43,7 @@ public class NotificationService extends NotificationListenerService {
         super.onCreate();
         AppSettings settings = new AppSettings(this);
         handler = new NotificationHandler(this, settings);
-        Log.i("AppleNotification", "Notification listener created");
+        Log.i("AppleNotification", "NotificationBarService listener created");
         try {
             applePackageInfo = getPackageManager().getPackageInfo(APPLE_PACKAGE_NAME, 0);
             Log.i("AppleNotification", "Package version is: " + applePackageInfo.versionCode);
@@ -132,7 +132,7 @@ public class NotificationService extends NotificationListenerService {
                 }
             }
         } catch (Exception e) {
-            Log.e("AppleNotification", "Failed to parse Apple Notification");
+            Log.e("AppleNotification", "Failed to parse Apple NotificationBarService");
             e.printStackTrace();
         }
 

@@ -5,7 +5,7 @@
     <string name="website_url" translatable="false">https://github.com/tgwizard/sls</string>
     <string name="issues_url" translatable="false">https://github.com/tgwizard/sls/issues</string>
     <string name="trouble_shoot" translatable="false">https://github.com/tgwizard/sls/blob/master/TroubleShooting.md</string>
-    <string name="ongoing" translatable="false">OnGoing</string>
+    <string name="active_app" translatable="false">Active App</string>
     <string name="clear_apps" translatable="false">Clear Apps</string> <!-- TODO: Translate -->
     <string name="nixtapeUrl" translatable="false">Nixtape URL</string>
     <string name="gnukeboxUrl" translatable="false">Gnukebox URL</string>
@@ -45,4 +45,13 @@
     <string name="empty_rules" translatable="false">...</string>
 
     <!-- END  correction rules strings -->
+
+    <!-- START NetApp and Preference Data -->
+    <string name="settings_prefix_last_fm" translatable="false">last.fm</string>
+    <string name="settings_prefix_libre_fm" translatable="false">libre.fm</string>
+    <string name="settings_prefix_listenbrainz" translatable="false">ListenBrainz</string>
+    <string name="settings_prefix_libre_fm_custom" translatable="false">libre.fmCustom</string>
+    <string name="settings_prefix_listenbrainz_custom" translatable="false">ListenBrainzCustom</string>
+    <string name="user_creds_list_body" translatable="false">user_creds_list_body</string>
+    <!-- END NetApp and Preference Data -->
 </resources>

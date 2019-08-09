@@ -79,9 +79,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 
     @Override
+    @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         addPreferencesFromResource(R.xml.settings_prefs);
 
@@ -145,6 +145,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
                                          Preference pref) {
         if (pref == mScrobbleAllNow) {

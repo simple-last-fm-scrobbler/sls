@@ -114,6 +114,13 @@
                 <action android:name="com.adam.aslfms.service.copy" />
             </intent-filter>
         </service>
+        <service android:name=".service.NotificationBarService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.adam.aslfms.service.notificationbarupdate" />
+            </intent-filter>
+        </service>
         <service
             android:name=".service.ForegroundHide"
             android:enabled="true"

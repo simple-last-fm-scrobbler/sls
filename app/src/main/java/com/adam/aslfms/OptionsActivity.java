@@ -55,6 +55,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
     private PowerSpecificPrefs mPluggedOptions;
 
     @Override
+    @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.options);
@@ -104,6 +105,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
                                          Preference pref) {
 
@@ -151,8 +153,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         private PreferenceCategory category;
 
         private ListPreference chooser;
-        private CheckBoxPreference ongoing;
-        private CheckBoxPreference notify;
+        private CheckBoxPreference active_app;
         private CheckBoxPreference scrobble;
         private CheckBoxPreference np;
         private ListPreference when;
@@ -162,8 +163,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
 
         public void create() {
             createChooserPreference();
-            createOnGoingPreference();
-            createNotifyPreference();
+            createActiveAppPreference();
             createScrobbleEnablePreference();
             createNPEnablePreference();
             createWhenPreference();
@@ -173,11 +173,8 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         }
 
         public boolean onClick(Preference pref) {
-            if (pref == ongoing) {
-                settings.setOnGoingEnabled(power, ongoing.isChecked());
-            } else if (pref == notify) {
-                settings.setNotifyEnabled(power, notify.isChecked());
-                return true;
+            if (pref == active_app) {
+                settings.setActiveAppEnabled(power, active_app.isChecked());
             } else if (pref == scrobble) {
                 settings.setScrobblingEnabled(power, scrobble.isChecked());
                 return true;
@@ -202,8 +199,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             chooser.setSummary(ao.getName(OptionsActivity.this));
             chooser.setValue(ao.toString());
 
-            ongoing.setChecked(settings.isOnGoingEnabled(power));
-            notify.setChecked(settings.isNotifyEnabled(power));
+            active_app.setChecked(settings.isActiveAppEnabled(power));
             scrobble.setChecked(settings.isScrobblingEnabled(power));
             np.setChecked(settings.isNowPlayingEnabled(power));
 
@@ -223,8 +219,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         }
 
         private void setScrobblingOptionsRestEnabled(AdvancedOptions ao) {
-            ongoing.setEnabled(ao == AdvancedOptions.CUSTOM);
-            notify.setEnabled(ao == AdvancedOptions.CUSTOM);
+            active_app.setEnabled(ao == AdvancedOptions.CUSTOM);
             scrobble.setEnabled(ao == AdvancedOptions.CUSTOM);
             np.setEnabled(ao == AdvancedOptions.CUSTOM);
             when.setEnabled(ao == AdvancedOptions.CUSTOM);
@@ -254,16 +249,10 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             chooser.setOnPreferenceChangeListener(mOnListPrefChange);
         }
 
-        private void createOnGoingPreference() {
-            ongoing = new CheckBoxPreference(OptionsActivity.this);
-            category.addPreference(ongoing);
-            ongoing.setTitle(R.string.ongoing);
-        }
-
-        private void createNotifyPreference() {
-            notify = new CheckBoxPreference(OptionsActivity.this);
-            category.addPreference(notify);
-            notify.setTitle(R.string.advanced_options_notify_title);
+        private void createActiveAppPreference() {
+            active_app = new CheckBoxPreference(OptionsActivity.this);
+            category.addPreference(active_app);
+            active_app.setTitle(R.string.active_app);
         }
 
         private void createScrobbleEnablePreference() {
