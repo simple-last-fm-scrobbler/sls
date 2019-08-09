@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
 
     <!-- START original strings -->
     <string name="close">Закрыть</string>
@@ -130,7 +130,7 @@
     <string name="unknown_mapi">Неизвестное приложение (pre SLS v1.2.3)</string>
     <!-- END mapis strings -->
 
-    <!-- START options strings -->
+    <!-- START options_prefs strings -->
     <string name="options_title">Настройки</string>
     <string name="advanced_options_title">Дополнительные настройки</string>
     <string name="scrobbling">Скробблинг</string>
@@ -166,7 +166,7 @@
     <string name="advanced_options_net_roaming_title">Роуминг</string>
     <string name="advanced_options_net_roaming_summary_off">Запрет на передачу данных в роуминге</string>
     <string name="advanced_options_net_roaming_summary_on">Передача данных в роуминге</string>
-    <!-- END options strings -->
+    <!-- END options_prefs strings -->
 
     <!-- START status strings -->
     <string name="status">Статус</string>

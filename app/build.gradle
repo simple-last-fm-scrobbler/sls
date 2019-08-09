@@ -6,6 +6,8 @@ android {
         applicationId "com.adam.aslfms"
         minSdkVersion 9
         targetSdkVersion 25
+        versionCode=49
+        versionName="1.5.8"
 
         testApplicationId "com.adam.aslfms.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
@@ -23,8 +25,9 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            shrinkResources true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }

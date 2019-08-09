@@ -2,6 +2,7 @@ package com.adam.aslfms;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -9,6 +10,7 @@ import android.preference.Preference;
 import android.provider.Settings;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.adam.aslfms.service.applemusic.NotificationService;
@@ -22,9 +24,21 @@ import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
 public class AppleMusicOptionsActivity extends AppCompatPreferenceActivity {
 
+    private static final String TAG = "AppleMusicActivity";
+
     CheckBoxPreference notificationListeningCbp;
     CheckBoxPreference repeatsCbp;
     AppSettings settings;
+
+    @Override
+    public Resources.Theme getTheme() {
+        settings = new AppSettings(this);
+        Resources.Theme theme = super.getTheme();
+        theme.applyStyle(settings.getAppTheme(), true);
+        Log.e(TAG, getResources().getResourceName(settings.getAppTheme()));
+        // you could also use a switch if you have many themes that could apply
+        return theme;
+    }
 
     @Override
     @SuppressWarnings("deprecation")
@@ -42,6 +56,7 @@ public class AppleMusicOptionsActivity extends AppCompatPreferenceActivity {
             notificationListeningCbp.setSummary("Unfortunately your current version of android does not support this feature");
         }
         settings = new AppSettings(this);
+        setTheme(settings.getAppTheme());
     }
 
     @Override

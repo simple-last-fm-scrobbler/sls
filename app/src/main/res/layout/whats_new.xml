@@ -17,7 +17,6 @@
             android:layout_marginLeft="20dip"
             android:layout_marginRight="20dip"
             android:layout_marginTop="4dip"
-            android:textColor="#ffffffff"
             android:textSize="14sp"
             android:textStyle="bold" />
     </LinearLayout>

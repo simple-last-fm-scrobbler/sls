@@ -27,6 +27,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -63,6 +64,16 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
     private Preference mCreateUser;
 
     @Override
+    public Resources.Theme getTheme() {
+        settings = new AppSettings(this);
+        Resources.Theme theme = super.getTheme();
+        theme.applyStyle(settings.getAppTheme(), true);
+        Log.e(TAG, getResources().getResourceName(settings.getAppTheme()));
+        // you could also use a switch if you have many themes that could apply
+        return theme;
+    }
+
+    @Override
     @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,6 +91,7 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
         mNetApp = NetApp.valueOf(snapp);
 
         settings = new AppSettings(this);
+        setTheme(settings.getAppTheme());
 
         mHeader = (PreferenceCategory) findPreference(KEY_USER_CREDS_HEADER);
         mHeader.setTitle(mNetApp.getName());
@@ -114,7 +126,7 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
             try {
                 startActivity(browser);
             } catch (Exception e) {
-                if (mNetApp == NetApp.CUSTOM) {
+                if (mNetApp == NetApp.LIBREFMCUSTOM) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://git.gnu.io/gnu/gnu-fm/blob/master/gnufm_install.txt")));
                 } else {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/metabrainz/listenbrainz-server/blob/master/README.md")));

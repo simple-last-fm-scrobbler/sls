@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
     <!--START original strings-->
     <string name="close">Zavřít</string>
     <string name="remove">Odstranit</string>
@@ -121,7 +121,7 @@
     <string name="find_supported_mapis_summary">Pusťte hudbu v podoporované aplikaci a zobrazí se zde</string>
     <string name="unknown_mapi">Neznámá aplikace (před SLS v1.2.3)</string>
     <!--END mapis strings-->
-    <!--START options strings-->
+    <!--START options_prefs strings-->
     <string name="options_title">Nastavení</string>
     <string name="advanced_options_title">Pokročilé nastavení</string>
     <string name="scrobbling">Scrobblovat</string>
@@ -158,7 +158,7 @@
     <string name="advanced_options_net_roaming_title">Roaming</string>
     <string name="advanced_options_net_roaming_summary_off">Neposílat scrobbly když je aktivní roaming</string>
     <string name="advanced_options_net_roaming_summary_on">Posílat scrobbly když je aktivní roaming</string>
-    <!--END options strings-->
+    <!--END options_prefs strings-->
     <!--START status strings-->
     <string name="status">Stav</string>
     <string name="scrobble_status_title">Scrobblovací stav</string>

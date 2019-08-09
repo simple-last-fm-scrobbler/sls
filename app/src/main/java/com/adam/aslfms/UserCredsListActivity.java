@@ -23,18 +23,17 @@ package com.adam.aslfms;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
@@ -59,6 +58,16 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
     private Preference mClearAllCreds;
 
     @Override
+    public Resources.Theme getTheme() {
+        settings = new AppSettings(this);
+        Resources.Theme theme = super.getTheme();
+        theme.applyStyle(settings.getAppTheme(), true);
+        Log.e(TAG, getResources().getResourceName(settings.getAppTheme()));
+        // you could also use a switch if you have many themes that could apply
+        return theme;
+    }
+
+    @Override
     @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,9 +76,10 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        addPreferencesFromResource(R.xml.user_creds_list);
+        addPreferencesFromResource(R.xml.user_creds_list_prefs);
 
         settings = new AppSettings(this);
+        setTheme(settings.getAppTheme());
 
         mUserCredsList = (PreferenceCategory) findPreference(KEY_USER_CREDENTIALS_LIST);
         mUserCredsPrefToAppMap = new HashMap<Preference, NetApp>();

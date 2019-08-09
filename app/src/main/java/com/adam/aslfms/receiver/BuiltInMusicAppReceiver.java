@@ -265,7 +265,7 @@ public abstract class BuiltInMusicAppReceiver extends
 		CharSequence ar = bundle.getCharSequence("artist");
 		CharSequence tr = bundle.getCharSequence("track");
 
-		// duration is needs as Integer in seconds.
+		// duration should be an Integer in seconds.
 
 		if(bundle.containsKey("duration")){
 			Object tmp = bundle.get("duration");
@@ -274,7 +274,7 @@ public abstract class BuiltInMusicAppReceiver extends
 					try {
 						long du = bundle.getLong("duration");
 						b.setDuration(new BigDecimal(bundle.getLong("duration")).intValueExact());
-						Log.d(TAG, "Integer: " + Long.toString(du));
+						Log.d(TAG, "Long Integer: " + Long.toString(du));
 					} catch (Exception e) {
 						Log.e(TAG, "duration: " + e);
 					}

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
     <!--START original strings-->
     <string name="close">Fechar</string>
     <string name="remove">Remover</string>
@@ -125,7 +125,7 @@
     <string name="find_supported_mapis_summary">Toque alguma música em um app suportado e ele aparecerá aqui</string>
     <string name="unknown_mapi">App desconhecido (pré-SLS v1.2.3)</string>
     <!--END mapis strings-->
-    <!--START options strings-->
+    <!--START options_prefs strings-->
     <string name="options_title">Opções</string>
     <string name="advanced_options_title">Opções avançadas</string>
     <string name="scrobbling">Scrobbling</string>
@@ -162,7 +162,7 @@
     <string name="advanced_options_net_roaming_title">Em roaming</string>
     <string name="advanced_options_net_roaming_summary_off">Envio de dados em roaming desativado</string>
     <string name="advanced_options_net_roaming_summary_on">Envio de dados em roaming ativado</string>
-    <!--END options strings-->
+    <!--END options_prefs strings-->
     <!--START status strings-->
     <string name="status">Status</string>
     <string name="scrobble_status_title">Status do scrobbling</string>

@@ -85,7 +85,7 @@ Before the release of a new version of SLS, it will be available here to test fo
  * [Enable/Disable Individual Music App Scrobbles](https://github.com/tgwizard/sls/issues/200) [Similar Issue](https://github.com/tgwizard/sls/issues/367)
  * [Blocking Podcast Scrobbles](https://github.com/tgwizard/sls/issues/127)
  * Read Notifications to Scrobble Music Also
- * Slow overhaul of the app to keep simplicity and allow for dynamic feature addition.
+ * Slow overhaul of the app to keep simplicity and allow for dynamic feature/functionality addition.
 
 3. #### Core Feature Requests
 
@@ -93,7 +93,12 @@ Before the release of a new version of SLS, it will be available here to test fo
  * [Better Unit Tests](https://github.com/tgwizard/sls/issues/12)
  * [Notification Level](https://github.com/tgwizard/sls/issues/346)
  * Unsecured http:// support for custom servers
-
+ * ListenBrainz API for Total Listen Count
+ * Multiple Account Login
+ * Sequential storage of all tracks, scrobbled, skipped, hearted, and failed with explanations
+ * markers in scrobble cache for logged in accounts
+ * Store scrobbles before user is logged in
+ 
 ## Features
 
  * Scrobbling
@@ -101,6 +106,7 @@ Before the release of a new version of SLS, it will be available here to test fo
  * Power-saving settings
  * Caching scrobbles (while offline or through settings)
  * Editing scrobble cache
+ * Auto-correct scrobbles
  * More
 
 ### Supported languages

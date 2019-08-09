@@ -1,6 +1,7 @@
 package com.adam.aslfms;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -30,7 +31,7 @@ import com.adam.aslfms.util.Util;
  */
 
 public class ViewCorrectionRulesActivity extends AppCompatActivity {
-    private static final String TAG = "ViewCorrectionRulesActivity";
+    private static final String TAG = "CorrectionRulesActivity";
 
     private AppSettings settings;
 
@@ -39,6 +40,16 @@ public class ViewCorrectionRulesActivity extends AppCompatActivity {
     private Cursor updateRulesCursor = null;
 
     private ListView rulesListView;
+
+    @Override
+    public Resources.Theme getTheme() {
+        settings = new AppSettings(this);
+        Resources.Theme theme = super.getTheme();
+        theme.applyStyle(settings.getAppTheme(), true);
+        Log.e(TAG, getResources().getResourceName(settings.getAppTheme()));
+        // you could also use a switch if you have many themes that could apply
+        return theme;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,6 +63,7 @@ public class ViewCorrectionRulesActivity extends AppCompatActivity {
         }
 
         settings = new AppSettings(this);
+        setTheme(settings.getAppTheme());
 
         setTitle("Rules for fixing scrobbles");
         setContentView(R.layout.correction_rules_list);

@@ -27,6 +27,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
+import com.adam.aslfms.R;
 import com.adam.aslfms.UserCredActivity;
 import com.adam.aslfms.service.Handshaker;
 import com.adam.aslfms.service.NetApp;
@@ -57,9 +58,11 @@ public class AppSettings {
     private static final String KEY_PASSWORD = "password";
     private static final String KEY_NIXTAPE_URL = "nixtape_url";
     private static final String KEY_GNUKEBOX_URL = "gnukebox_url";
+    private static final String KEY_SECURE_SOCKET_LIBRE_FM = "ssl_libre_fm";
     private static final String KEY_LISTENBRAINZ_TOKEN = "listenBrainz_token";
     private static final String KEY_LISTENBRAINZ_URL = "listenBrainz_url";
     private static final String KEY_LISTENBRAINZ_API_URL = "listenBrainz_api_url";
+    private static final String KEY_SECURE_SOCKET_LISTENBRAINZ = "ssl_listenbrainz_fm";
     private static final String KEY_PWDMD5 = "pwdMd5";
     private static final String KEY_SESSION = "sessionKey";
     private static final String KEY_SCROBBLES = "totalScrobbles";
@@ -86,6 +89,8 @@ public class AppSettings {
 
     private static final String KEY_APPLE_LISTENER_ENABLED = "apple_listener_enabled";
     private static final String KEY_APPLE_REPEAT_ENABLED = "apple_repeat_enabled";
+
+    private static final String KEY_THEME = "my_theme";
 
     private final Context mCtx;
     private final SharedPreferences prefs;
@@ -119,6 +124,16 @@ public class AppSettings {
         return false;
     }
 
+    public void setAppTheme(int i){
+        Editor e = prefs.edit();
+        e.putInt(KEY_THEME, i);
+        e.commit();
+    }
+
+    public int getAppTheme(){
+        return prefs.getInt(KEY_THEME, R.style.AppTheme);
+    }
+
     public void setUsername(NetApp napp, String s) {
         Editor e = prefs.edit();
         e.putString(napp.getSettingsPrefix() + KEY_USERNAME, s);
@@ -149,6 +164,16 @@ public class AppSettings {
         e.commit();
     }
 
+    public Boolean getSecureSocketLibreFm(NetApp napp) {
+        return prefs.getBoolean(napp.getSettingsPrefix() + KEY_SECURE_SOCKET_LIBRE_FM, true);
+    }
+
+    public void setSecureSocketLibreFm(NetApp napp, Boolean b) {
+        Editor e = prefs.edit();
+        e.putBoolean(napp.getSettingsPrefix() + KEY_SECURE_SOCKET_LIBRE_FM, b);
+        e.commit();
+    }
+
     public String getListenBrainzToken(NetApp napp) {
         return prefs.getString(napp.getSettingsPrefix() + KEY_LISTENBRAINZ_TOKEN, "");
     }
@@ -161,6 +186,16 @@ public class AppSettings {
 
     public String getListenBrainzUrl(NetApp napp) {
         return prefs.getString(napp.getSettingsPrefix() + KEY_LISTENBRAINZ_URL, "");
+    }
+
+    public Boolean getSecureSocketListenbrainz(NetApp napp) {
+        return prefs.getBoolean(napp.getSettingsPrefix() + KEY_SECURE_SOCKET_LISTENBRAINZ, true );
+    }
+
+    public void setSecureSocketListenbrainz(NetApp napp, Boolean b) {
+        Editor e = prefs.edit();
+        e.putBoolean(napp.getSettingsPrefix() + KEY_SECURE_SOCKET_LISTENBRAINZ, b);
+        e.commit();
     }
 
     public void setListenBrainzUrl(NetApp napp, String s) {
@@ -375,7 +410,7 @@ public class AppSettings {
                 + stype.getNumberOfPrefix(), 0);
     }
 
-    // view cache options
+    // view cache options_prefs
     public void setCacheSortField(SortField sf) {
         Editor e = prefs.edit();
         e.putString(KEY_VIEW_CACHE_SORTFIELD, sf.name());
@@ -398,7 +433,7 @@ public class AppSettings {
         return sf;
     }
 
-    // scrobbling options
+    // scrobbling options_prefs
     public boolean isSubmissionsEnabled(SubmissionType stype, PowerOptions pow) {
         if (stype == SubmissionType.SCROBBLE) {
             return isScrobblingEnabled(pow);

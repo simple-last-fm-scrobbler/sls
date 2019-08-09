@@ -243,7 +243,7 @@ public class Handshaker extends NetRunnable {
             throw new BadAuthException(getContext().getString(
                     R.string.auth_bad_auth));
         }
-        if (netApp == NetApp.LISTENBRAINZ || netApp == NetApp.CUSTOM2) {
+        if (netApp == NetApp.LISTENBRAINZ || netApp == NetApp.LISTENBRAINZCUSTOM) {
             try {
                 URL url = new URL(getNetApp().getWebserviceUrl(settings));
                 if (!settings.getListenBrainzToken(netApp).equals("")) {
@@ -397,7 +397,7 @@ public class Handshaker extends NetRunnable {
                 SSLContext sslContext = SSLContext.getInstance("TLS");
                 sslContext.init(null, null, new java.security.SecureRandom());
 
-                SSLSocketFactory customSockets = new SecureSSLSocketFactory(sslContext.getSocketFactory(), new MyHandshakeCompletedListener());
+                SSLSocketFactory customSockets = new MySecureSSLSocketFactory(sslContext.getSocketFactory(), new MyHandshakeCompletedListener());
 
                 conn = (HttpsURLConnection) url.openConnection();
                 conn.setSSLSocketFactory(customSockets);

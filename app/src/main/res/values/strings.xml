@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
 
     <!-- START original strings -->
     <string name="close">Close</string>
@@ -110,6 +110,14 @@
     <string name="no_current_track">No Current Song Available</string>
     <!-- END copy strings -->
 
+    <!-- START copy strings -->
+    <string name="theme_title">Theme Selection</string>
+    <string name="theme_summary">Select a Theme</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_default">Default</string>
+    <!-- END copy strings -->
+
     <!-- START permissions and warnings strings -->
     <string name="permission_required">Permission REQUIRED to work properly</string>
     <string name="creds_required">Credentials REQUIRED to work properly</string>
@@ -130,7 +138,7 @@
     <string name="unknown_mapi">Unknown app (pre SLS v1.2.3)</string>
     <!-- END mapis strings -->
 
-    <!-- START options strings -->
+    <!-- START options_prefs strings -->
     <string name="options_title">Options</string>
     <string name="advanced_options_title">Advanced options</string>
     <string name="scrobbling">Scrobble</string>
@@ -167,7 +175,7 @@
     <string name="advanced_options_net_roaming_title">Roaming</string>
     <string name="advanced_options_net_roaming_summary_off">Won\'t submit data when roaming</string>
     <string name="advanced_options_net_roaming_summary_on">Will submit data when roaming</string>
-    <!-- END options strings -->
+    <!-- END options_prefs strings -->
 
     <!-- START status strings -->
     <string name="status">Status</string>

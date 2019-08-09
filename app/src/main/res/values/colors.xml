@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
+    <color name="LastFm">#ED524F</color>
+    <color name="LibreFm">#F37800</color>
+    <color name="ListenBrainz">#575382</color>
+</resources>
