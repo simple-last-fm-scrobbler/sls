@@ -273,7 +273,8 @@ public abstract class BuiltInMusicAppReceiver extends
 				if (tmp instanceof Long) {
 					try {
 						long du = bundle.getLong("duration");
-						b.setDuration(new BigDecimal(bundle.getLong("duration")).intValueExact());
+						// TODO: fix google play music track duration by using Android Audio Focus as a Tracking tool for current listening music.
+						b.setDuration(new BigDecimal(bundle.getLong("duration") /1000).intValueExact());
 						Log.d(TAG, "Long Integer: " + Long.toString(du));
 					} catch (Exception e) {
 						Log.e(TAG, "duration: " + e);
