@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center_vertical">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_light"
+                android:textSize="24sp" />
+
+            <RadioButton
+                android:id="@+id/default_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="false"
+                android:clickable="true"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/theme_default"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/lastfm_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="false"
+                android:clickable="true"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/settings_prefix_last_fm"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/librefm_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="false"
+                android:clickable="true"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/settings_prefix_libre_fm"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/listenbrainz_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="false"
+                android:clickable="true"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/settings_prefix_listenbrainz"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/theme_dark"
+                android:textSize="24sp" />
+
+            <RadioButton
+                android:id="@+id/default_theme_dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="false"
+                android:clickable="true"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/theme_default"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/lastfm_theme_dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="false"
+                android:clickable="true"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/settings_prefix_last_fm"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/librefm_theme_dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="false"
+                android:clickable="true"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/settings_prefix_libre_fm"
+                android:textSize="18sp" />
+
+            <RadioButton
+                android:id="@+id/listenbrainz_theme_dark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:checked="false"
+                android:clickable="true"
+                android:onClick="onRadioButtonClicked"
+                android:text="@string/settings_prefix_listenbrainz"
+                android:textSize="18sp" />
+
+        </RadioGroup>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="right"
+        android:orientation="horizontal"></LinearLayout>
+</LinearLayout>

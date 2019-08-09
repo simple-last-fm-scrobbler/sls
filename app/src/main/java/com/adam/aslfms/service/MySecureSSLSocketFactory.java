@@ -33,14 +33,14 @@ import javax.net.ssl.SSLSocketFactory;
  *
  * @author
  */
-public class SecureSSLSocketFactory extends SSLSocketFactory {
+public class MySecureSSLSocketFactory extends SSLSocketFactory {
 
     private static final String TAG = "SecSSLSockFactory";
 
     private final SSLSocketFactory delegate;
     private HandshakeCompletedListener handshakeListener;
 
-    public SecureSSLSocketFactory(
+    public MySecureSSLSocketFactory(
             SSLSocketFactory delegate, HandshakeCompletedListener handshakeListener) {
         this.delegate = delegate;
         this.handshakeListener = handshakeListener;

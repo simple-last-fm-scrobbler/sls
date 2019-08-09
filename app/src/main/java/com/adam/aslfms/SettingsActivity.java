@@ -27,6 +27,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.database.SQLException;
 import android.os.Build;
 import android.os.Bundle;
@@ -65,6 +66,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private static final String KEY_VIEW_SCROBBLE_CACHE = "view_scrobble_cache";
     private static final String KEY_HEART_CURRENT_TRACK = "my_heart_button";
     private static final String KEY_COPY_CURRENT_TRACK = "my_copy_button";
+    private static final String KEY_THEME = "my_theme";
 
     private AppSettings settings;
 
@@ -74,9 +76,21 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private Preference mViewScrobbleCache;
     private Preference mHeartCurrentTrack;
     private Preference mCopyCurrentTrack;
+    private Preference mChangeTheme;
 
     int REQUEST_READ_STORAGE;
     int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
+
+
+    @Override
+    public Resources.Theme getTheme() {
+        settings = new AppSettings(this);
+        Resources.Theme theme = super.getTheme();
+        theme.applyStyle(settings.getAppTheme(), true);
+        Log.e(TAG, getResources().getResourceName(settings.getAppTheme()));
+        // you could also use a switch if you have many themes that could apply
+        return theme;
+    }
 
     @Override
     @SuppressWarnings("deprecation")
@@ -86,6 +100,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         addPreferencesFromResource(R.xml.settings_prefs);
 
         settings = new AppSettings(this);
+        setTheme(settings.getAppTheme());
 
         mDb = new ScrobblesDatabase(this);
 
@@ -101,6 +116,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         mScrobbleAllNow = findPreference(KEY_SCROBBLE_ALL_NOW);
         mViewScrobbleCache = findPreference(KEY_VIEW_SCROBBLE_CACHE);
         mCopyCurrentTrack = findPreference(KEY_COPY_CURRENT_TRACK);
+        mChangeTheme = findPreference(KEY_THEME);
+
 
         checkNetwork();
         permsCheck();
@@ -166,6 +183,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             return true;
         } else if (pref == mCopyCurrentTrack) {
             Util.copyIfPossible(this);
+            return true;
+        } else if (pref == mChangeTheme){
+            Intent i = new Intent(this, ChangeThemeActivity.class);
+            startActivity(i);
             return true;
         }
         return super.onPreferenceTreeClick(prefScreen, pref);

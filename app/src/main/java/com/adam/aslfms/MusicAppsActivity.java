@@ -21,6 +21,7 @@
 
 package com.adam.aslfms;
 
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -28,11 +29,13 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
 import android.support.v4.app.NavUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.adam.aslfms.receiver.MusicAPI;
+import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.Util;
 import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
@@ -53,11 +56,27 @@ public class MusicAppsActivity extends AppCompatPreferenceActivity {
     private boolean mScrobbleDroidInstalled;
     private String mScrobbleDroidLabel;
 
+    private AppSettings settings;
+
+    @Override
+    public Resources.Theme getTheme() {
+        settings = new AppSettings(this);
+        Resources.Theme theme = super.getTheme();
+        theme.applyStyle(settings.getAppTheme(), true);
+        Log.e(TAG, getResources().getResourceName(settings.getAppTheme()));
+        // you could also use a switch if you have many themes that could apply
+        return theme;
+    }
+
     @Override
     @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.music_apps);
+
+        settings = new AppSettings(this);
+        setTheme(settings.getAppTheme());
+
+        addPreferencesFromResource(R.xml.music_apps_prefs);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

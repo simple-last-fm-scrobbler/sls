@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
 
     <!-- START original strings -->
     <string name="close">閉じる</string>
@@ -130,7 +130,7 @@
     <string name="unknown_mapi">Unknown app (pre SLS v1.2.3)</string>
     <!-- END mapis strings -->
 
-    <!-- START options strings -->
+    <!-- START options_prefs strings -->
     <string name="options_title">オプション</string>
     <string name="advanced_options_title">詳細なオプション</string>
     <string name="scrobbling">Scrobble</string>
@@ -167,7 +167,7 @@
     <string name="advanced_options_net_roaming_title">ローミング</string>
     <string name="advanced_options_net_roaming_summary_off">ローミング中はデータを送信しない</string>
     <string name="advanced_options_net_roaming_summary_on">ローミング中もデータを送信する</string>
-    <!-- END options strings -->
+    <!-- END options_prefs strings -->
 
     <!-- START status strings -->
     <string name="status">ステータス</string>

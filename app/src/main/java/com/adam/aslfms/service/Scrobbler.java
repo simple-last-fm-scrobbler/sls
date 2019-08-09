@@ -38,6 +38,7 @@ import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.enums.PowerOptions;
 import com.adam.aslfms.util.enums.SubmissionType;
+import com.adam.aslfms.service.MySecureSSLSocketFactory;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,7 +58,6 @@ import java.util.TreeMap;
 
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
 
 /**
  * @author tgwizard
@@ -206,8 +206,9 @@ public class Scrobbler extends AbstractSubmitter {
         NetworkerManager mNetManager = new NetworkerManager(mCtx, mDb);
         PowerOptions pow = Util.checkPower(mCtx);
 
-        if (netApp == NetApp.LISTENBRAINZ || netApp == NetApp.CUSTOM2) {
+        if (netApp == NetApp.LISTENBRAINZ || netApp == NetApp.LISTENBRAINZCUSTOM) {
             URL url;
+            HttpURLConnection insecConn = null;
             HttpsURLConnection conn = null;
             try {
                 url = new URL(getNetApp().getWebserviceUrl(settings) + "submit-listens");
@@ -216,26 +217,6 @@ public class Scrobbler extends AbstractSubmitter {
                  */
 
                 final String userPwd = "token " + settings.getListenBrainzToken(netApp);
-
-                // Create the SSL connection
-                SSLContext sslContext = SSLContext.getInstance("TLS");
-                sslContext.init(null, null, new java.security.SecureRandom());
-
-                SSLSocketFactory customSockets = new SecureSSLSocketFactory(sslContext.getSocketFactory(), new MyHandshakeCompletedListener());
-
-                conn = (HttpsURLConnection) url.openConnection();
-                conn.setSSLSocketFactory(customSockets);
-
-                /*String[] strArr = customSockets.getDefaultCipherSuites();
-                for (String str : strArr) {
-                    Log.e(TAG, str);
-                }
-                Log.e(TAG, strArr.length + " ..\n ..\n");
-                Log.e(TAG, "HERE");
-                strArr = customSockets.getSupportedCipherSuites();
-                for (String str : strArr) {
-                    Log.e(TAG, str);
-                }*/
 
                 // https://listenbrainz.readthedocs.io/en/production/dev/json.html#submission-json
 
@@ -262,10 +243,10 @@ public class Scrobbler extends AbstractSubmitter {
                         trackMetaData.put("additional_info", additionalInfo);
                     }
 
-                    trackMetaData.put("artist_name", URLEncoder.encode(track.getArtist(),"UTF-8"));
-                    trackMetaData.put("track_name", URLEncoder.encode(track.getTrack(),"UTF-8"));
+                    trackMetaData.put("artist_name", track.getArtist());
+                    trackMetaData.put("track_name", track.getTrack());
                     if (track.getAlbum() != null && !track.getAlbum().equals("")) {
-                        trackMetaData.put("release_name", URLEncoder.encode(track.getAlbum(),"UTF-8"));
+                        trackMetaData.put("release_name", track.getAlbum());
                     }
 
                     trackInfo.put("track_metadata", trackMetaData);
@@ -275,27 +256,65 @@ public class Scrobbler extends AbstractSubmitter {
 
                 baseObj.put("payload", payArray);
 
-                // set Timeout and method
-                conn.setReadTimeout(7000);
-                conn.setConnectTimeout(7000);
-                conn.setRequestMethod("POST");
+                int resCode = -1;
+                // Create the SSL connection
+                if (netApp == NetApp.LISTENBRAINZCUSTOM && ! settings.getSecureSocketListenbrainz(netApp)) {
+                    insecConn = (HttpsURLConnection) url.openConnection();
 
-                //conn.setUseCaches(false);
+                    // set Timeout and method
+                    insecConn.setReadTimeout(7000);
+                    insecConn.setConnectTimeout(7000);
+                    insecConn.setRequestMethod("POST");
 
-                conn.addRequestProperty("Authorization", userPwd);
-                conn.addRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                    //conn.setUseCaches(false);
 
-                conn.setDoInput(true);
-                conn.setDoOutput(true);
+                    insecConn.addRequestProperty("Authorization", userPwd);
+                    insecConn.addRequestProperty("Content-Type", "application/json; charset=UTF-8");
 
-                DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
-                Log.e(TAG, baseObj.toString());
-                outStream.write(baseObj.toString().getBytes("UTF-8"));
-                outStream.flush();
-                outStream.close();
+                    insecConn.setDoInput(true);
+                    insecConn.setDoOutput(true);
 
-                conn.connect();
-                int resCode = conn.getResponseCode();
+                    DataOutputStream outStream = new DataOutputStream(insecConn.getOutputStream());
+                    Log.e(TAG, baseObj.toString());
+                    outStream.write(baseObj.toString().getBytes("UTF-8"));
+                    outStream.flush();
+                    outStream.close();
+
+                    insecConn.connect();
+                    resCode = insecConn.getResponseCode();
+                } else {
+                    SSLContext sslContext = SSLContext.getInstance("TLS");
+                    sslContext.init(null, null, new java.security.SecureRandom());
+
+                    MySecureSSLSocketFactory customSockets = new MySecureSSLSocketFactory(sslContext.getSocketFactory(), new MyHandshakeCompletedListener());
+
+                    conn = (HttpsURLConnection) url.openConnection();
+                    conn.setSSLSocketFactory(customSockets);
+
+                    // set Timeout and method
+                    conn.setReadTimeout(7000);
+                    conn.setConnectTimeout(7000);
+                    conn.setRequestMethod("POST");
+
+                    //conn.setUseCaches(false);
+
+                    conn.addRequestProperty("Authorization", userPwd);
+                    conn.addRequestProperty("Content-Type", "application/json; charset=UTF-8");
+
+                    conn.setDoInput(true);
+                    conn.setDoOutput(true);
+
+                    DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
+                    Log.e(TAG, baseObj.toString());
+                    outStream.write(baseObj.toString().getBytes("UTF-8"));
+                    outStream.flush();
+                    outStream.close();
+
+                    conn.connect();
+                    resCode = conn.getResponseCode();
+                }
+
+
                 BufferedReader r;
                 if (resCode == -1) {
                     throw new AuthStatus.UnknownResponseException("Empty response");
@@ -333,13 +352,14 @@ public class Scrobbler extends AbstractSubmitter {
                 }
             } catch (KeyManagementException | NoSuchAlgorithmException | IOException | JSONException e) {
                 e.printStackTrace();
-                throw new AuthStatus.UnknownResponseException("Invalid Response");
+                throw new AuthStatus.UnknownResponseException("Bad SSL, JSON or IOException");
             } finally {
                 if (conn != null) {
                     conn.disconnect();
                 }
             }
-        } else if (Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && netApp == NetApp.LIBREFM) {
+            // check if secure cipher for cloudflare on libre.fm is not available (older version of android) or the user is a developer with a custom destination.
+        } else if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && netApp == NetApp.LIBREFM) || (netApp == NetApp.LIBREFMCUSTOM && !settings.getSecureSocketLibreFm(netApp) )) {
 
             URL url;
             HttpURLConnection conn = null;
@@ -481,7 +501,15 @@ public class Scrobbler extends AbstractSubmitter {
                 }
                 byte[] postDataBytes = postData.toString().getBytes("UTF-8");
 
-                conn = (HttpURLConnection) url.openConnection();
+                // Create the SSL connection
+                SSLContext sslContext = SSLContext.getInstance("TLS");
+                sslContext.init(null, null, new java.security.SecureRandom());
+
+                MySecureSSLSocketFactory customSockets = new MySecureSSLSocketFactory(sslContext.getSocketFactory(), new MyHandshakeCompletedListener());
+
+                conn = (HttpsURLConnection) url.openConnection();
+                ((HttpsURLConnection) conn).setSSLSocketFactory(customSockets);
+
                 // Log.d(TAG,conn.toString());
                 conn.setReadTimeout(10000);
                 conn.setConnectTimeout(10000);
@@ -538,9 +566,9 @@ public class Scrobbler extends AbstractSubmitter {
                 } else {
                     throw new AuthStatus.UnknownResponseException("Invalid Response");
                 }
-            } catch (IOException | JSONException e) {
+            } catch (KeyManagementException | NoSuchAlgorithmException | IOException | JSONException e) {
                 e.printStackTrace();
-                throw new AuthStatus.UnknownResponseException("JSON ERROR");
+                throw new AuthStatus.UnknownResponseException("Bad SSL, JSON or IOException");
             } finally {
                 if (conn != null) {
                     conn.disconnect();

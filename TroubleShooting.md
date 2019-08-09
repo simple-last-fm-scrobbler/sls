@@ -4,7 +4,7 @@ TroubleShooting (SLS = simple last.fm scrobbler)
 
 Solutions To Common problems.
 -----------------------------
- 
+
 1. Clear credentials and log in again.
 2. Check if you have other scrobbling apps open. (this can sometimes be the problem)
 3. Check your phone's time is automatic.
@@ -30,6 +30,7 @@ Can't Connect?
 2. Check if you can login to last.fm from your phone.
 3. Check if Last.fm is up http://status.last.fm/
 4. Check if Libre.fm is up https://twitter.com/librefm
+5. Check if ListenBrainz is up https://listenbrainz.org/current-status
 
 
 Losing Scrobbles?
@@ -54,38 +55,5 @@ Losing Scrobbles?
 --------------------------------------------------------------------------------------------
 
 
-Know Issue: Compatibility vs. Structure
+[Know Issues & Core Tasks](https://github.com/a93-39a/sls#core-tasks)
 ---------------------------------------
-
-##Two major conflicting issues.
-
-SLS tries to provide support for a person to have many apps downloaded and scrobble from without broadcast clashes.
-
-### Conflict
-
-SLS provides support for a variety of applications.
-
-OR
-
-SLS provides support for single track repeat and more structured scrobbling.
-
-
-##Reasons for conflict issues
-
-Some of these applications don't share track duration (well).
-
-AND
-
-Some of these applications don't tell SLS when the track is paused or completed, so SLS cannot find out when the track officially started or finished.
-
-AND
-
-Some of these applications have mixed broadcasts for SLS, Android Music Player, and Scrobble Droid.
-
-
-Developer's Job
----------------
-
-I am manually going through all the applications to see which ones don't work with a more compatible and structured scrobbling service.
-
-The current Queue method works for now.

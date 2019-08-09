@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
+    <string name="app_name_short" translatable="false">SLS</string>
     <string name="app_name" translatable="false">Simple Last.fm Scrobbler</string>
     <string name="email_addr" translatable="false">simple.lfm.scrobbler@gmail.com</string>
     <string name="website_url" translatable="false">https://github.com/tgwizard/sls</string>
@@ -7,11 +8,12 @@
     <string name="trouble_shoot" translatable="false">https://github.com/tgwizard/sls/blob/master/TroubleShooting.md</string>
     <string name="active_app" translatable="false">Active App</string>
     <string name="clear_apps" translatable="false">Clear Apps</string> <!-- TODO: Translate -->
-    <string name="nixtapeUrl" translatable="false">Nixtape URL</string>
-    <string name="gnukeboxUrl" translatable="false">Gnukebox URL</string>
-    <string name="listenBrainzURL" translatable="false">ListenBrainz URL</string>
-    <string name="listenBrainzApiURL" translatable="false">ListenBrainz API URL</string>
-    <string name="listenBrainzToken" translatable="false">ListenBrainz Token</string>
+    <string name="nixtape_url" translatable="false">Nixtape URL</string>
+    <string name="gnukebox_url" translatable="false">Gnukebox URL</string>
+    <string name="listen_brainz_url" translatable="false">ListenBrainz URL</string>
+    <string name="listen_brainz_api_url" translatable="false">ListenBrainz API URL</string>
+    <string name="listen_brainz_token" translatable="false">ListenBrainz Token</string>
+    <string name="secure_socket_info" translatable="false">Use SSL, https://?</string>
     <string name="supported_musicapps" translatable="false">Spotify, Google Music, Deezer, 
 		Rhapsody/Napster, Rdio, My Cloud Player, SoundCloud, 8tracks, 
 		InfiniTracks, Squeezer, Amazon Music, Huawei, n7player, BuMP, PowerAMP, Black Player, AIMP, 
@@ -43,7 +45,6 @@
     <string name="album" translatable="false">Album</string>
     <string name="artist" translatable="false">Artist</string>
     <string name="empty_rules" translatable="false">...</string>
-
     <!-- END  correction rules strings -->
 
     <!-- START NetApp and Preference Data -->

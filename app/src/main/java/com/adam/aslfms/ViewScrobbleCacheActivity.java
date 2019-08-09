@@ -28,6 +28,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -73,6 +74,16 @@ public class ViewScrobbleCacheActivity extends AppCompatActivity {
     private TextView mSortHeaderTextView;
 
     @Override
+    public Resources.Theme getTheme() {
+        settings = new AppSettings(this);
+        Resources.Theme theme = super.getTheme();
+        theme.applyStyle(settings.getAppTheme(), true);
+        Log.e(TAG, getResources().getResourceName(settings.getAppTheme()));
+        // you could also use a switch if you have many themes that could apply
+        return theme;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -84,6 +95,7 @@ public class ViewScrobbleCacheActivity extends AppCompatActivity {
         }
 
         settings = new AppSettings(this);
+        setTheme(settings.getAppTheme());
 
         Bundle extras = getIntent().getExtras();
 

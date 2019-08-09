@@ -29,23 +29,23 @@ public enum NetApp {
     LASTFM(
             0x01, "Last fm", "http://post.audioscrobbler.com/?hs=true", R.string.settings_prefix_last_fm,
             "https://www.last.fm/join", "https://www.last.fm/user/%1",
-            "https://ws.audioscrobbler.com/2.0/", R.drawable.ic_last_fm), //
+            "https://ws.audioscrobbler.com/2.0/", R.drawable.ic_last_fm, true), //
     LIBREFM(
             0x02, "Libre fm", "http://turtle.libre.fm/?hs=true", R.string.settings_prefix_libre_fm,
             "https://libre.fm/", "https://libre.fm/user/%1",
-            "https://libre.fm/2.0/", R.drawable.ic_libre_fm),
+            "https://libre.fm/2.0/", R.drawable.ic_libre_fm, true),
     LISTENBRAINZ(
             0x03, "ListenBrainz", "LISTENBRAINZ_URL", R.string.settings_prefix_listenbrainz,
             "https://listenbrainz.org/login/", "https://listenbrainz.org/user/%1",
-            "https://api.listenbrainz.org/1/", R.drawable.ic_listenbrainz),
-    CUSTOM(
+            "https://api.listenbrainz.org/1/", R.drawable.ic_listenbrainz, true),
+    LIBREFMCUSTOM(
             0x04, "GNU-FM Server", "[[GNUKEBOX_URL]]/?hs=true", R.string.settings_prefix_libre_fm_custom,
             "[[NIXTAPE_URL]]", "[[NIXTAPE_URL]]/user/%1", "[[NIXTAPE_URL]]/2.0/",
-            R.drawable.ic_libre_fm),
-    CUSTOM2(
+            R.drawable.ic_libre_fm, true),
+    LISTENBRAINZCUSTOM(
             0x05, "ListenBrainz Server", "LISTENBRAINZ_URL_CUSTOM", R.string.settings_prefix_listenbrainz_custom,
             "[[LISTENBRAINZ_URL]]/login/", "[[LISTENBRAINZ_URL]]/user/%1",
-            "[[LISTENBRAINZ_API_URL]]/1/", R.drawable.ic_listenbrainz
+            "[[LISTENBRAINZ_API_URL]]/1/", R.drawable.ic_listenbrainz, true
     );
 
     private final int val;
@@ -56,9 +56,10 @@ public enum NetApp {
     private final String profileUrl;
     private final String webserviceUrl;
     private final int iconLocation;
+    private final boolean enableSecureSocket;
 
     NetApp(int val, String name, String handshakeUrl,
-           int settingsPrefix, String signUpUrl, String profileUrl, String webserviceUrl, int iconLocation) {
+           int settingsPrefix, String signUpUrl, String profileUrl, String webserviceUrl, int iconLocation, boolean enableSecureSocket) {
         this.val = val;
         this.name = name;
         this.handshakeUrl = handshakeUrl;
@@ -67,6 +68,17 @@ public enum NetApp {
         this.profileUrl = profileUrl;
         this.webserviceUrl = webserviceUrl;
         this.iconLocation = iconLocation;
+        this.enableSecureSocket = enableSecureSocket;
+    }
+
+    public Boolean getSecureSocketEnabled(AppSettings settings){
+        if (val == 4) {
+            return settings.getSecureSocketLibreFm(this);
+        }
+        if (val == 5) {
+            return settings.getSecureSocketListenbrainz(this);
+        }
+        return enableSecureSocket;
     }
 
     public String getIntentExtraValue() {
@@ -81,9 +93,9 @@ public enum NetApp {
         return this.name;
     }
 
-    public int getIconLocation(){
+    /* public int getIconLocation(){
         return this.iconLocation;
-    }
+    }*/
 
     public String getHandshakeUrl(AppSettings settings) {
         return replacePlaceholders(settings, this.handshakeUrl);
@@ -129,11 +141,11 @@ public enum NetApp {
     }
 
     private String replacePlaceholders(AppSettings settings, String value) {
-        if (settingsPrefix == R.string.settings_prefix_libre_fm_custom) {
+        if (val == 4) {
             value = value.replace("[[GNUKEBOX_URL]]", settings.getGnukeboxUrl(this));
             value = value.replace("[[NIXTAPE_URL]]", settings.getNixtapeUrl(this));
         }
-        if (settingsPrefix == R.string.settings_prefix_listenbrainz_custom) {
+        if (val == 5) {
             value = value.replace("[[LISTENBRAINZ_URL]]", settings.getListenBrainzUrl(this));
             value = value.replace("[[LISTENBRAINZ_API_URL]]", settings.getListenBrainzApiUrl(this));
         }

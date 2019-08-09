@@ -58,7 +58,7 @@ public enum AdvancedOptionsWhen {
     public static AdvancedOptionsWhen fromSettingsVal(String s) {
         AdvancedOptionsWhen aow = mSAOWMap.get(s);
         if (aow == null) {
-            Log.e(TAG, "got null advanced options when from settings, defaulting to 1");
+            Log.e(TAG, "got null advanced options_prefs when from settings, defaulting to 1");
             aow = AdvancedOptionsWhen.AFTER_1;
         }
         return aow;

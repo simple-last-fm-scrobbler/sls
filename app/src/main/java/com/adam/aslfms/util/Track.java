@@ -46,8 +46,6 @@ public class Track {
         START, RESUME, PAUSE, COMPLETE, PLAYLIST_FINISHED, UNKNOWN_NONPLAYING
     }
 
-    ;
-
     /**
      * We have to use this, as signals sent to Scrobble Droid can be void of any
      * track information if it's "playing" boolean is set to false

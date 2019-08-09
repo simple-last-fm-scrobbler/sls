@@ -78,4 +78,9 @@
         android:summary="@string/copy_current_track"
         android:title="@string/copy_title" />
 
+    <PreferenceCategory android:title="@string/theme_title" />
+    <Preference
+        android:key="my_theme"
+        android:title="@string/theme_summary"/>
+
 </PreferenceScreen>

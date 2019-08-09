@@ -632,7 +632,6 @@ public class MyBase64 {
                                 (input[p++] & 0xff);
                         tailLen = 0;
                     }
-                    ;
                     break;
 
                 case 2:

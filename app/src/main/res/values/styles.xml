@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- leave default accent -->
+    </style>
+    <style name="AppThemeLastFm" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorAccent">@color/LastFm</item>
+    </style>
+    <style name="AppThemeLibreFm" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorAccent">@color/LibreFm</item>
+    </style>
+    <style name="AppThemeListenBrainz" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorAccent">@color/ListenBrainz</item>
+    </style>
+    <style name="AppTheme.Dark" parent="Theme.AppCompat">
+        <!-- leave default accent -->
+    </style>
+    <style name="AppThemeLastFmDark" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/LastFm</item>
+    </style>
+    <style name="AppThemeLibreFmDark" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/LibreFm</item>
+    </style>
+    <style name="AppThemeListenBrainzDark" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/ListenBrainz</item>
+    </style>
+
+</resources>

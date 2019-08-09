@@ -99,7 +99,7 @@ public class UserInfo extends NetRunnable {
     }
 
     private String getAllTimeScrobbles() throws IOException, NullPointerException {
-        if (getNetApp() == NetApp.LISTENBRAINZ || getNetApp() == NetApp.CUSTOM2) {
+        if (getNetApp() == NetApp.LISTENBRAINZ || getNetApp() == NetApp.LISTENBRAINZ) {
             // TODO: Get total number of tracks in data base (make/wait for, pull request listenbrainz)
          /*   URL url;
             HttpsURLConnection conn = null;
@@ -109,7 +109,7 @@ public class UserInfo extends NetRunnable {
                 SSLContext sslContext = SSLContext.getInstance("TLS");
                 sslContext.init(null, null, new java.security.SecureRandom());
 
-                SSLSocketFactory customSockets = new SecureSSLSocketFactory(sslContext.getSocketFactory(), new MyHandshakeCompletedListener());
+                SSLSocketFactory customSockets = new MySecureSSLSocketFactory(sslContext.getSocketFactory(), new MyHandshakeCompletedListener());
 
                 conn = (HttpsURLConnection) url.openConnection();
                 conn.setSSLSocketFactory(customSockets);

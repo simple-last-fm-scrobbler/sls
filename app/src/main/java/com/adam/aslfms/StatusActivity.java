@@ -22,6 +22,7 @@
 package com.adam.aslfms;
 
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -55,11 +56,22 @@ public class StatusActivity extends AppCompatActivity {
     private static final String TAG = "StatusActivity";
 
     @Override
+    public Resources.Theme getTheme() {
+        settings = new AppSettings(this);
+        Resources.Theme theme = super.getTheme();
+        theme.applyStyle(settings.getAppTheme(), true);
+        Log.e(TAG, getResources().getResourceName(settings.getAppTheme()));
+        // you could also use a switch if you have many themes that could apply
+        return theme;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.status_activity);
 
         settings = new AppSettings(this);
+        setTheme(settings.getAppTheme());
 
         mDb = new ScrobblesDatabase(this);
 
@@ -70,12 +82,6 @@ public class StatusActivity extends AppCompatActivity {
             Log.e(TAG, e.getMessage());
             mDb = null;
         }
-
-        //getSupportActionBar().setElevation(0);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        // manifest android:theme="@style/Theme.AppCompat.NoActionBar"
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         if (viewPager != null) {

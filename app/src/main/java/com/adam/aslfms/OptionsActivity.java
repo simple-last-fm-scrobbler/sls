@@ -21,6 +21,7 @@
 
 package com.adam.aslfms;
 
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
@@ -55,16 +56,28 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
     private PowerSpecificPrefs mPluggedOptions;
 
     @Override
+    public Resources.Theme getTheme() {
+        settings = new AppSettings(this);
+        Resources.Theme theme = super.getTheme();
+        theme.applyStyle(settings.getAppTheme(), true);
+        Log.e(TAG, getResources().getResourceName(settings.getAppTheme()));
+        // you could also use a switch if you have many themes that could apply
+        return theme;
+    }
+
+    @Override
     @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.options);
+
+        addPreferencesFromResource(R.xml.options_prefs);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
         settings = new AppSettings(this);
+        setTheme(settings.getAppTheme());
 
         mScrobblePoint = (SeekBarPreference) findPreference(KEY_SCROBBLE_POINT);
         mScrobblePoint.setDefaults(settings.getScrobblePoint() - 50, 50);
@@ -333,7 +346,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             @Override
             public boolean onPreferenceChange(Preference pref, Object newValue) {
                 if (!(newValue instanceof CharSequence)) {
-                    Log.e(TAG, "Got weird newValue on options change: "
+                    Log.e(TAG, "Got weird newValue on options_prefs change: "
                             + newValue);
                     return false;
                 }
