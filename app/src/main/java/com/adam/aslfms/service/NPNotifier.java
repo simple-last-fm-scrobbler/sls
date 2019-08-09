@@ -214,7 +214,7 @@ public class NPNotifier extends AbstractSubmitter {
                     insecConn.setDoOutput(true);
 
                     DataOutputStream outStream = new DataOutputStream(insecConn.getOutputStream());
-                    Log.e(TAG, baseObj.toString());
+                    Log.d(TAG, baseObj.toString());
                     outStream.write(baseObj.toString().getBytes("UTF-8"));
                     outStream.flush();
                     outStream.close();
@@ -244,7 +244,7 @@ public class NPNotifier extends AbstractSubmitter {
                     conn.setDoOutput(true);
 
                     DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
-                    Log.e(TAG, baseObj.toString());
+                    Log.d(TAG, baseObj.toString());
                     outStream.write(baseObj.toString().getBytes("UTF-8"));
                     outStream.flush();
                     outStream.close();
