@@ -6,18 +6,21 @@
 [![Gitter](https://img.shields.io/gitter/room/tgwizard/sls.svg?logo=gitter&style=round)](https://gitter.im/tgwizard/sls)
 [![Discord](https://img.shields.io/discord/592703275837685760.svg?logo=discord&style=round)](https://discordapp.com/channels/592703275837685760)
 
-[![License](http://img.shields.io/:license-apache-blue.svg?style=round)](LICENSE.md) [![Pull Requests](https://img.shields.io/github/issues-pr/tgwizard/sls.svg)](https://github.com/tgwizard/sls/pulls)
+[![License](http://img.shields.io/:license-apache-blue.svg?style=round)](LICENSE.md) [![Pull Requests](https://img.shields.io/github/issues-pr/tgwizard/sls.svg?style=round)](https://github.com/tgwizard/sls/pulls)
 
-[![Feature Requests](https://img.shields.io/github/issues/tgwizard/sls/feature%20request.svg)](https://github.com/tgwizard/sls/labels/feature%20request) [![App Support Issues](https://img.shields.io/github/issues/tgwizard/sls/app%20support.svg)](https://github.com/tgwizard/sls/labels/app%20support) [![Bugs Issues](https://img.shields.io/github/issues/tgwizard/sls/bugs.svg)](https://github.com/tgwizard/sls/labels/bugs) [![Issues](https://img.shields.io/github/issues/tgwizard/sls.svg)](https://github.com/tgwizard/sls/issues)
+[![Feature Requests](https://img.shields.io/github/issues/tgwizard/sls/feature%20request.svg?style=round)](https://github.com/tgwizard/sls/labels/feature%20request) [![App Support Issues](https://img.shields.io/github/issues/tgwizard/sls/app%20support.svg?style=round)](https://github.com/tgwizard/sls/labels/app%20support) [![Bugs Issues](https://img.shields.io/github/issues/tgwizard/sls/bugs.svg?style=round)](https://github.com/tgwizard/sls/labels/bugs) [![Issues](https://img.shields.io/github/issues/tgwizard/sls.svg?style=round)](https://github.com/tgwizard/sls/issues)
+
+[![Serious Issues](https://img.shields.io/github/issues/tgwizard/sls/serious.svg?style=round)](https://github.com/tgwizard/sls/labels/serious)
+[![Critical Issues](https://img.shields.io/github/issues/tgwizard/sls/critical.svg?style=round)](https://github.com/tgwizard/sls/labels/critical)
 
 Simple Last.fm Scrobbler (SLS) is a simple app that scrobbles music listened to on an Android phone. Scrobbling means submitting listening information to Last.fm (and optionally/additionally Libre.fm and ListenBrainz) when you play a track, and you can then get music recommendations and view you listening history and statistics at Last.fm.
 
 Before the release of a new version of SLS, it will be available here to test for one week in [GitHub Releases](https://github.com/tgwizard/sls/releases).
+
  * More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/help/faq?category=Scrobbling#201).
  * More info about scrobbling from the community can be found on [getsatisfaction.com/lastfm](https://getsatisfaction.com/lastfm).
  * More info about scrobbling from [Libre.fm's Project Page](https://git.gnu.io/foocorp/librefm/wikis/home).
  * More info about listens from [ListenBrainz's FAQ](https://listenbrainz.org/faq).
-
 
 ## Problem or Issue?
 
@@ -78,6 +81,7 @@ Before the release of a new version of SLS, it will be available here to test fo
 
  * [Repeat Song For Some Music Apps](https://github.com/tgwizard/sls/issues/324)
  * Language support is lagging behind for some features that have been added recently.
+ * Enforce (maybe hack) the scrobbling rules for each service using error codes correctly by API. (ex last.fm scrobble too new/old)
 
 2. #### Core Bugs/Features
 
