@@ -1,4 +1,6 @@
 language: android
+dist: trusty
+jdk: oraclejdk8
 
 branches:
   only:
@@ -6,12 +8,21 @@ branches:
 
 script: "./gradlew clean assembleDebug"
 
+env:
+  global:
+    - ANDROID_API=25
+    - ANDROID_BUILD_TOOLS=25.4.0
+    - HIGHEST_API=29
+    - LOWEST_API=9
+
 android:
   components:
       - platform-tools
       - tools
-      - build-tools-23.0.3
-      - android-23
+      - build-tools-$ANDROID_BUILD_TOOLS
+      - android-$ANDROID_API
       - extra-android-m2repository
+      - sys-img-x86-android-$HIGHEST_API
+      - sys-img-x86-android-$LOWEST_API
   licenses:
       - android-sdk-license-.+
