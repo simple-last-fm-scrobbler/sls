@@ -218,7 +218,8 @@ public abstract class BuiltInMusicAppReceiver extends
 			MediaStore.Audio.AudioColumns.TITLE,
 			MediaStore.Audio.AudioColumns.DURATION,
 			MediaStore.Audio.AudioColumns.ALBUM,
-			MediaStore.Audio.AudioColumns.TRACK, };
+			MediaStore.Audio.AudioColumns.TRACK,
+			MediaStore.Audio.AudioColumns.COMPOSER};
 
 		Cursor cur = ctx.getContentResolver().query(
 			ContentUris.withAppendedId(
@@ -241,6 +242,10 @@ public abstract class BuiltInMusicAppReceiver extends
 
 			String album = cur.getString(cur.getColumnIndex(MediaStore.Audio.AudioColumns.ALBUM));
 			b.setAlbum(album);
+
+			String albumArtist = cur.getString(cur.getColumnIndex(MediaStore.Audio.AudioColumns.COMPOSER));
+			b.setAlbumArtist(albumArtist);
+
 
 			int duration = (int) (cur.getLong(cur.getColumnIndex(MediaStore.Audio.AudioColumns.DURATION)) / 1000);
 
@@ -303,7 +308,17 @@ public abstract class BuiltInMusicAppReceiver extends
 				b.setAlbum(al.toString());
 			}
 		} else {
-			b.setAlbum("");
+			b.setAlbum(""); // album is not required to scrobble
+		}
+		if (bundle.containsKey("albumartist")){
+			CharSequence al = bundle.getCharSequence("albumartist");
+			if (al == null || "Unknown albumArtist".equals(al.toString()) || "Unknown".equals(al.toString())) {
+				b.setAlbumArtist(""); // albumArtist is not required to scrobble.
+			} else {
+				b.setAlbumArtist(al.toString());
+			}
+		} else {
+			b.setAlbumArtist(""); // albumArtist is not required to scrobble
 		}
 		b.setArtist(ar.toString());
 		b.setTrack(tr.toString());

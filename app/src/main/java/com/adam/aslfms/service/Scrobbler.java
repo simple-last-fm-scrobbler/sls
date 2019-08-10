@@ -464,6 +464,11 @@ public class Scrobbler extends AbstractSubmitter {
                     if (track.getAlbum() != null) {
                         params.put("album" + is, track.getAlbum());
                     }
+
+                    if (track.getAlbumArtist() != null) {
+                        params.put("albumArtist" + is, track.getAlbumArtist());
+                    }
+
                     params.put("artist" + is, track.getArtist());
                     if (track.getSource().equals("R") || track.getSource().equals("E")) {
                         params.put("chosenByUser" + is, 0);

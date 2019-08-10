@@ -103,6 +103,7 @@ Before the release of a new version of SLS, it will be available here to test fo
  * Sequential storage of all tracks, scrobbled, skipped, hearted, and failed with explanations
  * markers in scrobble cache for logged in accounts
  * Store scrobbles before user is logged in
+ * Manual scrobbling, for example Vinyl Records, CD, Cassette and other older media machines.
 
 ## Features
 

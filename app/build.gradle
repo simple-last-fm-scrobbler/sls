@@ -21,6 +21,7 @@ android {
     lintOptions {
         abortOnError false
         // TODO: fix all lint warnings
+        // TODO: decide what to do about at:Supress("Deprecation")
         ignoreWarnings true
     }
 

@@ -87,7 +87,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         settings = new AppSettings(this);
         Resources.Theme theme = super.getTheme();
         theme.applyStyle(settings.getAppTheme(), true);
-        Log.e(TAG, getResources().getResourceName(settings.getAppTheme()));
+        Log.d(TAG, getResources().getResourceName(settings.getAppTheme()));
         // you could also use a switch if you have many themes that could apply
         return theme;
     }
@@ -123,10 +123,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         permsCheck();
         credsCheck();
 
+        // TODO: VERIFY EVERYTHING BELOW IS SAFE
         int v = Util.getAppVersionCode(this, getPackageName());
         if (settings.getWhatsNewViewedVersion() < v) {
             new WhatsNewDialog(this).show();
             settings.setWhatsNewViewedVersion(v);
+            mDb.alterDataBaseOnce(); // version 1.5.8 only!
         }
 
         // Start Apple listening service if applicabble

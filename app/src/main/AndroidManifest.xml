@@ -322,6 +322,16 @@
                 <action android:name="com.android.mediacenter.metachanged" />
             </intent-filter>
         </receiver>
+        <receiver android:name=".receiver.OrangeSqueezeReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <!-- https://www.orangebikelabs.com/products/orangesqueeze/broadcast-intents -->
+                <!-- ISSUE! SEE playername intent, hence, won't be taking the time to track multiple players -->
+                <action android:name="com.orangebikelabs.orangesqueeze.metachanged" />
+                <action android:name="com.orangebikelabs.orangesqueeze.playstatechanged" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

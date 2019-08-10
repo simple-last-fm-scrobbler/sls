@@ -31,6 +31,7 @@ The possible fields for the intent (to be put in its extras bundle) are:
     | app-package  | String | Yes      | The package of the music app                                        |
     | state        | int    | Yes      | One of the states above                                             |
     | album        | String | No       | The album name _Strongly recommended_                               |
+    | albumartist  | String | No       | The album artist name _Strongly recommended_                               |
     | artist       | String | Yes      | The artist name                                                     |
     | track        | String | Yes      | The track name                                                      |
     | duration     | int    | Yes      | The duration of the track (in seconds)                              |
@@ -68,12 +69,13 @@ bCast.putExtra("app-name", "Example App");
 bCast.putExtra("app-package", "com.example.exampleapp");
 bCast.putExtra("artist", "Chris Cornell");
 bCast.putExtra("album", "Casino Royale");
+bCast.putExtra("albumartist", "David Arnold");
 bCast.putExtra("track", "You Know My Name");
 bCast.putExtra("duration", 244);
 sendBroadcast(bCast);
 ~~~
 
-And this says that James Marster's song "Looking At You" has finished playing and should be scrobbled: 
+And this says that James Marster's song "Looking At You" has finished playing and should be scrobbled:
 
 ~~~ java
 Intent bCast = new Intent("com.adam.aslfms.notify.playstatechanged");
@@ -82,6 +84,7 @@ bCast.putExtra("app-name", "Example App");
 bCast.putExtra("app-package", "com.example.exampleapp");
 bCast.putExtra("artist", "James Marsters");
 bCast.putExtra("album", "Like A Waterfall");
+bCast.putExtra("albumartist", "James Marsters");
 bCast.putExtra("track", "Looking At You");
 bCast.putExtra("duration", 175);
 sendBroadcast(bCast);
@@ -96,6 +99,7 @@ bCast.putExtra("app-name", "Example App");
 bCast.putExtra("app-package", "com.example.exampleapp");
 bCast.putExtra("artist", "Yohanna");
 bCast.putExtra("album", "Eurovision Song Contest: Moscow 2009 (disc 2)");
+bCast.putExtra("albumartist", "Óskar Páll Sveinsson");
 bCast.putExtra("track", "Is It True? (Iceland)");
 bCast.putExtra("duration", 181);
 bCast.putExtra("track-number", 3);
@@ -104,7 +108,7 @@ bCast.putExtra("source", "R");
 sendBroadcast(bCast);
 ~~~
 
-The app � (cubed) [implements](http://github.com/fabrantes/rockonnggl/blob/master/src/org/abrantix/rockon/rockonnggl/RockOnNextGenService.java) this API.
+The app � (cubed) [implements](http://github.com/fabrantes/rockonnggl/blob/master/src/org/abrantix/rockon/rockonnggl/RockOnNextGenService.java) this API.
 
 ## Internals
 
@@ -114,7 +118,7 @@ The behavioiur to handle these API broadcasts is implemented in the `BroadcastRe
 
 When a user starts playing music in a music app using this api, she will automatically have her music scrobbled. The first broadcast to be sent to SLS will create an entry in the Supported Apps section, where the user can disable/enable scrobbling from that application (it is enabled by default).
 
-To make this work properly, the two fields `app-name` and `app-package` are crucial. `app-name` is the string that gets displayed to the user, and `app-package` is what identifies the source of the music played. This should be the "root package" (or whatever it's called) of the music app, and it should never change. 
+To make this work properly, the two fields `app-name` and `app-package` are crucial. `app-name` is the string that gets displayed to the user, and `app-package` is what identifies the source of the music played. This should be the "root package" (or whatever it's called) of the music app, and it should never change.
 
 ## Troubleshooting
 
@@ -146,7 +150,7 @@ Open an issue here on github and we'll look into an problems you might have. Sav
 
 ## Custom Broadcasts
 
-If you already broadcast your own intents, tell me about them and I'll see if I can work them into SLS. 
+If you already broadcast your own intents, tell me about them and I'll see if I can work them into SLS.
 
 ## Thanks
 

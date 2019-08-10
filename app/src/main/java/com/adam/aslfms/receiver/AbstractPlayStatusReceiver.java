@@ -48,7 +48,7 @@ import java.util.Set;
  */
 public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 
-    private static final String TAG = "SLSPlayStatusReceiver";
+    private static final String TAG = "AbsPlayStatusReceiver";
 
     private MusicAPI mMusicAPI = null;
     private Intent mService = null;
@@ -59,12 +59,12 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
          if (bundle != null) {
             Set<String> keys = bundle.keySet();
             Iterator<String> it = keys.iterator();
-            Log.e(TAG,"Dumping Intent start");
+            Log.d(TAG,"Dumping Intent start");
             while (it.hasNext()) {
                String key = it.next();
-                Log.e(TAG,"[" + key + "=" + bundle.get(key)+"]");
+                Log.d(TAG,"[" + key + "=" + bundle.get(key)+"]");
             }
-            Log.e(TAG,"Dumping Intent end");
+            Log.d(TAG,"Dumping Intent end");
         }
      }
 
@@ -75,7 +75,7 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 
         dumpIntent(bundle);
 
-        Log.e(TAG, "Action received was: " + action);
+        Log.d(TAG, "Action received was: " + action);
 
         // check to make sure we actually got something
         if (action == null) {

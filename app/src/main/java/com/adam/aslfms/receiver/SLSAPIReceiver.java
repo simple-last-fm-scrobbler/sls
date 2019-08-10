@@ -130,6 +130,17 @@ public class SLSAPIReceiver extends AbstractPlayStatusReceiver {
         } else {
             b.setAlbum("");
         }
+        // albumartist name, optional (recommended)
+        if (bundle.containsKey("albumartist")){
+            CharSequence al = bundle.getCharSequence("albumartist");
+            if (al == null || "Unknown albumArtist".equals(al.toString()) || "Unknown".equals(al.toString())) {
+                b.setAlbumArtist(""); // albumArtist is not required to scrobble.
+            } else {
+                b.setAlbumArtist(al.toString());
+            }
+        } else {
+            b.setAlbumArtist(""); // albumArtist is not required to scrobble
+        }
         // track name, required
         b.setTrack(bundle.getString("track"));
 
