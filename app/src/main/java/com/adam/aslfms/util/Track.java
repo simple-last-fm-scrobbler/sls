@@ -70,6 +70,8 @@ public class Track {
     MusicAPI mMusicAPI;
     String mArtist;
     String mAlbum;
+    String mAlbumArtist;
+    String mTrackArtist;
     String mTrack;
     int mDuration;
     boolean mUnknownDuration;
@@ -115,6 +117,14 @@ public class Track {
 
         public void setAlbum(String album) {
             _track.mAlbum = album == null ? "" : album;
+        }
+
+        public void setAlbumArtist(String albumArtist){
+            _track.mAlbumArtist = albumArtist == null ? "" : albumArtist;
+        }
+
+        public void setTrackArtist(String trackArtist){
+            _track.mTrackArtist = trackArtist == null ? "" : trackArtist;
         }
 
         public void setTrack(String track) {
@@ -168,6 +178,8 @@ public class Track {
         mMusicAPI = null;
         mArtist = null;
         mAlbum = "";
+        mAlbumArtist = "";
+        mTrackArtist = "";
         mTrack = null;
         mDuration = DEFAULT_TRACK_LENGTH;
         mUnknownDuration = true;
@@ -194,6 +206,12 @@ public class Track {
             throw new IllegalArgumentException("artist is null or empty");
 
         if (mAlbum == null)
+            throw new IllegalArgumentException("album is null");
+
+        if (mAlbumArtist == null)
+            throw new IllegalArgumentException("album is null");
+
+        if (mTrackArtist == null)
             throw new IllegalArgumentException("album is null");
 
         if (mTrack == null || mTrack.length() == 0)
@@ -234,6 +252,14 @@ public class Track {
 
     public String getAlbum() {
         return mAlbum;
+    }
+
+    public String getAlbumArtist() {
+        return mAlbumArtist;
+    }
+
+    public String getTrackArtist() {
+        return mTrackArtist;
     }
 
     public String getTrack() {
@@ -361,6 +387,7 @@ public class Track {
     public String toString() {
         return "Track [mTrack="
                 + mTrack + ", mArtist=" + mArtist + ", mAlbum=" + mAlbum
+                + ", mAlbumArtist=" + mAlbumArtist
                 + ", mDuration=" + mDuration + ", mMbId=" + mMbId
                 + ", mMusicAPI=" + mMusicAPI + ", mQueued=" + mQueued
                 + ", mRating=" + mRating + ", mRowId=" + mRowId + ", mSource="

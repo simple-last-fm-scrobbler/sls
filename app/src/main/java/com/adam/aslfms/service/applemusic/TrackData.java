@@ -13,6 +13,8 @@ class TrackData {
     private String artist;
     private String title;
     private String album;
+    private String albumartist;
+    private String trackartist;
     private Date startTime;
     private PlayingState currentState = PlayingState.UNKNOWN;
     private ArrayList<Long> playTimes = new ArrayList<>();
@@ -98,6 +100,14 @@ class TrackData {
         this.album = album;
     }
 
+    void setAlbumArtist(String albumartist) {
+        this.albumartist = albumartist;
+    }
+
+    void setTrackArtist(String trackartist) {
+        this.trackartist = trackartist;
+    }
+
     void setStartTime(Date startTime) {
         this.startTime = startTime;
     }
@@ -112,6 +122,14 @@ class TrackData {
 
     String getAlbum() {
         return album;
+    }
+
+    String getAlbumArtist() {
+        return albumartist;
+    }
+
+    String getTrackArtist() {
+        return trackartist;
     }
 
     PlayingState getCurrentState() {

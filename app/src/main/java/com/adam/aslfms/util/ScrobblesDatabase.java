@@ -83,6 +83,8 @@ public class ScrobblesDatabase {
             + "musicapp integer not null, " //
             + "artist text not null, " //
             + "album text not null, " //
+            + "albumartist text not null, " //
+            + "trackartist text not null, " //
             + "track text not null, " //
             + "tracknr text not null, " //
             + "mbid text not null, " //
@@ -219,6 +221,8 @@ public class ScrobblesDatabase {
         vals.put("musicapp", track.getMusicAPI().getId());
         vals.put("artist", track.getArtist());
         vals.put("album", track.getAlbum());
+        vals.put("albumartist", track.getAlbumArtist());
+        vals.put("trackartist", track.getTrackArtist());
         vals.put("track", track.getTrack());
         vals.put("whenplayed", track.getWhen());
         vals.put("duration", track.getDuration());
@@ -226,7 +230,6 @@ public class ScrobblesDatabase {
         vals.put("mbid", track.getMbid());
         vals.put("source", track.getSource());
         vals.put("rating", track.getRating());
-
         return mDb.insert(TABLENAME_SCROBBLES, null, vals);
     }
 
@@ -258,6 +261,18 @@ public class ScrobblesDatabase {
     public void setAlbum(String album, int trackId) {
         ContentValues values = new ContentValues();
         values.put("album", album);
+        mDb.update("scrobbles", values, "_id=" + trackId, null);
+    }
+
+    public void setAlbumArtist(String albumartist, int trackId) {
+        ContentValues values = new ContentValues();
+        values.put("albumartist", albumartist);
+        mDb.update("scrobbles", values, "_id=" + trackId, null);
+    }
+
+    public void setTrackArtist(String trackartist, int trackId) {
+        ContentValues values = new ContentValues();
+        values.put("trackartist", trackartist);
         mDb.update("scrobbles", values, "_id=" + trackId, null);
     }
 
@@ -296,6 +311,8 @@ public class ScrobblesDatabase {
         b.setArtist(c.getString(c.getColumnIndex("artist")));
         b.setAlbum(c.getString(c.getColumnIndex("album")));
         b.setTrack(c.getString(c.getColumnIndex("track")));
+        b.setAlbumArtist(c.getString(c.getColumnIndex("albumartist")));
+        b.setTrackArtist(c.getString(c.getColumnIndex("trackartist")));
         b.setWhen(c.getLong(c.getColumnIndex("whenplayed")));
         b.setDuration(c.getInt(c.getColumnIndex("duration")));
         b.setRowId(c.getInt(c.getColumnIndex("_id")));
@@ -487,4 +504,10 @@ public class ScrobblesDatabase {
         return rule;
     }
 
+    // TODO: DELETE ME AFTER !!!
+
+    public void alterDataBaseOnce(){
+        mDb.execSQL("ALTER TABLE " + TABLENAME_SCROBBLES + " ADD COLUMN albumartist text not null");
+        mDb.execSQL("ALTER TABLE " + TABLENAME_SCROBBLES + " ADD COLUMN trackartist text not null");
+    }
 }

@@ -386,6 +386,9 @@ public class NPNotifier extends AbstractSubmitter {
                 if (track.getAlbum() != null) {
                     params.put("album", track.getAlbum());
                 }
+                if (track.getAlbumArtist() != null) {
+                    params.put("albumArtist", track.getAlbumArtist());
+                }
                 params.put("api_key", settings.rcnvK(settings.getAPIkey()));
                 params.put("artist", track.getArtist());
                 if (track.getDuration() != 180) {
