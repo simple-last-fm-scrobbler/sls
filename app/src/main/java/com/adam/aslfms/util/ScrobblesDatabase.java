@@ -507,7 +507,7 @@ public class ScrobblesDatabase {
     // TODO: DELETE ME AFTER !!!
 
     public void alterDataBaseOnce(){
-        mDb.execSQL("ALTER TABLE " + TABLENAME_SCROBBLES + " ADD COLUMN albumartist text not null");
-        mDb.execSQL("ALTER TABLE " + TABLENAME_SCROBBLES + " ADD COLUMN trackartist text not null");
+        mDb.execSQL("ALTER TABLE " + TABLENAME_SCROBBLES + " ADD COLUMN albumartist text");
+        mDb.execSQL("ALTER TABLE " + TABLENAME_SCROBBLES + " ADD COLUMN trackartist text");
     }
 }
