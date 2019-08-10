@@ -25,4 +25,5 @@ android:
       - sys-img-x86-android-$HIGHEST_API
       - sys-img-x86-android-$LOWEST_API
   licenses:
+      - android-sdk-preview-license-d099d938
       - android-sdk-license-.+
