@@ -1,7 +1,6 @@
 # Simple Last.fm Scrobbler
-## Last.fm, Libre.fm, ListenBrainz(.org), and Custom Personal Servers
 
-### ![](art/last.fm.svg) ![](art/libre.fm.png) ![](art/ListenBrainz.org.svg)
+![Travis](https://travis-ci.org/a93-39a/sls.svg?branch=master)
 
 [![Gitter](https://img.shields.io/gitter/room/tgwizard/sls.svg?logo=gitter&style=round)](https://gitter.im/tgwizard/sls)
 [![Discord](https://img.shields.io/discord/592703275837685760.svg?logo=discord&style=round)](https://discordapp.com/channels/592703275837685760)
@@ -131,9 +130,12 @@ Before the release of a new version of SLS, it will be available here to test fo
 
 ### Supported scrobble services
 
- * [Last.fm](http://last.fm)
- * [Libre.fm](http:///libre.fm)
- * [ListenBrainz](https://listenbrainz.org)
+## Last.fm, Libre.fm, ListenBrainz(.org), and Custom Personal Servers
+
+### [![last.fm](art/last_fm.svg)](https://last.fm) [![libre.fm](art/libre_fm.svg)](https://libre.fm) [![ListenBrainz](art/ListenBrainz.svg)](https://listenbrainz.org)
+
+####  there is also developer server options
+
  * [Custom GNU-fm/Libre.fm Server](https://git.gnu.io/gnu/gnu-fm/blob/master/gnufm_install.txt)
  * [Custom ListenBrainz Server](https://github.com/metabrainz/listenbrainz-server/blob/master/README.md)
 
