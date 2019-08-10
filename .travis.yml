@@ -11,14 +11,14 @@ script: "./gradlew clean assembleDebug"
 env:
   global:
     - ANDROID_API=25
-    - ANDROID_BUILD_TOOLS=25.4.0
+    - ANDROID_BUILD_TOOLS=29.0.2
     - HIGHEST_API=29
     - LOWEST_API=9
 
 android:
   components:
-      - platform-tools
       - tools
+      - platform-tools
       - build-tools-$ANDROID_BUILD_TOOLS
       - android-$ANDROID_API
       - extra-android-m2repository
