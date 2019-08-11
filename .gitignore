@@ -5,6 +5,7 @@
 build
 *.iml
 **/release/
+**/debug/
 app/*.apk
 app/app-debug.zip
 app/app-release.zip
