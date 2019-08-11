@@ -47,7 +47,7 @@ public class OrangeSqueezeReceiver extends AbstractPlayStatusReceiver {
                 ctx, APP_NAME, APP_PACKAGE, null, false);
         setMusicAPI(musicAPI);
 
-        if (action.equals(ACTION_ORANGE_METACHANGED)) {
+        if (action.equals(ACTION_ORANGE_PLAYSTATECHANGED) || action.equals((ACTION_ORANGE_METACHANGED))){
             boolean isPlaying = bundle.getBoolean("isplaying");
             boolean isPaused = bundle.getBoolean("ispaused");
             if (isPaused) {
