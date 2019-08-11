@@ -1,6 +1,6 @@
 # Simple Last.fm Scrobbler
 
-![Travis](https://travis-ci.org/a93-39a/sls.svg?branch=master)
+[![Build Status](https://travis-ci.com/simple-last-fm-scrobbler/simple-last-fm-scrobbler.svg?branch=master)](https://travis-ci.com/simple-last-fm-scrobbler/simple-last-fm-scrobbler) ![GitHub release](https://img.shields.io/github/release/tgwizard/sls) ![GitHub release](https://img.shields.io/github/release-pre/tgwizard/sls)
 
 [![Gitter](https://img.shields.io/gitter/room/tgwizard/sls.svg?logo=gitter&style=round)](https://gitter.im/tgwizard/sls)
 [![Discord](https://img.shields.io/discord/592703275837685760.svg?logo=discord&style=round)](https://discordapp.com/channels/592703275837685760)
@@ -46,8 +46,14 @@ Before the release of a new version of SLS, it will be available here to test fo
 
 ## Download
 
-[![Google Play Store](https://ibin.co/2hN6gwDRsRut.png)](https://play.google.com/store/apps/details?id=com.adam.aslfms)
-[![F-Droid](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Get_it_on_F-Droid.svg/320px-Get_it_on_F-Droid.svg.png)](https://f-droid.org/repository/browse/?fdid=com.adam.aslfms)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
+    alt="Get it on PlayStore"
+    height="80">
+    ](https://play.google.com/store/apps/details?id=com.adam.aslfms&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+    alt="Get it on F-Droid"
+    height="80">](https://f-droid.org/packages/com.adam.aslfs)
+
 
 #### [Release & Pre-Release Downloads](https://github.com/tgwizard/sls/releases)
 
