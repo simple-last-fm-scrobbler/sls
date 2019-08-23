@@ -112,7 +112,7 @@ The app � (cubed) [implements](http://github.com/fabrantes/rockonnggl/blob/mas
 
 ## Internals
 
-The behavioiur to handle these API broadcasts is implemented in the `BroadcastReceiver` [SLSAPIReceiver](https://github.com/tgwizard/sls/blob/master/src/com/adam/aslfms/receiver/SLSAPIReceiver.java). It might be helpful to read through that class to get a feel about the API.
+The behavioiur to handle these API broadcasts is implemented in the `BroadcastReceiver` [SLSAPIReceiver](https://github.com/simple-last-fm-scrobbler/sls/blob/master/src/com/adam/aslfms/receiver/SLSAPIReceiver.java). It might be helpful to read through that class to get a feel about the API.
 
 ## A user's perspective
 
