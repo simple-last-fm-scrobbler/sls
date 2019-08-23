@@ -1,20 +1,20 @@
 # Simple Last.fm Scrobbler
 
-![Travis](https://travis-ci.org/a93-39a/sls.svg?branch=master)
+[![Build Status](https://travis-ci.com/simple-last-fm-scrobbler/simple-last-fm-scrobbler.svg?branch=master)](https://travis-ci.com/simple-last-fm-scrobbler/simple-last-fm-scrobbler) ![GitHub release](https://img.shields.io/github/release/simple-last-fm-scrobbler/sls) ![GitHub release](https://img.shields.io/github/release-pre/simple-last-fm-scrobbler/sls)
 
-[![Gitter](https://img.shields.io/gitter/room/tgwizard/sls.svg?logo=gitter&style=round)](https://gitter.im/tgwizard/sls)
+[![Gitter](https://img.shields.io/gitter/room/simple-last-fm-scrobbler/sls.svg?logo=gitter&style=round)](https://gitter.im/simple-last-fm-scrobbler/sls)
 [![Discord](https://img.shields.io/discord/592703275837685760.svg?logo=discord&style=round)](https://discordapp.com/channels/592703275837685760)
 
-[![License](http://img.shields.io/:license-apache-blue.svg?style=round)](LICENSE.md) [![Pull Requests](https://img.shields.io/github/issues-pr/tgwizard/sls.svg?style=round)](https://github.com/tgwizard/sls/pulls)
+[![License](http://img.shields.io/:license-apache-blue.svg?style=round)](LICENSE.md) [![Pull Requests](https://img.shields.io/github/issues-pr/simple-last-fm-scrobbler/sls.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/pulls)
 
-[![Feature Requests](https://img.shields.io/github/issues/tgwizard/sls/feature%20request.svg?style=round)](https://github.com/tgwizard/sls/labels/feature%20request) [![App Support Issues](https://img.shields.io/github/issues/tgwizard/sls/app%20support.svg?style=round)](https://github.com/tgwizard/sls/labels/app%20support) [![Bugs Issues](https://img.shields.io/github/issues/tgwizard/sls/bugs.svg?style=round)](https://github.com/tgwizard/sls/labels/bugs) [![Issues](https://img.shields.io/github/issues/tgwizard/sls.svg?style=round)](https://github.com/tgwizard/sls/issues)
+[![Feature Requests](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/feature%20request.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/feature%20request) [![App Support Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/app%20support.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/app%20support) [![Bugs Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/bugs.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/bugs) [![Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/issues)
 
-[![Serious Issues](https://img.shields.io/github/issues/tgwizard/sls/serious.svg?style=round)](https://github.com/tgwizard/sls/labels/serious)
-[![Critical Issues](https://img.shields.io/github/issues/tgwizard/sls/critical.svg?style=round)](https://github.com/tgwizard/sls/labels/critical)
+[![Serious Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/serious.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/serious)
+[![Critical Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/critical.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/critical)
 
 Simple Last.fm Scrobbler (SLS) is a simple app that scrobbles music listened to on an Android phone. Scrobbling means submitting listening information to Last.fm (and optionally/additionally Libre.fm and ListenBrainz) when you play a track, and you can then get music recommendations and view you listening history and statistics at Last.fm.
 
-Before the release of a new version of SLS, it will be available here to test for one week in [GitHub Releases](https://github.com/tgwizard/sls/releases).
+Before the release of a new version of SLS, it will be available here to test for one week in [GitHub Releases](https://github.com/simple-last-fm-scrobbler/sls/releases).
 
  * More info about scrobbling can be found on [Last.fm's FAQ](http://www.last.fm/help/faq?category=Scrobbling#201).
  * More info about scrobbling from the community can be found on [getsatisfaction.com/lastfm](https://getsatisfaction.com/lastfm).
@@ -23,7 +23,7 @@ Before the release of a new version of SLS, it will be available here to test fo
 
 ## Problem or Issue?
 
-  * Please create a [GitHub Account](https://github.com/join) so you can create a [GitHub Issue](https://github.com/tgwizard/sls/issues) and PLEASE use the next sections as guides. You will get help with bugs and problems with the software. For direct personal contact with developers, please use [Gitter](https://gitter.im/tgwizard/sls) or [Discord](https://discordapp.com/channels/592703275837685760).
+  * Please create a [GitHub Account](https://github.com/join) so you can create a [GitHub Issue](https://github.com/simple-last-fm-scrobbler/sls/issues) and PLEASE use the next sections as guides. You will get help with bugs and problems with the software. For direct personal contact with developers, please use [Gitter](https://gitter.im/simple-last-fm-scrobbler/sls) or [Discord](https://discordapp.com/channels/592703275837685760).
 
   * ### Issue (Bug Report) Example
     * **SLS Version (required)**: (1.5.8)
@@ -46,10 +46,16 @@ Before the release of a new version of SLS, it will be available here to test fo
 
 ## Download
 
-[![Google Play Store](https://ibin.co/2hN6gwDRsRut.png)](https://play.google.com/store/apps/details?id=com.adam.aslfms)
-[![F-Droid](https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Get_it_on_F-Droid.svg/320px-Get_it_on_F-Droid.svg.png)](https://f-droid.org/repository/browse/?fdid=com.adam.aslfms)
+[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
+    alt="Get it on PlayStore"
+    height="80">
+    ](https://play.google.com/store/apps/details?id=com.adam.aslfms&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+    alt="Get it on F-Droid"
+    height="80">](https://f-droid.org/packages/com.adam.aslfs)
 
-#### [Release & Pre-Release Downloads](https://github.com/tgwizard/sls/releases)
+
+#### [Release & Pre-Release Downloads](https://github.com/simple-last-fm-scrobbler/sls/releases)
 
 ## Compatible Apps & Compatible Phones
 ### [(To View Compatible Apps and Phones Click Here)](Compatability.md)
@@ -78,24 +84,24 @@ Before the release of a new version of SLS, it will be available here to test fo
 
 1. #### Core bugs/issues
 
- * [Repeat Song For Some Music Apps](https://github.com/tgwizard/sls/issues/324)
+ * [Repeat Song For Some Music Apps](https://github.com/simple-last-fm-scrobbler/sls/issues/324)
  * Language support is lagging behind for some features that have been added recently.
  * Enforce (maybe hack) the scrobbling rules for each service using error codes correctly by API. (ex last.fm scrobble too new/old)
 
 2. #### Core Bugs/Features
 
- * [Simpler Love Track](https://github.com/tgwizard/sls/issues/303) [Similar Issue](https://github.com/tgwizard/sls/issues/330)
- * [Enable/Disable Individual Music App Scrobbles](https://github.com/tgwizard/sls/issues/200) [Similar Issue](https://github.com/tgwizard/sls/issues/367)
- * [Blocking Podcast Scrobbles](https://github.com/tgwizard/sls/issues/127)
+ * [Simpler Love Track](https://github.com/simple-last-fm-scrobbler/sls/issues/303) [Similar Issue](https://github.com/simple-last-fm-scrobbler/sls/issues/330)
+ * [Enable/Disable Individual Music App Scrobbles](https://github.com/simple-last-fm-scrobbler/sls/issues/200) [Similar Issue](https://github.com/simple-last-fm-scrobbler/sls/issues/367)
+ * [Blocking Podcast Scrobbles](https://github.com/simple-last-fm-scrobbler/sls/issues/127)
  * Read Notifications to Scrobble Music Also
  * Use Android audio focus detection to manage scrobbling.
  * Slow overhaul of the app to keep simplicity and allow for dynamic feature/functionality addition.
 
 3. #### Core Feature Requests
 
- * [True Material Design Upgrade](https://github.com/tgwizard/sls/issues/227)
- * [Better Unit Tests](https://github.com/tgwizard/sls/issues/12)
- * [Notification Level](https://github.com/tgwizard/sls/issues/346)
+ * [True Material Design Upgrade](https://github.com/simple-last-fm-scrobbler/sls/issues/227)
+ * [Better Unit Tests](https://github.com/simple-last-fm-scrobbler/sls/issues/12)
+ * [Notification Level](https://github.com/simple-last-fm-scrobbler/sls/issues/346)
  * Unsecured http:// support for custom servers
  * ListenBrainz API for Total Listen Count
  * Multiple Account Login
@@ -160,7 +166,7 @@ All of the code is open source, released under [Apache License 2.0](LICENSE.md).
 I use copyright here only in the sense of proper attribution. Do whatever you want with the code (as long as the licenses are followed).
 
 ### Contributors
-#### A complete and updated list here -> [CONTRIBUTORS LIST](https://github.com/tgwizard/sls/graphs/contributors)
+#### A complete and updated list here -> [CONTRIBUTORS LIST](https://github.com/simple-last-fm-scrobbler/sls/graphs/contributors)
 
  * Adam Renberg, [github.com/tgwizard](https://github.com/tgwizard), main author
  * Argoday, [github.com/argoday](https://github.com/argoday), code fixes
@@ -191,4 +197,4 @@ I use copyright here only in the sense of proper attribution. Do whatever you wa
  * Dmitry Paskal, [github.com/paskal](https://github.com/paskal)
  * Iļja Gubins, [https://github.com/the-lay](https://github.com/the-lay)
 
-Several people have also contributed with comments, suggestions and [issues](https://github.com/tgwizard/sls/issues/).
+Several people have also contributed with comments, suggestions and [issues](https://github.com/simple-last-fm-scrobbler/sls/issues/).
