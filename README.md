@@ -1,6 +1,6 @@
 # Simple Last.fm Scrobbler
 
-[![Build Status](https://travis-ci.com/simple-last-fm-scrobbler/simple-last-fm-scrobbler.svg?branch=master)](https://travis-ci.com/simple-last-fm-scrobbler/simple-last-fm-scrobbler) ![GitHub release](https://img.shields.io/github/release/simple-last-fm-scrobbler/sls) ![GitHub release](https://img.shields.io/github/release-pre/simple-last-fm-scrobbler/sls)
+[![Build Status](https://travis-ci.com/simple-last-fm-scrobbler/sls.svg?branch=master)](https://travis-ci.com/simple-last-fm-scrobbler/sls) ![GitHub release](https://img.shields.io/github/release/simple-last-fm-scrobbler/sls) ![GitHub release](https://img.shields.io/github/release-pre/simple-last-fm-scrobbler/sls)
 
 [![Gitter](https://img.shields.io/gitter/room/simple-last-fm-scrobbler/sls.svg?logo=gitter&style=round)](https://gitter.im/simple-last-fm-scrobbler/sls)
 [![Discord](https://img.shields.io/discord/592703275837685760.svg?logo=discord&style=round)](https://discordapp.com/channels/592703275837685760)
