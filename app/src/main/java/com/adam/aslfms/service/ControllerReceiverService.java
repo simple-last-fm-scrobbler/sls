@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
@@ -32,6 +33,7 @@ public class ControllerReceiverService extends android.service.notification.Noti
     private ControllerReceiverCallback controllerReceiverCallback;
     private String track;
     private String artist;
+    private String album;
     private String albumArtist;
     private Object durationObject;
 
@@ -124,15 +126,15 @@ public class ControllerReceiverService extends android.service.notification.Noti
         if (durationObject instanceof Double) {
             Log.d(TAG,"duration is Double");
             if (artist != null && !artist.isEmpty())
-                controllerReceiverCallback.broadcast(this, artist, track, isRemoteControllerPlaying, (Double) durationObject, position,albumArtist);
+                controllerReceiverCallback.broadcast(this, artist, track, album, isRemoteControllerPlaying, (Double) durationObject, position,albumArtist);
         } else if (durationObject instanceof Integer) {
             Log.d(TAG,"duration is Integer");
             if (artist != null && !artist.isEmpty())
-                controllerReceiverCallback.broadcast(this, artist, track, isRemoteControllerPlaying, (Integer) durationObject, position, albumArtist);
+                controllerReceiverCallback.broadcast(this, artist, track, album, isRemoteControllerPlaying, (Integer) durationObject, position, albumArtist);
         } else if (durationObject instanceof Long)
             Log.d(TAG,"duration is Long");
             if (artist != null && !artist.isEmpty())
-                controllerReceiverCallback.broadcast(this, artist, track, isRemoteControllerPlaying, (Long) durationObject, position, albumArtist);
+                controllerReceiverCallback.broadcast(this, artist, track, album, isRemoteControllerPlaying, (Long) durationObject, position, albumArtist);
     }
 
     @Override
@@ -159,9 +161,10 @@ public class ControllerReceiverService extends android.service.notification.Noti
         artist = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ARTIST, "");
         albumArtist = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ALBUMARTIST, "");
         track = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_TITLE, "");
+        album = metadataEditor.getString(MediaMetadataRetriever.METADATA_KEY_ALBUM, "");
         Bitmap artwork = metadataEditor.getBitmap(MediaMetadataEditor.BITMAP_KEY_ARTWORK, null);
 
-        controllerReceiverCallback.saveArtwork(this, artwork, artist, track);
+        controllerReceiverCallback.saveArtwork(this, artwork, artist, track, album);
     }
 
     @Override

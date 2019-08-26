@@ -154,6 +154,11 @@ public class ControllerReceiverCallback {
                 track = metadata.getString(MediaMetadata.METADATA_KEY_TITLE);
             } catch (Exception ignored) {
             }
+            String album = null;
+            try {
+                album = metadata.getString(MediaMetadata.METADATA_KEY_ALBUM);
+            } catch (Exception ignored) {
+            }
             Bitmap artwork = null;
             try {
                 artwork = metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
@@ -175,19 +180,20 @@ public class ControllerReceiverCallback {
             if (playing[0] == null)
                 playing[0] = playbackState != null && playbackState.getState() == PlaybackState.STATE_PLAYING;
 
-            saveArtwork(context, artwork, artist, track);
+            saveArtwork(context, artwork, artist, track, album);
 
             String player = controllers[0].getPackageName();
             if ("com.aimp.player".equals(player)) // Aimp is awful
                 position = -1;
-            broadcast(context, artist, track, playing[0], duration, position, albumArtist);
+            broadcast(context, artist, track, album, playing[0], duration, position, albumArtist);
         }, 100);
     }
 
-    public void broadcast(Context context, String artist, String track, boolean playing, int duration, long position, String albumArtist) {
+    public void broadcast(Context context, String artist, String track, String album, boolean playing, int duration, long position, String albumArtist) {
         Intent localIntent = new Intent(GenericControllerReceiver.ACTION_INTENT);
         localIntent.putExtra("artist", artist);
         localIntent.putExtra("track", track);
+        localIntent.putExtra("album", album);
         localIntent.putExtra("albumArtist", albumArtist);
         localIntent.putExtra("playing", playing);
         localIntent.putExtra("duration", duration);
@@ -199,10 +205,11 @@ public class ControllerReceiverCallback {
         Log.d(TAG,"title "+track);
     }
 
-    public void broadcast(Context context, String artist, String track, boolean playing, double duration, long position, String albumArtist) {
+    public void broadcast(Context context, String artist, String track, String album, boolean playing, double duration, long position, String albumArtist) {
         Intent localIntent = new Intent(GenericControllerReceiver.ACTION_INTENT);
         localIntent.putExtra("artist", artist);
         localIntent.putExtra("track", track);
+        localIntent.putExtra("album", album);
         localIntent.putExtra("albumArtist", albumArtist);
         localIntent.putExtra("playing", playing);
         localIntent.putExtra("duration", duration);
@@ -214,7 +221,7 @@ public class ControllerReceiverCallback {
         Log.d(TAG,"title "+track);
     }
 
-    public void saveArtwork(Context context, Bitmap artwork, String artist, String track) {
+    public void saveArtwork(Context context, Bitmap artwork, String artist, String track, String album) {
         File artworksDir = new File(context.getCacheDir(), "artworks");
         if (artwork != null && (artworksDir.exists() || artworksDir.mkdir())) {
             File artworkFile = new File(artworksDir, artist + track + ".png");
