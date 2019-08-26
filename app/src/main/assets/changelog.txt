@@ -1,5 +1,5 @@
 Visit,
-https://github.com/tgwizard/sls
+https://github.com/simple-last-fm-scrobbler/sls
 For more details.
 
 - 1.5.8 (2018-6-24)

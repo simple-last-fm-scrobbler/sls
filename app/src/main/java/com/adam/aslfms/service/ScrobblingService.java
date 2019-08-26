@@ -1,7 +1,7 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
  * <p/>
- * https://github.com/tgwizard/sls
+ * https://github.com/simple-last-fm-scrobbler/sls
  * <p/>
  * Copyright 2011 Simple Last.fm Scrobbler Team
  * <p/>
@@ -40,6 +40,8 @@ import com.adam.aslfms.util.enums.AdvancedOptionsWhen;
 import com.adam.aslfms.util.enums.PowerOptions;
 
 import com.adam.aslfms.service.NotificationBarService;
+
+import java.net.Inet4Address;
 
 /**
  * @author tgwizard

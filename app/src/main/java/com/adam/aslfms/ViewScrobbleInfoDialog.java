@@ -1,7 +1,7 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
  * <p/>
- * https://github.com/tgwizard/sls
+ * https://github.com/simple-last-fm-scrobbler/sls
  * <p/>
  * Copyright 2011 Simple Last.fm Scrobbler Team
  * <p/>

@@ -121,6 +121,7 @@
     <!-- START permissions and warnings strings -->
     <string name="permission_required">Permission REQUIRED to work properly</string>
     <string name="creds_required">Credentials REQUIRED to work properly</string>
+    <string name="notification_access_required">Notification access REQUIRED to work properly</string>
     <string name="limited_network">Limited Network</string>
     <!-- END permissions and warnings strings -->
 
@@ -136,6 +137,7 @@
     <string name="find_supported_mapis_many_title">%1 music apps detected</string>
     <string name="find_supported_mapis_summary">Play music in a supported app and it will appear here</string>
     <string name="unknown_mapi">Unknown app (pre SLS v1.2.3)</string>
+    <string name="notification_controller">Notification Controller</string>
     <!-- END mapis strings -->
 
     <!-- START options_prefs strings -->

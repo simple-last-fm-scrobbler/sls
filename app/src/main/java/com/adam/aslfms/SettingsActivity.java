@@ -1,7 +1,7 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
  * <p>
- * https://github.com/tgwizard/sls
+ * https://github.com/simple-last-fm-scrobbler/sls
  * <p>
  * Copyright 2011 Simple Last.fm Scrobbler Team
  * <p>
@@ -35,6 +35,7 @@ import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Menu;
@@ -42,6 +43,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.adam.aslfms.service.ControllerReceiverService;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.applemusic.NotificationService;
 import com.adam.aslfms.service.ScrobblingService;
@@ -122,6 +124,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         checkNetwork();
         permsCheck();
         credsCheck();
+
+        // TODO: MODIFY ME!!!
+        Log.e(TAG,"ControllerReceiverService starting..");
+        Intent myIntent = new Intent(this, ControllerReceiverService.class);
+        this.startService(myIntent);
+        Log.e(TAG,"ControllerReceiverService started.");
+        // TODO: MODIFY ME!!!
 
         // TODO: VERIFY EVERYTHING BELOW IS SAFE
         int v = Util.getAppVersionCode(this, getPackageName());
@@ -251,6 +260,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private void permsCheck() {
         //PERMISSION CHECK
+        if (!NotificationManagerCompat.getEnabledListenerPackages (getApplicationContext()).contains(getApplicationContext().getPackageName())) {
+            Toast.makeText(SettingsActivity.this, R.string.notification_access_required, Toast.LENGTH_LONG).show();
+            getApplicationContext().startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+        } else {
+
+        }
+        // external storage
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             try {
                 if (ContextCompat.checkSelfPermission(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -260,7 +276,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 Log.e(TAG, "Exception, READ_EXTERNAL_STORAGE. " + e);
             }
         }
-
+        // battery optimization
         try {
             if (ContextCompat.checkSelfPermission(SettingsActivity.this, Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS}, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);

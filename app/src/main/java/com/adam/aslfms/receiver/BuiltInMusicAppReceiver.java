@@ -271,26 +271,24 @@ public abstract class BuiltInMusicAppReceiver extends
 		CharSequence tr = bundle.getCharSequence("track");
 
 		// duration should be an Integer in seconds.
-
-		if(bundle.containsKey("duration")){
+		if (bundle.containsKey("duration")) {
 			Object tmp = bundle.get("duration");
 			if (tmp != null) {
-				if (tmp instanceof Long) {
+				if (tmp instanceof Double) {
 					try {
-						long du = bundle.getLong("duration");
-						// TODO: fix google play music track duration by using Android Audio Focus as a Tracking tool for current listening music.
-						b.setDuration(new BigDecimal(bundle.getLong("duration") /1000).intValueExact());
-						Log.d(TAG, "Long Integer: " + Long.toString(du));
+						double du = bundle.getDouble("duration");
+						b.setDuration(new BigDecimal(Math.round(bundle.getDouble("duration") / 1000)).intValueExact());
+						Log.d(TAG, "Double: " + du);
 					} catch (Exception e) {
-						Log.e(TAG, "duration: " + e);
+						Log.e(TAG, "dbl duration: " + e);
 					}
-				} else if (tmp instanceof Integer){
+				} else if (tmp instanceof Integer) {
 					try {
 						int du = bundle.getInt("duration");
-						b.setDuration(bundle.getInt("duration"));
-						Log.d(TAG, "Integer: " + Integer.toString(du));
+						b.setDuration(new BigDecimal(bundle.getInt("duration") / 1000).intValueExact());
+						Log.d(TAG, "Integer: " + du);
 					} catch (Exception e) {
-						Log.e(TAG, "duration: " + e);
+						Log.e(TAG, "int duration: " + e);
 					}
 				}
 			}

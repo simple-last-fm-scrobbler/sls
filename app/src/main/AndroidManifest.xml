@@ -18,7 +18,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
 
-        <!-- the start/launch activity -->
+        <!-- begin the start/launch activity -->
         <activity
             android:name=".SettingsActivity"
             android:icon="@drawable/ic_icon_full"
@@ -29,7 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <!-- end the start/launch activity -->
         <!-- other activities -->
         <activity
             android:name=".UserCredsListActivity"
@@ -96,8 +96,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SettingsActivity" />
         </activity>
-      
-        <!-- the services -->
+        <!-- end other activities -->
+        <!-- begin the services -->
         <service
             android:name=".service.ScrobblingService"
             android:enabled="true"
@@ -119,22 +119,23 @@
             </intent-filter>
         </service>
         <service
-            android:name=".service.ForegroundHide"
+            android:name=".service.ControllerReceiverService"
             android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".service.applemusic.NotificationService"
-            android:label="AppleNotificationListener"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-            android:process=":remote"
-            android:enabled="true"
-            android:exported="true">
+            android:exported="true"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService"/>
+                <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
         </service>
-
-        <!-- the receivers -->
+        <!-- end the services -->
+        <!-- begin the receivers -->
+        <receiver android:name=".receiver.GenericControllerReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.adam.aslfms.receiver.controller"/>
+            </intent-filter>
+        </receiver>
         <receiver
             android:name=".receiver.AndroidMusicReceiver"
             android:enabled="true"
@@ -332,6 +333,7 @@
                 <action android:name="com.orangebikelabs.orangesqueeze.playstatechanged" />
             </intent-filter>
         </receiver>
+        <!-- end the receivers -->
     </application>
 
 </manifest>

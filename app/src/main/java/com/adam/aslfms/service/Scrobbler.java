@@ -1,7 +1,7 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
  * <p/>
- * https://github.com/tgwizard/sls
+ * https://github.com/simple-last-fm-scrobbler/sls
  * <p/>
  * Copyright 2011 Simple Last.fm Scrobbler Team
  * <p/>
@@ -275,7 +275,7 @@ public class Scrobbler extends AbstractSubmitter {
                     insecConn.setDoOutput(true);
 
                     DataOutputStream outStream = new DataOutputStream(insecConn.getOutputStream());
-                    Log.e(TAG, baseObj.toString());
+                    Log.d(TAG, baseObj.toString());
                     outStream.write(baseObj.toString().getBytes("UTF-8"));
                     outStream.flush();
                     outStream.close();
@@ -305,7 +305,7 @@ public class Scrobbler extends AbstractSubmitter {
                     conn.setDoOutput(true);
 
                     DataOutputStream outStream = new DataOutputStream(conn.getOutputStream());
-                    Log.e(TAG, baseObj.toString());
+                    Log.d(TAG, baseObj.toString());
                     outStream.write(baseObj.toString().getBytes("UTF-8"));
                     outStream.flush();
                     outStream.close();

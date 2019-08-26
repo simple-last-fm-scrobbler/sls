@@ -158,7 +158,6 @@ public class NotificationBarService extends Service {
             Log.e(TAG, "got null intent");
             return;
         }
-        Log.e(TAG, "got intent");
         String action = i.getAction();
         Bundle extras = i.getExtras();
         if (action.equals(ACTION_NOTIFICATION_BAR_UPDATE)) {
