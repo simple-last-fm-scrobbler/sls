@@ -21,13 +21,13 @@ public class BootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Intent i = new Intent(context, NotificationBarService.class);
-            if (intent.getAction() == NOTIFICATION_RECEIVER) {
+            if (intent == null || intent.getAction() == NOTIFICATION_RECEIVER) {
                 i.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_UPDATE);
                 i.putExtra("track", "");
                 i.putExtra("artist", "");
                 i.putExtra("album", "");
                 i.putExtra("app_name", "");
-            } else if (intent.getAction() == NOTIFICATION_RECEIVER_WAKE){
+            } else if (intent.getAction() == NOTIFICATION_RECEIVER_WAKE) {
                 i.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_WAKE);
             }
             context.startService(i);
