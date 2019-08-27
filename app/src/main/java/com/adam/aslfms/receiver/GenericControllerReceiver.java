@@ -44,6 +44,8 @@ public class GenericControllerReceiver extends AbstractPlayStatusReceiver {
                     }
                 } catch (Exception e) {
                     Log.w(TAG, e.toString());
+                }
+                if (mMusicApi == null){
                     mMusicApi = MusicAPI.fromReceiver(ctx, ctx.getResources().getString(R.string.notification_controller), ctx.getPackageName(), null, false);
                     setMusicAPI(mMusicApi);
                 }
