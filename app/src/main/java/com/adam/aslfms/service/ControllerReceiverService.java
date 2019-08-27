@@ -14,11 +14,10 @@ import android.media.MediaMetadataRetriever;
 import android.media.RemoteControlClient;
 import android.media.RemoteController;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 
 import java.lang.ref.WeakReference;
@@ -26,6 +25,7 @@ import java.util.Set;
 
 @SuppressWarnings("deprecation")
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+@RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 public class ControllerReceiverService extends android.service.notification.NotificationListenerService implements RemoteController.OnClientUpdateListener {
 
     private static final String TAG = "ControllerReceiverSrvc";
