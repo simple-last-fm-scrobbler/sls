@@ -204,7 +204,7 @@ public class ControllerReceiverCallback {
         Log.d(TAG,"title "+track);
     }
 
-    public void broadcast(Context context, String artist, String track, String album, boolean playing, int duration, double position, String albumArtist, String player) {
+    public void broadcast(Context context, String artist, String track, String album, boolean playing, long duration, long position, String albumArtist, String player) {
         Intent localIntent = new Intent(GenericControllerReceiver.ACTION_INTENT);
         localIntent.setComponent(new ComponentName(context.getPackageName(),"com.adam.aslfms.receiver.GenericControllerReceiver"));
         localIntent.putExtra("artist", artist);
