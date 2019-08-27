@@ -10,10 +10,10 @@ script: "./gradlew clean assembleDebug"
 
 env:
   global:
-    - ANDROID_API=25
+    - ANDROID_API=26
     - ANDROID_BUILD_TOOLS=28.0.3
     - HIGHEST_API=29
-    - LOWEST_API=9
+    - LOWEST_API=14
 
 android:
   components:
