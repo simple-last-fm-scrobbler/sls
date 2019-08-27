@@ -143,14 +143,15 @@ public class ControllerReceiverService extends android.service.notification.Noti
             Log.d(TAG,"duration is Double");
             if (artist != null && !artist.isEmpty())
                 controllerReceiverCallback.broadcast(this, artist, track, album, isRemoteControllerPlaying, (Double) durationObject, position, albumArtist, null);
-        } else if (durationObject instanceof Integer) {
-            Log.d(TAG,"duration is Integer");
-            if (artist != null && !artist.isEmpty())
-                controllerReceiverCallback.broadcast(this, artist, track, album, isRemoteControllerPlaying, (Integer) durationObject, position, albumArtist, null);
-        } else if (durationObject instanceof Long)
+        } else if (durationObject instanceof Long) {
             Log.d(TAG,"duration is Long");
             if (artist != null && !artist.isEmpty())
                 controllerReceiverCallback.broadcast(this, artist, track, album, isRemoteControllerPlaying, (Long) durationObject, position, albumArtist, null);
+        } else if (durationObject instanceof Integer) {
+            Log.d(TAG, "duration is Integer");
+            if (artist != null && !artist.isEmpty())
+                controllerReceiverCallback.broadcast(this, artist, track, album, isRemoteControllerPlaying, (Integer) durationObject, position, albumArtist, null);
+        }
     }
 
     @Override
