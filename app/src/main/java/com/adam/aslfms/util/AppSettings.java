@@ -1,7 +1,7 @@
 /**
  * This file is part of Simple Last.fm Scrobbler.
  * <p/>
- * https://github.com/tgwizard/sls
+ * https://github.com/simple-last-fm-scrobbler/sls
  * <p/>
  * Copyright 2011 Simple Last.fm Scrobbler Team
  * <p/>
@@ -86,9 +86,6 @@ public class AppSettings {
 
     // Widget stuff
     private static final String KEY_WIDGET_ALSO_DISABLE_NP = "widget_also_disable_np";
-
-    private static final String KEY_APPLE_LISTENER_ENABLED = "apple_listener_enabled";
-    private static final String KEY_APPLE_REPEAT_ENABLED = "apple_repeat_enabled";
 
     private static final String KEY_THEME = "my_theme";
 
@@ -650,27 +647,6 @@ public class AppSettings {
     public boolean getWidgetAlsoDisableNP() {
         return prefs.getBoolean(KEY_WIDGET_ALSO_DISABLE_NP, false);
     }
-
-    public void setAppleListenerEnabled(boolean enabled) {
-        Editor e = prefs.edit();
-        e.putBoolean(KEY_APPLE_LISTENER_ENABLED, enabled);
-        e.commit();
-    }
-
-    public boolean getAppleListenerEnabled() {
-        return prefs.getBoolean(KEY_APPLE_LISTENER_ENABLED, false);
-    }
-
-    public void setAppleRepeatEnabled(boolean enabled) {
-        Editor e = prefs.edit();
-        e.putBoolean(KEY_APPLE_REPEAT_ENABLED, enabled);
-        e.commit();
-    }
-
-    public boolean getAppleRepeatEnabled() {
-        return prefs.getBoolean(KEY_APPLE_REPEAT_ENABLED, false);
-    }
-
 
     public SecretKey getSecKey() {
         try {

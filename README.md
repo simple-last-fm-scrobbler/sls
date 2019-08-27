@@ -96,6 +96,8 @@ Before the release of a new version of SLS, it will be available here to test fo
  * Read Notifications to Scrobble Music Also
  * Use Android audio focus detection to manage scrobbling.
  * Slow overhaul of the app to keep simplicity and allow for dynamic feature/functionality addition.
+ * Replace legacy user/pass with OAuth dance
+ * Possibly style intents and notifications similar to [https://github.com/peterjosling/scroball](https://github.com/peterjosling/scroball)
 
 3. #### Core Feature Requests
 

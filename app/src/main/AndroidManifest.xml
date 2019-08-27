@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -17,8 +18,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-
-        <!-- the start/launch activity -->
+        <!-- begin the start/launch activity -->
         <activity
             android:name=".SettingsActivity"
             android:icon="@drawable/ic_icon_full"
@@ -29,7 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
+        <!-- end the start/launch activity -->
         <!-- other activities -->
         <activity
             android:name=".UserCredsListActivity"
@@ -75,29 +75,22 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SettingsActivity" />
         </activity>
-      
-        <activity android:name=".AppleMusicOptionsActivity"
+        <activity
+            android:name=".ViewCorrectionRulesActivity"
             android:parentActivityName=".SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SettingsActivity" />
         </activity>
-    
-        <activity android:name=".ViewCorrectionRulesActivity"
+        <activity
+            android:name=".ChangeThemeActivity"
             android:parentActivityName=".SettingsActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SettingsActivity" />
         </activity>
-
-        <activity android:name=".ChangeThemeActivity"
-            android:parentActivityName=".SettingsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".SettingsActivity" />
-        </activity>
-      
-        <!-- the services -->
+        <!-- end other activities -->
+        <!-- begin the services -->
         <service
             android:name=".service.ScrobblingService"
             android:enabled="true"
@@ -111,30 +104,44 @@
                 <action android:name="com.adam.aslfms.service.copy" />
             </intent-filter>
         </service>
-        <service android:name=".service.NotificationBarService"
+        <service
+            android:name=".service.NotificationBarService"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.adam.aslfms.service.notificationbarupdate" />
+                <action android:name="com.adam.aslfms.service.notificationwake" />
             </intent-filter>
         </service>
         <service
-            android:name=".service.ForegroundHide"
+            android:name=".service.ControllerReceiverService"
             android:enabled="true"
-            android:exported="true" />
-        <service
-            android:name=".service.applemusic.NotificationService"
-            android:label="AppleNotificationListener"
-            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
-            android:process=":remote"
+            android:exported="true"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" />
+            </intent-filter>
+        </service>
+        <!-- end the services -->
+        <!-- begin the receivers -->
+                <receiver
+            android:name=".receiver.BootReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="com.adam.aslfms.notificationreceiver" />
+                <action android:name="com.adam.aslfms.notificationreceiverwake" />
             </intent-filter>
-        </service>
-
-        <!-- the receivers -->
+        </receiver>
+        <receiver
+            android:name=".receiver.GenericControllerReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.adam.aslfms.receiver.controller" />
+            </intent-filter>
+        </receiver>
         <receiver
             android:name=".receiver.AndroidMusicReceiver"
             android:enabled="true"
@@ -322,16 +329,19 @@
                 <action android:name="com.android.mediacenter.metachanged" />
             </intent-filter>
         </receiver>
-        <receiver android:name=".receiver.OrangeSqueezeReceiver"
+        <receiver
+            android:name=".receiver.OrangeSqueezeReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
+
                 <!-- https://www.orangebikelabs.com/products/orangesqueeze/broadcast-intents -->
                 <!-- ISSUE! SEE playername intent, hence, won't be taking the time to track multiple players -->
                 <action android:name="com.orangebikelabs.orangesqueeze.metachanged" />
                 <action android:name="com.orangebikelabs.orangesqueeze.playstatechanged" />
             </intent-filter>
         </receiver>
+        <!-- end the receiver -->
     </application>
 
 </manifest>
