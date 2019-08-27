@@ -3,6 +3,8 @@ https://github.com/simple-last-fm-scrobbler/sls
 For more details.
 
 - 1.5.8 (2018-6-24)
+  * Notification Listener
+  * Notification Fixes
   * Fixes (thanks to G00fY2)
   * Features (thanks to 4-Eyes)
   * Bugs & Languages fixes thanks to many

@@ -43,9 +43,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.adam.aslfms.service.ControllerReceiverService;
+import com.adam.aslfms.receiver.BootReceiver;
 import com.adam.aslfms.service.NetApp;
-import com.adam.aslfms.service.applemusic.NotificationService;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
@@ -125,13 +124,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         permsCheck();
         credsCheck();
 
-        // TODO: MODIFY ME!!!
-        Log.e(TAG,"ControllerReceiverService starting..");
-        Intent myIntent = new Intent(this, ControllerReceiverService.class);
-        this.startService(myIntent);
-        Log.e(TAG,"ControllerReceiverService started.");
-        // TODO: MODIFY ME!!!
-
         // TODO: VERIFY EVERYTHING BELOW IS SAFE
         int v = Util.getAppVersionCode(this, getPackageName());
         if (settings.getWhatsNewViewedVersion() < v) {
@@ -140,11 +132,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             mDb.alterDataBaseOnce(); // version 1.5.8 only!
         }
 
-        // Start Apple listening service if applicabble
-        if (settings.getAppleListenerEnabled()) {
-            Intent intent = new Intent(this, NotificationService.class);
-            startService(intent);
-        }
+        // Start listening service if applicable
+        Intent localIntent = new Intent(BootReceiver.NOTIFICATION_RECEIVER);
+        this.sendBroadcast(localIntent);
     }
 
     @Override
@@ -260,11 +250,12 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private void permsCheck() {
         //PERMISSION CHECK
-        if (!NotificationManagerCompat.getEnabledListenerPackages (getApplicationContext()).contains(getApplicationContext().getPackageName())) {
-            Toast.makeText(SettingsActivity.this, R.string.notification_access_required, Toast.LENGTH_LONG).show();
-            getApplicationContext().startActivity(new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS").addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        } else {
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            if (!NotificationManagerCompat.getEnabledListenerPackages(this).contains(getPackageName())) {        //ask for permission
+                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                startActivity(intent);
+            }
         }
         // external storage
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

@@ -26,6 +26,7 @@ public class NotificationBarService extends Service {
     private static final String TAG = "NotificationBarService";
 
     public static final String ACTION_NOTIFICATION_BAR_UPDATE = "com.adam.aslfms.service.notificationbarupdate";
+    public static final String ACTION_NOTIFICATION_BAR_WAKE = "com.adam.aslfms.service.notificationwake";
 
     private AppSettings settings;
     private ScrobblesDatabase mDb;
@@ -108,7 +109,7 @@ public class NotificationBarService extends Service {
     @Override
     public int onStartCommand(Intent i, int flags, int startId) {
         handleCommand(i, startId);
-        if (settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
+        if (settings.isActiveAppEnabled(Util.checkPower(mCtx)) && i.getAction() == ACTION_NOTIFICATION_BAR_UPDATE) {
             if (track != null) {
                 String ar = artist;
                 String tr = track;
@@ -165,6 +166,8 @@ public class NotificationBarService extends Service {
             artist = extras.getString("artist");
             album = extras.getString("album");
             app_name = extras.getString("app_name");
+        } else if (action.equals(ACTION_NOTIFICATION_BAR_WAKE)){
+
         }
     }
 }

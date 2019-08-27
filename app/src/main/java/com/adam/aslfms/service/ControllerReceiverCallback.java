@@ -12,7 +12,6 @@ import android.media.session.MediaController;
 import android.media.session.MediaSessionManager;
 import android.media.session.PlaybackState;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.RequiresApi;
@@ -31,7 +30,6 @@ public class ControllerReceiverCallback {
 
     private static final String TAG = "ControllerReceiverCall";
     private static MediaSessionManager.OnActiveSessionsChangedListener sessionListener;
-    private final MetadataUpdateListener metadataListener;
     private MediaController controller;
     private String mPlayer = null;
     private static WeakReference<MediaController> sController = new WeakReference<>(null);
@@ -39,8 +37,8 @@ public class ControllerReceiverCallback {
     private Handler handler = new Handler();
     private Bitmap lastBitmap;
 
-    public ControllerReceiverCallback(MetadataUpdateListener metadataListener) {
-        this.metadataListener = metadataListener;
+    public ControllerReceiverCallback() {
+
     }
 
 
@@ -132,7 +130,6 @@ public class ControllerReceiverCallback {
         final Boolean[] playing = new Boolean[]{isPlaying};
         handler.postDelayed(() -> {
             mPlayer = controllers[0].getPackageName();
-            Log.e(TAG, "mPlayer: " + mPlayer);
             MediaMetadata metadata = controllers[0].getMetadata();
             PlaybackState playbackState = controllers[0].getPlaybackState();
             if (metadata == null)
@@ -185,11 +182,11 @@ public class ControllerReceiverCallback {
             String player = controllers[0].getPackageName();
             if ("com.aimp.player".equals(player)) // Aimp is awful
                 position = -1;
-            broadcast(context, artist, track, album, playing[0], duration, position, albumArtist);
+            broadcast(context, artist, track, album, playing[0], duration, position, albumArtist, player);
         }, 100);
     }
 
-    public void broadcast(Context context, String artist, String track, String album, boolean playing, int duration, long position, String albumArtist) {
+    public void broadcast(Context context, String artist, String track, String album, boolean playing, int duration, long position, String albumArtist, String player) {
         Intent localIntent = new Intent(GenericControllerReceiver.ACTION_INTENT);
         localIntent.putExtra("artist", artist);
         localIntent.putExtra("track", track);
@@ -197,6 +194,8 @@ public class ControllerReceiverCallback {
         localIntent.putExtra("albumArtist", albumArtist);
         localIntent.putExtra("playing", playing);
         localIntent.putExtra("duration", duration);
+        if (mPlayer == null)
+            mPlayer = player;
         localIntent.putExtra("player", mPlayer);
         Log.d("title", track);
         if (position != -1)
@@ -205,7 +204,7 @@ public class ControllerReceiverCallback {
         Log.d(TAG,"title "+track);
     }
 
-    public void broadcast(Context context, String artist, String track, String album, boolean playing, double duration, long position, String albumArtist) {
+    public void broadcast(Context context, String artist, String track, String album, boolean playing, double duration, long position, String albumArtist, String player) {
         Intent localIntent = new Intent(GenericControllerReceiver.ACTION_INTENT);
         localIntent.putExtra("artist", artist);
         localIntent.putExtra("track", track);
@@ -213,6 +212,8 @@ public class ControllerReceiverCallback {
         localIntent.putExtra("albumArtist", albumArtist);
         localIntent.putExtra("playing", playing);
         localIntent.putExtra("duration", duration);
+        if (mPlayer == null)
+            mPlayer = player;
         localIntent.putExtra("player", mPlayer);
         Log.d("title", track);
         if (position != -1)
@@ -261,9 +262,5 @@ public class ControllerReceiverCallback {
             }
             lastBitmap = artwork;
         }
-    }
-
-    public interface MetadataUpdateListener {
-        void onMetadataUpdated(Bundle metadata);
     }
 }

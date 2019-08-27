@@ -29,21 +29,16 @@ public class GenericControllerReceiver extends AbstractPlayStatusReceiver{
                         playerPackage = bundle.getString("player");
                         if (playerPackage != null && !playerPackage.isEmpty()) {
                             PackageManager packageManager = ctx.getPackageManager();
-                            try {
-                                playerName = packageManager.getApplicationLabel(packageManager.getApplicationInfo(playerPackage, PackageManager.GET_META_DATA)).toString();
-                            } catch (Exception e) {
-                                Log.e(TAG, e.toString());
-                            }
-                            MusicAPI mMusicApi = MusicAPI.fromReceiver(ctx, playerName, playerPackage, null, false);
+                            playerName = packageManager.getApplicationLabel(packageManager.getApplicationInfo(playerPackage, PackageManager.GET_META_DATA)).toString();
+                            mMusicApi = MusicAPI.fromReceiver(ctx, playerName, playerPackage, null, false);
                             setMusicAPI(mMusicApi);
                         }
                     }
                 } catch (Exception e) {
                     Log.w(TAG, e.toString());
+                    mMusicApi = MusicAPI.fromReceiver(ctx, ctx.getResources().getString(R.string.notification_controller), ctx.getPackageName(), null, false);
+                    setMusicAPI(mMusicApi);
                 }
-                Log.w(TAG, ctx.getPackageName());
-                mMusicApi = MusicAPI.fromReceiver(ctx, ctx.getResources().getString(R.string.notification_controller), ctx.getPackageName(), null, false);
-                setMusicAPI(mMusicApi);
                 if (bundle.containsKey("track")) {
                     Track.Builder b = new Track.Builder();
                     b.setMusicAPI(mMusicApi);

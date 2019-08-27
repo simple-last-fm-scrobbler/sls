@@ -26,7 +26,7 @@ import java.util.Set;
 
 @SuppressWarnings("deprecation")
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class ControllerReceiverService extends android.service.notification.NotificationListenerService implements RemoteController.OnClientUpdateListener, ControllerReceiverCallback.MetadataUpdateListener {
+public class ControllerReceiverService extends android.service.notification.NotificationListenerService implements RemoteController.OnClientUpdateListener {
 
     private static final String TAG = "ControllerReceiverSrvc";
     private static WeakReference<RemoteController> mRemoteController = new WeakReference<>(null);
@@ -52,7 +52,7 @@ public class ControllerReceiverService extends android.service.notification.Noti
             if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mRemoteController.get())) {
                 throw new RuntimeException("Error while registering RemoteController!");
             }
-            controllerReceiverCallback = new ControllerReceiverCallback(this);
+            controllerReceiverCallback = new ControllerReceiverCallback();
         }
     }
 
@@ -126,15 +126,15 @@ public class ControllerReceiverService extends android.service.notification.Noti
         if (durationObject instanceof Double) {
             Log.d(TAG,"duration is Double");
             if (artist != null && !artist.isEmpty())
-                controllerReceiverCallback.broadcast(this, artist, track, album, isRemoteControllerPlaying, (Double) durationObject, position,albumArtist);
+                controllerReceiverCallback.broadcast(this, artist, track, album, isRemoteControllerPlaying, (Double) durationObject, position, albumArtist, null);
         } else if (durationObject instanceof Integer) {
             Log.d(TAG,"duration is Integer");
             if (artist != null && !artist.isEmpty())
-                controllerReceiverCallback.broadcast(this, artist, track, album, isRemoteControllerPlaying, (Integer) durationObject, position, albumArtist);
+                controllerReceiverCallback.broadcast(this, artist, track, album, isRemoteControllerPlaying, (Integer) durationObject, position, albumArtist, null);
         } else if (durationObject instanceof Long)
             Log.d(TAG,"duration is Long");
             if (artist != null && !artist.isEmpty())
-                controllerReceiverCallback.broadcast(this, artist, track, album, isRemoteControllerPlaying, (Long) durationObject, position, albumArtist);
+                controllerReceiverCallback.broadcast(this, artist, track, album, isRemoteControllerPlaying, (Long) durationObject, position, albumArtist, null);
     }
 
     @Override
@@ -165,10 +165,6 @@ public class ControllerReceiverService extends android.service.notification.Noti
         Bitmap artwork = metadataEditor.getBitmap(MediaMetadataEditor.BITMAP_KEY_ARTWORK, null);
 
         controllerReceiverCallback.saveArtwork(this, artwork, artist, track, album);
-    }
-
-    @Override
-    public void onMetadataUpdated(Bundle metadata) {
     }
 
     // BEGIN listener stuff
