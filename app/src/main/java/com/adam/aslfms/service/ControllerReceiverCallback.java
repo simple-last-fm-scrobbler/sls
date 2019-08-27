@@ -18,6 +18,7 @@ import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.adam.aslfms.receiver.GenericControllerReceiver;
+import com.adam.aslfms.util.AppSettings;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -130,6 +131,8 @@ public class ControllerReceiverCallback {
         final Boolean[] playing = new Boolean[]{isPlaying};
         handler.postDelayed(() -> {
             mPlayer = controllers[0].getPackageName();
+            AppSettings appSettings = new AppSettings(context);
+            appSettings.setKeyActiveMusicNotificationApp(mPlayer);
             MediaMetadata metadata = controllers[0].getMetadata();
             PlaybackState playbackState = controllers[0].getPlaybackState();
             if (metadata == null)
@@ -195,8 +198,9 @@ public class ControllerReceiverCallback {
         localIntent.putExtra("albumArtist", albumArtist);
         localIntent.putExtra("playing", playing);
         localIntent.putExtra("duration", duration);
+        AppSettings appSettings = new AppSettings(context);
         if (mPlayer == null)
-            mPlayer = player;
+            mPlayer = appSettings.getKeyActiveMusicNotificationApp();
         localIntent.putExtra("player", mPlayer);
         Log.d("title", track);
         if (position != -1)
@@ -213,8 +217,9 @@ public class ControllerReceiverCallback {
         localIntent.putExtra("albumArtist", albumArtist);
         localIntent.putExtra("playing", playing);
         localIntent.putExtra("duration", duration);
+        AppSettings appSettings = new AppSettings(context);
         if (mPlayer == null)
-            mPlayer = player;
+            mPlayer = appSettings.getKeyActiveMusicNotificationApp();
         localIntent.putExtra("player", mPlayer);
         Log.d("title", track);
         if (position != -1)
@@ -232,8 +237,9 @@ public class ControllerReceiverCallback {
         localIntent.putExtra("albumArtist", albumArtist);
         localIntent.putExtra("playing", playing);
         localIntent.putExtra("duration", duration);
+        AppSettings appSettings = new AppSettings(context);
         if (mPlayer == null)
-            mPlayer = player;
+            mPlayer = appSettings.getKeyActiveMusicNotificationApp();
         localIntent.putExtra("player", mPlayer);
         Log.d("title", track);
         if (position != -1)

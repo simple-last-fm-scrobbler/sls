@@ -71,6 +71,8 @@ public class AppSettings {
     private static final String KEY_SCROBBLING_ENABLE = "enable_scrobbling";
     private static final String KEY_NOWPLAYING_ENABLE = "enable_nowplaying";
 
+    private static final String KEY_ACTIVE_MUSIC_NOTIFICATION_APP = "active_music_notification_app";
+
     private static final String KEY_AUTH_STATUS = "authstatus";
 
     private static final String KEY_WHATSNEW_VIEWED_VERSION = "whatsnew_viewed_version";
@@ -208,6 +210,16 @@ public class AppSettings {
     public void setListenBrainzApiUrl(NetApp napp, String s) {
         Editor e = prefs.edit();
         e.putString(napp.getSettingsPrefix() + KEY_LISTENBRAINZ_API_URL, s);
+        e.commit();
+    }
+
+    public String getKeyActiveMusicNotificationApp() {
+        return prefs.getString(KEY_ACTIVE_MUSIC_NOTIFICATION_APP, null);
+    }
+
+    public void setKeyActiveMusicNotificationApp(String s) {
+        Editor e = prefs.edit();
+        e.putString(KEY_ACTIVE_MUSIC_NOTIFICATION_APP, s);
         e.commit();
     }
 
