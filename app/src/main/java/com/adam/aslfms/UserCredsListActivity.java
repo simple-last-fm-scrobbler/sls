@@ -150,7 +150,11 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
         Intent service = new Intent(this, ScrobblingService.class);
         service.setAction(ScrobblingService.ACTION_CLEARCREDS);
         service.putExtra("clearall", true);
-        startService(service);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            startForegroundService(service);
+        } else {
+            startService(service);
+        }
     }
 
     private void update() {

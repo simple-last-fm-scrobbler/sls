@@ -14,11 +14,14 @@ import android.media.MediaMetadataRetriever;
 import android.media.RemoteControlClient;
 import android.media.RemoteController;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
+
+import com.adam.aslfms.util.NotificationCreator;
 
 import java.lang.ref.WeakReference;
 import java.util.Set;
@@ -54,10 +57,23 @@ public class ControllerReceiverService extends android.service.notification.Noti
             }
             controllerReceiverCallback = new ControllerReceiverCallback();
         }
+        Bundle extras = new Bundle();
+        extras.putString("track", track);
+        extras.putString("artist", artist);
+        extras.putString("album", album);
+        extras.putString("app_name", albumArtist);
+        this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, this));
+
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Bundle extras = new Bundle();
+        extras.putString("track", track);
+        extras.putString("artist", artist);
+        extras.putString("album", album);
+        extras.putString("app_name", albumArtist);
+        this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, this));
         return START_STICKY;
     }
 

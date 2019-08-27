@@ -11,15 +11,23 @@ import com.adam.aslfms.util.Util;
 
 import java.math.BigDecimal;
 
-public class GenericControllerReceiver extends AbstractPlayStatusReceiver{
+public class GenericControllerReceiver extends AbstractPlayStatusReceiver {
     public static final String ACTION_INTENT = "com.adam.aslfms.receiver.controller";
     static final String APP_NAME = "GenericController";
     static final String TAG = "GenControllerReceiver";
 
     private MusicAPI mMusicApi = null;
 
+    public void onReceive(Context ctx, String action, Bundle bundle) {
+        parseData(ctx, action, bundle);
+    }
+
     @Override
     protected void parseIntent(Context ctx, String action, Bundle bundle) throws IllegalArgumentException {
+        parseData(ctx, action, bundle);
+    }
+
+    private void parseData(Context ctx, String action, Bundle bundle){
         String playerPackage = null;
         String playerName = null;
         try {
@@ -59,6 +67,14 @@ public class GenericControllerReceiver extends AbstractPlayStatusReceiver{
                                     Log.d(TAG, "Double: " + du);
                                 } catch (Exception e) {
                                     Log.e(TAG, "dbl duration: " + e);
+                                }
+                            } else if (tmp instanceof Long) {
+                                try {
+                                    long du = bundle.getLong("duration");
+                                    b.setDuration(new BigDecimal(Math.round(bundle.getLong("duration") / 1000)).intValueExact());
+                                    Log.d(TAG, "Long: " + du);
+                                } catch (Exception e) {
+                                    Log.e(TAG, "long duration: " + e);
                                 }
                             } else if (tmp instanceof Integer) {
                                 try {

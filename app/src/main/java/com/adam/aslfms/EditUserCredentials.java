@@ -23,6 +23,7 @@ package com.adam.aslfms;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.preference.DialogPreference;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -164,7 +165,12 @@ public class EditUserCredentials extends DialogPreference {
                     settings.setSecureSocketLibreFm(mNetApp, mLibreFmSecureSocket.isChecked());
                 }
             }
-            getContext().startService(service);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                getContext().startForegroundService(service);
+            } else {
+                getContext().startService(service);
+            }
         }
     }
 

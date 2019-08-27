@@ -188,6 +188,25 @@ public class ControllerReceiverCallback {
 
     public void broadcast(Context context, String artist, String track, String album, boolean playing, int duration, long position, String albumArtist, String player) {
         Intent localIntent = new Intent(GenericControllerReceiver.ACTION_INTENT);
+        localIntent.setComponent(new ComponentName(context.getPackageName(),"com.adam.aslfms.receiver.GenericControllerReceiver"));
+        localIntent.putExtra("artist", artist);
+        localIntent.putExtra("track", track);
+        localIntent.putExtra("album", album);
+        localIntent.putExtra("albumArtist", albumArtist);
+        localIntent.putExtra("playing", playing);
+        localIntent.putExtra("duration", duration);
+        if (mPlayer == null)
+            mPlayer = player;
+        localIntent.putExtra("player", mPlayer);
+        Log.d("title", track);
+        if (position != -1)
+            localIntent.putExtra("position", position);
+        Log.d(TAG,"title "+track);
+    }
+
+    public void broadcast(Context context, String artist, String track, String album, boolean playing, int duration, double position, String albumArtist, String player) {
+        Intent localIntent = new Intent(GenericControllerReceiver.ACTION_INTENT);
+        localIntent.setComponent(new ComponentName(context.getPackageName(),"com.adam.aslfms.receiver.GenericControllerReceiver"));
         localIntent.putExtra("artist", artist);
         localIntent.putExtra("track", track);
         localIntent.putExtra("album", album);
@@ -206,6 +225,7 @@ public class ControllerReceiverCallback {
 
     public void broadcast(Context context, String artist, String track, String album, boolean playing, double duration, long position, String albumArtist, String player) {
         Intent localIntent = new Intent(GenericControllerReceiver.ACTION_INTENT);
+        localIntent.setComponent(new ComponentName(context.getPackageName(),"com.adam.aslfms.receiver.GenericControllerReceiver"));
         localIntent.putExtra("artist", artist);
         localIntent.putExtra("track", track);
         localIntent.putExtra("album", album);

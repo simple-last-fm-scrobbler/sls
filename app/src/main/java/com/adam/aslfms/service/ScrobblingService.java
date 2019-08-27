@@ -33,15 +33,12 @@ import android.widget.Toast;
 import com.adam.aslfms.R;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.InternalTrackTransmitter;
+import com.adam.aslfms.util.NotificationCreator;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.enums.AdvancedOptionsWhen;
 import com.adam.aslfms.util.enums.PowerOptions;
-
-import com.adam.aslfms.service.NotificationBarService;
-
-import java.net.Inet4Address;
 
 /**
  * @author tgwizard
@@ -50,6 +47,7 @@ public class ScrobblingService extends Service {
 
     private static final String TAG = "ScrobblingService";
 
+    public static final String ACTION_START_SCROBBLER_SERVICE = "com.adam.aslfms.service.startscrobbler";
     public static final String ACTION_AUTHENTICATE = "com.adam.aslfms.service.authenticate";
     public static final String ACTION_CLEARCREDS = "com.adam.aslfms.service.clearcreds";
     public static final String ACTION_JUSTSCROBBLE = "com.adam.aslfms.service.justscrobble";
@@ -85,6 +83,19 @@ public class ScrobblingService extends Service {
         mDb = new ScrobblesDatabase(this);
         mDb.open();
         mNetManager = new NetworkerManager(this, mDb);
+        Bundle extras = new Bundle();
+        if (mCurrentTrack != null) {
+            extras.putString("track", mCurrentTrack.getTrack());
+            extras.putString("artist", mCurrentTrack.getArtist());
+            extras.putString("album", mCurrentTrack.getAlbum());
+            extras.putString("app_name", mCurrentTrack.getMusicAPI().getName());
+        } else {
+            extras.putString("track", "");
+            extras.putString("artist", "");
+            extras.putString("album", "");
+            extras.putString("app_name", "");
+        }
+        this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, mCtx));
     }
 
     @Override
@@ -95,6 +106,19 @@ public class ScrobblingService extends Service {
     @Override
     public int onStartCommand(Intent i, int flags, int startId) {
         handleCommand(i, startId);
+        Bundle extras = new Bundle();
+        if (mCurrentTrack != null) {
+            extras.putString("track", mCurrentTrack.getTrack());
+            extras.putString("artist", mCurrentTrack.getArtist());
+            extras.putString("album", mCurrentTrack.getAlbum());
+            extras.putString("app_name", mCurrentTrack.getMusicAPI().getName());
+        } else {
+            extras.putString("track", "");
+            extras.putString("artist", "");
+            extras.putString("album", "");
+            extras.putString("app_name", "");
+        }
+        this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, mCtx));
         return Service.START_STICKY;
     }
 
@@ -105,7 +129,9 @@ public class ScrobblingService extends Service {
         }
         String action = i.getAction();
         Bundle extras = i.getExtras();
-        if (action.equals(ACTION_CLEARCREDS)) {
+        if (action == null || action.equals(ACTION_START_SCROBBLER_SERVICE )) {
+            //
+        } else if (action.equals(ACTION_CLEARCREDS)) {
             if (extras.getBoolean("clearall", false)) {
                 mNetManager.launchClearAllCreds();
             } else {
