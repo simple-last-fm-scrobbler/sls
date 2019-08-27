@@ -133,7 +133,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
 
         // Start listening service if applicable
-        Intent localIntent = new Intent(BootReceiver.NOTIFICATION_RECEIVER);
+        Intent localIntent = new Intent(BootReceiver.NOTIFICATION_RECEIVER_WAKE);
         this.sendBroadcast(localIntent);
     }
 
