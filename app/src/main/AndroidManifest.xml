@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:allowBackup="true"
@@ -96,6 +97,7 @@
             android:enabled="true"
             android:exported="false">
             <intent-filter>
+                <action android:name="com.adam.aslfms.service.startscrobbler" />
                 <action android:name="com.adam.aslfms.service.playstatechanged" />
                 <action android:name="com.adam.aslfms.service.authenticate" />
                 <action android:name="com.adam.aslfms.service.clearcreds" />
@@ -110,13 +112,12 @@
             android:exported="false">
             <intent-filter>
                 <action android:name="com.adam.aslfms.service.notificationbarupdate" />
-                <action android:name="com.adam.aslfms.service.notificationwake" />
             </intent-filter>
         </service>
         <service
             android:name=".service.ControllerReceiverService"
             android:enabled="true"
-            android:exported="true"
+            android:exported="false"
             android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE">
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
@@ -127,11 +128,9 @@
                 <receiver
             android:name=".receiver.BootReceiver"
             android:enabled="true"
-            android:exported="true">
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="com.adam.aslfms.notificationreceiver" />
-                <action android:name="com.adam.aslfms.notificationreceiverwake" />
             </intent-filter>
         </receiver>
         <receiver

@@ -23,6 +23,7 @@ package com.adam.aslfms.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -121,7 +122,11 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
             InternalTrackTransmitter.appendTrack(mTrack);
 
             // start/call the Scrobbling Service
-            context.startService(mService);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(mService);
+            } else {
+                context.startService(mService);
+            }
         } catch (IllegalArgumentException e) {
             Log.i(TAG, "Got a bad track from: "
                     + ((mMusicAPI == null) ? "null" : mMusicAPI.getName())

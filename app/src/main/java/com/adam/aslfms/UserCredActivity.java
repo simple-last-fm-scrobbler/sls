@@ -23,8 +23,6 @@ package com.adam.aslfms;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
@@ -142,7 +140,11 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
         Intent service = new Intent(this, ScrobblingService.class);
         service.setAction(ScrobblingService.ACTION_CLEARCREDS);
         service.putExtra("netapp", mNetApp.getIntentExtraValue());
-        startService(service);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            this.startForegroundService(service);
+        } else {
+            this.startService(service);
+        }
     }
 
     private void update() {

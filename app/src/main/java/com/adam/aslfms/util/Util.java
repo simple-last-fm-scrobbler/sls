@@ -24,8 +24,8 @@ package com.adam.aslfms.util;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -33,6 +33,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
@@ -51,6 +52,7 @@ import com.adam.aslfms.util.enums.NetworkOptions;
 import com.adam.aslfms.util.enums.PowerOptions;
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -208,7 +210,11 @@ public class Util {
             Intent intent = new Intent(ctx, ScrobblingService.class);
             intent.setAction(ScrobblingService.ACTION_JUSTSCROBBLE);
             intent.putExtra("netapp", napp.getIntentExtraValue());
-            ctx.startService(intent);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                ctx.startForegroundService(intent);
+            } else {
+                ctx.startService(intent);
+            }
         } else {
             Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
                     Toast.LENGTH_LONG).show();
@@ -220,7 +226,11 @@ public class Util {
             Intent service = new Intent(ctx, ScrobblingService.class);
             service.setAction(ScrobblingService.ACTION_JUSTSCROBBLE);
             service.putExtra("scrobbleall", true);
-            ctx.startService(service);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                ctx.startForegroundService(service);
+            } else {
+                ctx.startService(service);
+            }
         } else {
             Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
                     Toast.LENGTH_LONG).show();
@@ -232,7 +242,11 @@ public class Util {
         try {
             Intent service = new Intent(ctx, ScrobblingService.class);
             service.setAction(ScrobblingService.ACTION_HEART);
-            ctx.startService(service);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                ctx.startForegroundService(service);
+            } else {
+                ctx.startService(service);
+            }
         } catch (Exception e) {
             Toast.makeText(ctx, ctx.getString(R.string.no_heart_track),
                     Toast.LENGTH_LONG).show();
@@ -244,7 +258,11 @@ public class Util {
         try {
             Intent service = new Intent(ctx, ScrobblingService.class);
             service.setAction(ScrobblingService.ACTION_COPY);
-            ctx.startService(service);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                ctx.startForegroundService(service);
+            } else {
+                ctx.startService(service);
+            }
         } catch (Exception e) {
             Toast.makeText(ctx, ctx.getString(R.string.no_copy_track),
                     Toast.LENGTH_LONG).show();
@@ -441,6 +459,21 @@ public class Util {
             nManager.notify(notID, builder.build());
         } catch (Exception e) {
             Log.d(TAG, "Phone Notification failed. " + e);
+        }
+    }
+
+    public static void sendImplicitBroadcast(Context ctxt, Intent i) {
+        PackageManager pm=ctxt.getPackageManager();
+        List<ResolveInfo> matches=pm.queryBroadcastReceivers(i, 0);
+
+        for (ResolveInfo resolveInfo : matches) {
+            Intent explicit=new Intent(i);
+            ComponentName cn=
+                    new ComponentName(resolveInfo.activityInfo.applicationInfo.packageName,
+                            resolveInfo.activityInfo.name);
+
+            explicit.setComponent(cn);
+            ctxt.sendBroadcast(explicit);
         }
     }
 }

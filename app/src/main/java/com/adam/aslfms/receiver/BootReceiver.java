@@ -4,38 +4,45 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 
 import com.adam.aslfms.service.ControllerReceiverCallback;
 import com.adam.aslfms.service.ControllerReceiverService;
 import com.adam.aslfms.service.NotificationBarService;
+import com.adam.aslfms.service.ScrobblingService;
 
 public class BootReceiver extends BroadcastReceiver {
 
     private ControllerReceiverCallback controllerCallback = null;
     private static final String TAG = "BootReceiver";
 
-    public static final String NOTIFICATION_RECEIVER = "com.adam.aslfms.notificationreceiver";
-    public static final String NOTIFICATION_RECEIVER_WAKE = "com.adam.aslfms.notificationreceiverwake";
+    public static final String SYSTEM_ACTION = "android.intent.action.BOOT_COMPLETED";
 
     @Override
     public void onReceive(Context context, Intent intent) {
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Log.d(TAG, "launching");
             Intent i = new Intent(context, NotificationBarService.class);
-            if (intent == null || intent.getAction() == NOTIFICATION_RECEIVER) {
+            if (intent != null || intent.getAction() == SYSTEM_ACTION) {
                 i.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_UPDATE);
                 i.putExtra("track", "");
                 i.putExtra("artist", "");
                 i.putExtra("album", "");
                 i.putExtra("app_name", "");
-            } else if (intent.getAction() == NOTIFICATION_RECEIVER_WAKE) {
-                i.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_WAKE);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.startForegroundService(i);
+                    context.startForegroundService(new Intent(context, ScrobblingService.class));
+                    context.startForegroundService(new Intent(context, ControllerReceiverService.class));
+                } else {
+                    context.startService(i);
+                    context.startService(new Intent(context, ScrobblingService.class));
+                    context.startService(new Intent(context, ControllerReceiverService.class));
+                }
+                if (controllerCallback == null)
+                    controllerCallback = new ControllerReceiverCallback();
+                if (ControllerReceiverService.isListeningAuthorized(context))
+                    ControllerReceiverCallback.registerFallbackControllerCallback(context, controllerCallback);
             }
-            context.startService(i);
-            context.startService(new Intent(context, ControllerReceiverService.class));
-            if (controllerCallback == null)
-                controllerCallback = new ControllerReceiverCallback();
-            if (ControllerReceiverService.isListeningAuthorized(context))
-                ControllerReceiverCallback.registerFallbackControllerCallback(context, controllerCallback);
         }
     }
 }

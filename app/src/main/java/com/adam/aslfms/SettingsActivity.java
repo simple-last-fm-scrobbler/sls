@@ -43,8 +43,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.adam.aslfms.receiver.BootReceiver;
+import com.adam.aslfms.service.ControllerReceiverCallback;
+import com.adam.aslfms.service.ControllerReceiverService;
 import com.adam.aslfms.service.NetApp;
+import com.adam.aslfms.service.NotificationBarService;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
@@ -133,8 +135,29 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
 
         // Start listening service if applicable
-        Intent localIntent = new Intent(BootReceiver.NOTIFICATION_RECEIVER_WAKE);
-        this.sendBroadcast(localIntent);
+        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Log.d(TAG, "launching");
+            Intent i = new Intent(this, NotificationBarService.class);
+            i.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_UPDATE);
+            i.putExtra("track", "");
+            i.putExtra("artist", "");
+            i.putExtra("album", "");
+            i.putExtra("app_name", "");
+            Intent ii = new Intent(this, ScrobblingService.class);
+            ii.setAction(ScrobblingService.ACTION_START_SCROBBLER_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                this.startForegroundService(i);
+                this.startForegroundService(ii);
+                this.startForegroundService(new Intent(this, ControllerReceiverService.class));
+            } else {
+                this.startService(i);
+                this.startService(ii);
+                this.startService(new Intent(this, ControllerReceiverService.class));
+            }
+            ControllerReceiverCallback controllerCallback = new ControllerReceiverCallback();
+            if (ControllerReceiverService.isListeningAuthorized(this))
+                ControllerReceiverCallback.registerFallbackControllerCallback(this, controllerCallback);
+        }
     }
 
     @Override
