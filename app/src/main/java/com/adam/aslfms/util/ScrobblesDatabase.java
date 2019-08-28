@@ -508,14 +508,22 @@ public class ScrobblesDatabase {
 
     public void alterDataBaseOnce(){
         try {
-            mDb.execSQL("ALTER TABLE " + TABLENAME_SCROBBLES + " ADD COLUMN albumartist text");
-        } catch (Exception ignore) {
-            // may capture already exists albumartist
-        }
-        try {
-            mDb.execSQL("ALTER TABLE " + TABLENAME_SCROBBLES + " ADD COLUMN trackartist text");
+            try {
+                mDb.execSQL("SELECT trackartist FROM " + TABLENAME_SCROBBLES); // check if table column exists
+            } catch (Exception e){
+                mDb.execSQL("ALTER TABLE " + TABLENAME_SCROBBLES + " ADD COLUMN trackartist text DEFAULT '' not null"); // if column not exists create column
+            }
         } catch (Exception ignore) {
             // may capture already exists trackartist
+        }
+        try {
+            try {
+                mDb.execSQL("SELECT albumartist FROM " + TABLENAME_SCROBBLES); // check if table column exists
+            } catch (Exception e){
+                mDb.execSQL("ALTER TABLE " + TABLENAME_SCROBBLES + " ADD COLUMN albumartist text DEFAULT '' not null"); // if column not exists create column
+            }
+        } catch (Exception ignore) {
+            // may capture already exists albumartist
         }
     }
 }
