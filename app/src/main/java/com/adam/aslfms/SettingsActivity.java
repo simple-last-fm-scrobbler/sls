@@ -131,7 +131,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         if (settings.getWhatsNewViewedVersion() < v) {
             new WhatsNewDialog(this).show();
             settings.setWhatsNewViewedVersion(v);
-            mDb.alterDataBaseOnce(); // version 1.5.8 only!
+            mDb.alterDataBaseOnce(); // TODO: VERSION 1.5.8 only!
         }
 
         // Start listening service if applicable
