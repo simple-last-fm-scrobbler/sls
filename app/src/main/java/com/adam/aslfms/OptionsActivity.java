@@ -35,6 +35,7 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.enums.AdvancedOptions;
 import com.adam.aslfms.util.enums.AdvancedOptionsWhen;
 import com.adam.aslfms.util.enums.NetworkOptions;
@@ -48,6 +49,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
 
     private static final String KEY_BATTERY = "ao_battery";
     private static final String KEY_PLUGGED = "ao_plugged";
+    private static final String KEY_EXPORT_DB = "export_database";
 
     private AppSettings settings;
 
@@ -173,6 +175,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         private CheckBoxPreference also_on_complete;
         private ListPreference net;
         private CheckBoxPreference roaming;
+        private Preference exportdatabase;
 
         public void create() {
             createChooserPreference();
@@ -183,6 +186,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             createAOCPreference();
             createNetPreference();
             createRoamingPreference();
+            exportdatabase = findPreference(KEY_EXPORT_DB);
         }
 
         public boolean onClick(Preference pref) {
@@ -201,6 +205,8 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             } else if (pref == roaming) {
                 settings.setSubmitOnRoaming(power, roaming.isChecked());
                 return true;
+            } else if (pref == exportdatabase) {
+                Util.exportAllDatabases(getApplicationContext());
             }
             return false;
         }

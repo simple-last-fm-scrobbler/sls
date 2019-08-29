@@ -200,4 +200,8 @@
     <string name="profile_page">Profile page</string>
     <!-- END status strings -->
 
+    <!-- BEGIN developer options -->
+    <string name="developer_options">Developer Options</string>
+    <string name="export_database">Export Database</string>
+    <!-- BEGIN developer options -->
 </resources>

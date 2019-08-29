@@ -22,9 +22,10 @@
 package com.adam.aslfms.util;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -33,12 +34,13 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
+import android.os.Environment;
 import android.support.v4.app.NotificationCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -51,8 +53,12 @@ import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.enums.NetworkOptions;
 import com.adam.aslfms.util.enums.PowerOptions;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.channels.FileChannel;
 import java.util.Calendar;
-import java.util.List;
 import java.util.TimeZone;
 
 /**
@@ -63,7 +69,7 @@ import java.util.TimeZone;
 
 public class Util {
     private static final String TAG = "Util";
-
+    public final static String POPUP_CHANNEL_ID = "com.adam.aslfms.popup";
 
     /**
      * Returns whether the phone is running on battery or if it is connected to
@@ -441,39 +447,77 @@ public class Util {
         }
     }
 
+    public static void initChannels(Context context) {
+        if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            return;
+        }
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationChannel channel = new NotificationChannel(POPUP_CHANNEL_ID,
+                context.getString(R.string.app_name_short),
+                NotificationManager.IMPORTANCE_DEFAULT);
+        channel.setDescription(context.getString(R.string.app_name));
+        channel.setSound(null,null);
+        notificationManager.createNotificationChannel(channel);
+    }
+
     public static void myNotify(Context mCtx, String title, String content, int notID) {
         try {
+            initChannels(mCtx);
+            // notification builder
+            NotificationCompat.Builder notificationBuilder = null;
+            Notification notification = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                notificationBuilder = new NotificationCompat.Builder(mCtx, POPUP_CHANNEL_ID);
+                notificationBuilder.setCategory(Notification.CATEGORY_SERVICE);
+            } else {
+                notificationBuilder = new NotificationCompat.Builder(mCtx);
+            }
             Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
             PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-            NotificationCompat.Builder builder =
-                    new NotificationCompat.Builder(mCtx)
-                            .setContentTitle(title)
-                            .setSmallIcon(R.drawable.ic_icon)
-                            .setContentText(content)
-                            .setContentIntent(contentIntent);
+
+            notificationBuilder
+                    .setContentTitle(title)
+                    .setSmallIcon(R.drawable.ic_icon)
+                    .setContentText(content)
+                    .setContentIntent(contentIntent)
+                    .setColor(Color.RED)
+                    .setChannelId(POPUP_CHANNEL_ID);
+
             NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
             if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
-                builder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
+                notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
                         R.drawable.ic_icon));
             }
-            nManager.notify(notID, builder.build());
+            notification = notificationBuilder.build();
+            nManager.notify(notID, notification);
         } catch (Exception e) {
             Log.d(TAG, "Phone Notification failed. " + e);
         }
     }
 
-    public static void sendImplicitBroadcast(Context ctxt, Intent i) {
-        PackageManager pm=ctxt.getPackageManager();
-        List<ResolveInfo> matches=pm.queryBroadcastReceivers(i, 0);
-
-        for (ResolveInfo resolveInfo : matches) {
-            Intent explicit=new Intent(i);
-            ComponentName cn=
-                    new ComponentName(resolveInfo.activityInfo.applicationInfo.packageName,
-                            resolveInfo.activityInfo.name);
-
-            explicit.setComponent(cn);
-            ctxt.sendBroadcast(explicit);
+    private static void exportDB(String dbName, Context ctx){
+        File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+        File data = Environment.getDataDirectory();
+        FileChannel source=null;
+        FileChannel destination=null;
+        String currentDBPath = "/data/"+ ctx.getPackageName() +"/databases/"+dbName;
+        String backupDBPath = "simple.last.fm.scrobbler.db";
+        File currentDB = new File(data, currentDBPath);
+        File backupDB = new File(sd, backupDBPath);
+        try {
+            source = new FileInputStream(currentDB).getChannel();
+            destination = new FileOutputStream(backupDB).getChannel();
+            destination.transferFrom(source, 0, source.size());
+            source.close();
+            destination.close();
+            Util.myNotify(ctx, "Database Exported",backupDB.toString(),57109 );
+        } catch(IOException e) {
+            e.printStackTrace();
         }
+    }
+
+    public static void exportAllDatabases(Context ctx){
+        exportDB(ScrobblesDatabase.DATABASE_NAME, ctx);
     }
 }

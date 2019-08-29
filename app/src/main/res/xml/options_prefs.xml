@@ -14,4 +14,11 @@
         android:key="ao_plugged"
         android:title="@string/ao_plugged_title" />
 
+    <PreferenceCategory
+        android:key="developer_options"
+        android:title="@string/developer_options" />
+    <Preference
+        android:key="export_database"
+        android:title="@string/export_database" />
+
 </PreferenceScreen>

@@ -81,6 +81,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private Preference mCopyCurrentTrack;
     private Preference mChangeTheme;
 
+    int WRITE_EXTERNAL_STORAGE;
     int REQUEST_READ_STORAGE;
     int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 
@@ -131,7 +132,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         if (settings.getWhatsNewViewedVersion() < v) {
             new WhatsNewDialog(this).show();
             settings.setWhatsNewViewedVersion(v);
-            mDb.alterDataBaseOnce(); // TODO: VERSION 1.5.8 only!
+            mDb.rebuildDataBaseOnce(); // TODO: VERSION 1.5.8 only!
         }
 
         // Start listening service if applicable
@@ -279,6 +280,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                 startActivity(intent);
             }
+        }
+        // write storage
+        // external storage
+        try {
+            if (ContextCompat.checkSelfPermission(SettingsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE);
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Exception, WRITE_EXTERNAL_STORAGE. " + e);
         }
         // external storage
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {

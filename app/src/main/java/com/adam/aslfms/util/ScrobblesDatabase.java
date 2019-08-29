@@ -46,7 +46,7 @@ public class ScrobblesDatabase {
 
     private final Context mCtx;
 
-    private static final String DATABASE_NAME = "data";
+    public static final String DATABASE_NAME = "data";
     private static final int DATABASE_VERSION = 6;
 
     private static final String ENABLE_FOREIGN_KEYS = "PRAGMA foreign_keys = ON;";
@@ -504,26 +504,21 @@ public class ScrobblesDatabase {
         return rule;
     }
 
-    // TODO: DELETE ME AFTER !!!
-
-    public void alterDataBaseOnce(){
-        try {
-            try {
-                mDb.execSQL("SELECT trackartist FROM " + TABLENAME_SCROBBLES); // check if table column exists
-            } catch (Exception e){
-                mDb.execSQL("ALTER TABLE " + TABLENAME_SCROBBLES + " ADD COLUMN trackartist text DEFAULT '' not null"); // if column not exists create column
-            }
-        } catch (Exception ignore) {
-            // may capture already exists trackartist
-        }
-        try {
-            try {
-                mDb.execSQL("SELECT albumartist FROM " + TABLENAME_SCROBBLES); // check if table column exists
-            } catch (Exception e){
-                mDb.execSQL("ALTER TABLE " + TABLENAME_SCROBBLES + " ADD COLUMN albumartist text DEFAULT '' not null"); // if column not exists create column
-            }
-        } catch (Exception ignore) {
-            // may capture already exists albumartist
-        }
+    public void rebuildDataBaseOnce() {
+        mDb.execSQL("DROP TABLE IF EXISTS " + TABLENAME_SCROBBLES);
+        mDb.execSQL("DROP TABLE IF EXISTS " + TABLENAME_CORRNETAPP);
+        // TODO add migration of old rules if/when necessary
+        mDb.execSQL("DROP TABLE IF EXISTS " + TABLENAME_CORRECTION_RULES);
+        mDb.execSQL("DROP TABLE IF EXISTS " + TABLENAME_RULE_CHANGES);
+        mDb.execSQL("DROP TRIGGER IF EXISTS " + TRIGGER_NAME_CHECK_CORRECTION_RULES);
+        Log.d(TAG, "create sql scrobbles: " + DATABASE_CREATE_SCROBBLES);
+        Log.d(TAG, "create sql corrnetapp: " + DATABASE_CREATE_CORRNETAPP);
+        
+        mDb.execSQL(DATABASE_CREATE_SCROBBLES);
+        mDb.execSQL(DATABASE_CREATE_CORRNETAPP);
+        // Tables and trigger for updating scrobbles based on rules.
+        mDb.execSQL(DATABASE_CREATE_CORRECTION_RULES);
+        mDb.execSQL(DATABASE_CREATE_RULE_CHANGES);
+        mDb.execSQL(TRIGGGER_CREATE_CHECK_CORRECTION_RULES);
     }
 }
