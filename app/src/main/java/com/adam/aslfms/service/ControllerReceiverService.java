@@ -49,25 +49,22 @@ public class ControllerReceiverService extends android.service.notification.Noti
     @SuppressWarnings("NewApi")
     public void onCreate() {
         super.onCreate();
-        if (NotificationManagerCompat.getEnabledListenerPackages (getApplicationContext()).contains(getApplicationContext().getPackageName())) {
-            mRemoteController = new WeakReference<>(new RemoteController(this, this));
-            mRemoteController.get().setArtworkConfiguration(3000, 3000);
-            if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mRemoteController.get())) {
-                throw new RuntimeException("Error while registering RemoteController!");
-            }
-            controllerReceiverCallback = new ControllerReceiverCallback();
-        }
+
+        registerControllerReceiverCallback();
+
         Bundle extras = new Bundle();
         extras.putString("track", track);
         extras.putString("artist", artist);
         extras.putString("album", album);
         extras.putString("app_name", albumArtist);
         this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, this));
-
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+
+        registerControllerReceiverCallback();
+
         Bundle extras = new Bundle();
         extras.putString("track", track);
         extras.putString("artist", artist);
@@ -209,6 +206,23 @@ public class ControllerReceiverService extends android.service.notification.Noti
     public static boolean isNotificationListenerServiceEnabled(Context context) {
         Set<String> packageNames = NotificationManagerCompat.getEnabledListenerPackages(context);
         return packageNames.contains(context.getPackageName());
+    }
+
+    public void registerControllerReceiverCallback(){
+        ControllerReceiverCallback controllerCallback = new ControllerReceiverCallback();
+        if (controllerCallback == null)
+            controllerCallback = new ControllerReceiverCallback();
+        if (ControllerReceiverService.isListeningAuthorized(this))
+            ControllerReceiverCallback.registerFallbackControllerCallback(this, controllerCallback);
+
+        if (NotificationManagerCompat.getEnabledListenerPackages (getApplicationContext()).contains(getApplicationContext().getPackageName())) {
+            mRemoteController = new WeakReference<>(new RemoteController(this, this));
+            mRemoteController.get().setArtworkConfiguration(3000, 3000);
+            if (!((AudioManager) getSystemService(Context.AUDIO_SERVICE)).registerRemoteController(mRemoteController.get())) {
+                throw new RuntimeException("Error while registering RemoteController!");
+            }
+            controllerReceiverCallback = new ControllerReceiverCallback();
+        }
     }
 
     // END listener stuff

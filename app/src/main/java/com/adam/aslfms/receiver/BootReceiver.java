@@ -38,10 +38,6 @@ public class BootReceiver extends BroadcastReceiver {
                     context.startService(new Intent(context, ScrobblingService.class));
                     context.startService(new Intent(context, ControllerReceiverService.class));
                 }
-                if (controllerCallback == null)
-                    controllerCallback = new ControllerReceiverCallback();
-                if (ControllerReceiverService.isListeningAuthorized(context))
-                    ControllerReceiverCallback.registerFallbackControllerCallback(context, controllerCallback);
             }
         }
     }

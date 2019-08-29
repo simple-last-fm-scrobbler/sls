@@ -138,6 +138,7 @@
     <string name="find_supported_mapis_summary">Play music in a supported app and it will appear here</string>
     <string name="unknown_mapi">Unknown app (pre SLS v1.2.3)</string>
     <string name="notification_controller">Notification Controller</string>
+    <string name="new_music_app">New Music App Detected, Click Here</string>
     <!-- END mapis strings -->
 
     <!-- START options_prefs strings -->
@@ -177,6 +178,14 @@
     <string name="advanced_options_net_roaming_title">Roaming</string>
     <string name="advanced_options_net_roaming_summary_off">Won\'t submit data when roaming</string>
     <string name="advanced_options_net_roaming_summary_on">Will submit data when roaming</string>
+    <string name="notification_priority">Notification Priority</string>
+    <string-array name="notification_priority_list">
+        <item>min</item>
+        <item>low</item>
+        <item>default</item>
+        <item>high</item>
+        <item>max</item>
+    </string-array>
     <!-- END options_prefs strings -->
 
     <!-- START status strings -->

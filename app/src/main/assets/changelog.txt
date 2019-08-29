@@ -3,10 +3,13 @@ https://github.com/simple-last-fm-scrobbler/sls
 For more details.
 
 - 1.5.8 (2018-6-24)
+  * Notification Priority
+  * App Detected Notification
+  * Export db
+  * Dropped support for Gingerbread
   * Themes
-  * Many Apps Supported (API 21+)
+  * Many Apps Supported (API 21+) Lollipop
   * Notification Listener
-  * Notification Fixes
   * Fixes (thanks to G00fY2)
   * Features (thanks to 4-Eyes)
   * Bugs & Languages fixes thanks to many

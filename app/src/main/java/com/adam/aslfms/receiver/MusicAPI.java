@@ -29,6 +29,7 @@ import android.util.Log;
 
 import com.adam.aslfms.MusicAppsActivity;
 import com.adam.aslfms.R;
+import com.adam.aslfms.util.Util;
 
 /**
  * A class for representing and dealing different scrobbling APIs / music apps.
@@ -291,6 +292,7 @@ public class MusicAPI {
             if (id == -1) {
                 Log.e(TAG, "new mapi couldn't be inserted into db");
             } else {
+                Util.myNotify(ctx, name, ctx.getString(R.string.new_music_app), 12473, MusicAppsActivity.class);
                 Log.d(TAG, "new mapiinserted into db");
             }
 

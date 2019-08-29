@@ -27,6 +27,7 @@ import android.os.Build;
 import android.util.Log;
 
 import com.adam.aslfms.R;
+import com.adam.aslfms.SettingsActivity;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.AuthStatus;
@@ -37,7 +38,6 @@ import com.adam.aslfms.util.MD5;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.enums.SubmissionType;
-import com.adam.aslfms.service.MySecureSSLSocketFactory;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -97,7 +97,7 @@ public class NPNotifier extends AbstractSubmitter {
             notifySubmissionStatusFailure(getContext().getString(
                     R.string.auth_just_error));
             Util.myNotify(mCtx, getNetApp().getName(),
-                    mCtx.getString(R.string.auth_bad_auth), 39201);
+                    mCtx.getString(R.string.auth_bad_auth), 39201, SettingsActivity.class);
             ret = true;
         } catch (TemporaryFailureException e) {
             Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
@@ -112,7 +112,7 @@ public class NPNotifier extends AbstractSubmitter {
             // TODO: what??  notify user
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_CLIENTBANNED);
             Util.myNotify(mCtx, getNetApp().getName(),
-                    mCtx.getString(R.string.auth_client_banned), 39201);
+                    mCtx.getString(R.string.auth_client_banned), 39201, SettingsActivity.class);
             e.getStackTrace();
             ret = true;
         } catch (AuthStatus.UnknownResponseException e) {

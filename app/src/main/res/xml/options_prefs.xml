@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <ListPreference android:key="notification_priority"
+        android:title="@string/notification_priority"
+        android:defaultValue="3"
+        android:entries="@array/notification_priority_list"
+        android:entryValues="@array/notification_priority_list"
+        android:negativeButtonText="@null"
+        android:positiveButtonText="@null" />
+
     <com.adam.aslfms.SeekBarPreference
         android:key="scrobble_pointer"
         android:summary="@string/scrobble_point_summary"

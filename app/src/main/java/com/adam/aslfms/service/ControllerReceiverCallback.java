@@ -38,11 +38,6 @@ public class ControllerReceiverCallback {
     private Handler handler = new Handler();
     private Bitmap lastBitmap;
 
-    public ControllerReceiverCallback() {
-
-    }
-
-
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     public static void registerFallbackControllerCallback(Context context, ControllerReceiverCallback controllerReceiverCallback) {
         MediaSessionManager mediaSessionManager = ((MediaSessionManager) context.getSystemService(Context.MEDIA_SESSION_SERVICE));

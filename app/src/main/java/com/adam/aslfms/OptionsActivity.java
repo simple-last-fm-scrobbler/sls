@@ -50,6 +50,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
     private static final String KEY_BATTERY = "ao_battery";
     private static final String KEY_PLUGGED = "ao_plugged";
     private static final String KEY_EXPORT_DB = "export_database";
+    private static final String KEY_NOTIFICATION_PRIORITY = "notification_priority";
 
     private AppSettings settings;
 
@@ -176,6 +177,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         private ListPreference net;
         private CheckBoxPreference roaming;
         private Preference exportdatabase;
+        private ListPreference notification_priority;
 
         public void create() {
             createChooserPreference();
@@ -187,6 +189,8 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             createNetPreference();
             createRoamingPreference();
             exportdatabase = findPreference(KEY_EXPORT_DB);
+            notification_priority = (ListPreference) findPreference(KEY_NOTIFICATION_PRIORITY);
+            notification_priority.setDefaultValue(Util.notificationStringToInt(getApplicationContext()));
         }
 
         public boolean onClick(Preference pref) {
@@ -207,6 +211,8 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
                 return true;
             } else if (pref == exportdatabase) {
                 Util.exportAllDatabases(getApplicationContext());
+            } else if (pref == notification_priority){
+                settings.setKeyNotificationPriority(notification_priority.getValue());
             }
             return false;
         }
