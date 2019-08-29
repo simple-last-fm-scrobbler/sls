@@ -196,6 +196,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         public boolean onClick(Preference pref) {
             if (pref == active_app) {
                 settings.setActiveAppEnabled(power, active_app.isChecked());
+                Util.runServices(pref.getContext());        // Scrobbler, Controller, Notification
             } else if (pref == scrobble) {
                 settings.setScrobblingEnabled(power, scrobble.isChecked());
                 return true;
@@ -278,6 +279,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             active_app = new CheckBoxPreference(OptionsActivity.this);
             category.addPreference(active_app);
             active_app.setTitle(R.string.active_app);
+            active_app.setSummary(R.string.active_app_summary);
         }
 
         private void createScrobbleEnablePreference() {

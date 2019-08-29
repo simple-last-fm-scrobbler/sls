@@ -66,9 +66,7 @@ Before the release of a new version of SLS, it will be available here to test fo
 
 ## Notices
 
- * SLS is not being maintained as well as previous years. A temporary alternative may be PanoScrobbler.
  * SLS is maintained by a few dedicated programmers.
- * Please be patient, a large renovation of the app framework is being considered and formulated.
 
 ## Developers
 
@@ -106,6 +104,7 @@ Before the release of a new version of SLS, it will be available here to test fo
  * [Notification Level](https://github.com/simple-last-fm-scrobbler/sls/issues/346)
  * Unsecured http:// support for custom servers
  * ListenBrainz API for Total Listen Count
+ * Word blacklist for blocking things like podcasts or tracks on mixed media apps. "Intelligent noise filter"
  * Multiple Account Login
  * Sequential storage of all tracks, scrobbled, skipped, hearted, and failed with explanations
  * markers in scrobble cache for logged in accounts

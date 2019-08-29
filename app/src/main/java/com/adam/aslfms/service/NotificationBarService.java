@@ -39,9 +39,8 @@ public class NotificationBarService extends Service {
         mDb.open();
         mNetManager = new NetworkerManager(this, mDb);
 
-        if (settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
-            this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, mCtx));
-        } else {
+        this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, mCtx));
+        if (!settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
             this.stopForeground(true); // TODO: test if this conflicts/stops scrobbles
         }
     }
@@ -54,11 +53,10 @@ public class NotificationBarService extends Service {
     @Override
     public int onStartCommand(Intent i, int flags, int startId) {
         handleCommand(i, startId);
-
-        if (settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
-            this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, mCtx));
-        } else {
+        this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, mCtx));
+        if (!settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
             this.stopForeground(true); // TODO: test if this conflicts/stops scrobbles
+            return Service.START_NOT_STICKY;
         }
         return Service.START_STICKY;
     }

@@ -96,6 +96,9 @@ public class ScrobblingService extends Service {
             extras.putString("app_name", "");
         }
         this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, mCtx));
+        if (!settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
+            this.stopForeground(true); // TODO: test if this conflicts/stops scrobbles
+        }
     }
 
     @Override
@@ -119,6 +122,10 @@ public class ScrobblingService extends Service {
             extras.putString("app_name", "");
         }
         this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, mCtx));
+        if (!settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
+            this.stopForeground(true); // TODO: test if this conflicts/stops scrobbles
+            return Service.START_NOT_STICKY;
+        }
         return Service.START_STICKY;
     }
 
