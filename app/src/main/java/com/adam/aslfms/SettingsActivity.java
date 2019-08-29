@@ -133,27 +133,30 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             settings.setWhatsNewViewedVersion(v);
             mDb.rebuildDataBaseOnce(); // TODO: VERSION 1.5.8 only!
         }
-
         // Start listening service if applicable
         if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Log.d(TAG, "launching");
-            Intent i = new Intent(this, NotificationBarService.class);
-            i.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_UPDATE);
-            i.putExtra("track", "");
-            i.putExtra("artist", "");
-            i.putExtra("album", "");
-            i.putExtra("app_name", "");
-            Intent ii = new Intent(this, ScrobblingService.class);
-            ii.setAction(ScrobblingService.ACTION_START_SCROBBLER_SERVICE);
+            Log.d(TAG, "(re)starting controllerreceiver");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                this.startForegroundService(i);
-                this.startForegroundService(ii);
                 this.startForegroundService(new Intent(this, ControllerReceiverService.class));
             } else {
-                this.startService(i);
-                this.startService(ii);
                 this.startService(new Intent(this, ControllerReceiverService.class));
             }
+        }
+        Intent i = new Intent(this, NotificationBarService.class);
+        i.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_UPDATE);
+        i.putExtra("track", "");
+        i.putExtra("artist", "");
+        i.putExtra("album", "");
+        i.putExtra("app_name", "");
+        Intent ii = new Intent(this, ScrobblingService.class);
+        ii.setAction(ScrobblingService.ACTION_START_SCROBBLER_SERVICE);
+        Log.d(TAG, "(re)starting scrobbleservice, notificationbarservice");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            this.startForegroundService(i);
+            this.startForegroundService(ii);
+        } else {
+            this.startService(i);
+            this.startService(ii);
         }
     }
 

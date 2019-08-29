@@ -35,7 +35,7 @@ public class NotificationCreator {
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationChannel channel = new NotificationChannel(FOREGROUND_CHANNEL_ID,
                 context.getString(R.string.app_name_short),
-                NotificationManager.IMPORTANCE_DEFAULT);
+                Util.notificationStringToInt(context));
         channel.setDescription(context.getString(R.string.app_name));
         channel.setSound(null,null);
         notificationManager.createNotificationChannel(channel);
@@ -103,6 +103,7 @@ public class NotificationCreator {
                 .setOngoing(true)
                 .setAutoCancel(false)
                 .setColor(Color.RED)
+                .setPriority(Util.oldNotificationStringToInt(context))
                 .addAction(heartAction)
                 .addAction(copyAction)
                 .setChannelId(FOREGROUND_CHANNEL_ID);

@@ -455,7 +455,7 @@ public class Util {
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationChannel channel = new NotificationChannel(POPUP_CHANNEL_ID,
                 context.getString(R.string.app_name_short),
-                NotificationManager.IMPORTANCE_DEFAULT);
+                notificationStringToInt(context));
         channel.setDescription(context.getString(R.string.app_name));
         channel.setSound(null,null);
         notificationManager.createNotificationChannel(channel);
@@ -480,6 +480,7 @@ public class Util {
                     .setContentTitle(title)
                     .setSmallIcon(R.drawable.ic_icon)
                     .setContentText(content)
+                    .setPriority(oldNotificationStringToInt(mCtx))
                     .setContentIntent(contentIntent)
                     .setColor(Color.RED)
                     .setChannelId(POPUP_CHANNEL_ID);
@@ -520,4 +521,43 @@ public class Util {
     public static void exportAllDatabases(Context ctx){
         exportDB(ScrobblesDatabase.DATABASE_NAME, ctx);
     }
+
+    public static int oldNotificationStringToInt(Context ctx){
+        AppSettings settings = new AppSettings(ctx);
+        switch (settings.getKeyNotificationPriority()){
+            case "min":
+                return Notification.PRIORITY_MIN;
+            case "low":
+                return Notification.PRIORITY_LOW;
+            case "default":
+                return Notification.PRIORITY_DEFAULT;
+            case "high":
+                return Notification.PRIORITY_HIGH;
+            case "max":
+                return Notification.PRIORITY_MAX;
+            default:
+                break;
+        }
+        return NotificationManager.IMPORTANCE_DEFAULT;
+    }
+
+    public static int notificationStringToInt(Context ctx){
+        AppSettings settings = new AppSettings(ctx);
+        switch (settings.getKeyNotificationPriority()){
+            case "min":
+                return NotificationManager.IMPORTANCE_MIN;
+            case "low":
+                return NotificationManager.IMPORTANCE_LOW;
+            case "default":
+                return NotificationManager.IMPORTANCE_DEFAULT;
+            case "high":
+                return NotificationManager.IMPORTANCE_HIGH;
+            case "max":
+                return NotificationManager.IMPORTANCE_MAX;
+            default:
+                break;
+        }
+        return NotificationManager.IMPORTANCE_DEFAULT;
+    }
+
 }

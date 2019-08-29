@@ -292,7 +292,7 @@ public class MusicAPI {
             if (id == -1) {
                 Log.e(TAG, "new mapi couldn't be inserted into db");
             } else {
-                Util.myNotify(ctx, ctx.getPackageName(), ctx.getString(R.string.new_music_app), 12473, MusicAppsActivity.class);
+                Util.myNotify(ctx, name, ctx.getString(R.string.new_music_app), 12473, MusicAppsActivity.class);
                 Log.d(TAG, "new mapiinserted into db");
             }
 

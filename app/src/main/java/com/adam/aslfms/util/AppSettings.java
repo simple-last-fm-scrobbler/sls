@@ -73,6 +73,8 @@ public class AppSettings {
 
     private static final String KEY_ACTIVE_MUSIC_NOTIFICATION_APP = "active_music_notification_app";
 
+    private static final String KEY_NOTIFICATION_PRIORITY = "key_notification_priority";
+
     private static final String KEY_AUTH_STATUS = "authstatus";
 
     private static final String KEY_WHATSNEW_VIEWED_VERSION = "whatsnew_viewed_version";
@@ -220,6 +222,20 @@ public class AppSettings {
     public void setKeyActiveMusicNotificationApp(String s) {
         Editor e = prefs.edit();
         e.putString(KEY_ACTIVE_MUSIC_NOTIFICATION_APP, s);
+        e.commit();
+    }
+
+    public String getKeyNotificationPriority() {
+        String temp = prefs.getString(KEY_NOTIFICATION_PRIORITY,null);
+        if (temp == null){
+            return "default";
+        }
+        return temp;
+    }
+
+    public void setKeyNotificationPriority(String s) {
+        Editor e = prefs.edit();
+        e.putString(KEY_NOTIFICATION_PRIORITY, s);
         e.commit();
     }
 
