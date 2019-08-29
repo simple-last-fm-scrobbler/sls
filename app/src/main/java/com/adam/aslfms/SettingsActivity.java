@@ -43,7 +43,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.adam.aslfms.service.ControllerReceiverCallback;
 import com.adam.aslfms.service.ControllerReceiverService;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.NotificationBarService;
@@ -155,9 +154,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 this.startService(ii);
                 this.startService(new Intent(this, ControllerReceiverService.class));
             }
-            ControllerReceiverCallback controllerCallback = new ControllerReceiverCallback();
-            if (ControllerReceiverService.isListeningAuthorized(this))
-                ControllerReceiverCallback.registerFallbackControllerCallback(this, controllerCallback);
         }
     }
 

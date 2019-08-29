@@ -27,6 +27,7 @@ import android.os.Build;
 import android.util.Log;
 
 import com.adam.aslfms.R;
+import com.adam.aslfms.SettingsActivity;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.AuthStatus;
 import com.adam.aslfms.util.AuthStatus.BadAuthException;
@@ -154,7 +155,7 @@ public class Handshaker extends NetRunnable {
             // the scrobbles already prepared will be sent at a later time
             e.getStackTrace();
             Util.myNotify(mCtx, getNetApp().getName(),
-                    mCtx.getString(R.string.auth_bad_auth), 39201);
+                    mCtx.getString(R.string.auth_bad_auth), 39201, SettingsActivity.class);
 
             getNetworker().unlaunchScrobblingAndNPNotifying();
         } catch (TemporaryFailureException e) {
@@ -184,7 +185,7 @@ public class Handshaker extends NetRunnable {
             // TODO: what??  notify user
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_CLIENTBANNED);
             Util.myNotify(mCtx, getNetApp().getName(),
-                    mCtx.getString(R.string.auth_client_banned), 39201);
+                    mCtx.getString(R.string.auth_client_banned), 39201, SettingsActivity.class);
             e.getStackTrace();
         } catch (UnknownResponseException e) {
             if (Util.checkForOkNetwork(getContext()) != Util.NetworkStatus.OK) {

@@ -461,7 +461,7 @@ public class Util {
         notificationManager.createNotificationChannel(channel);
     }
 
-    public static void myNotify(Context mCtx, String title, String content, int notID) {
+    public static void myNotify(Context mCtx, String title, String content, int notID, Class myClass) {
         try {
             initChannels(mCtx);
             // notification builder
@@ -473,7 +473,7 @@ public class Util {
             } else {
                 notificationBuilder = new NotificationCompat.Builder(mCtx);
             }
-            Intent targetIntent = new Intent(mCtx, SettingsActivity.class);
+            Intent targetIntent = new Intent(mCtx, myClass);
             PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
             notificationBuilder
@@ -511,7 +511,7 @@ public class Util {
             destination.transferFrom(source, 0, source.size());
             source.close();
             destination.close();
-            Util.myNotify(ctx, "Database Exported",backupDB.toString(),57109 );
+            Util.myNotify(ctx, "Database Exported",backupDB.toString(),57109, SettingsActivity.class);
         } catch(IOException e) {
             e.printStackTrace();
         }
