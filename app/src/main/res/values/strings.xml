@@ -11,6 +11,7 @@
     <string name="will_submit_stuff">Will submit listening information to this website</string>
     <string name="also_disable_np_title">Also disable now-playing</string>
     <string name="also_disable_np_summary">[Hmpf]</string>
+    <string name="menu_exit">Exit</string>
     <!-- END original strings -->
 
     <!-- START about strings -->
@@ -139,9 +140,12 @@
     <string name="unknown_mapi">Unknown app (pre SLS v1.2.3)</string>
     <string name="notification_controller">Notification Controller</string>
     <string name="new_music_app">New Music App Detected, Click Here</string>
+    <string name="clear_apps">Clear Apps</string> <!-- TODO: Translate -->
     <!-- END mapis strings -->
 
     <!-- START options_prefs strings -->
+    <string name="active_app">Active App Notification</string>
+    <string name="active_app_summary">WARNING, may skip scrobbles.</string>
     <string name="options_title">Options</string>
     <string name="advanced_options_title">Advanced options</string>
     <string name="scrobbling">Scrobble</string>

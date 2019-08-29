@@ -1,6 +1,7 @@
 package com.adam.aslfms.service;
 
 import android.annotation.TargetApi;
+import android.app.Service;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -21,7 +22,9 @@ import android.support.annotation.RequiresApi;
 import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
+import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.NotificationCreator;
+import com.adam.aslfms.util.Util;
 
 import java.lang.ref.WeakReference;
 import java.util.Set;
@@ -30,7 +33,7 @@ import java.util.Set;
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
 public class ControllerReceiverService extends android.service.notification.NotificationListenerService implements RemoteController.OnClientUpdateListener {
-
+    
     private static final String TAG = "ControllerReceiverSrvc";
     private static WeakReference<RemoteController> mRemoteController = new WeakReference<>(null);
     private ControllerReceiverCallback controllerReceiverCallback;
@@ -49,7 +52,8 @@ public class ControllerReceiverService extends android.service.notification.Noti
     @SuppressWarnings("NewApi")
     public void onCreate() {
         super.onCreate();
-
+        AppSettings settings = new AppSettings(this);
+        
         registerControllerReceiverCallback();
 
         Bundle extras = new Bundle();
@@ -58,10 +62,14 @@ public class ControllerReceiverService extends android.service.notification.Noti
         extras.putString("album", album);
         extras.putString("app_name", albumArtist);
         this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, this));
+        if (!settings.isActiveAppEnabled(Util.checkPower(this))) {
+            this.stopForeground(true); // TODO: test if this conflicts/stops scrobbles
+        }
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        AppSettings settings = new AppSettings(this);
 
         registerControllerReceiverCallback();
 
@@ -71,7 +79,11 @@ public class ControllerReceiverService extends android.service.notification.Noti
         extras.putString("album", album);
         extras.putString("app_name", albumArtist);
         this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, this));
-        return START_STICKY;
+        if (!settings.isActiveAppEnabled(Util.checkPower(this))) {
+            this.stopForeground(true); // TODO: test if this conflicts/stops scrobbles
+            return Service.START_NOT_STICKY;
+        }
+        return Service.START_STICKY;
     }
 
     @Override

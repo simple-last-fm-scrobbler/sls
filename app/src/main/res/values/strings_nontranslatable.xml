@@ -6,8 +6,6 @@
     <string name="website_url" translatable="false">https://github.com/simple-last-fm-scrobbler/sls</string>
     <string name="issues_url" translatable="false">https://github.com/simple-last-fm-scrobbler/sls/issues</string>
     <string name="trouble_shoot" translatable="false">https://github.com/simple-last-fm-scrobbler/sls/blob/master/TroubleShooting.md</string>
-    <string name="active_app" translatable="false">Active App</string>
-    <string name="clear_apps" translatable="false">Clear Apps</string> <!-- TODO: Translate -->
     <string name="nixtape_url" translatable="false">Nixtape URL</string>
     <string name="gnukebox_url" translatable="false">Gnukebox URL</string>
     <string name="listen_brainz_url" translatable="false">ListenBrainz URL</string>

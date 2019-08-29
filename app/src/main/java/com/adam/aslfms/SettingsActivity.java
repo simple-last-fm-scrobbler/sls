@@ -43,9 +43,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.adam.aslfms.service.ControllerReceiverService;
 import com.adam.aslfms.service.NetApp;
-import com.adam.aslfms.service.NotificationBarService;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.ScrobblesDatabase;
@@ -70,6 +68,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private static final String KEY_COPY_CURRENT_TRACK = "my_copy_button";
     private static final String KEY_THEME = "my_theme";
 
+    public static final String ACTION_KILL_SERVICE = "action_kill_service";
+
     private AppSettings settings;
 
     private ScrobblesDatabase mDb;
@@ -84,6 +84,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     int REQUEST_READ_STORAGE;
     int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 
+    Context mCtx;
 
     @Override
     public Resources.Theme getTheme() {
@@ -106,6 +107,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         setTheme(settings.getAppTheme());
 
         mDb = new ScrobblesDatabase(this);
+        mCtx = this;
 
         try {
             mDb.open();
@@ -133,31 +135,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             settings.setWhatsNewViewedVersion(v);
             mDb.rebuildDataBaseOnce(); // TODO: VERSION 1.5.8 only!
         }
-        // Start listening service if applicable
-        if( Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Log.d(TAG, "(re)starting controllerreceiver");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                this.startForegroundService(new Intent(this, ControllerReceiverService.class));
-            } else {
-                this.startService(new Intent(this, ControllerReceiverService.class));
-            }
-        }
-        Intent i = new Intent(this, NotificationBarService.class);
-        i.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_UPDATE);
-        i.putExtra("track", "");
-        i.putExtra("artist", "");
-        i.putExtra("album", "");
-        i.putExtra("app_name", "");
-        Intent ii = new Intent(this, ScrobblingService.class);
-        ii.setAction(ScrobblingService.ACTION_START_SCROBBLER_SERVICE);
-        Log.d(TAG, "(re)starting scrobbleservice, notificationbarservice");
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            this.startForegroundService(i);
-            this.startForegroundService(ii);
-        } else {
-            this.startService(i);
-            this.startService(ii);
-        }
+        Util.runServices(this);        // Scrobbler, Controller, Notification
     }
 
     @Override
@@ -242,6 +220,16 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 return true;
             case R.id.menu_whats_new:
                 new WhatsNewDialog(this).show();
+                return true;
+            case R.id.menu_exit:
+                boolean currentActiveState = settings.isActiveAppEnabled(Util.checkPower(this));
+                settings.setActiveAppEnabled(Util.checkPower(this),false);
+                Util.runServices(this);
+                Util.stopAllServices(this);
+                finish();
+                settings.setActiveAppEnabled(Util.checkPower(this),currentActiveState);
+                android.os.Process.killProcess(android.os.Process.myPid());
+                System.exit(1);
                 return true;
         }
         return super.onOptionsItemSelected(item);

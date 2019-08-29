@@ -48,7 +48,9 @@ import android.widget.Toast;
 
 import com.adam.aslfms.R;
 import com.adam.aslfms.SettingsActivity;
+import com.adam.aslfms.service.ControllerReceiverService;
 import com.adam.aslfms.service.NetApp;
+import com.adam.aslfms.service.NotificationBarService;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.enums.NetworkOptions;
 import com.adam.aslfms.util.enums.PowerOptions;
@@ -559,5 +561,47 @@ public class Util {
         }
         return NotificationManager.IMPORTANCE_DEFAULT;
     }
+    public static void stopMyService(Intent i, Context context){
+        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        context.stopService(i);
+    }
 
+    public static void stopAllServices(Context context){
+        Intent i = new Intent(context, NotificationBarService.class);
+        Intent ii = new Intent(context, ScrobblingService.class);
+        Intent iii = new Intent(context, ControllerReceiverService.class);
+        stopMyService(i, context);
+        stopMyService(ii, context);
+        stopMyService(iii, context);
+    }
+
+    public static void runServices(Context context){
+        // Start listening service if applicable
+        Intent i = new Intent(context, NotificationBarService.class);
+        Intent ii = new Intent(context, ScrobblingService.class);
+        Intent iii = new Intent(context, ControllerReceiverService.class);
+        i.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_UPDATE);
+        i.putExtra("track", "");
+        i.putExtra("artist", "");
+        i.putExtra("album", "");
+        i.putExtra("app_name", "");
+        ii.setAction(ScrobblingService.ACTION_START_SCROBBLER_SERVICE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Log.d(TAG, "(re)starting controllerreceiver");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(iii);
+            } else {
+                context.startService(iii);
+            }
+        }
+        Log.d(TAG, "(re)starting scrobbleservice, notificationbarservice");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            context.startForegroundService(i);
+            context.startForegroundService(ii);
+        } else {
+            context.startService(i);
+            context.startService(ii);
+        }
+    }
 }

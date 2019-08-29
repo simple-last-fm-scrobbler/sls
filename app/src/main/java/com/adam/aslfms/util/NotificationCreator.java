@@ -22,26 +22,31 @@ public class NotificationCreator {
     private static final String TAG = "NotificationCreator";
     public final static int FOREGROUND_ID = 1098733;
     public final static String FOREGROUND_CHANNEL_ID = "com.adam.aslfms";
+    private static AppSettings settings;
 
     private NetworkerManager mNetManager;
 
     private NotificationManager mNotificationManager;
 
     public static void initChannels(Context context) {
+        NotificationManager notificationManager =
+                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+         if (!settings.isActiveAppEnabled(Util.checkPower(context))) {
+            notificationManager.cancel(FOREGROUND_ID);
+        }
         if (android.os.Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             return;
         }
-        NotificationManager notificationManager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationChannel channel = new NotificationChannel(FOREGROUND_CHANNEL_ID,
                 context.getString(R.string.app_name_short),
                 Util.notificationStringToInt(context));
         channel.setDescription(context.getString(R.string.app_name));
-        channel.setSound(null,null);
+        channel.setSound(null, null);
         notificationManager.createNotificationChannel(channel);
     }
 
     public static Notification prepareNotification(Bundle extras, Context context) {
+        settings = new AppSettings(context);
         // handle build version above android oreo
         initChannels(context);
         ////
@@ -95,13 +100,21 @@ public class NotificationCreator {
             notificationBuilder = new NotificationCompat.Builder(context);
         }
 
+        if (settings.isActiveAppEnabled(Util.checkPower(context))){
+            notificationBuilder
+                            .setAutoCancel(false)
+                            .setOngoing(true);
+        } else {
+            notificationBuilder
+                    .setAutoCancel(true)
+                    .setOngoing(false);
+        }
+
         notificationBuilder
                 .setContentTitle(track + " " + context.getString(R.string.by) + " " + artist)
                 .setSmallIcon(R.drawable.ic_icon)
                 .setContentText(album + " : " + app_name)
                 .setContentIntent(contentIntent)
-                .setOngoing(true)
-                .setAutoCancel(false)
                 .setColor(Color.RED)
                 .setPriority(Util.oldNotificationStringToInt(context))
                 .addAction(heartAction)
