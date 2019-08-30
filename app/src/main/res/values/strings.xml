@@ -217,4 +217,17 @@
     <string name="developer_options">Developer Options</string>
     <string name="export_database">Export Database</string>
     <!-- BEGIN developer options -->
+
+    <!-- BEGIN permissions activity -->
+    <string name="permission_activate">Activate</string>
+    <string name="permissions_title">Required Permissions</string>
+    <string name="permission_external_storage">External Storage</string>
+    <string name="permission_notification_listener">Notification Listener</string>
+    <string name="permission_battery_optimizations">Battery Optimizations</string>
+    <string name="permission_battery_basic">Battery Basic</string>
+    <string name="permission_continue">Continue</string>
+    <string name="find_notifications_settings">Find Notifications ignore list in Android Settings, add Simple Last.fm Scrobbler</string>
+    <string name="find_battery_settings">Find Battery Optimization ignore list in Android Settings, add Simple Last.fm Scrobbler</string>
+    <string name="permission_notification_listener_notice">Enable Notifications Access for Simple Last.fm Scrobbler in Android Settings</string>
+    <!-- END permissions activity -->
 </resources>
