@@ -21,6 +21,7 @@
 
 package com.adam.aslfms.util;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -41,7 +42,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Environment;
+import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.Toast;
@@ -62,6 +66,8 @@ import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Calendar;
 import java.util.TimeZone;
+
+import static android.content.Context.POWER_SERVICE;
 
 /**
  * This class is way too bloated. FIXME
@@ -459,7 +465,7 @@ public class Util {
                 context.getString(R.string.app_name_short),
                 notificationStringToInt(context));
         channel.setDescription(context.getString(R.string.app_name));
-        channel.setSound(null,null);
+        channel.setSound(null, null);
         notificationManager.createNotificationChannel(channel);
     }
 
@@ -499,12 +505,12 @@ public class Util {
         }
     }
 
-    private static void exportDB(String dbName, Context ctx){
+    private static void exportDB(String dbName, Context ctx) {
         File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         File data = Environment.getDataDirectory();
-        FileChannel source=null;
-        FileChannel destination=null;
-        String currentDBPath = "/data/"+ ctx.getPackageName() +"/databases/"+dbName;
+        FileChannel source = null;
+        FileChannel destination = null;
+        String currentDBPath = "/data/" + ctx.getPackageName() + "/databases/" + dbName;
         String backupDBPath = "simple.last.fm.scrobbler.db";
         File currentDB = new File(data, currentDBPath);
         File backupDB = new File(sd, backupDBPath);
@@ -514,19 +520,19 @@ public class Util {
             destination.transferFrom(source, 0, source.size());
             source.close();
             destination.close();
-            Util.myNotify(ctx, "Database Exported",backupDB.toString(),57109, SettingsActivity.class);
-        } catch(IOException e) {
+            Util.myNotify(ctx, "Database Exported", backupDB.toString(), 57109, SettingsActivity.class);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void exportAllDatabases(Context ctx){
+    public static void exportAllDatabases(Context ctx) {
         exportDB(ScrobblesDatabase.DATABASE_NAME, ctx);
     }
 
-    public static int oldNotificationStringToInt(Context ctx){
+    public static int oldNotificationStringToInt(Context ctx) {
         AppSettings settings = new AppSettings(ctx);
-        switch (settings.getKeyNotificationPriority()){
+        switch (settings.getKeyNotificationPriority()) {
             case "min":
                 return Notification.PRIORITY_MIN;
             case "low":
@@ -543,9 +549,9 @@ public class Util {
         return NotificationManager.IMPORTANCE_DEFAULT;
     }
 
-    public static int notificationStringToInt(Context ctx){
+    public static int notificationStringToInt(Context ctx) {
         AppSettings settings = new AppSettings(ctx);
-        switch (settings.getKeyNotificationPriority()){
+        switch (settings.getKeyNotificationPriority()) {
             case "min":
                 return NotificationManager.IMPORTANCE_MIN;
             case "low":
@@ -561,13 +567,14 @@ public class Util {
         }
         return NotificationManager.IMPORTANCE_DEFAULT;
     }
-    public static void stopMyService(Intent i, Context context){
+
+    public static void stopMyService(Intent i, Context context) {
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.stopService(i);
     }
 
-    public static void stopAllServices(Context context){
+    public static void stopAllServices(Context context) {
         Intent i = new Intent(context, NotificationBarService.class);
         Intent ii = new Intent(context, ScrobblingService.class);
         Intent iii = new Intent(context, ControllerReceiverService.class);
@@ -576,11 +583,10 @@ public class Util {
         stopMyService(iii, context);
     }
 
-    public static void runServices(Context context){
+    public static void runServices(Context context) {
         // Start listening service if applicable
         Intent i = new Intent(context, NotificationBarService.class);
         Intent ii = new Intent(context, ScrobblingService.class);
-        Intent iii = new Intent(context, ControllerReceiverService.class);
         i.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_UPDATE);
         i.putExtra("track", "");
         i.putExtra("artist", "");
@@ -588,6 +594,7 @@ public class Util {
         i.putExtra("app_name", "");
         ii.setAction(ScrobblingService.ACTION_START_SCROBBLER_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Intent iii = new Intent(context, ControllerReceiverService.class);
             Log.d(TAG, "(re)starting controllerreceiver");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 context.startForegroundService(iii);
@@ -603,5 +610,65 @@ public class Util {
             context.startService(i);
             context.startService(ii);
         }
+    }
+
+    public static boolean checkNotificationListenerPermission(Context ctx){
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                if (!NotificationManagerCompat.getEnabledListenerPackages(ctx).contains(ctx.getPackageName())) {        //ask for permission
+                    Log.e(TAG, "Problem, ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                    return false;
+                }
+            }
+        } catch(Exception e){
+            Log.e(TAG, "Exception, ACTION_NOTIFICATION_LISTENER_SETTINGS" + e);
+            return false;
+        }
+        return true;
+    }
+    // external storage
+    public static boolean checkExternalPermission(Context ctx) {
+        try {
+            if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(ctx, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                Log.d(TAG, "Problem, *_EXTERNAL_STORAGE. ");
+                return false;
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Exception, *_EXTERNAL_STORAGE. " + e);
+            return false;
+        }
+        return true;
+    }
+    // battery optimization
+    public static boolean checkBatteryOptimizationBasicPermission(Context ctx){
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) != PackageManager.PERMISSION_GRANTED) {
+                    Log.d(TAG, "Problem, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS. ");
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Exception, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS. " + e);
+            return false;
+        }
+        return true;
+    }
+
+    public static boolean checkBatteryOptimizationsPermission(Context ctx){
+        try {
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                String packageName = ctx.getPackageName();
+                PowerManager pm = (PowerManager) ctx.getSystemService(POWER_SERVICE);
+                if (pm != null && !pm.isIgnoringBatteryOptimizations(packageName)) {
+                    Log.d(TAG, "Problem, POWER_OPTIMIZATIONS. ");
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+            Log.e(TAG, "Exception, POWER_OPTIMIZATIONS. " + e);
+            return false;
+        }
+        return true;
     }
 }

@@ -20,6 +20,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+        <activity android:name=".PermissionsActivity"></activity>
         <!-- begin the start/launch activity -->
         <activity
             android:name=".SettingsActivity"
@@ -30,8 +31,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <!-- end the start/launch activity -->
+        </activity> <!-- end the start/launch activity -->
         <!-- other activities -->
         <activity
             android:name=".UserCredsListActivity"
@@ -90,8 +90,7 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".SettingsActivity" />
-        </activity>
-        <!-- end other activities -->
+        </activity> <!-- end other activities -->
         <!-- begin the services -->
         <service
             android:name=".service.ScrobblingService"
@@ -123,10 +122,9 @@
             <intent-filter>
                 <action android:name="android.service.notification.NotificationListenerService" />
             </intent-filter>
-        </service>
-        <!-- end the services -->
+        </service> <!-- end the services -->
         <!-- begin the receivers -->
-                <receiver
+        <receiver
             android:name=".receiver.BootReceiver"
             android:enabled="true"
             android:exported="false">
@@ -341,7 +339,6 @@
                 <action android:name="com.orangebikelabs.orangesqueeze.playstatechanged" />
             </intent-filter>
         </receiver>
-        <!-- end the receiver -->
     </application>
 
 </manifest>

@@ -21,27 +21,20 @@
 
 package com.adam.aslfms;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.SQLException;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.support.design.widget.Snackbar;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.NotificationManagerCompat;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
@@ -100,7 +93,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     @SuppressWarnings("deprecation")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         addPreferencesFromResource(R.xml.settings_prefs);
 
         settings = new AppSettings(this);
@@ -117,16 +109,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             mDb = null;
         }
 
+        permsCheck();
+        checkNetwork();
+        credsCheck();
+
         mHeartCurrentTrack = findPreference(KEY_HEART_CURRENT_TRACK);
         mScrobbleAllNow = findPreference(KEY_SCROBBLE_ALL_NOW);
         mViewScrobbleCache = findPreference(KEY_VIEW_SCROBBLE_CACHE);
         mCopyCurrentTrack = findPreference(KEY_COPY_CURRENT_TRACK);
         mChangeTheme = findPreference(KEY_THEME);
-
-
-        checkNetwork();
-        permsCheck();
-        credsCheck();
 
         // TODO: VERIFY EVERYTHING BELOW IS SAFE
         int v = Util.getAppVersionCode(this, getPackageName());
@@ -154,6 +145,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onResume() {
         super.onResume();
 
+        permsCheck();
         checkNetwork();
         credsCheck();
 
@@ -261,59 +253,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private void permsCheck() {
         //PERMISSION CHECK
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            if (!NotificationManagerCompat.getEnabledListenerPackages(this).contains(getPackageName())) {        //ask for permission
-                Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-                startActivity(intent);
-            }
-        }
-        // write storage
-        // external storage
-        try {
-            if (ContextCompat.checkSelfPermission(SettingsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Exception, WRITE_EXTERNAL_STORAGE. " + e);
-        }
-        // external storage
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            try {
-                if (ContextCompat.checkSelfPermission(SettingsActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_READ_STORAGE);
-                }
-            } catch (Exception e) {
-                Log.e(TAG, "Exception, READ_EXTERNAL_STORAGE. " + e);
-            }
-        }
-        // battery optimization
-        try {
-            if (ContextCompat.checkSelfPermission(SettingsActivity.this, Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(SettingsActivity.this, new String[]{Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS}, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Exception, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS. " + e);
-        }
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        try {
-            if (requestCode == REQUEST_READ_STORAGE) {
-
-                // If request is cancelled, the result arrays are empty.
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    //PERMISSION GRANTED
-                } else {
-                    //PERMISSION DENIED permission denied
-                    Toast.makeText(SettingsActivity.this, "App will not function correctly.", Toast.LENGTH_LONG).show(); //TODO string
-                }
-            } else {
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "READ_EXTERNAL_STORAGE. " + e);
+        boolean allPermissionsGo = true;
+        allPermissionsGo = allPermissionsGo && Util.checkNotificationListenerPermission(this);
+        allPermissionsGo = allPermissionsGo && Util.checkExternalPermission(this);
+        allPermissionsGo = allPermissionsGo && Util.checkBatteryOptimizationsPermission(this);
+        allPermissionsGo = allPermissionsGo && Util.checkBatteryOptimizationBasicPermission(this);
+        Log.d(TAG,"All Permissions Go: " + allPermissionsGo);
+        if (!allPermissionsGo) {
+            Intent intent = new Intent(this, PermissionsActivity.class);
+            this.startActivity(intent);
         }
     }
 }
