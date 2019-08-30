@@ -110,10 +110,18 @@ public class NotificationCreator {
                     .setOngoing(false);
         }
 
+        if (track.equals("")){
+            notificationBuilder
+                    .setContentTitle("")
+                    .setSmallIcon(R.drawable.ic_icon)
+                    .setContentText("");
+        } else {
+            notificationBuilder
+                    .setContentTitle(track + " " + context.getString(R.string.by) + " " + artist)
+                    .setSmallIcon(R.drawable.ic_icon)
+                    .setContentText(album + " : " + app_name);
+        }
         notificationBuilder
-                .setContentTitle(track + " " + context.getString(R.string.by) + " " + artist)
-                .setSmallIcon(R.drawable.ic_icon)
-                .setContentText(album + " : " + app_name)
                 .setContentIntent(contentIntent)
                 .setColor(Color.RED)
                 .setPriority(Util.oldNotificationStringToInt(context))
