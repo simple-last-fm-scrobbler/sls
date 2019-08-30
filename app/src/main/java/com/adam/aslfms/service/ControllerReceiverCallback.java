@@ -93,6 +93,7 @@ public class ControllerReceiverCallback {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static long getActiveControllerPosition(Context context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && sController.get() != null) {
             PlaybackState state = sController.get().getPlaybackState();
@@ -182,6 +183,7 @@ public class ControllerReceiverCallback {
                 position = -1;
             broadcast(context, artist, track, album, playing[0], duration, position, albumArtist, player);
         }, 100);
+        Log.d(TAG, "broadcast sent: controller state");
     }
 
     public void broadcast(Context context, String artist, String track, String album, boolean playing, int duration, long position, String albumArtist, String player) {
@@ -197,10 +199,9 @@ public class ControllerReceiverCallback {
         if (mPlayer == null)
             mPlayer = appSettings.getKeyActiveMusicNotificationApp();
         localIntent.putExtra("player", mPlayer);
-        Log.d("title", track);
         if (position != -1)
             localIntent.putExtra("position", position);
-        Log.d(TAG,"title "+track);
+        Log.d(TAG, "broadcast sent: int duration");
     }
 
     public void broadcast(Context context, String artist, String track, String album, boolean playing, long duration, long position, String albumArtist, String player) {
@@ -216,11 +217,10 @@ public class ControllerReceiverCallback {
         if (mPlayer == null)
             mPlayer = appSettings.getKeyActiveMusicNotificationApp();
         localIntent.putExtra("player", mPlayer);
-        Log.d("title", track);
         if (position != -1)
             localIntent.putExtra("position", position);
         context.sendBroadcast(localIntent);
-        Log.d(TAG,"title "+track);
+        Log.d(TAG, "broadcast sent: long duration");
     }
 
     public void broadcast(Context context, String artist, String track, String album, boolean playing, double duration, long position, String albumArtist, String player) {
@@ -236,11 +236,10 @@ public class ControllerReceiverCallback {
         if (mPlayer == null)
             mPlayer = appSettings.getKeyActiveMusicNotificationApp();
         localIntent.putExtra("player", mPlayer);
-        Log.d("title", track);
         if (position != -1)
             localIntent.putExtra("position", position);
         context.sendBroadcast(localIntent);
-        Log.d(TAG,"title "+track);
+        Log.d(TAG, "broadcast sent: double duration");
     }
 
     public void saveArtwork(Context context, Bitmap artwork, String artist, String track, String album) {
