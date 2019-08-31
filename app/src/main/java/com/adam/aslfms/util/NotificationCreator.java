@@ -102,7 +102,7 @@ public class NotificationCreator {
         if (track.equals("")){
             notificationBuilder
                     .setContentTitle("");
-            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP){
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP || Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1 ){
                 notificationBuilder
                         .setSmallIcon(R.drawable.ic_icon_white);
             } else {
@@ -114,7 +114,7 @@ public class NotificationCreator {
         } else {
             notificationBuilder
                     .setContentTitle(track + " " + context.getString(R.string.by) + " " + artist);
-            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP){
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP || Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1){
                 notificationBuilder
                         .setSmallIcon(R.drawable.ic_icon_white);
             } else {

@@ -484,7 +484,7 @@ public class Util {
             }
             notificationBuilder
                     .setContentTitle(title);
-            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP){
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP || Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1){
                 notificationBuilder
                         .setSmallIcon(R.drawable.ic_icon_white);
             } else {
