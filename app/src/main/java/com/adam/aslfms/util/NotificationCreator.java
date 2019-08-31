@@ -99,7 +99,31 @@ public class NotificationCreator {
         } else {
             notificationBuilder = new NotificationCompat.Builder(context);
         }
-
+        if (track.equals("")){
+            notificationBuilder
+                    .setContentTitle("");
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP || Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1 ){
+                notificationBuilder
+                        .setSmallIcon(R.drawable.ic_icon_white);
+            } else {
+                notificationBuilder
+                        .setSmallIcon(R.drawable.ic_icon);
+            }
+            notificationBuilder
+                    .setContentText("");
+        } else {
+            notificationBuilder
+                    .setContentTitle(track + " " + context.getString(R.string.by) + " " + artist);
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP || Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1){
+                notificationBuilder
+                        .setSmallIcon(R.drawable.ic_icon_white);
+            } else {
+                notificationBuilder
+                        .setSmallIcon(R.drawable.ic_icon);
+            }
+            notificationBuilder
+                    .setContentText(album + " : " + app_name);
+        }
         if (settings.isActiveAppEnabled(Util.checkPower(context))){
             notificationBuilder
                             .setAutoCancel(false)
@@ -108,18 +132,6 @@ public class NotificationCreator {
             notificationBuilder
                     .setAutoCancel(true)
                     .setOngoing(false);
-        }
-
-        if (track.equals("")){
-            notificationBuilder
-                    .setContentTitle("")
-                    .setSmallIcon(R.drawable.ic_icon)
-                    .setContentText("");
-        } else {
-            notificationBuilder
-                    .setContentTitle(track + " " + context.getString(R.string.by) + " " + artist)
-                    .setSmallIcon(R.drawable.ic_icon)
-                    .setContentText(album + " : " + app_name);
         }
         notificationBuilder
                 .setContentIntent(contentIntent)

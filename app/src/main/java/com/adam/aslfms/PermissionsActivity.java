@@ -25,6 +25,9 @@ public class PermissionsActivity extends AppCompatActivity {
     int WRITE_EXTERNAL_STORAGE;
     int REQUEST_READ_STORAGE;
     int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
+    int disabledColor = Color.argb(25, 0,0,0);
+    int enabledColor = Color.argb(75, 0,255,0);
+    int warningColor = Color.argb(80,255,0,0);
 
     Button btnContinue = null;
 
@@ -91,7 +94,7 @@ public class PermissionsActivity extends AppCompatActivity {
                     Log.e(TAG,e.toString());
                 }
             } else {
-                colorPermission(true, notifiPermBtn);
+                colorPermission(true, externalPermBtn);
             }
         });
 
@@ -101,6 +104,8 @@ public class PermissionsActivity extends AppCompatActivity {
                     Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
                     startActivity(intent);
                 } catch (Exception e) {
+                    findNotify.setTextColor(warningColor);
+                    findNotify.setText(R.string.find_notifications_settings);
                     Log.e(TAG,e.toString());
                 }
             } else {
@@ -116,11 +121,12 @@ public class PermissionsActivity extends AppCompatActivity {
                     intent.setData(Uri.parse("package:" + this.getPackageName()));
                     startActivity(intent);
                 } catch (Exception e) {
-                    findBattery.setText(R.string.about_text);
+                    findBattery.setTextColor(warningColor);
+                    findBattery.setText(R.string.find_battery_settings);
                     Log.e(TAG,e.toString());
                 }
             } else {
-                colorPermission(true, notifiPermBtn);
+                colorPermission(true, batteryPermBtn);
             }
         });
 
@@ -132,17 +138,17 @@ public class PermissionsActivity extends AppCompatActivity {
                     Log.e(TAG,e.toString());
                 }
             } else {
-                colorPermission(true, notifiPermBtn);
+                colorPermission(true, batteryBasicPermBtn);
             }
         });
     }
 
     public void colorPermission(boolean enabled, Button button){
         if (enabled){
-            button.setBackgroundColor(Color.GREEN);
+            button.setBackgroundColor(enabledColor);
             return;
         }
-        button.setBackgroundColor(Color.RED);
+        button.setBackgroundColor(disabledColor);
     }
 
     private void permsCheck() {
@@ -154,11 +160,11 @@ public class PermissionsActivity extends AppCompatActivity {
         allPermissionsGo = allPermissionsGo && Util.checkBatteryOptimizationBasicPermission(this);
         Log.d(TAG,"All Permissions Go: " + allPermissionsGo);
         if (allPermissionsGo) {
-            btnContinue.setBackgroundColor(Color.GREEN);
+            btnContinue.setBackgroundColor(enabledColor);
             Intent intent = new Intent(this, SettingsActivity.class);
             this.startActivity(intent);
         } else {
-            btnContinue.setBackgroundColor(Color.RED);
+            btnContinue.setBackgroundColor(disabledColor);
         }
     }
 

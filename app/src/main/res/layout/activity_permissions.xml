@@ -27,14 +27,15 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <TextView
                     android:id="@+id/text_permisions_title"
                     android:layout_width="0dp"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:gravity="center_horizontal"
-                    android:textSize="32sp"
-                    android:text="@string/permissions_title" />
+                    android:text="@string/permissions_title"
+                    android:textSize="24sp" />
 
             </TableRow>
 
@@ -49,9 +50,9 @@
 
                 <TextView
                     android:id="@+id/text_permission_notification_listener"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginRight="4sp"
                     android:ellipsize="end"
                     android:gravity="center_horizontal"
                     android:maxLines="2"
@@ -60,6 +61,7 @@
 
                 <Button
                     android:id="@+id/button_permission_notification_listener"
+                    style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/permission_activate"
@@ -77,9 +79,9 @@
 
                 <TextView
                     android:id="@+id/text_permission_battery_optimizations"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginRight="4sp"
                     android:ellipsize="end"
                     android:gravity="center_horizontal"
                     android:maxLines="2"
@@ -88,6 +90,7 @@
 
                 <Button
                     android:id="@+id/button_permission_battery_optimizations"
+                    style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/permission_activate"
@@ -105,24 +108,21 @@
 
                 <TextView
                     android:id="@+id/text_permission_external_storage"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginRight="4sp"
                     android:gravity="center_horizontal"
                     android:text="@string/permission_external_storage"
                     android:textSize="16sp" />
 
                 <Button
                     android:id="@+id/button_permission_external_storage"
+                    style="@style/Widget.AppCompat.Button.Small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/permission_activate"
                     android:textSize="12sp" />
             </TableRow>
-
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="12sp" />
 
             <Space
                 android:layout_width="match_parent"
@@ -135,9 +135,9 @@
 
                 <TextView
                     android:id="@+id/text_permission_battery_basic"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginRight="4sp"
                     android:ellipsize="end"
                     android:gravity="center_horizontal"
                     android:maxLines="2"
@@ -152,14 +152,19 @@
                     android:textSize="12sp" />
             </TableRow>
 
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12sp" />
+
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal|center_vertical" >
+
                 <Button
                     android:id="@+id/button_continue"
                     android:layout_width="wrap_content"
-                    android:layout_height="34sp"
+                    android:layout_height="match_parent"
                     android:text="@string/permission_continue"
                     android:textSize="12sp" />
             </TableRow>
@@ -171,9 +176,8 @@
 
                 <TextView
                     android:id="@+id/text_find_notification_setting"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:ellipsize="end"
                     android:gravity="center_horizontal"
                     android:maxLines="2"
@@ -189,9 +193,8 @@
 
                 <TextView
                     android:id="@+id/text_find_battery_optimization_setting"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:ellipsize="end"
                     android:gravity="center_horizontal"
                     android:maxLines="2"

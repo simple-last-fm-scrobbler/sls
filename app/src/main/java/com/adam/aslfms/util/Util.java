@@ -36,7 +36,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -469,37 +468,45 @@ public class Util {
         notificationManager.createNotificationChannel(channel);
     }
 
-    public static void myNotify(Context mCtx, String title, String content, int notID, Class myClass) {
+    public static void myNotify(Context context, String title, String content, int notID, Class myClass) {
         try {
-            initChannels(mCtx);
+            initChannels(context);
             // notification builder
             NotificationCompat.Builder notificationBuilder = null;
             Notification notification = null;
+            Intent targetIntent = new Intent(context, myClass);
+            PendingIntent contentIntent = PendingIntent.getActivity(context, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-                notificationBuilder = new NotificationCompat.Builder(mCtx, POPUP_CHANNEL_ID);
+                notificationBuilder = new NotificationCompat.Builder(context, POPUP_CHANNEL_ID);
                 notificationBuilder.setCategory(Notification.CATEGORY_SERVICE);
             } else {
-                notificationBuilder = new NotificationCompat.Builder(mCtx);
+                notificationBuilder = new NotificationCompat.Builder(context);
             }
-            Intent targetIntent = new Intent(mCtx, myClass);
-            PendingIntent contentIntent = PendingIntent.getActivity(mCtx, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
             notificationBuilder
-                    .setContentTitle(title)
-                    .setSmallIcon(R.drawable.ic_icon)
-                    .setContentText(content)
-                    .setPriority(oldNotificationStringToInt(mCtx))
+                    .setContentTitle(title);
+            if (Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP || Build.VERSION.SDK_INT == Build.VERSION_CODES.LOLLIPOP_MR1){
+                notificationBuilder
+                        .setSmallIcon(R.drawable.ic_icon_white);
+            } else {
+                notificationBuilder
+                        .setSmallIcon(R.drawable.ic_icon);
+            }
+            notificationBuilder
+                    .setContentText(content);
+            notificationBuilder
+                        .setAutoCancel(true)
+                        .setOngoing(false);
+            notificationBuilder
                     .setContentIntent(contentIntent)
                     .setColor(Color.RED)
+                    .setPriority(oldNotificationStringToInt(context))
                     .setChannelId(POPUP_CHANNEL_ID);
 
-            NotificationManager nManager = (NotificationManager) mCtx.getSystemService(Context.NOTIFICATION_SERVICE);
-            if (Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB_MR2) {
-                notificationBuilder.setLargeIcon(BitmapFactory.decodeResource(mCtx.getResources(),
-                        R.drawable.ic_icon));
-            }
+
+            NotificationManager nManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             notification = notificationBuilder.build();
             nManager.notify(notID, notification);
+
         } catch (Exception e) {
             Log.d(TAG, "Phone Notification failed. " + e);
         }
@@ -534,38 +541,38 @@ public class Util {
         AppSettings settings = new AppSettings(ctx);
         switch (settings.getKeyNotificationPriority()) {
             case "min":
-                return Notification.PRIORITY_MIN;
+                return NotificationCompat.PRIORITY_MIN;
             case "low":
-                return Notification.PRIORITY_LOW;
+                return NotificationCompat.PRIORITY_LOW;
             case "default":
-                return Notification.PRIORITY_DEFAULT;
+                return NotificationCompat.PRIORITY_DEFAULT;
             case "high":
-                return Notification.PRIORITY_HIGH;
+                return NotificationCompat.PRIORITY_HIGH;
             case "max":
-                return Notification.PRIORITY_MAX;
+                return NotificationCompat.PRIORITY_MAX;
             default:
                 break;
         }
-        return NotificationManager.IMPORTANCE_DEFAULT;
+        return NotificationCompat.PRIORITY_DEFAULT;
     }
 
     public static int notificationStringToInt(Context ctx) {
         AppSettings settings = new AppSettings(ctx);
         switch (settings.getKeyNotificationPriority()) {
             case "min":
-                return NotificationManager.IMPORTANCE_MIN;
+                return NotificationManagerCompat.IMPORTANCE_MIN;
             case "low":
-                return NotificationManager.IMPORTANCE_LOW;
+                return NotificationManagerCompat.IMPORTANCE_LOW;
             case "default":
-                return NotificationManager.IMPORTANCE_DEFAULT;
+                return NotificationManagerCompat.IMPORTANCE_DEFAULT;
             case "high":
-                return NotificationManager.IMPORTANCE_HIGH;
+                return NotificationManagerCompat.IMPORTANCE_HIGH;
             case "max":
-                return NotificationManager.IMPORTANCE_MAX;
+                return NotificationManagerCompat.IMPORTANCE_MAX;
             default:
                 break;
         }
-        return NotificationManager.IMPORTANCE_DEFAULT;
+        return NotificationManagerCompat.IMPORTANCE_DEFAULT;
     }
 
     public static void stopMyService(Intent i, Context context) {
