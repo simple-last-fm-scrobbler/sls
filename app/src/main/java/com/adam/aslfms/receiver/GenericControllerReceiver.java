@@ -12,7 +12,8 @@ import com.adam.aslfms.util.Util;
 import java.math.BigDecimal;
 
 public class GenericControllerReceiver extends AbstractPlayStatusReceiver {
-    public static final String ACTION_INTENT = "com.adam.aslfms.receiver.controller";
+    public static final String ACTION_INTENT_PLAYSTATE = "com.adam.aslfms.receiver.controller.PLAYSTATE_CHANGE";
+    public static final String ACTION_INTENT_METADATA = "com.adam.aslfms.receiver.controller.METADATA_CHANGE";
     static final String APP_NAME = "GenericController";
     static final String TAG = "GenControllerReceiver";
 
@@ -31,7 +32,14 @@ public class GenericControllerReceiver extends AbstractPlayStatusReceiver {
         String playerPackage = null;
         String playerName = null;
         try {
-            if (action == ACTION_INTENT) {
+            if (action != null) {
+                if (action.equals(ACTION_INTENT_METADATA)){
+                    Log.d(TAG,"generic meta data received");
+                } else if (action.equals(ACTION_INTENT_PLAYSTATE)) {
+                    Log.d(TAG,"generic play state received");
+                } else {
+                    Log.w(TAG, "unknown broadcast state!");
+                }
                 try {
                     if (bundle.containsKey("player")) {
                         playerPackage = bundle.getString("player");
@@ -45,7 +53,7 @@ public class GenericControllerReceiver extends AbstractPlayStatusReceiver {
                 } catch (Exception e) {
                     Log.w(TAG, e.toString());
                 }
-                if (mMusicApi == null){
+                if (mMusicApi == null) {
                     mMusicApi = MusicAPI.fromReceiver(ctx, ctx.getResources().getString(R.string.notification_controller), ctx.getPackageName(), null, false);
                     setMusicAPI(mMusicApi);
                 }
@@ -95,13 +103,23 @@ public class GenericControllerReceiver extends AbstractPlayStatusReceiver {
                                     + bundle.getInt("length", 0) + ")");
                     setTrack(b.build());
                 }
-                boolean playing = bundle.getBoolean("playing");
-                if (playing) {
-                    setState(Track.State.RESUME);
-                    Log.d(TAG, "Setting state to RESUME");
-                } else {
-                    setState(Track.State.PAUSE);
-                    Log.d(TAG, "Setting state to PAUSE");
+                int playing = bundle.getInt("playing");
+                switch (playing) {
+                    case 1:
+                        setState(Track.State.START);
+                    case 2:
+                        setState(Track.State.RESUME);
+                        break;
+                    case 3:
+                        setState(Track.State.PAUSE);
+                        break;
+                    case 4:
+                        setState(Track.State.COMPLETE);
+                        break;
+                    case 5:
+                    default:
+                        setState(Track.State.UNKNOWN_NONPLAYING);
+                        break;
                 }
             }
         } catch (Exception e){
