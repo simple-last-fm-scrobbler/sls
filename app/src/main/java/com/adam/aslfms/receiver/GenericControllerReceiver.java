@@ -33,6 +33,13 @@ public class GenericControllerReceiver extends AbstractPlayStatusReceiver {
         String playerName = null;
         try {
             if (action != null) {
+                if (action.equals(ACTION_INTENT_METADATA)){
+                    Log.d(TAG,"generic meta data received");
+                } else if (action.equals(ACTION_INTENT_PLAYSTATE)) {
+                    Log.d(TAG,"generic play state received");
+                } else {
+                    Log.w(TAG, "unknown broadcast state!");
+                }
                 try {
                     if (bundle.containsKey("player")) {
                         playerPackage = bundle.getString("player");
