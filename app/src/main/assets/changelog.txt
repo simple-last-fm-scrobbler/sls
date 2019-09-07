@@ -2,10 +2,14 @@ Visit,
 https://github.com/simple-last-fm-scrobbler/sls
 For more details.
 
+- 1.6.0 (2018-9-7) codename: cingus
+  * Fixed Google Play logo block flag
+
 - 1.5.9 (2018-9-7) codename: bingus
   * Fixed Google Play 'Last.fm' word block flag
 
 - 1.5.8 (2018-6-24) codename: angus
+  * Permission Changes
   * Notification Priority
   * App Detected Notification
   * Export db
