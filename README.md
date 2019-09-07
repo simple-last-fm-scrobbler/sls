@@ -52,7 +52,7 @@ Before the release of a new version of SLS, it will be available here to test fo
     ](https://play.google.com/store/apps/details?id=com.adam.aslfms&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
     alt="Get it on F-Droid"
-    height="80">](https://f-droid.org/packages/com.adam.aslfs)
+    height="80">](https://f-droid.org/packages/com.adam.aslfms)
 
 
 #### [Release & Pre-Release Downloads](https://github.com/simple-last-fm-scrobbler/sls/releases)
