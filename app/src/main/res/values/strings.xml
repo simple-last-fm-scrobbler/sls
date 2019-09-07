@@ -226,8 +226,8 @@
     <string name="permission_battery_optimizations">Battery Optimizations</string>
     <string name="permission_battery_basic">Battery Basic</string>
     <string name="permission_continue">Continue</string>
-    <string name="find_notifications_settings">Find Notifications ignore list in Android Settings, add Simple Last.fm Scrobbler</string>
-    <string name="find_battery_settings">Find Battery Optimization ignore list in Android Settings, add Simple Last.fm Scrobbler</string>
-    <string name="permission_notification_listener_notice">Enable Notifications Access for Simple Last.fm Scrobbler in Android Settings</string>
+    <string name="find_notifications_settings">Find Notifications ignore list in Android Settings, add Simple Scrobbler</string>
+    <string name="find_battery_settings">Find Battery Optimization ignore list in Android Settings, add Simple Scrobbler</string>
+    <string name="permission_notification_listener_notice">Enable Notifications Access for Simple Scrobbler in Android Settings</string>
     <!-- END permissions activity -->
 </resources>

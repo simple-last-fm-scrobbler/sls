@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
     <string name="app_name_short" translatable="false">SLS</string>
-    <string name="app_name" translatable="false">Simple Last.fm Scrobbler</string>
+    <string name="app_name" translatable="false">Simple Scrobbler</string>
     <string name="email_addr" translatable="false">simple.lfm.scrobbler@gmail.com</string>
     <string name="website_url" translatable="false">https://github.com/simple-last-fm-scrobbler/sls</string>
     <string name="issues_url" translatable="false">https://github.com/simple-last-fm-scrobbler/sls/issues</string>
