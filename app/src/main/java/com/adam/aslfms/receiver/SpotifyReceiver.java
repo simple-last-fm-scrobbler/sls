@@ -1,4 +1,10 @@
 /**
+ * This file is part of Simple Scrobbler.
+ * <p>
+ * https://github.com/simple-last-fm-scrobbler/sls
+ * <p>
+ * Copyright 2011 Simple Scrobbler Team
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
@@ -26,7 +32,7 @@ import com.adam.aslfms.util.Util;
  *
  * @see AbstractPlayStatusReceiver
  *
- * @author HumbleBeeBumbleBee HumbleBeeBumbleBeeDebugs@gmail.com
+ * @author a93h
  * @since 1.4.8
  * @helpers @metanota @inverse
  */

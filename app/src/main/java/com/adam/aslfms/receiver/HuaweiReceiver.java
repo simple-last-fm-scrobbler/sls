@@ -26,7 +26,7 @@ import com.adam.aslfms.util.Util;
  *
  * @see AbstractPlayStatusReceiver
  *
- * @author HumbleBeeBumbleBee HumbleBeeBumbleBeeDebugs@gmail.com
+ * @author a93h
  * @since 1.5.0
  */
 

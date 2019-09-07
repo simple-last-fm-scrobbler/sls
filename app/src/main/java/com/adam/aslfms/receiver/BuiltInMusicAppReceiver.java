@@ -1,9 +1,9 @@
 /**
- * This file is part of Simple Last.fm Scrobbler.
+ * This file is part of Simple Scrobbler.
  * 
  *     http://code.google.com/p/a-simple-lastfm-scrobbler/
  * 
- * Copyright 2011 Simple Last.fm Scrobbler Team
+ * Copyright 2011 Simple Scrobbler Team
  * 
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.

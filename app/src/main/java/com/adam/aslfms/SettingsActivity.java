@@ -1,9 +1,9 @@
 /**
- * This file is part of Simple Last.fm Scrobbler.
+ * This file is part of Simple Scrobbler.
  * <p>
  * https://github.com/simple-last-fm-scrobbler/sls
  * <p>
- * Copyright 2011 Simple Last.fm Scrobbler Team
+ * Copyright 2011 Simple Scrobbler Team
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
 /**
  * This is the activity that is shown when the user launches
- * "A Simple Last.fm Scrobbler" from the app screen. It allows the user to set
+ * "A Simple Scrobbler" from the app screen. It allows the user to set
  * preferences regarding his/her scrobbling, whether to enable now playing
  * notifications or not. It also allows the user to enter and clear user
  * credentials.
@@ -124,7 +124,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         if (settings.getWhatsNewViewedVersion() < v) {
             new WhatsNewDialog(this).show();
             settings.setWhatsNewViewedVersion(v);
-            mDb.rebuildDataBaseOnce(); // TODO: VERSION 1.5.8 only!
+            mDb.rebuildDataBaseOnce(); // TODO: VERSION 1.5.9 only!
         }
         Util.runServices(this);        // Scrobbler, Controller, Notification
     }
