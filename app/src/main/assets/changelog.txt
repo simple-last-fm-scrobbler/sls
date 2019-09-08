@@ -4,7 +4,7 @@ For more details.
 
 - 1.6.2 (2018-9-8) codename: engus
   * Fixed music not being recognized immediately
-  * Permission to bypass new features
+  * Skip permissions optionally
   * Language selection
 
 - 1.6.1 (2018-9-7) codename: dingus
