@@ -39,7 +39,6 @@ import com.adam.aslfms.util.NotificationCreator;
 import com.adam.aslfms.util.Util;
 
 import java.util.HashSet;
-import java.util.ResourceBundle;
 
 /**
  * @author a93h
