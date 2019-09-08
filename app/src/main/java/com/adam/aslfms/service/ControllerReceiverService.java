@@ -119,10 +119,10 @@ public class ControllerReceiverService extends NotificationListenerService {
     }
 
     public void init(){
-        MediaSessionManager mediaSessionManager = (MediaSessionManager) this.getApplicationContext().getSystemService(Context.MEDIA_SESSION_SERVICE) ;
-        mControllerReceiverSession = new ControllerReceiverSession(this);
-
+        MediaSessionManager mediaSessionManager = null;
         try {
+            mediaSessionManager = (MediaSessionManager) this.getApplicationContext().getSystemService(Context.MEDIA_SESSION_SERVICE) ;
+            mControllerReceiverSession = new ControllerReceiverSession(this);
             mediaSessionManager.addOnActiveSessionsChangedListener(mControllerReceiverSession, new ComponentName(this, ControllerReceiverService.class));
             Log.d(TAG, "media session manager loaded");
         } catch (Exception e) {
