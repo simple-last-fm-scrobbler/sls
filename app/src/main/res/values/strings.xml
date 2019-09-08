@@ -183,6 +183,7 @@
     <string name="advanced_options_net_roaming_summary_off">Won\'t submit data when roaming</string>
     <string name="advanced_options_net_roaming_summary_on">Will submit data when roaming</string>
     <string name="notification_priority">Notification Priority</string>
+    <string name="secure_socket_info" translatable="false">Use SSL, https://?</string>
     <string-array name="notification_priority_list">
         <item>min</item>
         <item>low</item>
@@ -230,4 +231,26 @@
     <string name="find_battery_settings">Find Battery Optimization ignore list in Android Settings, add Simple Scrobbler</string>
     <string name="permission_notification_listener_notice">Enable Notifications Access for Simple Scrobbler in Android Settings</string>
     <!-- END permissions activity -->
+
+
+    <!-- START correction rules strings -->
+    <string name="old_track">Track Title</string>
+    <string name="new_track">New Track Title</string>
+    <string name="old_artist">Artist Title</string>
+    <string name="new_artist">New Artist Title</string>
+    <string name="old_album">Album Title</string>
+    <string name="new_album">New Album Title</string>
+    <string name="save_as_rule">Save As Rule</string>
+    <string name="delete_all_rules">Delete All Rules</string>
+    <string name="add_new_rule">Add New Rule</string>
+    <string name="edit_rule">Edit Rule</string>
+    <string name="delete_rule">Delete Rule</string>
+    <string name="field">Field</string>
+    <string name="initial_value">Initial Value</string>
+    <string name="changed_value">Changed Value</string>
+    <string name="track">Track</string>
+    <string name="album">Album</string>
+    <string name="artist">Artist</string>
+    <string name="empty_rules">...</string>
+    <!-- END  correction rules strings -->
 </resources>
