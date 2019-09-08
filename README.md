@@ -12,7 +12,7 @@
 
 ### Translators! Your Help Is Needed.
 
- * ###### Head to [Transifex](https://www.transifex.com/sls/sls) for exact information.
+ * ###### Head to [OpenSkyApp](https://os0hucc.oneskyapp.com/admin/project/dashboard/project/344237) for exact translator information.
 
 Simple Scrobbler (SS) is a simple app that scrobbles music listened to on an Android phone. Scrobbling means submitting listening information to Last.fm (and optionally/additionally Libre.fm and ListenBrainz) when you play a track, and you can then get music recommendations and view you listening history and statistics at Last.fm.
 
@@ -127,7 +127,7 @@ Before the release of a new version of SLS, it will be available here to test fo
 
 ### Supported languages
 
- * ###### Head to [Transifex](https://www.transifex.com/sls/sls) for exact information.
+ * ###### Head to [OpenSkyApp](https://os0hucc.oneskyapp.com/admin/project/dashboard/project/344237) for exact translator information.
  * English
  * Spanish
  * French
