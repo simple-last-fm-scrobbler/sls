@@ -2,6 +2,9 @@ Visit,
 https://github.com/simple-last-fm-scrobbler/sls
 For more details.
 
+- 1.6.1 (2018-9-7) codename: dingus
+  * Fixed icon kitkat
+
 - 1.6.0 (2018-9-7) codename: cingus
   * Fixed Google Play logo block flag
 

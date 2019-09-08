@@ -3,13 +3,16 @@
 [<img src="https://github.com/simple-last-fm-scrobbler/sls/blob/master/art/icon_new.svg" alt="Icon" height="60">](https://github.com/simple-last-fm-scrobbler/sls/blob/master/art/icon_new.svg) [![Build Status](https://travis-ci.com/simple-last-fm-scrobbler/sls.svg?branch=master)](https://travis-ci.com/simple-last-fm-scrobbler/sls) [![GitHub release](https://img.shields.io/github/release/simple-last-fm-scrobbler/sls)](https://github.com/simple-last-fm-scrobbler/sls/releases/) [![GitHub release](https://img.shields.io/github/release-pre/simple-last-fm-scrobbler/sls)](https://github.com/simple-last-fm-scrobbler/sls/releases/) [![License](http://img.shields.io/:license-apache-blue.svg?style=round)](LICENSE.md) [![Pull Requests](https://img.shields.io/github/issues-pr/simple-last-fm-scrobbler/sls.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/pulls)
 
 
-[![Gitter](https://img.shields.io/gitter/room/tgwizard/sls.svg?logo=gitter&style=round)](https://gitter.im/tgwizard/sls)
+[![License](http://img.shields.io/:license-apache-blue.svg?style=round)](LICENSE.md) [![Pull Requests](https://img.shields.io/github/issues-pr/simple-last-fm-scrobbler/sls.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/pulls) [![Gitter](https://img.shields.io/gitter/room/tgwizard/sls.svg?logo=gitter&style=round)](https://gitter.im/tgwizard/sls)
 [![Discord](https://img.shields.io/discord/592703275837685760.svg?logo=discord&style=round)](https://discordapp.com/channels/592703275837685760)
 
-[![Feature Requests](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/feature%20request.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/feature%20request) [![App Support Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/app%20support.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/app%20support) [![Bugs Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/bugs.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/bugs) [![Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/issues)
-
-[![Serious Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/serious.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/serious)
+[![Feature Requests](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/feature%20request.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/feature%20request) [![App Support Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/app%20support.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/app%20support) [![Bugs Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/bugs.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/bugs) [![Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/issues) [![Serious Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/serious.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/serious)
 [![Critical Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/critical.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/critical)
+
+
+### Translators! Your Help Is Needed.
+
+ * ###### Head to [OpenSkyApp](https://os0hucc.oneskyapp.com/admin/project/dashboard/project/344237) for exact translator information.
 
 Simple Scrobbler (SS) is a simple app that scrobbles music listened to on an Android phone. Scrobbling means submitting listening information to Last.fm (and optionally/additionally Libre.fm and ListenBrainz) when you play a track, and you can then get music recommendations and view you listening history and statistics at Last.fm.
 
@@ -123,8 +126,8 @@ Before the release of a new version of SLS, it will be available here to test fo
  * More
 
 ### Supported languages
-* ###### Head to [Transifex](https://www.transifex.com/sls/sls) for exact information.
 
+ * ###### Head to [OpenSkyApp](https://os0hucc.oneskyapp.com/admin/project/dashboard/project/344237) for exact translator information.
  * English
  * Spanish
  * French
