@@ -1,8 +1,8 @@
-Last Updated August 2nd 2019
+Last Updated August 7th 2019
+
+### NOTICE: If you have Android Lollipop or up, your device allows that Simple Scrobbler should be compatible with most android music apps.
 
 Should you notice a data mistake, please create a pull request or notify the developers.
-
-
 
 * Default Android Music Player
 * HTC Hero Music Player

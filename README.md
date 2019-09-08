@@ -1,6 +1,7 @@
-# Simple Last.fm Scrobbler
+# Simple Scrobbler
 
-[![Build Status](https://travis-ci.com/simple-last-fm-scrobbler/sls.svg?branch=master)](https://travis-ci.com/simple-last-fm-scrobbler/sls) [![GitHub release](https://img.shields.io/github/release/simple-last-fm-scrobbler/sls)](https://github.com/simple-last-fm-scrobbler/sls/releases/) [![GitHub release](https://img.shields.io/github/release-pre/simple-last-fm-scrobbler/sls)](https://github.com/simple-last-fm-scrobbler/sls/releases/)
+[<img src="https://github.com/simple-last-fm-scrobbler/sls/blob/master/art/icon_new.svg" alt="Icon" height="60">](https://github.com/simple-last-fm-scrobbler/sls/blob/master/art/icon_new.svg) [![Build Status](https://travis-ci.com/simple-last-fm-scrobbler/sls.svg?branch=master)](https://travis-ci.com/simple-last-fm-scrobbler/sls) [![GitHub release](https://img.shields.io/github/release/simple-last-fm-scrobbler/sls)](https://github.com/simple-last-fm-scrobbler/sls/releases/) [![GitHub release](https://img.shields.io/github/release-pre/simple-last-fm-scrobbler/sls)](https://github.com/simple-last-fm-scrobbler/sls/releases/) [![License](http://img.shields.io/:license-apache-blue.svg?style=round)](LICENSE.md) [![Pull Requests](https://img.shields.io/github/issues-pr/simple-last-fm-scrobbler/sls.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/pulls)
+
 
 [![License](http://img.shields.io/:license-apache-blue.svg?style=round)](LICENSE.md) [![Pull Requests](https://img.shields.io/github/issues-pr/simple-last-fm-scrobbler/sls.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/pulls) [![Gitter](https://img.shields.io/gitter/room/tgwizard/sls.svg?logo=gitter&style=round)](https://gitter.im/tgwizard/sls)
 [![Discord](https://img.shields.io/discord/592703275837685760.svg?logo=discord&style=round)](https://discordapp.com/channels/592703275837685760)
@@ -13,7 +14,7 @@
 
  * ###### Head to [Transifex](https://www.transifex.com/sls/sls) for exact information.
 
-Simple Last.fm Scrobbler (SLS) is a simple app that scrobbles music listened to on an Android phone. Scrobbling means submitting listening information to Last.fm (and optionally/additionally Libre.fm and ListenBrainz) when you play a track, and you can then get music recommendations and view you listening history and statistics at Last.fm.
+Simple Scrobbler (SS) is a simple app that scrobbles music listened to on an Android phone. Scrobbling means submitting listening information to Last.fm (and optionally/additionally Libre.fm and ListenBrainz) when you play a track, and you can then get music recommendations and view you listening history and statistics at Last.fm.
 
 Before the release of a new version of SLS, it will be available here to test for one week in [GitHub Releases](https://github.com/simple-last-fm-scrobbler/sls/releases).
 
@@ -53,7 +54,7 @@ Before the release of a new version of SLS, it will be available here to test fo
     ](https://play.google.com/store/apps/details?id=com.adam.aslfms&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
 [<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
     alt="Get it on F-Droid"
-    height="80">](https://f-droid.org/packages/com.adam.aslfs)
+    height="80">](https://f-droid.org/packages/com.adam.aslfms)
 
 
 #### [Release & Pre-Release Downloads](https://github.com/simple-last-fm-scrobbler/sls/releases)
