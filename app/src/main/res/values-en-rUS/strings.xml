@@ -185,22 +185,22 @@
     <string name="languages_title">Languages (* are incomplete)</string>
     <!-- warning! Size must be exact! -->
     <!-- All Values correspond to string-non-translatable languages_codes -->
-   <string-array name="language_list">
-       <item countrycode="zh-rCN">Chinese*</item>
-       <item countrycode="cs">Czech*</item>
-       <item countrycode="cs-rCZ">Czech, Czech*</item>
-       <item countrycode="en">English</item>
-       <item countrycode="en">English, US</item>
-       <item countrycode="fr">French</item>
-       <item countrycode="de">German*</item>
-       <item countrycode="ja">Japan*</item>
-       <item countrycode="es">Spanish*</item>
-       <item countrycode="pl">Polish*</item>
-       <item countrycode="pt-rBR">Portuguese*</item>
-       <item countrycode="ru">Russian*</item>
-       <item countrycode="uk">Ukraine*</item>
-   </string-array>
-   <!-- END options_prefs strings -->
+    <string-array name="language_list">
+        <item countrycode="zh-rCN">Chinese*</item>
+        <item countrycode="cs">Czech*</item>
+        <item countrycode="cs-rCZ">Czech, Czech*</item>
+        <item countrycode="en">English</item>
+        <item countrycode="en">English, US</item>
+        <item countrycode="fr">French</item>
+        <item countrycode="de">German*</item>
+        <item countrycode="ja">Japan*</item>
+        <item countrycode="es">Spanish*</item>
+        <item countrycode="pl">Polish*</item>
+        <item countrycode="pt-rBR">Portuguese*</item>
+        <item countrycode="ru">Russian*</item>
+        <item countrycode="uk">Ukraine*</item>
+    </string-array>
+    <!-- END options_prefs strings -->
     <!-- START status strings -->
     <string name="status">Status</string>
     <string name="scrobble_status_title">Scrobble status</string>

@@ -22,14 +22,18 @@
 
 package com.adam.aslfms;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.MyContextWrapper;
+
 /**
  * @author a93h
  * @since 1.5.8
@@ -37,6 +41,11 @@ import com.adam.aslfms.util.AppSettings;
 public class ChangeThemeActivity extends AppCompatActivity {
     private static final String TAG = "ChangeThemeActivity";
     private AppSettings settings;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(MyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public Resources.Theme getTheme() {

@@ -2,6 +2,11 @@ Visit,
 https://github.com/simple-last-fm-scrobbler/sls
 For more details.
 
+- 1.6.2 (2018-9-8) codename: engus
+  * Fixed old music app broadcast clash
+  * Permission to bypass new features
+  * Language selection
+
 - 1.6.1 (2018-9-7) codename: dingus
   * Fixed icon kitkat
 

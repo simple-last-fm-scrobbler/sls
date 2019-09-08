@@ -24,6 +24,22 @@
 		DAAP Media Player, xenoAmp, Marine, MediaMonkey, Pulsar, 
     </string>
 
+    <string-array translatable="false" name="language_codes">
+        <item translatable="false">zh-rCN</item>
+        <item translatable="false">cs</item>
+        <item translatable="false">cs-rCZ</item>
+        <item translatable="false">en</item>
+        <item translatable="false">en-rUS</item>
+        <item translatable="false">fr</item>
+        <item translatable="false">de</item>
+        <item translatable="false">ja</item>
+        <item translatable="false">es</item>
+        <item translatable="false">pl</item>
+        <item translatable="false">pt-rBR</item>
+        <item translatable="false">ru</item>
+        <item translatable="false">uk</item>
+    </string-array>
+
     <!-- START NetApp and Preference Data -->
     <string name="settings_prefix_last_fm" translatable="false">last.fm</string>
     <string name="settings_prefix_libre_fm" translatable="false">libre.fm</string>

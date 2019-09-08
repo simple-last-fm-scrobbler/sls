@@ -1,6 +1,5 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
-
     <!-- START original strings -->
     <string name="close">Fermer</string>
     <string name="remove">Supprimer</string>
@@ -11,8 +10,8 @@
     <string name="will_submit_stuff">Enverra des informations sur la musique écoutée à ce site</string>
     <string name="also_disable_np_title">Également désactiver l\'affichage du titre en cours de lecture</string>
     <string name="also_disable_np_summary">[Hmpf]</string>
+    <string name="menu_exit">Sortie</string>
     <!-- END original strings -->
-
     <!-- START about strings -->
     <string name="by">par</string>
     <string name="issues">Suivi de problèmes : %s</string>
@@ -29,7 +28,6 @@
     <string name="supported_netapps">Sites web supportés : %1</string>
     <string name="supported_apps">Applications supportées : %s et plus…</string>
     <!-- END about strings -->
-
     <!-- START cache strings -->
     <string name="scrobbles_cache_nonum">Scrobbles dans le cache local :</string>
     <string name="scrobbles_cache">Scrobbles dans le cache local : %1</string>
@@ -62,7 +60,6 @@
     <string name="sc_sort_track_asc">Piste, ascendent</string>
     <string name="sc_sort_track_desc">Piste, descendent</string>
     <!-- END cache strings -->
-
     <!-- START creds strings -->
     <string name="user_credentials_title">Identifiants de l\'utilisateur</string>
     <string name="user_credentials_summary">Nom d\'utilisateur et mot de passe de votre compte %1</string>
@@ -92,8 +89,6 @@
     <string name="confirm_clear_creds">Voulez vous vraiment effacer vos identifiants pour %1 ? Cela effacera aussi tous les scrobbles non envoyés.</string>
     <string name="confirm_clear_all_creds">Voulez vous vraiment effacer vos identifiants pour tous les comptes enregistrés ? Cela effacera aussi tous les scrobbles non envoyés.</string>
     <!-- END creds strings -->
-
-
     <!-- START heart strings -->
     <string name="heart_and_copy">Options de chanson</string>
     <string name="heart_title">J\'adore</string>
@@ -103,20 +98,25 @@
     <string name="no_lastFm">Entrez vos informations d\'identification last.fm</string>
     <string name="song_is_ready">Chanson est préparé</string>
     <!-- END heart strings -->
-
     <!-- START copy strings -->
     <string name="copy_title">Copie</string>
     <string name="copy_current_track">Copier la chanson en cours dans le presse-papiers</string>
     <string name="no_copy_track">Échec de la copie de la chanson</string>
     <string name="no_current_track">Aucune chanson actuelle disponible</string>
     <!-- END copy strings -->
-
+    <!-- START copy strings -->
+    <string name="theme_title">Sélection du Thème</string>
+    <string name="theme_summary">Sélectionnez un Thème.</string>
+    <string name="theme_dark">Foncé</string>
+    <string name="theme_light">Claire</string>
+    <string name="theme_default">Défaut</string>
+    <!-- END copy strings -->
     <!-- START permissions and warnings strings -->
     <string name="permission_required">Autorisation nécessaire pour fonctionner correctement</string>
     <string name="creds_required">Vérification des identifiants nécessaire pour fonctionner correctement</string>
+    <string name="notification_access_required">Accès de notification REQUIS pour fonctionner correctement</string>
     <string name="limited_network">Réseau Limitées</string>
     <!-- END permissions and warnings strings -->
-
     <!-- START mapis strings -->
     <string name="incompatability_short">Attention : %1$s est installé et peut provoquer un double scrobbling.</string>
     <string name="incompatability_long">Attention : %1$s est installé et peut provoquer des incompatibilités avec le scrobbling. Désactivez le scrobbling de cette apllication, ou désinstallez %1$s.</string>
@@ -129,9 +129,14 @@
     <string name="find_supported_mapis_many_title">%1 lecteurs de musique détectés</string>
     <string name="find_supported_mapis_summary">Jouez de la musique dans un lecteur de musique supporté et il apparaîtra ici</string>
     <string name="unknown_mapi">Application inconnue (pre SLS v1.2.3)</string>
+    <string name="notification_controller">Notification par Défaut</string>
+    <string name="new_music_app">Nouvelle Application Musicale Détectée, Cliquez Ici</string>
+    <string name="clear_apps">Effacer les Applications</string>
+    <!-- TODO: Translate -->
     <!-- END mapis strings -->
-
     <!-- START options_prefs strings -->
+    <string name="active_app">Notification d\'Application Active</string>
+    <string name="active_app_summary">ATTENTION, peut ignorer scrobbles.</string>
     <string name="options_title">Options</string>
     <string name="advanced_options_title">Options avancées</string>
     <string name="scrobbling">Scrobbler</string>
@@ -168,8 +173,46 @@
     <string name="advanced_options_net_roaming_title">Itinérance</string>
     <string name="advanced_options_net_roaming_summary_off">N\'enverra pas les données en itinérance</string>
     <string name="advanced_options_net_roaming_summary_on">Enverra les données en itinérance</string>
+    <string name="notification_priority">Priorité de Notification</string>
+    <string-array name="notification_priority_list">
+        <item>min</item>
+        <item>basse</item>
+        <item>défaut</item>
+        <item>élevé</item>
+        <item>max</item>
+    </string-array>
+    <string name="languages_title">Langues (* sont incomplètes)</string>
+    <!-- warning! Size must be exact! -->
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+    <string-array name="language_list">
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Chinois*</item>
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Tchèque*</item>
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Tchèque, Tchèque*</item>
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Anglais</item>
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Anglais, US</item>
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Français</item>
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Allemand*</item>
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Japon*</item>
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Espanol*</item>
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Polonais*</item>
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Portugais*</item>
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Russe*</item>
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Ukrainien*</item>
+    </string-array>
     <!-- END options_prefs strings -->
-
     <!-- START status strings -->
     <string name="status">Status</string>
     <string name="scrobble_status_title">Statut du scrobble</string>
@@ -190,5 +233,40 @@
     <string name="confirm_stats_reset">Êtes vous sûr de vouloir remettre à zéro les statistiques de %1 ? Cette operation ne peux pas être annulée.</string>
     <string name="profile_page">Page de profil</string>
     <!-- END status strings -->
-
+    <!-- BEGIN developer options -->
+    <string name="developer_options">Options de Développeur</string>
+    <string name="export_database">Exporter la Base de Données</string>
+    <!-- BEGIN developer options -->
+    <!-- BEGIN permissions activity -->
+    <string name="permission_activate">Activer</string>
+    <string name="permissions_title">Autorisations Requises</string>
+    <string name="permission_external_storage">Stockage Externe</string>
+    <string name="permission_notification_listener">Écouteur de Notification.</string>
+    <string name="permission_battery_optimizations">Optimisation de la Batterie</string>
+    <string name="permission_battery_basic">Batterie de Base</string>
+    <string name="permission_continue">Continuer</string>
+    <string name="find_notifications_settings">Rechercher la liste d\'accès aux notifications dans les paramètres Android, ajouter Simple Scrobbler</string>
+    <string name="find_battery_settings">Recherchez la liste des ignorés de l\'optimisation de la batterie dans les paramètres Android, ajoutez Simple Scrobbler</string>
+    <string name="permission_notification_listener_notice">Activer les Accès aux Notifications pour Simple Scrobbler dans les paramètres Android</string>
+    <!-- END permissions activity -->
+    <!-- START correction rules strings -->
+    <string name="old_track">Titre de la piste</string>
+    <string name="new_track">Nouveau titre de piste</string>
+    <string name="old_artist">Titre d\'artiste</string>
+    <string name="new_artist">Nouveau titre d\'artiste</string>
+    <string name="old_album">Titre de l\'album</string>
+    <string name="new_album">Nouveau titre de l\'album</string>
+    <string name="save_as_rule">Enregistrer en Règle</string>
+    <string name="delete_all_rules">Supprimer Toutes les Règles</string>
+    <string name="add_new_rule">Ajouter une nouvelle règle</string>
+    <string name="edit_rule">Modifier la règle</string>
+    <string name="delete_rule">Supprimer la règle</string>
+    <string name="field">Champ de saisie</string>
+    <string name="initial_value">Valeur initiale</string>
+    <string name="changed_value">Valeur modifiée</string>
+    <string name="track">Piste</string>
+    <string name="album">Album</string>
+    <string name="artist">Artiste</string>
+    <string name="empty_rules">...</string>
+    <!-- END  correction rules strings -->
 </resources>

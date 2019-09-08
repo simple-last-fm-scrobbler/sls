@@ -38,6 +38,7 @@ import android.view.MenuItem;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.MyContextWrapper;
 import com.adam.aslfms.util.Util;
 import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
@@ -56,6 +57,12 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
     private HashMap<Preference, NetApp> mUserCredsPrefToAppMap;
     private HashMap<NetApp, Preference> mUserCredsAppToPrefMap;
     private Preference mClearAllCreds;
+
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(MyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public Resources.Theme getTheme() {

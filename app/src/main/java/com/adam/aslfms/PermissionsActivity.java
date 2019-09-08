@@ -21,6 +21,7 @@
 package com.adam.aslfms;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -36,6 +37,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.MyContextWrapper;
 import com.adam.aslfms.util.Util;
 /**
  * @author a93h
@@ -53,6 +55,11 @@ public class PermissionsActivity extends AppCompatActivity {
     int warningColor = Color.argb(80,255,0,0);
 
     Button btnContinue = null;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(MyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public Resources.Theme getTheme() {

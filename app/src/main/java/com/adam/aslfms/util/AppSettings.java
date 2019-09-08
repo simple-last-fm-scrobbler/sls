@@ -38,6 +38,8 @@ import com.adam.aslfms.util.enums.PowerOptions;
 import com.adam.aslfms.util.enums.SortField;
 import com.adam.aslfms.util.enums.SubmissionType;
 
+import java.util.Locale;
+
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -92,6 +94,7 @@ public class AppSettings {
     private static final String KEY_WIDGET_ALSO_DISABLE_NP = "widget_also_disable_np";
 
     private static final String KEY_THEME = "my_theme";
+    private static final String KEY_LOCALE = "my_locale";
 
     private final Context mCtx;
     private final SharedPreferences prefs;
@@ -126,6 +129,7 @@ public class AppSettings {
     }
 
     public void setAppTheme(int i){
+        Log.d(TAG,"new app theme: " + i);
         Editor e = prefs.edit();
         e.putInt(KEY_THEME, i);
         e.commit();
@@ -133,6 +137,18 @@ public class AppSettings {
 
     public int getAppTheme(){
         return prefs.getInt(KEY_THEME, R.style.AppTheme);
+    }
+
+
+    public void setAppLocale(String i){
+        Log.d(TAG,"new app locale " + i);
+        Editor e = prefs.edit();
+        e.putString(KEY_LOCALE, i);
+        e.commit();
+    }
+
+    public String getAppLocale(){
+        return prefs.getString(KEY_LOCALE, Locale.getDefault().getLanguage());
     }
 
     public void setUsername(NetApp napp, String s) {
@@ -234,6 +250,7 @@ public class AppSettings {
     }
 
     public void setKeyNotificationPriority(String s) {
+        Log.d(TAG,"notification priority set to: " + s);
         Editor e = prefs.edit();
         e.putString(KEY_NOTIFICATION_PRIORITY, s);
         e.commit();

@@ -52,6 +52,7 @@ import android.widget.TextView;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.MyContextWrapper;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
@@ -72,6 +73,11 @@ public class ViewScrobbleCacheActivity extends AppCompatActivity {
 
     private ListView mListView;
     private TextView mSortHeaderTextView;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(MyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public Resources.Theme getTheme() {

@@ -584,10 +584,12 @@ public class Util {
     public static void stopAllServices(Context context) {
         Intent i = new Intent(context, NotificationBarService.class);
         Intent ii = new Intent(context, ScrobblingService.class);
-        Intent iii = new Intent(context, ControllerReceiverService.class);
         stopMyService(i, context);
         stopMyService(ii, context);
-        stopMyService(iii, context);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Intent iii = new Intent(context, ControllerReceiverService.class);
+            stopMyService(iii, context);
+        }
     }
 
     public static void runServices(Context context) {

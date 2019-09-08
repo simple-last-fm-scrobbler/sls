@@ -21,7 +21,9 @@
 
 package com.adam.aslfms;
 
+import android.content.Context;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -34,12 +36,15 @@ import android.util.Log;
 import android.view.MenuItem;
 
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.MyContextWrapper;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.enums.AdvancedOptions;
 import com.adam.aslfms.util.enums.AdvancedOptionsWhen;
 import com.adam.aslfms.util.enums.NetworkOptions;
 import com.adam.aslfms.util.enums.PowerOptions;
 import com.example.android.supportv7.app.AppCompatPreferenceActivity;
+
+import java.util.Arrays;
 
 public class OptionsActivity extends AppCompatPreferenceActivity {
     private static final String TAG = "OptionsGeneralScreen";
@@ -50,12 +55,19 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
     private static final String KEY_PLUGGED = "ao_plugged";
     private static final String KEY_EXPORT_DB = "export_database";
     private static final String KEY_NOTIFICATION_PRIORITY = "notification_priority";
+    private static final String KEY_LANGUAGES_LIST = "languages_list";
 
     private AppSettings settings;
 
     private SeekBarPreference mScrobblePoint;
     private PowerSpecificPrefs mBatteryOptions;
     private PowerSpecificPrefs mPluggedOptions;
+
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(MyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public Resources.Theme getTheme() {
@@ -173,6 +185,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         private CheckBoxPreference roaming;
         private Preference exportdatabase;
         private ListPreference notification_priority;
+        private ListPreference languages_list;
 
         public void create() {
             createChooserPreference();
@@ -186,6 +199,22 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             exportdatabase = findPreference(KEY_EXPORT_DB);
             notification_priority = (ListPreference) findPreference(KEY_NOTIFICATION_PRIORITY);
             notification_priority.setDefaultValue(Util.notificationStringToInt(getApplicationContext()));
+            languages_list = (ListPreference) findPreference(KEY_LANGUAGES_LIST);
+            notification_priority.setOnPreferenceChangeListener((Preference preference, Object object) -> {
+                    settings.setKeyNotificationPriority(notification_priority.getValue());
+                    return false;
+                }
+            );
+            languages_list.setOnPreferenceChangeListener((Preference preference, Object object) -> {
+                    String userSelection = (String) object;
+                    String[] country_codes = getResources().getStringArray(R.array.language_codes);
+                    String[] langauge_list = getResources().getStringArray(R.array.language_list);
+                    int position = Arrays.asList(langauge_list).indexOf(userSelection);
+                    settings.setAppLocale(country_codes[position]);
+                    recreate();
+                    return false;
+                }
+            );
         }
 
         public boolean onClick(Preference pref) {
@@ -207,8 +236,6 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
                 return true;
             } else if (pref == exportdatabase) {
                 Util.exportAllDatabases(getApplicationContext());
-            } else if (pref == notification_priority){
-                settings.setKeyNotificationPriority(notification_priority.getValue());
             }
             return false;
         }

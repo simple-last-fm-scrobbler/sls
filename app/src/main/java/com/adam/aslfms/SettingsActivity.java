@@ -27,6 +27,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.SQLException;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -39,6 +40,7 @@ import android.view.MenuItem;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.MyContextWrapper;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Util;
 import com.example.android.supportv7.app.AppCompatPreferenceActivity;
@@ -78,6 +80,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 
     Context mCtx;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(MyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public Resources.Theme getTheme() {
@@ -124,7 +131,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         if (settings.getWhatsNewViewedVersion() < v) {
             new WhatsNewDialog(this).show();
             settings.setWhatsNewViewedVersion(v);
-            mDb.rebuildDataBaseOnce(); // TODO: VERSION 1.5.9 only!
         }
         Util.runServices(this);        // Scrobbler, Controller, Notification
     }
