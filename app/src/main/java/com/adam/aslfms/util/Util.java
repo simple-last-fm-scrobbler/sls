@@ -49,6 +49,7 @@ import android.text.format.DateUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.adam.aslfms.PermissionsActivity;
 import com.adam.aslfms.R;
 import com.adam.aslfms.SettingsActivity;
 import com.adam.aslfms.service.ControllerReceiverService;
@@ -513,6 +514,10 @@ public class Util {
     }
 
     private static void exportDB(String dbName, Context ctx) {
+        if(!Util.checkExternalPermission(ctx)){
+            Util.myNotify(ctx, ctx.getResources().getString(R.string.warning), ctx.getResources().getString(R.string.permission_external_storage), 81234, PermissionsActivity.class);
+            return;
+        }
         File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
         File data = Environment.getDataDirectory();
         FileChannel source = null;
@@ -586,7 +591,7 @@ public class Util {
         Intent ii = new Intent(context, ScrobblingService.class);
         stopMyService(i, context);
         stopMyService(ii, context);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Util.checkNotificationListenerPermission(context)) {
             Intent iii = new Intent(context, ControllerReceiverService.class);
             stopMyService(iii, context);
         }
@@ -602,7 +607,7 @@ public class Util {
         i.putExtra("album", "");
         i.putExtra("app_name", "");
         ii.setAction(ScrobblingService.ACTION_START_SCROBBLER_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Util.checkNotificationListenerPermission(context)) {
             Intent iii = new Intent(context, ControllerReceiverService.class);
             Log.d(TAG, "(re)starting controllerreceiver");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

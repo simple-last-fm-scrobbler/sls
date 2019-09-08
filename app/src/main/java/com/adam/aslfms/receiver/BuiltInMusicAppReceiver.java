@@ -24,10 +24,13 @@ import android.content.ContentUris;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 
+import com.adam.aslfms.PermissionsActivity;
+import com.adam.aslfms.R;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
@@ -177,6 +180,10 @@ public abstract class BuiltInMusicAppReceiver extends
 		long audioid = getAudioId(bundle);
 
 		if (shouldFetchFromMediaStore(ctx, audioid)) { // read from MediaStore
+			if(Build.VERSION_CODES.KITKAT >= Build.VERSION.SDK_INT && !Util.checkExternalPermission(ctx)){
+				Util.myNotify(ctx, ctx.getResources().getString(R.string.warning), ctx.getResources().getString(R.string.permission_external_storage), 81234, PermissionsActivity.class);
+				return;
+			}
 			readTrackFromMediaStore(ctx, b, audioid);
 		} else {
 			readTrackFromBundleData(b, bundle);

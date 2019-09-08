@@ -22,8 +22,8 @@
 package com.adam.aslfms;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -56,12 +56,15 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
     private static final String KEY_EXPORT_DB = "export_database";
     private static final String KEY_NOTIFICATION_PRIORITY = "notification_priority";
     private static final String KEY_LANGUAGES_LIST = "languages_list";
+    private static final String KEY_PERMISSION_SHOW = "permission_activity_show";
 
     private AppSettings settings;
 
     private SeekBarPreference mScrobblePoint;
     private PowerSpecificPrefs mBatteryOptions;
     private PowerSpecificPrefs mPluggedOptions;
+
+    Context ctx = this;
 
 
     @Override
@@ -175,6 +178,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         private PowerOptions power;
         private PreferenceCategory category;
 
+        private Preference showPermissionActivity;
         private ListPreference chooser;
         private CheckBoxPreference active_app;
         private CheckBoxPreference scrobble;
@@ -197,6 +201,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             createNetPreference();
             createRoamingPreference();
             exportdatabase = findPreference(KEY_EXPORT_DB);
+            showPermissionActivity = findPreference(KEY_PERMISSION_SHOW);
             notification_priority = (ListPreference) findPreference(KEY_NOTIFICATION_PRIORITY);
             notification_priority.setDefaultValue(Util.notificationStringToInt(getApplicationContext()));
             languages_list = (ListPreference) findPreference(KEY_LANGUAGES_LIST);
@@ -212,6 +217,12 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
                     int position = Arrays.asList(langauge_list).indexOf(userSelection);
                     settings.setAppLocale(country_codes[position]);
                     recreate();
+                    return false;
+                }
+            );
+            showPermissionActivity.setOnPreferenceClickListener((Preference preference) ->{
+                    Intent i = new Intent(ctx, PermissionsActivity.class);
+                    startActivity(i);
                     return false;
                 }
             );

@@ -3,7 +3,7 @@ https://github.com/simple-last-fm-scrobbler/sls
 For more details.
 
 - 1.6.2 (2018-9-8) codename: engus
-  * Fixed old music app broadcast clash
+  * Fixed music not being recognized immediately
   * Permission to bypass new features
   * Language selection
 

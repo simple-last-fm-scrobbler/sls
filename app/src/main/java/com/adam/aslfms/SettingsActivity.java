@@ -27,7 +27,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.SQLException;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
@@ -128,7 +127,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         // TODO: VERIFY EVERYTHING BELOW IS SAFE
         int v = Util.getAppVersionCode(this, getPackageName());
-        if (settings.getWhatsNewViewedVersion() < v) {
+        if (settings.getWhatsNewViewedVersion() < v && settings.getKeyBypassNewPermissions() != 2) {
             new WhatsNewDialog(this).show();
             settings.setWhatsNewViewedVersion(v);
         }
@@ -258,6 +257,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     private void permsCheck() {
+        if (settings.getKeyBypassNewPermissions() == 1){
+            return;
+        }
         //PERMISSION CHECK
         boolean allPermissionsGo = true;
         allPermissionsGo = allPermissionsGo && Util.checkNotificationListenerPermission(this);

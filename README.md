@@ -112,6 +112,7 @@ Before the release of a new version of SLS, it will be available here to test fo
  * markers in scrobble cache for logged in accounts
  * Store scrobbles before user is logged in
  * Manual scrobbling, for example Vinyl Records, CD, Cassette and other older media machines.
+ * Import database
 
 ## Features
 

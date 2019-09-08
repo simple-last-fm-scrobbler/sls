@@ -73,8 +73,6 @@ public class AppSettings {
     private static final String KEY_SCROBBLING_ENABLE = "enable_scrobbling";
     private static final String KEY_NOWPLAYING_ENABLE = "enable_nowplaying";
 
-    private static final String KEY_ACTIVE_MUSIC_NOTIFICATION_APP = "active_music_notification_app";
-
     private static final String KEY_NOTIFICATION_PRIORITY = "key_notification_priority";
 
     private static final String KEY_AUTH_STATUS = "authstatus";
@@ -90,11 +88,11 @@ public class AppSettings {
     private static final String KEY_ADVANCED_OPTIONS_NETWORK = "advanced_options_network";
     private static final String KEY_ADVANCED_OPTIONS_ROAMING = "advanced_options_roaming";
 
-    // Widget stuff
     private static final String KEY_WIDGET_ALSO_DISABLE_NP = "widget_also_disable_np";
 
     private static final String KEY_THEME = "my_theme";
     private static final String KEY_LOCALE = "my_locale";
+    private static final String KEY_BYPASS_NEW_PERMISSIONS = "key_bypass_permissions";
 
     private final Context mCtx;
     private final SharedPreferences prefs;
@@ -231,13 +229,18 @@ public class AppSettings {
         e.commit();
     }
 
-    public String getKeyActiveMusicNotificationApp() {
-        return prefs.getString(KEY_ACTIVE_MUSIC_NOTIFICATION_APP, null);
+    public int getKeyBypassNewPermissions() {
+        return prefs.getInt(KEY_BYPASS_NEW_PERMISSIONS, 2);
     }
 
-    public void setKeyActiveMusicNotificationApp(String s) {
+    /**
+     *
+     *
+     * @param i 0,1,2 false, true, unknown
+     */
+    public void setKeyBypassNewPermissions(int i) {
         Editor e = prefs.edit();
-        e.putString(KEY_ACTIVE_MUSIC_NOTIFICATION_APP, s);
+        e.putInt(KEY_BYPASS_NEW_PERMISSIONS, i);
         e.commit();
     }
 

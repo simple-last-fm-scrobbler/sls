@@ -162,10 +162,10 @@
                 android:gravity="center_horizontal|center_vertical" >
 
                 <Button
-                    android:id="@+id/button_continue"
+                    android:id="@+id/button_skip"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/permission_continue"
+                    android:text="@string/permission_skip"
                     android:textSize="12sp" />
             </TableRow>
 

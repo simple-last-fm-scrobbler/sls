@@ -6,6 +6,8 @@
     <string name="reset">Remise à zéero</string>
     <string name="clear_creds">Effacer</string>
     <string name="are_you_sure">Êtes-vous sûr ?</string>
+    <string name="yes">Oui</string>
+    <string name="no">Non</string>
     <string name="warning">Attention</string>
     <string name="will_submit_stuff">Enverra des informations sur la musique écoutée à ce site</string>
     <string name="also_disable_np_title">Également désactiver l\'affichage du titre en cours de lecture</string>
@@ -239,7 +241,7 @@
     <!-- BEGIN developer options -->
     <!-- BEGIN permissions activity -->
     <string name="permission_activate">Activer</string>
-    <string name="permissions_title">Autorisations Requises</string>
+    <string name="permissions_title">Autorisations</string>
     <string name="permission_external_storage">Stockage Externe</string>
     <string name="permission_notification_listener">Écouteur de Notification.</string>
     <string name="permission_battery_optimizations">Optimisation de la Batterie</string>
@@ -248,6 +250,7 @@
     <string name="find_notifications_settings">Rechercher la liste d\'accès aux notifications dans les paramètres Android, ajouter Simple Scrobbler</string>
     <string name="find_battery_settings">Recherchez la liste des ignorés de l\'optimisation de la batterie dans les paramètres Android, ajoutez Simple Scrobbler</string>
     <string name="permission_notification_listener_notice">Activer les Accès aux Notifications pour Simple Scrobbler dans les paramètres Android</string>
+    <string name="warning_will_not_scrobble">Attention, ça ne va pas Scrobble</string>
     <!-- END permissions activity -->
     <!-- START correction rules strings -->
     <string name="old_track">Titre de la piste</string>

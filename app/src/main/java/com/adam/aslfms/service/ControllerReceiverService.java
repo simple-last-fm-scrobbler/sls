@@ -39,6 +39,8 @@ import com.adam.aslfms.util.NotificationCreator;
 import com.adam.aslfms.util.Util;
 
 import java.util.HashSet;
+import java.util.ResourceBundle;
+
 /**
  * @author a93h
  * @since 1.5.8
@@ -59,6 +61,9 @@ public class ControllerReceiverService extends NotificationListenerService {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (!Util.checkNotificationListenerPermission(this)){
+            return;
+        }
         Log.d(TAG,"created");
         AppSettings settings = new AppSettings(this);
 
@@ -76,6 +81,9 @@ public class ControllerReceiverService extends NotificationListenerService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        if (!Util.checkNotificationListenerPermission(this)){
+            return Service.START_NOT_STICKY;
+        }
         Log.d(TAG,"started");
         AppSettings settings = new AppSettings(this);
         Bundle extras = new Bundle();
@@ -84,6 +92,7 @@ public class ControllerReceiverService extends NotificationListenerService {
         extras.putString("album", "");
         extras.putString("app_name", "");
         this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, this));
+        init();
         if (!settings.isActiveAppEnabled(Util.checkPower(this))) {
             this.stopForeground(true);
         }
@@ -121,7 +130,11 @@ public class ControllerReceiverService extends NotificationListenerService {
     public void init(){
         MediaSessionManager mediaSessionManager = null;
         try {
+            Log.d(TAG,"Detecting initial media session");
             mediaSessionManager = (MediaSessionManager) this.getApplicationContext().getSystemService(Context.MEDIA_SESSION_SERVICE) ;
+            ComponentName listenerComponent =
+                    new ComponentName(this, ControllerReceiverService.class);
+            ControllerReceiverSession.initialListener(this, mediaSessionManager.getActiveSessions(listenerComponent));
             mControllerReceiverSession = new ControllerReceiverSession(this);
             mediaSessionManager.addOnActiveSessionsChangedListener(mControllerReceiverSession, new ComponentName(this, ControllerReceiverService.class));
             Log.d(TAG, "media session manager loaded");
