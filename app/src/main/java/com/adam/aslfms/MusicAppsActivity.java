@@ -21,6 +21,7 @@
 
 package com.adam.aslfms;
 
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
@@ -36,6 +37,7 @@ import android.view.MenuItem;
 
 import com.adam.aslfms.receiver.MusicAPI;
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.MyContextWrapper;
 import com.adam.aslfms.util.Util;
 import com.example.android.supportv7.app.AppCompatPreferenceActivity;
 
@@ -57,6 +59,11 @@ public class MusicAppsActivity extends AppCompatPreferenceActivity {
     private String mScrobbleDroidLabel;
 
     private AppSettings settings;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(MyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public Resources.Theme getTheme() {

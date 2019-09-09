@@ -41,6 +41,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.MyContextWrapper;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.CorrectionRule;
 import com.adam.aslfms.util.Util;
@@ -60,6 +61,11 @@ public class ViewCorrectionRulesActivity extends AppCompatActivity {
     private Cursor updateRulesCursor = null;
 
     private ListView rulesListView;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(MyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public Resources.Theme getTheme() {

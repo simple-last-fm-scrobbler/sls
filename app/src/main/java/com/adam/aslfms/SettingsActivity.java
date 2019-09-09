@@ -39,6 +39,7 @@ import android.view.MenuItem;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.MyContextWrapper;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Util;
 import com.example.android.supportv7.app.AppCompatPreferenceActivity;
@@ -78,6 +79,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 
     Context mCtx;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(MyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public Resources.Theme getTheme() {
@@ -121,10 +127,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         // TODO: VERIFY EVERYTHING BELOW IS SAFE
         int v = Util.getAppVersionCode(this, getPackageName());
-        if (settings.getWhatsNewViewedVersion() < v) {
+        if (settings.getWhatsNewViewedVersion() < v && settings.getKeyBypassNewPermissions() != 2) {
             new WhatsNewDialog(this).show();
             settings.setWhatsNewViewedVersion(v);
-            mDb.rebuildDataBaseOnce(); // TODO: VERSION 1.5.9 only!
         }
         Util.runServices(this);        // Scrobbler, Controller, Notification
     }
@@ -252,6 +257,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     }
 
     private void permsCheck() {
+        if (settings.getKeyBypassNewPermissions() == 1){
+            return;
+        }
         //PERMISSION CHECK
         boolean allPermissionsGo = true;
         allPermissionsGo = allPermissionsGo && Util.checkNotificationListenerPermission(this);

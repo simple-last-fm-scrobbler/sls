@@ -136,6 +136,10 @@ public class Handshaker extends NetRunnable {
 
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_OK);
 
+
+            // launch services after login
+            Util.runServices(mCtx);
+
             // won't do anything if there aren't any scrobbles,
             // but will submit those tracks that were prepared
             // but interrupted by a badauth

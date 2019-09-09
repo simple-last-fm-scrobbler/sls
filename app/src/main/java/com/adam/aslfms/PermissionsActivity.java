@@ -21,6 +21,8 @@
 package com.adam.aslfms;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -29,6 +31,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -36,6 +39,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.MyContextWrapper;
 import com.adam.aslfms.util.Util;
 /**
  * @author a93h
@@ -46,17 +50,23 @@ public class PermissionsActivity extends AppCompatActivity {
     private static final String TAG = "PermissionsActivity";
 
     int WRITE_EXTERNAL_STORAGE;
-    int REQUEST_READ_STORAGE;
     int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
     int disabledColor = Color.argb(25, 0,0,0);
     int enabledColor = Color.argb(75, 0,255,0);
     int warningColor = Color.argb(80,255,0,0);
 
-    Button btnContinue = null;
+    AppSettings settings = null;
+    Button btnSkip = null;
+    Context ctx = this;
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(MyContextWrapper.wrap(newBase));
+    }
 
     @Override
     public Resources.Theme getTheme() {
-        AppSettings settings = new AppSettings(this);
+        settings = new AppSettings(this);
         Resources.Theme theme = super.getTheme();
         theme.applyStyle(settings.getAppTheme(), true);
         Log.d(TAG, getResources().getResourceName(settings.getAppTheme()));
@@ -76,7 +86,7 @@ public class PermissionsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_permissions);
 
-        AppSettings settings = new AppSettings(this);
+        settings = new AppSettings(this);
         setTheme(settings.getAppTheme());
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
@@ -88,7 +98,8 @@ public class PermissionsActivity extends AppCompatActivity {
 
     public void checkCurrrentPermissions(){
         boolean enabled;
-        btnContinue = findViewById(R.id.button_continue);
+        btnSkip = findViewById(R.id.button_skip);
+        btnSkip.setBackgroundColor(enabledColor);
         Button externalPermBtn = findViewById(R.id.button_permission_external_storage);
         Button notifiPermBtn = findViewById(R.id.button_permission_notification_listener);
         Button batteryPermBtn = findViewById(R.id.button_permission_battery_optimizations);
@@ -164,6 +175,34 @@ public class PermissionsActivity extends AppCompatActivity {
                 colorPermission(true, batteryBasicPermBtn);
             }
         });
+
+        btnSkip.setOnClickListener((View view) -> {
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which){
+                        case DialogInterface.BUTTON_POSITIVE:
+                            settings.setKeyBypassNewPermissions(1);
+                            Intent intent = new Intent(ctx, SettingsActivity.class);
+                            ctx.startActivity(intent);
+                            Util.runServices(ctx);
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            break;
+                    }
+                }
+            };
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            String message = ctx.getResources().getString(R.string.are_you_sure);
+            if (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT && !Util.checkNotificationListenerPermission(ctx)){
+                message += " " + ctx.getResources().getString(R.string.warning_will_not_scrobble);
+                message += "/" + ctx.getResources().getString(R.string.permission_notification_listener);
+            }
+            builder.setMessage(message).setPositiveButton(R.string.yes, dialogClickListener)
+                    .setNegativeButton(R.string.no, dialogClickListener).show();
+        });
     }
 
     public void colorPermission(boolean enabled, Button button){
@@ -176,6 +215,7 @@ public class PermissionsActivity extends AppCompatActivity {
 
     private void permsCheck() {
         //PERMISSION CHECK
+
         boolean allPermissionsGo = true;
         allPermissionsGo = allPermissionsGo && Util.checkNotificationListenerPermission(this);
         allPermissionsGo = allPermissionsGo && Util.checkExternalPermission(this);
@@ -183,11 +223,10 @@ public class PermissionsActivity extends AppCompatActivity {
         allPermissionsGo = allPermissionsGo && Util.checkBatteryOptimizationBasicPermission(this);
         Log.d(TAG,"All Permissions Go: " + allPermissionsGo);
         if (allPermissionsGo) {
-            btnContinue.setBackgroundColor(enabledColor);
             Intent intent = new Intent(this, SettingsActivity.class);
             this.startActivity(intent);
-        } else {
-            btnContinue.setBackgroundColor(disabledColor);
+            settings.setKeyBypassNewPermissions(0);
+            Util.runServices(ctx);
         }
     }
 
