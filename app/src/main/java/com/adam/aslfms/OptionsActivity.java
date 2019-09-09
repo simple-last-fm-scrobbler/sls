@@ -24,6 +24,7 @@ package com.adam.aslfms;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.sip.SipSession;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
@@ -57,6 +58,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
     private static final String KEY_NOTIFICATION_PRIORITY = "notification_priority";
     private static final String KEY_LANGUAGES_LIST = "languages_list";
     private static final String KEY_PERMISSION_SHOW = "permission_activity_show";
+    private static final String KEY_THEME = "my_theme";
 
     private AppSettings settings;
 
@@ -190,6 +192,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         private Preference exportdatabase;
         private ListPreference notification_priority;
         private ListPreference languages_list;
+        private Preference mChangeTheme;
 
         public void create() {
             createChooserPreference();
@@ -200,32 +203,40 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             createAOCPreference();
             createNetPreference();
             createRoamingPreference();
+            mChangeTheme = findPreference(KEY_THEME);
             exportdatabase = findPreference(KEY_EXPORT_DB);
             showPermissionActivity = findPreference(KEY_PERMISSION_SHOW);
             notification_priority = (ListPreference) findPreference(KEY_NOTIFICATION_PRIORITY);
             notification_priority.setDefaultValue(Util.notificationStringToInt(getApplicationContext()));
             languages_list = (ListPreference) findPreference(KEY_LANGUAGES_LIST);
             notification_priority.setOnPreferenceChangeListener((Preference preference, Object object) -> {
-                    settings.setKeyNotificationPriority(notification_priority.getValue());
-                    return false;
-                }
+                        settings.setKeyNotificationPriority(notification_priority.getValue());
+                        return false;
+                    }
             );
             languages_list.setOnPreferenceChangeListener((Preference preference, Object object) -> {
-                    String userSelection = (String) object;
-                    String[] country_codes = getResources().getStringArray(R.array.language_codes);
-                    String[] langauge_list = getResources().getStringArray(R.array.language_list);
-                    int position = Arrays.asList(langauge_list).indexOf(userSelection);
-                    settings.setAppLocale(country_codes[position]);
-                    recreate();
-                    return false;
-                }
+                        String userSelection = (String) object;
+                        String[] country_codes = getResources().getStringArray(R.array.language_codes);
+                        String[] langauge_list = getResources().getStringArray(R.array.language_list);
+                        int position = Arrays.asList(langauge_list).indexOf(userSelection);
+                        settings.setAppLocale(country_codes[position]);
+                        recreate();
+                        return false;
+                    }
             );
-            showPermissionActivity.setOnPreferenceClickListener((Preference preference) ->{
-                    Intent i = new Intent(ctx, PermissionsActivity.class);
-                    startActivity(i);
-                    return false;
-                }
+            showPermissionActivity.setOnPreferenceClickListener((Preference preference) -> {
+                        Intent i = new Intent(ctx, PermissionsActivity.class);
+                        startActivity(i);
+                        return false;
+                    }
             );
+
+            mChangeTheme.setOnPreferenceClickListener((Preference preference) ->
+            {
+                Intent i = new Intent(ctx, ChangeThemeActivity.class);
+                startActivity(i);
+                return true;
+            });
         }
 
         public boolean onClick(Preference pref) {
