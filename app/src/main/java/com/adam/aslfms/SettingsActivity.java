@@ -121,6 +121,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         if (settings.getWhatsNewViewedVersion() < v && settings.getKeyBypassNewPermissions() != 2) {
             new WhatsNewDialog(this).show();
             settings.setWhatsNewViewedVersion(v);
+            mDb.rebuildDataBaseOnce(); // keep as not all users have the newest database.
         }
         Util.runServices(this);        // Scrobbler, Controller, Notification
     }

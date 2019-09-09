@@ -3,7 +3,9 @@ https://github.com/simple-last-fm-scrobbler/sls
 For more details.
 
 - 1.6.3 (2018-9-9) codename: fingus
-  * Moved theme option into Options
+  * UI fixes
+  * Added not logged in warning
+  * Added database management
 
 - 1.6.2 (2018-9-8) codename: engus
   * Fixed music not being recognized immediately
