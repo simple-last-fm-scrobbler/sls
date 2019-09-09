@@ -2,26 +2,26 @@ Visit,
 https://github.com/simple-last-fm-scrobbler/sls
 For more details.
 
-- 1.6.3 (2018-9-9) codename: fingus
+- 1.6.3 (2019-9-9) codename: fingus
   * UI fixes
   * Added not logged in warning
   * Added database management
 
-- 1.6.2 (2018-9-8) codename: engus
+- 1.6.2 (2019-9-8) codename: engus
   * Fixed music not being recognized immediately
   * Skip permissions optionally
   * Language selection
 
-- 1.6.1 (2018-9-7) codename: dingus
+- 1.6.1 (2019-9-7) codename: dingus
   * Fixed icon kitkat
 
-- 1.6.0 (2018-9-7) codename: cingus
+- 1.6.0 (2019-9-7) codename: cingus
   * Fixed Google Play logo block flag
 
-- 1.5.9 (2018-9-7) codename: bingus
+- 1.5.9 (2019-9-7) codename: bingus
   * Fixed Google Play 'Last.fm' word block flag
 
-- 1.5.8 (2018-6-24) codename: angus
+- 1.5.8 (2019-6-24) codename: angus
   * Permission Changes
   * Notification Priority
   * App Detected Notification
