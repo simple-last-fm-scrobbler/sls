@@ -113,6 +113,8 @@ Before the release of a new version of SLS, it will be available here to test fo
  * Store scrobbles before user is logged in
  * Manual scrobbling, for example Vinyl Records, CD, Cassette and other older media machines.
  * Import database
+ * Keep more variables in the database including past scrobbles, old scrobbles and statistics
+ * .. essentially better internal data management
 
 ## Features
 

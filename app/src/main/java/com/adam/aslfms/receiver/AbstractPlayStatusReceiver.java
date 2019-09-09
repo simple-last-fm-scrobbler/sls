@@ -27,10 +27,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.adam.aslfms.R;
+import com.adam.aslfms.UserCredActivity;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.InternalTrackTransmitter;
 import com.adam.aslfms.util.Track;
+import com.adam.aslfms.util.Util;
 
 import java.util.Iterator;
 import java.util.Set;
@@ -91,6 +94,7 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
         // we must be logged in to scrobble
         AppSettings settings = new AppSettings(context);
         if (!settings.isAnyAuthenticated()) {
+            Util.myNotify(context, context.getResources().getString(R.string.warning) , context.getResources().getString(R.string.not_logged_in),05233, UserCredActivity.class);
             Log
                     .d(TAG,
                             "The user has not authenticated, won't propagate the submission request");

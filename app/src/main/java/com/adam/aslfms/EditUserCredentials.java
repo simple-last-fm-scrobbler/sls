@@ -31,6 +31,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
@@ -71,22 +72,8 @@ public class EditUserCredentials extends DialogPreference {
     @Override
     protected void onBindDialogView(View view) {
         super.onBindDialogView(view);
-        if (mNetApp == NetApp.LISTENBRAINZ || mNetApp == NetApp.LISTENBRAINZCUSTOM) {
-            mUsername = (EditText) view.findViewById(R.id.username);
-            mUsername.setText(settings.getUsername(mNetApp));
-            mListenBrainzToken = (EditText) view.findViewById(R.id.listenBrainzToken);
-            view.findViewById(R.id.listenBrainz).setVisibility(View.VISIBLE);
-            view.findViewById(R.id.userOnly).setVisibility(View.VISIBLE);
-            if (mNetApp == NetApp.LISTENBRAINZCUSTOM) {
-                mListenBrainzURL = (EditText) view.findViewById(R.id.listenBrainzURL);
-                mListenBrainzApiURL = (EditText) view.findViewById(R.id.listenBrainzApiURL);
-                mListenBrainzSecureSocket = (CheckBox) view.findViewById(R.id.listenBrainzSecureSocketSwitch);
-                mListenBrainzURL.setText(settings.getListenBrainzUrl(mNetApp));
-                mListenBrainzApiURL.setText(settings.getListenBrainzApiUrl(mNetApp));
-                mListenBrainzSecureSocket.setChecked(settings.getSecureSocketListenbrainz(mNetApp));
-                view.findViewById(R.id.listenBrainzCustom).setVisibility(View.VISIBLE);
-            }
-        } else {
+
+
             mUsername = (EditText) view.findViewById(R.id.username);
             mPassword = (EditText) view.findViewById(R.id.password);
             mUsername.addTextChangedListener(new TextWatcher() {
@@ -112,6 +99,11 @@ public class EditUserCredentials extends DialogPreference {
 
             view.findViewById(R.id.userOnly).setVisibility(View.VISIBLE);
             view.findViewById(R.id.pwdOnly).setVisibility(View.VISIBLE);
+            if (mNetApp == NetApp.LISTENBRAINZ){
+                TextView pwdTitle = (TextView) view.findViewById(R.id.pwdTitle);
+                pwdTitle.setText(R.string.listen_brainz_token);
+            }
+
             if (mNetApp == NetApp.LIBREFMCUSTOM) {
                 mNixtapeUrl = (EditText) view.findViewById(R.id.nixtapeUrl);
                 mGnukeboxUrl = (EditText) view.findViewById(R.id.gnukeboxUrl);
@@ -122,7 +114,16 @@ public class EditUserCredentials extends DialogPreference {
 
                 view.findViewById(R.id.libreFmCustom).setVisibility(View.VISIBLE);
             }
-        }
+
+            if (mNetApp == NetApp.LISTENBRAINZCUSTOM) {
+                mListenBrainzURL = (EditText) view.findViewById(R.id.listenBrainzURL);
+                mListenBrainzApiURL = (EditText) view.findViewById(R.id.listenBrainzApiURL);
+                mListenBrainzSecureSocket = (CheckBox) view.findViewById(R.id.listenBrainzSecureSocketSwitch);
+                mListenBrainzURL.setText(settings.getListenBrainzUrl(mNetApp));
+                mListenBrainzApiURL.setText(settings.getListenBrainzApiUrl(mNetApp));
+                mListenBrainzSecureSocket.setChecked(settings.getSecureSocketListenbrainz(mNetApp));
+                view.findViewById(R.id.listenBrainzCustom).setVisibility(View.VISIBLE);
+            }
     }
 
     @Override

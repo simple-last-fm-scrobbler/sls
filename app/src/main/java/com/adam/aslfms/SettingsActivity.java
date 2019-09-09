@@ -60,9 +60,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private static final String KEY_VIEW_SCROBBLE_CACHE = "view_scrobble_cache";
     private static final String KEY_HEART_CURRENT_TRACK = "my_heart_button";
     private static final String KEY_COPY_CURRENT_TRACK = "my_copy_button";
-    private static final String KEY_THEME = "my_theme";
-
-    public static final String ACTION_KILL_SERVICE = "action_kill_service";
 
     private AppSettings settings;
 
@@ -72,11 +69,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     private Preference mViewScrobbleCache;
     private Preference mHeartCurrentTrack;
     private Preference mCopyCurrentTrack;
-    private Preference mChangeTheme;
-
-    int WRITE_EXTERNAL_STORAGE;
-    int REQUEST_READ_STORAGE;
-    int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
 
     Context mCtx;
 
@@ -123,13 +115,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         mScrobbleAllNow = findPreference(KEY_SCROBBLE_ALL_NOW);
         mViewScrobbleCache = findPreference(KEY_VIEW_SCROBBLE_CACHE);
         mCopyCurrentTrack = findPreference(KEY_COPY_CURRENT_TRACK);
-        mChangeTheme = findPreference(KEY_THEME);
 
         // TODO: VERIFY EVERYTHING BELOW IS SAFE
         int v = Util.getAppVersionCode(this, getPackageName());
         if (settings.getWhatsNewViewedVersion() < v && settings.getKeyBypassNewPermissions() != 2) {
             new WhatsNewDialog(this).show();
             settings.setWhatsNewViewedVersion(v);
+            mDb.rebuildDataBaseOnce(); // keep as not all users have the newest database.
         }
         Util.runServices(this);        // Scrobbler, Controller, Notification
     }
@@ -182,10 +174,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             return true;
         } else if (pref == mCopyCurrentTrack) {
             Util.copyIfPossible(this);
-            return true;
-        } else if (pref == mChangeTheme){
-            Intent i = new Intent(this, ChangeThemeActivity.class);
-            startActivity(i);
             return true;
         }
         return super.onPreferenceTreeClick(prefScreen, pref);

@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+    <PreferenceCategory android:title="@string/theme_title" />
+    <Preference
+        android:key="my_theme"
+        android:title="@string/theme_summary"/>
+
+    <PreferenceCategory android:title="@string/advanced_options_type_custom_name" />
     <ListPreference android:key="notification_priority"
         android:title="@string/notification_priority"
         android:defaultValue="3"
