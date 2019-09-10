@@ -134,37 +134,35 @@ public class EditUserCredentials extends DialogPreference {
             Intent service = new Intent(getContext(), ScrobblingService.class);
             service.setAction(ScrobblingService.ACTION_AUTHENTICATE);
             service.putExtra("netapp", mNetApp.getIntentExtraValue());
-            if (mNetApp == NetApp.LISTENBRAINZ || mNetApp == NetApp.LISTENBRAINZCUSTOM) {
-                String token = mListenBrainzToken.getText().toString().replaceAll("[^\\x20-\\x7E]", "").trim();
-                settings.setListenBrainzToken(mNetApp, token);
-                String username = mUsername.getText().toString().trim();
-                settings.setUsername(mNetApp, username);
-                if (mNetApp == NetApp.LISTENBRAINZCUSTOM) {
-                    String listenBrainzURL = mListenBrainzURL.getText().toString().trim();
-                    settings.setListenBrainzUrl(mNetApp, listenBrainzURL);
-                    String listenBrainzApiURL = mListenBrainzApiURL.getText().toString().trim();
-                    settings.setListenBrainzApiUrl(mNetApp, listenBrainzApiURL);
-                    settings.setSecureSocketListenbrainz(mNetApp, mListenBrainzSecureSocket.isChecked());
-                }
+
+            String username = mUsername.getText().toString().trim();
+            settings.setUsername(mNetApp, username);
+
+            String password = mPassword.getText().toString();
+            // Here we save the plain-text password temporarily. When the
+            // authentication request succeeds, it is removed by
+            // Handshaker.run()
+            settings.setSessionKey(mNetApp, "");
+            if (mNetApp == NetApp.LISTENBRAINZ || mNetApp == NetApp.LISTENBRAINZCUSTOM){
+                settings.setListenBrainzToken(mNetApp, password);
             } else {
-                String username = mUsername.getText().toString().trim();
-                settings.setUsername(mNetApp, username);
-
-                String password = mPassword.getText().toString();
-                // Here we save the plain-text password temporarily. When the
-                // authentication request succeeds, it is removed by
-                // Handshaker.run()
-                settings.setSessionKey(mNetApp, "");
                 settings.setPassword(mNetApp, password);
-                settings.setPwdMd5(mNetApp, MD5.getHashString(password));
+            }
+            settings.setPwdMd5(mNetApp, MD5.getHashString(password));
 
-                if (mNetApp == NetApp.LIBREFMCUSTOM) {
-                    String nixtapeUrl = mNixtapeUrl.getText().toString().trim();
-                    settings.setNixtapeUrl(mNetApp, nixtapeUrl);
-                    String gnukeboxUrl = mGnukeboxUrl.getText().toString().trim();
-                    settings.setGnukeboxUrl(mNetApp, gnukeboxUrl);
-                    settings.setSecureSocketLibreFm(mNetApp, mLibreFmSecureSocket.isChecked());
-                }
+            if (mNetApp == NetApp.LIBREFMCUSTOM) {
+                String nixtapeUrl = mNixtapeUrl.getText().toString().trim();
+                settings.setNixtapeUrl(mNetApp, nixtapeUrl);
+                String gnukeboxUrl = mGnukeboxUrl.getText().toString().trim();
+                settings.setGnukeboxUrl(mNetApp, gnukeboxUrl);
+                settings.setSecureSocketLibreFm(mNetApp, mLibreFmSecureSocket.isChecked());
+            }
+            if (mNetApp == NetApp.LISTENBRAINZCUSTOM) {
+                String listenBrainzURL = mListenBrainzURL.getText().toString().trim();
+                settings.setListenBrainzUrl(mNetApp, listenBrainzURL);
+                String listenBrainzApiURL = mListenBrainzApiURL.getText().toString().trim();
+                settings.setListenBrainzApiUrl(mNetApp, listenBrainzApiURL);
+                settings.setSecureSocketListenbrainz(mNetApp, mListenBrainzSecureSocket.isChecked());
             }
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
