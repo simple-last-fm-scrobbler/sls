@@ -145,6 +145,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         permsCheck();
         checkNetwork();
         credsCheck();
+        Util.runServices(this);
 
         IntentFilter ifs = new IntentFilter();
         ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);

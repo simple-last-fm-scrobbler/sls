@@ -94,6 +94,7 @@ public class ControllerReceiverService extends NotificationListenerService {
         init();
         if (!settings.isActiveAppEnabled(Util.checkPower(this))) {
             this.stopForeground(true);
+            return Service.START_NOT_STICKY;
         }
         return Service.START_STICKY;
     }

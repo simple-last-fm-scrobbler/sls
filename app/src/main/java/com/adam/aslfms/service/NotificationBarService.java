@@ -81,6 +81,7 @@ public class NotificationBarService extends Service {
         this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, mCtx));
         if (!settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
             this.stopForeground(true);
+            return Service.START_NOT_STICKY;
         }
         return Service.START_STICKY;
     }

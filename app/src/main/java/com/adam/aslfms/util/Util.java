@@ -580,33 +580,36 @@ public class Util {
         return NotificationManagerCompat.IMPORTANCE_DEFAULT;
     }
 
-    public static void stopMyService(Intent i, Context context) {
-        i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        context.stopService(i);
+    public static void stopMyService(Context context, Intent i) {
+        try {
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            context.stopService(i);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static void stopAllServices(Context context) {
-        Intent i = new Intent(context, NotificationBarService.class);
-        Intent ii = new Intent(context, ScrobblingService.class);
-        stopMyService(i, context);
-        stopMyService(ii, context);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Util.checkNotificationListenerPermission(context)) {
-            Intent iii = new Intent(context, ControllerReceiverService.class);
-            stopMyService(iii, context);
-        }
+        Intent i = new Intent(context, ScrobblingService.class);
+        Intent ii = new Intent(context, NotificationBarService.class);
+        Intent iii = new Intent(context, ControllerReceiverService.class);
+        stopMyService(context, i);
+        stopMyService(context, ii);
+        stopMyService(context, iii);
     }
 
     public static void runServices(Context context) {
         // Start listening service if applicable
-        Intent i = new Intent(context, NotificationBarService.class);
-        Intent ii = new Intent(context, ScrobblingService.class);
-        i.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_UPDATE);
-        i.putExtra("track", "");
-        i.putExtra("artist", "");
-        i.putExtra("album", "");
-        i.putExtra("app_name", "");
-        ii.setAction(ScrobblingService.ACTION_START_SCROBBLER_SERVICE);
+        AppSettings appSettings = new AppSettings(context);
+        Intent i = new Intent(context, ScrobblingService.class);
+        Intent ii = new Intent(context, NotificationBarService.class);
+        i.setAction(ScrobblingService.ACTION_START_SCROBBLER_SERVICE);
+        ii.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_UPDATE);
+        ii.putExtra("track", "");
+        ii.putExtra("artist", "");
+        ii.putExtra("album", "");
+        ii.putExtra("app_name", "");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Util.checkNotificationListenerPermission(context)) {
             Intent iii = new Intent(context, ControllerReceiverService.class);
             Log.d(TAG, "(re)starting controllerreceiver");
@@ -616,13 +619,24 @@ public class Util {
                 context.startService(iii);
             }
         }
-        Log.d(TAG, "(re)starting scrobbleservice, notificationbarservice");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Log.d(TAG, "(re)starting scrobbleservice");
             context.startForegroundService(i);
-            context.startForegroundService(ii);
+            if (appSettings.isActiveAppEnabled(Util.checkPower(context))){
+                Log.d(TAG, "(re)starting notificationservice");
+                context.startForegroundService(ii);
+            } else {
+                stopMyService(context, ii);
+            }
         } else {
+            Log.d(TAG, "(re)starting scrobbleservice");
             context.startService(i);
-            context.startService(ii);
+            if (appSettings.isActiveAppEnabled(Util.checkPower(context))){
+                Log.d(TAG, "(re)starting notificationservice");
+                context.startService(ii);
+            } else {
+                stopMyService(context, ii);
+            }
         }
     }
 
