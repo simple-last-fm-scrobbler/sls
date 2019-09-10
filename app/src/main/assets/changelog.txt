@@ -2,7 +2,7 @@ Visit,
 https://github.com/simple-last-fm-scrobbler/sls
 For more details.
 
-- 1.6.34 (2019-9-10) codename: gingus
+- 1.6.4 (2019-9-10) codename: gingus
   * UI ListenBrainz Login Bug
   * Changelog 2019
 
