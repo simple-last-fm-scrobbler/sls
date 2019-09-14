@@ -10,6 +10,8 @@
 [![Critical Issues](https://img.shields.io/github/issues/simple-last-fm-scrobbler/sls/critical.svg?style=round)](https://github.com/simple-last-fm-scrobbler/sls/labels/critical)
 
 
+#### New Permission Privacy Concerns Explained -- [Privacy Explained](https://github.com/simple-last-fm-scrobbler/sls/wiki/Privacy-Concerns)
+
 ### Translators! Your Help Is Needed.
 
  * ###### Head to [OpenSkyApp](https://os0hucc.oneskyapp.com/admin/project/dashboard/project/344237) for exact translator information.
