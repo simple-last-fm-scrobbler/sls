@@ -51,6 +51,8 @@ public class ControllerReceiverService extends NotificationListenerService {
     
     private static final String TAG = "ControllerReceiverSrvc";
     private ControllerReceiverSession mControllerReceiverSession;
+    AppSettings settings = null;
+    Bundle extras = null;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -60,19 +62,12 @@ public class ControllerReceiverService extends NotificationListenerService {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (!Util.checkNotificationListenerPermission(this)){
-            return;
-        }
-        Log.d(TAG,"created");
-        AppSettings settings = new AppSettings(this);
 
-        Bundle extras = new Bundle();
-        extras.putString("track", "");
-        extras.putString("artist", "");
-        extras.putString("album", "");
-        extras.putString("app_name", "");
+        Log.d(TAG,"created");
+        settings = new AppSettings(this);
+
         this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, this));
-        init();
+        init(extras);
         if (!settings.isActiveAppEnabled(Util.checkPower(this))) {
             this.stopForeground(true);
         }
@@ -80,20 +75,13 @@ public class ControllerReceiverService extends NotificationListenerService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        if (!Util.checkNotificationListenerPermission(this)){
-            return Service.START_NOT_STICKY;
-        }
         Log.d(TAG,"started");
-        AppSettings settings = new AppSettings(this);
-        Bundle extras = new Bundle();
-        extras.putString("track", "");
-        extras.putString("artist", "");
-        extras.putString("album", "");
-        extras.putString("app_name", "");
-        this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, this));
-        init();
-        if (!settings.isActiveAppEnabled(Util.checkPower(this))) {
-            this.stopForeground(true);
+        settings = new AppSettings(this);
+        if (intent != null) {
+            extras = intent.getExtras();
+        }
+        init(extras);
+        if (settings.isTempExitAppEnabled(Util.checkPower(this))) {
             return Service.START_NOT_STICKY;
         }
         return Service.START_STICKY;
@@ -117,7 +105,7 @@ public class ControllerReceiverService extends NotificationListenerService {
     @Override
     public void onListenerConnected() {
         super.onListenerConnected();
-        init();
+        init(extras);
     }
 
     @Override
@@ -127,7 +115,14 @@ public class ControllerReceiverService extends NotificationListenerService {
         requestRebind(new ComponentName(getApplicationContext(), ControllerReceiverService.class));
     }
 
-    public void init(){
+    public void init(Bundle extras){
+        // foreground
+        if (settings.isActiveAppEnabled(Util.checkPower(this))) {
+            this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, this));
+        } else {
+            this.stopForeground(true);
+        }
+        // media manager
         MediaSessionManager mediaSessionManager = null;
         try {
             Log.d(TAG,"Detecting initial media session");

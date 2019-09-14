@@ -30,6 +30,7 @@ import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.adam.aslfms.PermissionsActivity;
 import com.adam.aslfms.R;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.InternalTrackTransmitter;
@@ -98,8 +99,7 @@ public class ScrobblingService extends Service {
 
         foreGroundService();
 
-        if (!settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
-            this.stopForeground(true);
+        if (settings.isTempExitAppEnabled(Util.checkPower(mCtx))) {
             return Service.START_NOT_STICKY;
         }
         return Service.START_STICKY;
@@ -112,8 +112,25 @@ public class ScrobblingService extends Service {
         }
         String action = i.getAction();
         Bundle extras = i.getExtras();
-        if (action == null || action.equals(ACTION_START_SCROBBLER_SERVICE )) {
-            //
+        if (action == null){
+            // weird null action
+        } else if (action.equals(ACTION_START_SCROBBLER_SERVICE )) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && !Util.isMyServiceRunning(this, ControllerReceiverService.class)) {
+                if (!Util.checkNotificationListenerPermission(this)){
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        Util.myNotify(this, this.getResources().getString(R.string.warning), this.getResources().getString(R.string.permission_notification_listener_notice), 72135, PermissionsActivity.class);
+                    }
+                } else {
+                    Intent ii = new Intent(this, ControllerReceiverService.class);
+                    ii.putExtras(bundleTrack());
+                    Log.d(TAG, "(re)starting controllerreceiver");
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        this.startForegroundService(ii);
+                    } else {
+                        this.startService(ii);
+                    }
+                }
+            }
         } else if (action.equals(ACTION_CLEARCREDS)) {
             if (extras.getBoolean("clearall", false)) {
                 mNetManager.launchClearAllCreds();
@@ -457,7 +474,7 @@ public class ScrobblingService extends Service {
         }
     }
 
-    private void foreGroundService(){
+    private Bundle bundleTrack(){
         Bundle extras = new Bundle();
         if (mCurrentTrack != null) {
             extras.putString("track", mCurrentTrack.getTrack());
@@ -470,9 +487,14 @@ public class ScrobblingService extends Service {
             extras.putString("album", "");
             extras.putString("app_name", "");
         }
-        this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, mCtx));
+        return extras;
+    }
+
+    private void foreGroundService(){
         if (!settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
             this.stopForeground(true);
+        } else {
+            this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(bundleTrack(), mCtx));
         }
     }
 }

@@ -69,6 +69,7 @@ public class AppSettings {
     private static final String KEY_SESSION = "sessionKey";
     private static final String KEY_SCROBBLES = "totalScrobbles";
 
+    private static final String KEY_TEMP_APP_ENABLE = "enable_temp_app";
     private static final String KEY_ACTIVE_APP_ENABLE = "enable_active_app";
     private static final String KEY_SCROBBLING_ENABLE = "enable_scrobbling";
     private static final String KEY_NOWPLAYING_ENABLE = "enable_nowplaying";
@@ -498,6 +499,16 @@ public class AppSettings {
 
         return prefs.getBoolean(KEY_ACTIVE_APP_ENABLE + pow.getSettingsPath(),
                 getAdvancedOptions(pow).isActiveAppEnabled());
+    }
+
+    public void setTempExitAppEnabled(PowerOptions pow, boolean b) {
+        Editor e = prefs.edit();
+        e.putBoolean(KEY_TEMP_APP_ENABLE + pow.getSettingsPath(), b);
+        e.commit();
+    }
+
+    public boolean isTempExitAppEnabled(PowerOptions pow) {
+        return prefs.getBoolean(KEY_TEMP_APP_ENABLE + pow.getSettingsPath(), false);
     }
 
     public void setScrobblingEnabled(PowerOptions pow, boolean b) {

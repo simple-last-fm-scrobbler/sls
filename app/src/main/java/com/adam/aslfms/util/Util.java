@@ -598,7 +598,7 @@ public class Util {
     }
 
 
-    private static boolean isMyServiceRunning(Context context, Class serviceClass) {
+    public static boolean isMyServiceRunning(Context context, Class serviceClass) {
         ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
             if (serviceClass.getName().equals(service.service.getClassName())) {
@@ -609,19 +609,6 @@ public class Util {
     }
 
     public static void runServices(Context context) {
-        // Start listening service if applicable
-        AppSettings appSettings = new AppSettings(context);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Util.checkNotificationListenerPermission(context)) {
-            if (!isMyServiceRunning(context, ControllerReceiverService.class)) {
-                Log.d(TAG, "(re)starting controllerreceiver");
-                Intent ii = new Intent(context, ControllerReceiverService.class);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    context.startForegroundService(ii);
-                } else {
-                    context.startService(ii);
-                }
-            }
-        }
         if (!isMyServiceRunning(context, ScrobblingService.class)) {
             Log.d(TAG, "(re)starting scrobbleservice");
             Intent i = new Intent(context, ScrobblingService.class);
