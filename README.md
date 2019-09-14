@@ -27,7 +27,7 @@ Before the release of a new version of SLS, it will be available here to test fo
 
 ## Problem or Issue?
 
-  * Please create a [GitHub Account](https://github.com/join) so you can create a [GitHub Issue](https://github.com/simple-last-fm-scrobbler/sls/issues) and PLEASE use the next sections as guides. You will get help with bugs and problems with the software. For direct personal contact with developers, please use [Gitter](https://gitter.im/simple-last-fm-scrobbler/sls) or [Discord](https://discordapp.com/channels/592703275837685760).
+  * Please create a [GitHub Account](https://github.com/join) so you can create a [GitHub Issue](https://github.com/simple-last-fm-scrobbler/sls/issues) and PLEASE use the next sections as guides. You will get help with bugs and problems with the software. For direct personal contact with developers, please use [Gitter](https://gitter.im/tgwizard/sls) or [Discord](https://discordapp.com/channels/592703275837685760).
 
   * ### Issue (Bug Report) Example
     * **SLS Version (required)**: (1.5.8)
