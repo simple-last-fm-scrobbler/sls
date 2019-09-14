@@ -29,6 +29,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
@@ -39,6 +40,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.InternalTrackTransmitter;
 import com.adam.aslfms.util.MyContextWrapper;
 import com.adam.aslfms.util.Util;
 /**
@@ -50,13 +52,16 @@ public class PermissionsActivity extends AppCompatActivity {
     private static final String TAG = "PermissionsActivity";
 
     int WRITE_EXTERNAL_STORAGE;
-    int REQUEST_IGNORE_BATTERY_OPTIMIZATIONS;
     int disabledColor = Color.argb(25, 0,0,0);
     int enabledColor = Color.argb(75, 0,255,0);
     int warningColor = Color.argb(80,255,0,0);
 
     AppSettings settings = null;
-    Button btnSkip = null;
+    Button skipBtn = null;
+    Button continueBtn = null;
+    Button externalPermBtn = null;
+    Button notifiPermBtn = null;
+    Button batteryPermBtn = null;
     Context ctx = this;
 
     @Override
@@ -69,7 +74,7 @@ public class PermissionsActivity extends AppCompatActivity {
         settings = new AppSettings(this);
         Resources.Theme theme = super.getTheme();
         theme.applyStyle(settings.getAppTheme(), true);
-        Log.d(TAG, getResources().getResourceName(settings.getAppTheme()));
+        //Log.d(TAG, getResources().getResourceName(settings.getAppTheme()));
         // you could also use a switch if you have many themes that could apply
         return theme;
     }
@@ -77,8 +82,7 @@ public class PermissionsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        checkCurrrentPermissions();
-        permsCheck();
+        checkAndSetColors();
     }
 
     @Override
@@ -89,120 +93,109 @@ public class PermissionsActivity extends AppCompatActivity {
         settings = new AppSettings(this);
         setTheme(settings.getAppTheme());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
         checkCurrrentPermissions();
-        permsCheck();
     }
 
     public void checkCurrrentPermissions(){
-        boolean enabled;
-        btnSkip = findViewById(R.id.button_skip);
-        btnSkip.setBackgroundColor(enabledColor);
-        Button externalPermBtn = findViewById(R.id.button_permission_external_storage);
-        Button notifiPermBtn = findViewById(R.id.button_permission_notification_listener);
-        Button batteryPermBtn = findViewById(R.id.button_permission_battery_optimizations);
-        Button batteryBasicPermBtn = findViewById(R.id.button_permission_battery_basic);
+        skipBtn = findViewById(R.id.button_skip);
+        skipBtn.setBackgroundColor(enabledColor);
+        continueBtn = findViewById(R.id.button_continue);
+        externalPermBtn = findViewById(R.id.button_permission_external_storage);
+        notifiPermBtn = findViewById(R.id.button_permission_notification_listener);
+        batteryPermBtn = findViewById(R.id.button_permission_battery_optimizations);
 
         TextView findBattery = findViewById(R.id.text_find_battery_optimization_setting);
         TextView findNotify = findViewById(R.id.text_find_notification_setting);
 
-        enabled = Util.checkExternalPermission(this);
-        colorPermission(enabled, externalPermBtn);
-
-        enabled = Util.checkNotificationListenerPermission(this);
-        colorPermission(enabled, notifiPermBtn);
-
-        enabled = Util.checkBatteryOptimizationsPermission(this);
-        colorPermission(enabled, batteryPermBtn);
-
-        enabled = Util.checkBatteryOptimizationBasicPermission(this);
-        colorPermission(enabled, batteryBasicPermBtn);
+        checkAndSetColors();
 
         externalPermBtn.setOnClickListener((View view) -> {
-            if (!Util.checkExternalPermission(this)) {
-                try {
+            try {
+                if (Util.checkExternalPermission(this)){
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    startActivity(intent);
+                } else {
                     ActivityCompat.requestPermissions(PermissionsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_EXTERNAL_STORAGE);
-                } catch (Exception e) {
-                    Log.e(TAG,e.toString());
                 }
-            } else {
-                colorPermission(true, externalPermBtn);
+            } catch (Exception e) {
+                Log.e(TAG,e.toString());
             }
         });
 
         notifiPermBtn.setOnClickListener((View view) -> {
-            if (!Util.checkNotificationListenerPermission(this)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 try {
-                    Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
+                    Intent intent = new Intent();
+                    intent.setAction(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
                     startActivity(intent);
                 } catch (Exception e) {
                     findNotify.setTextColor(warningColor);
                     findNotify.setText(R.string.find_notifications_settings);
-                    Log.e(TAG,e.toString());
+                    Log.e(TAG, e.toString());
                 }
-            } else {
-                colorPermission(true, notifiPermBtn);
             }
         });
 
         batteryPermBtn.setOnClickListener((View view) -> {
-            if (!Util.checkBatteryOptimizationsPermission(this)) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 try {
                     Intent intent = new Intent();
-                    intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                    intent.setData(Uri.parse("package:" + this.getPackageName()));
-                    startActivity(intent);
+                    String packageName = this.getPackageName();
+                    PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+                    if (pm.isIgnoringBatteryOptimizations(packageName))
+                        intent.setAction(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS);
+                    else {
+                        intent.setAction(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
+                        intent.setData(Uri.parse("package:" + packageName));
+                    }
+                    this.startActivity(intent);
                 } catch (Exception e) {
                     findBattery.setTextColor(warningColor);
                     findBattery.setText(R.string.find_battery_settings);
                     Log.e(TAG,e.toString());
                 }
-            } else {
-                colorPermission(true, batteryPermBtn);
             }
         });
 
-        batteryBasicPermBtn.setOnClickListener((View view) -> {
-            if (!Util.checkBatteryOptimizationBasicPermission(this)) {
-                try {
-                    ActivityCompat.requestPermissions(PermissionsActivity.this, new String[]{Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS}, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS);
-                } catch (Exception e) {
-                    Log.e(TAG,e.toString());
-                }
-            } else {
-                colorPermission(true, batteryBasicPermBtn);
-            }
-        });
-
-        btnSkip.setOnClickListener((View view) -> {
-            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which){
-                        case DialogInterface.BUTTON_POSITIVE:
-                            settings.setKeyBypassNewPermissions(1);
-                            Intent intent = new Intent(ctx, SettingsActivity.class);
-                            ctx.startActivity(intent);
-                            Util.runServices(ctx);
-                            break;
-
-                        case DialogInterface.BUTTON_NEGATIVE:
-                            break;
+        skipBtn.setOnClickListener((View view) -> {
+            if(!allPermsCheck()) {
+                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case DialogInterface.BUTTON_POSITIVE:
+                                settings.setKeyBypassNewPermissions(1);
+                                Intent intent = new Intent(ctx, SettingsActivity.class);
+                                ctx.startActivity(intent);
+                                Util.runServices(ctx);
+                                break;
+                            case DialogInterface.BUTTON_NEGATIVE:
+                                break;
+                        }
                     }
+                };
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                String message = ctx.getResources().getString(R.string.are_you_sure);
+                if (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT && !Util.checkNotificationListenerPermission(ctx)){
+                    message += " " + ctx.getResources().getString(R.string.warning_will_not_scrobble);
+                    message += "/" + ctx.getResources().getString(R.string.permission_notification_listener);
                 }
-            };
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            String message = ctx.getResources().getString(R.string.are_you_sure);
-            if (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT && !Util.checkNotificationListenerPermission(ctx)){
-                message += " " + ctx.getResources().getString(R.string.warning_will_not_scrobble);
-                message += "/" + ctx.getResources().getString(R.string.permission_notification_listener);
+                builder.setMessage(message).setPositiveButton(R.string.yes, dialogClickListener)
+                        .setNegativeButton(R.string.no, dialogClickListener).show();
             }
-            builder.setMessage(message).setPositiveButton(R.string.yes, dialogClickListener)
-                    .setNegativeButton(R.string.no, dialogClickListener).show();
         });
+        continueBtn.setOnClickListener((View v) -> {
+            if(allPermsCheck()){
+                settings.setKeyBypassNewPermissions(0);
+                Intent intent = new Intent(ctx, SettingsActivity.class);
+                ctx.startActivity(intent);
+                Util.runServices(ctx);
+            }
+        });
+
     }
 
     public void colorPermission(boolean enabled, Button button){
@@ -213,29 +206,17 @@ public class PermissionsActivity extends AppCompatActivity {
         button.setBackgroundColor(disabledColor);
     }
 
-    private void permsCheck() {
-        //PERMISSION CHECK
-
-        boolean allPermissionsGo = true;
-        allPermissionsGo = allPermissionsGo && Util.checkNotificationListenerPermission(this);
-        allPermissionsGo = allPermissionsGo && Util.checkExternalPermission(this);
-        allPermissionsGo = allPermissionsGo && Util.checkBatteryOptimizationsPermission(this);
-        allPermissionsGo = allPermissionsGo && Util.checkBatteryOptimizationBasicPermission(this);
-        Log.d(TAG,"All Permissions Go: " + allPermissionsGo);
-        if (allPermissionsGo) {
-            Intent intent = new Intent(this, SettingsActivity.class);
-            this.startActivity(intent);
-            settings.setKeyBypassNewPermissions(0);
-            Util.runServices(ctx);
-        }
+    private void checkAndSetColors(){
+        colorPermission(Util.checkExternalPermission(this), externalPermBtn);
+        colorPermission(Util.checkNotificationListenerPermission(this), notifiPermBtn);
+        colorPermission(Util.checkBatteryOptimizationsPermission(this), batteryPermBtn);
+        colorPermission(allPermsCheck(), continueBtn);
+        colorPermission(!allPermsCheck(), skipBtn);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        try {
-            permsCheck();
-        } catch (Exception e) {
-            Log.e(TAG, "READ_EXTERNAL_STORAGE. " + e);
-        }
+    private boolean allPermsCheck() {
+        return Util.checkNotificationListenerPermission(this)
+                && Util.checkExternalPermission(this)
+                && Util.checkBatteryOptimizationsPermission(this);
     }
 }

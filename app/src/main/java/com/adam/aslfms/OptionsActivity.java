@@ -79,7 +79,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         settings = new AppSettings(this);
         Resources.Theme theme = super.getTheme();
         theme.applyStyle(settings.getAppTheme(), true);
-        Log.d(TAG, getResources().getResourceName(settings.getAppTheme()));
+        //Log.d(TAG, getResources().getResourceName(settings.getAppTheme()));
         // you could also use a switch if you have many themes that could apply
         return theme;
     }
@@ -210,7 +210,10 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
             notification_priority.setDefaultValue(Util.notificationStringToInt(getApplicationContext()));
             languages_list = (ListPreference) findPreference(KEY_LANGUAGES_LIST);
             notification_priority.setOnPreferenceChangeListener((Preference preference, Object object) -> {
-                        settings.setKeyNotificationPriority(notification_priority.getValue());
+                        String[] strings = getResources().getStringArray(R.array.notification_priority_list);
+                        String string = (String) object;
+                        int position = Arrays.asList(strings).indexOf(string);
+                        settings.setKeyNotificationPriority(position);
                         return false;
                     }
             );
@@ -242,7 +245,7 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         public boolean onClick(Preference pref) {
             if (pref == active_app) {
                 settings.setActiveAppEnabled(power, active_app.isChecked());
-                Util.runServices(pref.getContext());        // Scrobbler, Controller, Notification
+                Util.runServices(pref.getContext());
             } else if (pref == scrobble) {
                 settings.setScrobblingEnabled(power, scrobble.isChecked());
                 return true;

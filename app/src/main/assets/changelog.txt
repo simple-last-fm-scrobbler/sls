@@ -2,6 +2,11 @@ Visit,
 https://github.com/simple-last-fm-scrobbler/sls
 For more details.
 
+- 1.6.5 (2019-9-13) codename: hingus
+  * Better Service Management
+  * Update Permissions UI
+  * Fixed Notification Priority
+
 - 1.6.4 (2019-9-10) codename: gingus
   * UI ListenBrainz Login Bug
   * Changelog 2019
