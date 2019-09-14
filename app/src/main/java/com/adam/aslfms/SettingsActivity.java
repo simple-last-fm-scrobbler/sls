@@ -82,7 +82,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         settings = new AppSettings(this);
         Resources.Theme theme = super.getTheme();
         theme.applyStyle(settings.getAppTheme(), true);
-        Log.d(TAG, getResources().getResourceName(settings.getAppTheme()));
+        //Log.d(TAG, getResources().getResourceName(settings.getAppTheme()));
         // you could also use a switch if you have many themes that could apply
         return theme;
     }
@@ -107,9 +107,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             mDb = null;
         }
 
-        permsCheck();
         checkNetwork();
-        credsCheck();
 
         mHeartCurrentTrack = findPreference(KEY_HEART_CURRENT_TRACK);
         mScrobbleAllNow = findPreference(KEY_SCROBBLE_ALL_NOW);
@@ -118,12 +116,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
         // TODO: VERIFY EVERYTHING BELOW IS SAFE
         int v = Util.getAppVersionCode(this, getPackageName());
+        if (settings.getWhatsNewViewedVersion() < v){
+            Intent i = new Intent(this, PermissionsActivity.class);
+            startActivity(i);
+        }
+
         if (settings.getWhatsNewViewedVersion() < v && settings.getKeyBypassNewPermissions() != 2) {
             new WhatsNewDialog(this).show();
             settings.setWhatsNewViewedVersion(v);
             mDb.rebuildDataBaseOnce(); // keep as not all users have the newest database.
         }
-        Util.runServices(this);        // Scrobbler, Controller, Notification
+        Util.runServices(this);        // Scrobbler, Controller
     }
 
     @Override
@@ -142,15 +145,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     protected void onResume() {
         super.onResume();
 
-        permsCheck();
-        checkNetwork();
-        credsCheck();
-        Util.runServices(this);
-
         IntentFilter ifs = new IntentFilter();
         ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
         registerReceiver(onStatusChange, ifs);
         update();
+        Util.runServices(this);
     }
 
     @Override
@@ -212,8 +211,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 settings.setActiveAppEnabled(Util.checkPower(this),false);
                 Util.runServices(this);
                 Util.stopAllServices(this);
-                finish();
                 settings.setActiveAppEnabled(Util.checkPower(this),currentActiveState);
+                finish();
                 android.os.Process.killProcess(android.os.Process.myPid());
                 System.exit(1);
                 return true;
@@ -232,33 +231,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         this.sendBroadcast(new Intent(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED));
         if (Util.checkForOkNetwork(this) != Util.NetworkStatus.OK) {
             Snackbar.make(getListView(), getString(R.string.limited_network), Snackbar.LENGTH_SHORT).show();
-        }
-    }
-
-    private void credsCheck() {
-        //Credentials Check
-        for (NetApp napp : NetApp.values()) {
-            if (!settings.getUsername(napp).equals("")) {
-                return;
-            }
-        }
-        Snackbar.make(getListView(), this.getString(R.string.creds_required), Snackbar.LENGTH_LONG).show();
-    }
-
-    private void permsCheck() {
-        if (settings.getKeyBypassNewPermissions() == 1){
-            return;
-        }
-        //PERMISSION CHECK
-        boolean allPermissionsGo = true;
-        allPermissionsGo = allPermissionsGo && Util.checkNotificationListenerPermission(this);
-        allPermissionsGo = allPermissionsGo && Util.checkExternalPermission(this);
-        allPermissionsGo = allPermissionsGo && Util.checkBatteryOptimizationsPermission(this);
-        allPermissionsGo = allPermissionsGo && Util.checkBatteryOptimizationBasicPermission(this);
-        Log.d(TAG,"All Permissions Go: " + allPermissionsGo);
-        if (!allPermissionsGo) {
-            Intent intent = new Intent(this, PermissionsActivity.class);
-            this.startActivity(intent);
         }
     }
 }

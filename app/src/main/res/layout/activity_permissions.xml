@@ -133,22 +133,11 @@
                 android:layout_height="match_parent"
                 android:gravity="center_horizontal|center_vertical" >
 
-                <TextView
-                    android:id="@+id/text_permission_battery_basic"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="4sp"
-                    android:ellipsize="end"
-                    android:gravity="center_horizontal"
-                    android:maxLines="2"
-                    android:text="@string/permission_battery_basic"
-                    android:textSize="16sp" />
-
                 <Button
-                    android:id="@+id/button_permission_battery_basic"
+                    android:id="@+id/button_skip"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/permission_activate"
+                    android:layout_height="match_parent"
+                    android:text="@string/permission_skip"
                     android:textSize="12sp" />
             </TableRow>
 
@@ -159,15 +148,19 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center_horizontal|center_vertical" >
+                android:gravity="center_horizontal|center_vertical">
 
                 <Button
-                    android:id="@+id/button_skip"
+                    android:id="@+id/button_continue"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/permission_skip"
+                    android:text="@string/permission_continue"
                     android:textSize="12sp" />
             </TableRow>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12sp" />
 
             <TableRow
                 android:layout_width="match_parent"
@@ -185,6 +178,10 @@
                     android:textSize="16sp" />
 
             </TableRow>
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="12sp" />
 
             <TableRow
                 android:layout_width="match_parent"

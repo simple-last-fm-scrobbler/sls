@@ -22,6 +22,7 @@
 package com.adam.aslfms.util;
 
 import android.Manifest;
+import android.app.ActivityManager;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -54,7 +55,6 @@ import com.adam.aslfms.R;
 import com.adam.aslfms.SettingsActivity;
 import com.adam.aslfms.service.ControllerReceiverService;
 import com.adam.aslfms.service.NetApp;
-import com.adam.aslfms.service.NotificationBarService;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.enums.NetworkOptions;
 import com.adam.aslfms.util.enums.PowerOptions;
@@ -545,15 +545,15 @@ public class Util {
     public static int oldNotificationStringToInt(Context ctx) {
         AppSettings settings = new AppSettings(ctx);
         switch (settings.getKeyNotificationPriority()) {
-            case "min":
+            case 0:
                 return NotificationCompat.PRIORITY_MIN;
-            case "low":
+            case 1:
                 return NotificationCompat.PRIORITY_LOW;
-            case "default":
+            case 2:
                 return NotificationCompat.PRIORITY_DEFAULT;
-            case "high":
+            case 3:
                 return NotificationCompat.PRIORITY_HIGH;
-            case "max":
+            case 4:
                 return NotificationCompat.PRIORITY_MAX;
             default:
                 break;
@@ -564,15 +564,15 @@ public class Util {
     public static int notificationStringToInt(Context ctx) {
         AppSettings settings = new AppSettings(ctx);
         switch (settings.getKeyNotificationPriority()) {
-            case "min":
+            case 0:
                 return NotificationManagerCompat.IMPORTANCE_MIN;
-            case "low":
+            case 1:
                 return NotificationManagerCompat.IMPORTANCE_LOW;
-            case "default":
+            case 2:
                 return NotificationManagerCompat.IMPORTANCE_DEFAULT;
-            case "high":
+            case 3:
                 return NotificationManagerCompat.IMPORTANCE_HIGH;
-            case "max":
+            case 4:
                 return NotificationManagerCompat.IMPORTANCE_MAX;
             default:
                 break;
@@ -592,50 +592,44 @@ public class Util {
 
     public static void stopAllServices(Context context) {
         Intent i = new Intent(context, ScrobblingService.class);
-        Intent ii = new Intent(context, NotificationBarService.class);
-        Intent iii = new Intent(context, ControllerReceiverService.class);
+        Intent ii = new Intent(context, ControllerReceiverService.class);
         stopMyService(context, i);
         stopMyService(context, ii);
-        stopMyService(context, iii);
+    }
+
+
+    private static boolean isMyServiceRunning(Context context, Class serviceClass) {
+        ActivityManager manager = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public static void runServices(Context context) {
         // Start listening service if applicable
         AppSettings appSettings = new AppSettings(context);
-        Intent i = new Intent(context, ScrobblingService.class);
-        Intent ii = new Intent(context, NotificationBarService.class);
-        i.setAction(ScrobblingService.ACTION_START_SCROBBLER_SERVICE);
-        ii.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_UPDATE);
-        ii.putExtra("track", "");
-        ii.putExtra("artist", "");
-        ii.putExtra("album", "");
-        ii.putExtra("app_name", "");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && Util.checkNotificationListenerPermission(context)) {
-            Intent iii = new Intent(context, ControllerReceiverService.class);
-            Log.d(TAG, "(re)starting controllerreceiver");
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(iii);
-            } else {
-                context.startService(iii);
+            if (!isMyServiceRunning(context, ControllerReceiverService.class)) {
+                Log.d(TAG, "(re)starting controllerreceiver");
+                Intent ii = new Intent(context, ControllerReceiverService.class);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    context.startForegroundService(ii);
+                } else {
+                    context.startService(ii);
+                }
             }
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (!isMyServiceRunning(context, ScrobblingService.class)) {
             Log.d(TAG, "(re)starting scrobbleservice");
-            context.startForegroundService(i);
-            if (appSettings.isActiveAppEnabled(Util.checkPower(context))){
-                Log.d(TAG, "(re)starting notificationservice");
-                context.startForegroundService(ii);
+            Intent i = new Intent(context, ScrobblingService.class);
+            i.setAction(ScrobblingService.ACTION_START_SCROBBLER_SERVICE);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(i);
             } else {
-                stopMyService(context, ii);
-            }
-        } else {
-            Log.d(TAG, "(re)starting scrobbleservice");
-            context.startService(i);
-            if (appSettings.isActiveAppEnabled(Util.checkPower(context))){
-                Log.d(TAG, "(re)starting notificationservice");
-                context.startService(ii);
-            } else {
-                stopMyService(context, ii);
+                context.startService(i);
             }
         }
     }
@@ -663,21 +657,6 @@ public class Util {
             }
         } catch (Exception e) {
             Log.e(TAG, "Exception, *_EXTERNAL_STORAGE. " + e);
-            return false;
-        }
-        return true;
-    }
-    // battery optimization
-    public static boolean checkBatteryOptimizationBasicPermission(Context ctx){
-        try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-                if (ContextCompat.checkSelfPermission(ctx, Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) != PackageManager.PERMISSION_GRANTED) {
-                    Log.d(TAG, "Problem, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS. ");
-                    return false;
-                }
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Exception, REQUEST_IGNORE_BATTERY_OPTIMIZATIONS. " + e);
             return false;
         }
         return true;

@@ -108,14 +108,6 @@
             </intent-filter>
         </service>
         <service
-            android:name=".service.NotificationBarService"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.adam.aslfms.service.notificationbarupdate" />
-            </intent-filter>
-        </service>
-        <service
             android:name=".service.ControllerReceiverService"
             android:enabled="true"
             android:exported="false"

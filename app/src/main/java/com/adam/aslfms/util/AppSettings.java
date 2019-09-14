@@ -73,7 +73,7 @@ public class AppSettings {
     private static final String KEY_SCROBBLING_ENABLE = "enable_scrobbling";
     private static final String KEY_NOWPLAYING_ENABLE = "enable_nowplaying";
 
-    private static final String KEY_NOTIFICATION_PRIORITY = "key_notification_priority";
+    private static final String KEY_NOTIFICATION_PRIORITY = "key_notification_priority_int";
 
     private static final String KEY_AUTH_STATUS = "authstatus";
 
@@ -244,18 +244,15 @@ public class AppSettings {
         e.commit();
     }
 
-    public String getKeyNotificationPriority() {
-        String temp = prefs.getString(KEY_NOTIFICATION_PRIORITY,null);
-        if (temp == null){
-            return "default";
-        }
-        return temp;
+    public int getKeyNotificationPriority() {
+        int i = prefs.getInt(KEY_NOTIFICATION_PRIORITY,2);
+        return i;
     }
 
-    public void setKeyNotificationPriority(String s) {
-        Log.d(TAG,"notification priority set to: " + s);
+    public void setKeyNotificationPriority(int i) {
+        Log.d(TAG,"notification priority set to: " + i);
         Editor e = prefs.edit();
-        e.putString(KEY_NOTIFICATION_PRIORITY, s);
+        e.putInt(KEY_NOTIFICATION_PRIORITY, i);
         e.commit();
     }
 

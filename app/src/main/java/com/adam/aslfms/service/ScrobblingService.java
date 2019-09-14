@@ -83,22 +83,8 @@ public class ScrobblingService extends Service {
         mDb = new ScrobblesDatabase(this);
         mDb.open();
         mNetManager = new NetworkerManager(this, mDb);
-        Bundle extras = new Bundle();
-        if (mCurrentTrack != null) {
-            extras.putString("track", mCurrentTrack.getTrack());
-            extras.putString("artist", mCurrentTrack.getArtist());
-            extras.putString("album", mCurrentTrack.getAlbum());
-            extras.putString("app_name", mCurrentTrack.getMusicAPI().getName());
-        } else {
-            extras.putString("track", "");
-            extras.putString("artist", "");
-            extras.putString("album", "");
-            extras.putString("app_name", "");
-        }
-        this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, mCtx));
-        if (!settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
-            this.stopForeground(true);
-        }
+
+        foreGroundService();
     }
 
     @Override
@@ -109,19 +95,9 @@ public class ScrobblingService extends Service {
     @Override
     public int onStartCommand(Intent i, int flags, int startId) {
         handleCommand(i, startId);
-        Bundle extras = new Bundle();
-        if (mCurrentTrack != null) {
-            extras.putString("track", mCurrentTrack.getTrack());
-            extras.putString("artist", mCurrentTrack.getArtist());
-            extras.putString("album", mCurrentTrack.getAlbum());
-            extras.putString("app_name", mCurrentTrack.getMusicAPI().getName());
-        } else {
-            extras.putString("track", "");
-            extras.putString("artist", "");
-            extras.putString("album", "");
-            extras.putString("app_name", "");
-        }
-        this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, mCtx));
+
+        foreGroundService();
+
         if (!settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
             this.stopForeground(true);
             return Service.START_NOT_STICKY;
@@ -284,13 +260,7 @@ public class ScrobblingService extends Service {
             mCurrentTrack.updateTimePlayed();
             tryNotifyNP(mCurrentTrack);
 
-            mNotificationService = new Intent(mCtx, NotificationBarService.class);
-            mNotificationService.setAction(NotificationBarService.ACTION_NOTIFICATION_BAR_UPDATE);
-            mNotificationService.putExtra("track",mCurrentTrack.getTrack());
-            mNotificationService.putExtra("artist",mCurrentTrack.getArtist());
-            mNotificationService.putExtra("album",mCurrentTrack.getAlbum());
-            mNotificationService.putExtra("app_name",mCurrentTrack.getMusicAPI().getName());
-            mCtx.startService(mNotificationService);
+            foreGroundService();
 
         } else if (state == Track.State.PAUSE) { // pause
             // TODO: test this state
@@ -484,6 +454,25 @@ public class ScrobblingService extends Service {
             if (numInCache >= aow.getTracksToWaitFor()) {
                 mNetManager.launchScrobbler(napp);
             }
+        }
+    }
+
+    private void foreGroundService(){
+        Bundle extras = new Bundle();
+        if (mCurrentTrack != null) {
+            extras.putString("track", mCurrentTrack.getTrack());
+            extras.putString("artist", mCurrentTrack.getArtist());
+            extras.putString("album", mCurrentTrack.getAlbum());
+            extras.putString("app_name", mCurrentTrack.getMusicAPI().getName());
+        } else {
+            extras.putString("track", "");
+            extras.putString("artist", "");
+            extras.putString("album", "");
+            extras.putString("app_name", "");
+        }
+        this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, mCtx));
+        if (!settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
+            this.stopForeground(true);
         }
     }
 }
