@@ -40,7 +40,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.adam.aslfms.util.AppSettings;
-import com.adam.aslfms.util.InternalTrackTransmitter;
 import com.adam.aslfms.util.MyContextWrapper;
 import com.adam.aslfms.util.Util;
 /**
@@ -178,10 +177,10 @@ public class PermissionsActivity extends AppCompatActivity {
                     }
                 };
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                String message = ctx.getResources().getString(R.string.are_you_sure);
+                String message = ctx.getResources().getString(R.string.warning) + "! " + ctx.getResources().getString(R.string.are_you_sure);
                 if (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT && !Util.checkNotificationListenerPermission(ctx)){
-                    message += " " + ctx.getResources().getString(R.string.warning_will_not_scrobble);
-                    message += "/" + ctx.getResources().getString(R.string.permission_notification_listener);
+                    message += " - " + ctx.getResources().getString(R.string.warning_will_not_scrobble);
+                    message += " - " + ctx.getResources().getString(R.string.permission_notification_listener);
                 }
                 builder.setMessage(message).setPositiveButton(R.string.yes, dialogClickListener)
                         .setNegativeButton(R.string.no, dialogClickListener).show();

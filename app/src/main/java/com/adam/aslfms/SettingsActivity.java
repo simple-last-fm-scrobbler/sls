@@ -23,20 +23,23 @@ package com.adam.aslfms;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.SQLException;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.MyContextWrapper;
@@ -207,14 +210,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                 new WhatsNewDialog(this).show();
                 return true;
             case R.id.menu_exit:
-                boolean currentActiveState = settings.isActiveAppEnabled(Util.checkPower(this));
-                settings.setActiveAppEnabled(Util.checkPower(this),false);
-                Util.runServices(this);
-                Util.stopAllServices(this);
-                settings.setActiveAppEnabled(Util.checkPower(this),currentActiveState);
-                finish();
-                android.os.Process.killProcess(android.os.Process.myPid());
-                System.exit(1);
+                handleAppExit();
                 return true;
         }
         return super.onOptionsItemSelected(item);
@@ -232,5 +228,40 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         if (Util.checkForOkNetwork(this) != Util.NetworkStatus.OK) {
             Snackbar.make(getListView(), getString(R.string.limited_network), Snackbar.LENGTH_SHORT).show();
         }
+    }
+
+    private void handleAppExit(){
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        boolean currentActiveState = settings.isActiveAppEnabled(Util.checkPower(mCtx));
+                        settings.setActiveAppEnabled(Util.checkPower(mCtx),false);
+                        settings.setTempExitAppEnabled(Util.checkPower(mCtx),true);
+                        Util.runServices(mCtx);
+                        Util.stopAllServices(mCtx);
+                        settings.setActiveAppEnabled(Util.checkPower(mCtx),currentActiveState);
+                        settings.setTempExitAppEnabled(Util.checkPower(mCtx), false);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            finishAndRemoveTask();
+                        }
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)  {
+                            SettingsActivity.this.finishAffinity();
+                        }
+                        ActivityCompat.finishAffinity(SettingsActivity.this );
+                        SettingsActivity.this.finish();
+                        android.os.Process.killProcess(android.os.Process.myPid());
+                        System.exit(1);
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String message = mCtx.getResources().getString(R.string.warning) + "! " + mCtx.getResources().getString(R.string.are_you_sure) + " - " + mCtx.getResources().getString(R.string.warning_will_not_scrobble);
+        builder.setMessage(message).setPositiveButton(R.string.yes, dialogClickListener)
+                .setNegativeButton(R.string.no, dialogClickListener).show();
     }
 }

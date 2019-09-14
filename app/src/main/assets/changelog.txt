@@ -2,6 +2,12 @@ Visit,
 https://github.com/simple-last-fm-scrobbler/sls
 For more details.
 
+- 1.6.5 (2019-9-14) codename: ingus
+  * Better Service Management
+  * Listener warning notification for Android 8.0+
+  * Improve Exit Button
+  * Fixed occasional blank music notification
+
 - 1.6.5 (2019-9-13) codename: hingus
   * Better Service Management
   * Update Permissions UI
