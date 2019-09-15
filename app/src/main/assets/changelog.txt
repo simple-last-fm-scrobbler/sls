@@ -1,6 +1,11 @@
 Visit,
 https://github.com/simple-last-fm-scrobbler/sls
 For more details.
+https://github.com/simple-last-fm-scrobbler/sls/wiki/Privacy-Concerns
+For privacy concerns.
+
+- 1.6.8 (2019-9-15) codename: kingus
+  * Correction Rules database problem fixed
 
 - 1.6.7 (2019-9-15) codename: jingus
   * Fixed non-foreground service crash Bug

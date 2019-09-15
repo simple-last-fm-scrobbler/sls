@@ -29,8 +29,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
-import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.CorrectionRule;
+import com.adam.aslfms.util.ScrobblesDatabase;
 
 import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;

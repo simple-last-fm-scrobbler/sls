@@ -41,9 +41,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.CorrectionRule;
 import com.adam.aslfms.util.MyContextWrapper;
 import com.adam.aslfms.util.ScrobblesDatabase;
-import com.adam.aslfms.util.CorrectionRule;
 import com.adam.aslfms.util.Util;
 
 /**

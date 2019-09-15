@@ -194,9 +194,9 @@ public class Scrobbler extends AbstractSubmitter {
     }
 
     /**
-     * @return a {@link ScrobbleResult} struct with some info
      * @throws BadSessionException
      * @throws TemporaryFailureException
+     * @throws AuthStatus.BadSessionException
      */
     public void scrobbleCommit(HandshakeResult hInfo, Track[] tracks)
             throws BadSessionException, TemporaryFailureException, AuthStatus.ClientBannedException, AuthStatus.UnknownResponseException {

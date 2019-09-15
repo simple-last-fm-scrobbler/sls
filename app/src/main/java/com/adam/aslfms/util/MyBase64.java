@@ -62,7 +62,7 @@ public class MyBase64 {
     public static final int URL_SAFE = 8;
 
     /**
-     * Flag to pass to {@link Base64OutputStream} to indicate that it
+     * Flag to pass to {@link MyBase64} OutputStream to indicate that it
      * should not close the output stream it is wrapping when it
      * itself is closed.
      */

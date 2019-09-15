@@ -121,7 +121,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         int v = Util.getAppVersionCode(this, getPackageName());
         if (settings.getWhatsNewViewedVersion() < v){
             settings.setKeyBypassNewPermissions(2);
-            mDb.rebuildDataBaseOnce(); // keep as not all users have the newest database.
+            mDb.rebuildScrobblesDatabaseOnce(); // keep as not all users have the newest database.
+            // TODO: verify only needed databases are destroyed
         }
         if (settings.getKeyBypassNewPermissions() == 2){
             startActivity(new Intent(this, PermissionsActivity.class));
