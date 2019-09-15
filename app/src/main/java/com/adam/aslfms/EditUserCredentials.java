@@ -37,6 +37,7 @@ import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.MD5;
+import com.adam.aslfms.util.Util;
 
 /**
  * @author tgwizard
@@ -165,7 +166,7 @@ public class EditUserCredentials extends DialogPreference {
                 settings.setSecureSocketListenbrainz(mNetApp, mListenBrainzSecureSocket.isChecked());
             }
 
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && settings.isActiveAppEnabled(Util.checkPower(getContext()))) {
                 getContext().startForegroundService(service);
             } else {
                 getContext().startService(service);

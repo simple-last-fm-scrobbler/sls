@@ -120,16 +120,13 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         // TODO: VERIFY EVERYTHING BELOW IS SAFE
         int v = Util.getAppVersionCode(this, getPackageName());
         if (settings.getWhatsNewViewedVersion() < v){
-            Intent i = new Intent(this, PermissionsActivity.class);
-            startActivity(i);
-        }
-
-        if (settings.getWhatsNewViewedVersion() < v && settings.getKeyBypassNewPermissions() != 2) {
-            new WhatsNewDialog(this).show();
-            settings.setWhatsNewViewedVersion(v);
+            settings.setKeyBypassNewPermissions(2);
             mDb.rebuildDataBaseOnce(); // keep as not all users have the newest database.
         }
-        Util.runServices(this);        // Scrobbler, Controller
+        if (settings.getKeyBypassNewPermissions() == 2){
+            startActivity(new Intent(this, PermissionsActivity.class));
+        }
+        Util.runServices(this);
     }
 
     @Override
@@ -153,6 +150,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         registerReceiver(onStatusChange, ifs);
         update();
         Util.runServices(this);
+        if(settings.getKeyBypassNewPermissions() == 2){
+            Intent i = new Intent(this, PermissionsActivity.class);
+            startActivity(i);
+        }
     }
 
     @Override
@@ -160,10 +161,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
     public boolean onPreferenceTreeClick(PreferenceScreen prefScreen,
                                          Preference pref) {
         if (pref == mScrobbleAllNow) {
-
             checkNetwork();
-
-
             int numInCache = mDb.queryNumberOfTracks();
             Util.scrobbleAllIfPossible(this, numInCache);
             return true;

@@ -36,6 +36,7 @@ import android.support.v4.app.NavUtils;
 import android.util.Log;
 import android.view.MenuItem;
 
+import com.adam.aslfms.service.ControllerReceiverService;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
@@ -117,9 +118,9 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
                 Util.confirmDialog(this,
                         getString(R.string.confirm_clear_creds).replaceAll(
                                 "%1", mNetApp.getName()), R.string.clear_creds,
-                        android.R.string.cancel, (dialog, which) -> sendClearCreds());
+                        android.R.string.cancel, (dialog, which) -> sendClearCreds(pref.getContext()));
             } else {
-                sendClearCreds();
+                sendClearCreds(pref.getContext());
             }
 
             update();
@@ -142,11 +143,11 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
         return super.onPreferenceTreeClick(prefScreen, pref);
     }
 
-    private void sendClearCreds() {
+    private void sendClearCreds(Context ctx) {
         Intent service = new Intent(this, ScrobblingService.class);
         service.setAction(ScrobblingService.ACTION_CLEARCREDS);
         service.putExtra("netapp", mNetApp.getIntentExtraValue());
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && settings.isActiveAppEnabled(Util.checkPower(ctx))) {
             this.startForegroundService(service);
         } else {
             this.startService(service);

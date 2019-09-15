@@ -91,7 +91,7 @@ public class PermissionsActivity extends AppCompatActivity {
 
         settings = new AppSettings(this);
         setTheme(settings.getAppTheme());
-
+        settings.setKeyBypassNewPermissions(2);
         checkCurrrentPermissions();
     }
 
@@ -166,7 +166,11 @@ public class PermissionsActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case DialogInterface.BUTTON_POSITIVE:
-                                settings.setKeyBypassNewPermissions(1);
+                                settings.setKeyBypassNewPermissions(1); // user has bypassed permissions is True
+                                int v = Util.getAppVersionCode(ctx  , getPackageName());
+                                if (settings.getWhatsNewViewedVersion() < v) {
+                                    resetVersionCode(v);
+                                }
                                 Intent intent = new Intent(ctx, SettingsActivity.class);
                                 ctx.startActivity(intent);
                                 Util.runServices(ctx);
@@ -186,9 +190,13 @@ public class PermissionsActivity extends AppCompatActivity {
                         .setNegativeButton(R.string.no, dialogClickListener).show();
             }
         });
-        continueBtn.setOnClickListener((View v) -> {
+        continueBtn.setOnClickListener((View view) -> {
             if(allPermsCheck()){
-                settings.setKeyBypassNewPermissions(0);
+                settings.setKeyBypassNewPermissions(0); // user has bypassed permissions is false
+                int v = Util.getAppVersionCode(this, getPackageName());
+                if (settings.getWhatsNewViewedVersion() < v) {
+                    resetVersionCode(v);
+                }
                 Intent intent = new Intent(ctx, SettingsActivity.class);
                 ctx.startActivity(intent);
                 Util.runServices(ctx);
@@ -217,5 +225,10 @@ public class PermissionsActivity extends AppCompatActivity {
         return Util.checkNotificationListenerPermission(this)
                 && Util.checkExternalPermission(this)
                 && Util.checkBatteryOptimizationsPermission(this);
+    }
+
+    private void resetVersionCode(int v){
+        new WhatsNewDialog(this).show();
+        settings.setWhatsNewViewedVersion(v);
     }
 }
