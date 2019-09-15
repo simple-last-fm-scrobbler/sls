@@ -245,7 +245,9 @@ public class OptionsActivity extends AppCompatPreferenceActivity {
         public boolean onClick(Preference pref) {
             if (pref == active_app) {
                 settings.setActiveAppEnabled(power, active_app.isChecked());
+                settings.setTempExitAppEnabled(Util.checkPower(ctx), true);
                 Util.runServices(pref.getContext());
+                settings.setTempExitAppEnabled(Util.checkPower(ctx), false);
             } else if (pref == scrobble) {
                 settings.setScrobblingEnabled(power, scrobble.isChecked());
                 return true;

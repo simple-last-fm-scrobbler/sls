@@ -2,6 +2,11 @@ Visit,
 https://github.com/simple-last-fm-scrobbler/sls
 For more details.
 
+- 1.6.7 (2019-9-15) codename: jingus
+  * Fixed non-foreground service crash Bug
+  * Show user permissions each update
+  * Active App Notification changes after track switch
+
 - 1.6.6 (2019-9-14) codename: ingus
   * Better Service Management
   * Listener warning notification for Android 8.0+

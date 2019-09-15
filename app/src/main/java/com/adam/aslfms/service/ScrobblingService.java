@@ -124,7 +124,7 @@ public class ScrobblingService extends Service {
                     Intent ii = new Intent(this, ControllerReceiverService.class);
                     ii.putExtras(bundleTrack());
                     Log.d(TAG, "(re)starting controllerreceiver");
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && settings.isActiveAppEnabled(Util.checkPower(this))) {
                         this.startForegroundService(ii);
                     } else {
                         this.startService(ii);
@@ -491,10 +491,10 @@ public class ScrobblingService extends Service {
     }
 
     private void foreGroundService(){
-        if (!settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
-            this.stopForeground(true);
-        } else {
+        if (settings.isActiveAppEnabled(Util.checkPower(mCtx))) {
             this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(bundleTrack(), mCtx));
+        } else {
+            this.stopForeground(true);
         }
     }
 }

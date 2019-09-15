@@ -221,10 +221,12 @@ public class Util {
     public static void scrobbleIfPossible(Context ctx, NetApp napp,
                                           int numInCache) {
         if (numInCache > 0) {
+
             Intent intent = new Intent(ctx, ScrobblingService.class);
             intent.setAction(ScrobblingService.ACTION_JUSTSCROBBLE);
             intent.putExtra("netapp", napp.getIntentExtraValue());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            AppSettings appSettings = new AppSettings(ctx);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && appSettings.isActiveAppEnabled(Util.checkPower(ctx))) {
                 ctx.startForegroundService(intent);
             } else {
                 ctx.startService(intent);
@@ -240,7 +242,8 @@ public class Util {
             Intent service = new Intent(ctx, ScrobblingService.class);
             service.setAction(ScrobblingService.ACTION_JUSTSCROBBLE);
             service.putExtra("scrobbleall", true);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            AppSettings appSettings = new AppSettings(ctx);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && appSettings.isActiveAppEnabled(Util.checkPower(ctx))) {
                 ctx.startForegroundService(service);
             } else {
                 ctx.startService(service);
@@ -256,7 +259,8 @@ public class Util {
         try {
             Intent service = new Intent(ctx, ScrobblingService.class);
             service.setAction(ScrobblingService.ACTION_HEART);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            AppSettings appSettings = new AppSettings(ctx);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && appSettings.isActiveAppEnabled(Util.checkPower(ctx))) {
                 ctx.startForegroundService(service);
             } else {
                 ctx.startService(service);
@@ -272,7 +276,8 @@ public class Util {
         try {
             Intent service = new Intent(ctx, ScrobblingService.class);
             service.setAction(ScrobblingService.ACTION_COPY);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            AppSettings appSettings = new AppSettings(ctx);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && appSettings.isActiveAppEnabled(Util.checkPower(ctx))) {
                 ctx.startForegroundService(service);
             } else {
                 ctx.startService(service);
@@ -613,7 +618,8 @@ public class Util {
             Log.d(TAG, "(re)starting scrobbleservice");
             Intent i = new Intent(context, ScrobblingService.class);
             i.setAction(ScrobblingService.ACTION_START_SCROBBLER_SERVICE);
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            AppSettings appSettings = new AppSettings(context);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && appSettings.isActiveAppEnabled(Util.checkPower(context))) {
                 context.startForegroundService(i);
             } else {
                 context.startService(i);

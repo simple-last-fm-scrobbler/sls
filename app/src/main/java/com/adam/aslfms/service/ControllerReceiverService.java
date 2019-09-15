@@ -66,7 +66,6 @@ public class ControllerReceiverService extends NotificationListenerService {
         Log.d(TAG,"created");
         settings = new AppSettings(this);
 
-        this.startForeground(NotificationCreator.FOREGROUND_ID, NotificationCreator.prepareNotification(extras, this));
         init(extras);
         if (!settings.isActiveAppEnabled(Util.checkPower(this))) {
             this.stopForeground(true);

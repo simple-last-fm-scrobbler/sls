@@ -126,7 +126,7 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
             InternalTrackTransmitter.appendTrack(mTrack);
 
             // start/call the Scrobbling Service
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && settings.isActiveAppEnabled(Util.checkPower(context))) {
                 context.startForegroundService(mService);
             } else {
                 context.startService(mService);

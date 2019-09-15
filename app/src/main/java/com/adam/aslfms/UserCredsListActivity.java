@@ -122,9 +122,9 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
                 Util.confirmDialog(this,
                         getString(R.string.confirm_clear_all_creds),
                         R.string.clear_creds, android.R.string.cancel,
-                        (dialog, which) -> sendClearCreds());
+                        (dialog, which) -> sendClearCreds(pref.getContext()));
             } else {
-                sendClearCreds();
+                sendClearCreds(pref.getContext());
             }
 
             return true;
@@ -153,11 +153,12 @@ public class UserCredsListActivity extends AppCompatPreferenceActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void sendClearCreds() {
+    private void sendClearCreds(Context ctx) {
         Intent service = new Intent(this, ScrobblingService.class);
         service.setAction(ScrobblingService.ACTION_CLEARCREDS);
         service.putExtra("clearall", true);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        AppSettings appSettings = new AppSettings(ctx);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && appSettings.isActiveAppEnabled(Util.checkPower(ctx))) {
             startForegroundService(service);
         } else {
             startService(service);
