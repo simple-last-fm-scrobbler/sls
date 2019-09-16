@@ -504,21 +504,29 @@ public class ScrobblesDatabase {
         return rule;
     }
 
-    public void rebuildDataBaseOnce() {
-        mDb.execSQL("DROP TABLE IF EXISTS " + TABLENAME_SCROBBLES);
+    public void rebuildCoreNetappDatabaseOnce(){
+        Log.d(TAG, "dropping sql corenetapp ");
         mDb.execSQL("DROP TABLE IF EXISTS " + TABLENAME_CORRNETAPP);
-        // TODO add migration of old rules if/when necessary
+        Log.d(TAG, "create sql corrnetapp: " + DATABASE_CREATE_CORRNETAPP);
+        mDb.execSQL(DATABASE_CREATE_CORRNETAPP);
+    }
+
+    public void rebuildCorrectionsDatabaseOnce(){
+        Log.d(TAG, "dropping sql corrections ");
         mDb.execSQL("DROP TABLE IF EXISTS " + TABLENAME_CORRECTION_RULES);
         mDb.execSQL("DROP TABLE IF EXISTS " + TABLENAME_RULE_CHANGES);
         mDb.execSQL("DROP TRIGGER IF EXISTS " + TRIGGER_NAME_CHECK_CORRECTION_RULES);
-        Log.d(TAG, "create sql scrobbles: " + DATABASE_CREATE_SCROBBLES);
-        Log.d(TAG, "create sql corrnetapp: " + DATABASE_CREATE_CORRNETAPP);
-        
-        mDb.execSQL(DATABASE_CREATE_SCROBBLES);
-        mDb.execSQL(DATABASE_CREATE_CORRNETAPP);
-        // Tables and trigger for updating scrobbles based on rules.
+        Log.d(TAG, "create sql corrections: " + DATABASE_CREATE_CORRECTION_RULES);
         mDb.execSQL(DATABASE_CREATE_CORRECTION_RULES);
         mDb.execSQL(DATABASE_CREATE_RULE_CHANGES);
         mDb.execSQL(TRIGGGER_CREATE_CHECK_CORRECTION_RULES);
+    }
+
+
+    public void rebuildScrobblesDatabaseOnce(){
+        Log.d(TAG, "dropping sql scrobbles ");
+        mDb.execSQL("DROP TABLE IF EXISTS " + TABLENAME_SCROBBLES);
+        Log.d(TAG, "create sql scrobbles: " + DATABASE_CREATE_SCROBBLES);
+        mDb.execSQL(DATABASE_CREATE_SCROBBLES);
     }
 }
