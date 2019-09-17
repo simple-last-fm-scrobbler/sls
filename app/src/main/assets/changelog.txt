@@ -8,6 +8,7 @@ For privacy concerns.
   * Correction Rules database problem fixed
   * Back button in permissions fixed
   * Privacy information in permissions
+  * Russian thanks to alexesprit
 
 - 1.6.7 (2019-9-15) codename: jingus
   * Fixed non-foreground service crash Bug
