@@ -24,9 +24,12 @@ package com.adam.aslfms.receiver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 
+import com.adam.aslfms.PermissionsActivity;
+import com.adam.aslfms.R;
 import com.adam.aslfms.util.Track;
 import com.adam.aslfms.util.Util;
 
@@ -116,6 +119,10 @@ public class ScrobbleDroidMusicReceiver extends AbstractPlayStatusReceiver {
         b.setWhen(Util.currentTimeSecsUTC());
 
         if (msid != -1) { // read from MediaStore
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !Util.checkExternalPermission(ctx)){
+                Util.myNotify(ctx, ctx.getResources().getString(R.string.warning), ctx.getResources().getString(R.string.permission_external_storage), 81234, PermissionsActivity.class);
+                return;
+            }
             final String[] columns = new String[]{
                     MediaStore.Audio.AudioColumns.ARTIST,
                     MediaStore.Audio.AudioColumns.TITLE,
