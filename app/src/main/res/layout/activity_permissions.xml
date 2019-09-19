@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -25,16 +26,27 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal|center_vertical" >
 
                 <TextView
                     android:id="@+id/text_permisions_title"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginRight="4sp"
+                    android:ellipsize="end"
                     android:gravity="center_horizontal"
+                    android:maxLines="2"
                     android:text="@string/permissions_title"
                     android:textSize="24sp" />
+
+                <ImageButton
+                    android:id="@+id/privacy_link_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srcCompat="@android:drawable/ic_menu_help"
+                    android:textSize="12sp"
+                    android:background="@android:color/holo_blue_bright" />
 
             </TableRow>
 

@@ -37,30 +37,37 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.MyContextWrapper;
 import com.adam.aslfms.util.Util;
+
 /**
  * @author a93h
  * @since 1.5.8
  */
 public class PermissionsActivity extends AppCompatActivity {
 
+    private enum ButtonChoice { SKIP, CONTINUE, BACK }
+
     private static final String TAG = "PermissionsActivity";
+    private static final int disabledColor = Color.argb(25, 0,0,0);
+    private static final int enabledColor = Color.argb(75, 0,255,0);
+    private static final int warningColor = Color.argb(80,255,0,0);
 
-    int WRITE_EXTERNAL_STORAGE;
-    int disabledColor = Color.argb(25, 0,0,0);
-    int enabledColor = Color.argb(75, 0,255,0);
-    int warningColor = Color.argb(80,255,0,0);
+    private int WRITE_EXTERNAL_STORAGE;
 
-    AppSettings settings = null;
-    Button skipBtn = null;
-    Button continueBtn = null;
-    Button externalPermBtn = null;
-    Button notifiPermBtn = null;
-    Button batteryPermBtn = null;
+    private boolean skipPermissions = false;
+
+    private AppSettings settings = null;
+    private Button skipBtn = null;
+    private Button continueBtn = null;
+    private Button externalPermBtn = null;
+    private Button notifiPermBtn = null;
+    private Button batteryPermBtn = null;
+    private ImageButton privacyLinkBtn = null;
     Context ctx = this;
 
     @Override
@@ -95,7 +102,14 @@ public class PermissionsActivity extends AppCompatActivity {
         checkCurrrentPermissions();
     }
 
+    @Override
+    public void onBackPressed() {
+        leavePermissionsDialogue(this, ButtonChoice.BACK);
+    }
+
     public void checkCurrrentPermissions(){
+        privacyLinkBtn = findViewById(R.id.privacy_link_button);
+
         skipBtn = findViewById(R.id.button_skip);
         skipBtn.setBackgroundColor(enabledColor);
         continueBtn = findViewById(R.id.button_continue);
@@ -159,50 +173,9 @@ public class PermissionsActivity extends AppCompatActivity {
             }
         });
 
-        skipBtn.setOnClickListener((View view) -> {
-            if(!allPermsCheck()) {
-                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case DialogInterface.BUTTON_POSITIVE:
-                                settings.setKeyBypassNewPermissions(1); // user has bypassed permissions is True
-                                int v = Util.getAppVersionCode(ctx  , getPackageName());
-                                if (settings.getWhatsNewViewedVersion() < v) {
-                                    resetVersionCode(v);
-                                }
-                                Intent intent = new Intent(ctx, SettingsActivity.class);
-                                ctx.startActivity(intent);
-                                Util.runServices(ctx);
-                                break;
-                            case DialogInterface.BUTTON_NEGATIVE:
-                                break;
-                        }
-                    }
-                };
-                AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                String message = ctx.getResources().getString(R.string.warning) + "! " + ctx.getResources().getString(R.string.are_you_sure);
-                if (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT && !Util.checkNotificationListenerPermission(ctx)){
-                    message += " - " + ctx.getResources().getString(R.string.warning_will_not_scrobble);
-                    message += " - " + ctx.getResources().getString(R.string.permission_notification_listener);
-                }
-                builder.setMessage(message).setPositiveButton(R.string.yes, dialogClickListener)
-                        .setNegativeButton(R.string.no, dialogClickListener).show();
-            }
-        });
-        continueBtn.setOnClickListener((View view) -> {
-            if(allPermsCheck()){
-                settings.setKeyBypassNewPermissions(0); // user has bypassed permissions is false
-                int v = Util.getAppVersionCode(this, getPackageName());
-                if (settings.getWhatsNewViewedVersion() < v) {
-                    resetVersionCode(v);
-                }
-                Intent intent = new Intent(ctx, SettingsActivity.class);
-                ctx.startActivity(intent);
-                Util.runServices(ctx);
-            }
-        });
-
+        skipBtn.setOnClickListener((View view) -> leavePermissionsDialogue(view.getContext(), ButtonChoice.SKIP));
+        continueBtn.setOnClickListener((View view) -> leavePermissionsDialogue(view.getContext() , ButtonChoice.CONTINUE));
+        privacyLinkBtn.setOnClickListener((View view) -> startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/simple-last-fm-scrobbler/sls/wiki/Privacy-Concerns"))));
     }
 
     public void colorPermission(boolean enabled, Button button){
@@ -227,8 +200,33 @@ public class PermissionsActivity extends AppCompatActivity {
                 && Util.checkBatteryOptimizationsPermission(this);
     }
 
-    private void resetVersionCode(int v){
-        new WhatsNewDialog(this).show();
-        settings.setWhatsNewViewedVersion(v);
+    private void resolveChoice(int bypass){
+        settings.setWhatsNewViewedVersion(Util.getAppVersionCode(ctx,getPackageName()));
+        settings.setKeyBypassNewPermissions(bypass);
+        finish();
+    }
+
+    private void leavePermissionsDialogue(Context context, ButtonChoice buttonChoice){
+        if (allPermsCheck() && buttonChoice != ButtonChoice.SKIP){
+            resolveChoice(0); // user has bypassed permissions is False
+        } else if (!allPermsCheck() && buttonChoice != ButtonChoice.CONTINUE) {
+            DialogInterface.OnClickListener dialogClickListener = (DialogInterface dialog, int which) -> {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        resolveChoice(1); // user has bypassed permissions is True
+                        break;
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        break;
+                }
+            };
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            String message = context.getResources().getString(R.string.warning) + "! " + context.getResources().getString(R.string.are_you_sure);
+            if (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT && !Util.checkNotificationListenerPermission(context)) {
+                message += " - " + context.getResources().getString(R.string.warning_will_not_scrobble);
+                message += " - " + context.getResources().getString(R.string.permission_notification_listener);
+            }
+            builder.setMessage(message).setPositiveButton(R.string.yes, dialogClickListener)
+                    .setNegativeButton(R.string.no, dialogClickListener).show();
+        }
     }
 }

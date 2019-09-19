@@ -110,24 +110,10 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             mDb = null;
         }
 
-        checkNetwork();
-
         mHeartCurrentTrack = findPreference(KEY_HEART_CURRENT_TRACK);
         mScrobbleAllNow = findPreference(KEY_SCROBBLE_ALL_NOW);
         mViewScrobbleCache = findPreference(KEY_VIEW_SCROBBLE_CACHE);
         mCopyCurrentTrack = findPreference(KEY_COPY_CURRENT_TRACK);
-
-        // TODO: VERIFY EVERYTHING BELOW IS SAFE
-        int v = Util.getAppVersionCode(this, getPackageName());
-        if (settings.getWhatsNewViewedVersion() < v){
-            settings.setKeyBypassNewPermissions(2);
-            mDb.rebuildScrobblesDatabaseOnce(); // keep as not all users have the newest database.
-            // TODO: verify only needed databases are destroyed
-        }
-        if (settings.getKeyBypassNewPermissions() == 2){
-            startActivity(new Intent(this, PermissionsActivity.class));
-        }
-        Util.runServices(this);
     }
 
     @Override
@@ -150,11 +136,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         ifs.addAction(ScrobblingService.BROADCAST_ONSTATUSCHANGED);
         registerReceiver(onStatusChange, ifs);
         update();
-        Util.runServices(this);
-        if(settings.getKeyBypassNewPermissions() == 2){
-            Intent i = new Intent(this, PermissionsActivity.class);
-            startActivity(i);
-        }
+        runChecks();
     }
 
     @Override
@@ -221,6 +203,23 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             SettingsActivity.this.update();
         }
     };
+
+    private void runChecks(){
+        settings = new AppSettings(this);
+        // TODO: VERIFY EVERYTHING BELOW IS SAFE
+        int v = Util.getAppVersionCode(this, getPackageName());
+        if (settings.getWhatsNewViewedVersion() < v){
+            settings.setKeyBypassNewPermissions(2);
+            mDb.rebuildScrobblesDatabaseOnce(); // keep as not all users have the newest database.
+            // TODO: verify only needed databases are destroyed
+        }
+        if (settings.getKeyBypassNewPermissions() == 2){
+            startActivity(new Intent(this, PermissionsActivity.class));
+        } else if (settings.getWhatsNewViewedVersion() < v) {
+            new WhatsNewDialog(this).show();
+        }
+        Util.runServices(this);
+    }
 
     private void checkNetwork() {
         this.sendBroadcast(new Intent(AppSettings.ACTION_NETWORK_OPTIONS_CHANGED));

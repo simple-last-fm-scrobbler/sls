@@ -180,7 +180,7 @@ public abstract class BuiltInMusicAppReceiver extends
 		long audioid = getAudioId(bundle);
 
 		if (shouldFetchFromMediaStore(ctx, audioid)) { // read from MediaStore
-			if(Build.VERSION_CODES.KITKAT >= Build.VERSION.SDK_INT && !Util.checkExternalPermission(ctx)){
+			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !Util.checkExternalPermission(ctx)){
 				Util.myNotify(ctx, ctx.getResources().getString(R.string.warning), ctx.getResources().getString(R.string.permission_external_storage), 81234, PermissionsActivity.class);
 				return;
 			}

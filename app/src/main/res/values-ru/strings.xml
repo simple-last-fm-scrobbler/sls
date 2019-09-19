@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools" tools:locale="en">
-
     <!-- START original strings -->
     <string name="close">Закрыть</string>
     <string name="remove">Удалить</string>
     <string name="reset">Сбросить</string>
     <string name="clear_creds">Очистить</string>
-    <string name="are_you_sure">Уверены?</string>
+    <string name="are_you_sure">Вы уверены?</string>
     <string name="warning">Внимание</string>
     <string name="will_submit_stuff">Будет отправлять информацию о композициях на данный веб-сайт</string>
     <string name="also_disable_np_title">Также отключает уведомления о проигрываемых композициях</string>
     <string name="also_disable_np_summary">[Hmpf]</string>
     <!-- END original strings -->
-
     <!-- START about strings -->
     <string name="by">Автор:</string>
     <string name="issues">Баги и предложения: %s</string>
@@ -29,7 +27,6 @@
     <string name="supported_netapps">Поддержанные веб-сайты: %1</string>
     <string name="supported_apps">Поддержанные приложения: %s и многие другие…</string>
     <!-- END about strings -->
-
     <!-- START cache strings -->
     <string name="scrobbles_cache_nonum">Сохраненных композиций:</string>
     <string name="scrobbles_cache">Сохраненных композиций: %1</string>
@@ -62,7 +59,6 @@
     <string name="sc_sort_track_asc">Композиция, по возрастанию</string>
     <string name="sc_sort_track_desc">Композиция, по убыванию</string>
     <!-- END cache strings -->
-
     <!-- START creds strings -->
     <string name="user_credentials_title">Учетная запись</string>
     <string name="user_credentials_summary">Сохранение данных учетной записи на %1</string>
@@ -92,7 +88,6 @@
     <string name="confirm_clear_creds">Вы уверены, что хотите удалить данные учетной записи для %1? Данное действие также приведет к удалению из кэша всех неотправленных композиций.</string>
     <string name="confirm_clear_all_creds">Вы уверены, что хотите удалить данные всех учетных записей? Данное действие также приведет к удалению из кэша всех неотправленных композиций.</string>
     <!-- END creds strings -->
-
     <!-- START heart strings -->
     <string name="heart_and_copy">Опции композиции</string>
     <string name="heart_title">Нравится</string>
@@ -102,20 +97,25 @@
     <string name="no_lastFm">Введите данные учетной записи last.fm</string>
     <string name="song_is_ready">Песня готова</string>
     <!-- END heart strings -->
-
     <!-- START copy strings -->
     <string name="copy_title">Копировать</string>
     <string name="copy_current_track">Копировать текущую композицию в буфер обмена</string>
     <string name="no_copy_track">Не удалось скопировть трек в буфер обмена</string>
     <string name="no_current_track">В данный момент композиций не проигрывается</string>
     <!-- END copy strings -->
-
+    <!-- START copy strings -->
+    <string name="theme_title">Выбор темы</string>
+    <string name="theme_summary">Выберите тему</string>
+    <string name="theme_dark">Темная</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_default">По-умолчанию</string>
+    <!-- END copy strings -->
     <!-- START permissions and warnings strings -->
-    <string name="permission_required">Необходимо дать приложению разрешения для нормальной работы</string>
+    <string name="permission_required">НЕОБХОДИМО дать приложению разрешения для корректной работы</string>
     <string name="creds_required">Необходимы данные учетной записи для нормальной работы</string>
-    <string name="limited_network">Ограниченная Cеть</string>
+    <string name="notification_access_required">Доступ к системным уведомлениям НЕОБХОДИМ для корректной работы</string>
+    <string name="limited_network">Ограниченная сеть</string>
     <!-- END permissions and warnings strings -->
-
     <!-- START mapis strings -->
     <string name="incompatability_short">Внимание! %1$s установлено и может привести к двойному скробблингу.</string>
     <string name="incompatability_long">Внимание! %1$s установлено и может привести к двойному скробблингу. Отключите скробблинг в этом приложении или удалите %1$s.</string>
@@ -128,9 +128,12 @@
     <string name="find_supported_mapis_many_title">Обнаружено приложений: %1</string>
     <string name="find_supported_mapis_summary">Начните слушать музыку в поддерживаемом приложении, и оно появится здесь</string>
     <string name="unknown_mapi">Неизвестное приложение (pre SLS v1.2.3)</string>
+    <string name="new_music_app">Обнаружено новое приложение; нажмите здесь</string>
+    <string name="clear_apps">Очистить приложения</string>
+    <!-- TODO: Translate -->
     <!-- END mapis strings -->
-
     <!-- START options_prefs strings -->
+    <string name="active_app_summary">ВНИМАНИЕ, может пропускать композиции</string>
     <string name="options_title">Настройки</string>
     <string name="advanced_options_title">Дополнительные настройки</string>
     <string name="scrobbling">Скробблинг</string>
@@ -142,6 +145,7 @@
     <string name="ao_battery_title">От батареи</string>
     <string name="ao_plugged_title">При подключении к сети</string>
     <string name="options_summary">Включая настройки экономии заряда</string>
+    <string name="advanced_options_notify_title">Уведомления на телефон</string>
     <string name="advanced_options_custom_category_title">Собственные настройки</string>
     <string name="advanced_options_when_title">Когда скробблить</string>
     <string name="advanced_options_also_on_complete_title">Также при окончании плейлиста</string>
@@ -157,7 +161,7 @@
     <string name="advanced_options_when_5_name">После пяти композиций</string>
     <string name="advanced_options_when_10_name">После десяти композиций</string>
     <string name="advanced_options_when_25_name">После 25 композиций</string>
-    <string name="advanced_options_when_never_name">При нажатии на кнопку "Отправить данные сейчас"</string>
+    <string name="advanced_options_when_never_name">При нажатии на кнопку \"Отправить данные сейчас\"</string>
     <string name="advanced_options_net_title">Сеть</string>
     <string name="advanced_options_net_summary">Отправление данных: %1</string>
     <string name="advanced_options_net_any_name">Любая сеть</string>
@@ -166,8 +170,44 @@
     <string name="advanced_options_net_roaming_title">Роуминг</string>
     <string name="advanced_options_net_roaming_summary_off">Запрет на передачу данных в роуминге</string>
     <string name="advanced_options_net_roaming_summary_on">Передача данных в роуминге</string>
+    <string name="notification_priority">Приоритет уведомлений</string>
+    <string-array name="notification_priority_list">
+        <item>Минимальный</item>
+        <item>Низкий</item>
+        <item>По-умолчанию</item>
+        <item>Высокий</item>
+        <item>Максимальный</item>
+    </string-array>
+    <string name="languages_title">Языки (* не завершены)</string>
+    <!-- warning! Size must be exact! -->
+    <!-- All Values correspond to string-non-translatable languages_codes -->
+    <string-array name="language_list">
+        <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Китайский*</item>
+        <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Чешский*</item>
+        <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Английский</item>
+        <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Английский (США)</item>
+        <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Французский</item>
+        <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Немецкий*</item>
+        <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Японский*</item>
+        <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Испанский*</item>
+        <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Польский*</item>
+        <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Португальский*</item>
+        <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Русский*</item>
+        <!-- All Values correspond to string-non-translatable languages_codes -->
+        <item>Украинский*</item>
+    </string-array>
     <!-- END options_prefs strings -->
-
     <!-- START status strings -->
     <string name="status">Статус</string>
     <string name="scrobble_status_title">Статус скробблинга</string>
@@ -187,7 +227,37 @@
     <string name="it_was">Было:</string>
     <string name="confirm_stats_reset">Вы уверены, что хотите сбросить свою статистику для %1? Данное действие имеет необратимый характер.</string>
     <string name="profile_page">Страница с профилем</string>
-    <string name="advanced_options_notify_title">Уведомления на телефон</string>
     <!-- END status strings -->
-
+    <!-- BEGIN developer options -->
+    <string name="developer_options">Настройки разработчика</string>
+    <string name="export_database">Эскпортировать базу</string>
+    <!-- BEGIN developer options -->
+    <!-- BEGIN permissions activity -->
+    <string name="permission_activate">Активировать</string>
+    <string name="permissions_title">Требуемые разрешения</string>
+    <string name="permission_external_storage">External Storage</string>
+    <string name="permission_notification_listener">Notification Listener</string>
+    <string name="permission_battery_optimizations">Battery Optimizations</string>
+    <string name="permission_battery_basic">Battery Basic</string>
+    <string name="permission_continue">Продолжить</string>
+    <!-- END permissions activity -->
+    <!-- START correction rules strings -->
+    <string name="old_track">Название</string>
+    <string name="new_track">Новое название</string>
+    <string name="old_artist">Исполнитель</string>
+    <string name="new_artist">Новый исполнитель</string>
+    <string name="old_album">Альбом</string>
+    <string name="new_album">Новый альбом</string>
+    <string name="save_as_rule">Сохранить правило</string>
+    <string name="delete_all_rules">Удалить все правила</string>
+    <string name="add_new_rule">Добавить правило</string>
+    <string name="edit_rule">Редактировать правило</string>
+    <string name="delete_rule">Удалить правило</string>
+    <string name="field">Поле</string>
+    <string name="changed_value">Измененные значения</string>
+    <string name="track">Название</string>
+    <string name="album">Альбом</string>
+    <string name="artist">Исполнитель</string>
+    <string name="empty_rules">...</string>
+    <!-- END  correction rules strings -->
 </resources>
