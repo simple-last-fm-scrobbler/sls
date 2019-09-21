@@ -355,7 +355,7 @@ public class ScrobblesDatabase {
             ContentValues iVals = new ContentValues();
             iVals.put("netappid", napp.getValue());
             iVals.put("trackid", c.getInt(c.getColumnIndex("_id")));
-            Cursor c2 = mDb.rawQuery("SELECT * FROM " + TABLENAME_CORRNETAPP_REPAIRED + " WHERE " + scrobbles_netapp_strings[2] + " =? " + scrobbles_netapp_strings[0] + " =? " + " AND " + scrobbles_netapp_strings[1]  + " =? ", new String[] { "", Integer.toString(napp.getValue()), Integer.toString(c.getInt(c.getColumnIndex("_id")))});
+            Cursor c2 = mDb.rawQuery("SELECT * FROM " + TABLENAME_CORRNETAPP_REPAIRED + " WHERE " + scrobbles_netapp_strings[0] + " =? AND " + scrobbles_netapp_strings[1]  + " =? ", new String[] { Integer.toString(napp.getValue()), Integer.toString(c.getInt(c.getColumnIndex("_id")))});
             if (c2.moveToFirst()){
                 // do nothing
             } else {
@@ -378,13 +378,13 @@ public class ScrobblesDatabase {
 
     public int setSentField(NetApp napp, int trackId) {
         if (trackId == -1) {
-            Log.e(TAG, "Trying to delete scrobble with trackId == -1");
+            Log.e(TAG, "Failed to set sent field");
             return -2;
         }
+        Log.d(TAG, "Trying to set sent field");
         ContentValues contentValues = new ContentValues();
-        contentValues.put(scrobbles_netapp_strings[2], "sent");
-        return mDb.update(TABLENAME_CORRNETAPP_REPAIRED, contentValues,"netappid = ? and trackid = ?",
-                new String[]{"" + napp.getValue(), "" + trackId});
+        contentValues.put("sentstatus", "sent");
+        return mDb.update(TABLENAME_CORRNETAPP_REPAIRED, contentValues,"netappid = " + napp.getValue() +" and _id = " + trackId, null);
     }
 
     public int deleteHeart(String[] s) {
@@ -432,9 +432,20 @@ public class ScrobblesDatabase {
                 new String[]{"" + napp.getValue()});
     }
 
+    public int deleteAllScrobbledTracks(NetApp napp) {
+        return mDb.delete(TABLENAME_CORRNETAPP_REPAIRED, "netappid = ? AND sentstatus = ?",
+                new String[]{"" + napp.getValue(), "sent"});
+    }
+
     public boolean cleanUpTracks() {
-        mDb.execSQL("delete from scrobbles where _id not in "
+        mDb.execSQL("delete from scrobbles where scrobbles._id not in "
                 + "(select trackid as _id from " + TABLENAME_CORRNETAPP_REPAIRED + ")");
+        return true;
+    }
+
+    public boolean cleanUpScrobbledTracks() {
+        mDb.execSQL("delete from scrobbles where scrobbles._id not in "
+                + "(select trackid as _id from " + TABLENAME_CORRNETAPP_REPAIRED + " WHERE " + TABLENAME_CORRNETAPP_REPAIRED + ".sentstatus = 'sent')");
         return true;
     }
 
@@ -546,7 +557,7 @@ public class ScrobblesDatabase {
 
     public NetApp[] fetchNetAppsForScrobble(int trackId) {
         String sql = "select netappid from  " + TABLENAME_CORRNETAPP_REPAIRED + " where trackid = "
-                + trackId;
+                + trackId + " and sentstatus != 'sent'";
         Cursor c = mDb.rawQuery(sql, null);
 
         if (c.getCount() == 0)
@@ -576,11 +587,25 @@ public class ScrobblesDatabase {
         return count;
     }
 
+    public int queryNumberOfUnscrobbledTracks() {
+        if (mDb == null || !mDb.isOpen()) {
+            open();
+        }
+        Cursor c = mDb.rawQuery("select count(distinct trackid) from " + TABLENAME_CORRNETAPP_REPAIRED + " where sentstatus = ''", null);
+        int count = c.getCount();
+        if (count != 0) {
+            c.moveToFirst();
+            count = c.getInt(0);
+        }
+        c.close();
+        return count;
+    }
+
     public int queryNumberOfScrobbles(NetApp napp) {
         Cursor c;
         c = mDb.rawQuery(
                 "select count(trackid) from " + TABLENAME_CORRNETAPP_REPAIRED + " where netappid = "
-                        + napp.getValue(), null);
+                        + napp.getValue() + " and sentstatus != 'sent'"  , null);
         int count = c.getCount();
         if (count != 0) {
             c.moveToFirst();

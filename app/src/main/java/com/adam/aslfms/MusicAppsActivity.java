@@ -113,7 +113,7 @@ public class MusicAppsActivity extends AppCompatPreferenceActivity {
         if (mapi != null) {
             CheckBoxPreference cbp = (CheckBoxPreference) pref;
             boolean checked = cbp.isChecked();
-            mapi.setEnabled(this, checked);
+            mapi.setEnabled(this, checked ? 1 : 0);
             setSMASummary(pref, mapi);
 
             if (checked && mScrobbleDroidInstalled
@@ -157,10 +157,25 @@ public class MusicAppsActivity extends AppCompatPreferenceActivity {
 
         MusicAPI[] mapis = MusicAPI.all(this);
         for (MusicAPI mapi : mapis) {
+
             CheckBoxPreference appPref = new CheckBoxPreference(this, null);
             appPref.setTitle(mapi.getName());
             appPref.setPersistent(false);
             appPref.setChecked(mapi.isEnabled());
+
+
+            switch (mapi.getEnabledValue()){
+                case 0:
+                    appPref.setIcon(android.R.drawable.checkbox_off_background);
+                    break;
+                case 1:
+                    appPref.setIcon(android.R.drawable.checkbox_on_background);
+                    break;
+                case 2:
+                default:
+                    appPref.setIcon(android.R.drawable.stat_sys_warning);
+                    break;
+            }
 
             mSupportedMusicAppsList.addPreference(appPref);
             mPrefsToMapisMap.put(appPref, mapi);

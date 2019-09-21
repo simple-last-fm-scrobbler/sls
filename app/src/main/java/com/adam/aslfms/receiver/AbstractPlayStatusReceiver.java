@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.adam.aslfms.MusicAppsActivity;
 import com.adam.aslfms.R;
 import com.adam.aslfms.UserCredActivity;
 import com.adam.aslfms.service.ScrobblingService;
@@ -106,10 +107,14 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
             }
 
             // check if the user wants to scrobble music from this MusicAPI
-            if (!mMusicAPI.isEnabled()) {
+            if (mMusicAPI.getEnabledValue() == 0) {
                 Log.d(TAG, "App: " + mMusicAPI.getName()
                         + " has been disabled, won't propagate");
                 return;
+            } else if (mMusicAPI.getEnabledValue() == 2) {
+                Util.myNotify(context, mMusicAPI.getName(), context.getString(R.string.new_music_app), 12473, MusicAppsActivity.class);
+                Log.d(TAG, "App: " + mMusicAPI.getName()
+                        + " has been ignored, will propagate");
             }
 
             // submit track for the ScrobblingService

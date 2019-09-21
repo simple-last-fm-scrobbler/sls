@@ -28,6 +28,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -57,6 +58,8 @@ import com.adam.aslfms.util.enums.SortField;
 
 public class ViewScrobbleCacheActivity extends AppCompatActivity {
     private static final String TAG = "VSCacheActivity";
+    private static final int disabledColor = Color.argb(25, 0,0,0);
+
 
     private AppSettings settings;
 
@@ -65,6 +68,7 @@ public class ViewScrobbleCacheActivity extends AppCompatActivity {
      * mNetApp == null means that we should view cache for all netapps
      */
     private NetApp mNetApp;
+    private NetApp[] mNetApps;
 
     private Cursor mScrobblesCursor = null;
 
@@ -178,6 +182,7 @@ public class ViewScrobbleCacheActivity extends AppCompatActivity {
 
     private void fillData() {
         SortField sf = settings.getCacheSortField();
+
         if (mNetApp == null) {
             mScrobblesCursor = mDb.fetchAllTracksCursor(sf);
         } else {
@@ -215,6 +220,15 @@ public class ViewScrobbleCacheActivity extends AppCompatActivity {
                             mScrobblesCursor);
                 } else {
                     Util.deleteAllScrobblesFromCache(this, mDb, mNetApp,
+                            mScrobblesCursor);
+                }
+                return true;
+            case R.id.menu_clear_completed_cache:
+                if (mNetApp == null) {
+                    Util.deleteAllScrobbledTracksFromAllCaches(this, mDb,
+                            mScrobblesCursor);
+                } else {
+                    Util.deleteAllScrobbledTracksFromCache(this, mDb, mNetApp,
                             mScrobblesCursor);
                 }
                 return true;
@@ -318,6 +332,15 @@ public class ViewScrobbleCacheActivity extends AppCompatActivity {
 
         @Override
         public void bindView(View view, Context context, Cursor cursor) {
+
+            if (mNetApp == null) {
+                mNetApps = mDb.fetchNetAppsForScrobble(cursor.getInt(cursor.getColumnIndex("_id")));
+            } else {
+                mNetApps = null;
+            }
+
+            if (mNetApps.length == 0) view.setBackgroundColor(disabledColor);
+
             String track = cursor.getString(cursor.getColumnIndex("track"));
             TextView trackView = (TextView) view.findViewById(R.id.track);
             trackView.setText(track);

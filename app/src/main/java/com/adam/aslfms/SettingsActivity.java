@@ -145,7 +145,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                                          Preference pref) {
         if (pref == mScrobbleAllNow) {
             checkNetwork();
-            int numInCache = mDb.queryNumberOfTracks();
+            int numInCache = mDb.queryNumberOfUnscrobbledTracks();
             Util.scrobbleAllIfPossible(this, numInCache);
             return true;
         } else if (pref == mViewScrobbleCache) {
@@ -169,7 +169,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     private void update() {
         mDb = new ScrobblesDatabase(this);
-        int numCache = mDb.queryNumberOfTracks();
+        int numCache = mDb.queryNumberOfUnscrobbledTracks();
         mScrobbleAllNow.setSummary(getString(R.string.scrobbles_cache).replace(
                 "%1", Integer.toString(numCache)));
         mScrobbleAllNow.setEnabled(numCache > 0);

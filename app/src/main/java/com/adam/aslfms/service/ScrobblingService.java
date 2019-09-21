@@ -215,11 +215,11 @@ public class ScrobblingService extends Service {
                     if (sdk < Build.VERSION_CODES.HONEYCOMB) {
                         @SuppressWarnings("deprecation")
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setText(tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + ", on " + tempTrack.getMusicAPI().getName());
+                        clipboard.setText(tempTrack.getTrack() + R.string.by + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + "; " + tempTrack.getMusicAPI().getName());
                     } else {
                         @SuppressWarnings("deprecation")
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + ", on " + tempTrack.getMusicAPI().getName());
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", tempTrack.getTrack() + R.string.by + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + "; " + tempTrack.getMusicAPI().getName());
                         clipboard.setPrimaryClip(clip);
                     }
                     Log.d(TAG, "Copy Track!");
@@ -234,11 +234,11 @@ public class ScrobblingService extends Service {
                     if (sdk < Build.VERSION_CODES.HONEYCOMB) {
                         @SuppressWarnings("deprecation")
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setText(mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + ", on " + mCurrentTrack.getMusicAPI().getName());
+                        clipboard.setText(mCurrentTrack.getTrack() + R.string.by + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + "; " + mCurrentTrack.getMusicAPI().getName());
                     } else {
                         @SuppressWarnings("deprecation")
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + ", on " + mCurrentTrack.getMusicAPI().getName());
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", mCurrentTrack.getTrack() + R.string.by + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + "; " + mCurrentTrack.getMusicAPI().getName());
                         clipboard.setPrimaryClip(clip);
                     }
                     Log.d(TAG, "Copy Track!");
@@ -431,11 +431,12 @@ public class ScrobblingService extends Service {
             // now set up scrobbling rels
             for (NetApp napp : NetApp.values()) {
                 Log.d(TAG, "inserting scrobble: " + napp.getName());
-                if (mDb.insertScrobble(napp, rowId)){
-                    Log.d(TAG, "inserting scrobble successful");
-                    mDb.verifyOrUpdateScrobblesAlreadyInCache(napp);
-                } else {
-                    Log.d(TAG, "inserting scrobble failure");
+                if (settings.isAuthenticated(napp)) {
+                    if (mDb.insertScrobble(napp, rowId)) {
+                        Log.d(TAG, "inserting scrobble successful");
+                    } else {
+                        Log.d(TAG, "inserting scrobble failure");
+                    }
                 }
                 // tell interested parties
                 Intent i = new Intent(

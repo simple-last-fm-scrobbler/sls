@@ -58,7 +58,7 @@ public class MusicAPI {
     int enabled;
 
     MusicAPI(long id, String name, String pkg, String msg,
-             boolean clashWithScrobbleDroid, boolean enabled) {
+             boolean clashWithScrobbleDroid, int enabled) {
         super();
 
         if (name == null)
@@ -71,7 +71,7 @@ public class MusicAPI {
         this.pkg = pkg;
         this.msg = msg;
         this.clashWithScrobbleDroid = clashWithScrobbleDroid ? 1 : 0;
-        this.enabled = enabled ? 1 : 0;
+        this.enabled = enabled;
     }
 
     /**
@@ -139,14 +139,25 @@ public class MusicAPI {
     }
 
     /**
+     * Returns int if the user has not enabled or disabled scrobbling through this API / music
+     * app. Default is true.
+     *
+     * @return int of scrobbling from this API / music app
+     * @see MusicAppsActivity
+     */
+    public int getEnabledValue() {
+        return enabled;
+    }
+
+    /**
      * Enables / disables scrobbling from this API / music app.
      *
      * @param ctx     context to enable database calls.
      * @param enabled whether this API / app should be enabled or disabled
      * @see MusicAppsActivity
      */
-    public void setEnabled(Context ctx, boolean enabled) {
-        int en = enabled ? 1 : 0;
+    public void setEnabled(Context ctx, int enabled) {
+        int en = enabled;
         if (en == this.enabled)
             return;
 
@@ -285,7 +296,8 @@ public class MusicAPI {
             vals.put("pkg", pkg);
             vals.put("msg", msg);
             vals.put("sdclash", clashWithScrobbleDroid ? 1 : 0);
-            vals.put("enabled", 1);
+            if (msg.equals("genericrcvr")) vals.put("enabled", 2);
+            else vals.put("enabled", 1);
 
             long id = db.insert("music_api", null, vals);
 
@@ -296,8 +308,8 @@ public class MusicAPI {
                 Log.d(TAG, "new mapiinserted into db");
             }
 
-            mapi = new MusicAPI(id, name, pkg, msg, clashWithScrobbleDroid,
-                    true);
+            if (msg.equals("genericrcvr")) mapi = new MusicAPI(id, name, pkg, msg, clashWithScrobbleDroid, 2);
+            else  mapi = new MusicAPI(id, name, pkg, msg, clashWithScrobbleDroid, 1);
             Log.d(TAG, mapi.toString());
         }
         DatabaseHelper.closeDatabase();
@@ -329,7 +341,7 @@ public class MusicAPI {
             // track
             // hasn't been played after the upgrade to v1.2.3
             mapi = new MusicAPI(-1, ctx.getString(R.string.unknown_mapi),
-                    NOT_AN_APPLICATION_PACKAGE + "pre_1_2_3", null, false, true);
+                    NOT_AN_APPLICATION_PACKAGE + "pre_1_2_3", null, false, 1);
         }
         c.close();
         DatabaseHelper.closeDatabase();
@@ -366,7 +378,7 @@ public class MusicAPI {
                 c.getString(c.getColumnIndex("pkg")), //
                 c.getString(c.getColumnIndex("msg")), //
                 c.getInt(c.getColumnIndex("sdclash")) == 1, //
-                c.getInt(c.getColumnIndex("enabled")) == 1);
+                c.getInt(c.getColumnIndex("enabled")));
     }
 
     static final String DATABASE_NAME = "music_apis";

@@ -136,6 +136,8 @@ public class Handshaker extends NetRunnable {
 
             ScrobblesDatabase db = new ScrobblesDatabase(mCtx);
 
+            db.verifyOrUpdateScrobblesAlreadyInCache(getNetApp());
+
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_OK);
 
             // launch services after login

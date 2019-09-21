@@ -108,7 +108,7 @@ public class Scrobbler extends AbstractSubmitter {
 
             // delete scrobbles (not tracks) from db (not array)
             for (Track track : tracks) {
-                mDb.setSentField(netApp, track.getRowId());
+                if ( mDb.setSentField(netApp, track.getRowId()) <= 0) Log.e(TAG, "failed to set sent field for trackid: " + track.getRowId() + " netapp: " + netApp.getValue());
             }
 
             // clean up tracks if no one else wants to scrobble them
