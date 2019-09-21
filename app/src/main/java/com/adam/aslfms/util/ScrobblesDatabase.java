@@ -231,7 +231,8 @@ public class ScrobblesDatabase {
                 Cursor dbCursor = db.query(TABLENAME_CORRNETAPP_REPAIRED, null, null, null, null, null, null);
                 String[] columnNames = dbCursor.getColumnNames();
                 Log.d(TAG, columnNames[0]);
-                db.execSQL("INSERT INTO " + TABLENAME_CORRNETAPP_REPAIRED + " SELECT " + null + "," + scrobbles_netapp_strings[0] + "," + scrobbles_netapp_strings[1] + " FROM " + TABLENAME_CORRNETAPP + ";");
+                db.execSQL("INSERT INTO " + TABLENAME_CORRNETAPP_REPAIRED + "(_id," + scrobbles_netapp_strings[0] + "," + scrobbles_netapp_strings[1] + "," +
+                        scrobbles_netapp_strings[2] + "," + scrobbles_netapp_strings[3] +  ")  SELECT " + null + "," + scrobbles_netapp_strings[0] + "," + scrobbles_netapp_strings[1] + ", '','' FROM " + TABLENAME_CORRNETAPP + ";");
             }
             db.execSQL(drop + sp + table + sp + if_exists + sp + TABLENAME_CORRNETAPP);
         }
