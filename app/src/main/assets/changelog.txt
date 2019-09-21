@@ -7,6 +7,7 @@ For privacy concerns.
 - 1.6.8 (2019-9-15) codename: kingus
   * Database problems fixed
   * Database migration
+  * Offline Heart Track
   * A grey record of sent tracks is kept now
   * Back button in permissions fixed
   * Privacy information in permissions
