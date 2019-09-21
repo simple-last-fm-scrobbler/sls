@@ -4,6 +4,10 @@ For more details.
 https://github.com/simple-last-fm-scrobbler/sls/wiki/Privacy-Concerns
 For privacy concerns.
 
+- 1.6.9 (2019-9-15) codename: lingus
+  * major database patch
+
+
 - 1.6.8 (2019-9-15) codename: kingus
   * Database problems fixed
   * Database migration
