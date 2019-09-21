@@ -116,6 +116,19 @@ public class MusicAppsActivity extends AppCompatPreferenceActivity {
             mapi.setEnabled(this, checked ? 1 : 0);
             setSMASummary(pref, mapi);
 
+            switch (mapi.getEnabledValue()){
+                case 0:
+                    pref.setIcon(android.R.drawable.checkbox_off_background);
+                    break;
+                case 1:
+                    pref.setIcon(android.R.drawable.checkbox_on_background);
+                    break;
+                case 2:
+                default:
+                    pref.setIcon(android.R.drawable.stat_sys_warning);
+                    break;
+            }
+
             if (checked && mScrobbleDroidInstalled
                     && mapi.clashesWithScrobbleDroid()) {
                 Util.warningDialog(this, getString(
