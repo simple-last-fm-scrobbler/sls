@@ -97,7 +97,7 @@ public class NPNotifier extends AbstractSubmitter {
             notifySubmissionStatusFailure(getContext().getString(
                     R.string.auth_just_error));
             Util.myNotify(mCtx, getNetApp().getName(),
-                    mCtx.getString(R.string.auth_bad_auth), 39201, SettingsActivity.class);
+                    mCtx.getString(R.string.auth_bad_auth), 39201,  new Intent(mCtx, SettingsActivity.class));
             ret = true;
         } catch (TemporaryFailureException e) {
             Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
@@ -112,7 +112,7 @@ public class NPNotifier extends AbstractSubmitter {
             // TODO: what??  notify user
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_CLIENTBANNED);
             Util.myNotify(mCtx, getNetApp().getName(),
-                    mCtx.getString(R.string.auth_client_banned), 39201, SettingsActivity.class);
+                    mCtx.getString(R.string.auth_client_banned), 39201,  new Intent(mCtx, SettingsActivity.class));
             e.getStackTrace();
             ret = true;
         } catch (AuthStatus.UnknownResponseException e) {

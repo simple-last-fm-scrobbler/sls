@@ -26,6 +26,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
+import com.adam.aslfms.PermissionsActivity;
 import com.adam.aslfms.R;
 import com.adam.aslfms.SettingsActivity;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
@@ -135,7 +136,7 @@ public class Scrobbler extends AbstractSubmitter {
                     R.string.auth_just_error));
             e.getStackTrace();
             Util.myNotify(mCtx, getNetApp().getName(),
-                    mCtx.getString(R.string.auth_bad_auth), 39201, SettingsActivity.class);
+                    mCtx.getString(R.string.auth_bad_auth), 39201, new Intent(mCtx, SettingsActivity.class));
             ret = true;
         } catch (TemporaryFailureException e) {
             Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
@@ -151,7 +152,7 @@ public class Scrobbler extends AbstractSubmitter {
             // TODO: what??  notify user
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_CLIENTBANNED);
             Util.myNotify(mCtx, getNetApp().getName(),
-                    mCtx.getString(R.string.auth_client_banned), 39201, SettingsActivity.class);
+                    mCtx.getString(R.string.auth_client_banned), 39201, new Intent(mCtx, SettingsActivity.class));
             e.getStackTrace();
             ret = true;
         } catch (AuthStatus.UnknownResponseException e) {

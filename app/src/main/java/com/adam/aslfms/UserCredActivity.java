@@ -83,11 +83,12 @@ public class UserCredActivity extends AppCompatPreferenceActivity {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.user_cred_prefs);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle == null) {
+            Log.e(TAG, "Got null snetapp");
+            finish();
         }
-
-        String snapp = getIntent().getExtras().getString("netapp");
+        String snapp = bundle.getString("netapp");
         if (snapp == null) {
             Log.e(TAG, "Got null snetapp");
             finish();
