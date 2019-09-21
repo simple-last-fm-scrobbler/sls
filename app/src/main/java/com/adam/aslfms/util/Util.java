@@ -613,7 +613,7 @@ public class Util {
         return false;
     }
 
-    public static void runServices(Context context) {
+    public static void  runServices(Context context) {
         if (!isMyServiceRunning(context, ScrobblingService.class)) {
             Log.d(TAG, "(re)starting scrobbleservice");
             Intent i = new Intent(context, ScrobblingService.class);

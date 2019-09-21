@@ -142,7 +142,6 @@ public class GenericControllerReceiver extends AbstractPlayStatusReceiver {
                         break;
                     case 5:
                     default:
-                        setState(Track.State.UNKNOWN_NONPLAYING);
                         break;
                 }
             }

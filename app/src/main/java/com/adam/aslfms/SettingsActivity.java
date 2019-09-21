@@ -168,6 +168,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      * whether stuff is enabled or checked, etc.
      */
     private void update() {
+        mDb = new ScrobblesDatabase(this);
         int numCache = mDb.queryNumberOfTracks();
         mScrobbleAllNow.setSummary(getString(R.string.scrobbles_cache).replace(
                 "%1", Integer.toString(numCache)));
@@ -206,12 +207,9 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
 
     private void runChecks(){
         settings = new AppSettings(this);
-        // TODO: VERIFY EVERYTHING BELOW IS SAFE
         int v = Util.getAppVersionCode(this, getPackageName());
         if (settings.getWhatsNewViewedVersion() < v){
             settings.setKeyBypassNewPermissions(2);
-            mDb.rebuildScrobblesDatabaseOnce(); // keep as not all users have the newest database.
-            // TODO: verify only needed databases are destroyed
         }
         if (settings.getKeyBypassNewPermissions() == 2){
             startActivity(new Intent(this, PermissionsActivity.class));

@@ -108,7 +108,7 @@ public class Scrobbler extends AbstractSubmitter {
 
             // delete scrobbles (not tracks) from db (not array)
             for (Track track : tracks) {
-                mDb.deleteScrobble(netApp, track.getRowId());
+                mDb.setSentField(netApp, track.getRowId());
             }
 
             // clean up tracks if no one else wants to scrobble them
@@ -483,10 +483,6 @@ public class Scrobbler extends AbstractSubmitter {
                     params.put("track" + is, track.getTrack());
                     if (track.getTrackNr() != null) {
                         params.put("trackNumber" + is, track.getTrackNr());
-                    }
-
-                    if (track.getRating().equals("L")) {
-                        mNetManager.launchHeartTrack(track, netApp);
                     }
                 }
                 for (Map.Entry<String, Object> param : params.entrySet()) {

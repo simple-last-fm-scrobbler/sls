@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.adam.aslfms.PermissionsActivity;
 import com.adam.aslfms.R;
+import com.adam.aslfms.UserCredActivity;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.InternalTrackTransmitter;
 import com.adam.aslfms.util.NotificationCreator;
@@ -184,15 +185,21 @@ public class ScrobblingService extends Service {
                         Toast.makeText(this, this.getString(R.string.no_heart_track),
                                 Toast.LENGTH_LONG).show();
                     } else {
-                        mDb.loveRecentTrack();
+                        for (NetApp napp  : NetApp.values()){
+                            if (napp != NetApp.LISTENBRAINZCUSTOM && napp != NetApp.LISTENBRAINZ) mDb.insertHeart(mCurrentTrack, napp);
+                        }
+                        mNetManager.launchAllHearts();
                         Toast.makeText(this, this.getString(R.string.song_is_ready), Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "Love Track Rating!");
+                        Log.d(TAG, "Love track insert");
                     }
                 } catch (Exception e) {
                     Log.e(TAG, "CAN'T HEART TRACK" + e);
                 }
             } else if (mCurrentTrack != null) {
-                mCurrentTrack.setRating();
+                for (NetApp napp  : NetApp.values()){
+                    if (napp != NetApp.LISTENBRAINZCUSTOM && napp != NetApp.LISTENBRAINZ) mDb.insertHeart(mCurrentTrack, napp);
+                }
+                mNetManager.launchAllHearts();
                 Toast.makeText(this, this.getString(R.string.song_is_ready), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Love Track Rating!");
             } else {
@@ -278,7 +285,13 @@ public class ScrobblingService extends Service {
             tryNotifyNP(mCurrentTrack);
 
             foreGroundService();
-
+            // we must be logged in to scrobble
+            if (!settings.isAnyAuthenticated()) {
+                Util.myNotify(this, this.getResources().getString(R.string.warning) , this.getResources().getString(R.string.not_logged_in),05233, UserCredActivity.class);
+                Log
+                        .d(TAG,
+                                "The user has not authenticated, won't propagate the submission request");
+            }
         } else if (state == Track.State.PAUSE) { // pause
             // TODO: test this state
             if (mCurrentTrack == null) {
@@ -417,16 +430,18 @@ public class ScrobblingService extends Service {
 
             // now set up scrobbling rels
             for (NetApp napp : NetApp.values()) {
-                if (settings.isAuthenticated(napp)) {
-                    Log.d(TAG, "inserting scrobble: " + napp.getName());
-                    mDb.insertScrobble(napp, rowId);
-
-                    // tell interested parties
-                    Intent i = new Intent(
-                            ScrobblingService.BROADCAST_ONSTATUSCHANGED);
-                    i.putExtra("netapp", napp.toString());
-                    sendBroadcast(i);
+                Log.d(TAG, "inserting scrobble: " + napp.getName());
+                if (mDb.insertScrobble(napp, rowId)){
+                    Log.d(TAG, "inserting scrobble successful");
+                    mDb.verifyOrUpdateScrobblesAlreadyInCache(napp);
+                } else {
+                    Log.d(TAG, "inserting scrobble failure");
                 }
+                // tell interested parties
+                Intent i = new Intent(
+                        ScrobblingService.BROADCAST_ONSTATUSCHANGED);
+                i.putExtra("netapp", napp.toString());
+                sendBroadcast(i);
             }
         } else {
             Log.e(TAG, "Could not insert scrobble into the db");

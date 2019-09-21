@@ -91,16 +91,6 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
             bundle = Bundle.EMPTY;
         }
 
-        // we must be logged in to scrobble
-        AppSettings settings = new AppSettings(context);
-        if (!settings.isAnyAuthenticated()) {
-            Util.myNotify(context, context.getResources().getString(R.string.warning) , context.getResources().getString(R.string.not_logged_in),05233, UserCredActivity.class);
-            Log
-                    .d(TAG,
-                            "The user has not authenticated, won't propagate the submission request");
-            return;
-        }
-
         mService = new Intent(context, ScrobblingService.class);
         mService.setAction(ScrobblingService.ACTION_PLAYSTATECHANGED);
 
@@ -124,7 +114,7 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 
             // submit track for the ScrobblingService
             InternalTrackTransmitter.appendTrack(mTrack);
-
+            AppSettings settings = new AppSettings(context);
             // start/call the Scrobbling Service
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && settings.isActiveAppEnabled(Util.checkPower(context))) {
                 context.startForegroundService(mService);

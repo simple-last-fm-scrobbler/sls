@@ -71,6 +71,7 @@ public class ControllerReceiverCallback extends MediaController.Callback {
                 case PlaybackState.STATE_ERROR:
                 case PlaybackState.STATE_PAUSED:
                 case PlaybackState.STATE_STOPPED:
+                case PlaybackState.STATE_NONE:
                     playing = 3; // pause
                     break;
                 case PlaybackState.STATE_SKIPPING_TO_NEXT:
@@ -78,9 +79,7 @@ public class ControllerReceiverCallback extends MediaController.Callback {
                 case PlaybackState.STATE_SKIPPING_TO_QUEUE_ITEM:
                     playing = 4; // complete
                     break;
-                case PlaybackState.STATE_NONE:
                 default:
-                    playing = 5; // unknown
                     break;
             }
             localIntent.putExtra("playing", playing);

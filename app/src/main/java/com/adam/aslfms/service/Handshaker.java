@@ -35,6 +35,7 @@ import com.adam.aslfms.util.AuthStatus.ClientBannedException;
 import com.adam.aslfms.util.AuthStatus.TemporaryFailureException;
 import com.adam.aslfms.util.AuthStatus.UnknownResponseException;
 import com.adam.aslfms.util.MD5;
+import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Util;
 import com.adam.aslfms.util.Util.NetworkStatus;
 
@@ -133,9 +134,9 @@ public class Handshaker extends NetRunnable {
             // we don't need/want it anymore, settings.getPwdMd5() is enough
             settings.setPassword(getNetApp(), "");
 
+            ScrobblesDatabase db = new ScrobblesDatabase(mCtx);
 
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_OK);
-
 
             // launch services after login
             Util.runServices(mCtx);
@@ -198,9 +199,11 @@ public class Handshaker extends NetRunnable {
                 getNetworker().resetSleeper();
                 getNetworker().launchNetworkWaiter();
                 getNetworker().launchScrobbler();
+                getNetworker().launchHeart();
             } else {
                 getNetworker().launchSleeper();
                 getNetworker().launchScrobbler();
+                getNetworker().launchHeart();
             }
             e.getStackTrace();
         }

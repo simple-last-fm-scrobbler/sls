@@ -5,10 +5,11 @@ https://github.com/simple-last-fm-scrobbler/sls/wiki/Privacy-Concerns
 For privacy concerns.
 
 - 1.6.8 (2019-9-15) codename: kingus
-  * Correction Rules database problem fixed
+  * Database overwrite problem fixed
   * Back button in permissions fixed
   * Privacy information in permissions
   * Russian thanks to alexesprit
+
 
 - 1.6.7 (2019-9-15) codename: jingus
   * Fixed non-foreground service crash Bug
