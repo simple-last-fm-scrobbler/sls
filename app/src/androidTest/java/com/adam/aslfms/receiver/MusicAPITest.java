@@ -129,11 +129,11 @@ public class MusicAPITest extends AndroidTestCase {
     public void testEnabling() {
         MusicAPI a = getMusicAPIA();
         assertTrue(a.isEnabled());
-        a.setEnabled(ctx, false);
+        a.setEnabled(ctx, 0);
         assertFalse(a.isEnabled());
         MusicAPI b = MusicAPI.fromDatabase(ctx, a.getId());
         assertFalse(b.isEnabled());
-        b.setEnabled(ctx, true);
+        b.setEnabled(ctx, 1);
         assertTrue(b.isEnabled());
         a = MusicAPI.fromDatabase(ctx, b.getId());
         assertTrue(a.isEnabled());

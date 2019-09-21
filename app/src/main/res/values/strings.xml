@@ -41,11 +41,14 @@
     <string name="confirm_delete_sc_from_all">Are you sure you don\'t want to scrobble this track? This operation cannot be undone.</string>
     <string name="confirm_delete_all_sc">Are you sure you want to clear all tracks in the cache for %1? This operation cannot be undone.</string>
     <string name="confirm_delete_all_sc_from_all">Are you sure you want to clear all tracks in the cache? This operation cannot be undone.</string>
+    <string name="confirm_delete_all_scd_tr">Are you sure you want to clear all scrobbled tracks in the cache for %1? This operation cannot be undone.</string>
+    <string name="confirm_delete_all_scd_tr_from_all">Are you sure you want to clear all scrobbled tracks in the cache? This operation cannot be undone.</string>
     <string name="no_scrobbles_in_cache">There are no cached scrobbles</string>
     <string name="view_sc">View scrobble cache</string>
     <string name="view_sc_details">View details</string>
     <string name="delete_sc">Remove from cache</string>
     <string name="clear_cache">Clear cache</string>
+    <string name="clear_completed_cache">Clear completed cache</string>
     <string name="track_info">Track info</string>
     <string name="view_sc_title_for">Scrobble cache for %1</string>
     <string name="view_sc_for_all_summary">View and edit the list of unsubmitted scrobbles</string>

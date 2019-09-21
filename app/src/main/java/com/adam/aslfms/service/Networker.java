@@ -120,7 +120,7 @@ public class Networker {
         mExecutor.execute(n);
     }
 
-    public void launchHeartTrack(Track track) {
+    public void launchHeart() {
         Iterator<Runnable> i = mExecutor.getQueue().iterator();
         while (i.hasNext()) {
             Runnable r = i.next();
@@ -129,8 +129,8 @@ public class Networker {
             }
         }
 
-        Heart n = new Heart(mNetApp, mCtx, this, track, settings);
-        mExecutor.execute(n);
+        Heart s = new Heart(mNetApp, mCtx, this, mDb);
+        mExecutor.execute(s);
     }
 
     public void launchUserInfo() {

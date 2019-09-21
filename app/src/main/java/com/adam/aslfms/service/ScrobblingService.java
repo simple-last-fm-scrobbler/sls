@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.adam.aslfms.PermissionsActivity;
 import com.adam.aslfms.R;
+import com.adam.aslfms.UserCredActivity;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.InternalTrackTransmitter;
 import com.adam.aslfms.util.NotificationCreator;
@@ -184,15 +185,21 @@ public class ScrobblingService extends Service {
                         Toast.makeText(this, this.getString(R.string.no_heart_track),
                                 Toast.LENGTH_LONG).show();
                     } else {
-                        mDb.loveRecentTrack();
+                        for (NetApp napp  : NetApp.values()){
+                            if (napp != NetApp.LISTENBRAINZCUSTOM && napp != NetApp.LISTENBRAINZ) mDb.insertHeart(mCurrentTrack, napp);
+                        }
+                        mNetManager.launchAllHearts();
                         Toast.makeText(this, this.getString(R.string.song_is_ready), Toast.LENGTH_SHORT).show();
-                        Log.d(TAG, "Love Track Rating!");
+                        Log.d(TAG, "Love track insert");
                     }
                 } catch (Exception e) {
                     Log.e(TAG, "CAN'T HEART TRACK" + e);
                 }
             } else if (mCurrentTrack != null) {
-                mCurrentTrack.setRating();
+                for (NetApp napp  : NetApp.values()){
+                    if (napp != NetApp.LISTENBRAINZCUSTOM && napp != NetApp.LISTENBRAINZ) mDb.insertHeart(mCurrentTrack, napp);
+                }
+                mNetManager.launchAllHearts();
                 Toast.makeText(this, this.getString(R.string.song_is_ready), Toast.LENGTH_SHORT).show();
                 Log.d(TAG, "Love Track Rating!");
             } else {
@@ -208,11 +215,11 @@ public class ScrobblingService extends Service {
                     if (sdk < Build.VERSION_CODES.HONEYCOMB) {
                         @SuppressWarnings("deprecation")
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setText(tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + ", on " + tempTrack.getMusicAPI().getName());
+                        clipboard.setText(tempTrack.getTrack() + R.string.by + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + "; " + tempTrack.getMusicAPI().getName());
                     } else {
                         @SuppressWarnings("deprecation")
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", tempTrack.getTrack() + " by " + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + ", on " + tempTrack.getMusicAPI().getName());
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", tempTrack.getTrack() + R.string.by + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + "; " + tempTrack.getMusicAPI().getName());
                         clipboard.setPrimaryClip(clip);
                     }
                     Log.d(TAG, "Copy Track!");
@@ -227,11 +234,11 @@ public class ScrobblingService extends Service {
                     if (sdk < Build.VERSION_CODES.HONEYCOMB) {
                         @SuppressWarnings("deprecation")
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setText(mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + ", on " + mCurrentTrack.getMusicAPI().getName());
+                        clipboard.setText(mCurrentTrack.getTrack() + R.string.by + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + "; " + mCurrentTrack.getMusicAPI().getName());
                     } else {
                         @SuppressWarnings("deprecation")
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", mCurrentTrack.getTrack() + " by " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + ", on " + mCurrentTrack.getMusicAPI().getName());
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", mCurrentTrack.getTrack() + R.string.by + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + "; " + mCurrentTrack.getMusicAPI().getName());
                         clipboard.setPrimaryClip(clip);
                     }
                     Log.d(TAG, "Copy Track!");
@@ -278,7 +285,13 @@ public class ScrobblingService extends Service {
             tryNotifyNP(mCurrentTrack);
 
             foreGroundService();
-
+            // we must be logged in to scrobble
+            if (!settings.isAnyAuthenticated()) {
+                Util.myNotify(this, this.getResources().getString(R.string.warning) , this.getResources().getString(R.string.not_logged_in),05233, UserCredActivity.class);
+                Log
+                        .d(TAG,
+                                "The user has not authenticated, won't propagate the submission request");
+            }
         } else if (state == Track.State.PAUSE) { // pause
             // TODO: test this state
             if (mCurrentTrack == null) {
@@ -417,16 +430,19 @@ public class ScrobblingService extends Service {
 
             // now set up scrobbling rels
             for (NetApp napp : NetApp.values()) {
+                Log.d(TAG, "inserting scrobble: " + napp.getName());
                 if (settings.isAuthenticated(napp)) {
-                    Log.d(TAG, "inserting scrobble: " + napp.getName());
-                    mDb.insertScrobble(napp, rowId);
-
-                    // tell interested parties
-                    Intent i = new Intent(
-                            ScrobblingService.BROADCAST_ONSTATUSCHANGED);
-                    i.putExtra("netapp", napp.toString());
-                    sendBroadcast(i);
+                    if (mDb.insertScrobble(napp, rowId)) {
+                        Log.d(TAG, "inserting scrobble successful");
+                    } else {
+                        Log.d(TAG, "inserting scrobble failure");
+                    }
                 }
+                // tell interested parties
+                Intent i = new Intent(
+                        ScrobblingService.BROADCAST_ONSTATUSCHANGED);
+                i.putExtra("netapp", napp.toString());
+                sendBroadcast(i);
             }
         } else {
             Log.e(TAG, "Could not insert scrobble into the db");

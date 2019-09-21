@@ -373,6 +373,54 @@ public class Util {
         }
     }
 
+    public static void deleteAllScrobbledTracksFromCache(Context ctx,
+                                                   final ScrobblesDatabase db, final NetApp napp, final Cursor cursor) {
+        int numInCache = db.queryNumberOfScrobbles(napp);
+        if (numInCache > 0) {
+            Util.confirmDialog(ctx, ctx.getString(
+                    R.string.confirm_delete_all_scd_tr).replaceAll("%1",
+                    napp.getName()), R.string.clear_cache, android.R.string.cancel,
+                    (dialog, which) -> {
+                        Log.d(TAG, "Will remove all scrobbles from cache: "
+                                + napp.getName());
+                        db.deleteAllScrobbledTracks(napp);
+                        db.cleanUpScrobbledTracks();
+                        // need to refill data, otherwise the screen won't
+                        // update
+                        if (cursor != null)
+                            cursor.requery();
+                    });
+        } else {
+            Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public static void deleteAllScrobbledTracksFromAllCaches(Context ctx,
+                                                       final ScrobblesDatabase db, final Cursor cursor) {
+        int numInCache = db.queryNumberOfTracks();
+        if (numInCache > 0) {
+            Util.confirmDialog(ctx, ctx
+                            .getString(R.string.confirm_delete_all_scd_tr_from_all),
+                    R.string.clear_cache, android.R.string.cancel,
+                    (dialog, which) -> {
+                        Log
+                                .d(TAG,
+                                        "Will remove scrobbled tracks from cache for all netapps");
+                        for (NetApp napp : NetApp.values())
+                            db.deleteAllScrobbledTracks(napp);
+                        db.cleanUpScrobbledTracks();
+                        // need to refill data, otherwise the screen won't
+                        // update
+                        if (cursor != null)
+                            cursor.requery();
+                    });
+        } else {
+            Toast.makeText(ctx, ctx.getString(R.string.no_scrobbles_in_cache),
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
     public static String getStatusSummary(Context ctx, AppSettings settings,
                                           NetApp napp) {
         return getStatusSummary(ctx, settings, napp, true);
@@ -613,7 +661,7 @@ public class Util {
         return false;
     }
 
-    public static void runServices(Context context) {
+    public static void  runServices(Context context) {
         if (!isMyServiceRunning(context, ScrobblingService.class)) {
             Log.d(TAG, "(re)starting scrobbleservice");
             Intent i = new Intent(context, ScrobblingService.class);

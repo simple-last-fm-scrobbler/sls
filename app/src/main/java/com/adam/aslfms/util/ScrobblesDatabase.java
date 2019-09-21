@@ -21,6 +21,7 @@
 
 package com.adam.aslfms.util;
 
+import android.app.TaskStackBuilder;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -32,6 +33,11 @@ import android.util.Log;
 import com.adam.aslfms.receiver.MusicAPI;
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.util.enums.SortField;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -47,73 +53,99 @@ public class ScrobblesDatabase {
     private final Context mCtx;
 
     public static final String DATABASE_NAME = "data";
-    private static final int DATABASE_VERSION = 6;
+    private static final int DATABASE_VERSION = 7;
 
     private static final String ENABLE_FOREIGN_KEYS = "PRAGMA foreign_keys = ON;";
 
     private static final String TABLENAME_SCROBBLES = "scrobbles";
+    private static final String TABLENAME_HEARTS = "hearts";
     private static final String TABLENAME_CORRNETAPP = "scrobbles_netapp";
+    private static final String TABLENAME_CORRNETAPP_REPAIRED = "scrobbles_netapp_repaired";
     private static final String TABLENAME_CORRECTION_RULES = "correction_rules";
     private static final String TABLENAME_RULE_CHANGES = "rule_changes";
     private static final String TRIGGER_NAME_CHECK_CORRECTION_RULES = "check_correction_rules";
 
-    private static final String DATABASE_CREATE_CORRECTION_RULES =
-            "create table correction_rules (" +
-                    "	_id integer primary key autoincrement," +
-                    "	track_to_change text not null," +
-                    "	album_to_change text not null," +
-                    "	artist_to_change text not null," +
-                    "	track_correction text not null," +
-                    "	album_correction text not null," +
-                    "	artist_correction text not null" + // Remember to add ',' when integrating musicapp support
-//                    "	musicapp integer not null" +
-                    ");";
+    private static final String end_cmd = ";";
+    private static final String begin_curve_brace = "(";
+    private static final String end_curve_brace = ")";
+    private static final String comma = ",";
+    private static final String sp = " ";
+    private static final String if_exists = "IF EXISTS";
+    private static final String if_not_exists = "IF NOT EXISTS";
+    private static final String table = "table";
+    private static final String create = "create";
+    private static final String drop = "drop";
+    private static final String alter = "alter";
+    private static final String trigger = "trigger";
+    private static final String add_column = "add column";
+    private static final String int_opt = "INTEGER NOT NULL";
+    private static final String str_opt = "TEXT NOT NULL DEFAULT ''";
+    private static final String id_int_prim_key_auto_opt = "_id integer primary key autoincrement";
+    private static final String music_api_int = "musicapp integer not null";
+    private static final String on_update_cascade = "on delete cascade on update cascade";
+    private static final String foreign_key_ref_track_id_refs_scrobbles_id = "foreign key (track_id) references scrobbles(_id)";
+    private static final String foreign_key_ref_trackid_refs_scrobbles_id = "foreign key (trackid) references scrobbles(_id)";
 
-    private static final String DATABASE_CREATE_RULE_CHANGES =
-            "create table rule_changes (" +
-                    "	track_id integer primary key," +
-                    "	original_track text not null," +
-                    "	original_album text not null," +
-                    "	original_artist text not null," +
-                    "	foreign key (track_id) references scrobbles(_id) on delete cascade on update cascade" +
-                    ");";
+    private static final String[] correction_rules_strings = {"track_to_change", "album_to_change", "artist_to_change", "track_correction", "album_correction", "artist_correction"};
 
-    private static final String DATABASE_CREATE_SCROBBLES = "create table scrobbles ("
-            + "_id integer primary key autoincrement, " //
-            + "musicapp integer not null, " //
-            + "artist text not null, " //
-            + "album text not null, " //
-            + "albumartist text not null, " //
-            + "trackartist text not null, " //
-            + "track text not null, " //
-            + "tracknr text not null, " //
-            + "mbid text not null, " //
-            + "source text not null, " //
-            + "duration integer not null, " //
-            + "whenplayed integer not null," //
-            + "rating text not null);";
+    private static final String rule_changes_track_id = "track_id integer primary key";
+    private static final String[] rule_changes_strings = {"original_track","original_album","original_artist"};
 
-    private static final String DATABASE_CREATE_CORRNETAPP = "create table scrobbles_netapp ("
-            + "netappid integer not null, "
-            + "trackid integer not null, "
-            + "primary key (netappid, trackid), "
-            + "foreign key (trackid) references scrobbles(_id) "
-            + "on delete cascade on update cascade)";
+    private static final String[] scrobbles_heart_only_strings = {"track", "artist", "netapp", "rating"};
+    private static final String[] scrobbles_strings = {"album", "albumartist", "trackartist", "tracknr", "mbid", "source"};
+    private static final String[] scrobbles_ints = {"duration", "whenplayed"};
 
+    private static final String[] scrobbles_netapp_strings = {"netappid", "trackid", "sentstatus", "acceptedstatus"};
+    private static final String scrobbles_netapp_primary_key = "primary key (netappid, trackid)"; // failure DEPRECATED, do not use
+
+
+    private static String buildStringOptions(String[] stringArray, String option){
+        StringBuilder stringBuilder = new StringBuilder();
+        for (int j = 0; j < stringArray.length; j++){
+            stringBuilder.append(sp);
+            stringBuilder.append(stringArray[j]);
+            stringBuilder.append(sp);
+            stringBuilder.append(option);
+            if (j != stringArray.length - 1) stringBuilder.append(comma);
+        }
+        return stringBuilder.toString();
+    }
+
+    private static final String DATABASE_CREATE_CORRECTION_RULES = TABLENAME_CORRECTION_RULES + sp + begin_curve_brace + id_int_prim_key_auto_opt + comma + buildStringOptions(correction_rules_strings,str_opt) + end_curve_brace + end_cmd;
+    private static final String DATABASE_CREATE_RULE_CHANGES = TABLENAME_RULE_CHANGES + sp + begin_curve_brace + rule_changes_track_id + comma + buildStringOptions(rule_changes_strings, str_opt) + comma + sp + foreign_key_ref_track_id_refs_scrobbles_id + on_update_cascade + end_curve_brace + end_cmd;
+    private static final String DATABASE_CREATE_SCROBBLES = TABLENAME_SCROBBLES + sp + begin_curve_brace + id_int_prim_key_auto_opt + comma + sp + music_api_int + comma + sp +
+                                                            buildStringOptions(scrobbles_heart_only_strings, str_opt) + comma + sp + buildStringOptions(scrobbles_strings, str_opt) + comma + sp + buildStringOptions(scrobbles_ints, int_opt) + end_curve_brace + end_cmd;
+    private static final String DATABASE_CREATE_CORRNETAPP_REPAIRED = TABLENAME_CORRNETAPP_REPAIRED + sp + begin_curve_brace + sp + id_int_prim_key_auto_opt + comma + buildStringOptions(scrobbles_netapp_strings, str_opt) + comma + sp + foreign_key_ref_trackid_refs_scrobbles_id + on_update_cascade + end_curve_brace ;
+    private static final String DATABASE_CREATE_HEARTS = TABLENAME_HEARTS + sp + begin_curve_brace + id_int_prim_key_auto_opt + comma + buildStringOptions(scrobbles_heart_only_strings, str_opt) + end_curve_brace + end_cmd;
     private static final String TRIGGGER_CREATE_CHECK_CORRECTION_RULES =
-            "create trigger check_correction_rules" +
-                    "	after insert on scrobbles" +
+            "check_correction_rules" +
+                    "	after insert on "+ TABLENAME_SCROBBLES +
                     "	for each row" +
                     "	when (select count(*) from correction_rules where new.track = track_to_change and new.album = album_to_change and new.artist = artist_to_change) = 1 " +
                     "begin" +
                     "	insert into rule_changes (track_id, original_track, original_album, original_artist)" +
                     "		select _id track_id, track original_track, album original_album, artist original_artist" +
-                    "		from scrobbles" +
+                    "		from " + TABLENAME_SCROBBLES +
                     "		where _id = new._id;" +
-                    "	update scrobbles" +
+                    "	update " + TABLENAME_SCROBBLES +
                     "		set track = (select track_correction from correction_rules where new.track = track_to_change and new.album = album_to_change and new.artist = artist_to_change)," +
                     "		album = (select album_correction from correction_rules where new.track = track_to_change and new.album = album_to_change and new.artist = artist_to_change)," +
                     "		artist = (select artist_correction from correction_rules where new.track = track_to_change and new.album = album_to_change and new.artist = artist_to_change) where _id = new._id; " +
+                    "end;";
+
+    private static final String TRIGGGER_CREATE_CHECK_CORRECTION_RULES_HEARTS =
+            "check_correction_rules_hearts" +
+                    "	after insert on "+ TABLENAME_HEARTS +
+                    "	for each row" +
+                    "	when (select count(*) from correction_rules where new.track = track_to_change and new.artist = artist_to_change) = 1 " +
+                    "begin" +
+                    "	insert into rule_changes (track_id, original_track,original_artist)" +
+                    "		select _id track_id, track original_track, artist original_artist" +
+                    "		from " + TABLENAME_HEARTS +
+                    "		where _id = new._id;" +
+                    "	update " + TABLENAME_HEARTS +
+                    "		set track = (select track_correction from correction_rules where new.track = track_to_change and new.artist = artist_to_change)," +
+                    "		artist = (select artist_correction from correction_rules where new.track = track_to_change and new.artist = artist_to_change) where _id = new._id; " +
                     "end;";
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -163,28 +195,76 @@ public class ScrobblesDatabase {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
+            db.execSQL(ENABLE_FOREIGN_KEYS);
+            String pre_cmd = create + sp + table + sp;
+            String pre_cmd_with_trigger = create + sp + trigger + sp;
             Log.d(TAG, "create sql scrobbles: " + DATABASE_CREATE_SCROBBLES);
-            Log.d(TAG, "create sql corrnetapp: " + DATABASE_CREATE_CORRNETAPP);
-            db.execSQL(DATABASE_CREATE_SCROBBLES);
-            db.execSQL(DATABASE_CREATE_CORRNETAPP);
+            Log.d(TAG, "create sql corrnetapp: " + DATABASE_CREATE_CORRNETAPP_REPAIRED);
+            db.execSQL(pre_cmd + DATABASE_CREATE_SCROBBLES);
+            db.execSQL(pre_cmd + DATABASE_CREATE_CORRNETAPP_REPAIRED);
             // Tables and trigger for updating scrobbles based on rules.
-            db.execSQL(DATABASE_CREATE_CORRECTION_RULES);
-            db.execSQL(DATABASE_CREATE_RULE_CHANGES);
-            db.execSQL(TRIGGGER_CREATE_CHECK_CORRECTION_RULES);
+            Log.d(TAG, "create sql correction_rules: " + DATABASE_CREATE_CORRECTION_RULES);
+            Log.d(TAG, "create sql rules_changes: " + DATABASE_CREATE_RULE_CHANGES);
+            Log.d(TAG, "create sql hearts: " + DATABASE_CREATE_HEARTS);
+            Log.d(TAG, "create sql triggers: " + TRIGGGER_CREATE_CHECK_CORRECTION_RULES);
+            Log.d(TAG, "create sql triggers_hearts: " + TRIGGGER_CREATE_CHECK_CORRECTION_RULES_HEARTS);
+            db.execSQL(pre_cmd + DATABASE_CREATE_CORRECTION_RULES);
+            db.execSQL(pre_cmd + DATABASE_CREATE_RULE_CHANGES);
+            db.execSQL(pre_cmd + DATABASE_CREATE_HEARTS);
+            db.execSQL(pre_cmd_with_trigger + TRIGGGER_CREATE_CHECK_CORRECTION_RULES);
+            db.execSQL(pre_cmd_with_trigger + TRIGGGER_CREATE_CHECK_CORRECTION_RULES_HEARTS);
+        }
+
+        private void verifyOrAddColumnInTable(String[] cols, String opt, String myTable, SQLiteDatabase db){
+            Cursor cursor = db.rawQuery("SELECT * FROM " + myTable, null);
+            for (String col : cols) {
+                int columnIndex = cursor.getColumnIndex(col);
+                if (columnIndex < 0) {
+                    db.execSQL(alter + sp + table + sp + myTable + sp + add_column + sp + col + sp + opt);
+                }
+            }
+        }
+
+        private void repairCoreNetAppTable(SQLiteDatabase db){
+            Cursor c = db.rawQuery( "SELECT name FROM sqlite_master WHERE type='table' AND name='" + TABLENAME_CORRNETAPP + "'",null); // check if table exists
+            if (c.getCount() > 0) {
+                Cursor dbCursor = db.query(TABLENAME_CORRNETAPP_REPAIRED, null, null, null, null, null, null);
+                String[] columnNames = dbCursor.getColumnNames();
+                Log.d(TAG, columnNames[0]);
+                db.execSQL("INSERT INTO " + TABLENAME_CORRNETAPP_REPAIRED + " SELECT " + null + "," + scrobbles_netapp_strings[0] + "," + scrobbles_netapp_strings[1] + " FROM " + TABLENAME_CORRNETAPP + ";");
+            }
+            db.execSQL(drop + sp + table + sp + if_exists + sp + TABLENAME_CORRNETAPP);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            String pre_cmd = create + sp + table + sp + if_not_exists + sp;
+            String pre_cmd_with_trigger = create + sp + trigger + sp + if_not_exists + sp;
             Log.w(TAG, "Upgrading scrobbles database from version "
                     + oldVersion + " to " + newVersion
-                    + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_SCROBBLES);
-            db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_CORRNETAPP);
-            // TODO add migration of old rules if/when necessary
-            db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_CORRECTION_RULES);
-            db.execSQL("DROP TABLE IF EXISTS " + TABLENAME_RULE_CHANGES);
-            db.execSQL("DROP TRIGGER IF EXISTS " + TRIGGER_NAME_CHECK_CORRECTION_RULES);
-            onCreate(db);
+                    + ", which will test and update database functionality.");
+            if (newVersion > oldVersion) {
+                db.execSQL(ENABLE_FOREIGN_KEYS);
+                db.execSQL(pre_cmd + DATABASE_CREATE_CORRNETAPP_REPAIRED);
+                db.execSQL(pre_cmd + DATABASE_CREATE_SCROBBLES);
+                // Tables and trigger for updating scrobbles based on rules.
+                db.execSQL(pre_cmd + DATABASE_CREATE_CORRECTION_RULES);
+                db.execSQL(pre_cmd + DATABASE_CREATE_RULE_CHANGES);
+                db.execSQL(pre_cmd + DATABASE_CREATE_HEARTS);
+                db.execSQL(pre_cmd_with_trigger + TRIGGGER_CREATE_CHECK_CORRECTION_RULES);
+                db.execSQL(pre_cmd_with_trigger + TRIGGGER_CREATE_CHECK_CORRECTION_RULES_HEARTS);
+                // check for primary key bug in CORENETAPP
+                repairCoreNetAppTable(db);
+                // alter database to add missing values if possible
+                // scrobbles table
+                verifyOrAddColumnInTable(scrobbles_heart_only_strings, str_opt, TABLENAME_SCROBBLES, db);
+                verifyOrAddColumnInTable(scrobbles_strings, str_opt, TABLENAME_SCROBBLES, db);
+                verifyOrAddColumnInTable(scrobbles_ints, int_opt, TABLENAME_SCROBBLES, db);
+                // netapp table
+                verifyOrAddColumnInTable(scrobbles_netapp_strings, str_opt, TABLENAME_CORRNETAPP_REPAIRED, db);
+                // hearts table
+                verifyOrAddColumnInTable(scrobbles_heart_only_strings, str_opt, TABLENAME_HEARTS, db);
+            }
         }
 
         @Override
@@ -234,6 +314,20 @@ public class ScrobblesDatabase {
     }
 
     /**
+     * Return the new rowId for that heart, otherwise return a -1 to indicate
+     * failure.
+     *
+     * @return rowId or -1 if failed
+     */
+    public long insertHeart(Track track, NetApp netApp){
+        ContentValues vals = new ContentValues();
+        vals.put("artist", track.getArtist());
+        vals.put("track", track.getTrack());
+        vals.put("netapp", netApp.getValue());
+        return mDb.insert(TABLENAME_HEARTS, null, vals);
+    }
+
+    /**
      *
      * @param napp
      *            the NetApp which we'll wanna scrobble to
@@ -246,7 +340,31 @@ public class ScrobblesDatabase {
         iVals.put("netappid", napp.getValue());
         iVals.put("trackid", trackid);
 
-        return mDb.insert(TABLENAME_CORRNETAPP, null, iVals) > 0;
+        return mDb.insert(TABLENAME_CORRNETAPP_REPAIRED, null, iVals) > 0;
+    }
+
+    public long verifyOrUpdateScrobblesAlreadyInCache(NetApp napp){
+        open();
+        Cursor c;
+        String sql = "select * from scrobbles";
+        c = mDb.rawQuery(sql, null);
+        c.moveToFirst();
+        long count = 0;
+        long temp = 0;
+        while (!c.isAfterLast()) {
+            ContentValues iVals = new ContentValues();
+            iVals.put("netappid", napp.getValue());
+            iVals.put("trackid", c.getInt(c.getColumnIndex("_id")));
+            Cursor c2 = mDb.rawQuery("SELECT * FROM " + TABLENAME_CORRNETAPP_REPAIRED + " WHERE " + scrobbles_netapp_strings[0] + " =? AND " + scrobbles_netapp_strings[1]  + " =? ", new String[] { Integer.toString(napp.getValue()), Integer.toString(c.getInt(c.getColumnIndex("_id")))});
+            if (c2.moveToFirst()){
+                // do nothing
+            } else {
+                temp = mDb.insert(TABLENAME_CORRNETAPP_REPAIRED, null, iVals);
+                count += temp < 0 ? 1 : 0;
+            }
+            c.moveToNext();
+        }
+        return count;
     }
 
     public int deleteScrobble(NetApp napp, int trackId) {
@@ -254,8 +372,24 @@ public class ScrobblesDatabase {
             Log.e(TAG, "Trying to delete scrobble with trackId == -1");
             return -2;
         }
-        return mDb.delete(TABLENAME_CORRNETAPP, "netappid = ? and trackid = ?",
+        return mDb.delete(TABLENAME_CORRNETAPP_REPAIRED, "netappid = ? and trackid = ?",
                 new String[]{"" + napp.getValue(), "" + trackId});
+    }
+
+    public int setSentField(NetApp napp, int trackId) {
+        if (trackId == -1) {
+            Log.e(TAG, "Failed to set sent field");
+            return -2;
+        }
+        Log.d(TAG, "Trying to set sent field");
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("sentstatus", "sent");
+        return mDb.update(TABLENAME_CORRNETAPP_REPAIRED, contentValues,"netappid = " + napp.getValue() +" and _id = " + trackId, null);
+    }
+
+    public int deleteHeart(String[] s) {
+        return mDb.delete(TABLENAME_HEARTS, scrobbles_heart_only_strings[0] + " = ? and " + scrobbles_heart_only_strings[1] + " = ? and " + scrobbles_heart_only_strings[2] + " = ?",
+                new String[]{"" + s[0], "" + s[1], "" + s[2]});
     }
 
     public void setAlbum(String album, int trackId) {
@@ -294,13 +428,24 @@ public class ScrobblesDatabase {
      * @return the number of rows affected
      */
     public int deleteAllScrobbles(NetApp napp) {
-        return mDb.delete(TABLENAME_CORRNETAPP, "netappid = ?",
+        return mDb.delete(TABLENAME_CORRNETAPP_REPAIRED, "netappid = ?",
                 new String[]{"" + napp.getValue()});
     }
 
+    public int deleteAllScrobbledTracks(NetApp napp) {
+        return mDb.delete(TABLENAME_CORRNETAPP_REPAIRED, "netappid = ? AND sentstatus = ?",
+                new String[]{"" + napp.getValue(), "sent"});
+    }
+
     public boolean cleanUpTracks() {
-        mDb.execSQL("delete from scrobbles where _id not in "
-                + "(select trackid as _id from scrobbles_netapp)");
+        mDb.execSQL("delete from scrobbles where scrobbles._id not in "
+                + "(select trackid as _id from " + TABLENAME_CORRNETAPP_REPAIRED + ")");
+        return true;
+    }
+
+    public boolean cleanUpScrobbledTracks() {
+        mDb.execSQL("delete from scrobbles where scrobbles._id not in "
+                + "(select trackid as _id from " + TABLENAME_CORRNETAPP_REPAIRED + " WHERE " + TABLENAME_CORRNETAPP_REPAIRED + ".sentstatus = 'sent')");
         return true;
     }
 
@@ -327,8 +472,8 @@ public class ScrobblesDatabase {
     public Track[] fetchTracksArray(NetApp napp, int maxFetch) {
         Cursor c;
         // try {
-        String sql = "select * from scrobbles, scrobbles_netapp "
-                + "where _id = trackid and netappid = " + napp.getValue();
+        String sql = "select * from scrobbles, " + TABLENAME_CORRNETAPP_REPAIRED
+                + " where scrobbles._id = trackid and netappid = " + napp.getValue();
         c = mDb.rawQuery(sql, null);
         /*
 		 * } catch (SQLiteException e) { Log.e(TAG,
@@ -349,10 +494,29 @@ public class ScrobblesDatabase {
         return tracks;
     }
 
+    public String[][] fetchHeartsArray(){
+        Cursor c;
+        // try {
+        String sql = "select * from " + TABLENAME_HEARTS ;
+        c = mDb.rawQuery(sql, null);
+
+        int count = c.getCount();
+        c.moveToFirst();
+        String[][] tracks = new String[count][3];
+        for (int i = 0; i < count; i++) {
+            tracks[i][0] = c.getString(c.getColumnIndex(scrobbles_heart_only_strings[0]));
+            tracks[i][1] = c.getString(c.getColumnIndex(scrobbles_heart_only_strings[1]));
+            tracks[i][2] = c.getString(c.getColumnIndex(scrobbles_heart_only_strings[2]));
+            c.moveToNext();
+        }
+        c.close();
+        return tracks;
+    }
+
     public Cursor fetchTracksCursor(NetApp napp, SortField sf) {
         Cursor c;
-        String sql = "select * from scrobbles, scrobbles_netapp "
-                + "where _id = trackid and netappid = " + napp.getValue()
+        String sql = "select * from scrobbles, " + TABLENAME_CORRNETAPP_REPAIRED
+                + " where scrobbles._id = trackid and netappid = " + napp.getValue()
                 + " order by " + sf.getSql();
         c = mDb.rawQuery(sql, null);
         return c;
@@ -378,21 +542,6 @@ public class ScrobblesDatabase {
         return track;
     }
 
-    public void loveRecentTrack() {
-        String sql = "select * from scrobbles order by rowid desc limit 1";
-        Cursor c = mDb.rawQuery(sql, null);
-
-        if (c.getCount() == 0)
-            return;
-
-        c.moveToFirst();
-        long trackId = c.getLong(c.getColumnIndex("_id"));
-        ContentValues values = new ContentValues();
-        values.put("rating", "L");
-        mDb.update("scrobbles", values, "_id=" + trackId, null);
-        c.close();
-    }
-
     public Track fetchRecentTrack() {
         String sql = "select * from scrobbles order by rowid desc limit 1";
         Cursor c = mDb.rawQuery(sql, null);
@@ -407,8 +556,8 @@ public class ScrobblesDatabase {
     }
 
     public NetApp[] fetchNetAppsForScrobble(int trackId) {
-        String sql = "select netappid from scrobbles_netapp where trackid = "
-                + trackId;
+        String sql = "select netappid from  " + TABLENAME_CORRNETAPP_REPAIRED + " where trackid = "
+                + trackId + " and sentstatus != 'sent'";
         Cursor c = mDb.rawQuery(sql, null);
 
         if (c.getCount() == 0)
@@ -438,11 +587,25 @@ public class ScrobblesDatabase {
         return count;
     }
 
+    public int queryNumberOfUnscrobbledTracks() {
+        if (mDb == null || !mDb.isOpen()) {
+            open();
+        }
+        Cursor c = mDb.rawQuery("select count(distinct trackid) from " + TABLENAME_CORRNETAPP_REPAIRED + " where sentstatus = ''", null);
+        int count = c.getCount();
+        if (count != 0) {
+            c.moveToFirst();
+            count = c.getInt(0);
+        }
+        c.close();
+        return count;
+    }
+
     public int queryNumberOfScrobbles(NetApp napp) {
         Cursor c;
         c = mDb.rawQuery(
-                "select count(trackid) from scrobbles_netapp where netappid = "
-                        + napp.getValue(), null);
+                "select count(trackid) from " + TABLENAME_CORRNETAPP_REPAIRED + " where netappid = "
+                        + napp.getValue() + " and sentstatus != 'sent'"  , null);
         int count = c.getCount();
         if (count != 0) {
             c.moveToFirst();
@@ -502,31 +665,5 @@ public class ScrobblesDatabase {
         rule.setArtistCorrection(c.getString(c.getColumnIndex("artist_correction")));
         c.close();
         return rule;
-    }
-
-    public void rebuildCoreNetappDatabaseOnce(){
-        Log.d(TAG, "dropping sql corenetapp ");
-        mDb.execSQL("DROP TABLE IF EXISTS " + TABLENAME_CORRNETAPP);
-        Log.d(TAG, "create sql corrnetapp: " + DATABASE_CREATE_CORRNETAPP);
-        mDb.execSQL(DATABASE_CREATE_CORRNETAPP);
-    }
-
-    public void rebuildCorrectionsDatabaseOnce(){
-        Log.d(TAG, "dropping sql corrections ");
-        mDb.execSQL("DROP TABLE IF EXISTS " + TABLENAME_CORRECTION_RULES);
-        mDb.execSQL("DROP TABLE IF EXISTS " + TABLENAME_RULE_CHANGES);
-        mDb.execSQL("DROP TRIGGER IF EXISTS " + TRIGGER_NAME_CHECK_CORRECTION_RULES);
-        Log.d(TAG, "create sql corrections: " + DATABASE_CREATE_CORRECTION_RULES);
-        mDb.execSQL(DATABASE_CREATE_CORRECTION_RULES);
-        mDb.execSQL(DATABASE_CREATE_RULE_CHANGES);
-        mDb.execSQL(TRIGGGER_CREATE_CHECK_CORRECTION_RULES);
-    }
-
-
-    public void rebuildScrobblesDatabaseOnce(){
-        Log.d(TAG, "dropping sql scrobbles ");
-        mDb.execSQL("DROP TABLE IF EXISTS " + TABLENAME_SCROBBLES);
-        Log.d(TAG, "create sql scrobbles: " + DATABASE_CREATE_SCROBBLES);
-        mDb.execSQL(DATABASE_CREATE_SCROBBLES);
     }
 }

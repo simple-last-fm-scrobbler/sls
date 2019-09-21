@@ -28,6 +28,7 @@ import android.widget.Toast;
 import com.adam.aslfms.R;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.MD5;
+import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Track;
 
 import org.json.JSONObject;
@@ -52,64 +53,72 @@ public class Heart extends NetRunnable {
 
     private static final String TAG = "Heart";
 
-    protected Track hearTrack;
+    protected ScrobblesDatabase db;
     protected AppSettings settings;
     Context mCtx;
 
 
-    public Heart(NetApp napp, Context ctx, Networker net, Track hearTrack, AppSettings settings) {
+    public Heart(NetApp napp, Context ctx, Networker net, ScrobblesDatabase db) {
         super(napp, ctx, net);
-        this.hearTrack = hearTrack;
-        this.settings = settings;
+        this.db = db;
         this.mCtx = ctx;
     }
 
     public final void run() {
 
+
+        settings = new AppSettings(mCtx);
 // can't heart track
 
-        String sigText = "api_key"
-                + settings.rcnvK(settings.getAPIkey())
-                + "artist" + hearTrack.getArtist()
-                + "methodtrack.lovesk"
-                + settings.getSessionKey(getNetApp())
-                + "track" + hearTrack.getTrack()
-                + settings.rcnvK(settings.getSecret());
 
-        String signature = MD5.getHashString(sigText);
+        String[][] strings = db.fetchHeartsArray();
 
-        try {
-            String response = postHeartTrack(hearTrack, settings.rcnvK(settings.getAPIkey()), signature, settings.getSessionKey(getNetApp()));
-            // TODO: ascertain if string is Json
-            if (response.equals("okSuccess")) {
-                Handler h = new Handler(mCtx.getMainLooper());
-                h.post(() -> Toast.makeText(mCtx, mCtx.getString(R.string.loved_track) + " " + getNetApp().getName(), Toast.LENGTH_SHORT).show());
-                Log.d(TAG, "Successful heart track: " + getNetApp().getName());
-            } else {
-                JSONObject jObject = new JSONObject(response);
-                if (jObject.has("error")) {
-                    int code = jObject.getInt("error");
-                    if (code == 6) {
-                        // store hearTrack in database or allow failure.
-                        // settings.setSessionKey(getNetApp(), "");
-                        Log.d(TAG, "Failed heart track.");
-                    }
+        for (String[] s : strings) {
+
+            boolean failure = false;
+            String sigText = "api_key"
+                    + settings.rcnvK(settings.getAPIkey())
+                    + "artist" + s[1]
+                    + "methodtrack.lovesk"
+                    + settings.getSessionKey(getNetApp())
+                    + "track" + s[0]
+                    + settings.rcnvK(settings.getSecret());
+
+            String signature = MD5.getHashString(sigText);
+
+            try {
+                String response = postHeartTrack(s, settings.rcnvK(settings.getAPIkey()), signature, settings.getSessionKey(getNetApp()));
+                // TODO: ascertain if string is Json
+                if (response.equals("okSuccess")) {
+                    Log.d(TAG, "Successful heart track: " + getNetApp().getName());
                 } else {
-                    Log.d(TAG, "Failed heart track.");
+                    JSONObject jObject = new JSONObject(response);
+                    if (jObject.has("error")) {
+                        int code = jObject.getInt("error");
+                        if (code == 9 || code == 11) {
+                            Log.d(TAG, "Failed heart track.");
+                        }
+                    } else {
+                        Log.d(TAG, "Failed heart track.");
+                        failure =  true;
+                    }
                 }
+            } catch (Exception e) {
+                Log.e(TAG, "Heart track fail " + e);
+                //e.printStackTrace();
+                failure = true;
             }
-        } catch (Exception e) {
-            Log.e(TAG, "Heart track fail " + e);
-            //e.printStackTrace();
+            if (failure) db.deleteHeart(s);
         }
     }
 
-    private String postHeartTrack(Track track, String testAPI, String signature, String
+    private String postHeartTrack(String[] track, String testAPI, String signature, String
             sessionKey) {
         URL url;
         HttpURLConnection conn = null;
 
         try {
+
             url = new URL(getNetApp().getWebserviceUrl(settings));
             conn = (HttpURLConnection) url.openConnection();
 
@@ -125,8 +134,8 @@ public class Heart extends NetRunnable {
 
             Map<String, Object> params = new LinkedHashMap<>();
             params.put("method", "track.love");
-            params.put("track", track.getTrack());
-            params.put("artist", track.getArtist());
+            params.put("track", track[0]);
+            params.put("artist", track[1]);
             params.put("api_key", testAPI);
             params.put("api_sig", signature);
             params.put("sk", sessionKey);

@@ -110,7 +110,7 @@ public class StatusActivity extends AppCompatActivity {
         // Handle item selection
         switch (item.getItemId()) {
             case MENU_SCROBBLE_NOW_ID:
-                int numInCache = mDb.queryNumberOfTracks();
+                int numInCache = mDb.queryNumberOfUnscrobbledTracks();
                 Util.scrobbleAllIfPossible(this, numInCache);
                 return true;
             case R.id.MENU_RESET_STATS_ID:

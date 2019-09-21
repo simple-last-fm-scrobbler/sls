@@ -70,7 +70,7 @@ public class GenericControllerReceiver extends AbstractPlayStatusReceiver {
                         if (playerPackage != null && !playerPackage.isEmpty()) {
                             PackageManager packageManager = ctx.getPackageManager();
                             playerName = packageManager.getApplicationLabel(packageManager.getApplicationInfo(playerPackage, PackageManager.GET_META_DATA)).toString();
-                            mMusicApi = MusicAPI.fromReceiver(ctx, playerName, playerPackage, null, false);
+                            mMusicApi = MusicAPI.fromReceiver(ctx, playerName, playerPackage, "generic receiver", false);
                             setMusicAPI(mMusicApi);
                         }
                     }
@@ -78,7 +78,7 @@ public class GenericControllerReceiver extends AbstractPlayStatusReceiver {
                     Log.w(TAG, e.toString());
                 }
                 if (mMusicApi == null) {
-                    mMusicApi = MusicAPI.fromReceiver(ctx, ctx.getResources().getString(R.string.notification_controller), ctx.getPackageName(), null, false);
+                    mMusicApi = MusicAPI.fromReceiver(ctx, ctx.getResources().getString(R.string.notification_controller), ctx.getPackageName(), "generic receiver", false);
                     setMusicAPI(mMusicApi);
                 }
                 if (bundle.containsKey("track")) {
@@ -142,7 +142,6 @@ public class GenericControllerReceiver extends AbstractPlayStatusReceiver {
                         break;
                     case 5:
                     default:
-                        setState(Track.State.UNKNOWN_NONPLAYING);
                         break;
                 }
             }

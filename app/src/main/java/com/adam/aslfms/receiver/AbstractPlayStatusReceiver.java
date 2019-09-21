@@ -27,6 +27,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.adam.aslfms.MusicAppsActivity;
 import com.adam.aslfms.R;
 import com.adam.aslfms.UserCredActivity;
 import com.adam.aslfms.service.ScrobblingService;
@@ -91,16 +92,6 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
             bundle = Bundle.EMPTY;
         }
 
-        // we must be logged in to scrobble
-        AppSettings settings = new AppSettings(context);
-        if (!settings.isAnyAuthenticated()) {
-            Util.myNotify(context, context.getResources().getString(R.string.warning) , context.getResources().getString(R.string.not_logged_in),05233, UserCredActivity.class);
-            Log
-                    .d(TAG,
-                            "The user has not authenticated, won't propagate the submission request");
-            return;
-        }
-
         mService = new Intent(context, ScrobblingService.class);
         mService.setAction(ScrobblingService.ACTION_PLAYSTATECHANGED);
 
@@ -116,15 +107,19 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
             }
 
             // check if the user wants to scrobble music from this MusicAPI
-            if (!mMusicAPI.isEnabled()) {
+            if (mMusicAPI.getEnabledValue() == 0) {
                 Log.d(TAG, "App: " + mMusicAPI.getName()
                         + " has been disabled, won't propagate");
                 return;
+            } else if (mMusicAPI.getEnabledValue() == 2) {
+                Util.myNotify(context, mMusicAPI.getName(), context.getString(R.string.new_music_app), 12473, MusicAppsActivity.class);
+                Log.d(TAG, "App: " + mMusicAPI.getName()
+                        + " has been ignored, will propagate");
             }
 
             // submit track for the ScrobblingService
             InternalTrackTransmitter.appendTrack(mTrack);
-
+            AppSettings settings = new AppSettings(context);
             // start/call the Scrobbling Service
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && settings.isActiveAppEnabled(Util.checkPower(context))) {
                 context.startForegroundService(mService);

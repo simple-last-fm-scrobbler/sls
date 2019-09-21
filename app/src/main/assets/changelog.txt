@@ -5,7 +5,11 @@ https://github.com/simple-last-fm-scrobbler/sls/wiki/Privacy-Concerns
 For privacy concerns.
 
 - 1.6.8 (2019-9-15) codename: kingus
-  * Correction Rules database problem fixed
+  * Database problems fixed
+  * Database migration
+  * Stop automatic app adding, so user must manually add music apps Android 5.0+
+  * Offline Heart Track
+  * A grey record of sent tracks is kept now
   * Back button in permissions fixed
   * Privacy information in permissions
   * Russian thanks to alexesprit

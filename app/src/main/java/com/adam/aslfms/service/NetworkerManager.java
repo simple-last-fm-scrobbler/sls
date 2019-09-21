@@ -89,8 +89,16 @@ public class NetworkerManager {
         }
     }
 
-    public void launchHeartTrack(Track track, NetApp napp) {
-        mSupportedNetApps.get(napp).launchHeartTrack(track);
+    public void launchAllHearts(){
+        for (NetApp napp : NetApp.values()) {
+            if( napp != NetApp.LISTENBRAINZ && napp != NetApp.LISTENBRAINZCUSTOM){
+                launchHeart(napp);
+            }
+        }
+    }
+
+    public void launchHeart(NetApp napp) {
+        mSupportedNetApps.get(napp).launchHeart();
     }
 
     public void launchGetUserInfo(NetApp napp) {
