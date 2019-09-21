@@ -121,6 +121,7 @@
     <string name="permission_required">Permission REQUIRED to work properly</string>
     <string name="creds_required">Credentials REQUIRED to work properly</string>
     <string name="notification_access_required">Notification access REQUIRED to work properly</string>
+    <string name="notification_access_recommended">Notification access is strongly recommended to make scrobble work.</string>
     <string name="limited_network">Limited Network</string>
     <!-- END permissions and warnings strings -->
     <!-- START mapis strings -->
@@ -244,6 +245,7 @@
     <string name="find_battery_settings">Find Battery Optimization ignore list in Android Settings, add Simple Scrobbler</string>
     <string name="permission_notification_listener_notice">Enable Notifications Access for Simple Scrobbler in Android Settings</string>
     <string name="warning_will_not_scrobble">Warning will not Scrobble</string>
+    <string name="scrobble_will_not_work_properly">Scrobble will not work properly</string>
     <!-- END permissions activity -->
     <!-- START correction rules strings -->
     <string name="old_track">Track Title</string>

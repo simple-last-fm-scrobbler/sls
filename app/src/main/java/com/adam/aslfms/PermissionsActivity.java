@@ -222,8 +222,8 @@ public class PermissionsActivity extends AppCompatActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             String message = context.getResources().getString(R.string.warning) + "! " + context.getResources().getString(R.string.are_you_sure);
             if (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT && !Util.checkNotificationListenerPermission(context)) {
-                message += " - " + context.getResources().getString(R.string.warning_will_not_scrobble);
-                message += " - " + context.getResources().getString(R.string.permission_notification_listener);
+                message += " " + context.getResources().getString(R.string.scrobble_will_not_work_properly);
+                message += " - " + context.getResources().getString(R.string.notification_access_recommended);
             }
             builder.setMessage(message).setPositiveButton(R.string.yes, dialogClickListener)
                     .setNegativeButton(R.string.no, dialogClickListener).show();
