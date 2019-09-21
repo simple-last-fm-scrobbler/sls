@@ -212,7 +212,8 @@ public class MusicAppsActivity extends AppCompatPreferenceActivity {
             pref.setSummary(getString(R.string.incompatability_short)
                     .replaceAll("%1", mScrobbleDroidLabel));
         } else {
-            pref.setSummary(mapi.getMessage());
+            if (!mapi.getMessage().equals("generic receiver")) pref.setSummary(mapi.getMessage());
+            else pref.setSummary("");
         }
     }
 }
