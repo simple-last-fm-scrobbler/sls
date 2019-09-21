@@ -32,6 +32,7 @@ import android.widget.Toast;
 
 import com.adam.aslfms.PermissionsActivity;
 import com.adam.aslfms.R;
+import com.adam.aslfms.SettingsActivity;
 import com.adam.aslfms.UserCredActivity;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.InternalTrackTransmitter;
@@ -119,7 +120,7 @@ public class ScrobblingService extends Service {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP && !Util.isMyServiceRunning(this, ControllerReceiverService.class)) {
                 if (!Util.checkNotificationListenerPermission(this)){
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        Util.myNotify(this, this.getResources().getString(R.string.warning), this.getResources().getString(R.string.permission_notification_listener_notice), 72135, PermissionsActivity.class);
+                        Util.myNotify(this, this.getResources().getString(R.string.warning), this.getResources().getString(R.string.permission_notification_listener_notice), 72135, new Intent(mCtx, PermissionsActivity.class));
                     }
                 } else {
                     Intent ii = new Intent(this, ControllerReceiverService.class);
@@ -287,7 +288,15 @@ public class ScrobblingService extends Service {
             foreGroundService();
             // we must be logged in to scrobble
             if (!settings.isAnyAuthenticated()) {
-                Util.myNotify(this, this.getResources().getString(R.string.warning) , this.getResources().getString(R.string.not_logged_in),05233, UserCredActivity.class);
+
+                Intent intent = new Intent(mCtx, UserCredActivity.class);
+                for (NetApp netApp : NetApp.values()) {
+                    if (settings.isAuthenticated(netApp)) {
+                        intent.putExtra("netappid", netApp.getIntentExtraValue());
+                        break;
+                    }
+                }
+                Util.myNotify(this, this.getResources().getString(R.string.warning) , this.getResources().getString(R.string.not_logged_in),05233, intent);
                 Log
                         .d(TAG,
                                 "The user has not authenticated, won't propagate the submission request");

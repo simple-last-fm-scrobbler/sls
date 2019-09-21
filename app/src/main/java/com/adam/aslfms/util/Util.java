@@ -65,6 +65,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.Calendar;
+import java.util.Set;
 import java.util.TimeZone;
 
 import static android.content.Context.POWER_SERVICE;
@@ -522,13 +523,13 @@ public class Util {
         notificationManager.createNotificationChannel(channel);
     }
 
-    public static void myNotify(Context context, String title, String content, int notID, Class myClass) {
+    public static void myNotify(Context context, String title, String content, int notID, Intent targetIntent) {
         try {
             initChannels(context);
             // notification builder
             NotificationCompat.Builder notificationBuilder = null;
             Notification notification = null;
-            Intent targetIntent = new Intent(context, myClass);
+
             PendingIntent contentIntent = PendingIntent.getActivity(context, 0, targetIntent, PendingIntent.FLAG_UPDATE_CURRENT);
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
                 notificationBuilder = new NotificationCompat.Builder(context, POPUP_CHANNEL_ID);
@@ -568,7 +569,7 @@ public class Util {
 
     private static void exportDB(String dbName, Context ctx) {
         if(!Util.checkExternalPermission(ctx)){
-            Util.myNotify(ctx, ctx.getResources().getString(R.string.warning), ctx.getResources().getString(R.string.permission_external_storage), 81234, PermissionsActivity.class);
+            Util.myNotify(ctx, ctx.getResources().getString(R.string.warning), ctx.getResources().getString(R.string.permission_external_storage), 81234,  new Intent(ctx, PermissionsActivity.class));
             return;
         }
         File sd = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
@@ -585,7 +586,7 @@ public class Util {
             destination.transferFrom(source, 0, source.size());
             source.close();
             destination.close();
-            Util.myNotify(ctx, "Database Exported", backupDB.toString(), 57109, SettingsActivity.class);
+            Util.myNotify(ctx, "Database Exported", backupDB.toString(), 57109,  new Intent(ctx, SettingsActivity.class));
         } catch (IOException e) {
             e.printStackTrace();
         }

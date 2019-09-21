@@ -22,6 +22,7 @@ package com.adam.aslfms.receiver;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -304,7 +305,7 @@ public class MusicAPI {
             if (id == -1) {
                 Log.e(TAG, "new mapi couldn't be inserted into db");
             } else {
-                Util.myNotify(ctx, name, ctx.getString(R.string.new_music_app), 12473, MusicAppsActivity.class);
+                Util.myNotify(ctx, name, ctx.getString(R.string.new_music_app), 12473,  new Intent(ctx, MusicAppsActivity.class));
                 Log.d(TAG, "new mapiinserted into db");
             }
 

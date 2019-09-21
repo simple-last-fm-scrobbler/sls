@@ -22,6 +22,7 @@ package com.adam.aslfms.receiver;
 
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Build;
@@ -181,7 +182,8 @@ public abstract class BuiltInMusicAppReceiver extends
 
 		if (shouldFetchFromMediaStore(ctx, audioid)) { // read from MediaStore
 			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !Util.checkExternalPermission(ctx)){
-				Util.myNotify(ctx, ctx.getResources().getString(R.string.warning), ctx.getResources().getString(R.string.permission_external_storage), 81234, PermissionsActivity.class);
+				Util.myNotify(ctx, ctx.getResources().getString(R.string.warning), ctx.getResources().getString(R.string.permission_external_storage), 81234,  new Intent(ctx, PermissionsActivity
+						.class));
 				return;
 			}
 			readTrackFromMediaStore(ctx, b, audioid);

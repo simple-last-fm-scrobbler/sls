@@ -112,7 +112,7 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
                         + " has been disabled, won't propagate");
                 return;
             } else if (mMusicAPI.getEnabledValue() == 2) {
-                Util.myNotify(context, mMusicAPI.getName(), context.getString(R.string.new_music_app), 12473, MusicAppsActivity.class);
+                Util.myNotify(context, mMusicAPI.getName(), context.getString(R.string.new_music_app), 12473, new Intent(context, MusicAppsActivity.class));
                 Log.d(TAG, "App: " + mMusicAPI.getName()
                         + " has been ignored, will propagate");
             }
