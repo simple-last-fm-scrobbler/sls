@@ -286,21 +286,6 @@ public class ScrobblingService extends Service {
             tryNotifyNP(mCurrentTrack);
 
             foreGroundService();
-            // we must be logged in to scrobble
-            if (!settings.isAnyAuthenticated()) {
-
-                Intent intent = new Intent(mCtx, UserCredActivity.class);
-                for (NetApp netApp : NetApp.values()) {
-                    if (settings.isAuthenticated(netApp)) {
-                        intent.putExtra("netappid", netApp.getIntentExtraValue());
-                        break;
-                    }
-                }
-                Util.myNotify(this, this.getResources().getString(R.string.warning) , this.getResources().getString(R.string.not_logged_in),05233, intent);
-                Log
-                        .d(TAG,
-                                "The user has not authenticated, won't propagate the submission request");
-            }
         } else if (state == Track.State.PAUSE) { // pause
             // TODO: test this state
             if (mCurrentTrack == null) {

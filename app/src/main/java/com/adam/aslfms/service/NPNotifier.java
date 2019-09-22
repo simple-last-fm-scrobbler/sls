@@ -105,6 +105,15 @@ public class NPNotifier extends AbstractSubmitter {
             notifySubmissionStatusFailure(getContext().getString(
                     R.string.auth_network_error_retrying));
             ret = false;
+        } catch (AuthStatus.RetryLaterFailureException e){
+            Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
+                    + getNetApp().getName());
+            notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_RETRYLATER_RATE_LIMIT_EXCEEDED);
+            notifySubmissionStatusFailure(getContext().getString(
+                    R.string.auth_rate_limit_exceeded));
+            getNetworker().launchSleeper();
+            e.getStackTrace();
+            ret = false;
         } catch (AuthStatus.ClientBannedException e) {
             Log.e(TAG, "This version of the client has been banned!!" + ": "
                     + getNetApp().getName());
@@ -163,7 +172,7 @@ public class NPNotifier extends AbstractSubmitter {
      * @throws UnknownResponseException  {@link UnknownResponseException}
      */
     public void notifyNowPlaying(Track track, HandshakeResult hInfo)
-            throws BadSessionException, TemporaryFailureException, AuthStatus.ClientBannedException, AuthStatus.UnknownResponseException {
+            throws BadSessionException, TemporaryFailureException, AuthStatus.ClientBannedException, AuthStatus.UnknownResponseException, AuthStatus.RetryLaterFailureException {
         NetApp netApp = getNetApp();
         String netAppName = netApp.getName();
 
@@ -465,17 +474,20 @@ public class NPNotifier extends AbstractSubmitter {
                     Log.i(TAG, "Now Playing success: " + netAppName);
                 } else if (jObject.has("error")) {
                     int code = jObject.getInt("error");
-                    if (code == 26 || code == 10) {
-                        Log.e(TAG, "Now Playing failed: client banned: " + netAppName);
-                        settings.setSessionKey(netApp, "");
-                        throw new AuthStatus.ClientBannedException("Now Playing failed because of client banned");
+                    if (code == 26 || code == 10 ) {
+                        Log.e(TAG, "Now playing failed: client banned: " + netApp.getName());
+                        throw new AuthStatus.ClientBannedException("Now playing failed because of client banned");
                     } else if (code == 9) {
-                        Log.e(TAG, "Now Playing failed: bad auth: " + netAppName);
+                        Log.i(TAG, "Now playing failed: bad auth: " + netApp.getName());
                         settings.setSessionKey(netApp, "");
-                        throw new BadSessionException("Now Playing failed because of badsession");
+                        throw new BadSessionException("Now playing failed because of badsession");
+                    } else if (code == 29) {
+                        Log.i(TAG, "Now playing failed: rate limit exceeded: " + netApp.getName());
+                        throw new AuthStatus.RetryLaterFailureException("Now playing failed because of client rate limit");
                     } else {
-                        Log.e(TAG, "Now Playing fails: FAILED " + response + ": " + netAppName);
+                        Log.e(TAG, "Now playing fails: FAILED " + response + ": " + netApp.getName());
                         //settings.setSessionKey(netApp, "");
+
                         throw new TemporaryFailureException("Now playing failed because of " + response);
                     }
                 } else {

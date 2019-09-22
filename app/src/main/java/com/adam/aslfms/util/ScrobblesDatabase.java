@@ -356,13 +356,12 @@ public class ScrobblesDatabase {
             ContentValues iVals = new ContentValues();
             iVals.put("netappid", napp.getValue());
             iVals.put("trackid", c.getInt(c.getColumnIndex("_id")));
-            Cursor c2 = mDb.rawQuery("SELECT * FROM " + TABLENAME_CORRNETAPP_REPAIRED + " WHERE " + scrobbles_netapp_strings[0] + " =? AND " + scrobbles_netapp_strings[1]  + " =? ", new String[] { Integer.toString(napp.getValue()), Integer.toString(c.getInt(c.getColumnIndex("_id")))});
-            if (c2.moveToFirst()){
-                // do nothing
-            } else {
-                temp = mDb.insert(TABLENAME_CORRNETAPP_REPAIRED, null, iVals);
-                count += temp < 0 ? 1 : 0;
-            }
+            // insert not duplicated scrobble for newly authenticated app
+            mDb.execSQL("insert into " + TABLENAME_CORRNETAPP_REPAIRED + "(" + scrobbles_netapp_strings[0] + "," + scrobbles_netapp_strings[1] +
+                            ") SELECT ?, ? WHERE NOT EXISTS ( SELECT 1 FROM " + TABLENAME_CORRNETAPP_REPAIRED +
+                            " WHERE " + scrobbles_netapp_strings[0] + " =? AND " + scrobbles_netapp_strings[1]  + " =? )",
+                            new String[] { Integer.toString(napp.getValue()), Integer.toString(c.getInt(c.getColumnIndex("_id"))),
+                                    Integer.toString(napp.getValue()), Integer.toString(c.getInt(c.getColumnIndex("_id")))});
             c.moveToNext();
         }
         return count;
@@ -474,7 +473,7 @@ public class ScrobblesDatabase {
         Cursor c;
         // try {
         String sql = "select * from scrobbles, " + TABLENAME_CORRNETAPP_REPAIRED
-                + " where scrobbles._id = trackid and netappid = " + napp.getValue();
+                + " where scrobbles._id = trackid and sentstatus = '' and netappid = " + napp.getValue();
         c = mDb.rawQuery(sql, null);
         /*
 		 * } catch (SQLiteException e) { Log.e(TAG,
@@ -495,10 +494,10 @@ public class ScrobblesDatabase {
         return tracks;
     }
 
-    public String[][] fetchHeartsArray(){
+    public String[][] fetchHeartsArray(NetApp netApp){
         Cursor c;
         // try {
-        String sql = "select * from " + TABLENAME_HEARTS ;
+        String sql = "select * from " + TABLENAME_HEARTS + " where netapp = " + netApp.getValue() ;
         c = mDb.rawQuery(sql, null);
 
         int count = c.getCount();

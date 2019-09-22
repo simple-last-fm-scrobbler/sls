@@ -30,6 +30,7 @@ import android.util.Log;
 import com.adam.aslfms.MusicAppsActivity;
 import com.adam.aslfms.R;
 import com.adam.aslfms.UserCredActivity;
+import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.service.ScrobblingService;
 import com.adam.aslfms.util.AppSettings;
 import com.adam.aslfms.util.InternalTrackTransmitter;
@@ -92,9 +93,9 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
             bundle = Bundle.EMPTY;
         }
 
+        // start/call the Scrobbling Service
         mService = new Intent(context, ScrobblingService.class);
         mService.setAction(ScrobblingService.ACTION_PLAYSTATECHANGED);
-
         try {
             parseIntent(context, action, bundle); // might throw
 
@@ -114,24 +115,34 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
             } else if (mMusicAPI.getEnabledValue() == 2) {
                 Util.myNotify(context, mMusicAPI.getName(), context.getString(R.string.new_music_app), 12473, new Intent(context, MusicAppsActivity.class));
                 Log.d(TAG, "App: " + mMusicAPI.getName()
-                        + " has been ignored, will propagate");
+                        + " has been ignored, won't propagate");
+                return;
             }
-
             // submit track for the ScrobblingService
             InternalTrackTransmitter.appendTrack(mTrack);
             AppSettings settings = new AppSettings(context);
-            // start/call the Scrobbling Service
+
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && settings.isActiveAppEnabled(Util.checkPower(context))) {
                 context.startForegroundService(mService);
             } else {
                 context.startService(mService);
+            }
+
+            // we must be logged in to scrobble
+            if (!settings.isAnyAuthenticated()) {
+                Intent i = new Intent(context, UserCredActivity.class);
+                i.putExtra("netapp", NetApp.LASTFM.getIntentExtraValue());
+                Util.myNotify(context, context.getResources().getString(R.string.warning) , context.getResources().getString(R.string.not_logged_in),05233, i);
+                Log
+                        .d(TAG,
+                                "The user has not authenticated, won't propagate the submission request");
+                return;
             }
         } catch (IllegalArgumentException e) {
             Log.i(TAG, "Got a bad track from: "
                     + ((mMusicAPI == null) ? "null" : mMusicAPI.getName())
                     + ", ignoring it (" + e.getMessage() + ")");
         }
-
     }
 
     /**

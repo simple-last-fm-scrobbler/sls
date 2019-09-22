@@ -186,7 +186,7 @@ public class MusicAppsActivity extends AppCompatPreferenceActivity {
                     break;
                 case 2:
                 default:
-                    appPref.setIcon(android.R.drawable.stat_sys_warning);
+                    appPref.setIcon(android.R.drawable.ic_menu_help);
                     break;
             }
 
@@ -225,8 +225,7 @@ public class MusicAppsActivity extends AppCompatPreferenceActivity {
             pref.setSummary(getString(R.string.incompatability_short)
                     .replaceAll("%1", mScrobbleDroidLabel));
         } else {
-            if (!mapi.getMessage().equals("generic receiver")) pref.setSummary(mapi.getMessage());
-            else pref.setSummary("");
+            pref.setSummary(mapi.getMessage());
         }
     }
 }

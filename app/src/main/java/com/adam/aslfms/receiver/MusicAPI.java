@@ -297,7 +297,7 @@ public class MusicAPI {
             vals.put("pkg", pkg);
             vals.put("msg", msg);
             vals.put("sdclash", clashWithScrobbleDroid ? 1 : 0);
-            if (msg.equals("generic receiver")) vals.put("enabled", 2);
+            if (msg != null && msg.equals("generic receiver")) vals.put("enabled", 2);
             else vals.put("enabled", 1);
 
             long id = db.insert("music_api", null, vals);
@@ -309,7 +309,7 @@ public class MusicAPI {
                 Log.d(TAG, "new mapiinserted into db");
             }
 
-            if (msg.equals("generic receiver")) mapi = new MusicAPI(id, name, pkg, msg, clashWithScrobbleDroid, 2);
+            if (msg != null && msg.equals("generic receiver")) mapi = new MusicAPI(id, name, pkg, msg, clashWithScrobbleDroid, 2);
             else  mapi = new MusicAPI(id, name, pkg, msg, clashWithScrobbleDroid, 1);
             Log.d(TAG, mapi.toString());
         }

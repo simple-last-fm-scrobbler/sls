@@ -37,6 +37,7 @@ public class AuthStatus {
     public static final int AUTHSTATUS_OK = 5;
     public static final int AUTHSTATUS_CLIENTBANNED = 6;
     public static final int AUTHSTATUS_NETWORKUNFIT = 7;
+    public static final int AUTHSTATUS_RETRYLATER_RATE_LIMIT_EXCEEDED = 8;
 
     public static class StatusException extends Exception {
         private static final long serialVersionUID = 7204759787220898684L;
@@ -74,6 +75,15 @@ public class AuthStatus {
         private static final long serialVersionUID = -2810766166898051179L;
 
         public TemporaryFailureException(String detailMessage) {
+            super(detailMessage);
+        }
+    }
+
+    public static class RetryLaterFailureException extends StatusException {
+
+        private static final long serialVersionUID = 8815752389387226812L;
+
+        public RetryLaterFailureException(String detailMessage) {
             super(detailMessage);
         }
     }

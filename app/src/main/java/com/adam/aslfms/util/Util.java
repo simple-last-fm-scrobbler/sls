@@ -442,6 +442,8 @@ public class Util {
             return ctx.getString(R.string.auth_internal_error);
         } else if (settings.getAuthStatus(napp) == AuthStatus.AUTHSTATUS_RETRYLATER) {
             return ctx.getString(R.string.auth_network_error_retrying);
+        } else if (settings.getAuthStatus(napp) == AuthStatus.AUTHSTATUS_RETRYLATER_RATE_LIMIT_EXCEEDED) {
+            return ctx.getString(R.string.auth_network_error_retrying);
         } else if (settings.getAuthStatus(napp) == AuthStatus.AUTHSTATUS_NETWORKUNFIT) {
             return ctx.getString(R.string.auth_network_unfit);
         } else if (settings.getAuthStatus(napp) == AuthStatus.AUTHSTATUS_OK) {
