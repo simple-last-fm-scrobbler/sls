@@ -508,13 +508,13 @@ public class Handshaker extends NetRunnable {
                     }
                 } else if (jObject.has("error")) {
                     int code = jObject.getInt("error");
-                    if (code == 4 || code == 6) {
+                    if (code == 9) {
                         Log.e(TAG, "Handshake fails: wrong username/password");
+                        settings.setSessionKey(netApp, "");
                         throw new BadAuthException(getContext().getString(
                                 R.string.auth_bad_auth));
                     } else if (code == 26 || code == 10) {
                         Log.e(TAG, "Handshake fails: client banned: " + netAppName);
-                        settings.setSessionKey(netApp, "");
                         throw new ClientBannedException(getContext().getString(
                                 R.string.auth_client_banned));
                     } else {

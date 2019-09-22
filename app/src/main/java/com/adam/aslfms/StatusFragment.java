@@ -149,7 +149,7 @@ public class StatusFragment extends Fragment {
             auth.setKey(getString(R.string.logged_in_just));
             auth.setValue(settings.getUsername(mNetApp));
         } else {
-            auth.setKey(getString(R.string.not_logged_in));
+            auth.setKey(Util.getStatusSummary(getContext(), settings, mNetApp));
             auth
                     .setValue(Util.getStatusSummary(getActivity(), settings, mNetApp,
                             false));

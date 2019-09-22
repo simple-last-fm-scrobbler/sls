@@ -81,6 +81,7 @@
     <string name="auth_server_error">Server error: %1, retrying…</string>
     <string name="auth_timing_error">Client side timing error, retrying…</string>
     <string name="auth_network_error_retrying">Network error, retrying…</string>
+    <string name="auth_rate_limit_exceeded">Rate limit exceeded</string>
     <string name="auth_network_unfit">Not allowed to submit data on network, change in Options screen</string>
     <string name="auth_updating">Authenticating…</string>
     <string name="auth_internal_error">Internal error</string>

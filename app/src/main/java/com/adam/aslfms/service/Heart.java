@@ -55,11 +55,14 @@ public class Heart extends NetRunnable {
 
     protected ScrobblesDatabase db;
     protected AppSettings settings;
+    protected NetApp napp;
+
     Context mCtx;
 
 
     public Heart(NetApp napp, Context ctx, Networker net, ScrobblesDatabase db) {
         super(napp, ctx, net);
+        this.napp = napp;
         this.db = db;
         this.mCtx = ctx;
     }
@@ -71,11 +74,11 @@ public class Heart extends NetRunnable {
 // can't heart track
 
 
-        String[][] strings = db.fetchHeartsArray();
+        String[][] strings = db.fetchHeartsArray(napp);
 
         for (String[] s : strings) {
 
-            boolean failure = false;
+            boolean submitted = false;
             String sigText = "api_key"
                     + settings.rcnvK(settings.getAPIkey())
                     + "artist" + s[1]
@@ -91,6 +94,7 @@ public class Heart extends NetRunnable {
                 // TODO: ascertain if string is Json
                 if (response.equals("okSuccess")) {
                     Log.d(TAG, "Successful heart track: " + getNetApp().getName());
+                    submitted = true;
                 } else {
                     JSONObject jObject = new JSONObject(response);
                     if (jObject.has("error")) {
@@ -100,15 +104,13 @@ public class Heart extends NetRunnable {
                         }
                     } else {
                         Log.d(TAG, "Failed heart track.");
-                        failure =  true;
                     }
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Heart track fail " + e);
                 //e.printStackTrace();
-                failure = true;
             }
-            if (failure) db.deleteHeart(s);
+            if (submitted) db.deleteHeart(s);
         }
     }
 

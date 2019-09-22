@@ -38,6 +38,7 @@ import android.view.MenuItem;
 
 import com.adam.aslfms.service.NetApp;
 import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.AuthStatus;
 import com.adam.aslfms.util.ScrobblesDatabase;
 import com.adam.aslfms.util.Util;
 
@@ -139,7 +140,7 @@ public class StatusActivity extends AppCompatActivity {
         TabAdapter adapter = new TabAdapter(getSupportFragmentManager());
 
         for (NetApp napp : NetApp.values()) {
-            if (settings.isAuthenticated(napp)) {
+            if(settings.getAuthStatus(napp) != AuthStatus.AUTHSTATUS_NOAUTH) {
                 adapter.addFragment(StatusFragment.newInstance(napp.getValue()), napp.getName());
             }
         }

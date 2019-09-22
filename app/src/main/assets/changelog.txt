@@ -4,6 +4,11 @@ For more details.
 https://github.com/simple-last-fm-scrobbler/sls/wiki/Privacy-Concerns
 For privacy concerns.
 
+- 1.7.0 (2019-9-22) codename: mingus
+  * Login notification bug
+  * Music App Activity bug
+  * Rate Limit Exceeded status for Last.fm
+
 - 1.6.9 (2019-9-15) codename: lingus
   * major database patch
 

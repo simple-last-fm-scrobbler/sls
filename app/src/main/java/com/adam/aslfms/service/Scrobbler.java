@@ -138,9 +138,19 @@ public class Scrobbler extends AbstractSubmitter {
             Util.myNotify(mCtx, getNetApp().getName(),
                     mCtx.getString(R.string.auth_bad_auth), 39201, new Intent(mCtx, SettingsActivity.class));
             ret = true;
+        } catch (AuthStatus.RetryLaterFailureException e){
+            Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
+                    + getNetApp().getName());
+            notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_RETRYLATER);
+            notifySubmissionStatusFailure(getContext().getString(
+                    R.string.auth_rate_limit_exceeded));
+            getNetworker().launchSleeper();
+            e.getStackTrace();
+            ret = false;
         } catch (TemporaryFailureException e) {
             Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
                     + getNetApp().getName());
+            notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_RETRYLATER);
             notifySubmissionStatusFailure(getContext().getString(
                     R.string.auth_network_error_retrying));
             e.getStackTrace();
@@ -200,7 +210,7 @@ public class Scrobbler extends AbstractSubmitter {
      * @throws AuthStatus.BadSessionException
      */
     public void scrobbleCommit(HandshakeResult hInfo, Track[] tracks)
-            throws BadSessionException, TemporaryFailureException, AuthStatus.ClientBannedException, AuthStatus.UnknownResponseException {
+            throws BadSessionException, TemporaryFailureException, AuthStatus.ClientBannedException, AuthStatus.UnknownResponseException, AuthStatus.RetryLaterFailureException {
 
         NetApp netApp = getNetApp();
         String netAppName = netApp.getName();
@@ -551,14 +561,16 @@ public class Scrobbler extends AbstractSubmitter {
                     Log.i(TAG, "Scrobble success: " + netAppName + ": Ignored Count: " + Integer.toString(scrobsIgnored));
                 } else if (jObject.has("error")) {
                     int code = jObject.getInt("error");
-                    if (code == 26 || code == 10) {
-                        Log.e(TAG, "Scobble failed: client banned: " + netApp.getName());
-                        settings.setSessionKey(netApp, "");
-                        throw new AuthStatus.ClientBannedException("Now Playing failed because of client banned");
+                    if (code == 26 || code == 10 || code == 15) { // code 15 is for token has expired
+                        Log.e(TAG, "Scrobble failed: client banned: " + netApp.getName());
+                        throw new AuthStatus.ClientBannedException("Scrobbling failed because of client banned");
                     } else if (code == 9) {
                         Log.i(TAG, "Scrobble failed: bad auth: " + netApp.getName());
                         settings.setSessionKey(netApp, "");
-                        throw new BadSessionException("Now Playing failed because of badsession");
+                        throw new BadSessionException("Scrobbling failed because of badsession");
+                    } else if (code == 29) {
+                        Log.i(TAG, "Scrobble failed: rate limit exceeded: " + netApp.getName());
+                        throw new AuthStatus.RetryLaterFailureException("Scrobbling failed because of client rate limit");
                     } else {
                         Log.e(TAG, "Scrobble fails: FAILED " + response + ": " + netApp.getName());
                         //settings.setSessionKey(netApp, "");
