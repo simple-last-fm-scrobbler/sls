@@ -6,8 +6,8 @@ android {
         applicationId "com.adam.aslfms"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode = 61
-        versionName = "1.7.0"
+        versionCode = 62
+        versionName = "1.7.1"
 
         testApplicationId "com.adam.aslfms.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"

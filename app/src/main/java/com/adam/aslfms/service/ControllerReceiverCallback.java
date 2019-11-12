@@ -83,6 +83,7 @@ public class ControllerReceiverCallback extends MediaController.Callback {
                     break;
             }
             localIntent.putExtra("playing", playing);
+            localIntent.putExtra("player", mPlayer);
             mContext.sendBroadcast(localIntent);
             Log.d(TAG, "broadcast sent: controller play state");
         }

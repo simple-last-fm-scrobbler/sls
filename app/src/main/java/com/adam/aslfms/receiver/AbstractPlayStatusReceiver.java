@@ -56,9 +56,9 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 
     private static final String TAG = "AbsPlayStatusReceiver";
 
-    private MusicAPI mMusicAPI = null;
-    private Intent mService = null;
-    private Track mTrack = null;
+    private static MusicAPI mMusicAPI = null;
+    private static Intent mService = null;
+    private static Track mTrack = null;
 
 
      public static void dumpIntent(Bundle bundle){

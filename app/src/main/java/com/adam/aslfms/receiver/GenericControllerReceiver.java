@@ -38,8 +38,8 @@ import java.math.BigDecimal;
 public class GenericControllerReceiver extends AbstractPlayStatusReceiver {
     public static final String ACTION_INTENT_PLAYSTATE = "com.adam.aslfms.receiver.controller.PLAYSTATE_CHANGE";
     public static final String ACTION_INTENT_METADATA = "com.adam.aslfms.receiver.controller.METADATA_CHANGE";
-    static final String APP_NAME = "GenericController";
-    static final String TAG = "GenControllerReceiver";
+    private static final String APP_NAME = "GenericController";
+    private static final String TAG = "GenControllerReceiver";
 
     private MusicAPI mMusicApi = null;
 
