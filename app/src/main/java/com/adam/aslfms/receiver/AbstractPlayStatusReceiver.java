@@ -56,9 +56,9 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
 
     private static final String TAG = "AbsPlayStatusReceiver";
 
-    private static MusicAPI mMusicAPI = null;
-    private static Intent mService = null;
-    private static Track mTrack = null;
+    private MusicAPI mMusicAPI = null;
+    private Intent mService = null;
+    private Track mTrack = null;
 
 
      public static void dumpIntent(Bundle bundle){
@@ -136,7 +136,6 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
                 Log
                         .d(TAG,
                                 "The user has not authenticated, won't propagate the submission request");
-                return;
             }
         } catch (IllegalArgumentException e) {
             Log.i(TAG, "Got a bad track from: "

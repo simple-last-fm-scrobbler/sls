@@ -26,7 +26,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
 
-import com.adam.aslfms.PermissionsActivity;
 import com.adam.aslfms.R;
 import com.adam.aslfms.SettingsActivity;
 import com.adam.aslfms.service.Handshaker.HandshakeResult;
@@ -109,7 +108,8 @@ public class Scrobbler extends AbstractSubmitter {
 
             // delete scrobbles (not tracks) from db (not array)
             for (Track track : tracks) {
-                if ( mDb.setSentField(netApp, track.getRowId()) <= 0) Log.e(TAG, "failed to set sent field for trackid: " + track.getRowId() + " netapp: " + netApp.getValue());
+                if (mDb.setSentField(netApp, track.getRowId()) <= 0)
+                    Log.e(TAG, "failed to set sent field for trackid: " + track.getRowId() + " netapp: " + netApp.getValue());
             }
 
             // clean up tracks if no one else wants to scrobble them
@@ -138,7 +138,7 @@ public class Scrobbler extends AbstractSubmitter {
             Util.myNotify(mCtx, getNetApp().getName(),
                     mCtx.getString(R.string.auth_bad_auth), 39201, new Intent(mCtx, SettingsActivity.class));
             ret = true;
-        } catch (AuthStatus.RetryLaterFailureException e){
+        } catch (AuthStatus.RetryLaterFailureException e) {
             Log.i(TAG, "Tempfail: " + e.getMessage() + ": "
                     + getNetApp().getName());
             notifyAuthStatusUpdate(AuthStatus.AUTHSTATUS_RETRYLATER);
@@ -232,7 +232,7 @@ public class Scrobbler extends AbstractSubmitter {
                 // https://listenbrainz.readthedocs.io/en/production/dev/json.html#submission-json
 
                 JSONObject baseObj = new JSONObject();
-                if (tracks.length == 1){
+                if (tracks.length == 1) {
                     baseObj.put("listen_type", "single");
                 } else {
                     baseObj.put("listen_type", "import");
@@ -269,7 +269,7 @@ public class Scrobbler extends AbstractSubmitter {
 
                 int resCode = -1;
                 // Create the SSL connection
-                if (netApp == NetApp.LISTENBRAINZCUSTOM && ! settings.getSecureSocketListenbrainz(netApp)) {
+                if (netApp == NetApp.LISTENBRAINZCUSTOM && !settings.getSecureSocketListenbrainz(netApp)) {
                     insecConn = (HttpsURLConnection) url.openConnection();
 
                     // set Timeout and method
@@ -370,7 +370,7 @@ public class Scrobbler extends AbstractSubmitter {
                 }
             }
             // check if secure cipher for cloudflare on libre.fm is not available (older version of android) or the user is a developer with a custom destination.
-        } else if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && netApp == NetApp.LIBREFM) || (netApp == NetApp.LIBREFMCUSTOM && !settings.getSecureSocketLibreFm(netApp) )) {
+        } else if ((Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB && netApp == NetApp.LIBREFM) || (netApp == NetApp.LIBREFMCUSTOM && !settings.getSecureSocketLibreFm(netApp))) {
 
             URL url;
             HttpURLConnection conn = null;

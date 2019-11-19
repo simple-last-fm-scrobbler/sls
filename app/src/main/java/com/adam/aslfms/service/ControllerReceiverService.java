@@ -133,13 +133,9 @@ public class ControllerReceiverService extends NotificationListenerService {
             mediaSessionManager.addOnActiveSessionsChangedListener(mControllerReceiverSession, new ComponentName(this, ControllerReceiverService.class));
             Log.d(TAG, "media session manager loaded");
         } catch (Exception e) {
-            Log.e(TAG, "Failed to start media controller: " + e.toString());
+            Log.e(TAG, "Failed to start media controller: ");
+            e.printStackTrace();
             // Try to unregister it, just in case.
-            try {
-                mediaSessionManager.removeOnActiveSessionsChangedListener(mControllerReceiverSession);
-            } catch (Exception er) {
-                er.printStackTrace();
-            }
         }
     }
 }

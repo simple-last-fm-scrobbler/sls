@@ -126,14 +126,6 @@
             </intent-filter>
         </receiver>
         <receiver
-            android:name=".receiver.GenericControllerReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.adam.aslfms.receiver.controller" />
-            </intent-filter>
-        </receiver>
-        <receiver
             android:name=".receiver.AndroidMusicReceiver"
             android:enabled="true"
             android:exported="true">
