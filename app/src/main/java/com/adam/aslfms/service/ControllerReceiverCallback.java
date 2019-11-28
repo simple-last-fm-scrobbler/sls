@@ -184,11 +184,20 @@ public class ControllerReceiverCallback extends MediaController.Callback {
             b.setTrack(track);
             b.setAlbumArtist(albumArtist);
             b.setDuration(length);
+
+            try {
+                mTrack = b.build();
+            } catch (IllegalArgumentException e) {
+                Log.i(TAG, "Got a bad track from: "
+                        + musicAPI
+                        + ", ignoring it (" + e.getMessage() + ")");
+                return;
+            }
             // duration should be an Integer in seconds.
             Log.d(TAG, artist + " - "
                     + track + " ("
                     + length + ")");
-            InternalTrackTransmitter.appendTrack(b.build());
+            InternalTrackTransmitter.appendTrack(mTrack);
             Log.d(TAG, "broadcast sent: controller meta data");
             // we must be logged in to scrobble
             if (!mSettings.isAnyAuthenticated()) {
