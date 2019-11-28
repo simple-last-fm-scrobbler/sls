@@ -216,11 +216,11 @@ public class ScrobblingService extends Service {
                     if (sdk < Build.VERSION_CODES.HONEYCOMB) {
                         @SuppressWarnings("deprecation")
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setText(tempTrack.getTrack() + getString(R.string.by) + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + "; " + tempTrack.getMusicAPI().getName());
+                        clipboard.setText(tempTrack.getTrack() + " " + getString(R.string.by) + "  " + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + "; " + tempTrack.getMusicAPI().getName());
                     } else {
                         @SuppressWarnings("deprecation")
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", tempTrack.getTrack() + getString(R.string.by) + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + "; " + tempTrack.getMusicAPI().getName());
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", tempTrack.getTrack() + " " + getString(R.string.by) + "  " + tempTrack.getArtist() + ", " + tempTrack.getAlbum() + "; " + tempTrack.getMusicAPI().getName());
                         clipboard.setPrimaryClip(clip);
                     }
                     Log.d(TAG, "Copy Track!");
@@ -235,11 +235,11 @@ public class ScrobblingService extends Service {
                     if (sdk < Build.VERSION_CODES.HONEYCOMB) {
                         @SuppressWarnings("deprecation")
                         android.text.ClipboardManager clipboard = (android.text.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        clipboard.setText(mCurrentTrack.getTrack() + getString(R.string.by) + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + "; " + mCurrentTrack.getMusicAPI().getName());
+                        clipboard.setText(mCurrentTrack.getTrack() + " " + getString(R.string.by) + "  " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + "; " + mCurrentTrack.getMusicAPI().getName());
                     } else {
                         @SuppressWarnings("deprecation")
                         android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", mCurrentTrack.getTrack() + getString(R.string.by) + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + "; " + mCurrentTrack.getMusicAPI().getName());
+                        android.content.ClipData clip = android.content.ClipData.newPlainText("Track", mCurrentTrack.getTrack() + " " + getString(R.string.by) + "  " + mCurrentTrack.getArtist() + ", " + mCurrentTrack.getAlbum() + "; " + mCurrentTrack.getMusicAPI().getName());
                         clipboard.setPrimaryClip(clip);
                     }
                     Log.d(TAG, "Copy Track!");
