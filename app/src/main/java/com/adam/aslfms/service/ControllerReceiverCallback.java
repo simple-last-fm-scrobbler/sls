@@ -52,11 +52,9 @@ public class ControllerReceiverCallback extends MediaController.Callback {
     private Context mContext;
     private String mPlayer;
     private MusicAPI musicAPI = null;
-    private Track mTrack = null;
-    private Track.State trackState = null;
     private AppSettings mSettings;
     private MediaController mController;
-    private Intent mService = null;
+
 
     public ControllerReceiverCallback(Context context, String player, MediaController controller) {
         super();
@@ -69,50 +67,18 @@ public class ControllerReceiverCallback extends MediaController.Callback {
 
     @Override
     public void onPlaybackStateChanged(PlaybackState state) {
-        Log.d(TAG, mPlayer + " playback state changed ");
-        if (state != null) {
-            // start/call the Scrobbling Service
-            mService = new Intent(mContext, ScrobblingService.class);
-            mService.setAction(ScrobblingService.ACTION_PLAYSTATECHANGED);
-            int ps = state.getState();
-            trackState = Track.State.UNKNOWN_NONPLAYING;
-            switch (ps) {
-                case PlaybackState.STATE_PLAYING:
-                case PlaybackState.STATE_FAST_FORWARDING:
-                case PlaybackState.STATE_REWINDING:
-                    trackState = Track.State.RESUME;
-                    break;
-                case PlaybackState.STATE_BUFFERING:
-                case PlaybackState.STATE_CONNECTING:
-                case PlaybackState.STATE_ERROR:
-                case PlaybackState.STATE_PAUSED:
-                case PlaybackState.STATE_STOPPED:
-                case PlaybackState.STATE_NONE:
-                    trackState = Track.State.PAUSE;
-                    break;
-                case PlaybackState.STATE_SKIPPING_TO_NEXT:
-                case PlaybackState.STATE_SKIPPING_TO_PREVIOUS:
-                case PlaybackState.STATE_SKIPPING_TO_QUEUE_ITEM:
-                    trackState = Track.State.COMPLETE;
-                    break;
-                default:
-                    break;
-            }
-            mService.putExtra("state", trackState.name());
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && mSettings.isActiveAppEnabled(Util.checkPower(mContext))) {
-                mContext.startForegroundService(mService);
-            } else {
-                mContext.startService(mService);
-            }
-            Log.d(TAG, "broadcast sent: controller play state");
-        }
+        onMetadataChanged(mController.getMetadata());
     }
 
     @Override
     public void onMetadataChanged(MediaMetadata metadata) {
+        Track mTrack = null;
+        Track.State trackState = null;
+        Intent mService = null;
         Log.d(TAG, mPlayer + " media metadata changed");
         mService = new Intent(mContext, ScrobblingService.class);
         mService.setAction(ScrobblingService.ACTION_PLAYSTATECHANGED);
+        PlaybackState state = mController.getPlaybackState();
         if (metadata != null) {
             String artist = null;
             String albumArtist = null;
@@ -197,23 +163,54 @@ public class ControllerReceiverCallback extends MediaController.Callback {
             Log.d(TAG, artist + " - "
                     + track + " ("
                     + length + ")");
-            InternalTrackTransmitter.appendTrack(mTrack);
             Log.d(TAG, "broadcast sent: controller meta data");
-            // we must be logged in to scrobble
-            if (!mSettings.isAnyAuthenticated()) {
-                Intent i = new Intent(mContext, UserCredActivity.class);
-                i.putExtra("netapp", NetApp.LASTFM.getIntentExtraValue());
-                Util.myNotify(mContext, mContext.getResources().getString(R.string.warning), mContext.getResources().getString(R.string.not_logged_in), 05233, i);
-                Log
-                        .d(TAG,
-                                "The user has not authenticated, won't propagate the submission request");
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && mSettings.isActiveAppEnabled(Util.checkPower(mContext))) {
-                mContext.startForegroundService(mService);
-            } else {
-                mContext.startService(mService);
-            }
-            Log.d(TAG, "broadcast sent: controller play state");
+            InternalTrackTransmitter.appendTrack(mTrack);
+        } else {
+            Log.d(TAG, "metadata is empty");
+        }
+        // start/call the Scrobbling Service
+        Log.d(TAG, mPlayer + " playback state changed: " + state.getState());
+        mService = new Intent(mContext, ScrobblingService.class);
+        mService.setAction(ScrobblingService.ACTION_PLAYSTATECHANGED);
+        int ps = state.getState();
+        trackState = Track.State.UNKNOWN_NONPLAYING;
+        switch (ps) {
+            case PlaybackState.STATE_PLAYING:
+            case PlaybackState.STATE_FAST_FORWARDING:
+            case PlaybackState.STATE_REWINDING:
+                trackState = Track.State.RESUME;
+                break;
+            case PlaybackState.STATE_BUFFERING:
+            case PlaybackState.STATE_CONNECTING:
+            case PlaybackState.STATE_ERROR:
+            case PlaybackState.STATE_PAUSED:
+            case PlaybackState.STATE_STOPPED:
+            case PlaybackState.STATE_NONE:
+                trackState = Track.State.PAUSE;
+                break;
+            case PlaybackState.STATE_SKIPPING_TO_NEXT:
+            case PlaybackState.STATE_SKIPPING_TO_PREVIOUS:
+            case PlaybackState.STATE_SKIPPING_TO_QUEUE_ITEM:
+                trackState = Track.State.COMPLETE;
+                break;
+            default:
+                break;
+        }
+        mService.putExtra("state", trackState.name());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && mSettings.isActiveAppEnabled(Util.checkPower(mContext))) {
+            mContext.startForegroundService(mService);
+        } else {
+            mContext.startService(mService);
+        }
+        Log.d(TAG, "broadcast sent: controller play state");
+        // we must be logged in to scrobble
+        if (!mSettings.isAnyAuthenticated()) {
+            Intent i = new Intent(mContext, UserCredActivity.class);
+            i.putExtra("netapp", NetApp.LASTFM.getIntentExtraValue());
+            Util.myNotify(mContext, mContext.getResources().getString(R.string.warning), mContext.getResources().getString(R.string.not_logged_in), 05233, i);
+            Log
+                    .d(TAG,
+                            "The user has not authenticated, won't propagate the submission request");
         }
     }
 }

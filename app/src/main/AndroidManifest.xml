@@ -106,7 +106,7 @@
                 <action android:name="com.adam.aslfms.service.clearcreds" />
                 <action android:name="com.adam.aslfms.service.justscrobble" />
                 <action android:name="com.adam.aslfms.service.heart" />
-                <action android:name="com.adam.aslfms.service.copy" />
+                <action android:name="com.adam.aslfms.service.copy" />z
             </intent-filter>
         </service>
         <service
