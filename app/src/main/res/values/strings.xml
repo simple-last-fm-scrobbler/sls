@@ -142,7 +142,7 @@
     <!-- END mapis strings -->
     <!-- START options_prefs strings -->
     <string name="active_app">Persistent Notification</string>
-    <string name="active_app_summary">If you turn this off then ensure battery optimisations are enabled.</string>
+    <string name="active_app_summary">If you turn this off then ensure battery optimizations are enabled.</string>
     <string name="options_title">Options</string>
     <string name="advanced_options_title">Advanced options</string>
     <string name="scrobbling">Scrobble</string>
