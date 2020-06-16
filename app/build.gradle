@@ -6,8 +6,8 @@ android {
         applicationId "com.adam.aslfms"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode = 61
-        versionName = "1.7.0"
+        versionCode = 62
+        versionName = "1.7.1"
 
         testApplicationId "com.adam.aslfms.test"
         testInstrumentationRunner "android.test.InstrumentationTestRunner"
@@ -39,6 +39,6 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:26.1.0'
     implementation 'com.android.support:support-compat:26.1.0'
     implementation 'com.android.support:design:26.1.0'
-    //compile 'info.guardianproject.netcipher:netcipher:1.2' // would have been used to create secure ssl cipher for older android devices connecting through cloud flare for Libre.fm
+    // implementation 'info.guardianproject.netcipher:netcipher:2.1.0' Might switch over all http to https using netcipher soon
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
 }

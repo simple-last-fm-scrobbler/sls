@@ -21,16 +21,25 @@
 package com.adam.aslfms.service;
 
 import android.annotation.TargetApi;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaMetadata;
 import android.media.session.MediaController;
 import android.media.session.PlaybackState;
 import android.os.Build;
 import android.util.Log;
 
-import com.adam.aslfms.receiver.GenericControllerReceiver;
+import com.adam.aslfms.MusicAppsActivity;
+import com.adam.aslfms.R;
+import com.adam.aslfms.UserCredActivity;
+import com.adam.aslfms.receiver.MusicAPI;
+import com.adam.aslfms.util.AppSettings;
+import com.adam.aslfms.util.InternalTrackTransmitter;
+import com.adam.aslfms.util.Track;
+import com.adam.aslfms.util.Util;
+
+import java.math.BigDecimal;
 
 /**
  * @author a93h
@@ -42,61 +51,71 @@ public class ControllerReceiverCallback extends MediaController.Callback {
     private final static String TAG = "CntrlrRcvrCallback";
     private Context mContext;
     private String mPlayer;
+    private MusicAPI musicAPI = null;
+    private AppSettings mSettings;
     private MediaController mController;
+
 
     public ControllerReceiverCallback(Context context, String player, MediaController controller) {
         super();
         mContext = context;
         mPlayer = player;
         mController = controller;
-        Log.d(TAG,"callback instantiated " + player);
+        mSettings = new AppSettings(mContext);
+        Log.d(TAG, "callback instantiated " + player);
     }
 
     @Override
     public void onPlaybackStateChanged(PlaybackState state) {
-        Log.d(TAG, mPlayer + " playback state changed ");
-        if (state != null){
-            Intent localIntent = new Intent(GenericControllerReceiver.ACTION_INTENT_PLAYSTATE);
-            localIntent.setComponent(new ComponentName(mContext.getPackageName(), "com.adam.aslfms.receiver.GenericControllerReceiver"));
-            int ps = state.getState();
-            int playing = -1;
-            switch (ps){
-                case PlaybackState.STATE_PLAYING:
-                case PlaybackState.STATE_FAST_FORWARDING:
-                case PlaybackState.STATE_REWINDING:
-                    playing = 2; // resume
-                    break;
-                case PlaybackState.STATE_BUFFERING:
-                case PlaybackState.STATE_CONNECTING:
-                case PlaybackState.STATE_ERROR:
-                case PlaybackState.STATE_PAUSED:
-                case PlaybackState.STATE_STOPPED:
-                case PlaybackState.STATE_NONE:
-                    playing = 3; // pause
-                    break;
-                case PlaybackState.STATE_SKIPPING_TO_NEXT:
-                case PlaybackState.STATE_SKIPPING_TO_PREVIOUS:
-                case PlaybackState.STATE_SKIPPING_TO_QUEUE_ITEM:
-                    playing = 4; // complete
-                    break;
-                default:
-                    break;
-            }
-            localIntent.putExtra("playing", playing);
-            mContext.sendBroadcast(localIntent);
-            Log.d(TAG, "broadcast sent: controller play state");
-        }
+        onMetadataChanged(mController.getMetadata());
     }
 
     @Override
     public void onMetadataChanged(MediaMetadata metadata) {
+        Track mTrack = null;
+        Track.State trackState = null;
+        Intent mService = null;
         Log.d(TAG, mPlayer + " media metadata changed");
+        mService = new Intent(mContext, ScrobblingService.class);
+        mService.setAction(ScrobblingService.ACTION_PLAYSTATECHANGED);
+        PlaybackState state = mController.getPlaybackState();
         if (metadata != null) {
-            Intent localIntent = new Intent(GenericControllerReceiver.ACTION_INTENT_METADATA);;
             String artist = null;
             String albumArtist = null;
             String track = null;
             String album = null;
+            String playerName = null;
+            PackageManager packageManager = mContext.getPackageManager();
+            try {
+                playerName = packageManager.getApplicationLabel(packageManager.getApplicationInfo(mPlayer, PackageManager.GET_META_DATA)).toString();
+            } catch (PackageManager.NameNotFoundException e) {
+                Log.i(TAG, "Got a bad track from: "
+                        + ((musicAPI == null) ? "null" : musicAPI.getName())
+                        + ", ignoring it (" + e.getMessage() + ")");
+            }
+            if (playerName == null) {
+                Log.e(TAG, "Metadata changed failed to find package info.");
+                return;
+            }
+
+            MusicAPI musicAPI = MusicAPI.fromReceiver(mContext, playerName, mPlayer, "generic receiver", false);
+
+            if (musicAPI == null) {
+                Log.e(TAG, "Music API is null.");
+                return;
+            }
+
+            // check if the user wants to scrobble music from this MusicAPI
+            if (musicAPI.getEnabledValue() == 0) {
+                Log.d(TAG, "App: " + musicAPI.getName()
+                        + " has been disabled, won't propagate");
+                return;
+            } else if (musicAPI.getEnabledValue() == 2) {
+                Util.myNotify(mContext, musicAPI.getName(), mContext.getString(R.string.new_music_app), 12473, new Intent(mContext, MusicAppsActivity.class));
+                Log.d(TAG, "App: " + musicAPI.getName()
+                        + " has been ignored, won't propagate");
+                return;
+            }
             double duration = -1;
             try {
                 artist = metadata.getString(MediaMetadata.METADATA_KEY_ARTIST);
@@ -121,16 +140,77 @@ public class ControllerReceiverCallback extends MediaController.Callback {
             } catch (RuntimeException ignored) {
                 duration = 0;
             }
-            localIntent.setComponent(new ComponentName(mContext.getPackageName(), "com.adam.aslfms.receiver.GenericControllerReceiver"));
-            localIntent.putExtra("player", mPlayer);
-            localIntent.putExtra("artist", artist);
-            localIntent.putExtra("track", track);
-            localIntent.putExtra("album", album);
-            localIntent.putExtra("albumArtist", albumArtist);
-            localIntent.putExtra("duration", duration);
-            localIntent.putExtra("playing", 1);
-            mContext.sendBroadcast(localIntent);
+            int length = new BigDecimal(Math.round(duration / 1000)).intValueExact();
+            Track.Builder b = new Track.Builder();
+            b.setMusicAPI(musicAPI);
+            b.setWhen(Util.currentTimeSecsUTC());
+
+            b.setArtist(artist);
+            b.setAlbum(album);
+            b.setTrack(track);
+            b.setAlbumArtist(albumArtist);
+            b.setDuration(length);
+
+            try {
+                mTrack = b.build();
+            } catch (IllegalArgumentException e) {
+                Log.i(TAG, "Got a bad track from: "
+                        + musicAPI
+                        + ", ignoring it (" + e.getMessage() + ")");
+                return;
+            }
+            // duration should be an Integer in seconds.
+            Log.d(TAG, artist + " - "
+                    + track + " ("
+                    + length + ")");
             Log.d(TAG, "broadcast sent: controller meta data");
+            InternalTrackTransmitter.appendTrack(mTrack);
+        } else {
+            Log.d(TAG, "metadata is empty");
+        }
+        // start/call the Scrobbling Service
+        Log.d(TAG, mPlayer + " playback state changed: " + state.getState());
+        mService = new Intent(mContext, ScrobblingService.class);
+        mService.setAction(ScrobblingService.ACTION_PLAYSTATECHANGED);
+        int ps = state.getState();
+        trackState = Track.State.UNKNOWN_NONPLAYING;
+        switch (ps) {
+            case PlaybackState.STATE_PLAYING:
+            case PlaybackState.STATE_FAST_FORWARDING:
+            case PlaybackState.STATE_REWINDING:
+                trackState = Track.State.RESUME;
+                break;
+            case PlaybackState.STATE_BUFFERING:
+            case PlaybackState.STATE_CONNECTING:
+            case PlaybackState.STATE_ERROR:
+            case PlaybackState.STATE_PAUSED:
+            case PlaybackState.STATE_STOPPED:
+            case PlaybackState.STATE_NONE:
+                trackState = Track.State.PAUSE;
+                break;
+            case PlaybackState.STATE_SKIPPING_TO_NEXT:
+            case PlaybackState.STATE_SKIPPING_TO_PREVIOUS:
+            case PlaybackState.STATE_SKIPPING_TO_QUEUE_ITEM:
+                trackState = Track.State.COMPLETE;
+                break;
+            default:
+                break;
+        }
+        mService.putExtra("state", trackState.name());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O && mSettings.isActiveAppEnabled(Util.checkPower(mContext))) {
+            mContext.startForegroundService(mService);
+        } else {
+            mContext.startService(mService);
+        }
+        Log.d(TAG, "broadcast sent: controller play state");
+        // we must be logged in to scrobble
+        if (!mSettings.isAnyAuthenticated()) {
+            Intent i = new Intent(mContext, UserCredActivity.class);
+            i.putExtra("netapp", NetApp.LASTFM.getIntentExtraValue());
+            Util.myNotify(mContext, mContext.getResources().getString(R.string.warning), mContext.getResources().getString(R.string.not_logged_in), 05233, i);
+            Log
+                    .d(TAG,
+                            "The user has not authenticated, won't propagate the submission request");
         }
     }
 }

@@ -136,7 +136,6 @@ public abstract class AbstractPlayStatusReceiver extends BroadcastReceiver {
                 Log
                         .d(TAG,
                                 "The user has not authenticated, won't propagate the submission request");
-                return;
             }
         } catch (IllegalArgumentException e) {
             Log.i(TAG, "Got a bad track from: "
