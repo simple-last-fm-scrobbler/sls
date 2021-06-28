@@ -50,6 +50,16 @@ Losing Scrobbles?
 5. Timestamp too far in the future.
 6. Max daily scrobbles exceeded.
 
+Enable Notification Access without Settings App
+-----------------
+
+1. Get ADB
+2. enable Developer Settings (System Information and tap the Build Number a few times)
+3. enable USB-Debugging in the Developer Settings
+4. run `adb devices` to start the adb daemon and send an auth-request to your device
+5. accept on your device
+6. run `adb shell settings put secure enabled_notification_listeners %nlisteners:com.adam.aslfms/com.adam.aslfms.service.ControllerReceiverService`
+   to enable notification access (Tested on FiiO M9)
 
 [Compatible Applications List](https://github.com/tgwizard/sls/blob/master/Compatability.md)
 --------------------------------------------------------------------------------------------
